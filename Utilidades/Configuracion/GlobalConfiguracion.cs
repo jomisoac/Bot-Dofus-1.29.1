@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
 {
@@ -42,11 +43,16 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             }
         }
 
-        public static void agregar_Cuenta_y_Guardar(string nombre_cuenta, string password, int servidor, string nombre_personaje)
+        public static void agregar_Cuenta_y_Guardar(string nombre_cuenta, string password, string servidor, string nombre_personaje)
         {
             CuentaConfiguracion ac = new CuentaConfiguracion(nombre_cuenta, password, servidor, nombre_personaje);
             lista_cuentas.Add(ac);
             guardar_Cuenta();
+        }
+
+        public static CuentaConfiguracion get_Cuenta(string nombre_cuenta)
+        {
+            return lista_cuentas.FirstOrDefault(a => a.nombre_cuenta == nombre_cuenta);
         }
     }
 }

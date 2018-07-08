@@ -33,11 +33,22 @@
             this.tabControlPrincipalCuentas = new System.Windows.Forms.TabControl();
             this.ListaCuentas = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.listViewListaCuentas = new System.Windows.Forms.ListView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox_informacion = new System.Windows.Forms.PictureBox();
             this.label_informacionClickCuentas = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.listViewCuentas = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStripFormCuentas = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.AgregarCuenta = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox_informacion_agregar_cuenta = new System.Windows.Forms.PictureBox();
@@ -59,13 +70,12 @@
             this.textBox_Nombre_Cuenta = new System.Windows.Forms.TextBox();
             this.boton_Agregar_Cuenta = new System.Windows.Forms.Button();
             this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
-            this.contextMenuStripFormCuentas = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabControlPrincipalCuentas.SuspendLayout();
             this.ListaCuentas.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.AgregarCuenta.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion_agregar_cuenta)).BeginInit();
@@ -80,7 +90,7 @@
             // tabControlPrincipalCuentas
             // 
             this.tabControlPrincipalCuentas.Controls.Add(this.ListaCuentas);
-            this.tabControlPrincipalCuentas.Controls.Add(this.tabPage2);
+            this.tabControlPrincipalCuentas.Controls.Add(this.AgregarCuenta);
             this.tabControlPrincipalCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlPrincipalCuentas.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.tabControlPrincipalCuentas.ImageList = this.imagenesFormCuentas;
@@ -109,8 +119,8 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.listViewListaCuentas, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.listViewCuentas, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -119,16 +129,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.99435F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(449, 354);
             this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // listViewListaCuentas
-            // 
-            this.listViewListaCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewListaCuentas.Location = new System.Drawing.Point(3, 4);
-            this.listViewListaCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.listViewListaCuentas.Name = "listViewListaCuentas";
-            this.listViewListaCuentas.Size = new System.Drawing.Size(443, 300);
-            this.listViewListaCuentas.TabIndex = 1;
-            this.listViewListaCuentas.UseCompatibleStateImageBehavior = false;
             // 
             // tableLayoutPanel2
             // 
@@ -142,6 +142,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(443, 40);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
@@ -168,18 +169,46 @@
     "enta para conectarla";
             this.label_informacionClickCuentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tabPage2
+            // listViewCuentas
             // 
-            this.tabPage2.Controls.Add(this.tableLayoutPanel3);
-            this.tabPage2.ImageKey = "agregar_cuenta.png";
-            this.tabPage2.Location = new System.Drawing.Point(4, 32);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Size = new System.Drawing.Size(455, 362);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Agregar una cuenta";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.listViewCuentas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
+            this.listViewCuentas.ContextMenuStrip = this.contextMenuStripFormCuentas;
+            this.listViewCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewCuentas.FullRowSelect = true;
+            this.listViewCuentas.Location = new System.Drawing.Point(3, 4);
+            this.listViewCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.listViewCuentas.Name = "listViewCuentas";
+            this.listViewCuentas.Size = new System.Drawing.Size(443, 300);
+            this.listViewCuentas.TabIndex = 1;
+            this.listViewCuentas.UseCompatibleStateImageBehavior = false;
+            // 
+            // contextMenuStripFormCuentas
+            // 
+            this.contextMenuStripFormCuentas.Name = "contextMenuStripFormCuentas";
+            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(61, 4);
+            // 
+            // AgregarCuenta
+            // 
+            this.AgregarCuenta.Controls.Add(this.tableLayoutPanel3);
+            this.AgregarCuenta.ImageKey = "agregar_cuenta.png";
+            this.AgregarCuenta.Location = new System.Drawing.Point(4, 32);
+            this.AgregarCuenta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.AgregarCuenta.Name = "AgregarCuenta";
+            this.AgregarCuenta.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.AgregarCuenta.Size = new System.Drawing.Size(455, 362);
+            this.AgregarCuenta.TabIndex = 1;
+            this.AgregarCuenta.Text = "Agregar una cuenta";
+            this.AgregarCuenta.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel3
             // 
@@ -447,6 +476,7 @@
             this.boton_Agregar_Cuenta.TabIndex = 9;
             this.boton_Agregar_Cuenta.Text = "Agregar cuenta";
             this.boton_Agregar_Cuenta.UseVisualStyleBackColor = true;
+            this.boton_Agregar_Cuenta.Click += new System.EventHandler(this.boton_Agregar_Cuenta_Click);
             // 
             // imagenesFormCuentas
             // 
@@ -454,11 +484,6 @@
             this.imagenesFormCuentas.TransparentColor = System.Drawing.Color.Transparent;
             this.imagenesFormCuentas.Images.SetKeyName(0, "agregar_cuenta.png");
             this.imagenesFormCuentas.Images.SetKeyName(1, "lista_cuentas.png");
-            // 
-            // contextMenuStripFormCuentas
-            // 
-            this.contextMenuStripFormCuentas.Name = "contextMenuStripFormCuentas";
-            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(61, 4);
             // 
             // FormCuentas
             // 
@@ -482,7 +507,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion)).EndInit();
-            this.tabPage2.ResumeLayout(false);
+            this.AgregarCuenta.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -506,11 +531,10 @@
 
         private System.Windows.Forms.TabControl tabControlPrincipalCuentas;
         private System.Windows.Forms.TabPage ListaCuentas;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage AgregarCuenta;
         private System.Windows.Forms.ImageList imagenesFormCuentas;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFormCuentas;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ListView listViewListaCuentas;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.PictureBox pictureBox_informacion;
         private System.Windows.Forms.Label label_informacionClickCuentas;
@@ -534,5 +558,16 @@
         private System.Windows.Forms.TextBox textBox_Password;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.TextBox textBox_Nombre_Cuenta;
+        private System.Windows.Forms.ListView listViewCuentas;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
     }
 }
