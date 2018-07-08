@@ -117,20 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="agregar_cuenta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconos\agregar_cuenta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="imagenesFormCuentas.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="imagenesFormCuentas.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADO
+        CwAAAk1TRnQBSQFMAgEBAgEAASgBAAEoAQABEgEAARIBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFI
+        AwABEgMAAQEBAAEgBQABQAEUNgADAQECAxEBFwMiATIDJgE5AyQBNgMUARwDBAEFFwABAQMHAQkDDAEQ
+        Aw0BEQMNAREDDQERAw0BEQMNAREDDQERAwwBEAMGAQinAAEBAwcBCgMYASEDIAEuAyABLwMgAS8DIAEv
+        AyABLwMjATQBUgFVAVQBrgEZAZABYgH2AQABsQFuAf8BBQGoAWUB/QFSAVsBVwHCAykBPgMEAQUMAAMB
+        AQIDFgEfA0UBfANTAagDVAGsA1QBrANUAawDVAGsA1QBrANUAawDUgGkA0EBcgMSARgDAAEBnAADBQEH
+        AzkBXwFqAV0BUAHXAbcBZQEgAf8BuAFlASAB/wG4AWUBIAH/AbgBZQEgAf8BuwFkAR8B/wEuAXcBNAH/
+        AQABwwGGAf8BAAHJAYkB/wFRAdkBrgH/AQABxwGIAf8BAAHLAY4B/wFIAWoBWwHcAxgBIgwAAwcBCgNV
+        Aa0BjAGJAYcB/wGWAZQBkQH/AZgBlQGTAf8BmAGVAZMB/wGYAZUBkwH/AZgBlQGTAf8BmAGVAZMB/wGZ
+        AZYBkwH/AZUBkgGQAf8BiQGGAYUB/wNMAZMDBAEGnAADDQERAakBcwE9AfgB4QGkAWQB/wHdAZsBVQH/
+        AdwBmQFTAf8B3AGZAVMB/wHdAZkBUwH/AcUBlwFRAf8BAAG1AXEB/wEAAcUBhgH/AQABvwF3Bf8BAAG+
+        AXQB/wEAAcQBhQH/AQABuwF3Af8BRQFGAUUBfwwAAwkBDAGKAYgBhgH/AZ0BmgGYAf8BnAGZAZcB/wGc
+        AZkBlwH/AZwBmQGXAf8BnAGZAZcB/wGcAZkBlwH/AZwBmQGXAf8BnAGZAZcB/wGcAZkBlwH/AZ8BnAGa
+        Af8BeQF3AXUB/wMFAQecAAMNAREB1QGbAWAB/wHjAaUBYAH/AeMBpQFhAf8B4wGlAWEB/wHjAaUBYQH/
+        AeUBpQFhAf8BwwGfAVsB/wEPAcwBkwH/AbAB6wHWAf8B4wH3AfAF/wHjAfcB7wH/AeMB+AHxAf8BCwHI
+        AYwB/wNOAZgMAAMJAQwBnQGcAZsB/wGnAaQBoQH/AagBpQGjAf8BqAGlAaMB/wGoAaUBowH/AaYBowGh
+        Af8BpgGjAaEB/wGoAaUBowH/AagBpQGjAf8BqAGlAaMB/wGpAaYBpAH/AZIBkAGPAf8DBQEHnAADDQER
+        Ad0BqwF4Af8B6gGxAWwB/wHqAbIBbgH/AeoBsgFuAf8B6gGwAWsB/wHsAcYBmwH/AccBrQFrAf8BUwHX
+        AbAB/wE9AcsBmQH/AVABzQGdBf8BUAHMAZsB/wFQAdABogH/ATgBzwGeAf8BTQFOAU0BlgwAAwkBDAGr
+        AakBpwH/AbIBrwGtAf8BtAGyAbAB/wG0AbEBrwH/AbQBsgGwAf8B5AHjAeEB/wLZAdYB/wGzAbEBrwH/
+        AbQBsgGwAf8BtAGyAbAB/wG1AbQBsQH/AZ0BmwGaAf8DBQEHnAADCgEOAeIBtwGOAf8B8QHCAYoB/wHw
+        Ab4BgAH/AfABvQF6Af8B8gHQAacB/wHxAvMB/wHZAeEB2AH/ASwBqwFwAf8BFwHDAYkB/wEAAbYBbAX/
+        AQABtAFqAf8BBwG+AXoB/wFAAbwBjgH/AzEBTgwAAwQBBQGEAYIBgAHuAdoB2AHXAf8BxAHBAb8B/wG+
+        AbwBugH/AeUB5AHiAf8B+AH1AfEB/wHxAe4B6gH/AdQB0gHOAf8BvwG9AbsB/wHFAcMBwQH/AdoC2AH/
+        AncBdgHoAwIBA5wAAwEBAgFoAWMBXAHKAfIB3AHFAf8B9wHVAa0B/wH5AdIBoQH/Ae4B8gHzAf8B3gHm
+        AegB/wHdAeAB4gH/AWYBtAGRAf8BWAHEAZsB/wE6AcoBmgH/AR4BvAF6Af8BKgHGAZIB/wFwAdIBrwH/
+        AVABUQFQAZ8DAQECEAADIwE0A3AB2wLeAd0B/wH0AfMB8QH/AbwB2QHnAf8BdQGtAcgB/wFmAZwBtgH/
+        AZgBswG+Af8B4wHhAd0B/wHaAdkB2AH/A2YBzgMNARKnAAEBAkgBRwGDAdMBlgFhAf4B/QH5AfQB/wF4
+        AbcB1gH/AV4BngG9Af8BQQF6AZ0B/wFRAXkBmAH/AcgBwQGcAf8BGQGAAUUB/gEAAX8BRQH+ARoBgwFQ
+        AfcDLgFHIAADIAEvAXwBeQF2AekBhQG2Ac8B/wFXAY0BqAH/AT8BbgGNAf8BRQFqAYMB/wFrAmkB2QMa
+        ASS0AAMQARUDVQGyAWwBpQHBAf8BZQGjAcEB/wFTAZABrQH/ATABUgFpAf8DNQFWAwQBBSwAAwQBBQJE
+        AUUBfAFuAa0B0AH/AXUBuAHYAf8BagGsAc0B/wFIAYIBowH/AzgBXQMDAQS0AAMPARQBWAFbAWAByAGG
+        AccB5wH/AXcBvAHcAf8BbQGwAdEB/wFaAZkBuwH/AzsBZQMFAQcrAAEBAxMBGgFWAWYBdgHjAZIB1AH0
+        Af8BggHBAeEB/wFxAbUB1QH/AWoBrQHOAf8BVAFcAWMB0QMQARawAAMCAQMDMgFQAV8BkgG4Af4BkgHU
+        AfQB/wGDAcQB5AH/AXMBuAHXAf8BbAGvAdAB/wExAVIBcAH0AxkBIygAAwEBAgNEAXkBUgGTAbwB/wGa
+        Ad0B+gH/AYoBywHrAf8BegG+Ad4B/wFxAbUB1QH/ASsBVQGEAf8CPAE9AWewAAMFAQcBVAFYAVwByQF2
+        AbsB3wH/AZYB2QH1Af8BjQHPAe4B/wGCAcEB4QH/AXUBuAHZAf8BGwE/AWsB/wM6AWIoAAMBAQIBSgFW
+        AWIB3wFIAYsBsgH/AVQBlAG5Af8BgQHAAeAB/wGHAcgB6QH/AYEBwQHiAf8BJAFHAXEB/wFUAVUBVgGy
+        AwABAawAAwUBBwEWAUQBdwH+ASEBWwGNAf8BIAFTAYQB/wEoAVcBhQH/AXYBuAHYAf8BhAHEAeUB/wEQ
+        AS0BWgH/AkUBRgF+KAADAQECAUYBVgFnAeUBHAFhAZYB/wE2AXYBqwH/AUcBgAGsAf8BLAFTAYIB/wEo
+        AU0BdQH/ARIBLgFbAf8BVAFWAVgBvAMAAQGsAAMEAQYBEgFBAXIB/wEgAWoBoAH/ATsBhgG1Af8BUAGL
+        AbgB/wE+AWkBmQH/ASYBSQFzAf8BEQEuAVsB/wNFAX0rAAEBAUoBVgFiAd8BHAFlAZwB/wE1AYMBtAH/
+        AUcBiwG6Af8BRwF6Aa0B/wEtAVQBhQH/ARQBMwFgAf8CUwFUAaywAAMCAQMBUgFZAV4BzgEaAWkBoAH/
+        ATIBggGyAf8BQAGHAbYB/wE7AXIBpQH/ASQBTQF5Af8BEgE2AWUB/wM4AV0sAAMuAUgBEwFPAYYB/wEm
+        AXYBrQH/ATMBggGzAf8BMAFvAaMB/wEeAUwBeQH/AREBOAFoAf8DJQE3tAADFAEcASEBRwFqAfkBHwFr
+        AaIB/wEoAXMBqgH/ASQBYgGWAf8BFAFBAW8B/wFNAVYBYAHZAwEBAi8AAQEDSwGOATQBUQFxAfIBFwFa
+        AY0B/wEXAVEBhAH/ATwBUQFoAe0BPAI9AWgDAAEBuAADAgEDAUwBVgFfAdgBDgE8AW4B/wEZAUABawH9
+        AU8CUAGaAwABAfQAAUIBTQE+BwABPgMAASgDAAFIAwABEgMAAQEBAAEBBQAB2BcAA/8BAAH/AYAB+AEA
+        AfAHAAGAAQABcAEAATAHAAGAAQABcAEAATAHAAGAAQABcAEAATAHAAGAAQABcAEAATAHAAGAAQABcAEA
+        ATAHAAGAAQABcAEAATAHAAGAAQABeAEAAXAHAAHAAQEB/gEBAfAHAAHwAQ8B/gEBAfAHAAHwAQ8B/AEB
+        AfAHAAHgAQ8B/AEBAfAHAAHgAQ8B/AEAAfAHAAHgAQ8B/AEAAfAHAAHgAQ8B/AEBAfAHAAHgAQ8B/gEB
+        AfAHAAHwAQ8B/gEBAfAHAAH4AR8C/wHwBwAL
+</value>
   </data>
-  <data name="gestion_cuentas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconos\gestion_cuentas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="informacion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconos\informacion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lista_cuentas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconos\lista_cuentas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="perfil_default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconos\perfil_default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <metadata name="contextMenuStripFormCuentas.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>189, 17</value>
+  </metadata>
 </root>

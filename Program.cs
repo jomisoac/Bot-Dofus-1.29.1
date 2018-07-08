@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Bot_Dofus_1._29._1.Forms;
+using System;
 using System.Windows.Forms;
 
 namespace Bot_Dofus_1._29._1

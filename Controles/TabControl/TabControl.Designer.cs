@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Bot_Dofus_1._29._1.Controles.TabControl
 {
-    partial class Control
+    partial class TabControl
     {
         private System.ComponentModel.IContainer components = null;
 

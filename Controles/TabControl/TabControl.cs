@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Bot_Dofus_1._29._1.Controles.TabControl
 {
-    public partial class Control : UserControl
+    public partial class TabControl : UserControl
     {
         private int anchura_cabezera;
         private Dictionary<string, Pagina> paginas;
@@ -16,7 +16,7 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
         public Pagina pagina_seleccionada => nombre_pagina_seleccionada == null ? null : paginas.ContainsKey(nombre_pagina_seleccionada) ? paginas[nombre_pagina_seleccionada] : null;
         public event EventHandler evento_pagina_cambiada;
 
-        public Control()
+        public TabControl()
         {
             InitializeComponent();
             anchura_cabezera = 164;
