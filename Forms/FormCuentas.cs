@@ -38,7 +38,7 @@ namespace Bot_Dofus_1._29._1.Forms
                     return;
                 }
 
-                GlobalConfiguracion.agregar_Cuenta_y_Guardar(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_Nombre_Personaje.Text);
+                GlobalConfiguracion.agregar_Cuenta_Guardar(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_Nombre_Personaje.Text);
                 cargar_Cuentas_Lista();
 
                 textBox_Nombre_Cuenta.Clear();
@@ -49,6 +49,25 @@ namespace Bot_Dofus_1._29._1.Forms
                 {
                     tabControlPrincipalCuentas.SelectedIndex = 0;
                 }
+            }
+        }
+
+        private void listViewCuentas_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        {
+            e.Cancel = true;
+            e.NewWidth = listViewCuentas.Columns[e.ColumnIndex].Width;
+        }
+
+        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewCuentas.FocusedItem != null)
+            {
+                GlobalConfiguracion.eliminar_Cuenta_Guardar(listViewCuentas.FocusedItem.Index);
+                cargar_Cuentas_Lista();
+            }
+            else
+            {
+                return;
             }
         }
     }

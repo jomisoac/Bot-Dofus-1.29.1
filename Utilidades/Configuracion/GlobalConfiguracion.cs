@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -21,10 +22,9 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
                 lista_cuentas.Clear();
                 using (BinaryReader br = new BinaryReader(File.Open(ruta_archivo_cuentas, FileMode.Open)))
                 {
-                    int c = br.ReadInt32();
-                    for (int i = 0; i < c; i++)
+                    for (int i = 0; i < br.ReadInt32(); i++)
                     {
-                        lista_cuentas.Add(CuentaConfiguracion.cargar_Cuenta(br));
+                        lista_cuentas.Add(CuentaConfiguracion.cargar_una_Cuenta(br));
                     }
                 }
             }
@@ -43,16 +43,21 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             }
         }
 
-        public static void agregar_Cuenta_y_Guardar(string nombre_cuenta, string password, string servidor, string nombre_personaje)
+        public static void agregar_Cuenta_Guardar(string nombre_cuenta, string password, string servidor, string nombre_personaje)
         {
-            CuentaConfiguracion ac = new CuentaConfiguracion(nombre_cuenta, password, servidor, nombre_personaje);
-            lista_cuentas.Add(ac);
+            lista_cuentas.Add(new CuentaConfiguracion(nombre_cuenta, password, servidor, nombre_personaje));
+            guardar_Cuenta();
+        }
+
+        public static void eliminar_Cuenta_Guardar(int cuenta_index)
+        {
+            lista_cuentas.RemoveAt(cuenta_index);
             guardar_Cuenta();
         }
 
         public static CuentaConfiguracion get_Cuenta(string nombre_cuenta)
         {
-            return lista_cuentas.FirstOrDefault(a => a.nombre_cuenta == nombre_cuenta);
+            return lista_cuentas.FirstOrDefault(cuenta => cuenta.nombre_cuenta == nombre_cuenta);
         }
     }
 }

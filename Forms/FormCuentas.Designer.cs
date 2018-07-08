@@ -37,17 +37,12 @@
             this.pictureBox_informacion = new System.Windows.Forms.PictureBox();
             this.label_informacionClickCuentas = new System.Windows.Forms.Label();
             this.listViewCuentas = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnaNombreCuenta = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnaNombreServidor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnaNombrePersonaje = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripFormCuentas = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.conectarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AgregarCuenta = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -75,6 +70,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion)).BeginInit();
+            this.contextMenuStripFormCuentas.SuspendLayout();
             this.AgregarCuenta.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -172,30 +168,58 @@
             // listViewCuentas
             // 
             this.listViewCuentas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10});
+            this.ColumnaNombreCuenta,
+            this.ColumnaNombreServidor,
+            this.ColumnaNombrePersonaje});
             this.listViewCuentas.ContextMenuStrip = this.contextMenuStripFormCuentas;
             this.listViewCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewCuentas.FullRowSelect = true;
+            this.listViewCuentas.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewCuentas.Location = new System.Drawing.Point(3, 4);
             this.listViewCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.listViewCuentas.MultiSelect = false;
             this.listViewCuentas.Name = "listViewCuentas";
             this.listViewCuentas.Size = new System.Drawing.Size(443, 300);
             this.listViewCuentas.TabIndex = 1;
             this.listViewCuentas.UseCompatibleStateImageBehavior = false;
+            this.listViewCuentas.View = System.Windows.Forms.View.Details;
+            this.listViewCuentas.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listViewCuentas_ColumnWidthChanging);
+            // 
+            // ColumnaNombreCuenta
+            // 
+            this.ColumnaNombreCuenta.Text = "Nombre de Cuenta";
+            this.ColumnaNombreCuenta.Width = 148;
+            // 
+            // ColumnaNombreServidor
+            // 
+            this.ColumnaNombreServidor.Text = "Servidor";
+            this.ColumnaNombreServidor.Width = 107;
+            // 
+            // ColumnaNombrePersonaje
+            // 
+            this.ColumnaNombrePersonaje.Text = "Nombre del personaje";
+            this.ColumnaNombrePersonaje.Width = 184;
             // 
             // contextMenuStripFormCuentas
             // 
+            this.contextMenuStripFormCuentas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.conectarToolStripMenuItem,
+            this.eliminarToolStripMenuItem});
             this.contextMenuStripFormCuentas.Name = "contextMenuStripFormCuentas";
-            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(181, 70);
+            // 
+            // conectarToolStripMenuItem
+            // 
+            this.conectarToolStripMenuItem.Name = "conectarToolStripMenuItem";
+            this.conectarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.conectarToolStripMenuItem.Text = "Conectar";
+            // 
+            // eliminarToolStripMenuItem
+            // 
+            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // AgregarCuenta
             // 
@@ -507,6 +531,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion)).EndInit();
+            this.contextMenuStripFormCuentas.ResumeLayout(false);
             this.AgregarCuenta.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
@@ -559,15 +584,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.TextBox textBox_Nombre_Cuenta;
         private System.Windows.Forms.ListView listViewCuentas;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader ColumnaNombreCuenta;
+        private System.Windows.Forms.ColumnHeader ColumnaNombreServidor;
+        private System.Windows.Forms.ColumnHeader ColumnaNombrePersonaje;
+        private System.Windows.Forms.ToolStripMenuItem conectarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
     }
 }

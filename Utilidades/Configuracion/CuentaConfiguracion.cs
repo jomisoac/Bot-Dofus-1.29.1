@@ -25,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             bw.Write(nombre_personaje);
         }
 
-        public static CuentaConfiguracion cargar_Cuenta(BinaryReader br)
+        public static CuentaConfiguracion cargar_una_Cuenta(BinaryReader br)
         {
             try
             {
