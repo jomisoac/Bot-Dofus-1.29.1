@@ -53,13 +53,13 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.boton_agregar_cuenta = new System.Windows.Forms.Button();
-            this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
-            this.contextMenuStripFormCuentas = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.boton_agregar_cuenta = new System.Windows.Forms.Button();
+            this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
+            this.contextMenuStripFormCuentas = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabControlPrincipalCuentas.SuspendLayout();
             this.ListaCuentas.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -89,7 +89,7 @@
             this.tabControlPrincipalCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControlPrincipalCuentas.Name = "tabControlPrincipalCuentas";
             this.tabControlPrincipalCuentas.SelectedIndex = 0;
-            this.tabControlPrincipalCuentas.Size = new System.Drawing.Size(461, 394);
+            this.tabControlPrincipalCuentas.Size = new System.Drawing.Size(463, 398);
             this.tabControlPrincipalCuentas.TabIndex = 0;
             // 
             // ListaCuentas
@@ -100,7 +100,7 @@
             this.ListaCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ListaCuentas.Name = "ListaCuentas";
             this.ListaCuentas.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ListaCuentas.Size = new System.Drawing.Size(453, 358);
+            this.ListaCuentas.Size = new System.Drawing.Size(888, 463);
             this.ListaCuentas.TabIndex = 0;
             this.ListaCuentas.Text = "Lista de cuentas";
             this.ListaCuentas.UseVisualStyleBackColor = true;
@@ -117,7 +117,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.57143F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.42857F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(447, 350);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(882, 455);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // listViewListaCuentas
@@ -126,7 +126,7 @@
             this.listViewListaCuentas.Location = new System.Drawing.Point(3, 4);
             this.listViewListaCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewListaCuentas.Name = "listViewListaCuentas";
-            this.listViewListaCuentas.Size = new System.Drawing.Size(441, 294);
+            this.listViewListaCuentas.Size = new System.Drawing.Size(876, 385);
             this.listViewListaCuentas.TabIndex = 1;
             this.listViewListaCuentas.UseCompatibleStateImageBehavior = false;
             // 
@@ -138,11 +138,11 @@
             this.tableLayoutPanel2.Controls.Add(this.pictureBox_informacion, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label_informacionClickCuentas, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 305);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 396);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(441, 42);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(876, 56);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // pictureBox_informacion
@@ -159,9 +159,9 @@
             // 
             this.label_informacionClickCuentas.AutoSize = true;
             this.label_informacionClickCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_informacionClickCuentas.Location = new System.Drawing.Point(41, 0);
+            this.label_informacionClickCuentas.Location = new System.Drawing.Point(78, 0);
             this.label_informacionClickCuentas.Name = "label_informacionClickCuentas";
-            this.label_informacionClickCuentas.Size = new System.Drawing.Size(397, 42);
+            this.label_informacionClickCuentas.Size = new System.Drawing.Size(795, 56);
             this.label_informacionClickCuentas.TabIndex = 1;
             this.label_informacionClickCuentas.Text = "Haz click derecho para conectar/eliminar una cuenta\r\nDoble click encima de una cu" +
     "enta para conectarla";
@@ -175,7 +175,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Size = new System.Drawing.Size(453, 358);
+            this.tabPage2.Size = new System.Drawing.Size(455, 362);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Agregar una cuenta";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -195,7 +195,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.28571F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.714286F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(447, 350);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(449, 354);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -210,9 +210,9 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(441, 35);
-            this.tableLayoutPanel4.TabIndex = 0;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(443, 35);
+            this.tableLayoutPanel4.TabIndex = 2;
             // 
             // pictureBox_informacion_agregar_cuenta
             // 
@@ -220,7 +220,7 @@
             this.pictureBox_informacion_agregar_cuenta.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
             this.pictureBox_informacion_agregar_cuenta.Location = new System.Drawing.Point(3, 3);
             this.pictureBox_informacion_agregar_cuenta.Name = "pictureBox_informacion_agregar_cuenta";
-            this.pictureBox_informacion_agregar_cuenta.Size = new System.Drawing.Size(30, 29);
+            this.pictureBox_informacion_agregar_cuenta.Size = new System.Drawing.Size(31, 29);
             this.pictureBox_informacion_agregar_cuenta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_informacion_agregar_cuenta.TabIndex = 1;
             this.pictureBox_informacion_agregar_cuenta.TabStop = false;
@@ -229,11 +229,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(39, 0);
+            this.label1.Location = new System.Drawing.Point(40, 0);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(399, 35);
-            this.label1.TabIndex = 2;
+            this.label1.Size = new System.Drawing.Size(400, 35);
+            this.label1.TabIndex = 1;
             this.label1.Text = "Deja el el campo \"nombre del personaje\" en blanco si quieres que el bot conecte e" +
     "l primer personaje de la cuenta";
             // 
@@ -243,10 +243,10 @@
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.Location = new System.Drawing.Point(3, 325);
+            this.checkBox1.Location = new System.Drawing.Point(3, 329);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(441, 22);
-            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Size = new System.Drawing.Size(443, 22);
+            this.checkBox1.TabIndex = 51;
             this.checkBox1.Text = "Regresar a la pestaña \"Lista de cuentas\" despues de agregar la cuenta";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -262,8 +262,8 @@
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 87.63636F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.36364F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(441, 275);
-            this.tableLayoutPanel5.TabIndex = 3;
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(443, 279);
+            this.tableLayoutPanel5.TabIndex = 5;
             // 
             // tableLayoutPanel6
             // 
@@ -278,6 +278,7 @@
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel8, 1, 2);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel9, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel10, 1, 0);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 4;
@@ -285,7 +286,7 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(435, 234);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(437, 238);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // label2
@@ -295,8 +296,8 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 58);
-            this.label2.TabIndex = 0;
+            this.label2.Size = new System.Drawing.Size(120, 59);
+            this.label2.TabIndex = 1;
             this.label2.Text = "Cuenta:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -305,10 +306,10 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(3, 58);
+            this.label3.Location = new System.Drawing.Point(3, 59);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 58);
-            this.label3.TabIndex = 1;
+            this.label3.Size = new System.Drawing.Size(120, 59);
+            this.label3.TabIndex = 3;
             this.label3.Text = "Contraseña:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -317,10 +318,10 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(3, 116);
+            this.label4.Location = new System.Drawing.Point(3, 118);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 58);
-            this.label4.TabIndex = 2;
+            this.label4.Size = new System.Drawing.Size(120, 59);
+            this.label4.TabIndex = 5;
             this.label4.Text = "Servidor:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -329,10 +330,10 @@
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(3, 174);
+            this.label5.Location = new System.Drawing.Point(3, 177);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 60);
-            this.label5.TabIndex = 3;
+            this.label5.Size = new System.Drawing.Size(120, 61);
+            this.label5.TabIndex = 7;
             this.label5.Text = "Personaje:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -342,22 +343,22 @@
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.Controls.Add(this.textBox4, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(129, 177);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(129, 180);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 3;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.39394F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.60606F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(303, 54);
-            this.tableLayoutPanel7.TabIndex = 7;
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(305, 55);
+            this.tableLayoutPanel7.TabIndex = 4;
             // 
             // textBox4
             // 
             this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox4.Location = new System.Drawing.Point(3, 17);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(297, 25);
-            this.textBox4.TabIndex = 9;
+            this.textBox4.Size = new System.Drawing.Size(299, 25);
+            this.textBox4.TabIndex = 8;
             // 
             // tableLayoutPanel8
             // 
@@ -365,32 +366,81 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.Controls.Add(this.comboBox1, 0, 1);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(129, 119);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(129, 121);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 3;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.39F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.61F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(303, 52);
-            this.tableLayoutPanel8.TabIndex = 8;
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(305, 53);
+            this.tableLayoutPanel8.TabIndex = 3;
             // 
             // comboBox1
             // 
             this.comboBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Eratz",
+            "Henual"});
             this.comboBox1.Location = new System.Drawing.Point(3, 16);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(297, 25);
-            this.comboBox1.TabIndex = 7;
+            this.comboBox1.Size = new System.Drawing.Size(299, 25);
+            this.comboBox1.TabIndex = 6;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.ColumnCount = 1;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel9.Controls.Add(this.textBox2, 0, 1);
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(129, 62);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 3;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.92308F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.46154F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(305, 53);
+            this.tableLayoutPanel9.TabIndex = 2;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox2.Location = new System.Drawing.Point(3, 17);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(299, 25);
+            this.textBox2.TabIndex = 4;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 1;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.Controls.Add(this.textBox1, 0, 1);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(129, 3);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 3;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(305, 53);
+            this.tableLayoutPanel10.TabIndex = 1;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 16);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(299, 25);
+            this.textBox1.TabIndex = 2;
             // 
             // boton_agregar_cuenta
             // 
             this.boton_agregar_cuenta.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.boton_agregar_cuenta.Location = new System.Drawing.Point(3, 243);
+            this.boton_agregar_cuenta.Location = new System.Drawing.Point(3, 247);
             this.boton_agregar_cuenta.Name = "boton_agregar_cuenta";
-            this.boton_agregar_cuenta.Size = new System.Drawing.Size(435, 29);
-            this.boton_agregar_cuenta.TabIndex = 3;
+            this.boton_agregar_cuenta.Size = new System.Drawing.Size(437, 29);
+            this.boton_agregar_cuenta.TabIndex = 9;
             this.boton_agregar_cuenta.Text = "Agregar cuenta";
             this.boton_agregar_cuenta.UseVisualStyleBackColor = true;
             // 
@@ -406,63 +456,18 @@
             this.contextMenuStripFormCuentas.Name = "contextMenuStripFormCuentas";
             this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(61, 4);
             // 
-            // tableLayoutPanel9
-            // 
-            this.tableLayoutPanel9.ColumnCount = 1;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Controls.Add(this.textBox2, 0, 1);
-            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(129, 61);
-            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 3;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.92308F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.46154F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(303, 52);
-            this.tableLayoutPanel9.TabIndex = 9;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(3, 17);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(297, 25);
-            this.textBox2.TabIndex = 6;
-            // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.ColumnCount = 1;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.Controls.Add(this.textBox1, 0, 1);
-            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(129, 3);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 3;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(303, 52);
-            this.tableLayoutPanel10.TabIndex = 10;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(297, 25);
-            this.textBox1.TabIndex = 0;
-            // 
             // FormCuentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 394);
+            this.ClientSize = new System.Drawing.Size(463, 398);
             this.Controls.Add(this.tabControlPrincipalCuentas);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(442, 335);
+            this.MinimumSize = new System.Drawing.Size(461, 394);
             this.Name = "FormCuentas";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
