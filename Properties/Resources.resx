@@ -121,6 +121,12 @@
   <data name="agregar_cuenta" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\agregar_cuenta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cruz_roja" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconos\cruz_roja.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="flecha_direccion_izquierda" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconos\flecha_direccion_izquierda.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="gestion_cuentas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\gestion_cuentas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

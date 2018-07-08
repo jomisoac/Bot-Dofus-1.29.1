@@ -34,7 +34,6 @@
             this.ListaCuentas = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox_informacion = new System.Windows.Forms.PictureBox();
             this.label_informacionClickCuentas = new System.Windows.Forms.Label();
             this.listViewCuentas = new System.Windows.Forms.ListView();
             this.ColumnaNombreCuenta = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -42,11 +41,9 @@
             this.ColumnaNombrePersonaje = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripFormCuentas = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.conectarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AgregarCuenta = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox_informacion_agregar_cuenta = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox_Agregar_Retroceder = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -65,22 +62,25 @@
             this.textBox_Nombre_Cuenta = new System.Windows.Forms.TextBox();
             this.boton_Agregar_Cuenta = new System.Windows.Forms.Button();
             this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
+            this.pictureBox_informacion = new System.Windows.Forms.PictureBox();
+            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox_informacion_agregar_cuenta = new System.Windows.Forms.PictureBox();
             this.tabControlPrincipalCuentas.SuspendLayout();
             this.ListaCuentas.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion)).BeginInit();
             this.contextMenuStripFormCuentas.SuspendLayout();
             this.AgregarCuenta.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion_agregar_cuenta)).BeginInit();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion_agregar_cuenta)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlPrincipalCuentas
@@ -142,17 +142,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(443, 40);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
-            // pictureBox_informacion
-            // 
-            this.pictureBox_informacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox_informacion.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
-            this.pictureBox_informacion.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox_informacion.Name = "pictureBox_informacion";
-            this.pictureBox_informacion.Size = new System.Drawing.Size(38, 34);
-            this.pictureBox_informacion.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_informacion.TabIndex = 0;
-            this.pictureBox_informacion.TabStop = false;
-            // 
             // label_informacionClickCuentas
             // 
             this.label_informacionClickCuentas.AutoSize = true;
@@ -206,20 +195,14 @@
             this.conectarToolStripMenuItem,
             this.eliminarToolStripMenuItem});
             this.contextMenuStripFormCuentas.Name = "contextMenuStripFormCuentas";
-            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(123, 48);
             // 
             // conectarToolStripMenuItem
             // 
+            this.conectarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.flecha_direccion_izquierda;
             this.conectarToolStripMenuItem.Name = "conectarToolStripMenuItem";
-            this.conectarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.conectarToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.conectarToolStripMenuItem.Text = "Conectar";
-            // 
-            // eliminarToolStripMenuItem
-            // 
-            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
-            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // AgregarCuenta
             // 
@@ -267,17 +250,6 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(443, 35);
             this.tableLayoutPanel4.TabIndex = 2;
-            // 
-            // pictureBox_informacion_agregar_cuenta
-            // 
-            this.pictureBox_informacion_agregar_cuenta.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox_informacion_agregar_cuenta.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
-            this.pictureBox_informacion_agregar_cuenta.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox_informacion_agregar_cuenta.Name = "pictureBox_informacion_agregar_cuenta";
-            this.pictureBox_informacion_agregar_cuenta.Size = new System.Drawing.Size(31, 29);
-            this.pictureBox_informacion_agregar_cuenta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_informacion_agregar_cuenta.TabIndex = 1;
-            this.pictureBox_informacion_agregar_cuenta.TabStop = false;
             // 
             // label1
             // 
@@ -509,6 +481,36 @@
             this.imagenesFormCuentas.Images.SetKeyName(0, "agregar_cuenta.png");
             this.imagenesFormCuentas.Images.SetKeyName(1, "lista_cuentas.png");
             // 
+            // pictureBox_informacion
+            // 
+            this.pictureBox_informacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox_informacion.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
+            this.pictureBox_informacion.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox_informacion.Name = "pictureBox_informacion";
+            this.pictureBox_informacion.Size = new System.Drawing.Size(38, 34);
+            this.pictureBox_informacion.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_informacion.TabIndex = 0;
+            this.pictureBox_informacion.TabStop = false;
+            // 
+            // eliminarToolStripMenuItem
+            // 
+            this.eliminarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.cruz_roja;
+            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
+            // 
+            // pictureBox_informacion_agregar_cuenta
+            // 
+            this.pictureBox_informacion_agregar_cuenta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox_informacion_agregar_cuenta.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
+            this.pictureBox_informacion_agregar_cuenta.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox_informacion_agregar_cuenta.Name = "pictureBox_informacion_agregar_cuenta";
+            this.pictureBox_informacion_agregar_cuenta.Size = new System.Drawing.Size(31, 29);
+            this.pictureBox_informacion_agregar_cuenta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_informacion_agregar_cuenta.TabIndex = 1;
+            this.pictureBox_informacion_agregar_cuenta.TabStop = false;
+            // 
             // FormCuentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -530,14 +532,12 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion)).EndInit();
             this.contextMenuStripFormCuentas.ResumeLayout(false);
             this.AgregarCuenta.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion_agregar_cuenta)).EndInit();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
@@ -548,6 +548,8 @@
             this.tableLayoutPanel9.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_informacion_agregar_cuenta)).EndInit();
             this.ResumeLayout(false);
 
         }

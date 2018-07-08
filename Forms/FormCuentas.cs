@@ -7,7 +7,7 @@ namespace Bot_Dofus_1._29._1.Forms
 {
     public partial class FormCuentas : Form
     {
-        public List<CuentaConfiguracion> cuentas_para_conectar { get; private set; }
+        private List<CuentaConfiguracion> cuentas_para_conectar;
 
         public FormCuentas()
         {
@@ -22,9 +22,9 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             listViewCuentas.Items.Clear();
 
-            GlobalConfiguracion.lista_cuentas.ForEach(x =>
+            GlobalConfiguracion.get_Lista_Cuentas().ForEach(x =>
             {
-                listViewCuentas.Items.Add(x.nombre_cuenta).SubItems.AddRange(new string[] {x.servidor, x.nombre_personaje});
+                listViewCuentas.Items.Add(x.get_Nombre_cuenta()).SubItems.AddRange(new string[] {x.get_servidor(), string.IsNullOrEmpty(x.get_nombre_personaje()) ? "Default" : x.get_nombre_personaje() });
             });
         }
 

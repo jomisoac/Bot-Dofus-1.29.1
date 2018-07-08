@@ -4,10 +4,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
 {
     public class CuentaConfiguracion
     {
-        public string nombre_cuenta { get; private set; }
-        public string password { get; private set; }
-        public string servidor { get; private set; }
-        public string nombre_personaje { get; private set; }
+        private string nombre_cuenta, password, servidor, nombre_personaje;
 
         public CuentaConfiguracion(string _nombre_cuenta, string _password, string _servidor, string _nombre_personaje)
         {
@@ -35,6 +32,26 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             {
                 return null;
             }
+        }
+
+        public string get_Nombre_cuenta()
+        {
+            return nombre_cuenta;
+        }
+
+        public string get_password()
+        {
+            return password;
+        }
+
+        public string get_servidor()
+        {
+            return servidor;
+        }
+
+        public string get_nombre_personaje()
+        {
+            return nombre_personaje;
         }
     }
 }

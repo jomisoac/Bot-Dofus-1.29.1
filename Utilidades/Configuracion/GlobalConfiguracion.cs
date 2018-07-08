@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
 {
     class GlobalConfiguracion
     {
-        public static List<CuentaConfiguracion> lista_cuentas { get; private set; }
+        private static List<CuentaConfiguracion> lista_cuentas;
         private static string ruta_archivo_cuentas = Path.Combine(Directory.GetCurrentDirectory(), "cuentas.botaidemu");
 
         static GlobalConfiguracion()
@@ -22,7 +21,8 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
                 lista_cuentas.Clear();
                 using (BinaryReader br = new BinaryReader(File.Open(ruta_archivo_cuentas, FileMode.Open)))
                 {
-                    for (int i = 0; i < br.ReadInt32(); i++)
+                    int registros_totales = br.ReadInt32();
+                    for (int i = 0; i < registros_totales; i++)
                     {
                         lista_cuentas.Add(CuentaConfiguracion.cargar_una_Cuenta(br));
                     }
@@ -57,7 +57,12 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
 
         public static CuentaConfiguracion get_Cuenta(string nombre_cuenta)
         {
-            return lista_cuentas.FirstOrDefault(cuenta => cuenta.nombre_cuenta == nombre_cuenta);
+            return lista_cuentas.FirstOrDefault(cuenta => cuenta.get_Nombre_cuenta() == nombre_cuenta);
+        }
+
+        public static List<CuentaConfiguracion> get_Lista_Cuentas()
+        {
+            return lista_cuentas;
         }
     }
 }

@@ -143,5 +143,11 @@
   <ItemGroup>
     <None Include="Resources\iconos\informacion.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconos\cruz_roja.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconos\flecha_direccion_izquierda.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
