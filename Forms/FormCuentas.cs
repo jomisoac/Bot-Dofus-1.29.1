@@ -1,18 +1,19 @@
 ﻿using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Bot_Dofus_1._29._1.Forms
 {
     public partial class FormCuentas : Form
     {
-        private List<CuentaConfiguracion> cuentas_para_conectar;
+        private List<CuentaConfiguracion> cuentas_cargadas;
 
         public FormCuentas()
         {
             InitializeComponent();
-            cuentas_para_conectar = new List<CuentaConfiguracion>();
+            cuentas_cargadas = new List<CuentaConfiguracion>();
 
             comboBox_Servidor.SelectedIndex = 0;
             cargar_Cuentas_Lista();
@@ -24,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Forms
 
             GlobalConfiguracion.get_Lista_Cuentas().ForEach(x =>
             {
-                listViewCuentas.Items.Add(x.get_Nombre_cuenta()).SubItems.AddRange(new string[] {x.get_servidor(), string.IsNullOrEmpty(x.get_nombre_personaje()) ? "Default" : x.get_nombre_personaje() });
+                listViewCuentas.Items.Add(x.get_Nombre_cuenta()).SubItems.AddRange(new string[] { x.get_servidor(), string.IsNullOrEmpty(x.get_nombre_personaje()) ? "Default" : x.get_nombre_personaje() });
             });
         }
 
@@ -60,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Forms
 
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewCuentas.FocusedItem != null)
+            if (listViewCuentas.SelectedItems.Count > 0 && listViewCuentas.FocusedItem != null)
             {
                 GlobalConfiguracion.eliminar_Cuenta_Guardar(listViewCuentas.FocusedItem.Index);
                 cargar_Cuentas_Lista();
@@ -69,6 +70,24 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 return;
             }
+        }
+
+        private void conectarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewCuentas.SelectedItems.Count > 0 && listViewCuentas.FocusedItem != null)
+            {
+                for (int i = 0; i < listViewCuentas.SelectedItems.Count; i++)
+                {
+                    cuentas_cargadas.Add(GlobalConfiguracion.get_Lista_Cuentas().FirstOrDefault(f => f.get_Nombre_cuenta() == listViewCuentas.SelectedItems[i].Text));
+                }
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
+
+        public List<CuentaConfiguracion> get_Cuentas_Cargadas()
+        {
+            return cuentas_cargadas;
         }
     }
 }

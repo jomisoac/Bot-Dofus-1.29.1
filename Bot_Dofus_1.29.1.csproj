@@ -149,5 +149,8 @@
   <ItemGroup>
     <None Include="Resources\iconos\flecha_direccion_izquierda.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
