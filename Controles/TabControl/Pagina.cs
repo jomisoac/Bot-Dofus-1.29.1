@@ -12,7 +12,7 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
         {
             cabezera = new Cabezera()
             {
-                titulo = nuevo_titulo,
+                propiedad_Titulo = nuevo_titulo,
                 Size = new Size(anchura_cabezera, 40),
                 Margin = new Padding(2, 0, 2, 10)
             };

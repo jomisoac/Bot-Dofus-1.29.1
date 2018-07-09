@@ -6,10 +6,49 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
 {
     public class Cabezera : Control
     {
-        public string titulo { get => titulo; set => titulo = value; }
-        public string estado { get => estado; set => estado = value; }
-        private Image imagen { get => imagen; set => imagen = value; }
-        public bool esta_seleccionada { get => esta_seleccionada; set => esta_seleccionada = value; }
+        public string titulo, estado;
+        public Image imagen;
+        public bool esta_seleccionada;
+
+        public string propiedad_Titulo
+        {
+            get => titulo;
+            set
+            {
+                titulo = value;
+                Invalidate();
+            }
+        }
+
+        public string propiedad_Estado
+        {
+            get => estado;
+            set
+            {
+                estado = value;
+                Invalidate();
+            }
+        }
+
+        public Image propiedad_Imagen
+        {
+            get => imagen;
+            set
+            {
+                imagen = value;
+                Invalidate();
+            }
+        }
+
+        public bool propiedad_Esta_Seleccionada
+        {
+            get => esta_seleccionada;
+            set
+            {
+                esta_seleccionada = value;
+                Invalidate();
+            }
+        }
 
         public Cabezera()
         {
@@ -45,10 +84,10 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
             if (!string.IsNullOrEmpty(titulo) && !string.IsNullOrEmpty(estado))
             {
                 SizeF titulo_tamano = g.MeasureString(titulo, Font);
-                SizeF estado_tamano = g.MeasureString(titulo, new Font(Font.FontFamily, Font.Size - 2));
+                SizeF _estado_tamano = g.MeasureString(titulo, new Font(Font.FontFamily, Font.Size - 2));
 
-                g.DrawString(titulo, Font, Brushes.Black, limites.X, 20 - (titulo_tamano.Height + estado_tamano.Height) / 2);
-                g.DrawString(estado, new Font(Font.FontFamily, Font.Size - 2), Brushes.Black, limites.X, 20 - (titulo_tamano.Height + estado_tamano.Height) / 2 + titulo_tamano.Height);
+                g.DrawString(titulo, Font, Brushes.Black, limites.X, 20 - (titulo_tamano.Height + _estado_tamano.Height) / 2);
+                g.DrawString(estado, new Font(Font.FontFamily, Font.Size - 2), Brushes.Black, limites.X, 20 - (titulo_tamano.Height + _estado_tamano.Height) / 2 + titulo_tamano.Height);
             }
             else if (!string.IsNullOrEmpty(titulo))
             {

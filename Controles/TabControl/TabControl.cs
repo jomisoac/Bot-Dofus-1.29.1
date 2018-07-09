@@ -39,8 +39,8 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
             Pagina pagina = new Pagina(titulo, anchura_cabezera);
             paginas.Add(titulo, pagina);
 
-            pagina.cabezera.Click += (s, e) => seleccionar_Pagina((s as Cabezera).titulo);
-            pagina.contenido.Disposed += (s, e) => eliminar_Pagina(pagina.cabezera.titulo);
+            pagina.cabezera.Click += (s, e) => seleccionar_Pagina((s as Cabezera).propiedad_Titulo);
+            pagina.contenido.Disposed += (s, e) => eliminar_Pagina(pagina.cabezera.propiedad_Titulo);
 
             panelCabezeraCuentas.Controls.Add(pagina.cabezera);
             panelContenidoCuenta.Controls.Add(pagina.contenido);
@@ -115,12 +115,12 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
                     if (nombre_pagina_seleccionada != null && paginas.ContainsKey(nombre_pagina_seleccionada))
                     {
                         var previouslySelectedPage = paginas[nombre_pagina_seleccionada];
-                        previouslySelectedPage.cabezera.esta_seleccionada = false;
+                        previouslySelectedPage.cabezera.propiedad_Esta_Seleccionada = false;
                         previouslySelectedPage.contenido.Visible = false;
                     }
 
                     nombre_pagina_seleccionada = title;
-                    pagina_seleccionada.cabezera.esta_seleccionada = true;
+                    pagina_seleccionada.cabezera.propiedad_Esta_Seleccionada = true;
                     pagina_seleccionada.contenido.Visible = true;
 
                     evento_pagina_cambiada?.Invoke(paginas[nombre_pagina_seleccionada], EventArgs.Empty);

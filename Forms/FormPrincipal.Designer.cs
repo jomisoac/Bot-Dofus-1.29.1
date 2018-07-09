@@ -64,6 +64,7 @@
             // tabControlCuentas
             // 
             this.tabControlCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlCuentas.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.tabControlCuentas.Location = new System.Drawing.Point(0, 24);
             this.tabControlCuentas.Name = "tabControlCuentas";
             this.tabControlCuentas.Size = new System.Drawing.Size(800, 404);
