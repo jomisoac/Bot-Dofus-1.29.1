@@ -168,5 +168,8 @@
   <ItemGroup>
     <None Include="Resources\iconos\circulo_rojo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Protocolo\Paquetes\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

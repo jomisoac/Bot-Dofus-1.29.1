@@ -25,7 +25,10 @@ namespace Bot_Dofus_1._29._1.Forms
 
             GlobalConfiguracion.get_Lista_Cuentas().ForEach(x =>
             {
-                listViewCuentas.Items.Add(x.get_Nombre_cuenta()).SubItems.AddRange(new string[] { x.get_servidor(), string.IsNullOrEmpty(x.get_nombre_personaje()) ? "Default" : x.get_nombre_personaje() });
+                if(!FormPrincipal.get_Paginas_Cuentas_Cargadas().ContainsKey(x.get_Nombre_cuenta()))
+                {
+                    listViewCuentas.Items.Add(x.get_Nombre_cuenta()).SubItems.AddRange(new string[] { x.get_servidor(), string.IsNullOrEmpty(x.get_nombre_personaje()) ? "Default" : x.get_nombre_personaje() });
+                }
             });
         }
 
