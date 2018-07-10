@@ -65,7 +65,6 @@ namespace Bot_Dofus_1._29._1.Forms
                         textbox.BackColor = string.IsNullOrEmpty(textbox.Text) ? Color.Red : Color.White;
                     });
                 });
-                return;
             }
         }
 

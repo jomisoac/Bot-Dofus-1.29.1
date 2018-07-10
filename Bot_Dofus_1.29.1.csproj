@@ -94,6 +94,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocolo\Eventos.cs" />
+    <Compile Include="Protocolo\ProtocoloSocket.cs" />
     <Compile Include="Utilidades\Configuracion\GlobalConfiguracion.cs" />
     <Compile Include="Utilidades\Configuracion\CuentaConfiguracion.cs" />
     <EmbeddedResource Include="Controles\TabControl\TabControl.resx">

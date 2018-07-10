@@ -64,8 +64,8 @@
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox_Nombre_Cuenta = new System.Windows.Forms.TextBox();
             this.boton_Agregar_Cuenta = new System.Windows.Forms.Button();
-            this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
             this.tabControlPrincipalCuentas.SuspendLayout();
             this.ListaCuentas.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -507,13 +507,6 @@
             this.boton_Agregar_Cuenta.UseVisualStyleBackColor = true;
             this.boton_Agregar_Cuenta.Click += new System.EventHandler(this.boton_Agregar_Cuenta_Click);
             // 
-            // imagenesFormCuentas
-            // 
-            this.imagenesFormCuentas.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagenesFormCuentas.ImageStream")));
-            this.imagenesFormCuentas.TransparentColor = System.Drawing.Color.Transparent;
-            this.imagenesFormCuentas.Images.SetKeyName(0, "agregar_cuenta.png");
-            this.imagenesFormCuentas.Images.SetKeyName(1, "lista_cuentas.png");
-            // 
             // tabPage1
             // 
             this.tabPage1.ImageIndex = 0;
@@ -524,6 +517,13 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Agregar varias cuentas";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // imagenesFormCuentas
+            // 
+            this.imagenesFormCuentas.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagenesFormCuentas.ImageStream")));
+            this.imagenesFormCuentas.TransparentColor = System.Drawing.Color.Transparent;
+            this.imagenesFormCuentas.Images.SetKeyName(0, "agregar_cuenta.png");
+            this.imagenesFormCuentas.Images.SetKeyName(1, "lista_cuentas.png");
             // 
             // FormCuentas
             // 
