@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -34,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             }
         }
 
-        public static void guardar_Cuenta()
+        public static void guardar_Todas_Cuentas()
         {
             using (BinaryWriter bw = new BinaryWriter(File.Open(ruta_archivo_cuentas, FileMode.Create)))
             {
@@ -43,16 +44,14 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             }
         }
 
-        public static void agregar_Cuenta_Guardar(string nombre_cuenta, string password, string servidor, string nombre_personaje)
+        public static void agregar_Cuenta(string nombre_cuenta, string password, string servidor, string nombre_personaje)
         {
             lista_cuentas.Add(new CuentaConfiguracion(nombre_cuenta, password, servidor, nombre_personaje));
-            guardar_Cuenta();
         }
 
-        public static void eliminar_Cuenta_Guardar(int cuenta_index)
+        public static void eliminar_Cuenta(int cuenta_index)
         {
             lista_cuentas.RemoveAt(cuenta_index);
-            guardar_Cuenta();
         }
 
         public static CuentaConfiguracion get_Cuenta(string nombre_cuenta)

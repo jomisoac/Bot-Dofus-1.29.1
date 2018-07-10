@@ -65,6 +65,7 @@
             this.textBox_Nombre_Cuenta = new System.Windows.Forms.TextBox();
             this.boton_Agregar_Cuenta = new System.Windows.Forms.Button();
             this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControlPrincipalCuentas.SuspendLayout();
             this.ListaCuentas.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -87,6 +88,7 @@
             // 
             this.tabControlPrincipalCuentas.Controls.Add(this.ListaCuentas);
             this.tabControlPrincipalCuentas.Controls.Add(this.AgregarCuenta);
+            this.tabControlPrincipalCuentas.Controls.Add(this.tabPage1);
             this.tabControlPrincipalCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlPrincipalCuentas.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.tabControlPrincipalCuentas.ImageList = this.imagenesFormCuentas;
@@ -183,6 +185,7 @@
             this.listViewCuentas.UseCompatibleStateImageBehavior = false;
             this.listViewCuentas.View = System.Windows.Forms.View.Details;
             this.listViewCuentas.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listViewCuentas_ColumnWidthChanging);
+            this.listViewCuentas.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewCuentas_MouseDoubleClick);
             // 
             // ColumnaNombreCuenta
             // 
@@ -511,6 +514,17 @@
             this.imagenesFormCuentas.Images.SetKeyName(0, "agregar_cuenta.png");
             this.imagenesFormCuentas.Images.SetKeyName(1, "lista_cuentas.png");
             // 
+            // tabPage1
+            // 
+            this.tabPage1.ImageIndex = 0;
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(455, 362);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Agregar varias cuentas";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // FormCuentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -591,5 +605,6 @@
         private System.Windows.Forms.ColumnHeader ColumnaNombrePersonaje;
         private System.Windows.Forms.ToolStripMenuItem conectarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
