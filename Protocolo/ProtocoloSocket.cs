@@ -10,10 +10,10 @@ namespace Bot_Dofus_1._29._1.Protocolo
         private byte[] buffer = new byte[3004];
         private Socket socket;
 
-        public event PaqueteEntrada paquete_entrada_evento;
-        public event SocketCerrado socket_cerrado_evento;
-        public event Conectado conectado_evento;
-        public event ConexionFallida conexion_Fallida_evento;
+        private event PaqueteEntrada paquete_entrada_evento;
+        private event SocketCerrado socket_cerrado_evento;
+        private event Conectado conectado_evento;
+        private event ConexionFallida conexion_Fallida_evento;
 
         public ProtocoloSocket(Socket conexion, int tamano_buffer)
         {
@@ -66,7 +66,7 @@ namespace Bot_Dofus_1._29._1.Protocolo
                     paquete_Recibido();
                 }
                 else
-                    evento_Fallo_Conexion(new Exception("Not Connect"));
+                    evento_Fallo_Conexion(new Exception("No Conectado"));
             }
             catch (Exception ex)
             {
@@ -81,11 +81,10 @@ namespace Bot_Dofus_1._29._1.Protocolo
                 int longitud = socket.EndReceive(ar);
                 if (longitud > 0)
                 {
-                    byte[] data = new byte[longitud];
+                    byte[] paquete = new byte[longitud];
                     for (int i = 0; i <= longitud - 1; i++)
-                        data[i] = buffer[i];
-                    evento_Nuevo_Paquete(data);
-                    paquete_entrada_evento?.Invoke(data);
+                        paquete[i] = buffer[i];
+                    evento_Nuevo_Paquete(paquete);
                     buffer = new byte[5000];
                     paquete_Recibido();
                 }

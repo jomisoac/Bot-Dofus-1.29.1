@@ -31,13 +31,11 @@ namespace Bot_Dofus_1._29._1.Forms
 
         private Pagina agregar_Nueva_Tab_Pagina(string titulo, UserControl control)
         {
-            control.Dock = DockStyle.Fill;
-
             Pagina nueva_pagina = tabControlCuentas.agregar_Nueva_Pagina(titulo);
             nueva_pagina.cabezera.propiedad_Imagen = Properties.Resources.circulo_rojo;
             nueva_pagina.cabezera.propiedad_Estado = "Desconectado";
             nueva_pagina.contenido.Controls.Add(control);
-
+            control.Dock = DockStyle.Fill;
             return nueva_pagina;
         }
 
