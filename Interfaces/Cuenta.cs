@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;

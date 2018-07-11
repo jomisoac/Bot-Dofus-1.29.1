@@ -7,13 +7,13 @@ namespace Bot_Dofus_1._29._1.Protocolo
     class ProtocoloSocket : Eventos
     {
         private object bloqueo = new object();
-        private byte[] buffer = new byte[3004];
+        private byte[] buffer = new byte[4000];
         private Socket socket;
 
-        private event PaqueteEntrada paquete_entrada_evento;
-        private event SocketCerrado socket_cerrado_evento;
-        private event Conectado conectado_evento;
-        private event ConexionFallida conexion_Fallida_evento;
+        private event PaqueteEntrada evento_paquete_entrada;
+        private event SocketCerrado evento_socket_cerrado;
+        private event Conectado evento_conectado;
+        private event ConexionFallida evento_conexion_Fallida;
 
         public ProtocoloSocket(Socket conexion, int tamano_buffer)
         {
@@ -85,7 +85,7 @@ namespace Bot_Dofus_1._29._1.Protocolo
                     for (int i = 0; i <= longitud - 1; i++)
                         paquete[i] = buffer[i];
                     evento_Nuevo_Paquete(paquete);
-                    buffer = new byte[5000];
+                    buffer = new byte[4000];
                     paquete_Recibido();
                 }
                 else
@@ -112,22 +112,22 @@ namespace Bot_Dofus_1._29._1.Protocolo
 
         private void evento_Nuevo_Paquete(byte[] paquete)
         {
-            paquete_entrada_evento?.Invoke(paquete);
+            evento_paquete_entrada?.Invoke(paquete);
         }
 
         private void evento_Socket_Cerrado()
         {
-            socket_cerrado_evento?.Invoke();
+            evento_socket_cerrado?.Invoke();
         }
 
         private void evento_Fallo_Conexion(Exception ex)
         {
-            conexion_Fallida_evento?.Invoke(ex);
+            evento_conexion_Fallida?.Invoke(ex);
         }
 
         private void evento_Conexion_Conectado()
         {
-            conectado_evento?.Invoke();
+            evento_conectado?.Invoke();
         }
     }
 }

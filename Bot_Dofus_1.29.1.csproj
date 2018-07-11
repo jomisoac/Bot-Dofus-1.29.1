@@ -67,6 +67,10 @@
     <Compile Include="Controles\LayoutPanel\FlowLayoutPanelBuffered.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controles\ProgresBar\ProgresBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controles\ProgresBar\TipoProgresBar.cs" />
     <Compile Include="Controles\TabControl\Cabezera.cs">
       <SubType>Component</SubType>
     </Compile>
