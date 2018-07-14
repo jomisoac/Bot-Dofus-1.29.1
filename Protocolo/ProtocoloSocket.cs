@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
+using System.Threading;
 
 namespace Bot_Dofus_1._29._1.Protocolo
 {
     class ProtocoloSocket : Eventos
     {
-        private object bloqueo = new object();
         private byte[] buffer = new byte[4000];
         private Socket socket;
 
-        private event PaqueteEntrada evento_paquete_entrada;
-        private event SocketCerrado evento_socket_cerrado;
-        private event Conectado evento_conectado;
-        private event ConexionFallida evento_conexion_Fallida;
+        public event PaqueteEntrada evento_paquete_entrada;
+        public event SocketCerrado evento_socket_cerrado;
+        public event Conectado evento_conectado;
+        public event ConexionFallida evento_conexion_Fallida;
 
-        public ProtocoloSocket(Socket conexion, int tamano_buffer)
-        {
-            buffer = new byte[tamano_buffer];
-            socket = conexion;
-            paquete_Recibido();
-        }
+        //estados
+        private ManualResetEvent conectar_estado = new ManualResetEvent(false);
+        private ManualResetEvent enviar_estado = new ManualResetEvent(false);
+        private ManualResetEvent recibir_estado = new ManualResetEvent(false);
 
-        public void Conectar(string ip, int puerto)
+        public ProtocoloSocket(string ip, int puerto)
         {
             try
             {
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 socket.BeginConnect(IPAddress.Parse(ip), puerto, new AsyncCallback(conectar_CallBack), socket);
+                conectar_estado.WaitOne();
             }
             catch (Exception ex)
             {
@@ -37,31 +37,42 @@ namespace Bot_Dofus_1._29._1.Protocolo
 
         public void paquete_Recibido()
         {
-            socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
-        }
-
-        public void enviar_Paquete(byte[] paquete)
-        {
-            lock (bloqueo)
+            try
             {
-                socket.Send(paquete);
+                EstadoSocket estado = new EstadoSocket();
+                estado.socket = socket;
+                socket.BeginReceive(estado.buffer, 0, 256, 0, new AsyncCallback(recibir_CallBack), estado);
+            }
+            catch (Exception e)
+            {
+                evento_Fallo_Conexion(e);
             }
         }
 
-        public void cerrar_Socket()
+        public void enviar_Paquete(string paquete)
         {
-            lock (bloqueo)
-            {
-                socket.Close();
-            }
+            byte[] byteData = Encoding.ASCII.GetBytes(paquete + "\x00");
+            socket.BeginSend(byteData, 0, byteData.Length, 0, new AsyncCallback(enviar_Callback), socket);
+            enviar_estado.WaitOne();
+        }
+
+        private void enviar_Callback(IAsyncResult ar)
+        {
+            socket = (Socket)ar.AsyncState;
+            int bytes_enviados = socket.EndSend(ar);
+            enviar_estado.Set();
         }
 
         private void conectar_CallBack(IAsyncResult ar)
         {
             try
             {
-                if (socket.Connected)
+                socket = (Socket)ar.AsyncState;
+                socket.EndConnect(ar);
+
+                if (socket.Connected && socket != null)
                 {
+                    conectar_estado.Set();
                     evento_Conexion_Conectado();
                     paquete_Recibido();
                 }
@@ -73,25 +84,22 @@ namespace Bot_Dofus_1._29._1.Protocolo
                 evento_Fallo_Conexion(ex);
             }
         }
-
+        
         private void recibir_CallBack(IAsyncResult ar)
         {
-            lock (bloqueo)
+            EstadoSocket state = (EstadoSocket)ar.AsyncState;
+            socket = state.socket;
+
+            int bytesRead = socket.EndReceive(ar);
+
+            if (bytesRead > 0)
             {
-                int longitud = socket.EndReceive(ar);
-                if (longitud > 0)
-                {
-                    byte[] paquete = new byte[longitud];
-                    for (int i = 0; i <= longitud - 1; i++)
-                        paquete[i] = buffer[i];
-                    evento_Nuevo_Paquete(paquete);
-                    buffer = new byte[4000];
-                    paquete_Recibido();
-                }
-                else
-                {
-                    evento_Socket_Cerrado();
-                }
+                evento_Nuevo_Paquete(state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead)).ToString());
+                paquete_Recibido();
+            }
+            else
+            {
+                recibir_estado.Set();
             }
         }
 
@@ -110,7 +118,12 @@ namespace Bot_Dofus_1._29._1.Protocolo
             }
         }
 
-        private void evento_Nuevo_Paquete(byte[] paquete)
+        public void cerrar_Socket()
+        {
+            socket.Close();
+        }
+
+        private void evento_Nuevo_Paquete(string paquete)
         {
             evento_paquete_entrada?.Invoke(paquete);
         }

@@ -41,7 +41,7 @@
             this.gestionDeCuentasToolStripMenuItem});
             this.menuSuperiorPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuSuperiorPrincipal.Name = "menuSuperiorPrincipal";
-            this.menuSuperiorPrincipal.Size = new System.Drawing.Size(800, 24);
+            this.menuSuperiorPrincipal.Size = new System.Drawing.Size(980, 24);
             this.menuSuperiorPrincipal.TabIndex = 0;
             this.menuSuperiorPrincipal.Text = "menuSuperiorPrincipal";
             // 
@@ -55,9 +55,9 @@
             // 
             // statusStripInferiorPrincipal
             // 
-            this.statusStripInferiorPrincipal.Location = new System.Drawing.Point(0, 428);
+            this.statusStripInferiorPrincipal.Location = new System.Drawing.Point(0, 639);
             this.statusStripInferiorPrincipal.Name = "statusStripInferiorPrincipal";
-            this.statusStripInferiorPrincipal.Size = new System.Drawing.Size(800, 22);
+            this.statusStripInferiorPrincipal.Size = new System.Drawing.Size(980, 22);
             this.statusStripInferiorPrincipal.TabIndex = 1;
             this.statusStripInferiorPrincipal.Text = "statusStripInferiorPrincipal";
             // 
@@ -66,20 +66,21 @@
             this.tabControlCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlCuentas.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.tabControlCuentas.Location = new System.Drawing.Point(0, 24);
+            this.tabControlCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControlCuentas.Name = "tabControlCuentas";
-            this.tabControlCuentas.Size = new System.Drawing.Size(800, 404);
+            this.tabControlCuentas.Size = new System.Drawing.Size(980, 615);
             this.tabControlCuentas.TabIndex = 2;
             // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(980, 661);
             this.Controls.Add(this.tabControlCuentas);
             this.Controls.Add(this.statusStripInferiorPrincipal);
             this.Controls.Add(this.menuSuperiorPrincipal);
             this.MainMenuStrip = this.menuSuperiorPrincipal;
-            this.MinimumSize = new System.Drawing.Size(816, 489);
+            this.MinimumSize = new System.Drawing.Size(996, 700);
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BotDofus 1.29.1 - Aidemu";
