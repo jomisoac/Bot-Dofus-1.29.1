@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Bot_Dofus_1._29._1</RootNamespace>
     <AssemblyName>Bot_Dofus_1.29.1</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -81,52 +81,94 @@
       <DependentUpon>TabControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controles\TabControl\Pagina.cs" />
-    <Compile Include="Forms\FormCuentas.cs">
+    <Compile Include="Forms\GestionCuentas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormCuentas.Designer.cs">
-      <DependentUpon>FormCuentas.cs</DependentUpon>
+    <Compile Include="Forms\GestionCuentas.Designer.cs">
+      <DependentUpon>GestionCuentas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormPrincipal.cs">
+    <Compile Include="Forms\Opciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormPrincipal.Designer.cs">
-      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    <Compile Include="Forms\Opciones.Designer.cs">
+      <DependentUpon>Opciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Cuenta.cs">
+    <Compile Include="Forms\Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\UI_Personaje.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interfaces\Cuenta.Designer.cs">
-      <DependentUpon>Cuenta.cs</DependentUpon>
+    <Compile Include="Interfaces\UI_Personaje.Designer.cs">
+      <DependentUpon>UI_Personaje.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Debugger.cs">
+    <Compile Include="Interfaces\UI_Principal.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interfaces\Debugger.Designer.cs">
-      <DependentUpon>Debugger.cs</DependentUpon>
+    <Compile Include="Interfaces\UI_Principal.Designer.cs">
+      <DependentUpon>UI_Principal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\UI_Debugger.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interfaces\UI_Debugger.Designer.cs">
+      <DependentUpon>UI_Debugger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibreriaSockets\ProtocoloInterfaz.cs" />
     <Compile Include="Otros\Cuenta.cs" />
+    <Compile Include="Otros\Personaje.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Protocolo\EstadoSocket.cs" />
-    <Compile Include="Protocolo\Eventos.cs" />
-    <Compile Include="Protocolo\ProtocoloSocket.cs" />
-    <Compile Include="Utilidades\Configuracion\GlobalConfiguracion.cs" />
-    <Compile Include="Utilidades\Configuracion\CuentaConfiguracion.cs" />
+    <Compile Include="LibreriaSockets\ClienteProtocolo.cs" />
+    <Compile Include="Protocolo\Constantes.cs" />
+    <Compile Include="Protocolo\Enums\EstadoCuenta.cs" />
+    <Compile Include="Protocolo\Enums\EstadoSocket.cs" />
+    <Compile Include="Protocolo\Enums\ListaPaquetes.cs" />
+    <Compile Include="Protocolo\Extensiones\CadenasAmigables.cs" />
+    <Compile Include="Protocolo\Game\Game.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccionadoMensaje.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccionMensaje.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\RegionalVersionMensaje.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\TiquetMensaje.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\TiquetRespuestaMensaje.cs" />
+    <Compile Include="Protocolo\Login\Login.cs" />
+    <Compile Include="Protocolo\Login\Paquetes\FilaPosicionMensaje.cs" />
+    <Compile Include="Protocolo\Login\Paquetes\HostsMensaje.cs" />
+    <Compile Include="Protocolo\Login\Paquetes\ListaServidoresMensaje.cs" />
+    <Compile Include="Protocolo\Login\Paquetes\LoginMensaje.cs" />
+    <Compile Include="Protocolo\Login\Paquetes\VersionMensaje.cs" />
+    <Compile Include="Protocolo\Mensajes.cs" />
+    <Compile Include="Utilidades\Configuracion\GlobalConf.cs" />
+    <Compile Include="Utilidades\Configuracion\CuentaConf.cs" />
+    <Compile Include="Utilidades\Criptografia\Compressor.cs" />
+    <Compile Include="Utilidades\Criptografia\Hash.cs" />
+    <Compile Include="Utilidades\Extensiones\Extensiones.cs" />
+    <Compile Include="Utilidades\Logs\Logger.cs" />
+    <Compile Include="Utilidades\Logs\LogMensajes.cs" />
+    <Compile Include="Utilidades\Logs\LogTipos.cs" />
     <EmbeddedResource Include="Controles\TabControl\TabControl.resx">
       <DependentUpon>TabControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormCuentas.resx">
-      <DependentUpon>FormCuentas.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\GestionCuentas.resx">
+      <DependentUpon>GestionCuentas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormPrincipal.resx">
-      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Opciones.resx">
+      <DependentUpon>Opciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interfaces\Cuenta.resx">
-      <DependentUpon>Cuenta.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interfaces\Debugger.resx">
-      <DependentUpon>Debugger.cs</DependentUpon>
+    <EmbeddedResource Include="Interfaces\UI_Personaje.resx">
+      <DependentUpon>UI_Personaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\UI_Principal.resx">
+      <DependentUpon>UI_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\UI_Debugger.resx">
+      <DependentUpon>UI_Debugger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -189,9 +231,6 @@
     <None Include="Resources\iconos\circulo_rojo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Protocolo\Paquetes\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\iconos\terminal.png" />
   </ItemGroup>
   <ItemGroup>
@@ -217,9 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stats\energia.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\energy.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stats\esquiva_pa.png" />
@@ -291,9 +327,6 @@
     <None Include="Resources\stats\balanza.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\stats\dinero_kamas.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\iconos\dinero_kamas.png" />
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +334,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconos\experiencia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconos\boton_ajustes.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

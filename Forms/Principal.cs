@@ -1,29 +1,30 @@
-﻿using Bot_Dofus_1._29._1.Controles.TabControl;
-using Bot_Dofus_1._29._1.Interfaces;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Bot_Dofus_1._29._1.Controles.TabControl;
+using Bot_Dofus_1._29._1.Interfaces;
 
 namespace Bot_Dofus_1._29._1.Forms
 {
-    public partial class FormPrincipal : Form
+    public partial class Principal : Form
     {
         public static Dictionary<string, Pagina> paginas_cuentas_cargadas;
 
-        public FormPrincipal()
+        public Principal()
         {
             InitializeComponent();
             paginas_cuentas_cargadas = new Dictionary<string, Pagina>();
         }
 
-        private void gestionDeCuentasToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void gestionDeCuentasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (FormCuentas gestion_cuentas = new FormCuentas())
+            using (GestionCuentas gestion_cuentas = new GestionCuentas())
             {
                 if (gestion_cuentas.ShowDialog() == DialogResult.OK)
                 {
                     gestion_cuentas.get_Cuentas_Cargadas().ForEach(x =>
                     {
-                        paginas_cuentas_cargadas.Add(x.get_Nombre_cuenta(), agregar_Nueva_Tab_Pagina(x.get_Nombre_cuenta(), new Cuenta(x)));
+                        paginas_cuentas_cargadas.Add(x.get_Nombre_Cuenta(), agregar_Nueva_Tab_Pagina(x.get_Nombre_Cuenta(), new UI_Principal(x)));
                     });
                 }
             }
@@ -42,6 +43,14 @@ namespace Bot_Dofus_1._29._1.Forms
         public static Dictionary<string, Pagina> get_Paginas_Cuentas_Cargadas()
         {
             return paginas_cuentas_cargadas;
+        }
+
+        private void opcionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Opciones of = new Opciones())
+            {
+                of.ShowDialog();
+            }
         }
     }
 }

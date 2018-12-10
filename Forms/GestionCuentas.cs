@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace Bot_Dofus_1._29._1.Forms
 {
-    public partial class FormCuentas : Form
+    public partial class GestionCuentas : Form
     {
-        private List<CuentaConfiguracion> cuentas_cargadas;
+        private List<CuentaConf> cuentas_cargadas;
 
-        public FormCuentas()
+        public GestionCuentas()
         {
             InitializeComponent();
-            cuentas_cargadas = new List<CuentaConfiguracion>();
+            cuentas_cargadas = new List<CuentaConf>();
 
             comboBox_Servidor.SelectedIndex = 0;
             cargar_Cuentas_Lista();
@@ -24,11 +24,11 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             listViewCuentas.Items.Clear();
 
-            GlobalConfiguracion.get_Lista_Cuentas().ForEach(x =>
+            GlobalConf.get_Lista_Cuentas().ForEach(x =>
             {
-                if(!FormPrincipal.get_Paginas_Cuentas_Cargadas().ContainsKey(x.get_Nombre_cuenta()))
+                if(!Principal.get_Paginas_Cuentas_Cargadas().ContainsKey(x.get_Nombre_Cuenta()))
                 {
-                    listViewCuentas.Items.Add(x.get_Nombre_cuenta()).SubItems.AddRange(new string[] { x.get_servidor(), string.IsNullOrEmpty(x.get_nombre_personaje()) ? "Default" : x.get_nombre_personaje() });
+                    listViewCuentas.Items.Add(x.get_Nombre_Cuenta()).SubItems.AddRange(new string[] { x.get_Servidor(), string.IsNullOrEmpty(x.get_nombre_personaje()) ? "Default" : x.get_nombre_personaje() });
                 }
             });
         }
@@ -37,13 +37,13 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             if (textBox_Nombre_Cuenta.TextLength != 0 && textBox_Password.TextLength != 0)
             {
-                if (GlobalConfiguracion.get_Cuenta(textBox_Nombre_Cuenta.Text) != null)
+                if (GlobalConf.get_Cuenta(textBox_Nombre_Cuenta.Text) != null)
                 {
                     MessageBox.Show("Ya existe una cuenta con el nombre de cuenta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                GlobalConfiguracion.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_Nombre_Personaje.Text);
+                GlobalConf.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_Nombre_Personaje.Text);
                 cargar_Cuentas_Lista();
 
                 textBox_Nombre_Cuenta.Clear();
@@ -54,7 +54,7 @@ namespace Bot_Dofus_1._29._1.Forms
                 {
                     tabControlPrincipalCuentas.SelectedIndex = 0;
                 }
-                GlobalConfiguracion.guardar_Todas_Cuentas();
+                GlobalConf.guardar_Configuracion();
             }
             else
             {
@@ -80,10 +80,10 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 foreach (ListViewItem cuenta in listViewCuentas.SelectedItems)
                 {
-                    GlobalConfiguracion.eliminar_Cuenta(cuenta.Index);
+                    GlobalConf.eliminar_Cuenta(cuenta.Index);
                     cuenta.Remove();
                 }
-                GlobalConfiguracion.guardar_Todas_Cuentas();
+                GlobalConf.guardar_Configuracion();
                 cargar_Cuentas_Lista();
             }
         }
@@ -94,17 +94,14 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 foreach(ListViewItem cuenta in listViewCuentas.SelectedItems)
                 {
-                    cuentas_cargadas.Add(GlobalConfiguracion.get_Lista_Cuentas().FirstOrDefault(f => f.get_Nombre_cuenta() == cuenta.Text));
+                    cuentas_cargadas.Add(GlobalConf.get_Lista_Cuentas().FirstOrDefault(f => f.get_Nombre_Cuenta() == cuenta.Text));
                 }
                 DialogResult = DialogResult.OK;
                 Close();
             }
         }
 
-        public List<CuentaConfiguracion> get_Cuentas_Cargadas()
-        {
-            return cuentas_cargadas;
-        }
+        public List<CuentaConf> get_Cuentas_Cargadas() => cuentas_cargadas;
 
         private void listViewCuentas_MouseDoubleClick(object sender, MouseEventArgs e)
         {

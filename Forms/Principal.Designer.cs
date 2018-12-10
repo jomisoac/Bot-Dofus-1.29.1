@@ -1,6 +1,6 @@
 ﻿namespace Bot_Dofus_1._29._1.Forms
 {
-    partial class FormPrincipal
+    partial class Principal
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -30,6 +30,7 @@
         {
             this.menuSuperiorPrincipal = new System.Windows.Forms.MenuStrip();
             this.gestionDeCuentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripInferiorPrincipal = new System.Windows.Forms.StatusStrip();
             this.tabControlCuentas = new Bot_Dofus_1._29._1.Controles.TabControl.TabControl();
             this.menuSuperiorPrincipal.SuspendLayout();
@@ -38,7 +39,8 @@
             // menuSuperiorPrincipal
             // 
             this.menuSuperiorPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gestionDeCuentasToolStripMenuItem});
+            this.gestionDeCuentasToolStripMenuItem,
+            this.opcionesToolStripMenuItem});
             this.menuSuperiorPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuSuperiorPrincipal.Name = "menuSuperiorPrincipal";
             this.menuSuperiorPrincipal.Size = new System.Drawing.Size(980, 24);
@@ -52,6 +54,14 @@
             this.gestionDeCuentasToolStripMenuItem.Size = new System.Drawing.Size(135, 20);
             this.gestionDeCuentasToolStripMenuItem.Text = "Gestión de cuentas";
             this.gestionDeCuentasToolStripMenuItem.Click += new System.EventHandler(this.gestionDeCuentasToolStripMenuItem_Click);
+            // 
+            // opcionesToolStripMenuItem
+            // 
+            this.opcionesToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_ajustes;
+            this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
+            this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.opcionesToolStripMenuItem.Text = "Ajustes";
+            this.opcionesToolStripMenuItem.Click += new System.EventHandler(this.opcionesToolStripMenuItem_Click);
             // 
             // statusStripInferiorPrincipal
             // 
@@ -71,7 +81,7 @@
             this.tabControlCuentas.Size = new System.Drawing.Size(980, 615);
             this.tabControlCuentas.TabIndex = 2;
             // 
-            // FormPrincipal
+            // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -81,9 +91,9 @@
             this.Controls.Add(this.menuSuperiorPrincipal);
             this.MainMenuStrip = this.menuSuperiorPrincipal;
             this.MinimumSize = new System.Drawing.Size(996, 700);
-            this.Name = "FormPrincipal";
+            this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BotDofus 1.29.1 - Aidemu";
+            this.Text = "BotDofus 1.29.1 - Alvaro Prendes";
             this.menuSuperiorPrincipal.ResumeLayout(false);
             this.menuSuperiorPrincipal.PerformLayout();
             this.ResumeLayout(false);
@@ -97,6 +107,7 @@
         private System.Windows.Forms.StatusStrip statusStripInferiorPrincipal;
         private Controles.TabControl.TabControl tabControlCuentas;
         private System.Windows.Forms.ToolStripMenuItem gestionDeCuentasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem opcionesToolStripMenuItem;
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿namespace Bot_Dofus_1._29._1.Interfaces
 {
-    partial class Cuenta
+    partial class UI_Principal
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -23,7 +23,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Cuenta));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI_Principal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.desconectarOconectarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,13 +40,13 @@
             this.colorCheckBox_canal_gremio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.colorCheckBox_mensajes_privados = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.colorCheckBox_canal_general = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.richTextBox_mensajes_consola = new System.Windows.Forms.RichTextBox();
+            this.textbox_logs = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox_enviar_consola = new System.Windows.Forms.TextBox();
             this.button_limpiar_consola = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.debugger = new Bot_Dofus_1._29._1.Interfaces.Debugger();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.debugger = new Bot_Dofus_1._29._1.Interfaces.UI_Debugger();
+            this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -126,7 +126,7 @@
             this.tabControl_principal.Controls.Add(this.tabPage_consola);
             this.tabControl_principal.Controls.Add(this.tabPage2);
             this.tabControl_principal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl_principal.ImageList = this.imageList1;
+            this.tabControl_principal.ImageList = this.lista_imagenes;
             this.tabControl_principal.ItemSize = new System.Drawing.Size(67, 26);
             this.tabControl_principal.Location = new System.Drawing.Point(3, 3);
             this.tabControl_principal.Name = "tabControl_principal";
@@ -153,7 +153,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.richTextBox_mensajes_consola, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textbox_logs, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
@@ -294,15 +294,16 @@
             this.colorCheckBox_canal_general.TabIndex = 1;
             this.colorCheckBox_canal_general.UseVisualStyleBackColor = false;
             // 
-            // richTextBox_mensajes_consola
+            // textbox_logs
             // 
-            this.richTextBox_mensajes_consola.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox_mensajes_consola.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox_mensajes_consola.Location = new System.Drawing.Point(3, 3);
-            this.richTextBox_mensajes_consola.Name = "richTextBox_mensajes_consola";
-            this.richTextBox_mensajes_consola.Size = new System.Drawing.Size(751, 459);
-            this.richTextBox_mensajes_consola.TabIndex = 5;
-            this.richTextBox_mensajes_consola.Text = "";
+            this.textbox_logs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textbox_logs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textbox_logs.Location = new System.Drawing.Point(3, 3);
+            this.textbox_logs.MaxLength = 200;
+            this.textbox_logs.Name = "textbox_logs";
+            this.textbox_logs.Size = new System.Drawing.Size(751, 459);
+            this.textbox_logs.TabIndex = 5;
+            this.textbox_logs.Text = "";
             // 
             // tableLayoutPanel1
             // 
@@ -345,12 +346,13 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.debugger);
+            this.tabPage2.ImageIndex = 1;
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(790, 505);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Debugger";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // debugger
@@ -365,11 +367,18 @@
             this.debugger.Size = new System.Drawing.Size(790, 500);
             this.debugger.TabIndex = 0;
             // 
-            // imageList1
+            // lista_imagenes
             // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "terminal.png");
+            this.lista_imagenes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lista_imagenes.ImageStream")));
+            this.lista_imagenes.TransparentColor = System.Drawing.Color.Transparent;
+            this.lista_imagenes.Images.SetKeyName(0, "application32.png");
+            this.lista_imagenes.Images.SetKeyName(1, "f-bug_256-24.png");
+            this.lista_imagenes.Images.SetKeyName(2, "user-blue32.png");
+            this.lista_imagenes.Images.SetKeyName(3, "briefcase48.png");
+            this.lista_imagenes.Images.SetKeyName(4, "678074-map-24.png");
+            this.lista_imagenes.Images.SetKeyName(5, "Iron_Sword32.png");
+            this.lista_imagenes.Images.SetKeyName(6, "bank_silver32.png");
+            this.lista_imagenes.Images.SetKeyName(7, "cog-icon-2-48x48 (1).png");
             // 
             // tableLayoutPanel4
             // 
@@ -505,7 +514,7 @@
             this.progresBar_pods.Valor = 0;
             this.progresBar_pods.valor_Maximo = 100;
             // 
-            // Cuenta
+            // UI_Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -514,7 +523,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Cuenta";
+            this.Name = "UI_Principal";
             this.Size = new System.Drawing.Size(804, 604);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -558,8 +567,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox textBox_enviar_consola;
         private System.Windows.Forms.Button button_limpiar_consola;
-        private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.RichTextBox richTextBox_mensajes_consola;
+        private System.Windows.Forms.RichTextBox textbox_logs;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -570,6 +578,7 @@
         private Controles.ProgresBar.ProgresBar progresBar_energia;
         private Controles.ProgresBar.ProgresBar progresBar_experiencia;
         private Controles.ProgresBar.ProgresBar progresBar_pods;
-        private Debugger debugger;
+        private UI_Debugger debugger;
+        private System.Windows.Forms.ImageList lista_imagenes;
     }
 }

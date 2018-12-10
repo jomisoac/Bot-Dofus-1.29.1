@@ -1,6 +1,6 @@
 ﻿namespace Bot_Dofus_1._29._1.Forms
 {
-    partial class FormCuentas
+    partial class GestionCuentas
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCuentas));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GestionCuentas));
             this.tabControlPrincipalCuentas = new System.Windows.Forms.TabControl();
             this.ListaCuentas = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -525,7 +525,7 @@
             this.imagenesFormCuentas.Images.SetKeyName(0, "agregar_cuenta.png");
             this.imagenesFormCuentas.Images.SetKeyName(1, "lista_cuentas.png");
             // 
-            // FormCuentas
+            // GestionCuentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -535,9 +535,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(479, 437);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(461, 394);
-            this.Name = "FormCuentas";
+            this.MinimumSize = new System.Drawing.Size(479, 437);
+            this.Name = "GestionCuentas";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestor cuentas";

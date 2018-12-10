@@ -16,10 +16,10 @@ namespace Bot_Dofus_1._29._1
        
             Task.Factory.StartNew(() =>
             {
-                GlobalConfiguracion.cargar_Todas_Cuentas();
+                GlobalConf.cargar_Todas_Cuentas();
             });
 
-            Application.Run(new FormPrincipal());
+            Application.Run(new Principal());
         }
     }
 }
