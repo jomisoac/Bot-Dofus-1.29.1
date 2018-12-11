@@ -64,18 +64,49 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void cargar_Eventos_Debugger(ClienteProtocolo socket)
         {
-            switch(cuenta.Fase_Socket)
+            switch (cuenta.Fase_Socket)
             {
                 case EstadoSocket.CAMBIANDO_A_JUEGO:
                     socket.evento_paquete_recibido += debugger.paquete_Recibido;
                     socket.evento_paquete_enviado += debugger.paquete_Enviado;
                     socket.evento_socket_informacion += escribir_mensaje;
-                break;
+                    break;
 
                 case EstadoSocket.JUEGO:
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
+                    activar_Todos_Controles_Chat();
+                    cuenta.personaje.socket_canal_personaje += socket_Evento_Chat;
+                    cuenta.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
                 break;
             }
+        }
+
+        private void personaje_Caracteristicas_Actualizadas()
+        {
+            BeginInvoke((Action)(() =>
+            {
+                progresBar_energia.Valor = cuenta.personaje.caracteristicas.energia_actual;
+                progresBar_energia.valor_Maximo = cuenta.personaje.caracteristicas.maxima_energia;
+                progresBar_experiencia.Text = cuenta.personaje.nivel.ToString();
+                progresBar_experiencia.Valor = cuenta.personaje.porcentaje_experiencia;
+                label_kamas_principal.Text = cuenta.personaje.caracteristicas.kamas.ToString();
+            }));
+        }
+
+        private void activar_Todos_Controles_Chat()
+        {
+            BeginInvoke((Action)(() =>
+            {
+                canal_informaciones.Enabled = true;
+                canal_general.Enabled = true;
+                canal_privado.Enabled = true;
+                canal_gremio.Enabled = true;
+                canal_alineamiento.Enabled = true;
+                canal_reclutamiento.Enabled = true;
+                canal_comercio.Enabled = true;
+                canal_incarnam.Enabled = true;
+                textBox_enviar_consola.Enabled = true;
+            }));
         }
 
         private void cargar_Eventos_Login()
@@ -120,10 +151,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
             tabControl_principal.BeginInvoke((Action)(() =>
             {
                 control.Dock = DockStyle.Fill;
-                var newPage = new TabPage(nombre);
-                newPage.ImageIndex = imagen_index;
-                newPage.Controls.Add(control);
-                tabControl_principal.TabPages.Add(newPage);
+                var nueva_pagina = new TabPage(nombre);
+                nueva_pagina.ImageIndex = imagen_index;
+                nueva_pagina.Controls.Add(control);
+                tabControl_principal.TabPages.Add(nueva_pagina);
             }));
         }
 
@@ -139,6 +170,78 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 textbox_logs.AppendText(mensaje + Environment.NewLine);
                 textbox_logs.ScrollToCaret();
             }));
+        }
+
+        private void socket_Evento_Chat()
+        {
+            BeginInvoke((Action)(() =>
+            {
+                canal_informaciones.Checked = cuenta.personaje.canales.Contains("i");
+                canal_general.Checked = cuenta.personaje.canales.Contains("*");
+                canal_privado.Checked = cuenta.personaje.canales.Contains("#$p");
+                canal_gremio.Checked = cuenta.personaje.canales.Contains("%");
+                canal_alineamiento.Checked = cuenta.personaje.canales.Contains("!");
+                canal_reclutamiento.Checked = cuenta.personaje.canales.Contains("?");
+                canal_comercio.Checked = cuenta.personaje.canales.Contains(":");
+                canal_incarnam.Checked = cuenta.personaje.canales.Contains("^");
+            }));
+        }
+
+        private void canal_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cuenta.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
+            {
+                CheckBox control = sender as CheckBox;
+                switch (control.Name)
+                {
+                    case "canal_informaciones":
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+i" : "cC-i");
+                    break;
+
+                    case "canal_general":
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+*" : "cC-*");
+                    break;
+
+                    case "canal_privado":
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+#$p" : "cC-#$p");
+                    break;
+
+                    case "canal_gremio":
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+%" : "cC-%");
+                    break;
+
+                    case "canal_alineamiento":
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+!" : "cC-!");
+                    break;
+
+                    case "canal_reclutamiento":
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+?" : "cC-?");
+                    break;
+
+                    case "canal_comercio":
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+:" : "cC-:");
+                    break;
+
+                    case "canal_incarnam":
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+^" : "cC-^");
+                    break;
+                }
+            }
+        }
+
+        private void textBox_enviar_consola_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && textBox_enviar_consola.TextLength > 0 && textBox_enviar_consola.TextLength < 255)
+            {
+                if (cuenta.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
+                {
+                    cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
+
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    textBox_enviar_consola.Clear();
+                }
+            }
         }
     }
 }

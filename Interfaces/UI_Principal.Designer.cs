@@ -1,4 +1,6 @@
-﻿namespace Bot_Dofus_1._29._1.Interfaces
+﻿using Bot_Dofus_1._29._1.Controles.ColorCheckBox;
+
+namespace Bot_Dofus_1._29._1.Interfaces
 {
     partial class UI_Principal
     {
@@ -33,13 +35,14 @@
             this.tabPage_consola = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.colorCheckBox_canal_informaciomes = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.colorCheckBox_canal_comercio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.colorCheckBox_canal_alineamiento = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.colorCheckBox_canal_reclutamiento = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.colorCheckBox_canal_gremio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.colorCheckBox_mensajes_privados = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.colorCheckBox_canal_general = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
+            this.canal_incarnam = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
+            this.canal_informaciones = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
+            this.canal_comercio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
+            this.canal_alineamiento = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
+            this.canal_reclutamiento = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
+            this.canal_gremio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
+            this.canal_privado = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
+            this.canal_general = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.textbox_logs = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox_enviar_consola = new System.Windows.Forms.TextBox();
@@ -57,6 +60,7 @@
             this.progresBar_energia = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_experiencia = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_pods = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
+            this.label_kamas_principal = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel_principal.SuspendLayout();
             this.tabControl_principal.SuspendLayout();
@@ -167,132 +171,141 @@
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.colorCheckBox_canal_informaciomes, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.colorCheckBox_canal_comercio, 0, 6);
-            this.tableLayoutPanel3.Controls.Add(this.colorCheckBox_canal_alineamiento, 0, 4);
-            this.tableLayoutPanel3.Controls.Add(this.colorCheckBox_canal_reclutamiento, 0, 5);
-            this.tableLayoutPanel3.Controls.Add(this.colorCheckBox_canal_gremio, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.colorCheckBox_mensajes_privados, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.colorCheckBox_canal_general, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.canal_incarnam, 0, 7);
+            this.tableLayoutPanel3.Controls.Add(this.canal_informaciones, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.canal_comercio, 0, 6);
+            this.tableLayoutPanel3.Controls.Add(this.canal_alineamiento, 0, 4);
+            this.tableLayoutPanel3.Controls.Add(this.canal_reclutamiento, 0, 5);
+            this.tableLayoutPanel3.Controls.Add(this.canal_gremio, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this.canal_privado, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.canal_general, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(760, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 7;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel3.RowCount = 8;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(21, 459);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // colorCheckBox_canal_informaciomes
+            // canal_incarnam
             // 
-            this.colorCheckBox_canal_informaciomes.AutoSize = true;
-            this.colorCheckBox_canal_informaciomes.BackColor = System.Drawing.Color.Green;
-            this.colorCheckBox_canal_informaciomes.Checked = true;
-            this.colorCheckBox_canal_informaciomes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.colorCheckBox_canal_informaciomes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.colorCheckBox_canal_informaciomes.Enabled = false;
-            this.colorCheckBox_canal_informaciomes.ForeColor = System.Drawing.Color.Black;
-            this.colorCheckBox_canal_informaciomes.Location = new System.Drawing.Point(3, 48);
-            this.colorCheckBox_canal_informaciomes.Name = "colorCheckBox_canal_informaciomes";
-            this.colorCheckBox_canal_informaciomes.Size = new System.Drawing.Size(15, 14);
-            this.colorCheckBox_canal_informaciomes.TabIndex = 0;
-            this.colorCheckBox_canal_informaciomes.UseVisualStyleBackColor = false;
+            this.canal_incarnam.AutoSize = true;
+            this.canal_incarnam.BackColor = System.Drawing.Color.Blue;
+            this.canal_incarnam.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_incarnam.Enabled = false;
+            this.canal_incarnam.ForeColor = System.Drawing.Color.Black;
+            this.canal_incarnam.Location = new System.Drawing.Point(3, 442);
+            this.canal_incarnam.Name = "canal_incarnam";
+            this.canal_incarnam.Size = new System.Drawing.Size(15, 14);
+            this.canal_incarnam.TabIndex = 7;
+            this.canal_incarnam.UseVisualStyleBackColor = false;
+            this.canal_incarnam.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
             // 
-            // colorCheckBox_canal_comercio
+            // canal_informaciones
             // 
-            this.colorCheckBox_canal_comercio.AutoSize = true;
-            this.colorCheckBox_canal_comercio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(62)))), ((int)(((byte)(28)))));
-            this.colorCheckBox_canal_comercio.Checked = true;
-            this.colorCheckBox_canal_comercio.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.colorCheckBox_canal_comercio.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.colorCheckBox_canal_comercio.Enabled = false;
-            this.colorCheckBox_canal_comercio.ForeColor = System.Drawing.Color.Black;
-            this.colorCheckBox_canal_comercio.Location = new System.Drawing.Point(3, 442);
-            this.colorCheckBox_canal_comercio.Name = "colorCheckBox_canal_comercio";
-            this.colorCheckBox_canal_comercio.Size = new System.Drawing.Size(15, 14);
-            this.colorCheckBox_canal_comercio.TabIndex = 6;
-            this.colorCheckBox_canal_comercio.UseVisualStyleBackColor = false;
+            this.canal_informaciones.AutoSize = true;
+            this.canal_informaciones.BackColor = System.Drawing.Color.Green;
+            this.canal_informaciones.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_informaciones.Enabled = false;
+            this.canal_informaciones.ForeColor = System.Drawing.Color.Black;
+            this.canal_informaciones.Location = new System.Drawing.Point(3, 40);
+            this.canal_informaciones.Name = "canal_informaciones";
+            this.canal_informaciones.Size = new System.Drawing.Size(15, 14);
+            this.canal_informaciones.TabIndex = 0;
+            this.canal_informaciones.UseVisualStyleBackColor = false;
+            this.canal_informaciones.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
             // 
-            // colorCheckBox_canal_alineamiento
+            // canal_comercio
             // 
-            this.colorCheckBox_canal_alineamiento.AutoSize = true;
-            this.colorCheckBox_canal_alineamiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(146)))), ((int)(((byte)(69)))));
-            this.colorCheckBox_canal_alineamiento.Checked = true;
-            this.colorCheckBox_canal_alineamiento.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.colorCheckBox_canal_alineamiento.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.colorCheckBox_canal_alineamiento.Enabled = false;
-            this.colorCheckBox_canal_alineamiento.ForeColor = System.Drawing.Color.Black;
-            this.colorCheckBox_canal_alineamiento.Location = new System.Drawing.Point(3, 308);
-            this.colorCheckBox_canal_alineamiento.Name = "colorCheckBox_canal_alineamiento";
-            this.colorCheckBox_canal_alineamiento.Size = new System.Drawing.Size(15, 14);
-            this.colorCheckBox_canal_alineamiento.TabIndex = 4;
-            this.colorCheckBox_canal_alineamiento.UseVisualStyleBackColor = false;
+            this.canal_comercio.AutoSize = true;
+            this.canal_comercio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(62)))), ((int)(((byte)(28)))));
+            this.canal_comercio.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_comercio.Enabled = false;
+            this.canal_comercio.ForeColor = System.Drawing.Color.Black;
+            this.canal_comercio.Location = new System.Drawing.Point(3, 382);
+            this.canal_comercio.Name = "canal_comercio";
+            this.canal_comercio.Size = new System.Drawing.Size(15, 14);
+            this.canal_comercio.TabIndex = 6;
+            this.canal_comercio.UseVisualStyleBackColor = false;
+            this.canal_comercio.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
             // 
-            // colorCheckBox_canal_reclutamiento
+            // canal_alineamiento
             // 
-            this.colorCheckBox_canal_reclutamiento.AutoSize = true;
-            this.colorCheckBox_canal_reclutamiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(133)))), ((int)(((byte)(135)))));
-            this.colorCheckBox_canal_reclutamiento.Checked = true;
-            this.colorCheckBox_canal_reclutamiento.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.colorCheckBox_canal_reclutamiento.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.colorCheckBox_canal_reclutamiento.Enabled = false;
-            this.colorCheckBox_canal_reclutamiento.ForeColor = System.Drawing.Color.Black;
-            this.colorCheckBox_canal_reclutamiento.Location = new System.Drawing.Point(3, 373);
-            this.colorCheckBox_canal_reclutamiento.Name = "colorCheckBox_canal_reclutamiento";
-            this.colorCheckBox_canal_reclutamiento.Size = new System.Drawing.Size(15, 14);
-            this.colorCheckBox_canal_reclutamiento.TabIndex = 5;
-            this.colorCheckBox_canal_reclutamiento.UseVisualStyleBackColor = false;
+            this.canal_alineamiento.AutoSize = true;
+            this.canal_alineamiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(146)))), ((int)(((byte)(69)))));
+            this.canal_alineamiento.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_alineamiento.Enabled = false;
+            this.canal_alineamiento.ForeColor = System.Drawing.Color.Black;
+            this.canal_alineamiento.Location = new System.Drawing.Point(3, 268);
+            this.canal_alineamiento.Name = "canal_alineamiento";
+            this.canal_alineamiento.Size = new System.Drawing.Size(15, 14);
+            this.canal_alineamiento.TabIndex = 4;
+            this.canal_alineamiento.UseVisualStyleBackColor = false;
+            this.canal_alineamiento.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
             // 
-            // colorCheckBox_canal_gremio
+            // canal_reclutamiento
             // 
-            this.colorCheckBox_canal_gremio.AutoSize = true;
-            this.colorCheckBox_canal_gremio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(48)))), ((int)(((byte)(160)))));
-            this.colorCheckBox_canal_gremio.Checked = true;
-            this.colorCheckBox_canal_gremio.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.colorCheckBox_canal_gremio.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.colorCheckBox_canal_gremio.Enabled = false;
-            this.colorCheckBox_canal_gremio.ForeColor = System.Drawing.Color.Black;
-            this.colorCheckBox_canal_gremio.Location = new System.Drawing.Point(3, 243);
-            this.colorCheckBox_canal_gremio.Name = "colorCheckBox_canal_gremio";
-            this.colorCheckBox_canal_gremio.Size = new System.Drawing.Size(15, 14);
-            this.colorCheckBox_canal_gremio.TabIndex = 3;
-            this.colorCheckBox_canal_gremio.UseVisualStyleBackColor = false;
+            this.canal_reclutamiento.AutoSize = true;
+            this.canal_reclutamiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(133)))), ((int)(((byte)(135)))));
+            this.canal_reclutamiento.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_reclutamiento.Enabled = false;
+            this.canal_reclutamiento.ForeColor = System.Drawing.Color.Black;
+            this.canal_reclutamiento.Location = new System.Drawing.Point(3, 325);
+            this.canal_reclutamiento.Name = "canal_reclutamiento";
+            this.canal_reclutamiento.Size = new System.Drawing.Size(15, 14);
+            this.canal_reclutamiento.TabIndex = 5;
+            this.canal_reclutamiento.UseVisualStyleBackColor = false;
+            this.canal_reclutamiento.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
             // 
-            // colorCheckBox_mensajes_privados
+            // canal_gremio
             // 
-            this.colorCheckBox_mensajes_privados.AutoSize = true;
-            this.colorCheckBox_mensajes_privados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(112)))), ((int)(((byte)(196)))));
-            this.colorCheckBox_mensajes_privados.Checked = true;
-            this.colorCheckBox_mensajes_privados.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.colorCheckBox_mensajes_privados.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.colorCheckBox_mensajes_privados.Enabled = false;
-            this.colorCheckBox_mensajes_privados.ForeColor = System.Drawing.Color.Black;
-            this.colorCheckBox_mensajes_privados.Location = new System.Drawing.Point(3, 178);
-            this.colorCheckBox_mensajes_privados.Name = "colorCheckBox_mensajes_privados";
-            this.colorCheckBox_mensajes_privados.Size = new System.Drawing.Size(15, 14);
-            this.colorCheckBox_mensajes_privados.TabIndex = 2;
-            this.colorCheckBox_mensajes_privados.UseVisualStyleBackColor = false;
+            this.canal_gremio.AutoSize = true;
+            this.canal_gremio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(48)))), ((int)(((byte)(160)))));
+            this.canal_gremio.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_gremio.Enabled = false;
+            this.canal_gremio.ForeColor = System.Drawing.Color.Black;
+            this.canal_gremio.Location = new System.Drawing.Point(3, 211);
+            this.canal_gremio.Name = "canal_gremio";
+            this.canal_gremio.Size = new System.Drawing.Size(15, 14);
+            this.canal_gremio.TabIndex = 3;
+            this.canal_gremio.UseVisualStyleBackColor = false;
+            this.canal_gremio.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
             // 
-            // colorCheckBox_canal_general
+            // canal_privado
             // 
-            this.colorCheckBox_canal_general.AutoSize = true;
-            this.colorCheckBox_canal_general.BackColor = System.Drawing.Color.Black;
-            this.colorCheckBox_canal_general.Checked = true;
-            this.colorCheckBox_canal_general.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.colorCheckBox_canal_general.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.colorCheckBox_canal_general.Enabled = false;
-            this.colorCheckBox_canal_general.ForeColor = System.Drawing.Color.Black;
-            this.colorCheckBox_canal_general.Location = new System.Drawing.Point(3, 113);
-            this.colorCheckBox_canal_general.Name = "colorCheckBox_canal_general";
-            this.colorCheckBox_canal_general.Size = new System.Drawing.Size(15, 14);
-            this.colorCheckBox_canal_general.TabIndex = 1;
-            this.colorCheckBox_canal_general.UseVisualStyleBackColor = false;
+            this.canal_privado.AutoSize = true;
+            this.canal_privado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(112)))), ((int)(((byte)(196)))));
+            this.canal_privado.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_privado.Enabled = false;
+            this.canal_privado.ForeColor = System.Drawing.Color.Black;
+            this.canal_privado.Location = new System.Drawing.Point(3, 154);
+            this.canal_privado.Name = "canal_privado";
+            this.canal_privado.Size = new System.Drawing.Size(15, 14);
+            this.canal_privado.TabIndex = 2;
+            this.canal_privado.UseVisualStyleBackColor = false;
+            this.canal_privado.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            // 
+            // canal_general
+            // 
+            this.canal_general.AutoSize = true;
+            this.canal_general.BackColor = System.Drawing.Color.Black;
+            this.canal_general.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_general.Enabled = false;
+            this.canal_general.ForeColor = System.Drawing.Color.Black;
+            this.canal_general.Location = new System.Drawing.Point(3, 97);
+            this.canal_general.Name = "canal_general";
+            this.canal_general.Size = new System.Drawing.Size(15, 14);
+            this.canal_general.TabIndex = 1;
+            this.canal_general.UseVisualStyleBackColor = false;
+            this.canal_general.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
             // 
             // textbox_logs
             // 
@@ -330,6 +343,7 @@
             this.textBox_enviar_consola.Name = "textBox_enviar_consola";
             this.textBox_enviar_consola.Size = new System.Drawing.Size(743, 25);
             this.textBox_enviar_consola.TabIndex = 0;
+            this.textBox_enviar_consola.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_enviar_consola_KeyDown);
             // 
             // button_limpiar_consola
             // 
@@ -402,6 +416,7 @@
             this.tableLayoutPanel4.Controls.Add(this.progresBar_energia, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.progresBar_experiencia, 5, 0);
             this.tableLayoutPanel4.Controls.Add(this.progresBar_pods, 7, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label_kamas_principal, 9, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 571);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -485,7 +500,7 @@
             this.progresBar_energia.Name = "progresBar_energia";
             this.progresBar_energia.Size = new System.Drawing.Size(113, 27);
             this.progresBar_energia.TabIndex = 6;
-            this.progresBar_energia.tipos_Barra = Bot_Dofus_1._29._1.Controles.ProgresBar.TipoProgresBar.VALOR_PORCENTAJE;
+            this.progresBar_energia.tipos_Barra = Bot_Dofus_1._29._1.Controles.ProgresBar.TipoProgresBar.VALOR_MAXIMO;
             this.progresBar_energia.Valor = 0;
             this.progresBar_energia.valor_Maximo = 10000;
             // 
@@ -514,6 +529,17 @@
             this.progresBar_pods.Valor = 0;
             this.progresBar_pods.valor_Maximo = 100;
             // 
+            // label_kamas_principal
+            // 
+            this.label_kamas_principal.AutoSize = true;
+            this.label_kamas_principal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_kamas_principal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_kamas_principal.Location = new System.Drawing.Point(684, 0);
+            this.label_kamas_principal.Name = "label_kamas_principal";
+            this.label_kamas_principal.Size = new System.Drawing.Size(117, 33);
+            this.label_kamas_principal.TabIndex = 9;
+            this.label_kamas_principal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // UI_Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -537,6 +563,7 @@
             this.tableLayoutPanel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -557,13 +584,12 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private Controles.ColorCheckBox.ColorCheckBox colorCheckBox_canal_informaciomes;
-        private Controles.ColorCheckBox.ColorCheckBox colorCheckBox_canal_comercio;
-        private Controles.ColorCheckBox.ColorCheckBox colorCheckBox_canal_alineamiento;
-        private Controles.ColorCheckBox.ColorCheckBox colorCheckBox_canal_reclutamiento;
-        private Controles.ColorCheckBox.ColorCheckBox colorCheckBox_canal_gremio;
-        private Controles.ColorCheckBox.ColorCheckBox colorCheckBox_mensajes_privados;
-        private Controles.ColorCheckBox.ColorCheckBox colorCheckBox_canal_general;
+        private ColorCheckBox canal_informaciones;
+        private ColorCheckBox canal_comercio;
+        private ColorCheckBox canal_alineamiento;
+        private ColorCheckBox canal_reclutamiento;
+        private ColorCheckBox canal_gremio;
+        private ColorCheckBox canal_privado;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox textBox_enviar_consola;
         private System.Windows.Forms.Button button_limpiar_consola;
@@ -580,5 +606,8 @@
         private Controles.ProgresBar.ProgresBar progresBar_pods;
         private UI_Debugger debugger;
         private System.Windows.Forms.ImageList lista_imagenes;
+        private ColorCheckBox canal_incarnam;
+        private ColorCheckBox canal_general;
+        private System.Windows.Forms.Label label_kamas_principal;
     }
 }

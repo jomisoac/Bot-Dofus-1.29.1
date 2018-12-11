@@ -10,7 +10,7 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
     public abstract class ClienteProtocolo : ProtocoloInterfaz
     {
         protected Socket socket;
-        private byte[] buffer = new byte[500000];
+        private byte[] buffer = new byte[5000];
         private readonly object bloqueo = new object();
 
         public event Action<string> evento_paquete_recibido;
@@ -84,13 +84,14 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                         {
                             evento_paquete_recibido?.Invoke(paquete);
                         }
-                        buffer = new byte[500000];
+                        buffer = new byte[5000];
                         paquete_Recibido();
                     }
                 }
                 catch (Exception e)
                 {
-                    evento_socket_informacion?.Invoke(e.Message);
+                    Console.WriteLine(e);
+                    evento_socket_informacion?.Invoke(e);
                 }
             }
         }

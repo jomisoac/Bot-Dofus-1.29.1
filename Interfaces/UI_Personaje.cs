@@ -16,6 +16,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             cuenta = _cuenta;
             cuenta.personaje.personaje_seleccionado += personaje_Seleccionado_Servidor_Juego;
+            cuenta.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
         }
 
         private void personaje_Seleccionado_Servidor_Juego()
@@ -28,6 +29,32 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                 label_nombre_personaje.Text = cuenta.personaje.nombre_personaje;
                 label_nivel_personaje.Text = $"Nivel {cuenta.personaje.nivel}";
+            }));
+        }
+
+        private void personaje_Caracteristicas_Actualizadas()
+        {
+            BeginInvoke((Action)(() =>
+            {
+                //Sumario
+                label_puntos_vida.Text = cuenta.personaje.caracteristicas.vitalidad.total_Stats.ToString();
+                label_puntos_accion.Text = cuenta.personaje.caracteristicas.puntos_accion.total_Stats.ToString();
+                label_puntos_movimiento.Text = cuenta.personaje.caracteristicas.puntos_movimiento.total_Stats.ToString();
+                label_iniciativa.Text = cuenta.personaje.caracteristicas.iniciativa.total_Stats.ToString();
+                label_prospeccion.Text = cuenta.personaje.caracteristicas.prospeccion.total_Stats.ToString();
+                label_alcanze.Text = cuenta.personaje.caracteristicas.alcanze.total_Stats.ToString();
+                label_invocaciones.Text = cuenta.personaje.caracteristicas.criaturas_invocables.total_Stats.ToString();
+
+                //Caracteristicas
+                stats_vitalidad.Text = cuenta.personaje.caracteristicas.vitalidad.base_personaje.ToString() + " (" + cuenta.personaje.caracteristicas.vitalidad.equipamiento.ToString() + ")";
+                stats_sabiduria.Text = cuenta.personaje.caracteristicas.sabiduria.base_personaje.ToString() + " (" + cuenta.personaje.caracteristicas.sabiduria.equipamiento.ToString() + ")";
+                stats_fuerza.Text = cuenta.personaje.caracteristicas.fuerza.base_personaje.ToString() + " (" + cuenta.personaje.caracteristicas.fuerza.equipamiento.ToString() + ")";
+                stats_inteligencia.Text = cuenta.personaje.caracteristicas.inteligencia.base_personaje.ToString() + " (" + cuenta.personaje.caracteristicas.inteligencia.equipamiento.ToString() + ")";
+                stats_suerte.Text = cuenta.personaje.caracteristicas.suerte.base_personaje.ToString() + " (" + cuenta.personaje.caracteristicas.suerte.equipamiento.ToString() + ")";
+                stats_agilidad.Text = cuenta.personaje.caracteristicas.agilidad.base_personaje.ToString() + " (" + cuenta.personaje.caracteristicas.agilidad.equipamiento.ToString() + ")";
+
+                //Otros
+                label_capital_stats.Text = cuenta.personaje.puntos_caracteristicas.ToString();
             }));
         }
     }

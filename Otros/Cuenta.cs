@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot_Dofus_1._29._1.LibreriaSockets;
+using Bot_Dofus_1._29._1.Otros.Personajes;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game;
 using Bot_Dofus_1._29._1.Protocolo.Login;
@@ -51,6 +52,10 @@ namespace Bot_Dofus_1._29._1.Otros
             key_bienvenida = null;
             conexion = null;
             logger = null;
+            personaje = null;
+            apodo = null;
+            Estado_Cuenta = EstadoCuenta.DESCONECTADO;
+            Fase_Socket = EstadoSocket.NINGUNO;
         }
 
         public EstadoCuenta Estado_Cuenta

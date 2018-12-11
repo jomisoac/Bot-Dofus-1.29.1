@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Personajes;
+using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game.Paquetes;
 
@@ -80,6 +83,37 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                         case 'R'://Restricciones
                             cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
                         break;
+
+                        case 's':
+                            cuenta.personaje.actualizar_Caracteristicas(paquete);
+                        break;
+                    }
+                break;
+
+                case 'c':
+                    switch(accion)
+                    {
+                        case 'C':
+                            switch(paquete[2])
+                            {
+                                case '+':
+                                    cuenta.personaje.agregar_Canal_Personaje(informacion_paquete);
+                                break;
+
+                                case '-':
+                                    cuenta.personaje.eliminar_Canal_Personaje(informacion_paquete);
+                                break;
+                            }
+                        break;
+
+                        case 'M':
+                            switch (paquete[2])
+                            {
+                                case 'K':
+                                    cuenta.logger.log_normal(string.Empty, paquete.Substring(4).Split('|')[1] + ": " + paquete.Substring(4).Split('|')[2]);
+                                break;
+                            }
+                        break;
                     }
                 break;
 
@@ -105,7 +139,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                                     {
                                         case 152:
                                             string mensaje = paquete.Substring(3).Split(';')[1];
-                                            cuenta.logger.log_informacion("DOFUS", "Última conexión a tu cuenta realizada el " + mensaje.Split('~')[0] + "/" + mensaje.Split('~')[1] + "/" + mensaje.Split('~')[2] + " a las " + mensaje.Split('~')[3] + ":" + mensaje.Split('~')[4] + "mediante la dirección IP " + mensaje.Split('~')[5]);
+                                            cuenta.logger.log_informacion("DOFUS", "Última conexión a tu cuenta realizada el " + mensaje.Split('~')[0] + "/" + mensaje.Split('~')[1] + "/" + mensaje.Split('~')[2] + " a las " + mensaje.Split('~')[3] + ":" + mensaje.Split('~')[4] + " mediante la dirección IP " + mensaje.Split('~')[5]);
                                         break;
 
                                         case 153:

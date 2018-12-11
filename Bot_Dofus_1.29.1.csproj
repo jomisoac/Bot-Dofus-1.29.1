@@ -50,6 +50,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\MercyBot\MercyBot.Windows\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -119,7 +122,9 @@
     </Compile>
     <Compile Include="LibreriaSockets\ProtocoloInterfaz.cs" />
     <Compile Include="Otros\Cuenta.cs" />
-    <Compile Include="Otros\Personaje.cs" />
+    <Compile Include="Otros\Personajes\Personaje.cs" />
+    <Compile Include="Otros\Personajes\Stats\CaracteristicasBase.cs" />
+    <Compile Include="Otros\Personajes\Stats\CaracteristicasInformacion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LibreriaSockets\ClienteProtocolo.cs" />
@@ -337,6 +342,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconos\boton_ajustes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconos\boton_mas.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

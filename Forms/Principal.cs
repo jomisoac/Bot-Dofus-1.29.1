@@ -47,9 +47,9 @@ namespace Bot_Dofus_1._29._1.Forms
 
         private void opcionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Opciones of = new Opciones())
+            using (Opciones form_opciones = new Opciones())
             {
-                of.ShowDialog();
+                form_opciones.ShowDialog();
             }
         }
     }
