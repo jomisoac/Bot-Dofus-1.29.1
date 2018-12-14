@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
 
 namespace Bot_Dofus_1._29._1.Otros.Personajes
@@ -15,16 +15,18 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
         public int color1 { get; set; } = 0;
         public int color2 { get; set; } = 0;
         public int color3 { get; set; } = 0;
-        public string objetos { get; set; }
+        public string objetos { get; set; } = string.Empty;
         public int puntos_caracteristicas { get; set; } = 0;
         public CaracteristicasInformacion caracteristicas { get; private set; }
-        public string canales { get; set; }
+        public string canales { get; set; } = string.Empty;
+        public Mapa mapa;
 
         public int porcentaje_experiencia => (int)((caracteristicas.experiencia_actual - caracteristicas.experiencia_minima_nivel) / (caracteristicas.experiencia_siguiente_nivel - caracteristicas.experiencia_minima_nivel) * 100);
 
         public event Action personaje_seleccionado;
         public event Action socket_canal_personaje;
         public event Action caracteristicas_actualizadas;
+        public event Action mapa_actualizado;
 
         public Personaje(int _id, string _nombre_personaje, byte _nivel, int _gremio, byte _sexo, int _gfxID, int _color1, int _color2, int _color3, string _objetos)
         {
@@ -41,11 +43,22 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
             caracteristicas = new CaracteristicasInformacion();
         }
 
+        public Personaje(int _id, string _nombre_personaje, byte _sexo)//Paquete GM+
+        {
+            id = _id;
+            nombre_personaje = _nombre_personaje;
+            sexo = _sexo;
+        }
+
         public void agregar_Canal_Personaje(string cadena_canales)
         {
-            cadena_canales.AsParallel().ToList().ForEach(canal => canales += canal);
-            if (cadena_canales.Length > 1)
+            if (cadena_canales.Length <= 1)
             {
+                canales += cadena_canales;
+            }
+            else
+            {
+                canales = cadena_canales;
                 socket_canal_personaje?.Invoke();
             }
         }
@@ -61,6 +74,11 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
             personaje_seleccionado?.Invoke();
         }
 
+        public void evento_Mapa_Actualizado()
+        {
+            mapa_actualizado?.Invoke();
+        }
+
         public void actualizar_Caracteristicas(string paquete)
         {
             string[] _loc3 = paquete.Substring(2).Split('|');
@@ -71,6 +89,10 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
             caracteristicas.experiencia_siguiente_nivel = double.Parse(_loc5[2]);
             caracteristicas.kamas = int.Parse(_loc3[1]);
             puntos_caracteristicas = int.Parse(_loc3[2]);
+
+            _loc5 = _loc3[5].Split(',');
+            caracteristicas.vitalidad_actual = int.Parse(_loc5[0]);
+            caracteristicas.vitalidad_maxima = int.Parse(_loc5[1]);
 
             _loc5 = _loc3[6].Split(',');
             caracteristicas.energia_actual = int.Parse(_loc5[0]);
@@ -167,8 +189,6 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
                     break;
                 }
             }
-
-            
             caracteristicas_actualizadas?.Invoke();
         }
 

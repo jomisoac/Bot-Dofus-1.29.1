@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot_Dofus_1._29._1.LibreriaSockets;
+using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Personajes;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game;

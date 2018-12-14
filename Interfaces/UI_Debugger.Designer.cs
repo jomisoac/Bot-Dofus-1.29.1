@@ -157,7 +157,7 @@
             this.treeView.Size = new System.Drawing.Size(443, 500);
             this.treeView.TabIndex = 0;
             // 
-            // Debugger
+            // UI_Debugger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -166,7 +166,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(790, 500);
-            this.Name = "Debugger";
+            this.Name = "UI_Debugger";
             this.Size = new System.Drawing.Size(790, 500);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

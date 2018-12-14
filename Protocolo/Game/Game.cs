@@ -2,6 +2,7 @@
 using System.Linq;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Personajes;
 using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
@@ -50,8 +51,8 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     switch (accion)
                     {
                         case 'T':
-                            enviar_Paquete(new TiquetRespuestaMensaje(informacion_paquete).get_Mensaje());
-                            enviar_Paquete(new RegionalVersionMensaje().get_Mensaje());
+                            enviar_Paquete(new TiquetRespuesta(informacion_paquete).get_Mensaje());
+                            enviar_Paquete(new RegionalVersion().get_Mensaje());
                         break;
 
                         case 'V':
@@ -65,7 +66,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             switch (paquete[2])
                             {
                                 case 'K':
-                                    enviar_Paquete(new PersonajeSeleccionMensaje(0, informacion_paquete).get_Mensaje());
+                                    enviar_Paquete(new PersonajeSeleccion(0, informacion_paquete).get_Mensaje());
                                 break;
                             }
                         break;
@@ -74,7 +75,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             switch (paquete[2])
                             {
                                 case 'K':
-                                    enviar_Paquete(new PersonajeSeleccionadoMensaje(paquete.Substring(4), cuenta).get_Mensaje());
+                                    enviar_Paquete(new PersonajeSeleccionado(paquete.Substring(4), cuenta).get_Mensaje());
                                     cuenta.Fase_Socket = EstadoSocket.JUEGO;
                                 break;
                             }
@@ -113,6 +114,50 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                                     cuenta.logger.log_normal(string.Empty, paquete.Substring(4).Split('|')[1] + ": " + paquete.Substring(4).Split('|')[2]);
                                 break;
                             }
+                        break;
+                    }
+                break;
+
+                case 'B':
+                    switch(accion)
+                    {
+                        case 'D':
+                            enviar_Paquete("GI");
+                        break;
+                    }
+                break;
+
+                case 'f':
+                    switch(accion)
+                    {
+                        case 'C':
+                            switch (int.Parse(paquete[2].ToString()))
+                            {
+                                case 0:
+                                    enviar_Paquete("BD");
+                                break;
+                            }
+                        break;
+                    }
+                break;
+
+                case 'G':
+                    switch(accion)
+                    {
+                        case 'D':
+                            switch(paquete[2])
+                            {
+                                case 'M'://Mapas
+                                    cuenta.personaje.mapa = new Mapa(paquete.Substring(4));
+                                    cuenta.personaje.evento_Mapa_Actualizado();
+                                break;
+                            }
+                        break;
+
+                        case 'M':
+                            string[] gm_elemento = paquete.Substring(4).Split(';');
+                            cuenta.personaje.mapa.celdas[int.Parse(gm_elemento[0].ToString())].agregar_Personaje(new Personaje(int.Parse(gm_elemento[3].ToString()), gm_elemento[3].ToString(), byte.Parse(gm_elemento[7].ToString())));
+                            cuenta.personaje.mapa.evento_Celda_Actualizada(int.Parse(gm_elemento[0].ToString()));
                         break;
                     }
                 break;

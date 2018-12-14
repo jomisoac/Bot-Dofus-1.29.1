@@ -8,6 +8,8 @@
         public int kamas { get; set; }
         public int energia_actual { get; set; }
         public int maxima_energia { get; set; }
+        public int vitalidad_actual { get; set; }
+        public int vitalidad_maxima { get; set; }
         public CaracteristicasBase iniciativa { get; set; }
         public CaracteristicasBase prospeccion { get; set; }
         public CaracteristicasBase puntos_accion { get; set; }

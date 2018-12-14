@@ -23,6 +23,7 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
             {
                 try
                 {
+                   
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     socket.BeginConnect(IPAddress.Parse(ip), puerto, new AsyncCallback(conectar_CallBack), socket);
                 }
@@ -90,7 +91,6 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
                     evento_socket_informacion?.Invoke(e);
                 }
             }

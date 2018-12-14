@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Controles.TabControl;
 using Bot_Dofus_1._29._1.Interfaces;
@@ -14,6 +15,8 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             InitializeComponent();
             paginas_cuentas_cargadas = new Dictionary<string, Pagina>();
+            if (!Directory.Exists("mapas"))
+                Directory.CreateDirectory("mapas");
         }
 
         private void gestionDeCuentasToolStripMenuItem_Click(object sender, EventArgs e)

@@ -70,10 +70,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     socket.evento_paquete_recibido += debugger.paquete_Recibido;
                     socket.evento_paquete_enviado += debugger.paquete_Enviado;
                     socket.evento_socket_informacion += escribir_mensaje;
-                    break;
+                break;
 
                 case EstadoSocket.JUEGO:
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
+                    agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
                     activar_Todos_Controles_Chat();
                     cuenta.personaje.socket_canal_personaje += socket_Evento_Chat;
                     cuenta.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
@@ -85,6 +86,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             BeginInvoke((Action)(() =>
             {
+                progresBar_vitalidad.Valor = cuenta.personaje.caracteristicas.vitalidad_actual;
+                progresBar_vitalidad.valor_Maximo = cuenta.personaje.caracteristicas.vitalidad_maxima;
                 progresBar_energia.Valor = cuenta.personaje.caracteristicas.energia_actual;
                 progresBar_energia.valor_Maximo = cuenta.personaje.caracteristicas.maxima_energia;
                 progresBar_experiencia.Text = cuenta.personaje.nivel.ToString();

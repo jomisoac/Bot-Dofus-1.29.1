@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
 {
-    internal class PersonajeSeleccionMensaje : Mensajes
+    internal class PersonajeSeleccion : Mensajes
     {
         private readonly int id;
         private readonly Dictionary<int, lista_personajes> lista_personaje;
 
-        public PersonajeSeleccionMensaje(int id_seleccionado, string paquete)
+        public PersonajeSeleccion(int id_seleccionado, string paquete)
         {
             id = id_seleccionado;
             lista_personaje = new Dictionary<int, lista_personajes>();

@@ -2,7 +2,7 @@
 
 namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
 {
-    class Compressor
+    internal class Compressor
     {
         public static char[] caracteres_array = new char[]
         {
@@ -23,7 +23,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
             return puerto;
         }
 
-        private static int index_Hash(char ch)
+        public static int index_Hash(char ch)
         {
             for (int i = 0; i < caracteres_array.Length; i++)
                 if (caracteres_array[i] == ch)

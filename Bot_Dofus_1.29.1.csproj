@@ -57,13 +57,22 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controles\ColorCheckBox\ColorCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controles\ControlMapa\CeldaMapa.cs" />
     <Compile Include="Controles\LayoutPanel\FlowLayoutPanelBuffered.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controles\ControlMapa\ControlMapa.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ControlMapa\ControlMapa.Designer.cs">
+      <DependentUpon>ControlMapa.cs</DependentUpon>
     </Compile>
     <Compile Include="Controles\ProgresBar\ProgresBar.cs">
       <SubType>Component</SubType>
@@ -97,6 +106,12 @@
     <Compile Include="Forms\Principal.Designer.cs">
       <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\UI_Mapa.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interfaces\UI_Mapa.Designer.cs">
+      <DependentUpon>UI_Mapa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\UI_Personaje.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -117,6 +132,9 @@
     </Compile>
     <Compile Include="LibreriaSockets\ProtocoloInterfaz.cs" />
     <Compile Include="Otros\Cuenta.cs" />
+    <Compile Include="Otros\Mapas\Celda.cs" />
+    <Compile Include="Otros\Mapas\Mapa.cs" />
+    <Compile Include="Otros\Mapas\Pathfinding.cs" />
     <Compile Include="Otros\Personajes\Personaje.cs" />
     <Compile Include="Otros\Personajes\Stats\CaracteristicasBase.cs" />
     <Compile Include="Otros\Personajes\Stats\CaracteristicasInformacion.cs" />
@@ -129,11 +147,11 @@
     <Compile Include="Protocolo\Enums\ListaPaquetes.cs" />
     <Compile Include="Protocolo\Extensiones\CadenasAmigables.cs" />
     <Compile Include="Protocolo\Game\Game.cs" />
-    <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccionadoMensaje.cs" />
-    <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccionMensaje.cs" />
-    <Compile Include="Protocolo\Game\Paquetes\RegionalVersionMensaje.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccionado.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccion.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\RegionalVersion.cs" />
     <Compile Include="Protocolo\Game\Paquetes\TiquetMensaje.cs" />
-    <Compile Include="Protocolo\Game\Paquetes\TiquetRespuestaMensaje.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\TiquetRespuesta.cs" />
     <Compile Include="Protocolo\Login\Login.cs" />
     <Compile Include="Protocolo\Login\Paquetes\FilaPosicionMensaje.cs" />
     <Compile Include="Protocolo\Login\Paquetes\HostsMensaje.cs" />
@@ -149,6 +167,9 @@
     <Compile Include="Utilidades\Logs\Logger.cs" />
     <Compile Include="Utilidades\Logs\LogMensajes.cs" />
     <Compile Include="Utilidades\Logs\LogTipos.cs" />
+    <EmbeddedResource Include="Controles\ControlMapa\ControlMapa.resx">
+      <DependentUpon>ControlMapa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controles\TabControl\TabControl.resx">
       <DependentUpon>TabControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -160,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\UI_Mapa.resx">
+      <DependentUpon>UI_Mapa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\UI_Personaje.resx">
       <DependentUpon>UI_Personaje.cs</DependentUpon>

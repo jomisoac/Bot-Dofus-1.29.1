@@ -37,7 +37,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             BeginInvoke((Action)(() =>
             {
                 //Sumario
-                label_puntos_vida.Text = cuenta.personaje.caracteristicas.vitalidad.total_Stats.ToString();
+                label_puntos_vida.Text = cuenta.personaje.caracteristicas.vitalidad_actual.ToString() + '/' + cuenta.personaje.caracteristicas.vitalidad_maxima.ToString();
                 label_puntos_accion.Text = cuenta.personaje.caracteristicas.puntos_accion.total_Stats.ToString();
                 label_puntos_movimiento.Text = cuenta.personaje.caracteristicas.puntos_movimiento.total_Stats.ToString();
                 label_iniciativa.Text = cuenta.personaje.caracteristicas.iniciativa.total_Stats.ToString();
