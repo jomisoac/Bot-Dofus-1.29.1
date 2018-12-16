@@ -30,11 +30,25 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.desconectarOconectarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cargarScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel_principal = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl_principal = new System.Windows.Forms.TabControl();
             this.tabPage_consola = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.textbox_logs = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox_enviar_consola = new System.Windows.Forms.TextBox();
+            this.button_limpiar_consola = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.label_kamas_principal = new System.Windows.Forms.Label();
             this.canal_incarnam = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.canal_informaciones = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.canal_comercio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
@@ -43,24 +57,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_gremio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.canal_privado = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.canal_general = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.textbox_logs = new System.Windows.Forms.RichTextBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox_enviar_consola = new System.Windows.Forms.TextBox();
-            this.button_limpiar_consola = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.debugger = new Bot_Dofus_1._29._1.Interfaces.UI_Debugger();
-            this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.progresBar_vitalidad = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_energia = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_experiencia = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_pods = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
-            this.label_kamas_principal = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel_principal.SuspendLayout();
             this.tabControl_principal.SuspendLayout();
@@ -82,7 +83,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.desconectarOconectarToolStripMenuItem,
             this.eliminarToolStripMenuItem,
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.cargarScriptToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
@@ -111,6 +113,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(24, 20);
             this.toolStripMenuItem1.Text = "-";
+            // 
+            // cargarScriptToolStripMenuItem
+            // 
+            this.cargarScriptToolStripMenuItem.Enabled = false;
+            this.cargarScriptToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.documento_azul;
+            this.cargarScriptToolStripMenuItem.Name = "cargarScriptToolStripMenuItem";
+            this.cargarScriptToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
+            this.cargarScriptToolStripMenuItem.Text = "Cargar script";
+            this.cargarScriptToolStripMenuItem.Click += new System.EventHandler(this.cargarScriptToolStripMenuItem_Click);
             // 
             // tableLayoutPanel_principal
             // 
@@ -194,6 +205,178 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(21, 459);
             this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // textbox_logs
+            // 
+            this.textbox_logs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textbox_logs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textbox_logs.Location = new System.Drawing.Point(3, 3);
+            this.textbox_logs.MaxLength = 200;
+            this.textbox_logs.Name = "textbox_logs";
+            this.textbox_logs.Size = new System.Drawing.Size(751, 459);
+            this.textbox_logs.TabIndex = 5;
+            this.textbox_logs.Text = "";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.Controls.Add(this.textBox_enviar_consola, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button_limpiar_consola, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 468);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 34);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // textBox_enviar_consola
+            // 
+            this.textBox_enviar_consola.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_enviar_consola.Enabled = false;
+            this.textBox_enviar_consola.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBox_enviar_consola.Location = new System.Drawing.Point(3, 3);
+            this.textBox_enviar_consola.MaxLength = 50;
+            this.textBox_enviar_consola.Name = "textBox_enviar_consola";
+            this.textBox_enviar_consola.Size = new System.Drawing.Size(743, 25);
+            this.textBox_enviar_consola.TabIndex = 0;
+            this.textBox_enviar_consola.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_enviar_consola_KeyDown);
+            // 
+            // button_limpiar_consola
+            // 
+            this.button_limpiar_consola.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_limpiar_consola.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button_limpiar_consola.Image = ((System.Drawing.Image)(resources.GetObject("button_limpiar_consola.Image")));
+            this.button_limpiar_consola.Location = new System.Drawing.Point(752, 3);
+            this.button_limpiar_consola.Name = "button_limpiar_consola";
+            this.button_limpiar_consola.Size = new System.Drawing.Size(29, 28);
+            this.button_limpiar_consola.TabIndex = 1;
+            this.button_limpiar_consola.UseVisualStyleBackColor = true;
+            this.button_limpiar_consola.Click += new System.EventHandler(this.button_limpiar_consola_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.debugger);
+            this.tabPage2.ImageIndex = 1;
+            this.tabPage2.Location = new System.Drawing.Point(4, 30);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(790, 489);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Debugger";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lista_imagenes
+            // 
+            this.lista_imagenes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lista_imagenes.ImageStream")));
+            this.lista_imagenes.TransparentColor = System.Drawing.Color.Transparent;
+            this.lista_imagenes.Images.SetKeyName(0, "application32.png");
+            this.lista_imagenes.Images.SetKeyName(1, "f-bug_256-24.png");
+            this.lista_imagenes.Images.SetKeyName(2, "user-blue32.png");
+            this.lista_imagenes.Images.SetKeyName(3, "briefcase48.png");
+            this.lista_imagenes.Images.SetKeyName(4, "678074-map-24.png");
+            this.lista_imagenes.Images.SetKeyName(5, "Iron_Sword32.png");
+            this.lista_imagenes.Images.SetKeyName(6, "bank_silver32.png");
+            this.lista_imagenes.Images.SetKeyName(7, "cog-icon-2-48x48 (1).png");
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 10;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.19867F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.80491F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.197404F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.8017F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.197404F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.8017F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.197404F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.8017F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.197404F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.8017F));
+            this.tableLayoutPanel4.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.pictureBox2, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.pictureBox3, 6, 0);
+            this.tableLayoutPanel4.Controls.Add(this.pictureBox4, 8, 0);
+            this.tableLayoutPanel4.Controls.Add(this.pictureBox5, 4, 0);
+            this.tableLayoutPanel4.Controls.Add(this.progresBar_vitalidad, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.progresBar_energia, 3, 0);
+            this.tableLayoutPanel4.Controls.Add(this.progresBar_experiencia, 5, 0);
+            this.tableLayoutPanel4.Controls.Add(this.progresBar_pods, 7, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label_kamas_principal, 9, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 571);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(804, 33);
+            this.tableLayoutPanel4.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(35, 27);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(163, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 27);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(483, 3);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 27);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(643, 3);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(35, 27);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 3;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox5.Image = global::Bot_Dofus_1._29._1.Properties.Resources.experiencia;
+            this.pictureBox5.Location = new System.Drawing.Point(323, 3);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(35, 27);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox5.TabIndex = 4;
+            this.pictureBox5.TabStop = false;
+            // 
+            // label_kamas_principal
+            // 
+            this.label_kamas_principal.AutoSize = true;
+            this.label_kamas_principal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_kamas_principal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_kamas_principal.Location = new System.Drawing.Point(684, 0);
+            this.label_kamas_principal.Name = "label_kamas_principal";
+            this.label_kamas_principal.Size = new System.Drawing.Size(117, 33);
+            this.label_kamas_principal.TabIndex = 9;
+            this.label_kamas_principal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // canal_incarnam
             // 
@@ -307,68 +490,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_general.UseVisualStyleBackColor = false;
             this.canal_general.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
             // 
-            // textbox_logs
-            // 
-            this.textbox_logs.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textbox_logs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textbox_logs.Location = new System.Drawing.Point(3, 3);
-            this.textbox_logs.MaxLength = 200;
-            this.textbox_logs.Name = "textbox_logs";
-            this.textbox_logs.Size = new System.Drawing.Size(751, 459);
-            this.textbox_logs.TabIndex = 5;
-            this.textbox_logs.Text = "";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Controls.Add(this.textBox_enviar_consola, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button_limpiar_consola, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 468);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 34);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // textBox_enviar_consola
-            // 
-            this.textBox_enviar_consola.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_enviar_consola.Enabled = false;
-            this.textBox_enviar_consola.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.textBox_enviar_consola.Location = new System.Drawing.Point(3, 3);
-            this.textBox_enviar_consola.MaxLength = 50;
-            this.textBox_enviar_consola.Name = "textBox_enviar_consola";
-            this.textBox_enviar_consola.Size = new System.Drawing.Size(743, 25);
-            this.textBox_enviar_consola.TabIndex = 0;
-            this.textBox_enviar_consola.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_enviar_consola_KeyDown);
-            // 
-            // button_limpiar_consola
-            // 
-            this.button_limpiar_consola.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_limpiar_consola.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_limpiar_consola.Image = ((System.Drawing.Image)(resources.GetObject("button_limpiar_consola.Image")));
-            this.button_limpiar_consola.Location = new System.Drawing.Point(752, 3);
-            this.button_limpiar_consola.Name = "button_limpiar_consola";
-            this.button_limpiar_consola.Size = new System.Drawing.Size(29, 28);
-            this.button_limpiar_consola.TabIndex = 1;
-            this.button_limpiar_consola.UseVisualStyleBackColor = true;
-            this.button_limpiar_consola.Click += new System.EventHandler(this.button_limpiar_consola_Click);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.debugger);
-            this.tabPage2.ImageIndex = 1;
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(790, 505);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Debugger";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // debugger
             // 
             this.debugger.Cursor = System.Windows.Forms.Cursors.Default;
@@ -380,105 +501,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.debugger.Name = "debugger";
             this.debugger.Size = new System.Drawing.Size(790, 500);
             this.debugger.TabIndex = 0;
-            // 
-            // lista_imagenes
-            // 
-            this.lista_imagenes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lista_imagenes.ImageStream")));
-            this.lista_imagenes.TransparentColor = System.Drawing.Color.Transparent;
-            this.lista_imagenes.Images.SetKeyName(0, "application32.png");
-            this.lista_imagenes.Images.SetKeyName(1, "f-bug_256-24.png");
-            this.lista_imagenes.Images.SetKeyName(2, "user-blue32.png");
-            this.lista_imagenes.Images.SetKeyName(3, "briefcase48.png");
-            this.lista_imagenes.Images.SetKeyName(4, "678074-map-24.png");
-            this.lista_imagenes.Images.SetKeyName(5, "Iron_Sword32.png");
-            this.lista_imagenes.Images.SetKeyName(6, "bank_silver32.png");
-            this.lista_imagenes.Images.SetKeyName(7, "cog-icon-2-48x48 (1).png");
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 10;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.19867F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.80491F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.197404F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.8017F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.197404F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.8017F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.197404F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.8017F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.197404F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.8017F));
-            this.tableLayoutPanel4.Controls.Add(this.pictureBox1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.pictureBox2, 2, 0);
-            this.tableLayoutPanel4.Controls.Add(this.pictureBox3, 6, 0);
-            this.tableLayoutPanel4.Controls.Add(this.pictureBox4, 8, 0);
-            this.tableLayoutPanel4.Controls.Add(this.pictureBox5, 4, 0);
-            this.tableLayoutPanel4.Controls.Add(this.progresBar_vitalidad, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.progresBar_energia, 3, 0);
-            this.tableLayoutPanel4.Controls.Add(this.progresBar_experiencia, 5, 0);
-            this.tableLayoutPanel4.Controls.Add(this.progresBar_pods, 7, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label_kamas_principal, 9, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 571);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(804, 33);
-            this.tableLayoutPanel4.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(35, 27);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(163, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 27);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(483, 3);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(35, 27);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(643, 3);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(35, 27);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 3;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox5.Image = global::Bot_Dofus_1._29._1.Properties.Resources.experiencia;
-            this.pictureBox5.Location = new System.Drawing.Point(323, 3);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(35, 27);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox5.TabIndex = 4;
-            this.pictureBox5.TabStop = false;
             // 
             // progresBar_vitalidad
             // 
@@ -528,17 +550,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.progresBar_pods.tipos_Barra = Bot_Dofus_1._29._1.Controles.ProgresBar.TipoProgresBar.VALOR_MAXIMO_PORCENTAJE;
             this.progresBar_pods.Valor = 0;
             this.progresBar_pods.valor_Maximo = 100;
-            // 
-            // label_kamas_principal
-            // 
-            this.label_kamas_principal.AutoSize = true;
-            this.label_kamas_principal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_kamas_principal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_kamas_principal.Location = new System.Drawing.Point(684, 0);
-            this.label_kamas_principal.Name = "label_kamas_principal";
-            this.label_kamas_principal.Size = new System.Drawing.Size(117, 33);
-            this.label_kamas_principal.TabIndex = 9;
-            this.label_kamas_principal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // UI_Principal
             // 
@@ -609,5 +620,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private ColorCheckBox canal_incarnam;
         private ColorCheckBox canal_general;
         private System.Windows.Forms.Label label_kamas_principal;
+        private System.Windows.Forms.ToolStripMenuItem cargarScriptToolStripMenuItem;
     }
 }

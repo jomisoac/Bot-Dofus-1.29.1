@@ -25,10 +25,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void eventos_Mapa_Cambiado()
         {
-            Dictionary<int, Celda> celdas_mapa_personaje = cuenta.personaje.mapa.celdas;
-            if (celdas_mapa_personaje != null && celdas_mapa_personaje.Count > 0)
+            Celda[] celdas_mapa_personaje = cuenta.personaje.mapa.celdas;
+            if (celdas_mapa_personaje != null && (celdas_mapa_personaje.Length - 1) > 0)
             {
-                for (int i = 0; i < celdas_mapa_personaje.Count; i++)
+                for (int i = 0; i < celdas_mapa_personaje.Length - 1; i++)
                 {
                     switch (celdas_mapa_personaje[i].tipo_caminable)
                     {

@@ -72,15 +72,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void desconectar_Cuenta()
         {
-            if(cuenta.conexion != null)
+            if (cuenta != null)
             {
-                cuenta.conexion.evento_paquete_recibido -= debugger.paquete_Recibido;
-                cuenta.conexion.evento_paquete_enviado -= debugger.paquete_Enviado;
-                cuenta.conexion.evento_socket_informacion -= escribir_mensaje;
-                cuenta.conexion.evento_socket_desconectado -= escribir_mensaje;
+                if (cuenta.conexion != null)
+                {
+                    cuenta.conexion.evento_paquete_recibido -= debugger.paquete_Recibido;
+                    cuenta.conexion.evento_paquete_enviado -= debugger.paquete_Enviado;
+                    cuenta.conexion.evento_socket_informacion -= escribir_mensaje;
+                    cuenta.conexion.evento_socket_desconectado -= escribir_mensaje;
+                }
 
-                cuenta.conexion.cerrar_Socket();
-                cuenta.Dispose(true);
+                cuenta.Dispose();
                 cuenta = null;
                 activar_Todos_Controles_Chat(false);
 
@@ -139,6 +141,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 canal_comercio.Enabled = estado_botones;
                 canal_incarnam.Enabled = estado_botones;
                 textBox_enviar_consola.Enabled = estado_botones;
+                cargarScriptToolStripMenuItem.Enabled = estado_botones;
             }));
         }
 
@@ -230,35 +233,35 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 {
                     case "canal_informaciones":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+i" : "cC-i");
-                        break;
+                    break;
 
                     case "canal_general":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+*" : "cC-*");
-                        break;
+                    break;
 
                     case "canal_privado":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+#$p" : "cC-#$p");
-                        break;
+                    break;
 
                     case "canal_gremio":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+%" : "cC-%");
-                        break;
+                    break;
 
                     case "canal_alineamiento":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+!" : "cC-!");
-                        break;
+                    break;
 
                     case "canal_reclutamiento":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+?" : "cC-?");
-                        break;
+                    break;
 
                     case "canal_comercio":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+:" : "cC-:");
-                        break;
+                    break;
 
                     case "canal_incarnam":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+^" : "cC-^");
-                        break;
+                    break;
                 }
             }
         }
@@ -275,6 +278,27 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     e.SuppressKeyPress = true;
                     textBox_enviar_consola.Clear();
                 }
+            }
+        }
+
+        private void cargarScriptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog ofd = new OpenFileDialog())
+                {
+                    ofd.Title = "Selecciona el script para el bot";
+                    ofd.Filter = "Extension (.lua) | *.lua";
+
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        Console.WriteLine(ofd.FileName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                escribir_mensaje(DateTime.Now.ToString("HH:mm:ss") + " -> [Script] " + ex.Message, LogTipos.ERROR.ToString("X"));
             }
         }
     }
