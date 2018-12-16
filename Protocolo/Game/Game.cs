@@ -162,15 +162,20 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             switch (paquete[3])
                             {
                                 case '+':
-                                    string[] gm_elemento = paquete.Substring(4).Split(';');
-                                    int celda_id = int.Parse(gm_elemento[0].ToString());
-                                    int id_personaje = int.Parse(gm_elemento[3].ToString());
-                                    string nombre_personaje = gm_elemento[4].ToString();
-                                    if (id_personaje > 0)
+                                    string[] separador_jugadores = paquete.Substring(4).Split('|');
+                                    for (int i = 0; i < separador_jugadores.Length; ++i)
                                     {
-                                        if (cuenta.personaje.nombre_personaje.Equals(nombre_personaje))
-                                            cuenta.personaje.celda_id = celda_id;
-                                        cuenta.personaje.mapa.agregar_Personaje(new Personaje(id_personaje, nombre_personaje, byte.Parse(gm_elemento[7].ToString())));
+                                        string[] gm_elemento = separador_jugadores[i].Split(';');
+
+                                        int celda_id = int.Parse(gm_elemento[0].ToString());
+                                        int id_personaje = int.Parse(gm_elemento[3].ToString());
+                                        string nombre_personaje = gm_elemento[4].ToString();
+                                        if (id_personaje > 0)
+                                        {
+                                            if (cuenta.personaje.id == id_personaje)
+                                                cuenta.personaje.celda_id = celda_id;
+                                            cuenta.personaje.mapa.agregar_Personaje(new Personaje(id_personaje, nombre_personaje, byte.Parse(gm_elemento[7].ToString())));
+                                        }
                                     }
                                 break;
 
