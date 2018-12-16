@@ -27,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public int servidor_id { get; set; } = 0;
         public Logger logger { get; private set; }
         public ClienteProtocolo conexion = null;
-        public Personaje personaje = null;
+        public Personaje personaje { get; set; }
         public ManejadorScript script { get; private set; }
         private EstadoCuenta estado_cuenta;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
