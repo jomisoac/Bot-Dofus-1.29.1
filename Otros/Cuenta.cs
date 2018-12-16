@@ -1,11 +1,19 @@
 ﻿using System;
 using Bot_Dofus_1._29._1.LibreriaSockets;
-using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Personajes;
+using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game;
 using Bot_Dofus_1._29._1.Protocolo.Login;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
+
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+	Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
 
 namespace Bot_Dofus_1._29._1.Otros
 {
@@ -20,6 +28,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public Logger logger { get; private set; }
         public ClienteProtocolo conexion = null;
         public Personaje personaje = null;
+        public ManejadorScript script { get; private set; }
         private EstadoCuenta estado_cuenta;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
 
@@ -32,6 +41,7 @@ namespace Bot_Dofus_1._29._1.Otros
             password = _password;
             servidor_id = _servidor_id;
             logger = new Logger();
+            script = new ManejadorScript(this);
             conexion = new Login("34.251.172.139", 443, this);
         }
 
@@ -86,18 +96,29 @@ namespace Bot_Dofus_1._29._1.Otros
         {
             try
             {
+                if (disposing)
+                {
+                    if(personaje != null)
+                        personaje.Dispose();
+                    if(script != null)
+                        script.Dispose();
+                    if(conexion != null)
+                        conexion.Dispose();
+                }
                 usuario = null;
                 password = null;
                 key_bienvenida = null;
                 conexion = null;
                 logger = null;
-                personaje.Dispose(true);
                 personaje = null;
                 apodo = null;
                 Estado_Cuenta = EstadoCuenta.DESCONECTADO;
                 Fase_Socket = EstadoSocket.NINGUNO;
             }
-            catch { }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

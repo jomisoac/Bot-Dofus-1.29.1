@@ -8,8 +8,7 @@ using Bot_Dofus_1._29._1.Protocolo.Extensiones;
 
     BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
 	Creado por Alvaro Prendes
-
-	web: http://www.salesprendes.com
+    web: http://www.salesprendes.com
 */
 
 namespace Bot_Dofus_1._29._1.Otros.Mapas
@@ -42,7 +41,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         private void loadSprites()
         {
-            for (int i = 0; i < mapa.celdas.Count; i++)
+            for (int i = 0; i < (mapa.celdas.Length - 1); i++)
             {
                 if (mapa.celdas[i].tipo_caminable < 4)
                 {

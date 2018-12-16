@@ -85,7 +85,7 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                     int bytes_leidos = socket.EndReceive(ar);
                     if (bytes_leidos != 0)
                     {
-                        foreach (string paquete in Encoding.UTF8.GetString(buffer).Replace("\x0a", "").Split('\x00').Where(x => x != ""))
+                        foreach (string paquete in Encoding.UTF8.GetString(buffer).Replace("\x0a", string.Empty).Split('\x00').Where(x => x != string.Empty))
                         {
                             evento_paquete_recibido?.Invoke(paquete);
                         }
@@ -93,7 +93,7 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                         paquete_Recibido();
                     }
                 }
-                catch (ObjectDisposedException e)
+                catch (ObjectDisposedException)
                 {
                     cerrar_Socket();
                 }
@@ -165,16 +165,8 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
             }
         }
 
-        ~ClienteProtocolo()
-        {
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        ~ClienteProtocolo() => Dispose(false);
+        public void Dispose() => Dispose(true);
 
         public virtual void Dispose(bool disposing)
         {
@@ -184,10 +176,16 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                 {
                     socket.Shutdown(SocketShutdown.Both);
                     socket.Close();
-                    socket = null;
                     buffer = null;
+                    evento_paquete_recibido = null;
+                    evento_paquete_enviado = null;
+                    evento_socket_informacion = null;
+                    evento_socket_desconectado = null;
                 }
-                catch { }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
     }

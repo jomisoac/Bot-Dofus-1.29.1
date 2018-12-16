@@ -13,7 +13,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public int anchura { get; set; } = 15;
         public int altura { get; set; } = 17;
         public string mapa_data { get; set; }
-        public Dictionary<int, Celda> celdas;
+        public Celda[] celdas;
         public Dictionary<int, Personaje> personajes;
         
         private readonly XElement archivo_mapa;
@@ -29,36 +29,34 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             archivo_mapa = XElement.Load("mapas/" + id + "_0" + fecha + ".xml");
             mapa_data = archivo_mapa.Element("MAPA_DATA").Value;
             archivo_mapa = null;
-            descompilar_Celdas_Mapa();
+            descompilar_mapa();
         }
 
-        public void descompilar_Celdas_Mapa()
+        public void descompilar_mapa()
         {
-            if (celdas != null)
-                celdas.Clear();
-            else
-                celdas = new Dictionary<int, Celda>();
+            celdas = new Celda[mapa_data.Length / 10];
+            string celda_data;
 
-            for (int f = 0; f < mapa_data.Length; f += 10)
+            for (int i = 0; i < mapa_data.Length; i += 10)
             {
-                string celda_data = mapa_data.Substring(f, 10);
-                List<byte> celdas_informacion = new List<byte>();
-
-                for (int i = 0; i < celda_data.Length; ++i)
-                    celdas_informacion.Add(Convert.ToByte(Compressor.index_Hash(char.Parse(celda_data[i].ToString()))));
-
-                bool esta_activa = (celdas_informacion[0] & 32) >> 5 != 0;
-                if (esta_activa)
-                {
-                    byte tipo_caminable = Convert.ToByte((celdas_informacion[2] & 56) >> 3);
-                    bool IsSightBlocker = (celdas_informacion[0] & 1) != 0;
-
-                    int layerObject2 = ((celdas_informacion[0] & 2) << 12) + ((celdas_informacion[7] & 1) << 12) + (celdas_informacion[8] << 6) + celdas_informacion[9];
-                    bool layerObject2Interactive = ((celdas_informacion[7] & 2) >> 1) != 0;
-                    int id_celda = f/10;
-                    celdas.Add(id_celda, new Celda(id_celda, tipo_caminable, IsSightBlocker, layerObject2Interactive ? layerObject2 : -1, layerObject2Interactive));
-                }
+                celda_data = mapa_data.Substring(i, 10);
+                celdas[i/10] = descompimir_Celda(celda_data, i/10);
             }
+        }
+
+        public static Celda descompimir_Celda(string celda_data, int id_celda)
+        {
+            Celda celda = new Celda(id_celda);
+
+            byte[] informacion_celda = new byte[celda_data.Length - 1];
+            for (int i = 0; i < celda_data.Length - 1; i++)
+                informacion_celda[i] = Convert.ToByte(Compressor.index_Hash(celda_data[i]));
+
+            celda.tipo_caminable = Convert.ToByte((informacion_celda[2] & 56) >> 3);
+            celda.es_linea_vision = Convert.ToBoolean((informacion_celda[0] & 1) != 0);
+            celda.objeto_interactivo_id = ((informacion_celda[7] & 2) >> 1) != 0 ? ((informacion_celda[0] & 2) << 12) + ((informacion_celda[7] & 1) << 12) + (informacion_celda[8] << 6) + informacion_celda[9] : -1;
+            celda.object2Movement = ((informacion_celda[7] & 2) >> 1) != 0;
+            return celda;
         }
 
         public void agregar_Personaje(Personaje personaje)
