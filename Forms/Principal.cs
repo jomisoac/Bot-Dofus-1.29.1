@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Controles.TabControl;
 using Bot_Dofus_1._29._1.Interfaces;
+using Bot_Dofus_1._29._1.Otros.Mapas;
 
 namespace Bot_Dofus_1._29._1.Forms
 {

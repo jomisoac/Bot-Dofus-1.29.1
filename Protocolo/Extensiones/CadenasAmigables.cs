@@ -36,5 +36,10 @@ namespace Bot_Dofus_1._29._1.Protocolo.Extensiones
                     return "-";
             }
         }
+
+        public static string get_Substring_Seguro(this string text, int start, int length)
+        {
+            return text.Length <= start ? " " : text.Length - start <= length ? text.Substring(start) : text.Substring(start, length);
+        }
     }
 }

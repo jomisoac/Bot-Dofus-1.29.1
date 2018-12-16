@@ -23,7 +23,6 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
             {
                 try
                 {
-                   
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     socket.BeginConnect(IPAddress.Parse(ip), puerto, new AsyncCallback(conectar_CallBack), socket);
                 }
@@ -38,13 +37,13 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
         {
             try
             {
-                socket = (Socket)ar.AsyncState;
+                socket = ar.AsyncState as Socket;
                 socket.EndConnect(ar);
 
                 if (socket.Connected || socket != null)
                 {
                     evento_socket_informacion?.Invoke("Socket conectado correctamente");
-                    paquete_Recibido();
+                    socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
                 }
                 else
                 {
@@ -78,8 +77,8 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
             {
                 try
                 {
-                    int length = socket.EndReceive(ar);
-                    if (length > 0)
+                    int bytes_paquete = socket.EndReceive(ar);
+                    if (bytes_paquete > 0)
                     {
                         foreach (string paquete in Encoding.UTF8.GetString(buffer).Replace("\x0a", "").Split('\x00').Where(x => x != ""))
                         {
@@ -100,30 +99,36 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
         {
             lock (bloqueo)
             {
-                if (socket.Connected)
+                try
                 {
-                    socket.Send(Encoding.UTF8.GetBytes(string.Format(paquete + "\n\0")));
-                    evento_paquete_enviado?.Invoke(paquete);
+                    if (socket.Connected)
+                    {
+                        byte[] mensaje_bytes = Encoding.UTF8.GetBytes(string.Format(paquete + "\n\0"));
+                        socket.BeginSend(mensaje_bytes, 0, mensaje_bytes.Length, SocketFlags.None, new AsyncCallback(enviar_CallBack), socket);
+                        evento_paquete_enviado?.Invoke(paquete);
+                    }
+                    else
+                    {
+                        evento_socket_informacion?.Invoke("Impossible enviar el socket, no conectado con el host");
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    evento_socket_informacion?.Invoke("Impossible enviar el socket, no conectado con el host");
-                }
+                    evento_socket_informacion?.Invoke(e);
+                };
             }
         }
 
-        public string IP
+        private void enviar_CallBack(IAsyncResult ar)
         {
-            get
+            try
             {
-                try
-                {
-                    return socket.RemoteEndPoint.ToString();
-                }
-                catch (Exception)
-                {
-                    return "null";
-                }
+                Socket handler = ar.AsyncState as Socket;
+                handler.EndSend(ar);
+            }
+            catch (Exception e)
+            {
+                evento_socket_informacion?.Invoke(e);
             }
         }
 
@@ -143,10 +148,30 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
             }
         }
 
+        ~ClienteProtocolo()
+        {
+            Dispose(false);
+        }
+
         public void Dispose()
         {
-            socket = null;
-            buffer = null;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (socket != null && socket.Connected)
+            {
+                try
+                {
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
+                    socket = null;
+                    buffer = null;
+                }
+                catch{}
+            }
         }
     }
 }

@@ -19,8 +19,8 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
             {
                 char ch = password[i];
                 char ch2 = key[i];
-                int num2 = ch / '\x0010';
-                int num3 = ch % '\x0010';
+                int num2 = ch / 16;
+                int num3 = ch % 16;
                 int index = (num2 + ch2) % caracteres_array.Length;
                 int num5 = (num3 + ch2) % caracteres_array.Length;
                 str.Append(caracteres_array[index]).Append(caracteres_array[num5]);

@@ -1,6 +1,7 @@
 ﻿using System;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
+using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 
 namespace Bot_Dofus_1._29._1.Otros.Personajes
 {
@@ -20,6 +21,7 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
         public CaracteristicasInformacion caracteristicas { get; private set; }
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
+        public int celda_id { get; set; } = 0;
 
         public int porcentaje_experiencia => (int)((caracteristicas.experiencia_actual - caracteristicas.experiencia_minima_nivel) / (caracteristicas.experiencia_siguiente_nivel - caracteristicas.experiencia_minima_nivel) * 100);
 
@@ -98,7 +100,7 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
             caracteristicas.energia_actual = int.Parse(_loc5[0]);
             caracteristicas.maxima_energia = int.Parse(_loc5[1]);
 
-            if(caracteristicas.iniciativa != null)
+            if (caracteristicas.iniciativa != null)
                 caracteristicas.iniciativa.base_personaje = int.Parse(_loc3[7]);
             else
                 caracteristicas.iniciativa = new CaracteristicasBase(int.Parse(_loc3[7]));
@@ -108,7 +110,7 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
             else
                 caracteristicas.prospeccion = new CaracteristicasBase(int.Parse(_loc3[8]));
 
-            for(int i = 9; i <= 18; ++i)
+            for (int i = 9; i <= 18; ++i)
             {
                 _loc5 = _loc3[i].Split(',');
                 int base_personaje = int.Parse(_loc5[0]);
@@ -116,77 +118,77 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
                 int dones = int.Parse(_loc5[2]);
                 int boost = int.Parse(_loc5[3]);
 
-                switch(i)
+                switch (i)
                 {
                     case 9:
                         if (caracteristicas.puntos_accion != null)
                             caracteristicas.puntos_accion.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.puntos_accion = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 10:
                         if (caracteristicas.puntos_movimiento != null)
                             caracteristicas.puntos_movimiento.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.puntos_movimiento = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 11:
                         if (caracteristicas.fuerza != null)
                             caracteristicas.fuerza.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.fuerza = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 12:
                         if (caracteristicas.vitalidad != null)
                             caracteristicas.vitalidad.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.vitalidad = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 13:
                         if (caracteristicas.sabiduria != null)
                             caracteristicas.sabiduria.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.sabiduria = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 14:
                         if (caracteristicas.suerte != null)
                             caracteristicas.suerte.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.suerte = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 15:
                         if (caracteristicas.agilidad != null)
                             caracteristicas.agilidad.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.agilidad = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 16:
                         if (caracteristicas.inteligencia != null)
                             caracteristicas.inteligencia.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.inteligencia = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 17:
                         if (caracteristicas.alcanze != null)
                             caracteristicas.alcanze.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.alcanze = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
 
                     case 18:
                         if (caracteristicas.criaturas_invocables != null)
                             caracteristicas.criaturas_invocables.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.criaturas_invocables = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        break;
                 }
             }
             caracteristicas_actualizadas?.Invoke();

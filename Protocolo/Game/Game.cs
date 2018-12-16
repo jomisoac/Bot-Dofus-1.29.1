@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Personajes;
-using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game.Paquetes;
 
@@ -22,22 +20,22 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
 
         public void analisis_Paquete(string paquete)
         {
-            char accion = paquete[1];
+            string accion = paquete[1].ToString();
             string informacion_paquete = string.Empty;
             bool tiene_error = false;
 
             if (paquete.Length >= 3)
             {
                 informacion_paquete = paquete.Substring(3);
-                tiene_error = (paquete[2] == 'E');
+                tiene_error = paquete[2].ToString().Equals("E");
             }
 
-            switch (paquete[0])
+            switch (paquete[0].ToString())
             {
-                case 'H':
+                case "H":
                     switch (accion)
                     {
-                        case 'G':
+                        case "G":
                             enviar_Paquete(new TiquetMensaje(cuenta.tiquet_game).get_Mensaje());
                         break;
 
@@ -47,22 +45,22 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case 'A':
+                case "A":
                     switch (accion)
                     {
-                        case 'T':
+                        case "T":
                             enviar_Paquete(new TiquetRespuesta(informacion_paquete).get_Mensaje());
                             enviar_Paquete(new RegionalVersion().get_Mensaje());
                         break;
 
-                        case 'V':
+                        case "V":
                             string[] idiomas = { "es", "fr", "en", "pt"};
                             enviar_Paquete("Ag" + idiomas[new Random().Next(0, (idiomas.Length - 1))]);
                             enviar_Paquete("AL");
                             enviar_Paquete("Af");
                         break;
 
-                        case 'L':
+                        case "L":
                             switch (paquete[2])
                             {
                                 case 'K':
@@ -71,7 +69,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             }
                         break;
 
-                        case 'S':
+                        case "S":
                             switch (paquete[2])
                             {
                                 case 'K':
@@ -81,20 +79,20 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             }
                         break;
 
-                        case 'R'://Restricciones
+                        case "R"://Restricciones
                             cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
                         break;
 
-                        case 's':
+                        case "s":
                             cuenta.personaje.actualizar_Caracteristicas(paquete);
                         break;
                     }
                 break;
 
-                case 'c':
+                case "c":
                     switch(accion)
                     {
-                        case 'C':
+                        case "C":
                             switch(paquete[2])
                             {
                                 case '+':
@@ -107,7 +105,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             }
                         break;
 
-                        case 'M':
+                        case "M":
                             switch (paquete[2])
                             {
                                 case 'K':
@@ -118,19 +116,19 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case 'B':
+                case "B":
                     switch(accion)
                     {
-                        case 'D':
+                        case "D":
                             enviar_Paquete("GI");
                         break;
                     }
                 break;
 
-                case 'f':
+                case "f":
                     switch(accion)
                     {
-                        case 'C':
+                        case "C":
                             switch (int.Parse(paquete[2].ToString()))
                             {
                                 case 0:
@@ -141,32 +139,54 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case 'G':
+                case "G":
                     switch(accion)
                     {
-                        case 'D':
-                            switch(paquete[2])
+                        case "D":
+                            switch(paquete[2].ToString())
                             {
-                                case 'M'://Mapas
+                                case "M"://Mapas
+                                    if (cuenta.personaje.mapa != null)
+                                        cuenta.personaje.mapa.get_Personajes().Clear();
                                     cuenta.personaje.mapa = new Mapa(paquete.Substring(4));
                                     cuenta.personaje.evento_Mapa_Actualizado();
+                                break;
+
+                                default:
+                                    Console.WriteLine("Paquete desconocido: " + paquete);
                                 break;
                             }
                         break;
 
-                        case 'M':
-                            string[] gm_elemento = paquete.Substring(4).Split(';');
-                            cuenta.personaje.mapa.celdas[int.Parse(gm_elemento[0].ToString())].agregar_Personaje(new Personaje(int.Parse(gm_elemento[3].ToString()), gm_elemento[3].ToString(), byte.Parse(gm_elemento[7].ToString())));
-                            cuenta.personaje.mapa.evento_Celda_Actualizada(int.Parse(gm_elemento[0].ToString()));
+                        case "M":
+                            switch (paquete[3])
+                            {
+                                case '+':
+                                    string[] gm_elemento = paquete.Substring(4).Split(';');
+                                    int celda_id = int.Parse(gm_elemento[0].ToString());
+                                    int id_personaje = int.Parse(gm_elemento[3].ToString());
+                                    string nombre_personaje = gm_elemento[4].ToString();
+                                    if (id_personaje > 0)
+                                    {
+                                        if (cuenta.personaje.nombre_personaje.Equals(nombre_personaje))
+                                            cuenta.personaje.celda_id = celda_id;
+                                        cuenta.personaje.mapa.agregar_Personaje(new Personaje(id_personaje, nombre_personaje, byte.Parse(gm_elemento[7].ToString())));
+                                    }
+                                break;
+
+                                case '-':
+                                    cuenta.personaje.mapa.eliminar_Personaje(int.Parse(paquete.Substring(4).ToString()));
+                                break;
+                            }
                         break;
                     }
                 break;
 
-                case 'I':
+                case "I":
                     switch(accion)
                     {
-                        case 'm'://Mensajes por lang
-                            byte tipo_im = byte.Parse(paquete[2].ToString());
+                        case "m"://Mensajes por lang
+                            byte tipo_im = byte.Parse(paquete[2].ToString().ToString());
                             int numero_im = int.Parse(paquete.Substring(3).Split(';')[0]);
                             switch (tipo_im)
                             {

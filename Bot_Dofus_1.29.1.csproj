@@ -64,7 +64,9 @@
     <Compile Include="Controles\ColorCheckBox\ColorCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controles\ControlMapa\CeldaEstado.cs" />
     <Compile Include="Controles\ControlMapa\CeldaMapa.cs" />
+    <Compile Include="Controles\ControlMapa\Modo_Dibujo.cs" />
     <Compile Include="Controles\LayoutPanel\FlowLayoutPanelBuffered.cs">
       <SubType>Component</SubType>
     </Compile>
