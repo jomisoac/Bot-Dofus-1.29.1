@@ -26,9 +26,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string nombre_cuenta = configuracion_cuenta.get_Nombre_Cuenta();
-
             if (Principal.get_Paginas_Cuentas_Cargadas().ContainsKey(nombre_cuenta))
             {
+                desconectar_Cuenta();
                 Principal.get_Paginas_Cuentas_Cargadas()[nombre_cuenta].contenido.Dispose();
                 Principal.get_Paginas_Cuentas_Cargadas().Remove(nombre_cuenta);
             }
@@ -51,14 +51,43 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 if (cuenta == null)
                 {
                     cuenta = new Cuenta(configuracion_cuenta.get_Nombre_Cuenta(), configuracion_cuenta.get_Password(), configuracion_cuenta.get_Servidor_Id());
+                    while (tabControl_principal.TabPages.Count > 2)
+                    {
+                        tabControl_principal.TabPages.RemoveAt(2);
+                    }
                     cargar_Eventos_Login();
                     cuenta.evento_fase_socket += cargar_Eventos_Debugger;
                     desconectarOconectarToolStripMenuItem.Text = "Desconectar";
                 }
             }
-            else
+            else if (desconectarOconectarToolStripMenuItem.Text.Equals("Desconectar"))
             {
+                if (cuenta.Fase_Socket != EstadoSocket.CAMBIANDO_A_JUEGO)
+                {
+                    desconectar_Cuenta();
+                    desconectarOconectarToolStripMenuItem.Text = "Conectar";
+                }
+            }
+        }
 
+        private void desconectar_Cuenta()
+        {
+            if(cuenta.conexion != null)
+            {
+                cuenta.conexion.evento_paquete_recibido -= debugger.paquete_Recibido;
+                cuenta.conexion.evento_paquete_enviado -= debugger.paquete_Enviado;
+                cuenta.conexion.evento_socket_informacion -= escribir_mensaje;
+                cuenta.conexion.evento_socket_desconectado -= escribir_mensaje;
+
+                cuenta.conexion.cerrar_Socket();
+                cuenta.Dispose(true);
+                cuenta = null;
+                activar_Todos_Controles_Chat(false);
+
+                for (int i = 2; i < tabControl_principal.TabPages.Count; i++)
+                {
+                    tabControl_principal.TabPages[i].Enabled = false;
+                }
             }
         }
 
@@ -70,12 +99,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     socket.evento_paquete_recibido += debugger.paquete_Recibido;
                     socket.evento_paquete_enviado += debugger.paquete_Enviado;
                     socket.evento_socket_informacion += escribir_mensaje;
+                    socket.evento_socket_desconectado += escribir_mensaje;
                 break;
 
                 case EstadoSocket.JUEGO:
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
                     agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
-                    activar_Todos_Controles_Chat();
+                    activar_Todos_Controles_Chat(true);
                     cuenta.personaje.socket_canal_personaje += socket_Evento_Chat;
                     cuenta.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
                 break;
@@ -96,19 +126,19 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }));
         }
 
-        private void activar_Todos_Controles_Chat()
+        private void activar_Todos_Controles_Chat(bool estado_botones)
         {
             BeginInvoke((Action)(() =>
             {
-                canal_informaciones.Enabled = true;
-                canal_general.Enabled = true;
-                canal_privado.Enabled = true;
-                canal_gremio.Enabled = true;
-                canal_alineamiento.Enabled = true;
-                canal_reclutamiento.Enabled = true;
-                canal_comercio.Enabled = true;
-                canal_incarnam.Enabled = true;
-                textBox_enviar_consola.Enabled = true;
+                canal_informaciones.Enabled = estado_botones;
+                canal_general.Enabled = estado_botones;
+                canal_privado.Enabled = estado_botones;
+                canal_gremio.Enabled = estado_botones;
+                canal_alineamiento.Enabled = estado_botones;
+                canal_reclutamiento.Enabled = estado_botones;
+                canal_comercio.Enabled = estado_botones;
+                canal_incarnam.Enabled = estado_botones;
+                textBox_enviar_consola.Enabled = estado_botones;
             }));
         }
 
@@ -119,6 +149,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 cuenta.conexion.evento_paquete_recibido += debugger.paquete_Recibido;
                 cuenta.conexion.evento_paquete_enviado += debugger.paquete_Enviado;
                 cuenta.conexion.evento_socket_informacion += escribir_mensaje;
+                cuenta.conexion.evento_socket_desconectado += escribir_mensaje;
 
                 cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
                 cuenta.logger.log_evento += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
@@ -147,8 +178,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
-        private void escribir_mensaje(object error) => escribir_mensaje(DateTime.Now.ToString("HH:mm:ss") + " -> [Conexión] " + error, LogTipos.PELIGRO.ToString("X"));
-
         private void agregar_Tab_Pagina(string nombre, UserControl control, int imagen_index)
         {
             tabControl_principal.BeginInvoke((Action)(() =>
@@ -160,6 +189,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 tabControl_principal.TabPages.Add(nueva_pagina);
             }));
         }
+
+        private void escribir_mensaje(object error) => escribir_mensaje(DateTime.Now.ToString("HH:mm:ss") + " -> [Conexión] " + error, LogTipos.PELIGRO.ToString("X"));
 
         private void escribir_mensaje(string mensaje, string color)
         {
@@ -192,42 +223,42 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void canal_CheckedChanged(object sender, EventArgs e)
         {
-            if(cuenta.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
+            if (cuenta.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
             {
                 CheckBox control = sender as CheckBox;
                 switch (control.Name)
                 {
                     case "canal_informaciones":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+i" : "cC-i");
-                    break;
+                        break;
 
                     case "canal_general":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+*" : "cC-*");
-                    break;
+                        break;
 
                     case "canal_privado":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+#$p" : "cC-#$p");
-                    break;
+                        break;
 
                     case "canal_gremio":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+%" : "cC-%");
-                    break;
+                        break;
 
                     case "canal_alineamiento":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+!" : "cC-!");
-                    break;
+                        break;
 
                     case "canal_reclutamiento":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+?" : "cC-?");
-                    break;
+                        break;
 
                     case "canal_comercio":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+:" : "cC-:");
-                    break;
+                        break;
 
                     case "canal_incarnam":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+^" : "cC-^");
-                    break;
+                        break;
                 }
             }
         }

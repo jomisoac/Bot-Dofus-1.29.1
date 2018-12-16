@@ -46,19 +46,6 @@ namespace Bot_Dofus_1._29._1.Otros
             }
         }
 
-        public void Dispose()
-        {
-            usuario = null;
-            password = null;
-            key_bienvenida = null;
-            conexion = null;
-            logger = null;
-            personaje = null;
-            apodo = null;
-            Estado_Cuenta = EstadoCuenta.DESCONECTADO;
-            Fase_Socket = EstadoSocket.NINGUNO;
-        }
-
         public EstadoCuenta Estado_Cuenta
         {
             get => estado_cuenta;
@@ -82,6 +69,35 @@ namespace Bot_Dofus_1._29._1.Otros
                     evento_fase_socket?.Invoke(conexion);
                 }
             }
+        }
+
+        ~Cuenta()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public virtual void Dispose(bool disposing)
+        {
+            try
+            {
+                usuario = null;
+                password = null;
+                key_bienvenida = null;
+                conexion = null;
+                logger = null;
+                personaje.Dispose(true);
+                personaje = null;
+                apodo = null;
+                Estado_Cuenta = EstadoCuenta.DESCONECTADO;
+                Fase_Socket = EstadoSocket.NINGUNO;
+            }
+            catch { }
         }
     }
 }

@@ -88,17 +88,17 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                                         case "f":
                                             cuenta.logger.log_Error("Login", "Conexión rechazada. Nombre de cuenta o contraseña incorrectos.");
                                             cerrar_Socket();
-                                            break;
+                                        break;
 
                                         case "v":
                                             cuenta.logger.log_Error("Login", "La versión %1 de Dofus que tienes instalada no es compatible con este servidor. Para poder jugar, instala la versión %2. El cliente DOFUS se va a cerrar.");
                                             cerrar_Socket();
-                                            break;
+                                        break;
 
                                         case "b":
                                             cuenta.logger.log_Error("Login", "Conexión rechazada. Tu cuenta ha sido baneada.");
                                             cerrar_Socket();
-                                            break;
+                                        break;
                                     }
                                     break;
                             }

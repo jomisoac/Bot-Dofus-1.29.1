@@ -132,10 +132,10 @@
     <Compile Include="Interfaces\UI_Debugger.Designer.cs">
       <DependentUpon>UI_Debugger.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibreriaSockets\ProtocoloInterfaz.cs" />
     <Compile Include="Otros\Cuenta.cs" />
     <Compile Include="Otros\Mapas\Celda.cs" />
     <Compile Include="Otros\Mapas\Mapa.cs" />
+    <Compile Include="Otros\Mapas\OrientacionCeldas.cs" />
     <Compile Include="Otros\Mapas\Pathfinding.cs" />
     <Compile Include="Otros\Personajes\Personaje.cs" />
     <Compile Include="Otros\Personajes\Stats\CaracteristicasBase.cs" />

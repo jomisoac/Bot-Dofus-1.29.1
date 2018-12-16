@@ -177,7 +177,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 }
                 else
                 {
-                    for (int x = 0; x < MapaAnchura-1; x++)
+                    for (int x = 0; x < MapaAnchura - 1; x++)
                     {
                         Point left = new Point((int)(offsetX + x * cellWidth + midCellWidth), (int)(offsetY + y * midCellHeight + midCellHeight));
                         Point top = new Point((int)(offsetX + x * cellWidth + cellWidth), (int)(offsetY + y * midCellHeight));
