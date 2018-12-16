@@ -10,11 +10,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
     {
         public int id { get; set; } = 0;
         public int fecha { get; set; } = 0;
+        public int anchura { get; set; } = 15;
+        public int altura { get; set; } = 17;
         public string mapa_data { get; set; }
         public Dictionary<int, Celda> celdas;
-        public List<Personaje> personajes;
-
-        public event Action<int> celda_actualizada;
+        public Dictionary<int, Personaje> personajes;
+        
         private readonly XElement archivo_mapa;
 
         public Mapa(string paquete)
@@ -54,18 +55,36 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
                     int layerObject2 = ((celdas_informacion[0] & 2) << 12) + ((celdas_informacion[7] & 1) << 12) + (celdas_informacion[8] << 6) + celdas_informacion[9];
                     bool layerObject2Interactive = ((celdas_informacion[7] & 2) >> 1) != 0;
-                    int obj = layerObject2Interactive ? layerObject2 : -1;
-                    if ((f / 10) == 297)
-                        Console.WriteLine(tipo_caminable);
-                    celdas.Add(f / 10, new Celda(id, f/10, tipo_caminable, IsSightBlocker, obj));
+                    int id_celda = f/10;
+                    celdas.Add(id_celda, new Celda(id_celda, tipo_caminable, IsSightBlocker, layerObject2Interactive ? layerObject2 : -1, layerObject2Interactive));
                 }
-
             }
         }
 
-        public void evento_Celda_Actualizada(int celda_id)
+        public void agregar_Personaje(Personaje personaje)
         {
-            celda_actualizada?.Invoke(celda_id);
+            if (personajes == null)
+                personajes = new Dictionary<int, Personaje>();
+            if (!personajes.ContainsKey(personaje.id))
+                personajes.Add(personaje.id, personaje);
+        }
+
+        public void eliminar_Personaje(int id_personaje)
+        {
+            if (personajes != null)
+            {
+                if (personajes.ContainsKey(id_personaje))
+                    personajes.Remove(id_personaje);
+                if (personajes.Count >= 0)//si no tiene ninguno volvera a ser nulo
+                    personajes = null;
+            }
+        }
+
+        public Dictionary<int, Personaje> get_Personajes()
+        {
+            if (personajes == null)
+                return new Dictionary<int, Personaje>();
+            return personajes;
         }
     }
 }

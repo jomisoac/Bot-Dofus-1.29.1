@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Controles.ControlMapa;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
+using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 
 namespace Bot_Dofus_1._29._1.Interfaces
 {
@@ -27,10 +30,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 for (int i = 0; i < celdas_mapa_personaje.Count; i++)
                 {
-                    switch(celdas_mapa_personaje[i].tipo_caminable)
+                    switch (celdas_mapa_personaje[i].tipo_caminable)
                     {
                         case 0:
                             mapa.celdas[i].Celda_Estado = CeldaEstado.NO_CAMINABLE;
+                        break;
+
+                        case 6:
+                        case 5:
+                            mapa.celdas[i].Celda_Estado = CeldaEstado.CAMINO;
                         break;
 
                         case 1:
@@ -46,23 +54,32 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         break;
                     }
                 }
-                cuenta.personaje.mapa.celda_actualizada += eventos_Celda_Actualizada;
             }
         }
 
-        private void eventos_Celda_Actualizada(int celda_id)
+        private void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
         {
-            //mapa.dibujar_Redonda_Celda(celda_id);
-        }
-
-        private void mapa_Control_Celda_Clic(ControlMapa control, CeldaMapa cell, MouseButtons buttons, bool hold)
-        {
-            if (buttons == MouseButtons.Left)
+            int celda_id_actual = cuenta.personaje.celda_id, celda_destino = celda.id;
+            if (botones == MouseButtons.Left && celda_id_actual != 0 && celda_destino != 0)
             {
-                cell.Celda_Estado = CeldaEstado.CAMINABLE;
+                if(cuenta.Estado_Cuenta == EstadoCuenta.CONECTADO_INACTIVO)
+                {
+                    Pathfinding pathfinding = new Pathfinding(cuenta.personaje.mapa);
+                    string camino = pathfinding.pathing(celda_id_actual, celda_destino, cuenta.personaje.mapa.celdas[celda_destino].tipo_caminable == 2);
+                    if (!string.IsNullOrEmpty(camino))
+                    {
+                        cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
+                        cuenta.conexion.enviar_Paquete("GA001" + camino);
+                        int distancia = pathfinding.get_Distancia_Estimada(celda_id_actual, celda_destino);
+                        Extensiones.Delay(distancia * (distancia < 6 ? 300 : 250)).ContinueWith(x => 
+                        {
+                            cuenta.conexion.enviar_Paquete("GKK0");
+                            cuenta.personaje.celda_id = celda_destino;
+                            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                        });
+                    }
+                }
             }
-
-            control.Invalidate(cell);
         }
     }
 }

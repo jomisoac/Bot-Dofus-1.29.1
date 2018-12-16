@@ -5,49 +5,23 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using Bot_Dofus_1._29._1.Otros;
 
 namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 {
-    [Serializable]
-    [Flags]
-    public enum CeldaEstado
-    {
-        NINGUNO = 0,
-        CAMINABLE = 1,
-        NO_CAMINABLE = 2,
-        PELEA_EQUIPO_AZUL = 4,
-        PELEA_EQUIPO_ROJO = 8,
-        CELDA_TELEPORT = 16,
-        OBJETO_INTERACTIVO = 32,
-    }
-
-    [Serializable]
-    [Flags]
-    public enum Modo_Dibujo
-    {
-        NINGUNO = 0,
-        MOVIMIENTOS = 1,
-        PELEAS = 2,
-        CELDAS_TELEPORT = 4,
-        OTROS = 8,
-        TODO = 15,
-    }
-
     public partial class ControlMapa : UserControl
     {
-        public delegate void CellClickedHandler(ControlMapa control, CeldaMapa cell, MouseButtons buttons, bool hold);
+        public delegate void CellClickedHandler(CeldaMapa celda, MouseButtons botones);
         public event CellClickedHandler clic_celda;
-        public event Action<ControlMapa, CeldaMapa, CeldaMapa> clic_celda_terminado;
+        public event Action<CeldaMapa, CeldaMapa> clic_celda_terminado;
 
-        protected void OnCellClicked(CeldaMapa cell, MouseButtons buttons, bool hold)
+        protected void OnCellClicked(CeldaMapa cell, MouseButtons buttons)
         {
-            clic_celda?.Invoke(this, cell, buttons, hold);
+            clic_celda?.Invoke(cell, buttons);
         }
 
         protected void OnCellOver(CeldaMapa cell, CeldaMapa last)
         {
-            clic_celda_terminado?.Invoke(this, cell, last);
+            clic_celda_terminado?.Invoke(cell, last);
         }
 
         private int mapa_altura, mapa_anchura;
@@ -74,6 +48,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 { CeldaEstado.PELEA_EQUIPO_ROJO, Color.Red},
                 { CeldaEstado.CELDA_TELEPORT, Color.Orange},
                 { CeldaEstado.OBJETO_INTERACTIVO, Color.LightGoldenrodYellow},
+                { CeldaEstado.CAMINO, Color.DarkGreen},
             };
             set_Celda_Numero();
             dibujar_Mapa();
@@ -256,11 +231,11 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 CeldaMapa celda = GetCell(e.Location);
                 if (mapa_celda_retenida != null && mapa_celda_retenida != celda)
                 {
-                    OnCellClicked(mapa_celda_retenida, e.Button, true);
+                    OnCellClicked(mapa_celda_retenida, e.Button);
                     mapa_celda_retenida = celda;
                 }
                 if (celda != null)
-                    OnCellClicked(celda, e.Button, true);
+                    OnCellClicked(celda, e.Button);
             }
 
             if (TraceOnOver)
@@ -314,7 +289,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
             if (mapa_celda_retenida != null)
             {
-                OnCellClicked(mapa_celda_retenida, e.Button, cell != mapa_celda_abajo);
+                OnCellClicked(mapa_celda_retenida, e.Button);
                 mapa_celda_retenida = null;
             }
             base.OnMouseUp(e);
