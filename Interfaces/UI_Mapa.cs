@@ -55,6 +55,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     }
                 }
             }
+            mapa.Invalidate();
         }
 
         private void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
@@ -64,11 +65,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 if(cuenta.Estado_Cuenta == EstadoCuenta.CONECTADO_INACTIVO)
                 {
+                    cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
                     Pathfinding pathfinding = new Pathfinding(cuenta.personaje.mapa);
-                    string camino = pathfinding.pathing(celda_id_actual, celda_destino, cuenta.personaje.mapa.celdas[celda_destino].tipo_caminable == 2);
+                    string camino = pathfinding.pathing(celda_id_actual, celda_destino);
                     if (!string.IsNullOrEmpty(camino))
                     {
-                        cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
                         cuenta.conexion.enviar_Paquete("GA001" + camino);
                         int distancia = pathfinding.get_Distancia_Estimada(celda_id_actual, celda_destino);
                         Extensiones.Delay(distancia * (distancia < 6 ? 300 : 250)).ContinueWith(x => 

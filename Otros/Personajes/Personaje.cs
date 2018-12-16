@@ -181,22 +181,34 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
                             caracteristicas.alcanze.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.alcanze = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 18:
                         if (caracteristicas.criaturas_invocables != null)
                             caracteristicas.criaturas_invocables.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.criaturas_invocables = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
                 }
             }
             caracteristicas_actualizadas?.Invoke();
         }
 
+        ~Personaje()
+        {
+            Dispose(false);
+        }
+
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public virtual void Dispose(bool disposing)
+        {
+            mapa = null;
+            caracteristicas = null;
         }
     }
 }

@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;
 
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+	Creado por Alvaro Prendes
+
+	web: http://www.salesprendes.com
+*/
+
 namespace Bot_Dofus_1._29._1.Otros.Mapas
 {
     internal class Pathfinding
@@ -60,7 +69,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             }
         }
 
-        public string pathing(int celda_actual, int celda_final, bool _es_pelea = false, int _nombre_pm = 9999)
+        public string pathing(int celda_actual, int celda_final, bool _es_pelea, int _nombre_pm)
         {
             try
             {
