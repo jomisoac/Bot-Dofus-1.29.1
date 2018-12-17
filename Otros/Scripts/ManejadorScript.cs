@@ -40,13 +40,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void despues_De_Archivo()
         {
-            manejador_script.Set_Global("imprimirExito", new Action<string>((msg) => cuenta.logger.log_informacion("Script", msg)));
-            manejador_script.Set_Global("imprimirError", new Action<string>((msg) => cuenta.logger.log_Error("Script", msg)));
+            manejador_script.Set_Global("imprimirExito", new Action<string>((mensaje) => cuenta.logger.log_informacion("Script", mensaje)));
+            manejador_script.Set_Global("imprimirError", new Action<string>((mensaje) => cuenta.logger.log_Error("Script", mensaje)));
             manejador_script.Set_Global("detenerScript", new Action(() => detener_Script()));
         }
 
         public void activar_Script()
         {
+            if (activado || cuenta.esta_ocupado)
+                return;
+
             activado = true;
             evento_script_iniciado?.Invoke();
             iniciar_Script();
