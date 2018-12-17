@@ -14,7 +14,7 @@ namespace Bot_Dofus_1._29._1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
        
-            Task.Factory.StartNew(() =>
+            Task.Run(() =>
             {
                 GlobalConf.cargar_Todas_Cuentas();
             });

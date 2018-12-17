@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoonSharp.Interpreter;
 
-namespace Bot_Dofus_1._29._1.Otros.Scripts
+namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 {
     internal class LuaManejadorScript : IDisposable
     {

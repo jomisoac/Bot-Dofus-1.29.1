@@ -265,4 +265,10 @@
   <data name="documento_rojo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\documento_rojo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="boton_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconos\boton_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="boton_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconos\boton_stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

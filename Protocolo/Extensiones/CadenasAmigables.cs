@@ -41,5 +41,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Extensiones
         {
             return text.Length <= start ? " " : text.Length - start <= length ? text.Substring(start) : text.Substring(start, length);
         }
+
+        public static string Truncar(this string texto, int maxima_longitud) => texto.Length <= maxima_longitud ? texto : $"{texto.Substring(0, maxima_longitud)}...";
     }
 }

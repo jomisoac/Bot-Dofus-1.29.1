@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
@@ -84,7 +86,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                 cuenta.Dispose();
                 cuenta = null;
-                activar_Todos_Controles_Chat(false);
+                cambiar_Todos_Controles_Chat(false);
 
                 for (int i = 2; i < tabControl_principal.TabPages.Count; i++)
                 {
@@ -107,7 +109,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 case EstadoSocket.JUEGO:
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
                     agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
-                    activar_Todos_Controles_Chat(true);
+                    cambiar_Todos_Controles_Chat(true);
                     cuenta.personaje.socket_canal_personaje += socket_Evento_Chat;
                     cuenta.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
                 break;
@@ -118,30 +120,26 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             BeginInvoke((Action)(() =>
             {
-                progresBar_vitalidad.Valor = cuenta.personaje.caracteristicas.vitalidad_actual;
-                progresBar_vitalidad.valor_Maximo = cuenta.personaje.caracteristicas.vitalidad_maxima;
-                progresBar_energia.Valor = cuenta.personaje.caracteristicas.energia_actual;
-                progresBar_energia.valor_Maximo = cuenta.personaje.caracteristicas.maxima_energia;
+                CaracteristicasInformacion caracteristicas = cuenta.personaje.caracteristicas;
+
+                progresBar_vitalidad.Valor = caracteristicas.vitalidad_actual;
+                progresBar_vitalidad.valor_Maximo = caracteristicas.vitalidad_maxima;
+                progresBar_energia.Valor = caracteristicas.energia_actual;
+                progresBar_energia.valor_Maximo = caracteristicas.maxima_energia;
                 progresBar_experiencia.Text = cuenta.personaje.nivel.ToString();
                 progresBar_experiencia.Valor = cuenta.personaje.porcentaje_experiencia;
-                label_kamas_principal.Text = cuenta.personaje.caracteristicas.kamas.ToString();
+                label_kamas_principal.Text = caracteristicas.kamas.ToString();
             }));
         }
 
-        private void activar_Todos_Controles_Chat(bool estado_botones)
+        private void cambiar_Todos_Controles_Chat(bool estado_botones)
         {
             BeginInvoke((Action)(() =>
             {
-                canal_informaciones.Enabled = estado_botones;
-                canal_general.Enabled = estado_botones;
-                canal_privado.Enabled = estado_botones;
-                canal_gremio.Enabled = estado_botones;
-                canal_alineamiento.Enabled = estado_botones;
-                canal_reclutamiento.Enabled = estado_botones;
-                canal_comercio.Enabled = estado_botones;
-                canal_incarnam.Enabled = estado_botones;
+                tableLayout_Canales.Controls.OfType<CheckBox>().ToList().ForEach(checkbox => checkbox.Enabled = estado_botones);
                 textBox_enviar_consola.Enabled = estado_botones;
                 cargarScriptToolStripMenuItem.Enabled = estado_botones;
+                iniciarScriptToolStripMenuItem.Enabled = estado_botones;
             }));
         }
 
@@ -156,6 +154,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                 cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
                 cuenta.logger.log_evento += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
+
+                //Scripts
+                cuenta.script.evento_script_cargado += evento_Scripts_Cargado;
+                cuenta.script.evento_script_iniciado += evento_Scripts_Iniciado;
+                cuenta.script.evento_script_detenido += evento_Scripts_Detenido;
             }
         }
 
@@ -292,7 +295,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
-                        Console.WriteLine(ofd.FileName);
+                        cuenta.script.get_Desde_Archivo(ofd.FileName);
                     }
                 }
             }
@@ -301,5 +304,60 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 escribir_mensaje(DateTime.Now.ToString("HH:mm:ss") + " -> [Script] " + ex.Message, LogTipos.ERROR.ToString("X"));
             }
         }
+
+        private void iniciarScriptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(cuenta != null)
+            {
+                if (!cuenta.script.activado)
+                {
+                    cuenta.script.activar_Script();
+                }
+                else
+                {
+                    cuenta.script.detener_Script();
+                }
+            }
+        }
+
+        #region Eventos Scripts
+        private void evento_Scripts_Cargado(string nombre)
+        {
+            cuenta.logger.log_informacion("Script", $"'{nombre}' Cargado.");
+            BeginInvoke((Action)(() =>
+            {
+                ScriptTituloStripMenuItem.Text = $"{nombre.Truncar(16)}";
+                ScriptTituloStripMenuItem.Enabled = true;
+            }));
+        }
+
+        private void evento_Scripts_Iniciado()
+        {
+            cuenta.logger.log_informacion("Script", "Iniciado.");
+            BeginInvoke((Action)(() =>
+            {
+                cargarScriptToolStripMenuItem.Enabled = false;
+                iniciarScriptToolStripMenuItem.Image = Properties.Resources.boton_stop;
+            }));
+        }
+
+        private void evento_Scripts_Detenido(string motivo)
+        {
+            if (string.IsNullOrEmpty(motivo))
+            {
+                cuenta.logger.log_informacion("Script", "Detenido.");
+            }
+            else
+            {
+                cuenta.logger.log_informacion("Script", $"Detenido {motivo}.");
+            }
+
+            BeginInvoke((Action)(() =>
+            {
+                iniciarScriptToolStripMenuItem.Image = Properties.Resources.boton_play;
+                cargarScriptToolStripMenuItem.Enabled = true;
+            }));
+        }
+        #endregion
     }
 }
