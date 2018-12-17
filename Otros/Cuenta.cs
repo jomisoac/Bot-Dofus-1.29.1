@@ -5,6 +5,7 @@ using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game;
 using Bot_Dofus_1._29._1.Protocolo.Login;
+using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
 
 /*
@@ -34,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Otros
 
         public event Action evento_estado_cuenta;
         public event Action<ClienteProtocolo> evento_fase_socket;
-
+        
         public Cuenta(string _usuario, string _password, int _servidor_id)
         {
             usuario = _usuario;
@@ -42,7 +43,7 @@ namespace Bot_Dofus_1._29._1.Otros
             servidor_id = _servidor_id;
             logger = new Logger();
             script = new ManejadorScript(this);
-            conexion = new Login("34.251.172.139", 443, this);
+            conexion = new Login(GlobalConf.ip_conexion, 443, this);
         }
 
         public string get_Nombre_Servidor() => servidor_id == 601 ? "Eratz" : "Henual";
@@ -80,6 +81,11 @@ namespace Bot_Dofus_1._29._1.Otros
                 }
             }
         }
+
+        public bool esta_ocupado => Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO && Estado_Cuenta != EstadoCuenta.REGENERANDO_VIDA;
+        public bool esta_dialogando() => Estado_Cuenta == EstadoCuenta.ALMACENAMIENTO || Estado_Cuenta == EstadoCuenta.HABLANDO || Estado_Cuenta == EstadoCuenta.INTERCAMBIO || Estado_Cuenta == EstadoCuenta.COMPRANDO || Estado_Cuenta == EstadoCuenta.VENDIENDO;
+        public bool esta_luchando() => Estado_Cuenta == EstadoCuenta.LUCHANDO;
+        public bool esta_recolectando() => Estado_Cuenta == EstadoCuenta.RECOLECTANDO;
 
         ~Cuenta()
         {

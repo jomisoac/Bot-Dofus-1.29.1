@@ -25,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Extensiones
                 case EstadoCuenta.ALMACENAMIENTO:
                     return "En almacenamiento";
                 case EstadoCuenta.HABLANDO:
-                    return "En Dialogo";
+                    return "En dialogo";
                 case EstadoCuenta.COMPRANDO:
                     return "Comprando";
                 case EstadoCuenta.VENDIENDO:
@@ -37,11 +37,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Extensiones
             }
         }
 
-        public static string get_Substring_Seguro(this string text, int start, int length)
-        {
-            return text.Length <= start ? " " : text.Length - start <= length ? text.Substring(start) : text.Substring(start, length);
-        }
-
+        public static string get_Substring_Seguro(this string texto, int inicio, int longitud) => texto.Length <= inicio ? " " : texto.Length - inicio <= longitud ? texto.Substring(inicio) : texto.Substring(inicio, longitud);
         public static string Truncar(this string texto, int maxima_longitud) => texto.Length <= maxima_longitud ? texto : $"{texto.Substring(0, maxima_longitud)}...";
     }
 }

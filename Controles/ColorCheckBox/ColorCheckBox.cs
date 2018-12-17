@@ -6,10 +6,7 @@ namespace Bot_Dofus_1._29._1.Controles.ColorCheckBox
 {
     public class ColorCheckBox : CheckBox
     {
-        public ColorCheckBox()
-        {
-            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-        }
+        public ColorCheckBox() => SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
 
         protected override void OnPaint(PaintEventArgs e)
         {

@@ -139,7 +139,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 tableLayout_Canales.Controls.OfType<CheckBox>().ToList().ForEach(checkbox => checkbox.Enabled = estado_botones);
                 textBox_enviar_consola.Enabled = estado_botones;
                 cargarScriptToolStripMenuItem.Enabled = estado_botones;
-                iniciarScriptToolStripMenuItem.Enabled = estado_botones;
             }));
         }
 
@@ -193,22 +192,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 nueva_pagina.ImageIndex = imagen_index;
                 nueva_pagina.Controls.Add(control);
                 tabControl_principal.TabPages.Add(nueva_pagina);
-            }));
-        }
-
-        private void escribir_mensaje(object error) => escribir_mensaje(DateTime.Now.ToString("HH:mm:ss") + " -> [Conexión] " + error, LogTipos.PELIGRO.ToString("X"));
-
-        private void escribir_mensaje(string mensaje, string color)
-        {
-            if (!IsHandleCreated)
-                return;
-
-            textbox_logs.BeginInvoke((Action)(() =>
-            {
-                textbox_logs.Select(textbox_logs.TextLength, 0);
-                textbox_logs.SelectionColor = ColorTranslator.FromHtml("#" + color);
-                textbox_logs.AppendText(mensaje + Environment.NewLine);
-                textbox_logs.ScrollToCaret();
             }));
         }
 
@@ -320,6 +303,24 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
+        #region Eventos Logger Mensajes
+        private void escribir_mensaje(object error) => escribir_mensaje(DateTime.Now.ToString("HH:mm:ss") + " -> [Conexión] " + error, LogTipos.PELIGRO.ToString("X"));
+
+        private void escribir_mensaje(string mensaje, string color)
+        {
+            if (!IsHandleCreated)
+                return;
+
+            textbox_logs.BeginInvoke((Action)(() =>
+            {
+                textbox_logs.Select(textbox_logs.TextLength, 0);
+                textbox_logs.SelectionColor = ColorTranslator.FromHtml("#" + color);
+                textbox_logs.AppendText(mensaje + Environment.NewLine);
+                textbox_logs.ScrollToCaret();
+            }));
+        }
+        #endregion
+
         #region Eventos Scripts
         private void evento_Scripts_Cargado(string nombre)
         {
@@ -327,7 +328,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             BeginInvoke((Action)(() =>
             {
                 ScriptTituloStripMenuItem.Text = $"{nombre.Truncar(16)}";
-                ScriptTituloStripMenuItem.Enabled = true;
+                iniciarScriptToolStripMenuItem.Enabled = true;
             }));
         }
 
@@ -356,6 +357,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 iniciarScriptToolStripMenuItem.Image = Properties.Resources.boton_play;
                 cargarScriptToolStripMenuItem.Enabled = true;
+                ScriptTituloStripMenuItem.Text = "-";
             }));
         }
         #endregion

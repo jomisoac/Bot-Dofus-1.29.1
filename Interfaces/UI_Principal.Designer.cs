@@ -127,6 +127,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             // 
             // iniciarScriptToolStripMenuItem
             // 
+            this.iniciarScriptToolStripMenuItem.Enabled = false;
             this.iniciarScriptToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_play;
             this.iniciarScriptToolStripMenuItem.Name = "iniciarScriptToolStripMenuItem";
             this.iniciarScriptToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
