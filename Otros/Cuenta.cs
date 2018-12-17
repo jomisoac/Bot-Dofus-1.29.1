@@ -29,7 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public ClienteProtocolo conexion = null;
         public Personaje personaje { get; set; }
         public ManejadorScript script { get; private set; }
-        private EstadoCuenta estado_cuenta;
+        private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
 
         public event Action evento_estado_cuenta;

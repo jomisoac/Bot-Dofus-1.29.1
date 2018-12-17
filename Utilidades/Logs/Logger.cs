@@ -28,9 +28,9 @@ namespace Bot_Dofus_1._29._1.Utilidades.Logs
             log_Final(referencia, mensaje, ((int)color).ToString("X"), ex);
         }
         public void log_Error(string referencia, string mensaje) => log_Final(referencia, mensaje, LogTipos.ERROR);
-        public void log_Peligro(string referencia, string message) => log_Final(referencia, message, LogTipos.PELIGRO);
-        public void log_informacion(string referencia, string message) => log_Final(referencia, message, LogTipos.INFORMACION);
-        public void log_normal(string referencia, string message) => log_Final(referencia, message, LogTipos.NORMAL);
-        public void log_privado(string referencia, string message) => log_Final(referencia, message, LogTipos.PRIVADO);
+        public void log_Peligro(string referencia, string mensaje) => log_Final(referencia, mensaje, LogTipos.PELIGRO);
+        public void log_informacion(string referencia, string mensaje) => log_Final(referencia, mensaje, LogTipos.INFORMACION);
+        public void log_normal(string referencia, string mensaje) => log_Final(referencia, mensaje, LogTipos.NORMAL);
+        public void log_privado(string referencia, string mensaje) => log_Final(referencia, mensaje, LogTipos.PRIVADO);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Controles.ControlMapa;
 using Bot_Dofus_1._29._1.Otros;
@@ -76,7 +77,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                             {
                                 cuenta.conexion.enviar_Paquete("GA001" + camino);
                                 int distancia = pathfinding.get_Distancia_Estimada(celda_id_actual, celda_destino);
-                                Extensiones.Delay(distancia * (distancia < 6 ? 300 : 250)).ContinueWith(x =>
+                                Task.Delay(distancia * (distancia < 6 ? 300 : 250)).ContinueWith(x =>
                                 {
                                     cuenta.conexion.enviar_Paquete("GKK0");
                                     cuenta.personaje.celda_id = celda_destino;
