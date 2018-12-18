@@ -111,6 +111,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 case EstadoSocket.JUEGO:
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
                     agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
+                    agregar_Tab_Pagina("Combates", new UI_Pelea(cuenta), 5);
                     cambiar_Todos_Controles_Chat(true);
                     cuenta.personaje.socket_canal_personaje += socket_Evento_Chat;
                     cuenta.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;

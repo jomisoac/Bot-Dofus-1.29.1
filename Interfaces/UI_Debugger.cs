@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
+using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 
 namespace Bot_Dofus_1._29._1.Interfaces
@@ -29,7 +30,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void agregar_Nuevo_Paquete(string paquete, bool enviado)
         {
-            if (Debugger_activado.Checked)
+            if (Debugger_activado.Checked && !GlobalConf.modo_ultra_perfomance)
             {
                 try
                 {

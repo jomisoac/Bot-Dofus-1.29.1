@@ -116,6 +116,12 @@
     <Compile Include="Interfaces\UI_Mapa.Designer.cs">
       <DependentUpon>UI_Mapa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\UI_Pelea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interfaces\UI_Pelea.Designer.cs">
+      <DependentUpon>UI_Pelea.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\UI_Personaje.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\UI_Mapa.resx">
       <DependentUpon>UI_Mapa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\UI_Pelea.resx">
+      <DependentUpon>UI_Pelea.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\UI_Personaje.resx">
       <DependentUpon>UI_Personaje.cs</DependentUpon>

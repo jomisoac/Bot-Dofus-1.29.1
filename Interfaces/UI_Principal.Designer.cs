@@ -406,14 +406,14 @@ namespace Bot_Dofus_1._29._1.Interfaces
             // 
             this.lista_imagenes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lista_imagenes.ImageStream")));
             this.lista_imagenes.TransparentColor = System.Drawing.Color.Transparent;
-            this.lista_imagenes.Images.SetKeyName(0, "application32.png");
-            this.lista_imagenes.Images.SetKeyName(1, "f-bug_256-24.png");
-            this.lista_imagenes.Images.SetKeyName(2, "user-blue32.png");
-            this.lista_imagenes.Images.SetKeyName(3, "briefcase48.png");
-            this.lista_imagenes.Images.SetKeyName(4, "678074-map-24.png");
-            this.lista_imagenes.Images.SetKeyName(5, "Iron_Sword32.png");
-            this.lista_imagenes.Images.SetKeyName(6, "bank_silver32.png");
-            this.lista_imagenes.Images.SetKeyName(7, "cog-icon-2-48x48 (1).png");
+            this.lista_imagenes.Images.SetKeyName(0, "terminal.png");
+            this.lista_imagenes.Images.SetKeyName(1, "debugger.png");
+            this.lista_imagenes.Images.SetKeyName(2, "personaje.png");
+            this.lista_imagenes.Images.SetKeyName(3, "inventario.png");
+            this.lista_imagenes.Images.SetKeyName(4, "mapa.png");
+            this.lista_imagenes.Images.SetKeyName(5, "pelea.png");
+            this.lista_imagenes.Images.SetKeyName(6, "bolsa_dinero.png");
+            this.lista_imagenes.Images.SetKeyName(7, "ajustes.png");
             // 
             // tableLayoutPanel4
             // 

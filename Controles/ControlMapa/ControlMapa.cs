@@ -47,8 +47,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 { CeldaEstado.PELEA_EQUIPO_AZUL, Color.DodgerBlue},
                 { CeldaEstado.PELEA_EQUIPO_ROJO, Color.Red},
                 { CeldaEstado.CELDA_TELEPORT, Color.Orange},
-                { CeldaEstado.OBJETO_INTERACTIVO, Color.LightGoldenrodYellow},
-                { CeldaEstado.CAMINO, Color.DarkGreen},
+                { CeldaEstado.OBJETO_INTERACTIVO, Color.LightGoldenrodYellow}
             };
             set_Celda_Numero();
             dibujar_Mapa();

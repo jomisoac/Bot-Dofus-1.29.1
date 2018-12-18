@@ -12,7 +12,6 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         PELEA_EQUIPO_AZUL = 4,
         PELEA_EQUIPO_ROJO = 8,
         CELDA_TELEPORT = 16,
-        OBJETO_INTERACTIVO = 32,
-        CAMINO = 64
+        OBJETO_INTERACTIVO = 32
     }
 }
