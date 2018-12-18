@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
+using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
@@ -112,6 +114,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     cambiar_Todos_Controles_Chat(true);
                     cuenta.personaje.socket_canal_personaje += socket_Evento_Chat;
                     cuenta.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
+
+                    cuenta.script = new ManejadorScript(cuenta);
+                    cuenta.script.evento_script_cargado += evento_Scripts_Cargado;
+                    cuenta.script.evento_script_iniciado += evento_Scripts_Iniciado;
+                    cuenta.script.evento_script_detenido += evento_Scripts_Detenido;
                 break;
             }
         }
@@ -153,11 +160,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                 cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
                 cuenta.logger.log_evento += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
-
-                //Scripts
-                cuenta.script.evento_script_cargado += evento_Scripts_Cargado;
-                cuenta.script.evento_script_iniciado += evento_Scripts_Iniciado;
-                cuenta.script.evento_script_detenido += evento_Scripts_Detenido;
             }
         }
 

@@ -3,6 +3,7 @@ using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Personajes;
+using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game.Paquetes;
 
@@ -64,7 +65,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             switch (paquete[2])
                             {
                                 case 'K':
-                                    enviar_Paquete(new PersonajeSeleccion(0, informacion_paquete).get_Mensaje());
+                                    enviar_Paquete(new PersonajeSeleccion(1, informacion_paquete).get_Mensaje());
                                 break;
                             }
                         break;
@@ -148,7 +149,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                                 case "M"://Mapas
                                     if (cuenta.personaje.mapa != null)
                                         cuenta.personaje.mapa.get_Personajes().Clear();
-                                    cuenta.personaje.mapa = new Mapa(paquete.Substring(4));
+                                    cuenta.personaje.mapa = new Mapa(cuenta, paquete.Substring(4));
                                     cuenta.personaje.evento_Mapa_Actualizado();
                                 break;
 

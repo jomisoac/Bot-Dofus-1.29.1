@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Controles.ControlMapa;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
-using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 
 namespace Bot_Dofus_1._29._1.Interfaces
 {
@@ -64,41 +62,21 @@ namespace Bot_Dofus_1._29._1.Interfaces
             int celda_id_actual = cuenta.personaje.celda_id, celda_destino = celda.id;
             if (botones == MouseButtons.Left && celda_id_actual != 0 && celda_destino != 0)
             {
-                if (cuenta.personaje.mapa.celdas.Length > celda_destino)
+                Task.Run(() => 
                 {
-                    if (cuenta.personaje.mapa.celdas[celda_destino].tipo_caminable != 0)
+                    switch (cuenta.personaje.mapa.get_Mover_Celda_Resultado(celda_destino))
                     {
-                        if (cuenta.Estado_Cuenta == EstadoCuenta.CONECTADO_INACTIVO)
-                        {
-                            cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
-                            Pathfinding pathfinding = new Pathfinding(cuenta.personaje.mapa);
-                            string camino = pathfinding.pathing(celda_id_actual, celda_destino);
-                            if (!string.IsNullOrEmpty(camino))
-                            {
-                                cuenta.conexion.enviar_Paquete("GA001" + camino);
-                                int distancia = pathfinding.get_Distancia_Estimada(celda_id_actual, celda_destino);
-                                Task.Delay(distancia * (distancia < 6 ? 300 : 250)).ContinueWith(x =>
-                                {
-                                    cuenta.conexion.enviar_Paquete("GKK0");
-                                    cuenta.personaje.celda_id = celda_destino;
-                                    cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-                                });
-                            }
-                        }
-                        else
-                        {
-                            cuenta.logger.log_Error("UI_MAPA", "Personaje en movimiento");
-                        }
+                        case ResultadoMovimientos.EXITO:
+                            cuenta.logger.log_informacion("UI_MAPA", "Personaje desplazado a la casilla: " + celda_destino);
+                        break;
+
+                        case ResultadoMovimientos.FALLO:
+                        case ResultadoMovimientos.PATHFINDING_ERROR:
+                        case ResultadoMovimientos.MISMA_CELDA:
+                            cuenta.logger.log_Error("UI_MAPA", "Error desplazando el personaje a la casilla: " + celda_destino);
+                        break;
                     }
-                    else
-                    {
-                        cuenta.logger.log_Error("UI_MAPA", "La celda no es seleccionable");
-                    }
-                }
-                else
-                {
-                    cuenta.logger.log_Error("UI_MAPA", "La celda no existe en el mapa del juego");
-                }
+                });
             }
             else
             {

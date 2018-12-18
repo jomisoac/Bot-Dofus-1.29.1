@@ -29,7 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public Logger logger { get; private set; }
         public ClienteProtocolo conexion = null;
         public Personaje personaje { get; set; }
-        public ManejadorScript script { get; private set; }
+        public ManejadorScript script { get; set; }
         private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
 
@@ -42,7 +42,6 @@ namespace Bot_Dofus_1._29._1.Otros
             password = _password;
             servidor_id = _servidor_id;
             logger = new Logger();
-            script = new ManejadorScript(this);
             conexion = new Login(GlobalConf.ip_conexion, 443, this);
         }
 

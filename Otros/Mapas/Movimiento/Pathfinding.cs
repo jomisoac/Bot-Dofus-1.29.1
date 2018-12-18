@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;
+using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -11,7 +12,7 @@ using Bot_Dofus_1._29._1.Protocolo.Extensiones;
     web: http://www.salesprendes.com
 */
 
-namespace Bot_Dofus_1._29._1.Otros.Mapas
+namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 {
     internal class Pathfinding
     {
@@ -21,7 +22,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         private readonly int[] Flist = new int[1025];
         private readonly int[] Glist = new int[1025];
         private readonly int[] Hlist = new int[1025];
-        public const string hash = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
         private Mapa mapa;
 
         private bool es_pelea;
@@ -34,9 +34,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         public static string get_Direccion_Char(int direccion)
         {
-            if (direccion >= hash.Length)
-                return "";
-            return hash[direccion].ToString();
+            if (direccion >= Hash.caracteres_array.Length)
+                return string.Empty;
+            return Hash.caracteres_array[direccion].ToString();
         }
 
         private void loadSprites()
@@ -64,7 +64,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             }
             catch (Exception)
             {
-                return "";
+                return string.Empty;
             }
         }
 
@@ -81,7 +81,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             }
             catch (Exception)
             {
-                return "";
+                return string.Empty;
             }
         }
 
@@ -96,7 +96,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             {
                 i += 1;
                 if (i > 1000)
-                    return "";
+                    return string.Empty;
 
                 actual = get_F_Punto();
                 if (actual != celda_2)
@@ -160,16 +160,16 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                     return pathing.ToString();
                 actual = camino_celda[i];
                 hijo = camino_celda[i + 1];
-                pathing.Append(get_Direccion_Char(get_Direccion_Casilla(actual, hijo))).Append(get_Celda_Chars(hijo));
+                pathing.Append(get_Direccion_Char(get_Orientacion_Casilla(actual, hijo))).Append(get_Celda_Chars(hijo));
             }
             return pathing.ToString();
         }
 
         public static string get_Celda_Chars(int celda)
         {
-            int CharCode2 = celda % hash.Length;
-            int CharCode1 = (celda - CharCode2) / hash.Length;
-            return hash[CharCode1].ToString() + hash[CharCode2].ToString();
+            int CharCode2 = celda % Hash.caracteres_array.Length;
+            int CharCode1 = (celda - CharCode2) / Hash.caracteres_array.Length;
+            return Hash.caracteres_array[CharCode1].ToString() + Hash.caracteres_array[CharCode2].ToString();
         }
 
         private List<int> get_Hijo(int celda_id)
@@ -263,18 +263,17 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         public int get_Celda_X_Coordenadas(int celda_id) => (celda_id - ((mapa.anchura - 1) * get_Celda_Y_Coordenadas(celda_id))) / mapa.anchura;
 
-        public int get_Distancia_Estimada(int id_1, int id_2)
+        public int get_Distancia_Estimada(int celda_1, int celda_2)
         {
-            if (id_1 == id_2)
+            if (celda_1 == celda_2)
                 return 0;
 
-            int diferencia_x = Math.Abs(get_Celda_X_Coordenadas(id_1) - get_Celda_X_Coordenadas(id_2));
-            int diferencia_y = Math.Abs(get_Celda_Y_Coordenadas(id_1) - get_Celda_Y_Coordenadas(id_2));
+            int diferencia_x = Math.Abs(get_Celda_X_Coordenadas(celda_1) - get_Celda_X_Coordenadas(celda_2));
+            int diferencia_y = Math.Abs(get_Celda_Y_Coordenadas(celda_1) - get_Celda_Y_Coordenadas(celda_2));
             return diferencia_x + diferencia_y;
         }
 
-
-        public int get_Direccion_Casilla(int celda_1, int celda_2)
+        public int get_Orientacion_Casilla(int celda_1, int celda_2)
         {
             int mapa_anchura = mapa.anchura;
             int[] _loc6_ = { 1, mapa_anchura, (mapa_anchura * 2) - 1, mapa_anchura - 1, -1, -mapa_anchura, (-mapa_anchura * 2) + 1, -(mapa_anchura - 1) };
@@ -303,6 +302,31 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             {
                 return 5;
             }
+        }
+
+        public int get_Tiempo_Desplazamiento(int casilla_inicio, int casilla_final, Direcciones orientacion)
+        {
+            int distancia = get_Distancia_Estimada(casilla_inicio, casilla_final);
+            switch (orientacion)
+            {
+                case Direcciones.ESTE:
+                case Direcciones.OESTE:
+                    return Math.Abs(casilla_inicio - casilla_final) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
+
+                case Direcciones.NORTE:
+                case Direcciones.SUR:
+                    return Math.Abs(casilla_inicio - casilla_final) / ((mapa.anchura * 2) - 1) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
+
+                case Direcciones.NORDESTE:
+                case Direcciones.SUDESTE:
+                    return Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
+
+
+                case Direcciones.NOROESTE:
+                case Direcciones.SUDOESTE:
+                    return Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
+            }
+            return 0;
         }
 
         private string get_Pathfinding_Limpio(string pathfinding)
