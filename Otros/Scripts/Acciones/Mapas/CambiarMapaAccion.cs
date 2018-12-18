@@ -31,12 +31,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas
             }
         }
 
-        public static bool TryParse(string text, out CambiarMapaAccion accion)
+        public static bool TryParse(string texto, out CambiarMapaAccion accion)
         {
-            string[] partes = text.Split('|');
+            string[] partes = texto.Split('|');
             string randomPart = partes[Randomize.get_Random_Int(0, partes.Length)];
 
-            Match m = Regex.Match(randomPart, @"(?<cellId>\d{1,3})");
+            Match m = Regex.Match(randomPart, @"(?<celda>\d{1,3})");
             if (m.Success)
             {
                 accion = new CambiarMapaAccion(int.Parse(m.Groups["cellId"].Value));

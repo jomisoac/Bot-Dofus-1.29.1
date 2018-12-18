@@ -11,7 +11,7 @@ using Bot_Dofus_1._29._1.Utilidades.Criptografia;
     Este archivo es parte del proyecto BotDofus_1.29.1
 
     BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
-	Creado por Alvaro Prendes
+    Creado por Alvaro Prendes
     web: http://www.salesprendes.com
 */
 
@@ -112,7 +112,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             if (celda_id < 0 || celda_id > celdas.Length)
                 return ResultadoMovimientos.FALLO;
 
-            if (cuenta.esta_ocupado || pathfinding_camino != null)
+            if (cuenta.esta_ocupado)
                 return ResultadoMovimientos.FALLO;
 
             if (celda_id == cuenta.personaje.celda_id)

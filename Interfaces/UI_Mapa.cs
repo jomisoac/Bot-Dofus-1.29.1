@@ -6,6 +6,7 @@ using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
+using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 
 namespace Bot_Dofus_1._29._1.Interfaces
 {
@@ -24,37 +25,35 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void eventos_Mapa_Cambiado()
         {
-            Celda[] celdas_mapa_personaje = cuenta.personaje.mapa.celdas;
-            if (celdas_mapa_personaje != null && celdas_mapa_personaje.Length > 0)
+            if(!GlobalConf.modo_ultra_perfomance)
             {
-                for (int i = 0; i < celdas_mapa_personaje.Length; i++)
+                Celda[] celdas_mapa_personaje = cuenta.personaje.mapa.celdas;
+                if (celdas_mapa_personaje != null && celdas_mapa_personaje.Length > 0)
                 {
-                    switch (celdas_mapa_personaje[i].tipo_caminable)
+                    for (int i = 0; i < celdas_mapa_personaje.Length; i++)
                     {
-                        case 0:
-                            mapa.celdas[i].Celda_Estado = CeldaEstado.NO_CAMINABLE;
-                        break;
+                        switch (celdas_mapa_personaje[i].tipo_caminable)
+                        {
+                            case 0:
+                                mapa.celdas[i].Celda_Estado = CeldaEstado.NO_CAMINABLE;
+                                break;
 
-                        case 6:
-                        case 5:
-                            mapa.celdas[i].Celda_Estado = CeldaEstado.CAMINO;
-                        break;
+                            case 1:
+                                mapa.celdas[i].Celda_Estado = CeldaEstado.OBJETO_INTERACTIVO;
+                                break;
 
-                        case 1:
-                            mapa.celdas[i].Celda_Estado = CeldaEstado.OBJETO_INTERACTIVO;
-                        break;
+                            case 2:
+                                mapa.celdas[i].Celda_Estado = CeldaEstado.CELDA_TELEPORT;
+                                break;
 
-                        case 2:
-                            mapa.celdas[i].Celda_Estado = CeldaEstado.CELDA_TELEPORT;
-                        break;
-
-                        default:
-                            mapa.celdas[i].Celda_Estado = CeldaEstado.CAMINABLE;
-                        break;
+                            default:
+                                mapa.celdas[i].Celda_Estado = CeldaEstado.CAMINABLE;
+                                break;
+                        }
                     }
                 }
+                mapa.Invalidate();
             }
-            mapa.Invalidate();
         }
 
         private void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
