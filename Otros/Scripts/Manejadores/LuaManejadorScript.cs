@@ -5,7 +5,7 @@ using MoonSharp.Interpreter;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 {
-    internal class LuaManejadorScript : IDisposable
+    public class LuaManejadorScript : IDisposable
     {
         public Script script { get; private set; }
 

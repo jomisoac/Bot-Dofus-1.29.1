@@ -139,10 +139,17 @@
     <Compile Include="Otros\Cuenta.cs" />
     <Compile Include="Otros\Mapas\Celda.cs" />
     <Compile Include="Otros\Mapas\Mapa.cs" />
-    <Compile Include="Otros\Mapas\Pathfinding.cs" />
+    <Compile Include="Otros\Mapas\Movimiento\Direcciones.cs" />
+    <Compile Include="Otros\Mapas\Movimiento\Pathfinding.cs" />
+    <Compile Include="Otros\Mapas\Movimiento\ResultadoMovimientos.cs" />
     <Compile Include="Otros\Personajes\Personaje.cs" />
     <Compile Include="Otros\Personajes\Stats\CaracteristicasBase.cs" />
     <Compile Include="Otros\Personajes\Stats\CaracteristicasInformacion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\AccionesScript.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Mapas\CambiarMapaAccion.cs" />
+    <Compile Include="Otros\Scripts\Banderas\Bandera.cs" />
+    <Compile Include="Otros\Scripts\Banderas\CambiarMapa.cs" />
+    <Compile Include="Otros\Scripts\EstadoScript.cs" />
     <Compile Include="Otros\Scripts\Manejadores\LuaManejadorScript.cs" />
     <Compile Include="Otros\Scripts\Manejadores\ManejadorAcciones.cs" />
     <Compile Include="Otros\Scripts\ManejadorScript.cs" />
@@ -171,6 +178,7 @@
     <Compile Include="Utilidades\Configuracion\CuentaConf.cs" />
     <Compile Include="Utilidades\Criptografia\Compressor.cs" />
     <Compile Include="Utilidades\Criptografia\Hash.cs" />
+    <Compile Include="Utilidades\Criptografia\Randomize.cs" />
     <Compile Include="Utilidades\Extensiones\Extensiones.cs" />
     <Compile Include="Utilidades\Logs\Logger.cs" />
     <Compile Include="Utilidades\Logs\LogMensajes.cs" />
@@ -385,5 +393,6 @@
   <ItemGroup>
     <None Include="Resources\iconos\boton_stop.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
