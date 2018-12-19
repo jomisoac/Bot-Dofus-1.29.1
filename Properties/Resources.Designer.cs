@@ -333,6 +333,26 @@ namespace Bot_Dofus_1._29._1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap flecha_abajo {
+            get {
+                object obj = ResourceManager.GetObject("flecha_abajo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap flecha_arriba {
+            get {
+                object obj = ResourceManager.GetObject("flecha_arriba", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap flecha_direccion_izquierda {
             get {
                 object obj = ResourceManager.GetObject("flecha_direccion_izquierda", resourceCulture);
@@ -367,6 +387,27 @@ namespace Bot_Dofus_1._29._1.Properties {
             get {
                 object obj = ResourceManager.GetObject("golpes_criticos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
+        ///&lt;HECHIZOS&gt;
+        ///	&lt;HECHIZO&gt;
+        ///		&lt;id&gt;0&lt;/id&gt;
+        ///		&lt;nivel&gt;1&lt;/nivel&gt;
+        ///		&lt;nombre&gt;Cuerpo a Cuerpo&lt;/nombre&gt;
+        ///		&lt;descripcion&gt;Ataque de cuerpo a cuerpo que ocasiona pocos daños a tu adversario. Para que sea más efectivo tendría que utilizarse con un arma. (No se trata de un hechizo en el propio sentido de la palabra).&lt;/descripcion&gt;
+        ///	&lt;/HECHIZO&gt;
+        ///	&lt;HECHIZO&gt;
+        ///		&lt;id&gt;1&lt;/id&gt;
+        ///		&lt;nivel&gt;9&lt;/nivel&gt;
+        ///		&lt;nombre&gt;Armadura Incandescente&lt;/nombre&gt;
+        ///		&lt;descripcion&gt;Esta armadura protege contra los daños de fuego.&lt; [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string hechizos {
+            get {
+                return ResourceManager.GetString("hechizos", resourceCulture);
             }
         }
         

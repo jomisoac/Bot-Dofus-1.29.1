@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Controles.ControlMapa;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 
 namespace Bot_Dofus_1._29._1.Interfaces
@@ -36,19 +34,19 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         {
                             case 0:
                                 mapa.celdas[i].Celda_Estado = CeldaEstado.NO_CAMINABLE;
-                                break;
+                            break;
 
                             case 1:
                                 mapa.celdas[i].Celda_Estado = CeldaEstado.OBJETO_INTERACTIVO;
-                                break;
+                            break;
 
                             case 2:
                                 mapa.celdas[i].Celda_Estado = CeldaEstado.CELDA_TELEPORT;
-                                break;
+                            break;
 
                             default:
                                 mapa.celdas[i].Celda_Estado = CeldaEstado.CAMINABLE;
-                                break;
+                            break;
                         }
                     }
                 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot_Dofus_1._29._1.LibreriaSockets;
+using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
@@ -30,6 +31,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public ClienteProtocolo conexion = null;
         public Personaje personaje { get; set; }
         public ManejadorScript script { get; set; }
+        public PeleaExtensiones pelea_extension { get; set; }
         private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
 
@@ -42,6 +44,7 @@ namespace Bot_Dofus_1._29._1.Otros
             password = _password;
             servidor_id = _servidor_id;
             logger = new Logger();
+            pelea_extension = new PeleaExtensiones(this);
             conexion = new Login(GlobalConf.ip_conexion, 443, this);
         }
 
