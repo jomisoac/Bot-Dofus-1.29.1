@@ -31,9 +31,9 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                 tiene_error = paquete[2].ToString().Equals("E");
             }
 
-            switch (paquete[0].ToString())
+            switch (paquete[0])
             {
-                case "H":
+                case 'H':
                     switch (accion)
                     {
                         case "G":
@@ -46,7 +46,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case "A":
+                case 'A':
                     switch (accion)
                     {
                         case "T":
@@ -65,7 +65,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             switch (paquete[2])
                             {
                                 case 'K':
-                                    enviar_Paquete(new PersonajeSeleccion(1, informacion_paquete).get_Mensaje());
+                                    enviar_Paquete(new PersonajeSeleccion(0, informacion_paquete).get_Mensaje());
                                 break;
                             }
                         break;
@@ -90,7 +90,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case "c":
+                case 'c':
                     switch(accion)
                     {
                         case "C":
@@ -117,7 +117,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case "B":
+                case 'B':
                     switch(accion)
                     {
                         case "D":
@@ -126,7 +126,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case "f":
+                case 'f':
                     switch(accion)
                     {
                         case "C":
@@ -140,7 +140,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case "G":
+                case 'G':
                     switch(accion)
                     {
                         case "D":
@@ -188,7 +188,19 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case "I":
+                case 'S':
+                    switch(accion)
+                    {
+                        case "L":
+                            if (!paquete[2].Equals('o'))
+                            {
+                                cuenta.personaje.actualizar_Hechizos(paquete.Substring(2));
+                            }
+                        break;
+                    }
+                break;
+
+                case 'I':
                     switch(accion)
                     {
                         case "m"://Mensajes por lang

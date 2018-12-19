@@ -109,6 +109,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 break;
 
                 case EstadoSocket.JUEGO:
+                    cuenta.pelea_extension.configuracion.cargar();
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
                     agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
                     agregar_Tab_Pagina("Combates", new UI_Pelea(cuenta), 5);

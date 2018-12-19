@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
 
@@ -26,6 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
         public string objetos { get; set; } = string.Empty;
         public int puntos_caracteristicas { get; set; } = 0;
         public CaracteristicasInformacion caracteristicas { get; private set; }
+        public List<Hechizos> hechizos { get; set; }
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
         public int celda_id { get; set; } = 0;
@@ -35,6 +39,7 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
         public event Action personaje_seleccionado;
         public event Action socket_canal_personaje;
         public event Action caracteristicas_actualizadas;
+        public event Action hechizos_actualizados;
         public event Action mapa_actualizado;
 
         public Personaje(int _id, string _nombre_personaje, byte _nivel, int _gremio, byte _sexo, int _gfxID, int _color1, int _color2, int _color3, string _objetos)
@@ -50,6 +55,7 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
             color3 = _color3;
             objetos = _objetos;
             caracteristicas = new CaracteristicasInformacion();
+            hechizos = new List<Hechizos>();
         }
 
         public Personaje(int _id, string _nombre_personaje, byte _sexo)//Paquete GM+
@@ -199,6 +205,25 @@ namespace Bot_Dofus_1._29._1.Otros.Personajes
                 }
             }
             caracteristicas_actualizadas?.Invoke();
+        }
+
+        public void actualizar_Hechizos(string paquete)
+        {
+            hechizos.Clear();
+
+            string[] limitador = paquete.Split(';'), separador;
+            XElement xml = XElement.Parse(Properties.Resources.hechizos);
+            string nombre;
+            int hechizo_id;
+
+            for (int i = 0; i < limitador.Length - 1; ++i)
+            {
+                separador = limitador[i].Split('~');
+                hechizo_id = int.Parse(separador[0].ToString());
+                nombre = xml.Elements("HECHIZO").Where(e => int.Parse(e.Element("id").Value) == hechizo_id).Elements("nombre").Select(e => e.Value).FirstOrDefault();
+                hechizos.Add(new Hechizos(hechizo_id, nombre, byte.Parse(separador[1].ToString()), char.Parse(separador[2].ToString())));
+            }
+            hechizos_actualizados?.Invoke();
         }
 
         ~Personaje()

@@ -1,0 +1,1522 @@
+<?xml version="1.0" standalone="yes"?>
+<HECHIZOS>
+	<HECHIZO>
+		<id>0</id>
+		<nivel>1</nivel>
+		<nombre>Cuerpo a Cuerpo</nombre>
+		<descripcion>Ataque de cuerpo a cuerpo que ocasiona pocos daños a tu adversario. Para que sea más efectivo tendría que utilizarse con un arma. (No se trata de un hechizo en el propio sentido de la palabra).</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1</id>
+		<nivel>9</nivel>
+		<nombre>Armadura Incandescente</nombre>
+		<descripcion>Esta armadura protege contra los daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>2</id>
+		<nivel>6</nivel>
+		<nombre>Ceguera</nombre>
+		<descripcion>Ceguera ocasiona daños neutros y hace que el enemigo pierda PA.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>3</id>
+		<nivel>1</nivel>
+		<nombre>Ataque Natural</nombre>
+		<descripcion>Ataque Natural causa daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>4</id>
+		<nivel>3</nivel>
+		<nombre>Reenvío de Hechizo</nombre>
+		<descripcion>Reenvío de Hechizo permite reenviar un hechizo que provoca una pérdida de PDV o de PA.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>5</id>
+		<nivel>36</nivel>
+		<nombre>Tregua</nombre>
+		<descripcion>Este hechizo permite proteger a todos los jugadores presentes en el mapa.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>6</id>
+		<nivel>1</nivel>
+		<nombre>Armadura Terrestre</nombre>
+		<descripcion>Esta armadura protege contra los daños neutrales y de tierra.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>7</id>
+		<nivel>80</nivel>
+		<nombre>Escudo Feca</nombre>
+		<descripcion>Este escudo reduce (en porcentaje) los daños recibidos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>8</id>
+		<nivel>48</nivel>
+		<nombre>Puñalada</nombre>
+		<descripcion>Hechizo de ataque cuerpo a cuerpo que produce daños de tipo neutral.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>9</id>
+		<nivel>13</nivel>
+		<nombre>Ataque Nuboso</nombre>
+		<descripcion>Ataque Nuboso causa serios daños.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>10</id>
+		<nivel>70</nivel>
+		<nombre>Glifo Flamígero</nombre>
+		<descripcion>Este glifo quema a las personas que se encuentran en su zona.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>11</id>
+		<nivel>60</nivel>
+		<nombre>Teleportación</nombre>
+		<descripcion>Teleportación hace que un jugador se desplace rápidamente.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>12</id>
+		<nivel>54</nivel>
+		<nombre>Glifo de Ceguera</nombre>
+		<descripcion>Este glifo hacer perder PA.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>13</id>
+		<nivel>100</nivel>
+		<nombre>Glifo de Silencio</nombre>
+		<descripcion>Este glifo impide que los jugadores que se encuentran en su zona de efecto lancen hechizos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>14</id>
+		<nivel>26</nivel>
+		<nombre>Armadura Ventisca</nombre>
+		<descripcion>Esta armadura protege contra los daños de aire y atribuye una cierta resistencia a la pérdida de los PM.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>15</id>
+		<nivel>90</nivel>
+		<nombre>Glifo de Inmovilización</nombre>
+		<descripcion>Este glifo inmoviliza a todos los jugadores, tanto los aliados como los enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>16</id>
+		<nivel>42</nivel>
+		<nombre>Ciencia del Palo</nombre>
+		<descripcion>Este hechizo hace que los discípulos de este gremio aumenten sus daños físicos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>17</id>
+		<nivel>1</nivel>
+		<nombre>Glifo Agresivo</nombre>
+		<descripcion>Este glifo causa daños a todos los jugadores.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>18</id>
+		<nivel>17</nivel>
+		<nombre>Armadura Acuosa</nombre>
+		<descripcion>Esta armadura protege contra los daños de agua y atribuye una cierta resistencia a la pérdida de PA.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>19</id>
+		<nivel>31</nivel>
+		<nombre>Pompa</nombre>
+		<descripcion>Este hechizo ocasiona daños de tipo agua.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>20</id>
+		<nivel>21</nivel>
+		<nombre>Inmunidad</nombre>
+		<descripcion>Inmunidad permite que el lanzador o uno de sus aliados se vuelva invencible durante un turno.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>21</id>
+		<nivel>1</nivel>
+		<nombre>Garra Espectral</nombre>
+		<descripcion>Garra Espectral provoca daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>22</id>
+		<nivel>6</nivel>
+		<nombre>Movimiento Felino</nombre>
+		<descripcion>Este hechizo permite aumentar los PM de las invocaciones y, en menor medida, de los aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>23</id>
+		<nivel>1</nivel>
+		<nombre>Grito del Oso</nombre>
+		<descripcion>Grito del Oso aumenta los daños de las invocaciones y, en menor medida, de los aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>24</id>
+		<nivel>31</nivel>
+		<nombre>Cuervo</nombre>
+		<descripcion>Cuervo provoca daños de fuego y no necesita línea de vista para ser lanzado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>25</id>
+		<nivel>42</nivel>
+		<nombre>Curación Animal</nombre>
+		<descripcion>Curación Animal permite devolver algunos PDV a las invocaciones o a los aliados heridos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>26</id>
+		<nivel>3</nivel>
+		<nombre>Bendición Animal</nombre>
+		<descripcion>Bendición Animal permite invocar a más de una criatura a la vez.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>27</id>
+		<nivel>26</nivel>
+		<nombre>Chute Motivador</nombre>
+		<descripcion>Este hechizo permite aumentar los PA de las invocaciones y, en menor medida, de los aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>28</id>
+		<nivel>13</nivel>
+		<nombre>Sapo</nombre>
+		<descripcion>Sapo permite reducir los daños recibidos por las invocaciones y, en menor medida, de los aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>29</id>
+		<nivel>70</nivel>
+		<nombre>Colmillos del Mediulubo</nombre>
+		<descripcion>Colmillos del Mediulubo aumenta los daños (en porcentaje) de las invocaciones y, en menor medida, de los aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>30</id>
+		<nivel>21</nivel>
+		<nombre>Látigo</nombre>
+		<descripcion>Este hechizo permite castigar a una invocación, sea amiga o enemiga.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>31</id>
+		<nivel>100</nivel>
+		<nombre>Invocación de Dragonito Rojo</nombre>
+		<descripcion>Este hechizo permite invocar a un dragonito rojo escupidor de llamas.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>32</id>
+		<nivel>60</nivel>
+		<nombre>Resistencia Natural</nombre>
+		<descripcion>Resistencia Natural permite aumentar la vitalidad de las invocaciones y, en menor medida, de los aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>33</id>
+		<nivel>36</nivel>
+		<nombre>Garra Azotadora</nombre>
+		<descripcion>Este hechizo provoca daños de agua.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>34</id>
+		<nivel>1</nivel>
+		<nombre>Invocación de Tofu</nombre>
+		<descripcion>Este hechizo permite invocar a un tofu que luchará para ti.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>35</id>
+		<nivel>9</nivel>
+		<nombre>Invocación de Jalató</nombre>
+		<descripcion>Permite invocar a un jalató agresivo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>36</id>
+		<nivel>54</nivel>
+		<nombre>Golpe del Crujidor</nombre>
+		<descripcion>Este hechizo provoca daños de fuego y la potencia del golpe es tal que también hiere a los jugadores que se encuentran a su alrededor.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>37</id>
+		<nivel>17</nivel>
+		<nombre>Invocación de Prespic</nombre>
+		<descripcion>Invoca a un prespic especializado en la pérdida de PA.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>38</id>
+		<nivel>48</nivel>
+		<nombre>Invocación de Jabalí</nombre>
+		<descripcion>Invoca a un jabalí muy fuerte con un CaC que hace retroceder a los enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>39</id>
+		<nivel>80</nivel>
+		<nombre>Invocación de Bwork Mago</nombre>
+		<descripcion>Este hechizo permite invocar un bwork mago que puede lanzar hechizos a distancia.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>40</id>
+		<nivel>90</nivel>
+		<nombre>Invocación de Crujidor</nombre>
+		<descripcion>Invoca a un potente crujidor que ocasiona numerosos daños y atonta al enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>41</id>
+		<nivel>0</nivel>
+		<nombre>Mochila Animada</nombre>
+		<descripcion>Este hechizo permite que su lanzador le dé vida a su mochila. Esta protegerá a uno de sus aliados hasta su destrucción.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>42</id>
+		<nivel>0</nivel>
+		<nombre>Suerte</nombre>
+		<descripcion>Este hechizo permite incrementar la suerte de su lanzador.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>43</id>
+		<nivel>0</nivel>
+		<nombre>Lanzamiento de Pala</nombre>
+		<descripcion>Lanzamiento de Pala provoca daños de tierra.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>44</id>
+		<nivel>0</nivel>
+		<nombre>Jarabe de Pala</nombre>
+		<descripcion>Jarabe de Pala no necesita línea de vista y causa daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>45</id>
+		<nivel>0</nivel>
+		<nombre>Llave Reductora</nombre>
+		<descripcion>Llave Reductora permite reducir el alcance de los ataques de un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>46</id>
+		<nivel>0</nivel>
+		<nombre>Desinvocación</nombre>
+		<descripcion>Desinvocación permite ocasionar grandes daños a las invocaciones.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>47</id>
+		<nivel>0</nivel>
+		<nombre>Caja de Pandora</nombre>
+		<descripcion>Caja de Pandora puede devolver los PDV o aumentar los golpes críticos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>48</id>
+		<nivel>0</nivel>
+		<nombre>Terraplenado</nombre>
+		<descripcion>El terraplenado permite enterrar los jugadores bajo una buena cantidad de tierra.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>49</id>
+		<nivel>0</nivel>
+		<nombre>Pala Fantasmal</nombre>
+		<descripcion>Pala Fantasmal provoca daños de fuego y puede quitarle los efectos de algún hechizo activo sobre el enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>50</id>
+		<nivel>0</nivel>
+		<nombre>Torpeza</nombre>
+		<descripcion>Torpeza hace perder PM a un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>51</id>
+		<nivel>0</nivel>
+		<nombre>Lanzamiento de Monedas</nombre>
+		<descripcion>Este hechizo permite lanzar desde muy lejos monedas de oro falsas sobre un enemigo para causarle daños de agua.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>52</id>
+		<nivel>0</nivel>
+		<nombre>Codicia</nombre>
+		<descripcion>Codicia vuelve loco y aumenta los daños de todos los jugadores, sean amigos o enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>53</id>
+		<nivel>0</nivel>
+		<nombre>Madurez</nombre>
+		<descripcion>Este hechizo provoca daños y roba un PM a un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>54</id>
+		<nivel>0</nivel>
+		<nombre>Torpeza de Masas</nombre>
+		<descripcion>Torpeza de Masas hacer perder PA a todos los enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>55</id>
+		<nivel>0</nivel>
+		<nombre>Aceleración</nombre>
+		<descripcion>Aceleración permite aumentar los PM del lanzador o de un aliado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>56</id>
+		<nivel>0</nivel>
+		<nombre>Pala del Juicio</nombre>
+		<descripcion>Pala del Juicio causa daños de agua y arrebata PM en golpes críticos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>57</id>
+		<nivel>0</nivel>
+		<nombre>Pala Animada</nombre>
+		<descripcion>Este hechizo permite dar vida a una pala que hace retroceder al enemigo, reduciendo su resistencia a las pérdidas de PM.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>58</id>
+		<nivel>0</nivel>
+		<nombre>Pala Masacrante</nombre>
+		<descripcion>Pala Masacrante causa terribles daños de agua sobre un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>59</id>
+		<nivel>0</nivel>
+		<nombre>Corrupción</nombre>
+		<descripcion>La corrupción hacer perder un turno a un enemigo pero le devuelve muchos PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>60</id>
+		<nivel>0</nivel>
+		<nombre>Cofre Animado</nombre>
+		<descripcion>Este hechizo hacer aparecer un cofre con el que recuperar una mayor cantidad de objetos de la criatura. Cuanto más evolucione, más probabilidades tendrás de \dropear\.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>61</id>
+		<nivel>0</nivel>
+		<nombre>Engaño</nombre>
+		<descripcion>Engaño es uno de los raros ataques a distancia de esta clase, causa daños de tierra.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>62</id>
+		<nivel>0</nivel>
+		<nombre>Concentración de Chakra</nombre>
+		<descripcion>Concentración de Chakra aumenta de forma considerable la fuerza de su lanzador.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>63</id>
+		<nivel>0</nivel>
+		<nombre>Golpe Solapado</nombre>
+		<descripcion>Causa daños de tierra al adversario y hace que se aleje de varias casillas.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>64</id>
+		<nivel>0</nivel>
+		<nombre>Infravisión</nombre>
+		<descripcion>Infravisión permite detectar las trampas y los personajes invisibles y además aumenta el alcance.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>65</id>
+		<nivel>0</nivel>
+		<nombre>Trampa Solapada</nombre>
+		<descripcion>Trampa Solapada causa daños de tierra al que la active.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>66</id>
+		<nivel>0</nivel>
+		<nombre>Veneno Insidioso</nombre>
+		<descripcion>Envenena a la víctima causándole daños de tipo aire durante varios turnos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>67</id>
+		<nivel>0</nivel>
+		<nombre>Miedo</nombre>
+		<descripcion>Este hechizo empuja a los aliados o a los enemigos a la casilla objetivo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>68</id>
+		<nivel>0</nivel>
+		<nombre>Karadura</nombre>
+		<descripcion>Karadura roba fuerza y agilidad al enemigo y le ocasiona daños de aire.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>69</id>
+		<nivel>0</nivel>
+		<nombre>Trampa de Inmovilización</nombre>
+		<descripcion>Trampa de Inmovilización paraliza a todos los jugadores que se encuentren es su zona de efecto.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>70</id>
+		<nivel>0</nivel>
+		<nombre>Estafa</nombre>
+		<descripcion>Estafa permite robar kamas a un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>71</id>
+		<nivel>0</nivel>
+		<nombre>Trampa Envenenada</nombre>
+		<descripcion>Trampa Envenenada intoxica al jugador que la active.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>72</id>
+		<nivel>0</nivel>
+		<nombre>Invisibilidad</nombre>
+		<descripcion>Vuelve al personaje invisible.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>73</id>
+		<nivel>0</nivel>
+		<nombre>Trampa Repulsiva</nombre>
+		<descripcion>Trampa Repulsiva empuja a aliados y enemigos lejos de ella.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>74</id>
+		<nivel>0</nivel>
+		<nombre>Doble</nombre>
+		<descripcion>Con este hechizo puedes invocar a un doble de tu personaje. El doble posee las mismas características que el original pero no puede atacar.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>75</id>
+		<nivel>0</nivel>
+		<nombre>Pulsión de Chakra</nombre>
+		<descripcion>Pulsión de Chakra aumenta los golpes críticos del lanzador.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>76</id>
+		<nivel>0</nivel>
+		<nombre>Ataque Mortal</nombre>
+		<descripcion>Ataque Mortal causa importantes daños de tierra al enemigo y hasta puede matarlo con un golpe crítico.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>77</id>
+		<nivel>0</nivel>
+		<nombre>Trampa de Silencio</nombre>
+		<descripcion>Trampa de Silencio hacer perder PA al jugador que la active.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>78</id>
+		<nivel>0</nivel>
+		<nombre>Invisibilidad del Prójimo</nombre>
+		<descripcion>Invisibilidad del Prójimo permite volver a un jugador invisible.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>79</id>
+		<nivel>0</nivel>
+		<nombre>Trampa de Masas</nombre>
+		<descripcion>Trampa de Masas causa serios daños de tierra al que la active y a los jugadores que se encuentren a su alrededor.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>80</id>
+		<nivel>0</nivel>
+		<nombre>Trampa Mortal</nombre>
+		<descripcion>Trampa Mortal es capaz de matar a un adversario si este la pisa.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>81</id>
+		<nivel>0</nivel>
+		<nombre>Ralentización</nombre>
+		<descripcion>Ralentización le quita PA al enemigo. Puede lanzarse varias veces en un mismo turno pero siempre a judadores distintos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>82</id>
+		<nivel>0</nivel>
+		<nombre>Contra</nombre>
+		<descripcion>Contra permite devolver una parte de los daños sufridos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>83</id>
+		<nivel>0</nivel>
+		<nombre>Aguja</nombre>
+		<descripcion>Este hechizo dispara una gran aguja sobre el adversario para causarle daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>84</id>
+		<nivel>0</nivel>
+		<nombre>Congelación</nombre>
+		<descripcion>Congelación causa daños de aire y hace perder PA.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>85</id>
+		<nivel>0</nivel>
+		<nombre>Turbio</nombre>
+		<descripcion>Turbio disminuye los PA de todos los jugadores durante un breve período de tiempo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>86</id>
+		<nivel>0</nivel>
+		<nombre>Aguja Buscadora</nombre>
+		<descripcion>Este hechizo permite lanzar una aguja que explota al impactar contra el enemigo más cercano.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>87</id>
+		<nivel>0</nivel>
+		<nombre>Desmotivación</nombre>
+		<descripcion>Desmotivación permite disminuir las resistencias a la pérdida de PA de un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>88</id>
+		<nivel>0</nivel>
+		<nombre>Teleportación</nombre>
+		<descripcion>Teleportación permite que un jugador se desplace rápidamente.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>89</id>
+		<nivel>0</nivel>
+		<nombre>Devoción</nombre>
+		<descripcion>Este hechizo permite aumentar los PA de sus aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>90</id>
+		<nivel>0</nivel>
+		<nombre>Huída</nombre>
+		<descripcion>Huída permite alejarse muy rápidamente de las zonas peligrosas.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>91</id>
+		<nivel>0</nivel>
+		<nombre>Golpe de Xelor</nombre>
+		<descripcion>Golpe de Xelor causa daños de tipo tierra.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>92</id>
+		<nivel>0</nivel>
+		<nombre>Rayo Oscuro</nombre>
+		<descripcion>Rayo Oscuro causa importantes daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>93</id>
+		<nivel>0</nivel>
+		<nombre>Marchitación</nombre>
+		<descripcion>Este hechizo permite causar daños de aire a un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>94</id>
+		<nivel>0</nivel>
+		<nombre>Protección Cegadora</nombre>
+		<descripcion>Protección Cegadora permite evitar la pérdida de PA (en porcentaje).</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>95</id>
+		<nivel>0</nivel>
+		<nombre>Reloj de Pared</nombre>
+		<descripcion>Este hechizo causa daños de tipo agua y roba PA al enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>96</id>
+		<nivel>0</nivel>
+		<nombre>Polvo Temporal</nombre>
+		<descripcion>Polvo Temporal causa daños de fuego y hace perder PA a varios jugadores.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>97</id>
+		<nivel>0</nivel>
+		<nombre>Esfera de Xelor</nombre>
+		<descripcion>Este hechizo permite activar una pantalla de protección delante del lanzador.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>98</id>
+		<nivel>0</nivel>
+		<nombre>Robo del Tiempo</nombre>
+		<descripcion>Este hechizo permite robarle PA a un enemigo y atribuírselos al lanzador.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>99</id>
+		<nivel>0</nivel>
+		<nombre>Momificación</nombre>
+		<descripcion>Con Momificación, el lanzador se transforma en momia para conseguir ciertas resistencias.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>100</id>
+		<nivel>0</nivel>
+		<nombre>Reloj de Arena de Xelor</nombre>
+		<descripcion>Reloj de Arena de Xelor causa daños de fuego y le hace perder PA al enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>101</id>
+		<nivel>0</nivel>
+		<nombre>Ruleta</nombre>
+		<descripcion>Ruleta puede provocar muy diversos efectos. Estos afectarán aleatoriamente al invocador, a los enemigos, a los aliados, o a cualquier combinación de estos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>102</id>
+		<nivel>0</nivel>
+		<nombre>Cara o Cruz</nombre>
+		<descripcion>Cara o Cruz causa daños de tierra a un enemigo aunque si el destino lo decide así, también puede curarlo...</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>103</id>
+		<nivel>0</nivel>
+		<nombre>Suerte de Zurcarák</nombre>
+		<descripcion>Cuando te atacan, Suerte de Zurcarák te devuelve PDV o multiplica los daños recibidos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>104</id>
+		<nivel>0</nivel>
+		<nombre>Trébol</nombre>
+		<descripcion>Trébol aumenta los golpes críticos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>105</id>
+		<nivel>0</nivel>
+		<nombre>Salto del Felino</nombre>
+		<descripcion>Salto Felino permite desplazarse más rápido y más lejos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>106</id>
+		<nivel>0</nivel>
+		<nombre>Rueda de la Fortuna</nombre>
+		<descripcion>Rueda de la Fortuna duplica los daños pero hace perder unos PDV al que lo lanza.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>107</id>
+		<nivel>0</nivel>
+		<nombre>Topkaj</nombre>
+		<descripcion>Topkaj causa importantes daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>108</id>
+		<nivel>0</nivel>
+		<nombre>Espíritu Felino</nombre>
+		<descripcion>Espíritu Felino es un ataque de cuerpo a cuerpo que causa daños de tierra pero que también puede volverse contra el que lanza el hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>109</id>
+		<nivel>0</nivel>
+		<nombre>Farol</nombre>
+		<descripcion>Farol causa de forma aleatoria daños de aire o de agua.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>110</id>
+		<nivel>0</nivel>
+		<nombre>Garra Juguetona</nombre>
+		<descripcion>Este ataque causa daños de tierra horizontales o verticales y hiere a todos los jugadores que se encuentren en su zona de efecto.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>111</id>
+		<nivel>0</nivel>
+		<nombre>Contragolpe</nombre>
+		<descripcion>Contragolpe aumenta considerablemente la vitalidad durante un corto período de tiempo aunque a expensas de unos cuantos PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>112</id>
+		<nivel>0</nivel>
+		<nombre>Garra de Ceangal</nombre>
+		<descripcion>Garra de Ceangal causa daños de tierra y puede hacer perder un PA durante varios turnos si se logra un golpe crítico.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>113</id>
+		<nivel>0</nivel>
+		<nombre>Percepción</nombre>
+		<descripcion>Percepción revela al lanzador del hechizo y a sus aliados la posición de trampas y de personajes ocultos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>114</id>
+		<nivel>0</nivel>
+		<nombre>Rekop</nombre>
+		<descripcion>Este hechizo causa monstruosos daños de fuego, tierra, agua y aire aunque hay un 50% de probabilidades de que te haga perder un punto de acción.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>115</id>
+		<nivel>0</nivel>
+		<nombre>Olfato</nombre>
+		<descripcion>El lanzador del hechizo hace que todos los jugadores presentes a su alrededor tengan el olfato súper sensible, lo cual podrá desconcentrarles o motivarles dependiendo de lo que huelan...</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>116</id>
+		<nivel>0</nivel>
+		<nombre>Lengua Raspadora</nombre>
+		<descripcion>Lengua Raspadora causa daños de fuego y disminuye el alcance del enemigo si logra un golpe crítico.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>117</id>
+		<nivel>0</nivel>
+		<nombre>Garra Invocadora</nombre>
+		<descripcion>Este hechizo permite invocar a un felino.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>118</id>
+		<nivel>0</nivel>
+		<nombre>Reflejos</nombre>
+		<descripcion>El hechizo Reflejos permite aumentar de forma considerable los puntos de agilidad.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>119</id>
+		<nivel>0</nivel>
+		<nombre>Todo o Nada</nombre>
+		<descripcion>Todo o Nada causa daños a todos los jugadores o les devuelve PDV si tienen suerte.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>120</id>
+		<nivel>0</nivel>
+		<nombre>Destino de Zurcarák</nombre>
+		<descripcion>Destino de Zurcarák causa daños de tierra y le quita un PM a un enemigo durante varios turnos si se logra un golpe crítico.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>121</id>
+		<nivel>0</nivel>
+		<nombre>Palabra Curativa</nombre>
+		<descripcion>Palabra Curativa permite recuperar PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>122</id>
+		<nivel>0</nivel>
+		<nombre>Palabra Hiriente</nombre>
+		<descripcion>Palabra Hiriente causa daños de tipo aire.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>123</id>
+		<nivel>0</nivel>
+		<nombre>Palabra Drenaje</nombre>
+		<descripcion>Palabra Drenaje hace que los enemigos pierdan PA, pero hiere al lanzador del hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>124</id>
+		<nivel>0</nivel>
+		<nombre>Palabra Sanadora</nombre>
+		<descripcion>Palabra Sanadora permite curar a un aliado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>125</id>
+		<nivel>0</nivel>
+		<nombre>Palabra Prohibida</nombre>
+		<descripcion>Palabra Prohibida es un ataque muy potente... para un hada.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>126</id>
+		<nivel>0</nivel>
+		<nombre>Palabra Estimulante</nombre>
+		<descripcion>Palabra Estimulante aumenta los PA de varios jugadores, pero hiere al lanzador del hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>127</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Prevención</nombre>
+		<descripcion>Palabra de Prevención protege contra los daños mágicos y de CaC.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>128</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Pavor</nombre>
+		<descripcion>Palabra de Pavor hace retroceder a los enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>129</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Amistad</nombre>
+		<descripcion>Palabra de Amistad permite invocar a un conejo curandero.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>130</id>
+		<nivel>0</nivel>
+		<nombre>Palabra Revigorizante</nombre>
+		<descripcion>Palabra Revigorizante permite curar a varios personajes.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>131</id>
+		<nivel>0</nivel>
+		<nombre>Regeneración</nombre>
+		<descripcion>Este hechizo permite que su lanzador tenga la facultad de regenerarse.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>132</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Espina</nombre>
+		<descripcion>Palabra de Espina permite que su lanzador pueda reenviar daños mágicos o físicos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>133</id>
+		<nivel>0</nivel>
+		<nombre>Disipar</nombre>
+		<descripcion>Este hechizo permite disipar los hechizos que hayan sido lanzados sobre un aliado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>134</id>
+		<nivel>0</nivel>
+		<nombre>Palabra Vampírica</nombre>
+		<descripcion>Palabra Vampírica hiere a un enemigo y le roba un poco de vida.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>135</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Sacrificio</nombre>
+		<descripcion>Palabra de Sacrificio permite sacrificar una parte de los PDV para transferírselos a un aliado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>136</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Inmovilización</nombre>
+		<descripcion>Palabra de Inmovilización permite impedir los desplazamientos de un jugador.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>137</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Vuelo</nombre>
+		<descripcion>Palabra de Vuelo te eleva en el aire durante un breve momento para aumentar el alcance.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>138</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Silencio</nombre>
+		<descripcion>Palabra de Silencio reduce de forma considerable los PA de todo aquel que se encuentre en su zona de efecto.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>139</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Altruismo</nombre>
+		<descripcion>Palabra de Altruismo cura a todo el equipo pero impide el uso de los hechizos de curación de la clase aniripsa.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>140</id>
+		<nivel>0</nivel>
+		<nombre>Palabra de Reconstitución</nombre>
+		<descripcion>Palabra de Reconstitución permite restaurar de forma considerable la vida de un jugador.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>141</id>
+		<nivel>1</nivel>
+		<nombre>Presión</nombre>
+		<descripcion>Presión causa daños de tierra con un alcance de 2 casillas.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>142</id>
+		<nivel>1</nivel>
+		<nombre>Salto</nombre>
+		<descripcion>Este hechizo permite saltar.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>143</id>
+		<nivel>1</nivel>
+		<nombre>Intimidación</nombre>
+		<descripcion>Este hechizo causa daños neutrales y hace retroceder al enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>144</id>
+		<nivel>3</nivel>
+		<nombre>Compulsión</nombre>
+		<descripcion>Compulsión permite aumentar los daños de un aliado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>145</id>
+		<nivel>6</nivel>
+		<nombre>Espada Divina</nombre>
+		<descripcion>Este hechizo causa daños de aire e incrementa los daños de quien lo lanza.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>146</id>
+		<nivel>9</nivel>
+		<nombre>Espada del Destino</nombre>
+		<descripcion>Espada del Destino ataca en cruz y puede alcanzar a varios enemigos causándole daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>147</id>
+		<nivel>13</nivel>
+		<nombre>Guía de Valentía</nombre>
+		<descripcion>Guía de Valentía permite aumentar los puntos de daños físicos del que lanza el hechizo y de sus aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>148</id>
+		<nivel>17</nivel>
+		<nombre>Amplificación</nombre>
+		<descripcion>Amplificación permite que su lanzador incremente los daños que causa a sus enemigos durante su turno.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>149</id>
+		<nivel>54</nivel>
+		<nombre>Mutilación</nombre>
+		<descripcion>Este hechizo permite multiplicar de forma considerable los daños causados, aunque el lanzador del hechizo pierda PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>150</id>
+		<nivel>26</nivel>
+		<nombre>Corte</nombre>
+		<descripcion>El hechizo Corte permite golpear a un enemigo y ralentizarlo causándole daños de tipo fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>151</id>
+		<nivel>31</nivel>
+		<nombre>Soplido</nombre>
+		<descripcion>El hechizo Soplido hace retroceder a los aliados o a los enemigos que se encuentren alrededor de tu objetivo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>152</id>
+		<nivel>42</nivel>
+		<nombre>Espada del Juicio</nombre>
+		<descripcion>Espada del Juicio causa daños de tipo aire.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>153</id>
+		<nivel>48</nivel>
+		<nombre>Potencia</nombre>
+		<descripcion>Potencia permite aumentar (en porcentaje) los daños causados por su lanzador o los de un aliado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>154</id>
+		<nivel>21</nivel>
+		<nombre>Espada Destructora</nombre>
+		<descripcion>Espada Destructora causa daños de fuego a un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>155</id>
+		<nivel>36</nivel>
+		<nombre>Vitalidad</nombre>
+		<descripcion>Este hechizo permite aumentar la vitalidad del que lo lanza.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>156</id>
+		<nivel>60</nivel>
+		<nombre>Tempestad de Potencia</nombre>
+		<descripcion>Tempestad de Potencia causa daños de fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>157</id>
+		<nivel>70</nivel>
+		<nombre>Espada Celeste</nombre>
+		<descripcion>Espada Celeste permite causar daños de aire lanzado rayos sobre los jugadores que se encuentren en la zona de efecto del hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>158</id>
+		<nivel>80</nivel>
+		<nombre>Concentración</nombre>
+		<descripcion>Concentración permite causar daños de tierra a cambio de unos pocos PA.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>159</id>
+		<nivel>100</nivel>
+		<nombre>Ira de Yopuka</nombre>
+		<descripcion>Ira de Yopuka causa daños de tipo tierra. Si vuelve a lanzarse al 4º turno después de un primer lanzamiento, los daños del hechizo aumentan considerablemente.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>160</id>
+		<nivel>90</nivel>
+		<nombre>Espada de Yopuka</nombre>
+		<descripcion>Espada de Yopuka permite causar considerables daños de tierra a varios enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>161</id>
+		<nivel>1</nivel>
+		<nombre>Flecha Mágica</nombre>
+		<descripcion>Este hechizo causa daños de fuego a distancia y reduce el alcance del objetivo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>162</id>
+		<nivel>21</nivel>
+		<nombre>Disparo Crítico</nombre>
+		<descripcion>Disparo Crítico otorga una bonificación para el golpe crítico.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>163</id>
+		<nivel>3</nivel>
+		<nombre>Flecha Helada</nombre>
+		<descripcion>Flecha Helada ocasiona daños de fuego y hace perder PA al enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>164</id>
+		<nivel>1</nivel>
+		<nombre>Flecha Envenenada</nombre>
+		<descripcion>Este hechizo causa daños neutros durante varios turnos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>165</id>
+		<nivel>6</nivel>
+		<nombre>Flecha Flamígera</nombre>
+		<descripcion>Flecha Flamígera ocasiona daños de fuego a los enemigos presentes en la zona de efecto del hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>166</id>
+		<nivel>36</nivel>
+		<nombre>Disparo Potente</nombre>
+		<descripcion>Disparo Potente aumenta los daños de los demás hechizos y armas.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>167</id>
+		<nivel>13</nivel>
+		<nombre>Flecha de Expiación</nombre>
+		<descripcion>Ocasiona daños de agua, aumenta los daños del hechizo cada 3 turnos e impide a la víctima que utilice hechizos de desplazamiento.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>168</id>
+		<nivel>17</nivel>
+		<nombre>Ojo de Topo</nombre>
+		<descripcion>El hechizo Ojo de Topo permite disminuir el alcance de los hechizos de los personajes objetivo y roba la vida con el elemento agua.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>169</id>
+		<nivel>1</nivel>
+		<nombre>Flecha de Retroceso</nombre>
+		<descripcion>Flecha de Retroceso causa daños de tipo aire y hace retroceder al enemigo con el impacto.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>170</id>
+		<nivel>26</nivel>
+		<nombre>Flecha Inmovilizadora</nombre>
+		<descripcion>Flecha Inmovilizadora ocasiona daños de agua y roba PM a la víctima.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>171</id>
+		<nivel>31</nivel>
+		<nombre>Flecha Castigadora</nombre>
+		<descripcion>Ocasiona daños de tierra y aumenta los daños del hechizo cada dos turnos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>172</id>
+		<nivel>9</nivel>
+		<nombre>Disparo Lejano</nombre>
+		<descripcion>Disparo Lejano aumenta el alcance de los hechizos de los objetivos presentes en la zona de efecto.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>173</id>
+		<nivel>42</nivel>
+		<nombre>Flecha Acosadora</nombre>
+		<descripcion>Flecha Acosadora permite causar daños de tipo aire sin tener que preocuparse por los posibles obstáculos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>174</id>
+		<nivel>48</nivel>
+		<nombre>Flecha Azotadora</nombre>
+		<descripcion>Flecha Azotadora causa daños de tierra y le quita PM. No hay posibilidad de esquiva.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>175</id>
+		<nivel>60</nivel>
+		<nombre>Flecha Destructora</nombre>
+		<descripcion>Flecha destructora causa daños de tierra y reduce los daños causados por el enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>176</id>
+		<nivel>54</nivel>
+		<nombre>Flecha Perseguidora</nombre>
+		<descripcion>Ocasiona daños de aire y fuego.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>177</id>
+		<nivel>80</nivel>
+		<nombre>Flecha Ralentizante</nombre>
+		<descripcion>Esta flecha ocasiona daños de agua y quita PA a varios enemigos gracias a su importante zona de efecto.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>178</id>
+		<nivel>70</nivel>
+		<nombre>Flecha Absorbente</nombre>
+		<descripcion>Flecha Absorbente permite robarle vida a un enemigo de tipo aire.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>179</id>
+		<nivel>90</nivel>
+		<nombre>Flecha Explosiva</nombre>
+		<descripcion>Flecha Explosiva ocasiona daños de fuego en zona.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>180</id>
+		<nivel>100</nivel>
+		<nombre>Dominio del Arco</nombre>
+		<descripcion>Dominio del Arco aumento los daños físicos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>181</id>
+		<nivel>26</nivel>
+		<nombre>Temblor</nombre>
+		<descripcion>Temblor causa daños a todos los jugadores presentes en la zona.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>182</id>
+		<nivel>9</nivel>
+		<nombre>La Loca</nombre>
+		<descripcion>La Loca es una muñeca creada con huesos de chafer. Será un placer para ella poner nerviosos a los enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>183</id>
+		<nivel>1</nivel>
+		<nombre>Zarza</nombre>
+		<descripcion>Zarza causa daños físicos a un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>184</id>
+		<nivel>80</nivel>
+		<nombre>Fuego Montés</nombre>
+		<descripcion>Este hechizo permite causar daños de tipo fuego y agua.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>185</id>
+		<nivel>70</nivel>
+		<nombre>Hierba Loca</nombre>
+		<descripcion>La Hierba Loca causa daños y hacer perder puntos de movimiento.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>186</id>
+		<nivel>42</nivel>
+		<nombre>Árbol</nombre>
+		<descripcion>Este hechizo hacer crecer un árbol a tus pies. El árbol impide el paso y dificulta la línea de vista.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>187</id>
+		<nivel>100</nivel>
+		<nombre>La Superpoderosa</nombre>
+		<descripcion>Esta muñeca puede invocar pequeñas muñecas malvadas que reducen los puntos de movimiento de los enemigos y también su resistencia a las pérdidas de puntos de movimiento.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>188</id>
+		<nivel>90</nivel>
+		<nombre>Zarza Insolente</nombre>
+		<descripcion>Zarza Insolente se hunde en la tierra para volver a salir y quitarle todos los embrujos de un jugador.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>189</id>
+		<nivel>21</nivel>
+		<nombre>La Sacrificada</nombre>
+		<descripcion>Esta muñeca se tira sobre el enemigo y explota.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>190</id>
+		<nivel>54</nivel>
+		<nombre>La Hinchable</nombre>
+		<descripcion>La Hinchable aumenta los puntos de movimiento y puede curar a un aliado o al lanzador del hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>191</id>
+		<nivel>36</nivel>
+		<nombre>Zarzas Múltiples</nombre>
+		<descripcion>Zarzas Múltiples puede alcanzar a varios jugadores.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>192</id>
+		<nivel>13</nivel>
+		<nombre>Zarza Tranquilizadora</nombre>
+		<descripcion>Zarza Tranquilizadora permite ralentizar a un enemigo pero le devuelve unos cuantos PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>193</id>
+		<nivel>1</nivel>
+		<nombre>La Bloqueadora</nombre>
+		<descripcion>La Bloqueadora, como lo indica su nombre, molesta a los adversarios poniéndose en su trayectoria.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>194</id>
+		<nivel>60</nivel>
+		<nombre>Zarzas Agresivas</nombre>
+		<descripcion>Zarzas Agresivas causa enormes daños pero dependiendo del nivel del hechizo solamente se pueden lanzar de vez en cuando.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>195</id>
+		<nivel>6</nivel>
+		<nombre>Lágrima</nombre>
+		<descripcion>Este hechizo permite causar daños de tipo agua.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>196</id>
+		<nivel>48</nivel>
+		<nombre>Viento Envenenado</nombre>
+		<descripcion>Viento Envenenado intoxica a todos los jugadores  presentes en la zona, sean amigo o enemigos y les quita inteligencia durante varios turnos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>197</id>
+		<nivel>17</nivel>
+		<nombre>Potencia Silvestre</nombre>
+		<descripcion>Este hechizo permite que el lanzador se transforme en árbol para mantenerse a salvo durante unos cuantos turnos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>198</id>
+		<nivel>3</nivel>
+		<nombre>Sacrificio Muñequero</nombre>
+		<descripcion>Este hechizo permite recuperar vida castigando a una invocación.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>199</id>
+		<nivel>31</nivel>
+		<nombre>Conocimiento de los Muñecos</nombre>
+		<descripcion>Conocimiento de los Muñecos permite invocar a varios muñecos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>200</id>
+		<nivel>1</nivel>
+		<nombre>Veneno Paralizante</nombre>
+		<descripcion>Veneno Paralizante causará daños de fuego cuando se utilicen PA.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>431</id>
+		<nivel>1</nivel>
+		<nombre>Castigo Forzado</nombre>
+		<descripcion>Este hechizo permite que su lanzador aumente su fuerza cada vez que pierde PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>432</id>
+		<nivel>1</nivel>
+		<nombre>Pie del Sacrógrito</nombre>
+		<descripcion>Este hechizo de ataque cuerpo a cuerpo causa daños de tipo tierra.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>433</id>
+		<nivel>21</nivel>
+		<nombre>Castigo Osado</nombre>
+		<descripcion>Este hechizo permite que su lanzador aumente su suerte cada vez que pierde PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>434</id>
+		<nivel>1</nivel>
+		<nombre>Atracción</nombre>
+		<descripcion>Atrae al objetivo hacia el sacrógrito.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>435</id>
+		<nivel>90</nivel>
+		<nombre>Transferencia de Vida</nombre>
+		<descripcion>Este hechizo permite que su lanzador transfiera una parte de sus PDV a sus aliados.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>436</id>
+		<nivel>9</nivel>
+		<nombre>Asalto</nombre>
+		<descripcion>Asalto permite golpear a un enemigo a distancia causándole daños de tipo aire.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>437</id>
+		<nivel>13</nivel>
+		<nombre>Castigo Ágil</nombre>
+		<descripcion>Este hechizo permite que su lanzador aumente su agilidad cada vez que pierde PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>438</id>
+		<nivel>54</nivel>
+		<nombre>Transposición</nombre>
+		<descripcion>Permite intercambiar su posición con la de un aliado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>439</id>
+		<nivel>17</nivel>
+		<nombre>Disolución</nombre>
+		<descripcion>Este hechizo roba vida de tipo agua a los enemigos que rodeen al sacrogrito.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>440</id>
+		<nivel>31</nivel>
+		<nombre>Sacrificio</nombre>
+		<descripcion>Este hechizo permite elegir a un aliado y de sufrir los daños causados sobre este.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>441</id>
+		<nivel>42</nivel>
+		<nombre>Castigo Vitalesco</nombre>
+		<descripcion>Este hechizo permite que su lanzador aumente su vitalidad cuando pierde PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>442</id>
+		<nivel>36</nivel>
+		<nombre>Absorción</nombre>
+		<descripcion>Este hechizo permite que su lanzador le robe vida a un enemigo y le cause daños de fuego a la vez.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>443</id>
+		<nivel>26</nivel>
+		<nombre>Castigo Espiritual</nombre>
+		<descripcion>Este hechizo permite que su lanzador aumente su inteligencia cada vez que pierde PDV.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>444</id>
+		<nivel>3</nivel>
+		<nombre>Elusión</nombre>
+		<descripcion>Este hechizo le permite que su lanzador esquive los ataques cuerpo a cuerpo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>445</id>
+		<nivel>48</nivel>
+		<nombre>Cooperación</nombre>
+		<descripcion>Este hechizo permite que su lanzador intercambie su posición con la de un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>446</id>
+		<nivel>60</nivel>
+		<nombre>Castigo</nombre>
+		<descripcion>Castigo causa daños de tipo neutral. Cuanto más cerca está la vida del sacrógrito del 50%, más daños puede ocasionar.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>447</id>
+		<nivel>70</nivel>
+		<nombre>Furia</nombre>
+		<descripcion>Este hechizo le permite al lanzador aumentar sus daños.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>448</id>
+		<nivel>80</nivel>
+		<nombre>Espada Voladora</nombre>
+		<descripcion>El sacrógrito invoca una espada que volará hasta el enemigo hasta atravesarlo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>449</id>
+		<nivel>6</nivel>
+		<nombre>Cambio</nombre>
+		<descripcion>Este hechizo permite que su lanzador cambie de posición con un aliado o un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>450</id>
+		<nivel>100</nivel>
+		<nombre>Locura Sanguinaria</nombre>
+		<descripcion>El sacrógrito absorbe la sangre de uno de sus aliados para recuperar fuerzas aunque eso pueda acabar matando a su compañero.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>686</id>
+		<nivel>0</nivel>
+		<nombre>Tranka</nombre>
+		<descripcion>Tranka permite que el lanzador se ponga en estado de ebriedad y que aumente sus resistencia a los daños.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>687</id>
+		<nivel>0</nivel>
+		<nombre>Puño Flamígero</nombre>
+		<descripcion>Puño Flamígero causa daños de fuego. Para lanzar este hechizo hace falta estar en estado de ebriedad.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>688</id>
+		<nivel>0</nivel>
+		<nombre>Vulnerabilidad Incandescente</nombre>
+		<descripcion>Este hechizo permite rebajar la resistencia de tipo fuego de un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>689</id>
+		<nivel>0</nivel>
+		<nombre>Terror</nombre>
+		<descripcion>Hace retroceder al enemigo y reduce sus golpes críticos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>690</id>
+		<nivel>0</nivel>
+		<nombre>Soplido Alcoholizado</nombre>
+		<descripcion>Este hechizo permite causar daños de tipo aire. Es necesario estar ebrio para poder lanzar este hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>691</id>
+		<nivel>0</nivel>
+		<nombre>Vulnerabilidad Acuosa</nombre>
+		<descripcion>Este hechizo disminuye la resistencia de tipo agua de un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>692</id>
+		<nivel>0</nivel>
+		<nombre>Resaca</nombre>
+		<descripcion>Resaca permite dar un cabezazo a un enemigo causándole daños de tierra. Es necesario estar en estado de ebriedad para lanzar este hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>693</id>
+		<nivel>0</nivel>
+		<nombre>Karcham</nombre>
+		<descripcion>Este hechizo permite levantar a un aliado o a un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>694</id>
+		<nivel>0</nivel>
+		<nombre>Vulnerabilidad Ventosa</nombre>
+		<descripcion>Este hechizo permite rebajar las resistencias de tipo aire de un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>695</id>
+		<nivel>0</nivel>
+		<nombre>Estabilización</nombre>
+		<descripcion>Este hechizo hace que su lanzador ya no sea ni empujado ni placado, pero también le impide placar a sus enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>696</id>
+		<nivel>0</nivel>
+		<nombre>Chamrak</nombre>
+		<descripcion>Permite lanzar un personaje transportado.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>697</id>
+		<nivel>0</nivel>
+		<nombre>Vulnerabilidad Terrestre</nombre>
+		<descripcion>Este hechizo permite rebajar las resistencias de tierra de un enemigo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>698</id>
+		<nivel>0</nivel>
+		<nombre>Deshonra</nombre>
+		<descripcion>Este hechizo produce un efecto aleatorio para desconcentrar al enemigo. Es necesario estar ebrio para lanzar este hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>699</id>
+		<nivel>0</nivel>
+		<nombre>Leche de Bambú</nombre>
+		<descripcion>Este hechizo permite deshechizar al lanzador y devolverlo a su estado «normal».</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>700</id>
+		<nivel>0</nivel>
+		<nombre>Ola Marejadora</nombre>
+		<descripcion>Este hechizo permite causar daños de agua.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>701</id>
+		<nivel>0</nivel>
+		<nombre>Ira de Zatoishwan</nombre>
+		<descripcion>Este hechizo permite alcanzar la temible Ira de Zatoïshwan</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>702</id>
+		<nivel>0</nivel>
+		<nombre>Frasco Explosivo</nombre>
+		<descripcion>Este hechizo permite lanzar una botella de alcohol que explota al tocar el suelo, causando daños de fuego a los jugadores que se encuentran en el área de efecto.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>703</id>
+		<nivel>0</nivel>
+		<nombre>Pandatak</nombre>
+		<descripcion>Con este hechizo conseguirás que tres pandawas (que causan daños de tierra) ayuden al tuyo contra sus enemigos.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>704</id>
+		<nivel>0</nivel>
+		<nombre>Pandenkulo</nombre>
+		<descripcion>Con este hechizo el lanzador aumentará sus PM o los de sus aliados. Es necesario el estado de ebriedad para poder lanzarlo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>705</id>
+		<nivel>0</nivel>
+		<nombre>Enlace Espirituoso</nombre>
+		<descripcion>Con este hechizo invocarás a un viejo maestro pandawa. Es necesario estar ebrio para poder lanzar este hechizo.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1901</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Feca</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul feca que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1902</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Osamodas</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul osamodas que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1903</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Anutrof</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul anutrof que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1904</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Sram</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul sram que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1905</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Xelor</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul xelor que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1906</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Zurcarák</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul zuracrák que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1907</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Aniripsa</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul aniripsa que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1908</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Yopuka</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul yopuka que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1909</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Ocra</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul ocra que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1910</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Sadida</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul sadida que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1911</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Sacrógrito</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul sacrógrito que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+	<HECHIZO>
+		<id>1912</id>
+		<nivel>200</nivel>
+		<nombre>Invocación de Dopeul Pandawa</nombre>
+		<descripcion>Este hechizo permite invocar un dopeul pandawa que ayudará a su amo en los combates.</descripcion>
+	</HECHIZO>
+</HECHIZOS>
+
