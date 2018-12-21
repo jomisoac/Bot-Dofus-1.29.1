@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
-using MoonSharp.Interpreter;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 {

@@ -6,6 +6,7 @@ using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game.Paquetes;
+using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game
 {
@@ -117,15 +118,6 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
-                case 'B':
-                    switch(accion)
-                    {
-                        case "D":
-                            enviar_Paquete("GI");
-                        break;
-                    }
-                break;
-
                 case 'f':
                     switch(accion)
                     {
@@ -155,7 +147,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                                 break;
 
                                 default:
-                                    new GameActions(cuenta).get_On_GameAction(paquete.Substring(2));
+                                    new GameActions(cuenta).get_On_GameAction(paquete.Substring(3));
                                 break;
                             }
                         break;
@@ -166,6 +158,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                                 case "M"://Mapas
                                     cuenta.personaje.mapa = new Mapa(cuenta, paquete.Substring(4));
                                     cuenta.personaje.evento_Mapa_Actualizado();
+                                    enviar_Paquete("GI");
                                 break;
 
                                 default:
@@ -175,42 +168,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                         break;
 
                         case "M":
-                            switch (paquete[3])
-                            {
-                                case '+':
-                                    string[] separador_jugadores = paquete.Substring(4).Split('|');
-                                    
-                                    for (int i = 0; i < separador_jugadores.Length; ++i)
-                                    {
-                                        string[] gm_elemento = separador_jugadores[i].Split(';');
-                                        string tipos = gm_elemento[5];
-                                        int tipo_id = 0;
-                                        if (tipos.Contains(','))
-                                            tipo_id = int.Parse(tipos.Split(',')[0]);
-                                        else
-                                            tipo_id = int.Parse(tipos);
-
-                                        int celda_id = int.Parse(gm_elemento[0].ToString());
-                                        int id_elemento = int.Parse(gm_elemento[3].ToString());
-                                        string nombre_personaje = gm_elemento[4].ToString();
-
-                                        if (tipo_id > 0)
-                                        {
-                                            if (cuenta.personaje.id == id_elemento)
-                                                cuenta.personaje.celda_id = celda_id;
-                                            cuenta.personaje.mapa.agregar_Personaje(new Personaje(id_elemento, nombre_personaje, byte.Parse(gm_elemento[7].ToString())));
-                                        }
-                                        if(tipo_id == -3)//monstruos
-                                        {
-                                            cuenta.personaje.mapa.agregar_Monstruo(id_elemento, celda_id);
-                                        }
-                                    }
-                                break;
-
-                                case '-':
-                                    cuenta.personaje.mapa.eliminar_Personaje(int.Parse(paquete.Substring(4).ToString()));
-                                break;
-                            }
+                            new GameActions(cuenta).get_En_Movimiento(paquete.Substring(3));
                         break;
                     }
                 break;

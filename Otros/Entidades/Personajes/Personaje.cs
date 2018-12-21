@@ -28,7 +28,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public int color3 { get; set; } = 0;
         public string objetos { get; set; } = string.Empty;
         public int puntos_caracteristicas { get; set; } = 0;
-        public CaracteristicasInformacion caracteristicas { get; private set; }
+        public CaracteristicasInformacion caracteristicas { get; set; }
         public List<Hechizos> hechizos { get; set; }
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
@@ -138,56 +138,56 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
                             caracteristicas.puntos_accion.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.puntos_accion = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 10:
                         if (caracteristicas.puntos_movimiento != null)
                             caracteristicas.puntos_movimiento.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.puntos_movimiento = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 11:
                         if (caracteristicas.fuerza != null)
                             caracteristicas.fuerza.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.fuerza = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 12:
                         if (caracteristicas.vitalidad != null)
                             caracteristicas.vitalidad.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.vitalidad = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 13:
                         if (caracteristicas.sabiduria != null)
                             caracteristicas.sabiduria.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.sabiduria = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 14:
                         if (caracteristicas.suerte != null)
                             caracteristicas.suerte.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.suerte = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 15:
                         if (caracteristicas.agilidad != null)
                             caracteristicas.agilidad.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.agilidad = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 16:
                         if (caracteristicas.inteligencia != null)
                             caracteristicas.inteligencia.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                         else
                             caracteristicas.inteligencia = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                        break;
+                    break;
 
                     case 17:
                         if (caracteristicas.alcanze != null)
@@ -226,21 +226,20 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             hechizos_actualizados?.Invoke();
         }
 
-        ~Personaje()
-        {
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        ~Personaje() => Dispose(false);
+        public void Dispose() => Dispose(true);
 
         public virtual void Dispose(bool disposing)
         {
+            if(disposing)
+            {
+                hechizos.Clear();
+            }
             mapa = null;
             caracteristicas = null;
+            nombre_personaje = null;
+            objetos = null;
+            hechizos = null;
         }
     }
 }

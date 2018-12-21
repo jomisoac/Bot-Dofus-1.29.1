@@ -10,8 +10,9 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
     public abstract class ClienteProtocolo : IDisposable
     {
         protected Socket socket;
-        private byte[] buffer = new byte[5000];
+        private byte[] buffer;
         private readonly object bloqueo = new object();
+        private bool disposed;
 
         public event Action<string> evento_paquete_recibido;
         public event Action<string> evento_paquete_enviado;
@@ -25,6 +26,7 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                 try
                 {
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    buffer = new byte[5000];
                     socket.BeginConnect(IPAddress.Parse(ip), puerto, conectar_CallBack, socket);
                 }
                 catch (Exception ex)
@@ -59,19 +61,24 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
             }
         }
 
-        private void paquete_Recibido()
+        private void paquete_Recibido(int buffersize = -1)
         {
-            if (socket.Connected && socket != null)
+            try
             {
-                try
+                if (esta_Conectado())
                 {
                     socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
                 }
-                catch (Exception e)
+                else
                 {
-                    evento_socket_informacion?.Invoke(e.Message);
                     cerrar_Socket();
+                    return;
                 }
+            }
+            catch (Exception e)
+            {
+                evento_socket_informacion?.Invoke(e.Message);
+                cerrar_Socket();
             }
         }
 
@@ -81,20 +88,29 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
             {
                 try
                 {
-                    int bytes_leidos = socket.EndReceive(ar);
-                    if (bytes_leidos != 0)
+                    if (esta_Conectado())
                     {
-                        foreach (string paquete in Encoding.UTF8.GetString(buffer).Replace("\x0a", string.Empty).Split('\x00').Where(x => x != string.Empty))
+                        int bytes_leidos = socket.EndReceive(ar, out SocketError err);
+                        if (bytes_leidos > 0 || err == SocketError.Success)
                         {
-                            evento_paquete_recibido?.Invoke(paquete);
+                            foreach (string paquete in Encoding.UTF8.GetString(buffer).Replace("\x0a", string.Empty).Split('\x00').Where(x => x != string.Empty))
+                            {
+                                evento_paquete_recibido?.Invoke(paquete);
+                            }
+                            buffer = new byte[5000];
+                            paquete_Recibido();
                         }
-                        buffer = new byte[5000];
-                        paquete_Recibido();
+                        else
+                        {
+                            cerrar_Socket();
+                            return;
+                        }
                     }
-                }
-                catch (ObjectDisposedException)
-                {
-                    cerrar_Socket();
+                    else
+                    {
+                        cerrar_Socket();
+                        return;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -110,7 +126,7 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
             {
                 try
                 {
-                    if (socket.Connected)
+                    if (esta_Conectado())
                     {
                         byte[] mensaje_bytes = Encoding.UTF8.GetBytes(string.Format(paquete + "\n\0"));
                         socket.BeginSend(mensaje_bytes, 0, mensaje_bytes.Length, SocketFlags.None, new AsyncCallback(enviar_CallBack), socket);
@@ -134,8 +150,22 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
         {
             try
             {
-                Socket handler = ar.AsyncState as Socket;
-                handler.EndSend(ar);
+                if(esta_Conectado())
+                {
+                    Socket handler = ar.AsyncState as Socket;
+                    int enviado = handler.EndSend(ar);
+                    if (enviado < 0)
+                    {
+                        socket.Shutdown(SocketShutdown.Both);
+                        socket.Close();
+                        return;
+                    }
+                }
+                else
+                {
+                    cerrar_Socket();
+                    return;
+                }
             }
             catch (Exception e)
             {
@@ -148,43 +178,55 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
         {
             lock (bloqueo)
             {
-                try
+                if (esta_Conectado())
                 {
-                    if (socket.Connected)
-                    {
-                        socket.Shutdown(SocketShutdown.Both);
-                        socket.Close();
-                        evento_socket_desconectado?.Invoke("Socket desconectado del host");
-                    }
-                }
-                catch (Exception e)
-                {
-                    evento_socket_desconectado?.Invoke(e.Message);
+                    disposed = true;
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
+                    evento_socket_desconectado?.Invoke("Socket desconectado del host");
+                    Dispose();
                 }
             }
         }
 
-        ~ClienteProtocolo() => Dispose(false);
-        public void Dispose() => Dispose(true);
+        private bool esta_Conectado()
+        {
+            try
+            {
+                return !(disposed || socket == null || !socket.Connected && socket.Available == 0);
+            }
+            catch (SocketException)
+            {
+                return false;
+            }
+            catch (ObjectDisposedException)
+            {
+                return false;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         public virtual void Dispose(bool disposing)
         {
-            if (socket != null && socket.Connected)
+            if (!disposed && disposing)
             {
-                try
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+                if (disposing)
                 {
-                    socket.Shutdown(SocketShutdown.Both);
-                    socket.Close();
-                    buffer = null;
-                    evento_paquete_recibido = null;
-                    evento_paquete_enviado = null;
-                    evento_socket_informacion = null;
-                    evento_socket_desconectado = null;
+                    socket.Dispose();
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                buffer = null;
+                evento_paquete_recibido = null;
+                evento_paquete_enviado = null;
+                evento_socket_informacion = null;
+                evento_socket_desconectado = null;
+                disposed = true;
             }
         }
     }
