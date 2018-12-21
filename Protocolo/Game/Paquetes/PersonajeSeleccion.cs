@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
 {
@@ -10,7 +9,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
 
         public PersonajeSeleccion(int id_seleccionado, string paquete)
         {
-            id = id_seleccionado;
+            id = id_seleccionado - 1;
             lista_personaje = new Dictionary<int, lista_personajes>();
 
             string[] _loc6_ = paquete.Split('|');
@@ -22,7 +21,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                 string[] _loc11_ = _loc6_[i].Split(';');
                 lista_personajes _c;
                 _c.id = int.Parse(_loc11_[0]);
-                _c.apodo = _loc11_[1];
+                _c.nombre = _loc11_[1];
                 lista_personaje.Add((i - 2), _c);
                 /*
 				_loc12_.level = _loc11_ [2];
@@ -53,6 +52,6 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
     public struct lista_personajes
     {
         public int id;
-        public string apodo;
+        public string nombre;
     }
 }

@@ -39,7 +39,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                             cuenta.Fase_Socket = EstadoSocket.LOGIN;
                             cuenta.key_bienvenida = paquete.Substring(2);
                             enviar_Paquete(new VersionMensaje().get_Mensaje());
-                            enviar_Paquete(new LoginMensaje(cuenta.usuario, cuenta.password, cuenta.key_bienvenida).get_Mensaje());
+                            enviar_Paquete(new LoginMensaje(cuenta.cuenta_configuracion.nombre_cuenta, cuenta.cuenta_configuracion.password, cuenta.key_bienvenida).get_Mensaje());
                             enviar_Paquete(new FilaPosicionMensaje().get_Mensaje());
                         break;
 

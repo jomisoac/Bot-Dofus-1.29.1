@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats;
 using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;
@@ -29,7 +28,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string nombre_cuenta = configuracion_cuenta.get_Nombre_Cuenta();
+            string nombre_cuenta = configuracion_cuenta.nombre_cuenta;
             if (Principal.get_Paginas_Cuentas_Cargadas().ContainsKey(nombre_cuenta))
             {
                 desconectar_Cuenta();
@@ -40,9 +39,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void cambiar_Tab_Imagen(Image image)
         {
-            if (Principal.paginas_cuentas_cargadas.ContainsKey(configuracion_cuenta.get_Nombre_Cuenta()))
+            if (Principal.paginas_cuentas_cargadas.ContainsKey(configuracion_cuenta.nombre_cuenta))
             {
-                Principal.paginas_cuentas_cargadas[configuracion_cuenta.get_Nombre_Cuenta()].cabezera.propiedad_Imagen = image;
+                Principal.paginas_cuentas_cargadas[configuracion_cuenta.nombre_cuenta].cabezera.propiedad_Imagen = image;
             }
         }
 
@@ -54,7 +53,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 if (cuenta == null)
                 {
-                    cuenta = new Cuenta(configuracion_cuenta.get_Nombre_Cuenta(), configuracion_cuenta.get_Password(), configuracion_cuenta.get_Servidor_Id());
+                    cuenta = new Cuenta(configuracion_cuenta);
                     while (tabControl_principal.TabPages.Count > 2)
                     {
                         tabControl_principal.TabPages.RemoveAt(2);
@@ -181,9 +180,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     cambiar_Tab_Imagen(Properties.Resources.circulo_verde);
                 break;
             }
-            if (cuenta != null && Principal.paginas_cuentas_cargadas.ContainsKey(configuracion_cuenta.get_Nombre_Cuenta()))
+            if (cuenta != null && Principal.paginas_cuentas_cargadas.ContainsKey(configuracion_cuenta.nombre_cuenta))
             {
-                Principal.paginas_cuentas_cargadas[configuracion_cuenta.get_Nombre_Cuenta()].cabezera.propiedad_Estado = cuenta.Estado_Cuenta.cadena_Amigable();
+                Principal.paginas_cuentas_cargadas[configuracion_cuenta.nombre_cuenta].cabezera.propiedad_Estado = cuenta.Estado_Cuenta.cadena_Amigable();
             }
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Bot_Dofus_1._29._1.Otros.Personajes.Stats
+﻿namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats
 {
     public class CaracteristicasInformacion
     {

@@ -57,11 +57,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox_lista_hechizos = new System.Windows.Forms.ComboBox();
             this.comboBox_focus_hechizo = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numeric_lanzamientos_turno = new System.Windows.Forms.NumericUpDown();
             this.button_agregar_hechizo = new System.Windows.Forms.Button();
             this.listView_hechizos_pelea = new System.Windows.Forms.ListView();
             this.id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.nombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.focus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.n_lanzamientos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.button_subir_hechizo = new System.Windows.Forms.Button();
             this.button_bajar_hechizo = new System.Windows.Forms.Button();
@@ -83,6 +86,7 @@
             this.tableLayoutPanel7.SuspendLayout();
             this.groupBox_agregar_hechizo.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_lanzamientos_turno)).BeginInit();
             this.tableLayoutPanel8.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -376,20 +380,22 @@
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.ColumnCount = 2;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.55743F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.44257F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.25727F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.74273F));
             this.tableLayoutPanel9.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel9.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.comboBox_lista_hechizos, 1, 0);
             this.tableLayoutPanel9.Controls.Add(this.comboBox_focus_hechizo, 1, 1);
+            this.tableLayoutPanel9.Controls.Add(this.label7, 0, 2);
+            this.tableLayoutPanel9.Controls.Add(this.numeric_lanzamientos_turno, 1, 2);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 21);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 6;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.1579F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.73684F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.35088F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.91228F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.29825F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(653, 228);
@@ -402,7 +408,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label6.Location = new System.Drawing.Point(3, 38);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 30);
+            this.label6.Size = new System.Drawing.Size(282, 35);
             this.label6.TabIndex = 3;
             this.label6.Text = "Focus:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -414,7 +420,7 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 38);
+            this.label5.Size = new System.Drawing.Size(282, 38);
             this.label5.TabIndex = 0;
             this.label5.Text = "Hechizo:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -424,9 +430,9 @@
             this.comboBox_lista_hechizos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_lista_hechizos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_lista_hechizos.FormattingEnabled = true;
-            this.comboBox_lista_hechizos.Location = new System.Drawing.Point(85, 3);
+            this.comboBox_lista_hechizos.Location = new System.Drawing.Point(291, 3);
             this.comboBox_lista_hechizos.Name = "comboBox_lista_hechizos";
-            this.comboBox_lista_hechizos.Size = new System.Drawing.Size(565, 25);
+            this.comboBox_lista_hechizos.Size = new System.Drawing.Size(359, 25);
             this.comboBox_lista_hechizos.TabIndex = 1;
             // 
             // comboBox_focus_hechizo
@@ -439,10 +445,40 @@
             "Aliado",
             "Encima",
             "Celda vacía"});
-            this.comboBox_focus_hechizo.Location = new System.Drawing.Point(85, 41);
+            this.comboBox_focus_hechizo.Location = new System.Drawing.Point(291, 41);
             this.comboBox_focus_hechizo.Name = "comboBox_focus_hechizo";
-            this.comboBox_focus_hechizo.Size = new System.Drawing.Size(565, 25);
+            this.comboBox_focus_hechizo.Size = new System.Drawing.Size(359, 25);
             this.comboBox_focus_hechizo.TabIndex = 4;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label7.Location = new System.Drawing.Point(3, 73);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(282, 34);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Número de lanzamientos por turno:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numeric_lanzamientos_turno
+            // 
+            this.numeric_lanzamientos_turno.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numeric_lanzamientos_turno.Location = new System.Drawing.Point(291, 76);
+            this.numeric_lanzamientos_turno.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numeric_lanzamientos_turno.Name = "numeric_lanzamientos_turno";
+            this.numeric_lanzamientos_turno.Size = new System.Drawing.Size(359, 25);
+            this.numeric_lanzamientos_turno.TabIndex = 6;
+            this.numeric_lanzamientos_turno.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // button_agregar_hechizo
             // 
@@ -461,7 +497,8 @@
             this.listView_hechizos_pelea.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.id,
             this.nombre,
-            this.focus});
+            this.focus,
+            this.n_lanzamientos});
             this.listView_hechizos_pelea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_hechizos_pelea.FullRowSelect = true;
             this.listView_hechizos_pelea.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
@@ -476,17 +513,22 @@
             // id
             // 
             this.id.Text = "ID";
-            this.id.Width = 73;
+            this.id.Width = 64;
             // 
             // nombre
             // 
             this.nombre.Text = "Nombre";
-            this.nombre.Width = 351;
+            this.nombre.Width = 213;
             // 
             // focus
             // 
             this.focus.Text = "Focus";
-            this.focus.Width = 198;
+            this.focus.Width = 178;
+            // 
+            // n_lanzamientos
+            // 
+            this.n_lanzamientos.Text = "Numero de lanzamientos";
+            this.n_lanzamientos.Width = 171;
             // 
             // tableLayoutPanel8
             // 
@@ -586,6 +628,7 @@
             this.groupBox_agregar_hechizo.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_lanzamientos_turno)).EndInit();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -630,5 +673,8 @@
         private System.Windows.Forms.ColumnHeader id;
         private System.Windows.Forms.ColumnHeader nombre;
         private System.Windows.Forms.ColumnHeader focus;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numeric_lanzamientos_turno;
+        private System.Windows.Forms.ColumnHeader n_lanzamientos;
     }
 }

@@ -9,7 +9,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         private const string configuracion_ruta = @"Peleas/";
         private Cuenta cuenta;
 
-        private string configuracion_archivo_ruta => Path.Combine(configuracion_ruta, $"{cuenta.usuario}_{cuenta.personaje.nombre_personaje}.config");
+        private string configuracion_archivo_ruta => Path.Combine(configuracion_ruta, $"{cuenta.cuenta_configuracion.nombre_cuenta}_{cuenta.personaje.nombre_personaje}.config");
         public List<HechizoPelea> hechizos { get; private set; }
 
         public PeleaConf(Cuenta _cuenta)

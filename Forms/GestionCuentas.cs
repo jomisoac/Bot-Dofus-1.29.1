@@ -34,9 +34,9 @@ namespace Bot_Dofus_1._29._1.Forms
 
             GlobalConf.get_Lista_Cuentas().ForEach(x =>
             {
-                if(!Principal.get_Paginas_Cuentas_Cargadas().ContainsKey(x.get_Nombre_Cuenta()))
+                if(!Principal.get_Paginas_Cuentas_Cargadas().ContainsKey(x.nombre_cuenta))
                 {
-                    listViewCuentas.Items.Add(x.get_Nombre_Cuenta()).SubItems.AddRange(new string[] { x.get_Servidor(), string.IsNullOrEmpty(x.get_nombre_personaje()) ? "Default" : x.get_nombre_personaje() });
+                    listViewCuentas.Items.Add(x.nombre_cuenta).SubItems.AddRange(new string[] { x.servidor, x.id_personaje.ToString() });
                 }
             });
         }
@@ -51,12 +51,12 @@ namespace Bot_Dofus_1._29._1.Forms
                     return;
                 }
 
-                GlobalConf.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_Nombre_Personaje.Text);
+                GlobalConf.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), Convert.ToInt32(seleccion_id_personaje.Value));
                 cargar_Cuentas_Lista();
 
                 textBox_Nombre_Cuenta.Clear();
                 textBox_Password.Clear();
-                textBox_Nombre_Personaje.Clear();
+                seleccion_id_personaje.Value = 1;
 
                 if (checkBox_Agregar_Retroceder.Checked)
                 {
@@ -102,7 +102,7 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 foreach(ListViewItem cuenta in listViewCuentas.SelectedItems)
                 {
-                    cuentas_cargadas.Add(GlobalConf.get_Lista_Cuentas().FirstOrDefault(f => f.get_Nombre_Cuenta() == cuenta.Text));
+                    cuentas_cargadas.Add(GlobalConf.get_Lista_Cuentas().FirstOrDefault(f => f.nombre_cuenta == cuenta.Text));
                 }
                 DialogResult = DialogResult.OK;
                 Close();
@@ -110,10 +110,6 @@ namespace Bot_Dofus_1._29._1.Forms
         }
 
         public List<CuentaConf> get_Cuentas_Cargadas() => cuentas_cargadas;
-
-        private void listViewCuentas_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            conectarToolStripMenuItem.PerformClick();
-        }
+        private void listViewCuentas_MouseDoubleClick(object sender, MouseEventArgs e) => conectarToolStripMenuItem.PerformClick();
     }
 }
