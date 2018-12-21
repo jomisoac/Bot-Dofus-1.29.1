@@ -29,7 +29,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 Celda[] celdas_mapa_personaje = cuenta.personaje.mapa.celdas;
                 if (celdas_mapa_personaje != null && celdas_mapa_personaje.Length > 0)
                 {
-                    Console.WriteLine(celdas_mapa_personaje.Length);
                     for (int i = 0; i < celdas_mapa_personaje.Length; i++)
                     {
                         switch (celdas_mapa_personaje[i].tipo)

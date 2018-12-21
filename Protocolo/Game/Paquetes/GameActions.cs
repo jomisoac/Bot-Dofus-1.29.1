@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 
@@ -12,6 +14,73 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
         public GameActions(Cuenta _cuenta)
         {
             cuenta = _cuenta;
+        }
+
+        public void get_En_Movimiento(string paquete)
+        {
+            try
+            {
+                string[] separador_jugadores = paquete.Split('|');
+
+                for (int i = 0; i < separador_jugadores.Length; ++i)
+                {
+                    string _loc6 = separador_jugadores[i];
+                    if (_loc6.Length != 0)
+                    {
+                        string[] informaciones = _loc6.Substring(1).Split(';');
+                        if (_loc6[0].Equals('+'))
+                        {
+                            int celda_id = int.Parse(informaciones[0].ToString());
+                            int id = int.Parse(informaciones[3].ToString());
+                            string nombre = informaciones[4];
+                            string tipo = informaciones[5];
+                            switch (int.Parse(tipo))
+                            {
+                                case -1:
+                                case -2:
+                                break;
+
+                                case -3://monstruos
+                                    cuenta.personaje.mapa.agregar_Monstruo(id, celda_id);
+                                break;
+
+                                case -4://NPC
+                                break;
+
+                                case -5:
+                                break;
+
+                                case -6:
+                                break;
+
+                                case -7:
+                                case -8:
+                                break;
+
+                                case -9:
+                                break;
+
+                                case -10:
+                                break;
+
+                                default:
+                                    if (cuenta.personaje.id == id)
+                                        cuenta.personaje.celda_id = celda_id;
+                                    cuenta.personaje.mapa.agregar_Personaje(new Personaje(id, nombre, byte.Parse(informaciones[7].ToString())));
+                                break;
+                            }
+                        }
+                        else if (_loc6[0].Equals('-'))
+                        {
+                            cuenta.personaje.mapa.eliminar_Personaje(int.Parse(_loc6.Substring(1).ToString()));
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                cuenta.logger.log_Error("get_En_Movimiento", e.ToString());
+            };
         }
 
         public void get_On_GameAction(string sExtraData)

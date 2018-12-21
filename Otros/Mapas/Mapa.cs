@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
@@ -19,7 +17,7 @@ using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 
 namespace Bot_Dofus_1._29._1.Otros.Mapas
 {
-    public class Mapa
+    public class Mapa : IDisposable
     {
         public int id { get; set; } = 0;
         public int fecha { get; set; } = 0;
@@ -29,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public string pathfinding_camino { get; set; }
         public Celda[] celdas;
         private Cuenta cuenta { get; set; } = null;
-        public int MaxCase => (int)Math.Sqrt(Math.Pow(anchura, 2) + Math.Pow(altura, 2));
+        public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
 
         public Dictionary<int, Personaje> personajes;
         public Dictionary<int, int> monstruos;//id, celda
@@ -125,7 +123,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         {
             if (monstruos == null)
                 monstruos = new Dictionary<int, int>();
-            if (!personajes.ContainsKey(id))
+            if (!monstruos.ContainsKey(id))
                 monstruos.Add(id, celda);
         }
 
@@ -176,6 +174,20 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         }
         #endregion
 
-        public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
+        #region Zona Dispose
+        ~Mapa() => Dispose(false);
+        public void Dispose() => Dispose(true);
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if(personajes != null)
+                personajes.Clear();
+            celdas = null;
+            personajes = null;
+            cuenta = null;
+            mapa_data = null;
+            pathfinding_camino = null;
+        }
+        #endregion
     }
 }

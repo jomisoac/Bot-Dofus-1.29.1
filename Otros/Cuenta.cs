@@ -96,8 +96,6 @@ namespace Bot_Dofus_1._29._1.Otros
             {
                 if (disposing)
                 {
-                    if (personaje != null)
-                        personaje.Dispose();
                     if (script != null)
                         script.Dispose();
                     if (conexion != null)

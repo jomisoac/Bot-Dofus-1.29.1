@@ -221,8 +221,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 if (disposing)
                 {
                     manejador_script.Dispose();
+                    manejar_acciones.Dispose();
                 }
+                manejar_acciones = null;
                 manejador_script = null;
+                activado = false;
                 cuenta = null;
             }
             catch { }

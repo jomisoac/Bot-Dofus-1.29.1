@@ -1,6 +1,8 @@
-﻿namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats
+﻿using System;
+
+namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats
 {
-    public class CaracteristicasInformacion
+    public class CaracteristicasInformacion : IDisposable
     {
         public double experiencia_actual { get; set; }
         public double experiencia_minima_nivel { get; set; }
@@ -22,5 +24,31 @@
         public CaracteristicasBase agilidad { get; set; }
         public CaracteristicasBase alcanze { get; set; }
         public CaracteristicasBase criaturas_invocables { get; set; }
+
+        ~CaracteristicasInformacion()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        public virtual void Dispose(bool disposing)
+        {
+            iniciativa = null;
+            prospeccion = null;
+            puntos_accion = null;
+            puntos_movimiento = null;
+            vitalidad = null;
+            sabiduria = null;
+            fuerza = null;
+            inteligencia = null;
+            suerte = null;
+            agilidad = null;
+            alcanze = null;
+            criaturas_invocables = null;
+        }
     }
 }

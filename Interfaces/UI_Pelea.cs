@@ -66,7 +66,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             if (listView_hechizos_pelea.FocusedItem == null || listView_hechizos_pelea.FocusedItem.Index == 0)
                 return;
 
-            Console.WriteLine(sender.ToString());
             List<HechizoPelea> hechizo = cuenta.pelea_extension.configuracion.hechizos;
             HechizoPelea temporal = hechizo[listView_hechizos_pelea.FocusedItem.Index - 1];
 
@@ -81,7 +80,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             if (listView_hechizos_pelea.FocusedItem == null || listView_hechizos_pelea.FocusedItem.Index == 0)
                 return;
 
-            Console.WriteLine(sender.ToString());
             List<HechizoPelea> hechizo = cuenta.pelea_extension.configuracion.hechizos;
             HechizoPelea temporal = hechizo[listView_hechizos_pelea.FocusedItem.Index + 1];
 
