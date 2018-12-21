@@ -1,7 +1,7 @@
 ﻿using System;
 using Bot_Dofus_1._29._1.LibreriaSockets;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Peleas;
-using Bot_Dofus_1._29._1.Otros.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game;
@@ -21,8 +21,6 @@ namespace Bot_Dofus_1._29._1.Otros
 {
     public class Cuenta : IDisposable
     {
-        public string usuario { get; set; } = string.Empty;
-        public string password { get; set; } = string.Empty;
         public string apodo { get; set; } = string.Empty;
         public string key_bienvenida { get; set; } = string.Empty;
         public string tiquet_game { get; set; } = string.Empty;
@@ -32,17 +30,17 @@ namespace Bot_Dofus_1._29._1.Otros
         public Personaje personaje { get; set; }
         public ManejadorScript script { get; set; }
         public PeleaExtensiones pelea_extension { get; set; }
+        public CuentaConf cuenta_configuracion { get; private set; }
         private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
 
         public event Action evento_estado_cuenta;
         public event Action<ClienteProtocolo> evento_fase_socket;
-        
-        public Cuenta(string _usuario, string _password, int _servidor_id)
+
+        public Cuenta(CuentaConf _cuenta_configuracion)
         {
-            usuario = _usuario;
-            password = _password;
-            servidor_id = _servidor_id;
+            cuenta_configuracion = _cuenta_configuracion;
+            servidor_id = cuenta_configuracion.get_Servidor_Id();
             logger = new Logger();
             pelea_extension = new PeleaExtensiones(this);
             conexion = new Login(GlobalConf.ip_conexion, 443, this);
@@ -89,16 +87,8 @@ namespace Bot_Dofus_1._29._1.Otros
         public bool esta_luchando() => Estado_Cuenta == EstadoCuenta.LUCHANDO;
         public bool esta_recolectando() => Estado_Cuenta == EstadoCuenta.RECOLECTANDO;
 
-        ~Cuenta()
-        {
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        ~Cuenta() => Dispose(false);
+        public void Dispose() => Dispose(true);
 
         public virtual void Dispose(bool disposing)
         {
@@ -106,27 +96,23 @@ namespace Bot_Dofus_1._29._1.Otros
             {
                 if (disposing)
                 {
-                    if(personaje != null)
+                    if (personaje != null)
                         personaje.Dispose();
-                    if(script != null)
+                    if (script != null)
                         script.Dispose();
-                    if(conexion != null)
+                    if (conexion != null)
                         conexion.Dispose();
                 }
-                usuario = null;
-                password = null;
                 key_bienvenida = null;
                 conexion = null;
                 logger = null;
                 personaje = null;
                 apodo = null;
+                cuenta_configuracion = null;
                 Estado_Cuenta = EstadoCuenta.DESCONECTADO;
                 Fase_Socket = EstadoSocket.NINGUNO;
             }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            catch (Exception){}
         }
     }
 }

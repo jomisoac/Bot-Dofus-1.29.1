@@ -39,7 +39,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas
             Match m = Regex.Match(randomPart, @"(?<celda>\d{1,3})");
             if (m.Success)
             {
-                accion = new CambiarMapaAccion(int.Parse(m.Groups["cellId"].Value));
+                accion = new CambiarMapaAccion(int.Parse(m.Groups["celda"].Value));
                 return true;
             }
             accion = null;

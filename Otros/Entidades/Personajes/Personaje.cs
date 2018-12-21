@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats;
 using Bot_Dofus_1._29._1.Otros.Mapas;
-using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -13,9 +13,9 @@ using Bot_Dofus_1._29._1.Otros.Personajes.Stats;
     web: http://www.salesprendes.com
 */
 
-namespace Bot_Dofus_1._29._1.Otros.Personajes
+namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
 {
-    public class Personaje : IDisposable
+    public class Personaje : Entidad
     {
         public int id { get; set; } = 0;
         public string nombre_personaje { get; set; } = string.Empty;

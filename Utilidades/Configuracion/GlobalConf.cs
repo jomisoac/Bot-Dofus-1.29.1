@@ -2,6 +2,14 @@
 using System.IO;
 using System.Linq;
 
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
+
 namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
 {
     internal class GlobalConf
@@ -33,7 +41,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
                     }
                     mostrar_mensajes_debug = br.ReadBoolean();
                     modo_ultra_perfomance = br.ReadBoolean();
-                    //Otros
                     ip_conexion = br.ReadString();
                 }
             }
@@ -51,29 +58,13 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
                 lista_cuentas.ForEach(a => a.guardar_Cuenta(bw));
                 bw.Write(mostrar_mensajes_debug);
                 bw.Write(modo_ultra_perfomance);
-                //Otros
                 bw.Write(ip_conexion);
             }
         }
 
-        public static void agregar_Cuenta(string nombre_cuenta, string password, string servidor, string nombre_personaje)
-        {
-            lista_cuentas.Add(new CuentaConf(nombre_cuenta, password, servidor, nombre_personaje));
-        }
-
-        public static void eliminar_Cuenta(int cuenta_index)
-        {
-            lista_cuentas.RemoveAt(cuenta_index);
-        }
-
-        public static CuentaConf get_Cuenta(string nombre_cuenta)
-        {
-            return lista_cuentas.FirstOrDefault(cuenta => cuenta.get_Nombre_Cuenta() == nombre_cuenta);
-        }
-
-        public static List<CuentaConf> get_Lista_Cuentas()
-        {
-            return lista_cuentas;
-        }
+        public static void agregar_Cuenta(string nombre_cuenta, string password, string servidor, int id_personaje) => lista_cuentas.Add(new CuentaConf(nombre_cuenta, password, servidor, id_personaje));
+        public static void eliminar_Cuenta(int cuenta_index) => lista_cuentas.RemoveAt(cuenta_index);
+        public static CuentaConf get_Cuenta(string nombre_cuenta) => lista_cuentas.FirstOrDefault(cuenta => cuenta.nombre_cuenta == nombre_cuenta);
+        public static List<CuentaConf> get_Lista_Cuentas() => lista_cuentas;
     }
 }

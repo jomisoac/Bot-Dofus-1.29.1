@@ -18,10 +18,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
     {
         public List<int> lista_abierta = new List<int>();
         public List<int> lista_cerrada = new List<int>();
-        private readonly int[] Plist = new int[1025];
-        private readonly int[] Flist = new int[1025];
-        private readonly int[] Glist = new int[1025];
-        private readonly int[] Hlist = new int[1025];
+        private readonly int[] Plist;
+        private readonly int[] Flist;
+        private readonly int[] Glist;
+        private readonly int[] Hlist;
         private Mapa mapa;
 
         private bool es_pelea;
@@ -30,6 +30,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         public Pathfinding(Mapa _mapa)
         {
             mapa = _mapa;
+            Plist = new int[1025];
+            Flist = new int[1025];
+            Glist = new int[1025];
+            Hlist = new int[1025];
         }
 
         public static string get_Direccion_Char(int direccion)
@@ -39,15 +43,15 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return Hash.caracteres_array[direccion].ToString();
         }
 
-        private void loadSprites()
+        private void cargar_Obstaculos()
         {
-            for (int i = 0; i < (mapa.celdas.Length - 1); i++)
+            for (int i = 0; i < mapa.celdas.Length - 1; i++)
             {
-                if (mapa.celdas[i].tipo_caminable < 4)
+                if (mapa.celdas[i].tipo < (TipoCelda)4)
                 {
                     lista_cerrada.Add(i);
                 }
-                else if (mapa.celdas[i].object2Movement)
+                if (mapa.celdas[i].object2Movement)
                 {
                     lista_cerrada.Add(i);
                 }
@@ -58,7 +62,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         {
             try
             {
-                loadSprites();
+                cargar_Obstaculos();
                 lista_cerrada.Remove(celda_final);
                 return get_Pathfinding_Limpio(get_Pathfinding(celda_actual, celda_final));
             }
@@ -72,7 +76,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         {
             try
             {
-                loadSprites();
+                cargar_Obstaculos();
                 lista_cerrada.Remove(celda_final);
 
                 es_pelea = _es_pelea;
@@ -88,16 +92,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         private string get_Pathfinding(int celda_1, int celda_2)
         {
             int actual;
-            int i = 0;
-
             lista_abierta.Add(celda_1);
 
             while (!lista_abierta.Contains(celda_2))
             {
-                i += 1;
-                if (i > 1000)
-                    return string.Empty;
-
                 actual = get_F_Punto();
                 if (actual != celda_2)
                 {
@@ -130,20 +128,22 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                         }
                     });
                 }
+                if (lista_cerrada.Count > 999)
+                    throw new Exception("El camino es impossible");
             }
             return get_Padre(celda_1, celda_2);
         }
 
         private string get_Padre(int cell1, int cell2)
         {
-            int current = cell2;
+            int actual = cell2;
             List<int> pathCell = new List<int>();
-            pathCell.Add(current);
+            pathCell.Add(actual);
 
-            while (current != cell1)
+            while (actual != cell1)
             {
-                pathCell.Add(Plist[current]);
-                current = Plist[current];
+                pathCell.Add(Plist[actual]);
+                actual = Plist[actual];
             }
             return getPath(pathCell);
         }
@@ -160,12 +160,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                     return pathing.ToString();
                 actual = camino_celda[i];
                 hijo = camino_celda[i + 1];
-                pathing.Append(get_Direccion_Char(get_Orientacion_Casilla(actual, hijo))).Append(get_Celda_Chars(hijo));
+                pathing.Append(get_Direccion_Char(get_Orientacion_Casilla(actual, hijo))).Append(get_Celda_Char(hijo));
             }
             return pathing.ToString();
         }
 
-        public static string get_Celda_Chars(int celda)
+        public static string get_Celda_Char(int celda)
         {
             int CharCode2 = celda % Hash.caracteres_array.Length;
             int CharCode1 = (celda - CharCode2) / Hash.caracteres_array.Length;
@@ -253,6 +253,18 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return cell;
         }
 
+        public static int get_Celda_Numero(int total_celdas, string celda_char)
+        {
+            for (int i = 0; i < total_celdas; i++)
+            {
+                if (get_Celda_Char(i) == celda_char)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         public int get_Celda_Y_Coordenadas(int celda_id)
         {
             int loc5 = celda_id / ((mapa.anchura * 2) - 1);
@@ -311,20 +323,20 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             {
                 case Direcciones.ESTE:
                 case Direcciones.OESTE:
-                    return Math.Abs(casilla_inicio - casilla_final) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
+                    return 50 + Math.Abs(casilla_inicio - casilla_final) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
 
                 case Direcciones.NORTE:
                 case Direcciones.SUR:
-                    return Math.Abs(casilla_inicio - casilla_final) / ((mapa.anchura * 2) - 1) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
+                    return 50 + Math.Abs(casilla_inicio - casilla_final) / ((mapa.anchura * 2) - 1) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
 
                 case Direcciones.NORDESTE:
                 case Direcciones.SUDESTE:
-                    return Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
+                    return 50 + Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
 
 
                 case Direcciones.NOROESTE:
                 case Direcciones.SUDOESTE:
-                    return Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
+                    return 50 + Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
             }
             return 0;
         }

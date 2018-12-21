@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Controles.ControlMapa;
 using Bot_Dofus_1._29._1.Otros;
@@ -28,19 +29,20 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 Celda[] celdas_mapa_personaje = cuenta.personaje.mapa.celdas;
                 if (celdas_mapa_personaje != null && celdas_mapa_personaje.Length > 0)
                 {
+                    Console.WriteLine(celdas_mapa_personaje.Length);
                     for (int i = 0; i < celdas_mapa_personaje.Length; i++)
                     {
-                        switch (celdas_mapa_personaje[i].tipo_caminable)
+                        switch (celdas_mapa_personaje[i].tipo)
                         {
-                            case 0:
+                            case TipoCelda.NO_CAMINABLE:
                                 mapa.celdas[i].Celda_Estado = CeldaEstado.NO_CAMINABLE;
                             break;
 
-                            case 1:
+                            case TipoCelda.OBJETO_INTERACTIVO:
                                 mapa.celdas[i].Celda_Estado = CeldaEstado.OBJETO_INTERACTIVO;
                             break;
 
-                            case 2:
+                            case TipoCelda.CELDA_TELEPORT:
                                 mapa.celdas[i].Celda_Estado = CeldaEstado.CELDA_TELEPORT;
                             break;
 
@@ -67,9 +69,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
                             cuenta.logger.log_informacion("UI_MAPA", "Personaje desplazado a la casilla: " + celda_destino);
                         break;
 
+                        case ResultadoMovimientos.MISMA_CELDA:
+                            cuenta.logger.log_Error("UI_MAPA", "El jugador está en la misma a la seleccionada");
+                        break;
+
                         case ResultadoMovimientos.FALLO:
                         case ResultadoMovimientos.PATHFINDING_ERROR:
-                        case ResultadoMovimientos.MISMA_CELDA:
                             cuenta.logger.log_Error("UI_MAPA", "Error desplazando el personaje a la casilla: " + celda_destino);
                         break;
                     }

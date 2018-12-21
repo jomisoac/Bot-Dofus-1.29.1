@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
-using Bot_Dofus_1._29._1.Otros.Personajes;
-using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game.Paquetes;
 
@@ -65,7 +65,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             switch (paquete[2])
                             {
                                 case 'K':
-                                    enviar_Paquete(new PersonajeSeleccion(0, informacion_paquete).get_Mensaje());
+                                    enviar_Paquete(new PersonajeSeleccion(cuenta.cuenta_configuracion.id_personaje, informacion_paquete).get_Mensaje());
                                 break;
                             }
                         break;
@@ -143,12 +143,27 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                 case 'G':
                     switch(accion)
                     {
+                        case "A":
+                            switch (paquete[2])
+                            {
+                                case 'S':
+                                    //this.aks.GameActions.onActionsStart(sData.substr(3));
+                                break;
+
+                                case 'F':
+                                    //aks.GameActions.onActionsFinish(sData.substr(3));
+                                break;
+
+                                default:
+                                    new GameActions(cuenta).get_On_GameAction(paquete.Substring(2));
+                                break;
+                            }
+                        break;
+
                         case "D":
                             switch(paquete[2].ToString())
                             {
                                 case "M"://Mapas
-                                    if (cuenta.personaje.mapa != null)
-                                        cuenta.personaje.mapa.get_Personajes().Clear();
                                     cuenta.personaje.mapa = new Mapa(cuenta, paquete.Substring(4));
                                     cuenta.personaje.evento_Mapa_Actualizado();
                                 break;
@@ -164,18 +179,30 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             {
                                 case '+':
                                     string[] separador_jugadores = paquete.Substring(4).Split('|');
+                                    
                                     for (int i = 0; i < separador_jugadores.Length; ++i)
                                     {
                                         string[] gm_elemento = separador_jugadores[i].Split(';');
+                                        string tipos = gm_elemento[5];
+                                        int tipo_id = 0;
+                                        if (tipos.Contains(','))
+                                            tipo_id = int.Parse(tipos.Split(',')[0]);
+                                        else
+                                            tipo_id = int.Parse(tipos);
 
                                         int celda_id = int.Parse(gm_elemento[0].ToString());
-                                        int id_personaje = int.Parse(gm_elemento[3].ToString());
+                                        int id_elemento = int.Parse(gm_elemento[3].ToString());
                                         string nombre_personaje = gm_elemento[4].ToString();
-                                        if (id_personaje > 0)
+
+                                        if (tipo_id > 0)
                                         {
-                                            if (cuenta.personaje.id == id_personaje)
+                                            if (cuenta.personaje.id == id_elemento)
                                                 cuenta.personaje.celda_id = celda_id;
-                                            cuenta.personaje.mapa.agregar_Personaje(new Personaje(id_personaje, nombre_personaje, byte.Parse(gm_elemento[7].ToString())));
+                                            cuenta.personaje.mapa.agregar_Personaje(new Personaje(id_elemento, nombre_personaje, byte.Parse(gm_elemento[7].ToString())));
+                                        }
+                                        if(tipo_id == -3)//monstruos
+                                        {
+                                            cuenta.personaje.mapa.agregar_Monstruo(id_elemento, celda_id);
                                         }
                                     }
                                 break;

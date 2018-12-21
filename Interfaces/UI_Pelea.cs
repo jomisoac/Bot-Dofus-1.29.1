@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
-using Bot_Dofus_1._29._1.Otros.Personajes;
 
 namespace Bot_Dofus_1._29._1.Interfaces
 {
@@ -44,7 +43,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             Hechizos hechizo = comboBox_lista_hechizos.SelectedItem as Hechizos;
 
-            cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex));
+            cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, Convert.ToByte(numeric_lanzamientos_turno.Value)));
             cuenta.pelea_extension.configuracion.guardar();
             refrescar_Lista_Hechizos();
         }
@@ -57,7 +56,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 listView_hechizos_pelea.Items.Add(hechizo.id.ToString()).SubItems.AddRange(new string[]
                 {
-                    hechizo.nombre, hechizo.focus.ToString(),
+                    hechizo.nombre, hechizo.focus.ToString(), hechizo.lanzamientos_x_turno.ToString()
                 });
             });
         }

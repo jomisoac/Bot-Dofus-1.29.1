@@ -12,14 +12,17 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
 {
     public class CuentaConf
     {
-        private string nombre_cuenta, password, servidor, nombre_personaje;
+        public string nombre_cuenta { get; set; } = string.Empty;
+        public string password { get; set; } = string.Empty;
+        public string servidor { get; set; } = string.Empty;
+        public int id_personaje { get; set; } = 0;
 
-        public CuentaConf(string _nombre_cuenta, string _password, string _servidor, string _nombre_personaje)
+        public CuentaConf(string _nombre_cuenta, string _password, string _servidor, int _id_personaje)
         {
             nombre_cuenta = _nombre_cuenta;
             password = _password;
             servidor = _servidor;
-            nombre_personaje = _nombre_personaje;
+            id_personaje = _id_personaje;
         }
 
         public void guardar_Cuenta(BinaryWriter bw)
@@ -27,14 +30,14 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             bw.Write(nombre_cuenta);
             bw.Write(password);
             bw.Write(servidor);
-            bw.Write(nombre_personaje);
+            bw.Write(id_personaje);
         }
 
         public static CuentaConf cargar_Una_Cuenta(BinaryReader br)
         {
             try
             {
-                return new CuentaConf(br.ReadString(), br.ReadString(), br.ReadString(), br.ReadString());
+                return new CuentaConf(br.ReadString(), br.ReadString(), br.ReadString(), br.ReadInt32());
             }
             catch
             {
@@ -42,29 +45,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             }
         }
 
-        public string get_Nombre_Cuenta()
-        {
-            return nombre_cuenta;
-        }
-
-        public string get_Password()
-        {
-            return password;
-        }
-
-        public string get_Servidor()
-        {
-            return servidor;
-        }
-
-        public int get_Servidor_Id()
-        {
-            return servidor.Equals("Eratz") ? 601 : 602;
-        }
-
-        public string get_nombre_personaje()
-        {
-            return nombre_personaje;
-        }
+        public int get_Servidor_Id() => servidor.Equals("Eratz") ? 601 : 602;
     }
 }

@@ -35,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Forms
                 {
                     gestion_cuentas.get_Cuentas_Cargadas().ForEach(x =>
                     {
-                        paginas_cuentas_cargadas.Add(x.get_Nombre_Cuenta(), agregar_Nueva_Tab_Pagina(x.get_Nombre_Cuenta(), new UI_Principal(x)));
+                        paginas_cuentas_cargadas.Add(x.nombre_cuenta, agregar_Nueva_Tab_Pagina(x.nombre_cuenta, new UI_Principal(x)));
                     });
                 }
             }

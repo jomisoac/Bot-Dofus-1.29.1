@@ -120,7 +120,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
             catch (Exception ex)
             {
-                cuenta.logger.log_Error("Script", ex.Message);
+                cuenta.logger.log_Error("Script", ex.ToString());
             }
         });
 

@@ -56,7 +56,7 @@
             this.label_Eleccion_Servidor = new System.Windows.Forms.Label();
             this.label_Nombre_Personaje = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox_Nombre_Personaje = new System.Windows.Forms.TextBox();
+            this.seleccion_id_personaje = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox_Servidor = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
@@ -79,6 +79,7 @@
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.seleccion_id_personaje)).BeginInit();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -400,7 +401,7 @@
             // 
             this.tableLayoutPanel7.ColumnCount = 1;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Controls.Add(this.textBox_Nombre_Personaje, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.seleccion_id_personaje, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(129, 180);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -411,14 +412,28 @@
             this.tableLayoutPanel7.Size = new System.Drawing.Size(305, 55);
             this.tableLayoutPanel7.TabIndex = 4;
             // 
-            // textBox_Nombre_Personaje
+            // seleccion_id_personaje
             // 
-            this.textBox_Nombre_Personaje.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Nombre_Personaje.Location = new System.Drawing.Point(3, 21);
-            this.textBox_Nombre_Personaje.MaxLength = 20;
-            this.textBox_Nombre_Personaje.Name = "textBox_Nombre_Personaje";
-            this.textBox_Nombre_Personaje.Size = new System.Drawing.Size(299, 25);
-            this.textBox_Nombre_Personaje.TabIndex = 8;
+            this.seleccion_id_personaje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seleccion_id_personaje.Location = new System.Drawing.Point(3, 21);
+            this.seleccion_id_personaje.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.seleccion_id_personaje.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.seleccion_id_personaje.Name = "seleccion_id_personaje";
+            this.seleccion_id_personaje.Size = new System.Drawing.Size(299, 25);
+            this.seleccion_id_personaje.TabIndex = 0;
+            this.seleccion_id_personaje.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // tableLayoutPanel8
             // 
@@ -559,7 +574,7 @@
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.seleccion_id_personaje)).EndInit();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
@@ -592,7 +607,6 @@
         private System.Windows.Forms.Label label_Eleccion_Servidor;
         private System.Windows.Forms.Button boton_Agregar_Cuenta;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.TextBox textBox_Nombre_Personaje;
         private System.Windows.Forms.Label label_Nombre_Personaje;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.ComboBox comboBox_Servidor;
@@ -607,5 +621,6 @@
         private System.Windows.Forms.ToolStripMenuItem conectarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.NumericUpDown seleccion_id_personaje;
     }
 }

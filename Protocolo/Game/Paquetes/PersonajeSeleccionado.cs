@@ -1,5 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Personajes;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
 {

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
-using Bot_Dofus_1._29._1.Otros.Personajes;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 
@@ -27,12 +29,17 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public string pathfinding_camino { get; set; }
         public Celda[] celdas;
         private Cuenta cuenta { get; set; } = null;
+        public int MaxCase => (int)Math.Sqrt(Math.Pow(anchura, 2) + Math.Pow(altura, 2));
+
         public Dictionary<int, Personaje> personajes;
+        public Dictionary<int, int> monstruos;//id, celda
 
         private readonly XElement archivo_mapa;
 
         public Mapa(Cuenta _cuenta, string paquete)
         {
+            get_Personajes().Clear();
+
             string[] _loc3 = paquete.Split('|');
             cuenta = _cuenta;
             id = int.Parse(_loc3[0]);
@@ -47,6 +54,42 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             descompilar_mapa();
         }
 
+        public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_id)
+        {
+            if (cuenta.Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO)
+                return ResultadoMovimientos.FALLO;
+
+            if (celda_id < 0 || celda_id > celdas.Length)
+                return ResultadoMovimientos.FALLO;
+
+            if (cuenta.esta_ocupado)
+                return ResultadoMovimientos.FALLO;
+
+            if (celda_id == cuenta.personaje.celda_id)
+                return ResultadoMovimientos.MISMA_CELDA;
+
+            if (celdas[celda_id].tipo == TipoCelda.NO_CAMINABLE)
+                return ResultadoMovimientos.FALLO;
+
+            Pathfinding pathfinding = new Pathfinding(this);
+            pathfinding_camino = pathfinding.pathing(cuenta.personaje.celda_id, celda_id);
+
+            if (string.IsNullOrEmpty(pathfinding_camino))
+                return ResultadoMovimientos.FALLO;
+
+            cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
+            cuenta.conexion.enviar_Paquete("GA001" + pathfinding_camino);
+            int distancia = pathfinding.get_Distancia_Estimada(cuenta.personaje.celda_id, celda_id);
+
+            Task.Delay(distancia * (distancia < 6 ? 300 : 250)).Wait();
+            cuenta.conexion.enviar_Paquete("GKK0");
+            pathfinding_camino = null;
+
+            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            return ResultadoMovimientos.EXITO;
+        }
+
+        #region Metodos de descompresion
         public void descompilar_mapa()
         {
             celdas = new Celda[mapa_data.Length / 10];
@@ -69,13 +112,43 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 informacion_celda[i] = Convert.ToByte(Compressor.index_Hash(celda_data[i]));
             }
 
-            celda.tipo_caminable = Convert.ToByte((informacion_celda[2] & 56) >> 3);
+            celda.tipo = (TipoCelda)((informacion_celda[2] & 56) >> 3);
             celda.es_linea_vision = (informacion_celda[0] & 1) != 0;
             celda.objeto_interactivo_id = ((informacion_celda[7] & 2) >> 1) != 0 ? ((informacion_celda[0] & 2) << 12) + ((informacion_celda[7] & 1) << 12) + (informacion_celda[8] << 6) + informacion_celda[9] : -1;
             celda.object2Movement = ((informacion_celda[7] & 2) >> 1) != 0;
             return celda;
         }
+        #endregion
 
+        #region metodos monstruos
+        public void agregar_Monstruo(int id, int celda)
+        {
+            if (monstruos == null)
+                monstruos = new Dictionary<int, int>();
+            if (!personajes.ContainsKey(id))
+                monstruos.Add(id, celda);
+        }
+
+        public void eliminar_Monstruo(int id)
+        {
+            if (monstruos != null)
+            {
+                if (monstruos.ContainsKey(id))
+                    monstruos.Remove(id);
+                if (monstruos.Count >= 0)//si no tiene ninguno volvera a ser nulo
+                    monstruos = null;
+            }
+        }
+
+        public Dictionary<int, int> get_Monstruos()
+        {
+            if (monstruos == null)
+                return new Dictionary<int, int>();
+            return monstruos;
+        }
+        #endregion
+
+        #region metodos personajes
         public void agregar_Personaje(Personaje personaje)
         {
             if (personajes == null)
@@ -101,43 +174,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 return new Dictionary<int, Personaje>();
             return personajes;
         }
+        #endregion
 
         public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
-
-        public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_id)
-        {
-            if (cuenta.Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO)
-                return ResultadoMovimientos.FALLO;
-
-            if (celda_id < 0 || celda_id > celdas.Length)
-                return ResultadoMovimientos.FALLO;
-
-            if (cuenta.esta_ocupado)
-                return ResultadoMovimientos.FALLO;
-
-            if (celda_id == cuenta.personaje.celda_id)
-                return ResultadoMovimientos.MISMA_CELDA;
-
-            if (celdas[celda_id].tipo_caminable == 0)
-                return ResultadoMovimientos.FALLO;
-
-            Pathfinding pathfinding = new Pathfinding(this);
-            pathfinding_camino = pathfinding.pathing(cuenta.personaje.celda_id, celda_id);
-
-            if (string.IsNullOrEmpty(pathfinding_camino))
-                return ResultadoMovimientos.FALLO;
-
-            cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
-            cuenta.conexion.enviar_Paquete("GA001" + pathfinding_camino);
-            int orientacion = pathfinding.get_Orientacion_Casilla(cuenta.personaje.celda_id, celda_id);
-
-            Task.Delay(pathfinding.get_Tiempo_Desplazamiento(cuenta.personaje.celda_id, celda_id, (Direcciones)orientacion)).Wait();
-            cuenta.conexion.enviar_Paquete("GKK0");
-            cuenta.personaje.celda_id = celda_id;
-            pathfinding_camino = null;
-
-            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-            return ResultadoMovimientos.EXITO;
-        }
     }
 }
