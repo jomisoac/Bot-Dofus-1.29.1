@@ -84,15 +84,10 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             socket_canal_personaje?.Invoke();
         }
 
-        public void evento_Personaje_Seleccionado()
-        {
-            personaje_seleccionado?.Invoke();
-        }
-
-        public void evento_Mapa_Actualizado()
-        {
-            mapa_actualizado?.Invoke();
-        }
+        #region Eventos
+        public void evento_Mapa_Actualizado() => mapa_actualizado?.Invoke();
+        public void evento_Personaje_Seleccionado() => personaje_seleccionado?.Invoke();
+        #endregion
 
         public void actualizar_Caracteristicas(string paquete)
         {

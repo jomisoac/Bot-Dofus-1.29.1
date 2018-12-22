@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
@@ -66,7 +65,8 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                 default:
                                     if (cuenta.personaje.id == id)
                                         cuenta.personaje.celda_id = celda_id;
-                                    cuenta.personaje.mapa.agregar_Personaje(new Personaje(id, nombre, byte.Parse(informaciones[7].ToString())));
+                                    else
+                                        cuenta.personaje.mapa.agregar_Personaje(new Personaje(id, nombre, byte.Parse(informaciones[7].ToString())));
                                 break;
                             }
                         }
@@ -92,7 +92,6 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
             if (_loc3 > 0)
             {
                 int _loc5 = int.Parse(sExtraData.Substring(0, _loc3));
-
                 switch (_loc5)
                 {
                     case 0:
@@ -117,6 +116,12 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                 {
                                     cuenta.personaje.celda_id = casilla_destino;
                                 }
+                            }
+                            else if(cuenta.personaje.mapa.get_Personajes().ContainsKey(_loc6))
+                            {
+                                cuenta.personaje.mapa.get_Personajes()[_loc6].celda_id = casilla_destino;
+                                if (GlobalConf.mostrar_mensajes_debug)
+                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un personaje a la casilla: " + casilla_destino);
                             }
                             else if (cuenta.personaje.mapa.get_Monstruos().ContainsKey(_loc6))
                             {

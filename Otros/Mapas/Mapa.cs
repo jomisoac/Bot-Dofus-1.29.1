@@ -28,7 +28,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public Celda[] celdas;
         private Cuenta cuenta { get; set; } = null;
         public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
-
         public Dictionary<int, Personaje> personajes;
         public Dictionary<int, int> monstruos;//id, celda
 
@@ -70,7 +69,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 return ResultadoMovimientos.FALLO;
 
             Pathfinding pathfinding = new Pathfinding(this);
-            pathfinding_camino = pathfinding.pathing(cuenta.personaje.celda_id, celda_id);
+            pathfinding_camino = pathfinding.pathing(cuenta.personaje.celda_id, celda_id, true);
 
             if (string.IsNullOrEmpty(pathfinding_camino))
                 return ResultadoMovimientos.FALLO;

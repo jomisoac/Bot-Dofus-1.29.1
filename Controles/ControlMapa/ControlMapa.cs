@@ -201,7 +201,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 if (celda.esta_En_Rectangulo(g.ClipBounds))
                 {
                     celda.DrawBackground(this, g, ModoDibujo);
-                    celda.DrawForeground(this, g, ModoDibujo);
+                    celda.DrawForeground(this, g);
                 }
                 if (celda.esta_En_Rectangulo(g.ClipBounds))
                 {
@@ -227,7 +227,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         {
             if (mapa_raton_abajo)
             {
-                CeldaMapa celda = GetCell(e.Location);
+                CeldaMapa celda = get_Celda(e.Location);
                 if (mapa_celda_retenida != null && mapa_celda_retenida != celda)
                 {
                     OnCellClicked(mapa_celda_retenida, e.Button);
@@ -239,7 +239,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
             if (TraceOnOver)
             {
-                var cell = GetCell(e.Location);
+                var cell = get_Celda(e.Location);
                 Rectangle rect = Rectangle.Empty;
                 CeldaMapa last = null;
 
@@ -265,13 +265,12 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                     Invalidate(rect);
                 }
             }
-
             base.OnMouseMove(e);
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            CeldaMapa cell = GetCell(e.Location);
+            CeldaMapa cell = get_Celda(e.Location);
 
             if (cell != null)
             {
@@ -284,7 +283,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         protected override void OnMouseUp(MouseEventArgs e)
         {
             mapa_raton_abajo = false;
-            CeldaMapa cell = GetCell(e.Location);
+            CeldaMapa cell = get_Celda(e.Location);
 
             if (mapa_celda_retenida != null)
             {
@@ -294,14 +293,8 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             base.OnMouseUp(e);
         }
 
-        public CeldaMapa GetCell(Point p)
-        {
-            Rectangle searchRect = new Rectangle(p.X - RealCellWidth, p.Y - RealCellHeight, RealCellWidth, RealCellHeight);
-
-            return celdas.FirstOrDefault(cell => cell.esta_En_Rectangulo(searchRect) && PointInPoly(p, cell.Puntos));
-        }
-
-        public CeldaMapa GetCell(int id) => celdas.FirstOrDefault(cell => cell.id == id);
+        public CeldaMapa get_Celda(Point p) => celdas.FirstOrDefault(cell => cell.esta_En_Rectangulo(new Rectangle(p.X - RealCellWidth, p.Y - RealCellHeight, RealCellWidth, RealCellHeight)) && PointInPoly(p, cell.Puntos));
+        public CeldaMapa get_Celda(int id) => celdas.FirstOrDefault(cell => cell.id == id);
         public void Invalidate(CeldaMapa celda) => Invalidate(celda.Rectangle);
 
         public void Invalidate(params CeldaMapa[] cells)

@@ -65,7 +65,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             else if (desconectarOconectarToolStripMenuItem.Text.Equals("Desconectar"))
             {
-                if (cuenta.Fase_Socket != EstadoSocket.CAMBIANDO_A_JUEGO)
+                if (cuenta.Estado_Socket != EstadoSocket.CAMBIANDO_A_JUEGO)
                 {
                     desconectar_Cuenta();
                     desconectarOconectarToolStripMenuItem.Text = "Conectar";
@@ -79,10 +79,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 if (cuenta.conexion != null)
                 {
-                    cuenta.conexion.evento_paquete_recibido -= debugger.paquete_Recibido;
-                    cuenta.conexion.evento_paquete_enviado -= debugger.paquete_Enviado;
-                    cuenta.conexion.evento_socket_informacion -= escribir_mensaje;
-                    cuenta.conexion.evento_socket_desconectado -= escribir_mensaje;
+                    cuenta.conexion.paquete_recibido -= debugger.paquete_Recibido;
+                    cuenta.conexion.paquete_enviado -= debugger.paquete_Enviado;
+                    cuenta.conexion.socket_informacion -= escribir_mensaje;
+                    cuenta.conexion.socket_desconectado -= escribir_mensaje;
                 }
 
                 cuenta.Dispose();
@@ -98,16 +98,16 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void cargar_Eventos_Debugger(ClienteProtocolo socket)
         {
-            switch (cuenta.Fase_Socket)
+            switch (cuenta.Estado_Socket)
             {
                 case EstadoSocket.CAMBIANDO_A_JUEGO:
-                    socket.evento_paquete_recibido += debugger.paquete_Recibido;
-                    socket.evento_paquete_enviado += debugger.paquete_Enviado;
-                    socket.evento_socket_informacion += escribir_mensaje;
-                    socket.evento_socket_desconectado += escribir_mensaje;
+                    socket.paquete_recibido += debugger.paquete_Recibido;
+                    socket.paquete_enviado += debugger.paquete_Enviado;
+                    socket.socket_informacion += escribir_mensaje;
+                    socket.socket_desconectado += escribir_mensaje;
                 break;
 
-                case EstadoSocket.JUEGO:
+                case EstadoSocket.PERSONAJE_SELECCIONADO:
                     cuenta.pelea_extension.configuracion.cargar();
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
                     agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
@@ -154,10 +154,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             if (cuenta != null)
             {
-                cuenta.conexion.evento_paquete_recibido += debugger.paquete_Recibido;
-                cuenta.conexion.evento_paquete_enviado += debugger.paquete_Enviado;
-                cuenta.conexion.evento_socket_informacion += escribir_mensaje;
-                cuenta.conexion.evento_socket_desconectado += escribir_mensaje;
+                cuenta.conexion.paquete_recibido += debugger.paquete_Recibido;
+                cuenta.conexion.paquete_enviado += debugger.paquete_Enviado;
+                cuenta.conexion.socket_informacion += escribir_mensaje;
+                cuenta.conexion.socket_desconectado += escribir_mensaje;
 
                 cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
                 cuenta.logger.log_evento += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);

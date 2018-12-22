@@ -40,7 +40,6 @@ namespace Bot_Dofus_1._29._1.Forms
                 textBox_ip_servidor.BackColor = Color.Red;
                 return;
             }
-
         }
     }
 }
