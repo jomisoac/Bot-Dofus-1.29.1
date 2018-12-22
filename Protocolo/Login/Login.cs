@@ -14,7 +14,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
         public Login(string ip, int puerto, Cuenta _cuenta) : base(ip, puerto)
         {
             cuenta = _cuenta;
-            evento_paquete_recibido += analisis_Paquete;
+            paquete_recibido += analisis_Paquete;
         }
 
         public void analisis_Paquete(string paquete)
@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                     {
                         case 'C':
                             cuenta.Estado_Cuenta = EstadoCuenta.CONECTANDO;
-                            cuenta.Fase_Socket = EstadoSocket.LOGIN;
+                            cuenta.Estado_Socket = EstadoSocket.LOGIN;
                             cuenta.key_bienvenida = paquete.Substring(2);
                             enviar_Paquete(new VersionMensaje().get_Mensaje());
                             enviar_Paquete(new LoginMensaje(cuenta.cuenta_configuracion.nombre_cuenta, cuenta.cuenta_configuracion.password, cuenta.key_bienvenida).get_Mensaje());
@@ -76,7 +76,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
 
                         case 'X':
                             conectar_Game_Server(tiene_error, informacion_paquete);
-                            cuenta.Fase_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
+                            cuenta.Estado_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
                         break;
 
                         case 'l':

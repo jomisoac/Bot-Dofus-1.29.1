@@ -22,7 +22,7 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
 
         public List<string> titulos_paginas => paginas.Keys.ToList();
         public Pagina pagina_seleccionada => nombre_pagina_seleccionada == null ? null : paginas.ContainsKey(nombre_pagina_seleccionada) ? paginas[nombre_pagina_seleccionada] : null;
-        public event EventHandler evento_pagina_cambiada;
+        public event EventHandler pagina_cambiada;
 
         public TabControl()
         {
@@ -131,7 +131,7 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
                     pagina_seleccionada.cabezera.propiedad_Esta_Seleccionada = true;
                     pagina_seleccionada.contenido.Visible = true;
 
-                    evento_pagina_cambiada?.Invoke(paginas[nombre_pagina_seleccionada], EventArgs.Empty);
+                    pagina_cambiada?.Invoke(paginas[nombre_pagina_seleccionada], EventArgs.Empty);
                 }
                 else
                 {

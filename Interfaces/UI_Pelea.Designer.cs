@@ -71,6 +71,7 @@
             this.button_eliminar_hechizo = new System.Windows.Forms.Button();
             this.button_informacion_hechizo = new System.Windows.Forms.Button();
             this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage_general_pelea.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -217,6 +218,7 @@
             // 
             this.tableLayoutPanel6.ColumnCount = 1;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Controls.Add(this.button1, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.checkBox1, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 84);
@@ -598,6 +600,16 @@
             this.lista_imagenes.Images.SetKeyName(0, "1 - Home24.png");
             this.lista_imagenes.Images.SetKeyName(1, "magic32.png");
             // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(3, 43);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(718, 63);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "TEST";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // UI_Pelea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -676,5 +688,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numeric_lanzamientos_turno;
         private System.Windows.Forms.ColumnHeader n_lanzamientos;
+        private System.Windows.Forms.Button button1;
     }
 }

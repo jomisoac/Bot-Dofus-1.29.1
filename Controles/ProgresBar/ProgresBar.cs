@@ -11,7 +11,7 @@ namespace Bot_Dofus_1._29._1.Controles.ProgresBar
         private Color color;
         private int valor_maximo, valor;
         private TipoProgresBar tipo_barra;
-        public event EventHandler evento_valor_cambiado;
+        public event EventHandler valor_cambiado;
 
         public ProgresBar()
         {
@@ -71,7 +71,7 @@ namespace Bot_Dofus_1._29._1.Controles.ProgresBar
                     valor = 0;
 
                 Invalidate();
-                evento_valor_cambiado?.Invoke(this, EventArgs.Empty);
+                valor_cambiado?.Invoke(this, EventArgs.Empty);
             }
         }
 

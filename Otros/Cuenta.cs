@@ -53,7 +53,7 @@ namespace Bot_Dofus_1._29._1.Otros
             if (fase_socket != EstadoSocket.NINGUNO)
             {
                 conexion = new Game(ip, puerto, this);
-                Fase_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
+                Estado_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Bot_Dofus_1._29._1.Otros
             }
         }
 
-        public EstadoSocket Fase_Socket
+        public EstadoSocket Estado_Socket
         {
             get => fase_socket;
             internal set
@@ -108,7 +108,7 @@ namespace Bot_Dofus_1._29._1.Otros
                 apodo = null;
                 cuenta_configuracion = null;
                 Estado_Cuenta = EstadoCuenta.DESCONECTADO;
-                Fase_Socket = EstadoSocket.NINGUNO;
+                Estado_Socket = EstadoSocket.NINGUNO;
             }
             catch (Exception){}
         }

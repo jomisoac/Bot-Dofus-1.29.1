@@ -81,10 +81,18 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 g.FillPolygon(brush, Puntos);
         }
 
-        public virtual void DrawForeground(ControlMapa parent, Graphics g, Modo_Dibujo mode)
+        public virtual void DrawForeground(ControlMapa parent, Graphics g)
         {
             StringFormat formato = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
             g.DrawString(id.ToString(), parent.Font, TextBrush ?? Brushes.Black, new RectangleF(Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height), formato);
+        }
+
+        public void dibujar_Redonda(Graphics g, Color color)
+        {
+            using (SolidBrush brush = new SolidBrush(color))
+            {
+                g.FillPie(brush, Puntos[0].X - (Anchura / 3 * 1f / 2), Puntos[0].Y + (4.2f * 1f), Anchura / 3 * 1f, Anchura/3 * 1f, 0, 360);
+            }
         }
 
         protected virtual bool IsStateValid(CeldaEstado state, Modo_Dibujo mode)

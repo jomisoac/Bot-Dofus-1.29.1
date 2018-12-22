@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Linq;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Game.Paquetes;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game
 {
@@ -17,7 +14,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
         public Game(string ip, int puerto, Cuenta _cuenta) : base(ip, puerto)
         {
             cuenta = _cuenta;
-            evento_paquete_recibido += analisis_Paquete;
+            paquete_recibido += analisis_Paquete;
         }
 
         public void analisis_Paquete(string paquete)
@@ -76,7 +73,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                             {
                                 case 'K':
                                     enviar_Paquete(new PersonajeSeleccionado(paquete.Substring(4), cuenta).get_Mensaje());
-                                    cuenta.Fase_Socket = EstadoSocket.JUEGO;
+                                    cuenta.Estado_Socket = EstadoSocket.PERSONAJE_SELECCIONADO;
                                 break;
                             }
                         break;
@@ -147,7 +144,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                                 break;
 
                                 default:
-                                    new GameActions(cuenta).get_On_GameAction(paquete.Substring(3));
+                                    new GameActions(cuenta).get_On_GameAction(paquete.Substring(2));
                                 break;
                             }
                         break;

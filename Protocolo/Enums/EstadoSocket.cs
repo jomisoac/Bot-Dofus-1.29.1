@@ -5,6 +5,6 @@
         NINGUNO,
         LOGIN,
         CAMBIANDO_A_JUEGO,
-        JUEGO
+        PERSONAJE_SELECCIONADO
     }
 }

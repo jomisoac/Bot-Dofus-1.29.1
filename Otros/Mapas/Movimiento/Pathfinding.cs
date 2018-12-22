@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
@@ -43,11 +44,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return Hash.caracteres_array[direccion].ToString();
         }
 
-        private void cargar_Obstaculos()
+        private void cargar_Obstaculos(bool esquivar_monstruos)
         {
-            for (int i = 0; i < mapa.celdas.Length - 1; i++)
+            for (int i = 0; i < mapa.celdas.Length; i++)
             {
-                if (mapa.celdas[i].tipo < (TipoCelda)4)
+                if (mapa.celdas[i].tipo < TipoCelda.CELDA_CAMINABLE)
                 {
                     lista_cerrada.Add(i);
                 }
@@ -56,13 +57,15 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                     lista_cerrada.Add(i);
                 }
             }
+            if(esquivar_monstruos)
+                mapa.get_Monstruos().ToList().ForEach(monstruo => lista_cerrada.Add(monstruo.Value));
         }
 
-        public string pathing(int celda_actual, int celda_final)
+        public string pathing(int celda_actual, int celda_final, bool esquivar_monstruos)
         {
             try
             {
-                cargar_Obstaculos();
+                cargar_Obstaculos(esquivar_monstruos);
                 lista_cerrada.Remove(celda_final);
                 return get_Pathfinding_Limpio(get_Pathfinding(celda_actual, celda_final));
             }
@@ -76,7 +79,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         {
             try
             {
-                cargar_Obstaculos();
+                cargar_Obstaculos(false);
                 lista_cerrada.Remove(celda_final);
 
                 es_pelea = _es_pelea;
