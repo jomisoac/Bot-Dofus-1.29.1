@@ -33,6 +33,9 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                             int id = int.Parse(informaciones[3].ToString());
                             string nombre = informaciones[4];
                             string tipo = informaciones[5];
+                            if (tipo.Contains(","))
+                                tipo = tipo.Split(',')[0];
+                            
                             switch (int.Parse(tipo))
                             {
                                 case -1:
@@ -66,13 +69,15 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                     if (cuenta.personaje.id == id)
                                         cuenta.personaje.celda_id = celda_id;
                                     else
-                                        cuenta.personaje.mapa.agregar_Personaje(new Personaje(id, nombre, byte.Parse(informaciones[7].ToString())));
+                                        cuenta.personaje.mapa.agregar_Personaje(new Personaje(id, nombre, byte.Parse(informaciones[7].ToString()), celda_id));
                                 break;
                             }
                         }
                         else if (_loc6[0].Equals('-'))
                         {
-                            cuenta.personaje.mapa.eliminar_Personaje(int.Parse(_loc6.Substring(1).ToString()));
+                            int id = int.Parse(_loc6.Substring(1));
+                            cuenta.personaje.mapa.eliminar_Personaje(id);
+                            cuenta.personaje.mapa.eliminar_Monstruo(id);
                         }
                     }
                 }

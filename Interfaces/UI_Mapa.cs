@@ -29,6 +29,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             if(!GlobalConf.modo_ultra_perfomance)
             {
                 Celda[] celdas_mapa_personaje = cuenta.personaje.mapa.celdas;
+                mapa.MapaAnchura = cuenta.personaje.mapa.anchura;
+                mapa.MapaAltura = cuenta.personaje.mapa.altura;
                 if (celdas_mapa_personaje != null && celdas_mapa_personaje.Length > 0)
                 {
                     for (int i = 0; i < celdas_mapa_personaje.Length; i++)
@@ -53,6 +55,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         }
                     }
                 }
+                mapa.dibujar_Mapa();
                 mapa.Invalidate();
             }
         }
@@ -64,7 +67,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 Task.Run(() => 
                 {
-                    switch (cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_destino))
+                    switch (cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_destino, true))
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("UI_MAPA", "Personaje desplazado a la casilla: " + celda_destino);

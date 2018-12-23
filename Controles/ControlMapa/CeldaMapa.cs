@@ -74,7 +74,17 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 for (CeldaEstado state = HighestState; state > CeldaEstado.NINGUNO; state = (CeldaEstado)((int)state >> 1))
                 {
                     if (Celda_Estado.HasFlag(state) && IsStateValid(state, mode) && parent.colores_Celda_Estado.ContainsKey(state))
-                        brush = new SolidBrush(parent.colores_Celda_Estado[state]);
+                    {
+                        if(Celda_Estado == CeldaEstado.CAMINABLE)
+                        {
+                            if ((id % 2) == 0)
+                                brush = new SolidBrush(Color.FromArgb(255, 142, 134, 94));
+                            else
+                                brush = new SolidBrush(Color.FromArgb(255, 131, 123, 86));
+                        }
+                        else
+                            brush = new SolidBrush(parent.colores_Celda_Estado[state]);
+                    }
                 }
             }
             if (Puntos != null)
@@ -91,7 +101,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         {
             using (SolidBrush brush = new SolidBrush(color))
             {
-                g.FillPie(brush, Puntos[0].X - (Anchura / 3 * 1f / 2), Puntos[0].Y + (4.2f * 1f), Anchura / 3 * 1f, Anchura/3 * 1f, 0, 360);
+                g.FillPie(brush, Puntos[0].X - (Anchura / 2 * 1f / 2), Puntos[0].Y + (4.2f * 1f), Anchura / 2 * 1f, Anchura/2 * 1f, 0, 360);
             }
         }
 

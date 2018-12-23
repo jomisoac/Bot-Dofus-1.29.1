@@ -33,6 +33,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
         public int celda_id { get; set; } = 0;
+        private bool disposed;
 
         public int porcentaje_experiencia => (int)((caracteristicas.experiencia_actual - caracteristicas.experiencia_minima_nivel) / (caracteristicas.experiencia_siguiente_nivel - caracteristicas.experiencia_minima_nivel) * 100);
 
@@ -58,11 +59,12 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             hechizos = new List<Hechizos>();
         }
 
-        public Personaje(int _id, string _nombre_personaje, byte _sexo)//Paquete GM+
+        public Personaje(int _id, string _nombre_personaje, byte _sexo, int _celda_id)//Paquete GM+
         {
             id = _id;
             nombre_personaje = _nombre_personaje;
             sexo = _sexo;
+            celda_id = _celda_id;
         }
 
         public void agregar_Canal_Personaje(string cadena_canales)
@@ -222,19 +224,31 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         }
 
         ~Personaje() => Dispose(false);
-        public void Dispose() => Dispose(true);
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         public virtual void Dispose(bool disposing)
         {
-            if(disposing)
+            if(!disposed)
             {
-                hechizos.Clear();
+                if (disposing)
+                {
+                    if(mapa != null)
+                        mapa.Dispose();
+                }
+                if (hechizos != null)
+                    hechizos.Clear();
+                mapa = null;
+                hechizos = null;
+                caracteristicas = null;
+                nombre_personaje = null;
+                objetos = null;
+                disposed = true;
             }
-            mapa = null;
-            caracteristicas = null;
-            nombre_personaje = null;
-            objetos = null;
-            hechizos = null;
         }
     }
 }

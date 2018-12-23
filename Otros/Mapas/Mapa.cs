@@ -29,6 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
         public Dictionary<int, Personaje> personajes;
         public Dictionary<int, int> monstruos;//id, celda
+        private bool disposed = false;
 
         private readonly XElement archivo_mapa;
 
@@ -50,7 +51,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             descompilar_mapa();
         }
 
-        public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_actual, int celda_destino)
+        public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_actual, int celda_destino, bool esquivar_monstruos)
         {
             if (cuenta.Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO)
                 return ResultadoMovimientos.FALLO;
@@ -66,15 +67,15 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
             if (celdas[celda_destino].tipo == TipoCelda.NO_CAMINABLE)
                 return ResultadoMovimientos.FALLO;
-            
-            Pathfinding camino = new Pathfinding(cuenta.personaje.mapa);
-            if(camino.get_Camino(celda_actual, celda_destino))
+            Console.WriteLine("caca");
+            Pathfinding camino = new Pathfinding(cuenta.personaje.mapa, cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO, esquivar_monstruos);
+            if (camino.get_Camino(celda_actual, celda_destino))
             {
                 cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
                 cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
                 int distancia = camino.get_Distancia_Estimada(celda_actual, celda_destino);
-
-                Task.Delay(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino)).Wait();
+                
+                Task.Delay(distancia < 6 ? 300 : 250).Wait();
                 cuenta.conexion.enviar_Paquete("GKK0");
 
                 cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
@@ -129,7 +130,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             {
                 if (monstruos.ContainsKey(id))
                     monstruos.Remove(id);
-                if (monstruos.Count >= 0)//si no tiene ninguno volvera a ser nulo
+                if (monstruos.Count <= 0)//si no tiene ninguno volvera a ser nulo
                     monstruos = null;
             }
         }
@@ -157,7 +158,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             {
                 if (personajes.ContainsKey(id_personaje))
                     personajes.Remove(id_personaje);
-                if (personajes.Count >= 0)//si no tiene ninguno volvera a ser nulo
+                if (personajes.Count <= 0)//si no tiene ninguno volvera a ser nulo
                     personajes = null;
             }
         }
@@ -172,16 +173,27 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         #region Zona Dispose
         ~Mapa() => Dispose(false);
-        public void Dispose() => Dispose(true);
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         protected virtual void Dispose(bool disposing)
         {
-            if(personajes != null)
-                personajes.Clear();
-            celdas = null;
-            personajes = null;
-            cuenta = null;
-            mapa_data = null;
+            if (!disposed)
+            {
+                if (personajes != null)
+                    personajes.Clear();
+                if (monstruos != null)
+                    monstruos.Clear();
+                celdas = null;
+                personajes = null;
+                cuenta = null;
+                mapa_data = null;
+                disposed = true;
+            }
         }
         #endregion
     }

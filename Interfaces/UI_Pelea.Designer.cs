@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -71,7 +72,6 @@
             this.button_eliminar_hechizo = new System.Windows.Forms.Button();
             this.button_informacion_hechizo = new System.Windows.Forms.Button();
             this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage_general_pelea.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -228,6 +228,17 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.30275F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(724, 109);
             this.tableLayoutPanel6.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(3, 43);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(718, 63);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "TEST";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // checkBox1
             // 
@@ -599,16 +610,6 @@
             this.lista_imagenes.TransparentColor = System.Drawing.Color.Transparent;
             this.lista_imagenes.Images.SetKeyName(0, "1 - Home24.png");
             this.lista_imagenes.Images.SetKeyName(1, "magic32.png");
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 43);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(718, 63);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "TEST";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // UI_Pelea
             // 
