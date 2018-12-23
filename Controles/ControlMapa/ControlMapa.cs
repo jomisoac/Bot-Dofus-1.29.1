@@ -165,18 +165,18 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             {
                 if ((y % 2) == 0)
                 {
-                    for (int x = 0; x < MapaAnchura; x++)
+                    for (int x = 0; x < MapaAnchura; x++)//dibuja los impares
                     {
                         Point left = new Point((int)(offsetX + x * cellWidth), (int)(offsetY + y * midCellHeight + midCellHeight));
-                        Point top = new Point((int)(offsetX + x * cellWidth + midCellWidth), (int)(offsetY + y * midCellHeight));
+                        Point top = new Point((int)(offsetX + (x * cellWidth) + midCellWidth), (int)(offsetY + (y * midCellHeight)));
                         Point right = new Point((int)(offsetX + x * cellWidth + cellWidth), (int)(offsetY + y * midCellHeight + midCellHeight));
-                        Point down = new Point((int)(offsetX + x * cellWidth + midCellWidth), (int)(offsetY + y * midCellHeight + cellHeight));
+                        Point down = new Point((int)(offsetX + (x * cellWidth) + midCellWidth), (int)(offsetY + (y * midCellHeight) + cellHeight));
                         celdas[cellId++].Puntos = new[] { left, top, right, down };
                     }
                 }
                 else
                 {
-                    for (int x = 0; x < MapaAnchura - 1; x++)
+                    for (int x = 0; x < MapaAnchura - 1; x++)//dibuja los pares
                     {
                         Point left = new Point((int)(offsetX + x * cellWidth + midCellWidth), (int)(offsetY + y * midCellHeight + midCellHeight));
                         Point top = new Point((int)(offsetX + x * cellWidth + cellWidth), (int)(offsetY + y * midCellHeight));

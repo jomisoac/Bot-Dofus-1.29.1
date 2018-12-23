@@ -16,7 +16,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas
 
         internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
-            switch (cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_id))
+            switch (cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_id, true))
             {
                 case ResultadoMovimientos.EXITO:
                     return resultado_procesado;

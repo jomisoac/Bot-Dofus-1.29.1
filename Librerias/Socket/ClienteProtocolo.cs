@@ -214,7 +214,7 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
 
         public virtual void Dispose(bool disposing)
         {
-            if (!disposed && disposing)
+            if (!disposed)
             {
                 socket.Shutdown(SocketShutdown.Both);
                 socket.Close();

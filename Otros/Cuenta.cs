@@ -33,6 +33,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public CuentaConf cuenta_configuracion { get; private set; }
         private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
+        private bool disposed;
 
         public event Action evento_estado_cuenta;
         public event Action<ClienteProtocolo> evento_fase_socket;
@@ -88,11 +89,15 @@ namespace Bot_Dofus_1._29._1.Otros
         public bool esta_recolectando() => Estado_Cuenta == EstadoCuenta.RECOLECTANDO;
 
         ~Cuenta() => Dispose(false);
-        public void Dispose() => Dispose(true);
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         public virtual void Dispose(bool disposing)
         {
-            try
+            if(!disposed)
             {
                 if (disposing)
                 {
@@ -100,6 +105,8 @@ namespace Bot_Dofus_1._29._1.Otros
                         script.Dispose();
                     if (conexion != null)
                         conexion.Dispose();
+                    if (personaje != null)
+                        personaje.Dispose();
                 }
                 key_bienvenida = null;
                 conexion = null;
@@ -107,10 +114,10 @@ namespace Bot_Dofus_1._29._1.Otros
                 personaje = null;
                 apodo = null;
                 cuenta_configuracion = null;
+                disposed = true;
                 Estado_Cuenta = EstadoCuenta.DESCONECTADO;
                 Estado_Socket = EstadoSocket.NINGUNO;
             }
-            catch (Exception){}
         }
     }
 }
