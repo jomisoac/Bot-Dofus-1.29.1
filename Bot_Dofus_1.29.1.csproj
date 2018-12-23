@@ -148,6 +148,7 @@
     <Compile Include="Otros\Mapas\Celda.cs" />
     <Compile Include="Otros\Mapas\Mapa.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Direcciones.cs" />
+    <Compile Include="Otros\Mapas\Movimiento\Nodo.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Pathfinding.cs" />
     <Compile Include="Otros\Mapas\Movimiento\ResultadoMovimientos.cs" />
     <Compile Include="Otros\Mapas\TipoCelda.cs" />

@@ -17,24 +17,157 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 {
     internal class Pathfinding
     {
-        public List<int> lista_abierta = new List<int>();
-        public List<int> lista_cerrada = new List<int>();
-        private readonly int[] Plist;
-        private readonly int[] Flist;
-        private readonly int[] Glist;
-        private readonly int[] Hlist;
-        private Mapa mapa;
+        private Nodo[] posicion_celda { get; }
+        private Mapa mapa { get; }
 
-        private bool es_pelea;
-        private int nombreDePM;
+        private List<Nodo> lista_celdas_no_permitidas = new List<Nodo>();
+        private List<Nodo> lista_celdas_permitidas = new List<Nodo>();
+        private StringBuilder camino = new StringBuilder();
+
+        //Velocidades para esperar al enviar el GKK0
+        public static double[] velocidad_corriendo = { 1.700000E-001, 1.500000E-001, 1.500000E-001, 1.500000E-001, 1.700000E-001, 1.500000E-001, 1.500000E-001, 1.500000E-001 };
+        public static double[] velocidad_paseando = { 7.000000E-002, 6.000000E-002, 6.000000E-002, 6.000000E-002, 7.000000E-002, 6.000000E-002, 6.000000E-002, 6.000000E-002 };
+        public static double[] velocidad_con_montura = { 2.300000E-001, 2.000000E-001, 2.000000E-001, 2.000000E-001, 2.300000E-001, 2.000000E-001, 2.000000E-001, 2.000000E-001 };
 
         public Pathfinding(Mapa _mapa)
         {
+            posicion_celda = new Nodo[_mapa.celdas.Length];
             mapa = _mapa;
-            Plist = new int[1025];
-            Flist = new int[1025];
-            Glist = new int[1025];
-            Hlist = new int[1025];
+            rellenar_cuadricula();
+            cargar_Obstaculos();
+        }
+
+        private void rellenar_cuadricula()
+        {
+            for (int i = 0; i < mapa.celdas.Length; i++)
+            {
+                var tmpCell = mapa.celdas[i];
+                posicion_celda[i] = new Nodo(i, get_Celda_X_Coordenadas(i), get_Celda_Y_Coordenadas(i), tmpCell.tipo != TipoCelda.NO_CAMINABLE);
+            }
+        }
+
+        private void cargar_Obstaculos()
+        {
+            for (int i = 0; i < mapa.celdas.Length; i++)
+            {
+                if (mapa.celdas[i].tipo == TipoCelda.OBJETO_INTERACTIVO)
+                {
+                    lista_celdas_no_permitidas.Add(posicion_celda[i]);
+                }
+                if (mapa.celdas[i].object2Movement)
+                {
+                    lista_celdas_no_permitidas.Add(posicion_celda[i]);
+                }
+            }
+            mapa.get_Monstruos().ToList().ForEach(monstruo =>
+            {
+                lista_celdas_no_permitidas.Add(posicion_celda[monstruo.Value]);
+            });
+        }
+
+        public bool get_Camino(int celda_inicio, int celda_final)
+        {
+            Nodo inicio = posicion_celda[celda_inicio];
+            Nodo final = posicion_celda[celda_final];
+            lista_celdas_permitidas.Add(inicio);
+
+            while (lista_celdas_permitidas.Count > 0)
+            {
+                int index = 0;
+                for (int i = 1; i < lista_celdas_permitidas.Count; i++)
+                {
+                    if (lista_celdas_permitidas[i].coste_f < lista_celdas_permitidas[index].coste_f)
+                        index = i;
+
+                    if (lista_celdas_permitidas[i].coste_f != lista_celdas_permitidas[index].coste_f) continue;
+                    if (lista_celdas_permitidas[i].coste_g > lista_celdas_permitidas[index].coste_g)
+                        index = i;
+
+                    if (lista_celdas_permitidas[i].coste_g == lista_celdas_permitidas[index].coste_g)
+                        index = i;
+                }
+
+                Nodo actual = lista_celdas_permitidas[index];
+                if (actual == final)
+                {
+                    get_Camino_Retroceso(inicio, final);
+                    return true;
+                }
+                lista_celdas_permitidas.Remove(actual);
+                lista_celdas_no_permitidas.Add(actual);
+
+                foreach (Nodo celda_siguiente in get_Celda_Siguiente(actual))
+                {
+                    if (lista_celdas_no_permitidas.Contains(celda_siguiente) || !celda_siguiente.es_caminable) continue;
+
+                    int temporal_g = actual.coste_g + get_Distancia(celda_siguiente, actual);
+                    if (!lista_celdas_permitidas.Contains(celda_siguiente))
+                        lista_celdas_permitidas.Add(celda_siguiente);
+                    else if (temporal_g >= celda_siguiente.coste_g)
+                        continue;
+
+                    celda_siguiente.coste_g = temporal_g;
+                    celda_siguiente.coste_h = get_Distancia(celda_siguiente, final);
+                    celda_siguiente.coste_f = celda_siguiente.coste_g + celda_siguiente.coste_h;
+                    celda_siguiente.nodo_padre = actual;
+                }
+            }
+            return false;
+        }
+
+        public void get_Camino_Retroceso(Nodo startNode, Nodo endNode)
+        {
+            List<int> lista_celdas_camino = new List<int>();
+            var nodo_actual = endNode;
+
+            while (nodo_actual != startNode)
+            {
+                lista_celdas_camino.Add(nodo_actual.id);
+                nodo_actual = nodo_actual.nodo_padre;
+            }
+            lista_celdas_camino.Add(startNode.id);
+            lista_celdas_camino.Reverse();
+
+            int celda_actual, celda_siguiente = 0;
+            for (int i = 0; i < lista_celdas_camino.Count - 1; i++)
+            {
+                celda_actual = lista_celdas_camino[i];
+                celda_siguiente = lista_celdas_camino[i + 1];
+                camino.Append(get_Direccion_Char(get_Orientacion_Casilla(celda_actual, celda_siguiente))).Append(get_Celda_Char(celda_siguiente));
+            }
+        }
+
+        public List<Nodo> get_Celda_Siguiente(Nodo node)
+        {
+            List<Nodo> celdas_siguientes = new List<Nodo>();
+
+            Nodo celda_derecha = posicion_celda.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) + 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id));
+            Nodo celda_izquierda = posicion_celda.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) - 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id));
+            Nodo celda_inferior = posicion_celda.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) + 1);
+            Nodo celda_superior = posicion_celda.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) - 1);
+            Nodo celda_superior_izquierda = posicion_celda.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) - 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) - 1);
+            Nodo celda_inferior_derecha = posicion_celda.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) + 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) + 1);
+            Nodo celda_inferior_izquierda = posicion_celda.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) - 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) + 1);
+            Nodo celda_superior_derecha = posicion_celda.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) + 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) - 1);
+
+            if (celda_derecha != null)
+                celdas_siguientes.Add(celda_derecha);
+            if (celda_izquierda != null)
+                celdas_siguientes.Add(celda_izquierda);
+            if (celda_inferior != null)
+                celdas_siguientes.Add(celda_inferior);
+            if (celda_superior != null)
+                celdas_siguientes.Add(celda_superior);
+            if (celda_superior_izquierda != null)
+                celdas_siguientes.Add(celda_superior_izquierda);
+            if (celda_inferior_derecha != null)
+                celdas_siguientes.Add(celda_inferior_derecha);
+            if (celda_inferior_izquierda != null)
+                celdas_siguientes.Add(celda_inferior_izquierda);
+            if (celda_superior_derecha != null)
+                celdas_siguientes.Add(celda_superior_derecha);
+
+            return celdas_siguientes;
         }
 
         public static string get_Direccion_Char(int direccion)
@@ -44,248 +177,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return Hash.caracteres_array[direccion].ToString();
         }
 
-        private void cargar_Obstaculos(bool esquivar_monstruos)
-        {
-            for (int i = 0; i < mapa.celdas.Length; i++)
-            {
-                if (mapa.celdas[i].tipo < TipoCelda.CELDA_CAMINABLE)
-                {
-                    lista_cerrada.Add(i);
-                }
-                if (mapa.celdas[i].object2Movement)
-                {
-                    lista_cerrada.Add(i);
-                }
-            }
-            if(esquivar_monstruos)
-                mapa.get_Monstruos().ToList().ForEach(monstruo => lista_cerrada.Add(monstruo.Value));
-        }
-
-        public string pathing(int celda_actual, int celda_final, bool esquivar_monstruos)
-        {
-            try
-            {
-                cargar_Obstaculos(esquivar_monstruos);
-                lista_cerrada.Remove(celda_final);
-                return get_Pathfinding_Limpio(get_Pathfinding(celda_actual, celda_final));
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-        }
-
-        public string pathing(int celda_actual, int celda_final, bool _es_pelea, int _nombre_pm)
-        {
-            try
-            {
-                cargar_Obstaculos(false);
-                lista_cerrada.Remove(celda_final);
-
-                es_pelea = _es_pelea;
-                nombreDePM = _nombre_pm;
-                return get_Pathfinding_Limpio(get_Pathfinding(celda_actual, celda_final));
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-        }
-
-        private string get_Pathfinding(int celda_1, int celda_2)
-        {
-            int actual;
-            lista_abierta.Add(celda_1);
-
-            while (!lista_abierta.Contains(celda_2))
-            {
-                actual = get_F_Punto();
-                if (actual != celda_2)
-                {
-                    lista_cerrada.Add(actual);
-                    lista_abierta.Remove(actual);
-
-                    get_Hijo(actual).ForEach(celda =>
-                    {
-                        if (!lista_cerrada.Contains(celda))
-                        {
-                            if (lista_abierta.Contains(celda))
-                            {
-                                if (Glist[actual] + 5 < Glist[celda])
-                                {
-                                    Plist[celda] = actual;
-                                    Glist[celda] = Glist[actual] + 5;
-                                    Hlist[celda] = get_Distancia_Estimada(celda, celda_2);
-                                    Flist[celda] = Glist[celda] + Hlist[celda];
-                                }
-                            }
-                            else
-                            {
-                                lista_abierta.Add(celda);
-                                lista_abierta[lista_abierta.Count - 1] = celda;
-                                Glist[celda] = Glist[actual] + 5;
-                                Hlist[celda] = get_Distancia_Estimada(celda, celda_2);
-                                Flist[celda] = Glist[celda] + Hlist[celda];
-                                Plist[celda] = actual;
-                            }
-                        }
-                    });
-                }
-                if (lista_cerrada.Count > 999)
-                    throw new Exception("El camino es impossible");
-            }
-            return get_Padre(celda_1, celda_2);
-        }
-
-        private string get_Padre(int cell1, int cell2)
-        {
-            int actual = cell2;
-            List<int> pathCell = new List<int>();
-            pathCell.Add(actual);
-
-            while (actual != cell1)
-            {
-                pathCell.Add(Plist[actual]);
-                actual = Plist[actual];
-            }
-            return getPath(pathCell);
-        }
-
-        private string getPath(List<int> camino_celda)
-        {
-            camino_celda.Reverse();
-            StringBuilder pathing = new StringBuilder();
-            int actual, hijo, pm_usados = 0;
-            for (int i = 0; i < camino_celda.Count - 1; i++)
-            {
-                pm_usados += 1;
-                if (pm_usados > nombreDePM && es_pelea)
-                    return pathing.ToString();
-                actual = camino_celda[i];
-                hijo = camino_celda[i + 1];
-                pathing.Append(get_Direccion_Char(get_Orientacion_Casilla(actual, hijo))).Append(get_Celda_Char(hijo));
-            }
-            return pathing.ToString();
-        }
-
-        public static string get_Celda_Char(int celda)
-        {
-            int CharCode2 = celda % Hash.caracteres_array.Length;
-            int CharCode1 = (celda - CharCode2) / Hash.caracteres_array.Length;
-            return Hash.caracteres_array[CharCode1].ToString() + Hash.caracteres_array[CharCode2].ToString();
-        }
-
-        private List<int> get_Hijo(int celda_id)
-        {
-            int x = get_Celda_X_Coordenadas(celda_id), y = get_Celda_Y_Coordenadas(celda_id);
-            int temporal, x_temporal, y_temporal;
-            List<int> lista_hijo = new List<int>();
-
-            if (!es_pelea)
-            {
-                temporal = celda_id - 29;
-                x_temporal = get_Celda_X_Coordenadas(temporal);
-                y_temporal = get_Celda_Y_Coordenadas(temporal);
-                if (temporal > 1 & temporal < 1024 & x_temporal == x - 1 & y_temporal == y - 1 & !lista_cerrada.Contains(temporal))
-                    lista_hijo.Add(temporal);
-
-                temporal = celda_id + 29;
-                x_temporal = get_Celda_X_Coordenadas(temporal);
-                y_temporal = get_Celda_Y_Coordenadas(temporal);
-                if (temporal > 1 & temporal < 1024 & x_temporal == x + 1 & y_temporal == y + 1 & !lista_cerrada.Contains(temporal))
-                    lista_hijo.Add(temporal);
-            }
-
-            temporal = celda_id - 15;
-            x_temporal = get_Celda_X_Coordenadas(temporal);
-            y_temporal = get_Celda_Y_Coordenadas(temporal);
-            if (temporal > 1 & temporal < 1024 & x_temporal == x - 1 & y_temporal == y & !lista_cerrada.Contains(temporal))
-                lista_hijo.Add(temporal);
-
-            temporal = celda_id + 15;
-            x_temporal = get_Celda_X_Coordenadas(temporal);
-            y_temporal = get_Celda_Y_Coordenadas(temporal);
-            if (temporal > 1 & temporal < 1024 & x_temporal == x + 1 & y_temporal == y & !lista_cerrada.Contains(temporal))
-                lista_hijo.Add(temporal);
-
-            temporal = celda_id - 14;
-            x_temporal = get_Celda_X_Coordenadas(temporal);
-            y_temporal = get_Celda_Y_Coordenadas(temporal);
-            if (temporal > 1 & temporal < 1024 & x_temporal == x & y_temporal == y - 1 & !lista_cerrada.Contains(temporal))
-                lista_hijo.Add(temporal);
-
-            temporal = celda_id + 14;
-            x_temporal = get_Celda_X_Coordenadas(temporal);
-            y_temporal = get_Celda_Y_Coordenadas(temporal);
-            if (temporal > 1 & temporal < 1024 & x_temporal == x & y_temporal == y + 1 & !lista_cerrada.Contains(temporal))
-                lista_hijo.Add(temporal);
-
-            if (!es_pelea)
-            {
-                temporal = celda_id - 1;
-                x_temporal = get_Celda_X_Coordenadas(temporal);
-                y_temporal = get_Celda_Y_Coordenadas(temporal);
-                if (temporal > 1 & temporal < 1024 & x_temporal == x - 1 & y_temporal == y + 1 & !lista_cerrada.Contains(temporal))
-                    lista_hijo.Add(temporal);
-
-                temporal = celda_id + 1;
-                x_temporal = get_Celda_X_Coordenadas(temporal);
-                y_temporal = get_Celda_Y_Coordenadas(temporal);
-                if (temporal > 1 & temporal < 1024 & x_temporal == x + 1 & y_temporal == y - 1 & !lista_cerrada.Contains(temporal))
-                    lista_hijo.Add(temporal);
-            }
-            return lista_hijo;
-        }
-
-        private int get_F_Punto()
-        {
-            int x = 9999;
-            int cell = 0;
-
-            foreach (int item in lista_abierta)
-            {
-                if (!lista_cerrada.Contains(item))
-                {
-                    if (Flist[item] < x)
-                    {
-                        x = Flist[item];
-                        cell = item;
-                    }
-                }
-            }
-            return cell;
-        }
-
-        public static int get_Celda_Numero(int total_celdas, string celda_char)
-        {
-            for (int i = 0; i < total_celdas; i++)
-            {
-                if (get_Celda_Char(i) == celda_char)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
         public int get_Celda_Y_Coordenadas(int celda_id)
         {
             int loc5 = celda_id / ((mapa.anchura * 2) - 1);
             int loc6 = celda_id - (loc5 * ((mapa.anchura * 2) - 1));
             int loc7 = loc6 % mapa.anchura;
             return loc5 - loc7;
-        }
-
-        public int get_Celda_X_Coordenadas(int celda_id) => (celda_id - ((mapa.anchura - 1) * get_Celda_Y_Coordenadas(celda_id))) / mapa.anchura;
-
-        public int get_Distancia_Estimada(int celda_1, int celda_2)
-        {
-            if (celda_1 == celda_2)
-                return 0;
-
-            int diferencia_x = Math.Abs(get_Celda_X_Coordenadas(celda_1) - get_Celda_X_Coordenadas(celda_2));
-            int diferencia_y = Math.Abs(get_Celda_Y_Coordenadas(celda_1) - get_Celda_Y_Coordenadas(celda_2));
-            return diferencia_x + diferencia_y;
         }
 
         public int get_Orientacion_Casilla(int celda_1, int celda_2)
@@ -307,60 +204,98 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             {
                 if (resultado_y > 0)
                     return 3;
-                return 7;
+                else
+                    return 7;
             }
             else if (resultado_x > 0)
-            {
                 return 1;
-            }
             else
-            {
                 return 5;
-            }
         }
 
-        public int get_Tiempo_Desplazamiento(int casilla_inicio, int casilla_final, Direcciones orientacion)
+        public static string get_Celda_Char(int celda)
+        {
+            int CharCode2 = celda % Hash.caracteres_array.Length;
+            int CharCode1 = (celda - CharCode2) / Hash.caracteres_array.Length;
+            return Hash.caracteres_array[CharCode1].ToString() + Hash.caracteres_array[CharCode2].ToString();
+        }
+
+        public int get_Distancia_Estimada(int celda_1, int celda_2)
+        {
+            if (celda_1 != celda_2)
+            {
+                int diferencia_x = Math.Abs(get_Celda_X_Coordenadas(celda_1) - get_Celda_X_Coordenadas(celda_2));
+                int diferencia_y = Math.Abs(get_Celda_Y_Coordenadas(celda_1) - get_Celda_Y_Coordenadas(celda_2));
+                return diferencia_x + diferencia_y;
+            }
+            else
+                return 0;
+        }
+
+        public static int get_Celda_Numero(int total_celdas, string celda_char)
+        {
+            for (int i = 0; i < total_celdas; i++)
+            {
+                if (get_Celda_Char(i) == celda_char)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public int get_Tiempo_Desplazamiento_Mapa(int casilla_inicio, int casilla_final)
+        {
+            int distancia = get_Distancia_Estimada(casilla_inicio, casilla_final);
+            int orientacion = get_Orientacion_Casilla(casilla_inicio, casilla_final);
+            return Convert.ToInt32((distancia >= 4 ? velocidad_corriendo[orientacion] : velocidad_paseando[orientacion]) * 1100 * distancia);
+        }
+
+        public int get_Tiempo_Desplazamiento_Pelea(int casilla_inicio, int casilla_final, Direcciones orientacion)
         {
             int distancia = get_Distancia_Estimada(casilla_inicio, casilla_final);
             switch (orientacion)
             {
                 case Direcciones.ESTE:
                 case Direcciones.OESTE:
-                    return 50 + Math.Abs(casilla_inicio - casilla_final) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
+                    return Math.Abs(casilla_inicio - casilla_final) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
 
                 case Direcciones.NORTE:
                 case Direcciones.SUR:
-                    return 50 + Math.Abs(casilla_inicio - casilla_final) / ((mapa.anchura * 2) - 1) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
+                    return Math.Abs(casilla_inicio - casilla_final) / ((mapa.anchura * 2) - 1) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
 
                 case Direcciones.NORDESTE:
                 case Direcciones.SUDESTE:
-                    return 50 + Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
+                    return Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
 
 
                 case Direcciones.NOROESTE:
                 case Direcciones.SUDOESTE:
-                    return 50 + Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
+                    return Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
             }
             return 0;
         }
 
-        private string get_Pathfinding_Limpio(string pathfinding)
+        public int get_Celda_X_Coordenadas(int celda_id) => (celda_id - ((mapa.anchura - 1) * get_Celda_Y_Coordenadas(celda_id))) / mapa.anchura;
+        public int get_Distancia(Nodo a, Nodo b) => (int)Math.Sqrt(((a.posicion_x - b.posicion_x) * (a.posicion_x - b.posicion_x)) + ((a.posicion_y - b.posicion_y) * (a.posicion_y - b.posicion_y)));
+
+        public string get_Pathfinding_Limpio()
         {
             StringBuilder pathfinding_limpio = new StringBuilder();
 
-            if (pathfinding.Length >= 3)
+            if (camino.ToString().Length >= 3)
             {
-                for (int i = 0; i <= pathfinding.Length - 1; i += 3)
+                for (int i = 0; i <= camino.ToString().Length - 1; i += 3)
                 {
-                    if (!pathfinding.get_Substring_Seguro(i, 1).Equals(pathfinding.get_Substring_Seguro(i + 3, 1)))
+                    if (!camino.ToString().get_Substring_Seguro(i, 1).Equals(camino.ToString().get_Substring_Seguro(i + 3, 1)))
                     {
-                        pathfinding_limpio.Append(pathfinding.get_Substring_Seguro(i, 3));
+                        pathfinding_limpio.Append(camino.ToString().get_Substring_Seguro(i, 3));
                     }
                 }
             }
             else
             {
-                pathfinding_limpio.Append(pathfinding);
+                pathfinding_limpio.Append(camino.ToString());
             }
             return pathfinding_limpio.ToString();
         }
