@@ -24,37 +24,32 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         private List<Nodo> lista_celdas_permitidas = new List<Nodo>();
         private StringBuilder camino = new StringBuilder();
 
+        //Velocidades para esperar al enviar el GKK0
+        public static double[] velocidad_corriendo = { 1.700000E-001, 1.500000E-001, 1.500000E-001, 1.500000E-001, 1.700000E-001, 1.500000E-001, 1.500000E-001, 1.500000E-001 };
+        public static double[] velocidad_paseando = { 7.000000E-002, 6.000000E-002, 6.000000E-002, 6.000000E-002, 7.000000E-002, 6.000000E-002, 6.000000E-002, 6.000000E-002 };
+        public static double[] velocidad_con_montura = { 2.300000E-001, 2.000000E-001, 2.000000E-001, 2.000000E-001, 2.300000E-001, 2.000000E-001, 2.000000E-001, 2.000000E-001 };
+
         public Pathfinding(Mapa _mapa, bool _es_pelea, bool esquivar_monstruos)
         {
             mapa = _mapa;
             posicion_celda = new Nodo[mapa.celdas.Length];
+            es_pelea = _es_pelea;
             rellenar_cuadricula();
             cargar_Obstaculos(esquivar_monstruos);
-            es_pelea = _es_pelea;
         }
 
         private void rellenar_cuadricula()
         {
+            Celda celda;
             for (int i = 0; i < mapa.celdas.Length; i++)
             {
-                var tmpCell = mapa.celdas[i];
-                posicion_celda[i] = new Nodo(i, get_Celda_X_Coordenadas(i), get_Celda_Y_Coordenadas(i), tmpCell.tipo != TipoCelda.NO_CAMINABLE);
+                celda = mapa.celdas[i];
+                posicion_celda[i] = new Nodo(i, get_Celda_X_Coordenadas(i), get_Celda_Y_Coordenadas(i), celda.tipo != TipoCelda.NO_CAMINABLE && celda.tipo != TipoCelda.OBJETO_INTERACTIVO && !celda.object2Movement);
             }
         }
 
         private void cargar_Obstaculos(bool esquivar_monstruos)
         {
-            for (int i = 0; i < mapa.celdas.Length; i++)
-            {
-                if (mapa.celdas[i].tipo == TipoCelda.OBJETO_INTERACTIVO)
-                {
-                    lista_celdas_no_permitidas.Add(posicion_celda[i]);
-                }
-                if (mapa.celdas[i].object2Movement)
-                {
-                    lista_celdas_no_permitidas.Add(posicion_celda[i]);
-                }
-            }
             if(esquivar_monstruos)
             {
                 mapa.get_Monstruos().ToList().ForEach(monstruo =>
@@ -251,6 +246,13 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 }
             }
             return -1;
+        }
+
+        public int get_Tiempo_Desplazamiento_Mapa(int casilla_inicio, int casilla_final)
+        {
+            int distancia = get_Distancia_Estimada(casilla_inicio, casilla_final);
+            int orientacion = get_Orientacion_Casilla(casilla_inicio, casilla_final);
+            return Convert.ToInt32((distancia >= 4 ? velocidad_corriendo[orientacion] : velocidad_paseando[orientacion]) * 1100 * distancia);
         }
 
         public int get_Tiempo_Desplazamiento_Pelea(int casilla_inicio, int casilla_final, Direcciones orientacion)
