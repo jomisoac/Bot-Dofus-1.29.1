@@ -24,7 +24,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public int anchura { get; set; } = 15;
         public int altura { get; set; } = 17;
         public string mapa_data { get; set; }
-        public string pathfinding_camino { get; set; }
         public Celda[] celdas;
         private Cuenta cuenta { get; set; } = null;
         public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
@@ -51,39 +50,37 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             descompilar_mapa();
         }
 
-        public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_id)
+        public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_actual, int celda_destino)
         {
             if (cuenta.Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO)
                 return ResultadoMovimientos.FALLO;
 
-            if (celda_id < 0 || celda_id > celdas.Length)
+            if (celda_destino < 0 || celda_destino > celdas.Length)
                 return ResultadoMovimientos.FALLO;
 
             if (cuenta.esta_ocupado)
                 return ResultadoMovimientos.FALLO;
 
-            if (celda_id == cuenta.personaje.celda_id)
+            if (celda_actual == celda_destino)
                 return ResultadoMovimientos.MISMA_CELDA;
 
-            if (celdas[celda_id].tipo == TipoCelda.NO_CAMINABLE)
+            if (celdas[celda_destino].tipo == TipoCelda.NO_CAMINABLE)
                 return ResultadoMovimientos.FALLO;
+            
+            Pathfinding camino = new Pathfinding(cuenta.personaje.mapa);
+            if(camino.get_Camino(celda_actual, celda_destino))
+            {
+                cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
+                cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
+                int distancia = camino.get_Distancia_Estimada(celda_actual, celda_destino);
 
-            Pathfinding pathfinding = new Pathfinding(this);
-            pathfinding_camino = pathfinding.pathing(cuenta.personaje.celda_id, celda_id, true);
+                Task.Delay(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino)).Wait();
+                cuenta.conexion.enviar_Paquete("GKK0");
 
-            if (string.IsNullOrEmpty(pathfinding_camino))
-                return ResultadoMovimientos.FALLO;
-
-            cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
-            cuenta.conexion.enviar_Paquete("GA001" + pathfinding_camino);
-            int distancia = pathfinding.get_Distancia_Estimada(cuenta.personaje.celda_id, celda_id);
-
-            Task.Delay(distancia * (distancia < 6 ? 300 : 250)).Wait();
-            cuenta.conexion.enviar_Paquete("GKK0");
-            pathfinding_camino = null;
-
-            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-            return ResultadoMovimientos.EXITO;
+                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                return ResultadoMovimientos.EXITO;
+            }
+            return ResultadoMovimientos.FALLO;
         }
 
         #region Metodos de descompresion
@@ -185,7 +182,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             personajes = null;
             cuenta = null;
             mapa_data = null;
-            pathfinding_camino = null;
         }
         #endregion
     }
