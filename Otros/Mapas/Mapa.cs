@@ -74,10 +74,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
                 cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
                 int distancia = camino.get_Distancia_Estimada(celda_actual, celda_destino);
-                
-                Task.Delay(distancia < 6 ? 300 : 250).Wait();
+
+                Console.WriteLine(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino));
+                Task.Delay(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino)).Wait();
                 cuenta.conexion.enviar_Paquete("GKK0");
 
+                Task.Delay(150).Wait();
                 cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
                 return ResultadoMovimientos.EXITO;
             }
