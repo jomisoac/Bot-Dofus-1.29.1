@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             mapa_data = archivo_mapa.Element("MAPA_DATA").Value;
 
             archivo_mapa = null;//limpia la memoria
-            descompilar_mapa();
+            descomprimir_mapa();
         }
 
         public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_actual, int celda_destino, bool esquivar_monstruos)
@@ -67,27 +67,25 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
             if (celdas[celda_destino].tipo == TipoCelda.NO_CAMINABLE)
                 return ResultadoMovimientos.FALLO;
-            Console.WriteLine("caca");
-            Pathfinding camino = new Pathfinding(cuenta.personaje.mapa, cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO, esquivar_monstruos);
+
+            Pathfinding camino = new Pathfinding(cuenta, cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO, esquivar_monstruos);
             if (camino.get_Camino(celda_actual, celda_destino))
             {
                 cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
                 cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
-                int distancia = camino.get_Distancia_Estimada(celda_actual, celda_destino);
 
-                Console.WriteLine(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino));
-                Task.Delay(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino)).Wait();
-                cuenta.conexion.enviar_Paquete("GKK0");
-
-                Task.Delay(150).Wait();
-                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-                return ResultadoMovimientos.EXITO;
+                Task.Delay(TimeSpan.FromMilliseconds(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino))).ContinueWith(a =>
+                {
+                    cuenta.conexion.enviar_Paquete("GKK0");
+                    cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                    return ResultadoMovimientos.EXITO;
+                });
             }
             return ResultadoMovimientos.FALLO;
         }
 
         #region Metodos de descompresion
-        public void descompilar_mapa()
+        public void descomprimir_mapa()
         {
             celdas = new Celda[mapa_data.Length / 10];
             string celda_data;
@@ -113,6 +111,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             celda.es_linea_vision = (informacion_celda[0] & 1) != 0;
             celda.objeto_interactivo_id = ((informacion_celda[7] & 2) >> 1) != 0 ? ((informacion_celda[0] & 2) << 12) + ((informacion_celda[7] & 1) << 12) + (informacion_celda[8] << 6) + informacion_celda[9] : -1;
             celda.object2Movement = ((informacion_celda[7] & 2) >> 1) != 0;
+            celda.layerGroundLevel = Convert.ToByte(informacion_celda[1] & 15);
+            celda.layerGroundSlope = Convert.ToByte((informacion_celda[4] & 60) >> 2);
             return celda;
         }
         #endregion

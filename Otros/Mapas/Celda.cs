@@ -15,6 +15,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public TipoCelda tipo { get; set; } = TipoCelda.NO_CAMINABLE;
         public bool es_linea_vision { get; set; } = false;
         public bool object2Movement { get; set; } = false;
+        public byte layerGroundLevel { get; set; } = 0;
+        public byte layerGroundSlope { get; set; } = 0;
 
         public Celda(int _id) => id = _id;
     }

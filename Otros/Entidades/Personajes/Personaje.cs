@@ -42,6 +42,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public event Action caracteristicas_actualizadas;
         public event Action hechizos_actualizados;
         public event Action mapa_actualizado;
+        public event Action<List<int>> movimiento_pathfinding;
 
         public Personaje(int _id, string _nombre_personaje, byte _nivel, int _gremio, byte _sexo, int _gfxID, int _color1, int _color2, int _color3, string _objetos)
         {
@@ -89,6 +90,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         #region Eventos
         public void evento_Mapa_Actualizado() => mapa_actualizado?.Invoke();
         public void evento_Personaje_Seleccionado() => personaje_seleccionado?.Invoke();
+        public void evento_Personaje_Pathfinding(List<int> lista) => movimiento_pathfinding?.Invoke(lista);
         #endregion
 
         public void actualizar_Caracteristicas(string paquete)
