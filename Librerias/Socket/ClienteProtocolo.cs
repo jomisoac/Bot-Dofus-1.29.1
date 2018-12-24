@@ -5,6 +5,14 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
+
 namespace Bot_Dofus_1._29._1.LibreriaSockets
 {
     public abstract class ClienteProtocolo : IDisposable
@@ -151,7 +159,7 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
         {
             try
             {
-                if(esta_Conectado())
+                if (esta_Conectado())
                 {
                     Socket handler = ar.AsyncState as Socket;
                     int enviado = handler.EndSend(ar);

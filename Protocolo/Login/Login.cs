@@ -1,9 +1,18 @@
 ﻿using System;
+using System.Text;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Login.Paquetes;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
 
 namespace Bot_Dofus_1._29._1.Protocolo.Login
 {
@@ -20,12 +29,10 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
         public void analisis_Paquete(string paquete)
         {
             char accion = paquete[1];
-            string informacion_paquete = string.Empty;
             bool tiene_error = false;
 
             if (paquete.Length >= 3)
             {
-                informacion_paquete = paquete.Substring(3);
                 tiene_error = (paquete[2] == 'E');
             }
 
@@ -65,17 +72,17 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                         break;
 
                         case 'H':
-                            HostsMensaje servidor = new HostsMensaje(informacion_paquete, cuenta.servidor_id);
+                            HostsMensaje servidor = new HostsMensaje(paquete.Substring(3), cuenta.servidor_id);
                             enviar_Paquete(servidor.get_Mensaje());
                             cuenta.logger.log_informacion("Login", "El servidor " + cuenta.get_Nombre_Servidor() + " esta " + (HostsMensaje.EstadosServidor)servidor.estado);
                             break;
 
                         case 'x':
-                            enviar_Paquete(new ListaServidoresMensaje(informacion_paquete, cuenta.servidor_id).get_Mensaje());
+                            enviar_Paquete(new ListaServidoresMensaje(paquete.Substring(3), cuenta.servidor_id).get_Mensaje());
                             break;
 
                         case 'X':
-                            conectar_Game_Server(tiene_error, informacion_paquete);
+                            conectar_Game_Server(tiene_error, paquete.Substring(3));
                             cuenta.Estado_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
                         break;
 
@@ -83,20 +90,34 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                             switch (paquete[2])
                             {
                                 case 'E':
-                                    switch (informacion_paquete)
+                                    switch (paquete[3])
                                     {
-                                        case "f":
+                                        case 'f':
                                             cuenta.logger.log_Error("Login", "Conexión rechazada. Nombre de cuenta o contraseña incorrectos.");
                                             cerrar_Socket();
                                         break;
 
-                                        case "v":
+                                        case 'v':
                                             cuenta.logger.log_Error("Login", "La versión %1 de Dofus que tienes instalada no es compatible con este servidor. Para poder jugar, instala la versión %2. El cliente DOFUS se va a cerrar.");
                                             cerrar_Socket();
                                         break;
 
-                                        case "b":
+                                        case 'b':
                                             cuenta.logger.log_Error("Login", "Conexión rechazada. Tu cuenta ha sido baneada.");
+                                            cerrar_Socket();
+                                        break;
+
+                                        case 'k':
+                                            string[] informacion_ban = paquete.Substring(3).Split('|');
+                                            int dias = int.Parse(informacion_ban[0].Substring(1)), horas = int.Parse(informacion_ban[1]), minutos = int.Parse(informacion_ban[2]);
+                                            StringBuilder mensaje = new StringBuilder().Append("Tu cuenta estará inválida durante ");
+                                            if (dias > 0)
+                                                mensaje.Append(dias + " días");
+                                            if(horas > 0)
+                                                mensaje.Append(horas + " horas");
+                                            if (minutos > 0)
+                                                mensaje.Append(minutos + " minutos");
+                                            cuenta.logger.log_Error("Login", mensaje.ToString());
                                             cerrar_Socket();
                                         break;
                                     }

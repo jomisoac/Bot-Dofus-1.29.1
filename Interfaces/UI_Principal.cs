@@ -261,8 +261,16 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 if (cuenta.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
                 {
-                    cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
+                    switch(textBox_enviar_consola.Text)
+                    {
+                        case "/mapid":
+                            escribir_mensaje(cuenta.personaje.mapa.id.ToString(), "0040FF");
+                        break;
 
+                        default:
+                            cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
+                        break;
+                    }
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                     textBox_enviar_consola.Clear();

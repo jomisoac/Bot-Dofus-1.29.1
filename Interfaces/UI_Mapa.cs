@@ -19,12 +19,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             InitializeComponent();
             cuenta = _cuenta;
-
+            
             mapa.clic_celda += mapa_Control_Celda_Clic;
-            cuenta.personaje.mapa_actualizado += eventos_Mapa_Cambiado;
+            cuenta.personaje.mapa_actualizado += get_Eventos_Mapa_Cambiado;
+            cuenta.personaje.movimiento_pathfinding += get_Dibujar_Pathfinding;
         }
 
-        private void eventos_Mapa_Cambiado()
+        private void get_Eventos_Mapa_Cambiado()
         {
             if(!GlobalConf.modo_ultra_perfomance)
             {
@@ -33,27 +34,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 mapa.MapaAltura = cuenta.personaje.mapa.altura;
                 if (celdas_mapa_personaje != null && celdas_mapa_personaje.Length > 0)
                 {
-                    for (int i = 0; i < celdas_mapa_personaje.Length; i++)
-                    {
-                        switch (celdas_mapa_personaje[i].tipo)
-                        {
-                            case TipoCelda.NO_CAMINABLE:
-                                mapa.celdas[i].Celda_Estado = CeldaEstado.NO_CAMINABLE;
-                            break;
-
-                            case TipoCelda.OBJETO_INTERACTIVO:
-                                mapa.celdas[i].Celda_Estado = CeldaEstado.OBJETO_INTERACTIVO;
-                            break;
-
-                            case TipoCelda.CELDA_TELEPORT:
-                                mapa.celdas[i].Celda_Estado = CeldaEstado.CELDA_TELEPORT;
-                            break;
-
-                            default:
-                                mapa.celdas[i].Celda_Estado = CeldaEstado.CAMINABLE;
-                            break;
-                        }
-                    }
+                    get_Dibujar_mapa(celdas_mapa_personaje);
                 }
                 mapa.dibujar_Mapa();
                 mapa.Invalidate();
@@ -88,6 +69,44 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 cuenta.logger.log_Error("UI_MAPA", "Error al intentar mover el personaje");
             }
+        }
+
+        private void get_Dibujar_mapa(Celda[] celdas_mapa_personaje)
+        {
+            for (int i = 0; i < celdas_mapa_personaje.Length; i++)
+            {
+                switch (celdas_mapa_personaje[i].tipo)
+                {
+                    case TipoCelda.NO_CAMINABLE:
+                        mapa.celdas[i].Celda_Estado = CeldaEstado.NO_CAMINABLE;
+                    break;
+
+                    case TipoCelda.OBJETO_INTERACTIVO:
+                        mapa.celdas[i].Celda_Estado = CeldaEstado.OBJETO_INTERACTIVO;
+                    break;
+
+                    case TipoCelda.CELDA_TELEPORT:
+                        mapa.celdas[i].Celda_Estado = CeldaEstado.CELDA_TELEPORT;
+                    break;
+
+                    default:
+                        mapa.celdas[i].Celda_Estado = CeldaEstado.CAMINABLE;
+                    break;
+                }
+            }
+        }
+
+        private void get_Dibujar_Pathfinding(List<int> lista_celdas)
+        {
+            mapa.BeginInvoke((Action)(() =>
+            {
+                get_Dibujar_mapa(cuenta.personaje.mapa.celdas);
+                foreach(int celda in lista_celdas)
+                {
+                    mapa.celdas[celda].Celda_Estado = CeldaEstado.PELEA_EQUIPO_AZUL;
+                }
+                mapa.Invalidate();
+            }));
         }
     }
 }
