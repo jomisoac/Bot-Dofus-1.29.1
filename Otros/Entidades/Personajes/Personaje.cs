@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Stats;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas;
@@ -30,7 +31,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public string objetos { get; set; } = string.Empty;
         public int puntos_caracteristicas { get; set; } = 0;
         public CaracteristicasInformacion caracteristicas { get; set; }
-        public List<Hechizos> hechizos { get; set; }
+        public List<Hechizo> hechizos { get; set; }
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
         public Pelea pelea;
@@ -59,7 +60,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             color3 = _color3;
             objetos = _objetos;
             caracteristicas = new CaracteristicasInformacion();
-            hechizos = new List<Hechizos>();
+            hechizos = new List<Hechizo>();
         }
 
         public Personaje(int _id, string _nombre_personaje, byte _sexo, int _celda_id)//Paquete GM+
@@ -222,8 +223,9 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
                 separador = limitador[i].Split('~');
                 hechizo_id = int.Parse(separador[0].ToString());
                 nombre = xml.Elements("HECHIZO").Where(e => int.Parse(e.Element("id").Value) == hechizo_id).Elements("nombre").Select(e => e.Value).FirstOrDefault();
-                hechizos.Add(new Hechizos(hechizo_id, nombre, byte.Parse(separador[1].ToString()), char.Parse(separador[2].ToString())));
+                hechizos.Add(new Hechizo(hechizo_id, nombre, byte.Parse(separador[1].ToString()), char.Parse(separador[2].ToString())));
             }
+            xml = null;
             hechizos_actualizados?.Invoke();
         }
 
