@@ -5,7 +5,7 @@
     Creado por Alvaro Prendes
     web: http://www.salesprendes.com
 */
-namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats
+namespace Bot_Dofus_1._29._1.Otros.Entidades.Stats
 {
     public class CaracteristicasBase
     {
@@ -17,13 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats
         public int total_Stats => base_personaje + equipamiento + dones + boost;
         public CaracteristicasBase(int _base_personaje) => base_personaje = _base_personaje;
 
-        public CaracteristicasBase(int _base_personaje, int _equipamiento, int _dones, int _boost)
-        {
-            base_personaje = _base_personaje;
-            equipamiento = _equipamiento;
-            dones = _dones;
-            boost = _boost;
-        }
+        public CaracteristicasBase(int _base_personaje, int _equipamiento, int _dones, int _boost) => actualizar_Stats(_base_personaje, _equipamiento, _dones, _boost);
 
         public void actualizar_Stats(int _base_personaje, int _equipamiento, int _dones, int _boost)
         {

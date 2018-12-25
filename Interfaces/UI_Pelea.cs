@@ -97,7 +97,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             Mapa mapa = cuenta.personaje.mapa;
             if (cuenta.personaje.mapa.monstruos.Count > 0)
             {
-                int celda_actual = cuenta.personaje.celda_id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0);
+                int celda_actual = cuenta.personaje.celda_id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0)[0].celda_id;
 
                 if (celda_actual != celda_monstruo_destino & celda_monstruo_destino != -1)
                 {
@@ -116,6 +116,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     }
                 }
             }
+        }
+
+        private void checkbox_espectadores_CheckedChanged(object sender, EventArgs e)
+        {
+            cuenta.pelea_extension.configuracion.desactivar_espectador = checkbox_espectadores.Checked;
+            cuenta.pelea_extension.configuracion.guardar();
         }
     }
 }

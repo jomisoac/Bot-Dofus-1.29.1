@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
@@ -28,7 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         private Cuenta cuenta { get; set; } = null;
         public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
         public Dictionary<int, Personaje> personajes;
-        public Dictionary<int, int> monstruos;//id, celda
+        public Dictionary<int, List<Monstruo>> monstruos;//id, celda
         private bool disposed = false;
 
         private readonly XElement archivo_mapa;
@@ -67,19 +68,17 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
             if (celdas[celda_destino].tipo == TipoCelda.NO_CAMINABLE)
                 return ResultadoMovimientos.FALLO;
-
+           
             Pathfinding camino = new Pathfinding(cuenta, cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO, esquivar_monstruos);
             if (camino.get_Camino(celda_actual, celda_destino))
             {
                 cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
                 cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
 
-                Task.Delay(TimeSpan.FromMilliseconds(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino))).ContinueWith(a =>
-                {
-                    cuenta.conexion.enviar_Paquete("GKK0");
-                    cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-                    return ResultadoMovimientos.EXITO;
-                });
+                Task.Delay(TimeSpan.FromMilliseconds(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino))).Wait();
+                cuenta.conexion.enviar_Paquete("GKK0");
+                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                return ResultadoMovimientos.EXITO;
             }
             return ResultadoMovimientos.FALLO;
         }
@@ -118,12 +117,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         #endregion
 
         #region metodos monstruos
-        public void agregar_Monstruo(int id, int celda)
+        public void agregar_Monstruo(Monstruo monstruo)
         {
             if (monstruos == null)
-                monstruos = new Dictionary<int, int>();
-            if (!monstruos.ContainsKey(id))
-                monstruos.Add(id, celda);
+                monstruos = new Dictionary<int, List<Monstruo>>();
+            if (monstruos.ContainsKey(monstruo.id))
+                monstruos[monstruo.id].Add(monstruo);
+            else
+                monstruos.Add(monstruo.id, new List<Monstruo> { monstruo });
         }
 
         public void eliminar_Monstruo(int id)
@@ -137,10 +138,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             }
         }
 
-        public Dictionary<int, int> get_Monstruos()
+        public Dictionary<int, List<Monstruo>> get_Monstruos()
         {
             if (monstruos == null)
-                return new Dictionary<int, int>();
+                return new Dictionary<int, List<Monstruo>> ();
             return monstruos;
         }
         #endregion
@@ -154,12 +155,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 personajes.Add(personaje.id, personaje);
         }
 
-        public void eliminar_Personaje(int id_personaje)
+        public void eliminar_Personaje(int id)
         {
             if (personajes != null)
             {
-                if (personajes.ContainsKey(id_personaje))
-                    personajes.Remove(id_personaje);
+                if (personajes.ContainsKey(id))
+                    personajes.Remove(id);
                 if (personajes.Count <= 0)//si no tiene ninguno volvera a ser nulo
                     personajes = null;
             }

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats;
+using Bot_Dofus_1._29._1.Otros.Entidades.Stats;
 using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;

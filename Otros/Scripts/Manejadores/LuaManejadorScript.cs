@@ -16,6 +16,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
     public class LuaManejadorScript : IDisposable
     {
         public Script script { get; private set; }
+        private bool disposed = false;
 
         public void cargar_Desde_Archivo(string ruta_archivo, Action antes_de_archivo)
         {
@@ -61,13 +62,20 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         public void Set_Global(string key, object value) => script.Globals[key] = value;
 
         ~LuaManejadorScript() => Dispose(false);
-        public void Dispose() => Dispose(true);
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposed)
             {
                 script = null;
-            }
+                disposed = true;
+            } 
         }
     }
 }

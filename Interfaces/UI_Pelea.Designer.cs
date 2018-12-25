@@ -41,8 +41,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkbox_espectadores = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -80,6 +82,7 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
@@ -128,8 +131,8 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 62.45552F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.54448F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.0632F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.9368F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(736, 538);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -139,7 +142,7 @@
             this.groupBox_preparacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_preparacion.Location = new System.Drawing.Point(3, 3);
             this.groupBox_preparacion.Name = "groupBox_preparacion";
-            this.groupBox_preparacion.Size = new System.Drawing.Size(730, 330);
+            this.groupBox_preparacion.Size = new System.Drawing.Size(730, 301);
             this.groupBox_preparacion.TabIndex = 0;
             this.groupBox_preparacion.TabStop = false;
             this.groupBox_preparacion.Text = "Preparación";
@@ -153,11 +156,11 @@
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 21);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.77259F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.07165F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.18685F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.29412F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(724, 306);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(724, 277);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -207,9 +210,9 @@
             this.groupBox1.Controls.Add(this.tableLayoutPanel5);
             this.groupBox1.Controls.Add(this.tableLayoutPanel4);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 339);
+            this.groupBox1.Location = new System.Drawing.Point(3, 310);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(730, 196);
+            this.groupBox1.Size = new System.Drawing.Size(730, 225);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Durante el combate";
@@ -217,40 +220,71 @@
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 1;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Controls.Add(this.button1, 0, 1);
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.checkBox1, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.button1, 0, 2);
+            this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel10, 0, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 84);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.69725F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.30275F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(724, 109);
+            this.tableLayoutPanel6.RowCount = 3;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.71014F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.95652F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.53968F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(724, 138);
             this.tableLayoutPanel6.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 43);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(718, 63);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "TEST";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.checkBox1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.checkBox1.Location = new System.Drawing.Point(3, 3);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(718, 34);
+            this.checkBox1.Size = new System.Drawing.Size(718, 35);
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Acercarse si no se ha lanzado ningún hechizo";
             this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 95);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(718, 36);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "TEST";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 3;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.04736F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.52646F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel10.Controls.Add(this.checkbox_espectadores, 0, 0);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 44);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(718, 45);
+            this.tableLayoutPanel10.TabIndex = 2;
+            // 
+            // checkbox_espectadores
+            // 
+            this.checkbox_espectadores.AutoSize = true;
+            this.checkbox_espectadores.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkbox_espectadores.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.checkbox_espectadores.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.checkbox_espectadores.Location = new System.Drawing.Point(3, 3);
+            this.checkbox_espectadores.Name = "checkbox_espectadores";
+            this.checkbox_espectadores.Size = new System.Drawing.Size(260, 39);
+            this.checkbox_espectadores.TabIndex = 0;
+            this.checkbox_espectadores.Text = "Desactivar modo espectador";
+            this.checkbox_espectadores.UseVisualStyleBackColor = true;
+            this.checkbox_espectadores.CheckedChanged += new System.EventHandler(this.checkbox_espectadores_CheckedChanged);
             // 
             // tableLayoutPanel5
             // 
@@ -631,6 +665,8 @@
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel10.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
@@ -690,5 +726,7 @@
         private System.Windows.Forms.NumericUpDown numeric_lanzamientos_turno;
         private System.Windows.Forms.ColumnHeader n_lanzamientos;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.CheckBox checkbox_espectadores;
     }
 }

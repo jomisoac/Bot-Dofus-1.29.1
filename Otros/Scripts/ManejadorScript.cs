@@ -18,6 +18,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         private EstadoScript estado_script;
         private List<Bandera> banderas;
         private int bandera_id;
+        private bool disposed;
 
         public bool activado { get; set; }
         public bool pausado { get; private set; }
@@ -212,11 +213,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         #region Zona Dispose
         ~ManejadorScript() => Dispose(false);
-        public void Dispose() => Dispose(true);
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         public virtual void Dispose(bool disposing)
         {
-            try
+            if(disposed)
             {
                 if (disposing)
                 {
@@ -227,8 +233,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 manejador_script = null;
                 activado = false;
                 cuenta = null;
-            }
-            catch { }
+                disposed = true;
+            } 
         }
         #endregion
     }
