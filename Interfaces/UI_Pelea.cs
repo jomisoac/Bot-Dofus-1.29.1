@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
@@ -44,7 +44,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void button_agregar_hechizo_Click(object sender, EventArgs e)
         {
-            Hechizos hechizo = comboBox_lista_hechizos.SelectedItem as Hechizos;
+            Hechizo hechizo = comboBox_lista_hechizos.SelectedItem as Hechizo;
 
             cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, Convert.ToByte(numeric_lanzamientos_turno.Value)));
             cuenta.pelea_extension.configuracion.guardar();
