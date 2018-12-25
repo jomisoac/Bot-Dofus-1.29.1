@@ -89,6 +89,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public bool esta_recolectando() => Estado_Cuenta == EstadoCuenta.RECOLECTANDO;
 
         ~Cuenta() => Dispose(false);
+
         public void Dispose()
         {
             Dispose(true);

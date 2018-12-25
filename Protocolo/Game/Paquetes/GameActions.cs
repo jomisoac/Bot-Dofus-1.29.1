@@ -1,7 +1,11 @@
 ﻿using System;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
+using Bot_Dofus_1._29._1.Otros.Peleas;
+using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
@@ -29,9 +33,9 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                         string[] informaciones = _loc6.Substring(1).Split(';');
                         if (_loc6[0].Equals('+'))
                         {
-                            int celda_id = int.Parse(informaciones[0].ToString());
-                            int id = int.Parse(informaciones[3].ToString());
-                            string nombre = informaciones[4];
+                            int celda_id = int.Parse(informaciones[0]);
+                            int id = int.Parse(informaciones[3]);
+                            string nombre_template = informaciones[4];
                             string tipo = informaciones[5];
                             if (tipo.Contains(","))
                                 tipo = tipo.Split(',')[0];
@@ -40,10 +44,17 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                             {
                                 case -1:
                                 case -2:
+                                    if (cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO)
+                                    {
+                                        cuenta.personaje.pelea.get_Agregar_Luchador(new Luchadores(int.Parse(informaciones[3]), byte.Parse(informaciones[15])));
+                                    }
                                 break;
 
                                 case -3://monstruos
-                                    cuenta.personaje.mapa.agregar_Monstruo(id, celda_id);
+                                    foreach (string template in nombre_template.Split(','))
+                                    {
+                                        cuenta.personaje.mapa.agregar_Monstruo(new Monstruo(id, int.Parse(template), celda_id));
+                                    }
                                 break;
 
                                 case -4://NPC
@@ -66,10 +77,17 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                 break;
 
                                 default:
-                                    if (cuenta.personaje.id == id)
-                                        cuenta.personaje.celda_id = celda_id;
+                                    if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
+                                    {
+                                        if (cuenta.personaje.id == id)
+                                            cuenta.personaje.celda_id = celda_id;
+                                        else
+                                            cuenta.personaje.mapa.agregar_Personaje(new Personaje(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda_id));
+                                    }
                                     else
-                                        cuenta.personaje.mapa.agregar_Personaje(new Personaje(id, nombre, byte.Parse(informaciones[7].ToString()), celda_id));
+                                    {
+                                        cuenta.personaje.pelea.get_Agregar_Luchador(new Luchadores(id, byte.Parse(informaciones[24])));
+                                    }
                                 break;
                             }
                         }
@@ -130,7 +148,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                             }
                             else if (cuenta.personaje.mapa.get_Monstruos().ContainsKey(_loc6))
                             {
-                                cuenta.personaje.mapa.get_Monstruos()[_loc6] = casilla_destino;
+                                cuenta.personaje.mapa.get_Monstruos()[_loc6][0].celda_id = casilla_destino;
                                 if (GlobalConf.mostrar_mensajes_debug)
                                     cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + casilla_destino);
                             }

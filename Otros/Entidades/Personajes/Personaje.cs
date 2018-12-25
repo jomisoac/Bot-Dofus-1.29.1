@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats;
+using Bot_Dofus_1._29._1.Otros.Entidades.Stats;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Peleas;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -32,6 +33,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public List<Hechizos> hechizos { get; set; }
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
+        public Pelea pelea;
         public int celda_id { get; set; } = 0;
         private bool disposed;
 

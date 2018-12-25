@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
+﻿using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 
 namespace Bot_Dofus_1._29._1.Otros.Peleas
 {

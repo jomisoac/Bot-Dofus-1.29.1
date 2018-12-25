@@ -1,6 +1,14 @@
 ﻿using System;
 
-namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
+
+namespace Bot_Dofus_1._29._1.Otros.Entidades.Stats
 {
     public class CaracteristicasInformacion : IDisposable
     {
@@ -25,14 +33,12 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Stats
         public CaracteristicasBase alcanze { get; set; }
         public CaracteristicasBase criaturas_invocables { get; set; }
 
-        ~CaracteristicasInformacion()
-        {
-            Dispose(false);
-        }
+        ~CaracteristicasInformacion()=> Dispose(false);
 
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public virtual void Dispose(bool disposing)

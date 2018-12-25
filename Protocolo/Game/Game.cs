@@ -150,9 +150,9 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                         break;
 
                         case "D":
-                            switch(paquete[2].ToString())
+                            switch(paquete[2])
                             {
-                                case "M"://Mapas
+                                case 'M'://Mapas
                                     cuenta.personaje.mapa = new Mapa(cuenta, paquete.Substring(4));
                                     cuenta.personaje.evento_Mapa_Actualizado();
                                     enviar_Paquete("GI");
@@ -160,6 +160,27 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
 
                                 default:
                                     Console.WriteLine("Paquete desconocido: " + paquete);
+                                break;
+                            }
+                        break;
+
+                        case "P":
+                            new Peleas().onPositionStart(cuenta, paquete.Substring(2));
+                        break;
+
+                        case "T":
+                            switch (paquete[2])
+                            {
+                                case 'M':
+                                    new Peleas().onTurnMiddle(cuenta, paquete.Substring(4));
+                                break;
+
+                                case 'R'://onTurnReady
+                                    cuenta.conexion.enviar_Paquete("GT");
+                                break;
+
+                                case 'S'://onTurnStart
+                                    new Peleas().onTurnStart(cuenta);
                                 break;
                             }
                         break;
@@ -202,6 +223,15 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                                 case 0://Informacion
                                     switch(numero_im)
                                     {
+
+                                        case 39:
+                                            cuenta.logger.log_informacion("COMBATE", "El modo Espectador está desactivado.");
+                                        break;
+
+                                        case 40:
+                                            cuenta.logger.log_informacion("COMBATE", "El modo Espectador está activado.");
+                                        break;
+
                                         case 152:
                                             string mensaje = paquete.Substring(3).Split(';')[1];
                                             cuenta.logger.log_informacion("DOFUS", "Última conexión a tu cuenta realizada el " + mensaje.Split('~')[0] + "/" + mensaje.Split('~')[1] + "/" + mensaje.Split('~')[2] + " a las " + mensaje.Split('~')[3] + ":" + mensaje.Split('~')[4] + " mediante la dirección IP " + mensaje.Split('~')[5]);

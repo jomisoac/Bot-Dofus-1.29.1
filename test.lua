@@ -4,7 +4,9 @@ function movimiento()
 		{  mapa = "10292", celda = "392" }, -- Estatua ocra
 		{  mapa = "10296", celda = "392" }, -- Estatua sacrogito
 		{  mapa = "10279", celda = "392" }, -- Estatua Sadida
+		{  mapa = "10299", celda = "421" }, -- Estatua Anutrof
 		{  mapa = "10321", celda = "334" }, -- Siguiente estatua sadida
+		{  mapa = "10330", celda = "334" }, -- Siguiente estatua anotruf
 		{  mapa = "10328", celda = "334" },
 		{  mapa = "10326", celda = "334" },
 		{  mapa = "10273", celda = "459" },

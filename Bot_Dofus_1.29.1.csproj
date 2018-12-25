@@ -155,11 +155,14 @@
     <Compile Include="Otros\Peleas\Configuracion\HechizoPelea.cs" />
     <Compile Include="Otros\Peleas\Configuracion\PeleaConf.cs" />
     <Compile Include="Otros\Peleas\Enums\Focus.cs" />
+    <Compile Include="Otros\Peleas\Peleadores\Luchadores.cs" />
+    <Compile Include="Otros\Peleas\Pelea.cs" />
+    <Compile Include="Otros\Peleas\Peleadores\LuchadorPersonaje.cs" />
     <Compile Include="Otros\Peleas\PeleaExtensiones.cs" />
     <Compile Include="Otros\Entidades\Personajes\Hechizos.cs" />
     <Compile Include="Otros\Entidades\Personajes\Personaje.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Stats\CaracteristicasBase.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Stats\CaracteristicasInformacion.cs" />
+    <Compile Include="Otros\Entidades\Stats\CaracteristicasBase.cs" />
+    <Compile Include="Otros\Entidades\Stats\CaracteristicasInformacion.cs" />
     <Compile Include="Otros\Scripts\Acciones\AccionesScript.cs" />
     <Compile Include="Otros\Scripts\Acciones\Mapas\CambiarMapaAccion.cs" />
     <Compile Include="Otros\Scripts\Banderas\Bandera.cs" />
@@ -178,6 +181,7 @@
     <Compile Include="Protocolo\Extensiones\CadenasAmigables.cs" />
     <Compile Include="Protocolo\Game\Game.cs" />
     <Compile Include="Protocolo\Game\Paquetes\GameActions.cs" />
+    <Compile Include="Protocolo\Game\Paquetes\Peleas.cs" />
     <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccionado.cs" />
     <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccion.cs" />
     <Compile Include="Protocolo\Game\Paquetes\RegionalVersion.cs" />
