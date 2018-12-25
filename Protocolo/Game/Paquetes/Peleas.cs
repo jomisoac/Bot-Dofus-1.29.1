@@ -45,7 +45,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
 
         public void onTurnStart(Cuenta cuenta)
         {
-
+            cuenta.personaje.pelea.get_Obtener_enemigo_Mas_Cercano();
         }
     }
 }

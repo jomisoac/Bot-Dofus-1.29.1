@@ -50,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             for (int i = 0; i < mapa.celdas.Length; i++)
             {
                 celda = mapa.celdas[i];
-                celdas[i] = new Nodo(i, get_Celda_X_Coordenadas(i), get_Celda_Y_Coordenadas(i), celda.tipo != TipoCelda.NO_CAMINABLE && celda.tipo != TipoCelda.OBJETO_INTERACTIVO && !celda.object2Movement);
+                celdas[i] = new Nodo(i, mapa.get_Celda_X_Coordenadas(i), mapa.get_Celda_Y_Coordenadas(i), celda.tipo != TipoCelda.NO_CAMINABLE && celda.tipo != TipoCelda.OBJETO_INTERACTIVO && !celda.object2Movement);
             }
         }
 
@@ -160,10 +160,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         {
             List<Nodo> celdas_siguientes = new List<Nodo>();
 
-            Nodo celda_derecha = celdas.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) + 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id));
-            Nodo celda_izquierda = celdas.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) - 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id));
-            Nodo celda_inferior = celdas.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) + 1);
-            Nodo celda_superior = celdas.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) - 1);
+            Nodo celda_derecha = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) + 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id));
+            Nodo celda_izquierda = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) - 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id));
+            Nodo celda_inferior = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) + 1);
+            Nodo celda_superior = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) - 1);
 
             if (celda_derecha != null)
                 celdas_siguientes.Add(celda_derecha);
@@ -179,10 +179,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             if (!es_pelea)
             {
                 //Diagonales
-                Nodo celda_superior_izquierda = celdas.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) - 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) - 1);
-                Nodo celda_inferior_derecha = celdas.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) + 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) + 1);
-                Nodo celda_inferior_izquierda = celdas.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) - 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) + 1);
-                Nodo celda_superior_derecha = celdas.FirstOrDefault(nodec => get_Celda_X_Coordenadas(nodec.id) == get_Celda_X_Coordenadas(node.id) + 1 && get_Celda_Y_Coordenadas(nodec.id) == get_Celda_Y_Coordenadas(node.id) - 1);
+                Nodo celda_superior_izquierda = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) - 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) - 1);
+                Nodo celda_inferior_derecha = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) + 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) + 1);
+                Nodo celda_inferior_izquierda = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) - 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) + 1);
+                Nodo celda_superior_derecha = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) + 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) - 1);
 
                 if (celda_superior_izquierda != null)
                     celdas_siguientes.Add(celda_superior_izquierda);
@@ -202,21 +202,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 return string.Empty;
             return Hash.caracteres_array[direccion].ToString();
         }
-
-        public int get_Celda_Y_Coordenadas(int celda_id)
-        {
-            int loc5 = celda_id / ((mapa.anchura * 2) - 1);
-            int loc6 = celda_id - (loc5 * ((mapa.anchura * 2) - 1));
-            int loc7 = loc6 % mapa.anchura;
-            return loc5 - loc7;
-        }
-
-        public int get_Celda_X_Coordenadas(int celda_id) => (celda_id - ((mapa.anchura - 1) * get_Celda_Y_Coordenadas(celda_id))) / mapa.anchura;
         
         public bool get_Esta_En_Linea(int celda_1, int celda_2)
         {
-            bool x = get_Celda_X_Coordenadas(celda_1) == get_Celda_X_Coordenadas(celda_2);
-            bool y = get_Celda_Y_Coordenadas(celda_1) == get_Celda_Y_Coordenadas(celda_2);
+            bool x = mapa.get_Celda_X_Coordenadas(celda_1) == mapa.get_Celda_X_Coordenadas(celda_2);
+            bool y = mapa.get_Celda_Y_Coordenadas(celda_1) == mapa.get_Celda_Y_Coordenadas(celda_2);
 
             return x || y;
         }
@@ -233,8 +223,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                     return i;
             }
 
-            int resultado_x = get_Celda_X_Coordenadas(celda_2) - get_Celda_X_Coordenadas(celda_1);
-            int resultado_y = get_Celda_Y_Coordenadas(celda_2) - get_Celda_Y_Coordenadas(celda_1);
+            int resultado_x = mapa.get_Celda_X_Coordenadas(celda_2) - mapa.get_Celda_X_Coordenadas(celda_1);
+            int resultado_y = mapa.get_Celda_Y_Coordenadas(celda_2) - mapa.get_Celda_Y_Coordenadas(celda_1);
 
             if (resultado_x == 0)
             {
@@ -256,18 +246,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return Hash.caracteres_array[CharCode1].ToString() + Hash.caracteres_array[CharCode2].ToString();
         }
 
-        public int get_Distancia_Entre_Dos_Casillas(int celda_1, int celda_2)
-        {
-            if (celda_1 != celda_2)
-            {
-                int diferencia_x = Math.Abs(get_Celda_X_Coordenadas(celda_1) - get_Celda_X_Coordenadas(celda_2));
-                int diferencia_y = Math.Abs(get_Celda_Y_Coordenadas(celda_1) - get_Celda_Y_Coordenadas(celda_2));
-                return diferencia_x + diferencia_y;
-            }
-            else
-                return 0;
-        }
-
         public static int get_Celda_Numero(int total_celdas, string celda_char)
         {
             for (int i = 0; i < total_celdas; i++)
@@ -282,7 +260,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 
         public double get_Tiempo_Desplazamiento_Mapa(int casilla_inicio, int casilla_final)
         {
-            int distancia = get_Distancia_Entre_Dos_Casillas(casilla_inicio, casilla_final);
+            int distancia = mapa.get_Distancia_Entre_Dos_Casillas(casilla_inicio, casilla_final);
             int orientacion = get_Orientacion_Casilla(casilla_inicio, casilla_final);
             double tiempo;
 
@@ -313,7 +291,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 
         public int get_Tiempo_Desplazamiento_Pelea(int casilla_inicio, int casilla_final, Direcciones orientacion)
         {
-            int distancia = get_Distancia_Entre_Dos_Casillas(casilla_inicio, casilla_final);
+            int distancia = mapa.get_Distancia_Entre_Dos_Casillas(casilla_inicio, casilla_final);
             switch (orientacion)
             {
                 case Direcciones.ESTE:
