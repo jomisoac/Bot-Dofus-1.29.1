@@ -83,6 +83,29 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return ResultadoMovimientos.FALLO;
         }
 
+        public int get_Celda_Y_Coordenadas(int celda_id)
+        {
+            int loc5 = celda_id / ((anchura * 2) - 1);
+            int loc6 = celda_id - (loc5 * ((anchura * 2) - 1));
+            int loc7 = loc6 % anchura;
+            return loc5 - loc7;
+        }
+
+        public int get_Celda_X_Coordenadas(int celda_id) => (celda_id - ((anchura - 1) * get_Celda_Y_Coordenadas(celda_id))) / anchura;
+
+
+        public int get_Distancia_Entre_Dos_Casillas(int celda_1, int celda_2)
+        {
+            if (celda_1 != celda_2)
+            {
+                int diferencia_x = Math.Abs(get_Celda_X_Coordenadas(celda_1) - get_Celda_X_Coordenadas(celda_2));
+                int diferencia_y = Math.Abs(get_Celda_Y_Coordenadas(celda_1) - get_Celda_Y_Coordenadas(celda_2));
+                return diferencia_x + diferencia_y;
+            }
+            else
+                return 0;
+        }
+
         #region Metodos de descompresion
         public void descomprimir_mapa()
         {
