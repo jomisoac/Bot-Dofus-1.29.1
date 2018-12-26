@@ -176,17 +176,15 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (luchador.id == cuenta.personaje.id)
                 jugador_luchador = new LuchadorPersonaje(cuenta.personaje.nombre_personaje, cuenta.personaje.nivel, luchador);
             else
-            {
-                if (!luchadores.TryAdd(luchador.id, luchador))
-                {
-                    luchadores[luchador.id].get_Actualizar_Luchador(luchador);
-                }
-            }
+                luchadores.TryAdd(luchador.id, luchador);
             get_Ordenar_Luchadores();
         }
 
         private void get_Ordenar_Luchadores()
         {
+            if (jugador_luchador == null)
+                return;
+
             foreach (Luchadores luchador in get_Luchadores)
             {
                 if (aliados.ContainsKey(luchador.id) || enemigos.ContainsKey(luchador.id))

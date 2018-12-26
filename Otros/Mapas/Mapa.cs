@@ -37,6 +37,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public Mapa(Cuenta _cuenta, string paquete)
         {
             get_Personajes().Clear();
+            get_Monstruos().Clear();
 
             string[] _loc3 = paquete.Split('|');
             cuenta = _cuenta;
@@ -52,32 +53,47 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             descomprimir_mapa();
         }
 
-        public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_actual, int celda_destino, bool esquivar_monstruos)
-        {
-            if (cuenta.Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO)
-                return ResultadoMovimientos.FALLO;
+        public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
 
+        public ResultadoMovimientos get_Mover_Celda_Resultado(int celda_actual, int celda_destino, bool esquivar_monstruos, byte pm_pelea = 3)
+        {
             if (celda_destino < 0 || celda_destino > celdas.Length)
                 return ResultadoMovimientos.FALLO;
 
-            if (cuenta.esta_ocupado)
-                return ResultadoMovimientos.FALLO;
+            bool esta_en_pelea = cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO;
 
+            if(!esta_en_pelea)
+            {
+                if (cuenta.esta_ocupado)
+                    return ResultadoMovimientos.FALLO;
+            }
+            
             if (celda_actual == celda_destino)
                 return ResultadoMovimientos.MISMA_CELDA;
 
             if (celdas[celda_destino].tipo == TipoCelda.NO_CAMINABLE)
                 return ResultadoMovimientos.FALLO;
-           
-            Pathfinding camino = new Pathfinding(cuenta, cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO, esquivar_monstruos);
+            
+            Pathfinding camino = new Pathfinding(cuenta, esta_en_pelea, esquivar_monstruos, pm_pelea);
             if (camino.get_Camino(celda_actual, celda_destino))
             {
-                cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
+                if(!esta_en_pelea)
+                    cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
                 cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
 
-                Task.Delay(TimeSpan.FromMilliseconds(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino))).Wait();
+                byte orientacion = camino.get_Orientacion_Casilla(celda_actual, celda_destino);
+
+                double tiempo = 0;
+                if (esta_en_pelea)
+                    tiempo = camino.get_Tiempo_Desplazamiento_Pelea(celda_actual, celda_destino, (Direcciones)orientacion);
+                else
+                    tiempo = camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino, orientacion);
+
+                Task.Delay(TimeSpan.FromMilliseconds(tiempo)).Wait();
                 cuenta.conexion.enviar_Paquete("GKK0");
-                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+
+                if (!esta_en_pelea)
+                    cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
                 return ResultadoMovimientos.EXITO;
             }
             return ResultadoMovimientos.FALLO;

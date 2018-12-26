@@ -63,6 +63,7 @@ namespace Bot_Dofus_1._29._1.Otros
             get => estado_cuenta;
             set
             {
+                Console.WriteLine(value);
                 estado_cuenta = value;
                 evento_estado_cuenta?.Invoke();
             }

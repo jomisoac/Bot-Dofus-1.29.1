@@ -157,6 +157,7 @@
     <Compile Include="Otros\Peleas\Configuracion\PeleaConf.cs" />
     <Compile Include="Otros\Peleas\Enums\FallosLanzandoHechizo.cs" />
     <Compile Include="Otros\Peleas\Enums\Focus.cs" />
+    <Compile Include="Otros\Peleas\Enums\ResultadoLanzandoHechizo.cs" />
     <Compile Include="Otros\Peleas\Peleadores\Luchadores.cs" />
     <Compile Include="Otros\Peleas\Pelea.cs" />
     <Compile Include="Otros\Peleas\Peleadores\LuchadorPersonaje.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
@@ -29,6 +30,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
             comboBox_lista_posicionamiento.SelectedIndex = 2;
             comboBox_lista_tactica.SelectedIndex = 2;
             comboBox_focus_hechizo.SelectedIndex = 0;
+
+            acercarse_casillas_distancia.Value = cuenta.pelea_extension.configuracion.celdas_maximas;
+            checkbox_espectadores.Checked = cuenta.pelea_extension.configuracion.desactivar_espectador;
         }
 
         private void actualizar_Agregar_Lista_Hechizos()
@@ -95,32 +99,43 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void button1_Click(object sender, EventArgs e)
         {
             Mapa mapa = cuenta.personaje.mapa;
-            if (cuenta.personaje.mapa.monstruos.Count > 0)
+            if (cuenta.personaje.mapa.get_Monstruos().Count > 0)
             {
                 int celda_actual = cuenta.personaje.celda_id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0)[0].celda_id;
 
-                if (celda_actual != celda_monstruo_destino & celda_monstruo_destino != -1)
+                Task.Run(() =>
                 {
-                    cuenta.logger.log_informacion("PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino);
-                    switch (mapa.get_Mover_Celda_Resultado(celda_actual, celda_monstruo_destino, false))
+                    if (celda_actual != celda_monstruo_destino & celda_monstruo_destino != -1)
                     {
-                        case ResultadoMovimientos.EXITO:
-                            cuenta.logger.log_informacion("PELEAS", "Desplazando para comenzar el combate");
-                        break;
+                        cuenta.logger.log_informacion("PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino);
+                        switch (mapa.get_Mover_Celda_Resultado(celda_actual, celda_monstruo_destino, false))
+                        {
+                            case ResultadoMovimientos.EXITO:
+                                cuenta.logger.log_informacion("PELEAS", "Desplazando para comenzar el combate");
+                            break;
 
-                        case ResultadoMovimientos.MISMA_CELDA:
-                        case ResultadoMovimientos.FALLO:
-                        case ResultadoMovimientos.PATHFINDING_ERROR:
-                            cuenta.logger.log_Error("PELEAS", "El monstruo no esta en la casilla selecciona");
-                        break;
+                            case ResultadoMovimientos.MISMA_CELDA:
+                            case ResultadoMovimientos.FALLO:
+                            case ResultadoMovimientos.PATHFINDING_ERROR:
+                                cuenta.logger.log_Error("PELEAS", "El monstruo no esta en la casilla selecciona");
+                            break;
+                        }
                     }
-                }
+                });
             }
+            else
+                cuenta.logger.log_Error("PELEAS", "No hay monstruos disponibles en el mapa");
         }
 
         private void checkbox_espectadores_CheckedChanged(object sender, EventArgs e)
         {
             cuenta.pelea_extension.configuracion.desactivar_espectador = checkbox_espectadores.Checked;
+            cuenta.pelea_extension.configuracion.guardar();
+        }
+
+        private void acercarse_casillas_distancia_ValueChanged(object sender, EventArgs e)
+        {
+            cuenta.pelea_extension.configuracion.celdas_maximas = Convert.ToByte(acercarse_casillas_distancia.Value);
             cuenta.pelea_extension.configuracion.guardar();
         }
     }
