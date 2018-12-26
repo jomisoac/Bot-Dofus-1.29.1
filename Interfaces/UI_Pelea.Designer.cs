@@ -47,7 +47,7 @@
             this.checkbox_espectadores = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.acercarse_casillas_distancia = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,6 +55,10 @@
             this.tabPage_hechizos_pelea = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox_agregar_hechizo = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox_cuidado_aoe = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -84,11 +88,12 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.acercarse_casillas_distancia)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabPage_hechizos_pelea.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.groupBox_agregar_hechizo.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_lanzamientos_turno)).BeginInit();
             this.tableLayoutPanel8.SuspendLayout();
@@ -249,11 +254,12 @@
             // 
             // button1
             // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Location = new System.Drawing.Point(3, 95);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(718, 36);
+            this.button1.Size = new System.Drawing.Size(718, 40);
             this.button1.TabIndex = 1;
-            this.button1.Text = "TEST";
+            this.button1.Text = "Comenzar 1 combate";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -293,7 +299,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.87845F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.94344F));
             this.tableLayoutPanel5.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.numericUpDown1, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.acercarse_casillas_distancia, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.label4, 2, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 52);
@@ -316,18 +322,14 @@
             this.label3.Text = "Acercarse si estas a una distancia de";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown1
+            // acercarse_casillas_distancia
             // 
-            this.numericUpDown1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown1.Location = new System.Drawing.Point(293, 3);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(80, 25);
-            this.numericUpDown1.TabIndex = 2;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
+            this.acercarse_casillas_distancia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.acercarse_casillas_distancia.Location = new System.Drawing.Point(293, 3);
+            this.acercarse_casillas_distancia.Name = "acercarse_casillas_distancia";
+            this.acercarse_casillas_distancia.Size = new System.Drawing.Size(80, 25);
+            this.acercarse_casillas_distancia.TabIndex = 2;
+            this.acercarse_casillas_distancia.ValueChanged += new System.EventHandler(this.acercarse_casillas_distancia_ValueChanged);
             // 
             // label4
             // 
@@ -414,6 +416,7 @@
             // 
             // groupBox_agregar_hechizo
             // 
+            this.groupBox_agregar_hechizo.Controls.Add(this.tableLayoutPanel11);
             this.groupBox_agregar_hechizo.Controls.Add(this.tableLayoutPanel9);
             this.groupBox_agregar_hechizo.Controls.Add(this.button_agregar_hechizo);
             this.groupBox_agregar_hechizo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -423,6 +426,59 @@
             this.groupBox_agregar_hechizo.TabIndex = 1;
             this.groupBox_agregar_hechizo.TabStop = false;
             this.groupBox_agregar_hechizo.Text = "Agregar un hechizo";
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 2;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.88668F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.11332F));
+            this.tableLayoutPanel11.Controls.Add(this.checkBox2, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.checkBox_cuidado_aoe, 1, 0);
+            this.tableLayoutPanel11.Controls.Add(this.checkBox3, 0, 1);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 129);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(653, 63);
+            this.tableLayoutPanel11.TabIndex = 3;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.checkBox2.Location = new System.Drawing.Point(3, 3);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(372, 25);
+            this.checkBox2.TabIndex = 4;
+            this.checkBox2.Text = "Golpear a tantos enemigos como sea posible";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_cuidado_aoe
+            // 
+            this.checkBox_cuidado_aoe.AutoSize = true;
+            this.checkBox_cuidado_aoe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox_cuidado_aoe.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.checkBox_cuidado_aoe.Location = new System.Drawing.Point(381, 3);
+            this.checkBox_cuidado_aoe.Name = "checkBox_cuidado_aoe";
+            this.checkBox_cuidado_aoe.Size = new System.Drawing.Size(269, 25);
+            this.checkBox_cuidado_aoe.TabIndex = 5;
+            this.checkBox_cuidado_aoe.Text = "No auto-dañarse";
+            this.checkBox_cuidado_aoe.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.checkBox3.Location = new System.Drawing.Point(3, 34);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(372, 26);
+            this.checkBox3.TabIndex = 6;
+            this.checkBox3.Text = "No dañar aliados";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel9
             // 
@@ -435,17 +491,14 @@
             this.tableLayoutPanel9.Controls.Add(this.comboBox_focus_hechizo, 1, 1);
             this.tableLayoutPanel9.Controls.Add(this.label7, 0, 2);
             this.tableLayoutPanel9.Controls.Add(this.numeric_lanzamientos_turno, 1, 2);
-            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 21);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 6;
+            this.tableLayoutPanel9.RowCount = 3;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.35088F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.91228F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.29825F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(653, 228);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(653, 108);
             this.tableLayoutPanel9.TabIndex = 2;
             // 
             // label6
@@ -502,9 +555,10 @@
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label7.Location = new System.Drawing.Point(3, 73);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(282, 34);
+            this.label7.Size = new System.Drawing.Size(282, 35);
             this.label7.TabIndex = 5;
             this.label7.Text = "Número de lanzamientos por turno:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -669,12 +723,14 @@
             this.tableLayoutPanel10.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.acercarse_casillas_distancia)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.tabPage_hechizos_pelea.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.groupBox_agregar_hechizo.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tableLayoutPanel11.PerformLayout();
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_lanzamientos_turno)).EndInit();
@@ -703,7 +759,7 @@
         private System.Windows.Forms.ComboBox comboBox_lista_tactica;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown acercarse_casillas_distancia;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.ListView listView_hechizos_pelea;
@@ -728,5 +784,9 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.CheckBox checkbox_espectadores;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox_cuidado_aoe;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }

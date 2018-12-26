@@ -26,20 +26,23 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         private List<Nodo> lista_celdas_permitidas = new List<Nodo>();
         private List<int> lista_celdas_camino = new List<int>();
         private Cuenta cuenta;
+        private byte pm_pelea;
         private StringBuilder camino = new StringBuilder();
         bool disposed;
 
         //Velocidades para esperar al enviar el GKK0
-        public static double[] velocidad_corriendo = { 1.700000E-001, 1.500000E-001, 1.500000E-001, 1.500000E-001, 1.700000E-001, 1.500000E-001, 1.500000E-001, 1.500000E-001 };
+        public static double[] velocidad_corriendo = { 1.7E-001, 1.5E-001, 1.5E-001, 1.5E-001, 1.7E-001, 1.5E-001, 1.5E-001, 1.5E-001 };
         public static double[] velocidad_paseando = { 10E-2, 9E-2, 10E-2, 10E-2, 9E-2, 10E-2, 10E-2, 10E-2 };
-        public static double[] velocidad_con_montura = { 2.300000E-001, 2.000000E-001, 2.000000E-001, 2.000000E-001, 2.300000E-001, 2.000000E-001, 2.000000E-001, 2.000000E-001 };
+        public static double[] velocidad_con_montura = { 2.3E-001, 2.0E-001, 2.0E-001, 2.0E-001, 2.3E-001, 2.0E-001, 2.0E-001, 2.0E-001 };
 
-        public Pathfinding(Cuenta _cuenta, bool _es_pelea, bool esquivar_monstruos)
+        public Pathfinding(Cuenta _cuenta, bool _es_pelea, bool esquivar_monstruos, byte _pm_pelea = 0)
         {
             cuenta = _cuenta;
             mapa = cuenta.personaje.mapa;
             celdas = new Nodo[mapa.celdas.Length];
             es_pelea = _es_pelea;
+            if(es_pelea)
+                pm_pelea = _pm_pelea;
             rellenar_cuadricula();
             cargar_Obstaculos(esquivar_monstruos);
         }
@@ -146,9 +149,15 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             lista_celdas_camino.Add(nodo_inicial.id);
             lista_celdas_camino.Reverse();
 
-            int celda_actual, celda_siguiente = 0;
+            int pm_usados = 0, celda_actual, celda_siguiente = 0;
             for (int i = 0; i < lista_celdas_camino.Count - 1; i++)
             {
+                if(es_pelea)
+                {
+                    pm_usados += 1;
+                    if (pm_usados > pm_pelea)
+                        break;
+                }
                 celda_actual = lista_celdas_camino[i];
                 celda_siguiente = lista_celdas_camino[i + 1];
                 camino.Append(get_Direccion_Char(get_Orientacion_Casilla(celda_actual, celda_siguiente))).Append(get_Celda_Char(celda_siguiente));
@@ -211,7 +220,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return x || y;
         }
 
-        public int get_Orientacion_Casilla(int celda_1, int celda_2)
+        public byte get_Orientacion_Casilla(int celda_1, int celda_2)
         {
             int mapa_anchura = mapa.anchura;
             int[] _loc6_ = { 1, mapa_anchura, (mapa_anchura * 2) - 1, mapa_anchura - 1, -1, -mapa_anchura, (-mapa_anchura * 2) + 1, -(mapa_anchura - 1) };
@@ -220,7 +229,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             for (int i = 7; i >= 0; i += -1)
             {
                 if (_loc6_[i] == _loc7_)
-                    return i;
+                    return Convert.ToByte(i);
             }
 
             int resultado_x = mapa.get_Celda_X_Coordenadas(celda_2) - mapa.get_Celda_X_Coordenadas(celda_1);
@@ -258,10 +267,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return -1;
         }
 
-        public double get_Tiempo_Desplazamiento_Mapa(int casilla_inicio, int casilla_final)
+        public double get_Tiempo_Desplazamiento_Mapa(int casilla_inicio, int casilla_final, byte orientacion)
         {
             int distancia = mapa.get_Distancia_Entre_Dos_Casillas(casilla_inicio, casilla_final);
-            int orientacion = get_Orientacion_Casilla(casilla_inicio, casilla_final);
             double tiempo;
 
             tiempo = (distancia < 6 ? velocidad_paseando[orientacion] : velocidad_corriendo[orientacion]) * 2100 * distancia;
@@ -289,27 +297,27 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return tiempo;
         }
 
-        public int get_Tiempo_Desplazamiento_Pelea(int casilla_inicio, int casilla_final, Direcciones orientacion)
+        public double get_Tiempo_Desplazamiento_Pelea(int celda_inicio, int celda_final, Direcciones orientacion)
         {
-            int distancia = mapa.get_Distancia_Entre_Dos_Casillas(casilla_inicio, casilla_final);
+            int distancia = mapa.get_Distancia_Entre_Dos_Casillas(celda_inicio, celda_final);
             switch (orientacion)
             {
                 case Direcciones.ESTE:
                 case Direcciones.OESTE:
-                    return Math.Abs(casilla_inicio - casilla_final) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
+                    return Math.Abs(celda_inicio - celda_final) * distancia >= 4 ? 875d / 2.5d : 875d;
 
                 case Direcciones.NORTE:
                 case Direcciones.SUR:
-                    return Math.Abs(casilla_inicio - casilla_final) / ((mapa.anchura * 2) - 1) * Convert.ToInt32(distancia >= 4 ? 875d / 2.5d : 875d);
+                    return Math.Abs(celda_inicio - celda_final) / ((mapa.anchura * 2) - 1) * distancia >= 4 ? 875d / 2.5d : 875d;
 
                 case Direcciones.NORDESTE:
                 case Direcciones.SUDESTE:
-                    return Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
+                    return Math.Abs(celda_inicio - celda_final) / (mapa.anchura - 1) * distancia >= 4 ? 625d / 2.5d : 625d;
 
 
                 case Direcciones.NOROESTE:
                 case Direcciones.SUDOESTE:
-                    return Math.Abs(casilla_inicio - casilla_final) / (mapa.anchura - 1) * Convert.ToInt32(distancia >= 4 ? 625d / 2.5d : 625d);
+                    return Math.Abs(celda_inicio - celda_final) / (mapa.anchura - 1) * distancia >= 4 ? 625d / 2.5d : 625d;
             }
             return 0;
         }

@@ -23,7 +23,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
             bw.Write(id);
             bw.Write(nombre);
             bw.Write((byte)focus);
-            bw.Write((byte)lanzamientos_x_turno);
+            bw.Write(lanzamientos_x_turno);
         }
 
         public static HechizoPelea cargar(BinaryReader br) => new HechizoPelea(br.ReadInt32(), br.ReadString(), (HechizoFocus)br.ReadByte(), br.ReadByte());

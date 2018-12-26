@@ -46,7 +46,12 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                 case -2:
                                     if (cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO)
                                     {
-                                        cuenta.personaje.pelea.get_Agregar_Luchador(new Luchadores(int.Parse(informaciones[3]), byte.Parse(informaciones[15])));
+                                        int vida = int.Parse(informaciones[12]);
+                                        byte pa = byte.Parse(informaciones[13]);
+                                        byte pm = byte.Parse(informaciones[14]);
+                                        byte equipo = byte.Parse(informaciones[15]);
+
+                                        cuenta.personaje.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda_id, vida, equipo));
                                     }
                                 break;
 
@@ -86,7 +91,12 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                     }
                                     else
                                     {
-                                        cuenta.personaje.pelea.get_Agregar_Luchador(new Luchadores(id, byte.Parse(informaciones[24])));
+                                        int vida = int.Parse(informaciones[14]);
+                                        byte pa = byte.Parse(informaciones[15]);
+                                        byte pm = byte.Parse(informaciones[16]);
+                                        byte equipo = byte.Parse(informaciones[24]);
+
+                                        cuenta.personaje.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda_id, vida, equipo));
                                     }
                                 break;
                             }

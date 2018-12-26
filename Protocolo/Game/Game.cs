@@ -141,6 +141,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
 
                                 case 'F':
                                     //aks.GameActions.onActionsFinish(sData.substr(3));
+                                    cuenta.conexion.enviar_Paquete("GKK" + paquete[3]);
                                 break;
 
                                 default:
@@ -180,9 +181,15 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                                 break;
 
                                 case 'S'://onTurnStart
-                                    new Peleas().onTurnStart(cuenta);
+                                    new Peleas().onTurnStart(cuenta, paquete.Substring(3));
+                                    cuenta.conexion.enviar_Paquete("Gt");
                                 break;
                             }
+                        break;
+
+                        case "E":
+                            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                            cuenta.conexion.enviar_Paquete("GC1");
                         break;
 
                         case "M":
