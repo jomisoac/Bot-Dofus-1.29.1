@@ -39,7 +39,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                             string tipo = informaciones[5];
                             if (tipo.Contains(","))
                                 tipo = tipo.Split(',')[0];
-                            
+
                             switch (int.Parse(tipo))
                             {
                                 case -1:
@@ -51,35 +51,42 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                         byte pm = byte.Parse(informaciones[14]);
                                         byte equipo = byte.Parse(informaciones[15]);
 
-                                        cuenta.personaje.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda_id, vida, equipo));
+                                        cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda_id, vida, equipo));
                                     }
-                                break;
+                                    break;
 
                                 case -3://monstruos
-                                    foreach (string template in nombre_template.Split(','))
+                                    string[] templates = nombre_template.Split(',');
+                                    string[] niveles = informaciones[7].Split(',');
+
+
+                                    Monstruo monstruo = new Monstruo(id, int.Parse(templates[0]), celda_id, int.Parse(niveles[0]));
+                                    monstruo.lider_grupo = monstruo;
+                                    for (int m = 1; m < templates.Length; ++m)
                                     {
-                                        cuenta.personaje.mapa.agregar_Monstruo(new Monstruo(id, int.Parse(template), celda_id));
+                                        monstruo.moobs_dentro_grupo.Add(new Monstruo(id, int.Parse(templates[m]), celda_id, int.Parse(niveles[m])));
                                     }
-                                break;
+                                    cuenta.personaje.mapa.agregar_Monstruo(monstruo);
+                                    break;
 
                                 case -4://NPC
-                                break;
+                                    break;
 
                                 case -5:
-                                break;
+                                    break;
 
                                 case -6:
-                                break;
+                                    break;
 
                                 case -7:
                                 case -8:
-                                break;
+                                    break;
 
                                 case -9:
-                                break;
+                                    break;
 
                                 case -10:
-                                break;
+                                    break;
 
                                 default:
                                     if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
@@ -96,9 +103,9 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                         byte pm = byte.Parse(informaciones[16]);
                                         byte equipo = byte.Parse(informaciones[24]);
 
-                                        cuenta.personaje.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda_id, vida, equipo));
+                                        cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda_id, vida, equipo));
                                     }
-                                break;
+                                    break;
                             }
                         }
                         else if (_loc6[0].Equals('-'))
@@ -131,36 +138,39 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                         if (GlobalConf.mostrar_mensajes_debug)
                             cuenta.logger.log_informacion("DEBUG", "Movimiento BUG Detectado enviando GI");
                         cuenta.conexion.enviar_Paquete("GI");
-                    break;
+                        break;
 
                     case 1:
-                        sExtraData = sExtraData.Substring(_loc3 + 1);
-                        _loc3 = sExtraData.IndexOf(";");
-
-                        int _loc6 = int.Parse(sExtraData.Substring(0, _loc3));
-                        string _loc7 = sExtraData.Substring(_loc3 + 1);
-
-                        if (!string.IsNullOrEmpty(_loc7))
+                        if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                         {
-                            int casilla_destino = Pathfinding.get_Celda_Numero(cuenta.personaje.mapa.celdas.Length, _loc7.Substring(_loc7.Length - 2));
-                            if (_loc6 == cuenta.personaje.id)//encontrar la casilla de destino
+                            sExtraData = sExtraData.Substring(_loc3 + 1);
+                            _loc3 = sExtraData.IndexOf(";");
+
+                            int _loc6 = int.Parse(sExtraData.Substring(0, _loc3));
+                            string _loc7 = sExtraData.Substring(_loc3 + 1);
+
+                            if (!string.IsNullOrEmpty(_loc7))
                             {
-                                if (casilla_destino > 0)
+                                int casilla_destino = Pathfinding.get_Celda_Numero(cuenta.personaje.mapa.celdas.Length, _loc7.Substring(_loc7.Length - 2));
+                                if (_loc6 == cuenta.personaje.id)//encontrar la casilla de destino
                                 {
-                                    cuenta.personaje.celda_id = casilla_destino;
+                                    if (casilla_destino > 0)
+                                    {
+                                        cuenta.personaje.celda_id = casilla_destino;
+                                    }
                                 }
-                            }
-                            else if(cuenta.personaje.mapa.get_Personajes().ContainsKey(_loc6))
-                            {
-                                cuenta.personaje.mapa.get_Personajes()[_loc6].celda_id = casilla_destino;
-                                if (GlobalConf.mostrar_mensajes_debug)
-                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un personaje a la casilla: " + casilla_destino);
-                            }
-                            else if (cuenta.personaje.mapa.get_Monstruos().ContainsKey(_loc6))
-                            {
-                                cuenta.personaje.mapa.get_Monstruos()[_loc6][0].celda_id = casilla_destino;
-                                if (GlobalConf.mostrar_mensajes_debug)
-                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + casilla_destino);
+                                else if (cuenta.personaje.mapa.get_Personajes().ContainsKey(_loc6))
+                                {
+                                    cuenta.personaje.mapa.get_Personajes()[_loc6].celda_id = casilla_destino;
+                                    if (GlobalConf.mostrar_mensajes_debug)
+                                        cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un personaje a la casilla: " + casilla_destino);
+                                }
+                                else if (cuenta.personaje.mapa.get_Monstruos().ContainsKey(_loc6))
+                                {
+                                    cuenta.personaje.mapa.get_Monstruos()[_loc6].celda_id = casilla_destino;
+                                    if (GlobalConf.mostrar_mensajes_debug)
+                                        cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + casilla_destino);
+                                }
                             }
                         }
                     break;

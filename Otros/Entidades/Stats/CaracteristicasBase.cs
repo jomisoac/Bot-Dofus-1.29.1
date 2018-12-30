@@ -14,9 +14,8 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Stats
         public int dones { get; set; } = 0;
         public int boost { get; set; } = 0;
 
-        public int total_Stats => base_personaje + equipamiento + dones + boost;
+        public int total_stats => base_personaje + equipamiento + dones + boost;
         public CaracteristicasBase(int _base_personaje) => base_personaje = _base_personaje;
-
         public CaracteristicasBase(int _base_personaje, int _equipamiento, int _dones, int _boost) => actualizar_Stats(_base_personaje, _equipamiento, _dones, _boost);
 
         public void actualizar_Stats(int _base_personaje, int _equipamiento, int _dones, int _boost)

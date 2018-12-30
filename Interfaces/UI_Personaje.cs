@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
@@ -21,7 +22,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
         public UI_Personaje(Cuenta _cuenta)
         {
             InitializeComponent();
-
             cuenta = _cuenta;
             cuenta.personaje.personaje_seleccionado += personaje_Seleccionado_Servidor_Juego;
             cuenta.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
@@ -46,12 +46,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 //Sumario
                 label_puntos_vida.Text = cuenta.personaje.caracteristicas.vitalidad_actual.ToString() + '/' + cuenta.personaje.caracteristicas.vitalidad_maxima.ToString();
-                label_puntos_accion.Text = cuenta.personaje.caracteristicas.puntos_accion.total_Stats.ToString();
-                label_puntos_movimiento.Text = cuenta.personaje.caracteristicas.puntos_movimiento.total_Stats.ToString();
-                label_iniciativa.Text = cuenta.personaje.caracteristicas.iniciativa.total_Stats.ToString();
-                label_prospeccion.Text = cuenta.personaje.caracteristicas.prospeccion.total_Stats.ToString();
-                label_alcanze.Text = cuenta.personaje.caracteristicas.alcanze.total_Stats.ToString();
-                label_invocaciones.Text = cuenta.personaje.caracteristicas.criaturas_invocables.total_Stats.ToString();
+                label_puntos_accion.Text = cuenta.personaje.caracteristicas.puntos_accion.total_stats.ToString();
+                label_puntos_movimiento.Text = cuenta.personaje.caracteristicas.puntos_movimiento.total_stats.ToString();
+                label_iniciativa.Text = cuenta.personaje.caracteristicas.iniciativa.total_stats.ToString();
+                label_prospeccion.Text = cuenta.personaje.caracteristicas.prospeccion.total_stats.ToString();
+                label_alcanze.Text = cuenta.personaje.caracteristicas.alcanze.total_stats.ToString();
+                label_invocaciones.Text = cuenta.personaje.caracteristicas.criaturas_invocables.total_stats.ToString();
 
                 //Caracteristicas
                 stats_vitalidad.Text = cuenta.personaje.caracteristicas.vitalidad.base_personaje.ToString() + " (" + cuenta.personaje.caracteristicas.vitalidad.equipamiento.ToString() + ")";

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 
 namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 {
@@ -14,6 +15,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         public List<HechizoPelea> hechizos { get; private set; }
         public byte celdas_maximas { get; set; }
         public bool desactivar_espectador { get; set; }
+        public Tactica tactica { get; set; }
 
         public PeleaConf(Cuenta _cuenta)
         {
@@ -27,6 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 
             using (BinaryWriter bw = new BinaryWriter(File.Open(configuracion_archivo_ruta, FileMode.Create)))
             {
+                bw.Write((byte)tactica);
                 bw.Write(celdas_maximas);
                 bw.Write(desactivar_espectador);
                 bw.Write((byte)hechizos.Count);
@@ -45,6 +48,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 
             using (BinaryReader br = new BinaryReader(File.Open(configuracion_archivo_ruta, FileMode.Open)))
             {
+                tactica = (Tactica)br.ReadByte();
                 celdas_maximas = br.ReadByte();
                 desactivar_espectador = br.ReadBoolean();
 
@@ -59,6 +63,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         {
             celdas_maximas = 12;
             desactivar_espectador = false;
+            tactica = Tactica.FUGITIVA;
         }
 
         #region Zona Dispose

@@ -8,6 +8,6 @@
         DESCONOCIDO1 = 3,
         CELDA_CAMINABLE = 4,
         DESCONOCIDO2 = 5,
-        DECONOCIDO3 = 6
+        CAMINO = 6
     }
 }

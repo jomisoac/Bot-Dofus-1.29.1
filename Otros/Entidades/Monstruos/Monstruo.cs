@@ -1,5 +1,6 @@
 ﻿using System;
-using Bot_Dofus_1._29._1.Otros.Entidades.Stats;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bot_Dofus_1._29._1.Otros.Entidades.Monstruos
 {
@@ -7,20 +8,40 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Monstruos
     {
         public int id { get; set; } = 0;
         public int template_id { get; set; } = 0;
-        public CaracteristicasInformacion caracteristicas { get; set; }
         public int celda_id { get; set; }
+        public int nivel { get; set; }
+
+        public List<Monstruo> moobs_dentro_grupo { get; set; }
+        public Monstruo lider_grupo { get; set; }
         bool disposed;
 
-        public Monstruo(int _id, int _template, int _celda_id)
+        public int get_Total_Monstruos => moobs_dentro_grupo.Count + 1;
+        public int get_Total_Nivel_Grupo => lider_grupo.nivel + moobs_dentro_grupo.Sum(f => f.nivel);
+
+        public Monstruo(int _id, int _template, int _celda_id, int _nivel)
         {
             id = _id;
             template_id = _template;
             celda_id = _celda_id;
+            moobs_dentro_grupo = new List<Monstruo>();
+            nivel = _nivel;
         }
 
         ~Monstruo() => Dispose(false);
 
         public bool es_agresivo() => template_id == 791 && template_id == 253;
+
+        public bool get_Contiene_Monstruo(int id)
+        {
+            if (lider_grupo.template_id == id)
+                return true;
+            for (int i = 0; i < moobs_dentro_grupo.Count; i++)
+            {
+                if (moobs_dentro_grupo[i].template_id == id)
+                    return true;
+            }
+            return false;
+        }
 
         public void Dispose()
         {
@@ -32,11 +53,8 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Monstruos
         {
             if(!disposed)
             {
-                if(disposing)
-                {
-                    caracteristicas.Dispose();
-                }
-                caracteristicas = null;
+                moobs_dentro_grupo.Clear();
+                moobs_dentro_grupo = null;
                 disposed = true;
             }
         }

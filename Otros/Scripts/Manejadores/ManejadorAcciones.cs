@@ -3,6 +3,9 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
+using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Peleas;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
+using MoonSharp.Interpreter;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 {
@@ -12,10 +15,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         private LuaManejadorScript manejador_script;
         private ConcurrentQueue<AccionesScript> fila_acciones;
         private AccionesScript accion_actual;
-
+        private bool disposed;
         private bool mapa_cambiado;
-
         public event Action<bool> evento_accion_finalizada;
+
+        //contadores
+        private int contador_pelea;
 
         public ManejadorAcciones(Cuenta _cuenta, LuaManejadorScript _manejador_script)
         {
@@ -24,6 +29,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             fila_acciones = new ConcurrentQueue<AccionesScript>();
 
             cuenta.personaje.mapa_actualizado += evento_Mapa_Cambiado;
+            cuenta.pelea.pelea_creada += evento_Pelea_Creada;
+            cuenta.personaje.movimiento_celda += evento_Movimiento_Celda;
         }
 
         private void evento_Mapa_Cambiado()
@@ -33,10 +40,51 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             mapa_cambiado = true;
 
-            if (accion_actual is CambiarMapaAccion)
+            if (accion_actual is CambiarMapaAccion || accion_actual is PeleasAccion)
             {
                 limpiar_Acciones();
                 acciones_Salida(1500);
+            }
+        }
+
+        private async void evento_Movimiento_Celda(bool es_correcto)
+        {
+            if (cuenta.script.corriendo)
+            {
+                if (accion_actual is PeleasAccion)
+                {
+                    if (es_correcto)
+                    {
+                        for (int delay = 0; delay < 6000 && cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO; delay += 500)
+                        {
+                            await Task.Delay(500);
+                        }
+                        if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
+                        {
+                            cuenta.logger.log_Peligro("Scripts", "Error al lanzar la pelea, los monstruos pudieron haberse movido o sido robados!");
+                            acciones_Salida(0);
+                        }
+                    }
+                    else
+                    {
+                        cuenta.script.detener_Script($"El movimiento al grupo de monstruos fracasó");
+                    }
+                }
+            }
+        }
+
+        private void evento_Pelea_Creada()
+        {
+            if (cuenta.script.corriendo)
+            {
+                if (accion_actual is PeleasAccion)
+                {
+                    contador_pelea++;
+                    if (manejador_script.get_Global_Or("MOSTRAR_CONTRADOR_PELEAS", DataType.Boolean, false))
+                    {
+                        cuenta.logger.log_informacion("SCRIPT", $"Combate numero: #{contador_pelea}");
+                    }
+                }
             }
         }
 
@@ -63,7 +111,6 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             if (await accion_actual.proceso(cuenta) == ResultadosAcciones.HECHO)
             {
-                Console.WriteLine("asasojasoassa");
                 acciones_Salida(100);
             }
         }
@@ -106,16 +153,32 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         }, TaskCreationOptions.LongRunning);
 
+        public void get_Borrar_Todo()
+        {
+            limpiar_Acciones();
+            accion_actual = null;
+            contador_pelea = 0;
+        }
+
         #region Zona Dispose
         ~ManejadorAcciones() => Dispose(false);
-        public void Dispose() => Dispose(true);
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         protected virtual void Dispose(bool disposing)
         {
-            accion_actual = null;
-            manejador_script = null;
-            fila_acciones = null;
-            cuenta = null;
+            if (!disposed)
+            {
+                accion_actual = null;
+                manejador_script = null;
+                fila_acciones = null;
+                cuenta = null;
+                disposed = true;
+            }
         }
         #endregion
     }

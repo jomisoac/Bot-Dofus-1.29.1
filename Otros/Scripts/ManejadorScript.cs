@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
+using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Peleas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Banderas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
 using MoonSharp.Interpreter;
@@ -34,8 +35,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             manejador_script = new LuaManejadorScript();
             manejar_acciones = new ManejadorAcciones(cuenta, manejador_script);
             banderas = new List<Bandera>();
-            
-            manejar_acciones.evento_accion_finalizada += manejar_acciones_Acciones_Finalizadas;
+
+            manejar_acciones.evento_accion_finalizada += get_Accion_Finalizada;
+            cuenta.pelea.pelea_creada += get_Pelea_Creada;
+            cuenta.pelea.pelea_acabada += get_Pelea_Acabada;
         }
 
         public void get_Desde_Archivo(string ruta_archivo)
@@ -55,7 +58,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             manejador_script.Set_Global("imprimirExito", new Action<string>((mensaje) => cuenta.logger.log_informacion("Script", mensaje)));
             manejador_script.Set_Global("imprimirError", new Action<string>((mensaje) => cuenta.logger.log_Error("Script", mensaje)));
             manejador_script.Set_Global("detenerScript", new Action(() => detener_Script()));
-            
+
             manejador_script.Set_Global("estaRecolectando", (Func<bool>)cuenta.esta_recolectando);
             manejador_script.Set_Global("estaDialogando", (Func<bool>)cuenta.esta_dialogando);
         }
@@ -76,14 +79,15 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         public void detener_Script(string mensaje = "Script pausado")
         {
-            if (!activado)
-                return;
-
-            activado = false;
-            pausado = false;
-            banderas.Clear();
-            bandera_id = 0;
-            evento_script_detenido?.Invoke(mensaje);
+            if (activado)
+            {
+                activado = false;
+                pausado = false;
+                banderas.Clear();
+                bandera_id = 0;
+                manejar_acciones.get_Borrar_Todo();
+                evento_script_detenido?.Invoke(mensaje);
+            }
         }
 
         private void iniciar_Script() => Task.Run(async () =>
@@ -103,12 +107,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     detener_Script($"La función {estado_script.ToString().ToLower()} no existe");
                     return;
                 }
-                
+
                 foreach (Table entrada in entradas)
                 {
                     if (entrada["mapa"] == null)
                         continue;
-                    
+
                     if (!cuenta.personaje.mapa.verificar_Mapa_Actual(int.Parse(entrada["mapa"].ToString())))
                         continue;
 
@@ -134,7 +138,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             if (cuenta.personaje.caracteristicas.energia_actual == 0)
             {
-                cuenta.logger.log_informacion("Script", "El personaje esta muerto, pasando a modo fenix");
+                cuenta.logger.log_informacion("SCRIPT", "El personaje esta muerto, pasando a modo fenix");
                 estado_script = EstadoScript.FENIX;
             }
             await Task.Delay(50);
@@ -145,6 +149,15 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             banderas.Clear();
             bandera_id = 0;
             DynValue bandera = null;
+
+            if (estado_script == EstadoScript.MOVIMIENTO)
+            {
+                bandera = entry.Get("pelea");
+                if (!bandera.IsNil() && bandera.Type == DataType.Boolean && bandera.Boolean)
+                {
+                    banderas.Add(new PeleaBandera());
+                }
+            }
 
             bandera = entry.Get("celda");
             if (!bandera.IsNil() && bandera.Type == DataType.String)
@@ -158,7 +171,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
         }
 
-        private void procesar_Actual_Entrada(AccionesScript alreadyParsedAction = null)
+        private void procesar_Actual_Entrada(AccionesScript tiene_accion_disponible = null)
         {
             if (!corriendo)
                 return;
@@ -168,6 +181,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (bandera_actual is CambiarMapa mapa)
             {
                 manejar_Cambio_Mapa(mapa);
+            }
+            else if (bandera_actual is PeleaBandera)
+            {
+                manejar_Pelea_mapa(tiene_accion_disponible as PeleasAccion);
             }
         }
 
@@ -183,10 +200,39 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
         }
 
+        private void manejar_Pelea_mapa(PeleasAccion pelea_accion)
+        {
+            PeleasAccion accion = pelea_accion ?? get_Crear_Pelea_Accion();
+            
+            if (cuenta.personaje.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion.monstruos_minimos, accion.monstruos_maximos, accion.monstruo_nivel_minimo, accion.monstruo_nivel_maximo, accion.monstruos_prohibidos, accion.monstruos_obligatorios))
+            {
+                manejar_acciones.enqueue_Accion(accion, true);
+            }
+            else
+            {
+                cuenta.logger.log_informacion("SCRIPT", "Ningún grupo de monstruos disponibles en este mapa");
+                procesar_Actual_Bandera(true);
+            }
+        }
+
         private void procesar_Actual_Bandera(bool avoidChecks = false)
         {
             if (!corriendo)
                 return;
+
+            if (!avoidChecks)
+            {
+                if (banderas[bandera_id] is PeleaBandera)
+                {
+                    PeleasAccion accion_pelea = get_Crear_Pelea_Accion();
+
+                    if (cuenta.personaje.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion_pelea.monstruos_minimos, accion_pelea.monstruos_maximos, accion_pelea.monstruo_nivel_minimo, accion_pelea.monstruo_nivel_maximo, accion_pelea.monstruos_prohibidos, accion_pelea.monstruos_obligatorios))
+                    {
+                        procesar_Actual_Entrada(accion_pelea);
+                        return;
+                    }
+                }
+            }
 
             bandera_id++;
             if (bandera_id == banderas.Count)
@@ -199,7 +245,41 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
         }
 
-        private void manejar_acciones_Acciones_Finalizadas(bool mapa_cambiado)
+        private PeleasAccion get_Crear_Pelea_Accion()
+        {
+            int monstruos_minimos = manejador_script.get_Global_Or("MONSTRUOS_MINIMOS", DataType.Number, 1);
+            int monstruos_maximos = manejador_script.get_Global_Or("MONSTRUOS_MAXIMOS", DataType.Number, 8);
+            int monstruo_nivel_minimo = manejador_script.get_Global_Or("MINIMO_NIVEL_MONSTRUOS", DataType.Number, 1);
+            int monstruo_nivel_maximo = manejador_script.get_Global_Or("MAXIMO_NIVEL_MONSTRUOS", DataType.Number, 1000);
+            List<int> monstruos_prohibidos = new List<int>();
+            List<int> monstruos_obligatorios = new List<int>();
+
+            Table entrada = manejador_script.get_Global_Or<Table>("MONSTRUOS_PROHIBIDOS", DataType.Table, null);
+            if (entrada != null)
+            {
+                foreach (var fm in entrada.Values)
+                {
+                    if (fm.Type != DataType.Number)
+                        continue;
+
+                    monstruos_prohibidos.Add((int)fm.Number);
+                }
+            }
+            entrada = manejador_script.get_Global_Or<Table>("MONSTRUOS_OBLIGATORIOS", DataType.Table, null);
+            if (entrada != null)
+            {
+                foreach (var mm in entrada.Values)
+                {
+                    if (mm.Type != DataType.Number)
+                        continue;
+                    monstruos_obligatorios.Add((int)mm.Number);
+                }
+            }
+            return new PeleasAccion(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
+        }
+
+        #region Zona Eventos
+        private void get_Accion_Finalizada(bool mapa_cambiado)
         {
             if (mapa_cambiado)
             {
@@ -210,6 +290,19 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 procesar_Actual_Bandera();
             }
         }
+
+        private void get_Pelea_Creada()
+        {
+            if (activado)
+                pausado = true;
+        }
+
+        private void get_Pelea_Acabada()
+        {
+            if (activado)
+                pausado = false;
+        }
+        #endregion
 
         #region Zona Dispose
         ~ManejadorScript() => Dispose(false);
@@ -222,7 +315,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         public virtual void Dispose(bool disposing)
         {
-            if(disposed)
+            if (disposed)
             {
                 if (disposing)
                 {
@@ -234,7 +327,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 activado = false;
                 cuenta = null;
                 disposed = true;
-            } 
+            }
         }
         #endregion
     }

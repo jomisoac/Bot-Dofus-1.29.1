@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
 {

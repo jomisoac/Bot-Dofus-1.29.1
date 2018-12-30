@@ -21,8 +21,8 @@ namespace Bot_Dofus_1._29._1.Utilidades.Logs
         {
             StringBuilder sb = new StringBuilder();
 
-            string _referencia = string.IsNullOrEmpty(referencia) ? "" : $" [{referencia}]";
-            sb.Append($"{DateTime.Now.ToString("HH:mm:ss")} ->{_referencia} {mensaje}");
+            string _referencia = string.IsNullOrEmpty(referencia) ? "" : $"[{referencia}]";
+            sb.Append($"[{DateTime.Now.ToString("HH:mm:ss")}] {_referencia} {mensaje}");
 
             if (es_Exception)
                 sb.Append($"{Environment.NewLine}- Exception ocurrida: {exception}");
