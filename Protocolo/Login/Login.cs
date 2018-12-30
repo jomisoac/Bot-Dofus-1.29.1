@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Bot_Dofus_1._29._1.Librerias.TCP;
 using Bot_Dofus_1._29._1.LibreriaSockets;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
@@ -16,7 +17,7 @@ using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Login
 {
-    public class Login : ClienteProtocolo
+    public class Login : TcpProtocolo
     {
         private Cuenta cuenta = null;
 
@@ -28,9 +29,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
 
         public void analisis_Paquete(string paquete)
         {
-            char accion = paquete[1];
             bool tiene_error = false;
-
             if (paquete.Length >= 3)
             {
                 tiene_error = (paquete[2] == 'E');
@@ -39,7 +38,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
             switch (paquete[0])
             {
                 case 'H':
-                    switch (accion)
+                    switch (paquete[1])
                     {
                         case 'C':
                             cuenta.Estado_Cuenta = EstadoCuenta.CONECTANDO;
@@ -57,7 +56,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                 break;
 
                 case 'A':
-                    switch (accion)
+                    switch (paquete[1])
                     {
                         case 'd'://paquete de apodo
                             cuenta.apodo = paquete.Substring(2);
@@ -75,11 +74,11 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                             HostsMensaje servidor = new HostsMensaje(paquete.Substring(3), cuenta.servidor_id);
                             enviar_Paquete(servidor.get_Mensaje());
                             cuenta.logger.log_informacion("Login", "El servidor " + cuenta.get_Nombre_Servidor() + " esta " + (HostsMensaje.EstadosServidor)servidor.estado);
-                            break;
+                        break;
 
                         case 'x':
                             enviar_Paquete(new ListaServidoresMensaje(paquete.Substring(3), cuenta.servidor_id).get_Mensaje());
-                            break;
+                        break;
 
                         case 'X':
                             conectar_Game_Server(tiene_error, paquete.Substring(3));
@@ -94,17 +93,22 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                                     {
                                         case 'f':
                                             cuenta.logger.log_Error("Login", "Conexión rechazada. Nombre de cuenta o contraseña incorrectos.");
-                                            cerrar_Socket();
+                                            get_Desconectar_Socket();
                                         break;
 
                                         case 'v':
                                             cuenta.logger.log_Error("Login", "La versión %1 de Dofus que tienes instalada no es compatible con este servidor. Para poder jugar, instala la versión %2. El cliente DOFUS se va a cerrar.");
-                                            cerrar_Socket();
+                                            get_Desconectar_Socket();
                                         break;
 
                                         case 'b':
                                             cuenta.logger.log_Error("Login", "Conexión rechazada. Tu cuenta ha sido baneada.");
-                                            cerrar_Socket();
+                                            get_Desconectar_Socket();
+                                        break;
+
+                                        case 'd':
+                                            cuenta.logger.log_Error("Login", "Esta cuenta ya está conectada a un servidor de juego. Por favor, inténtalo de nuevo.");
+                                            get_Desconectar_Socket();
                                         break;
 
                                         case 'k':
@@ -118,7 +122,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                                             if (minutos > 0)
                                                 mensaje.Append(minutos + " minutos");
                                             cuenta.logger.log_Error("Login", mensaje.ToString());
-                                            cerrar_Socket();
+                                            get_Desconectar_Socket();
                                         break;
                                     }
                                     break;
@@ -140,8 +144,6 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                 string ip = Hash.desencriptar_IP(paquete);
                 int puerto = Compressor.desencriptar_puerto(paquete.Substring(8, 3).ToCharArray());
                 cuenta.tiquet_game = paquete.Substring(11);
-
-                cerrar_Socket();
                 cuenta.cambiando_Al_Servidor_Juego(ip, puerto);
             }
             else
@@ -152,8 +154,8 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login
                         switch (paquete.Substring(3))
                         {
                             case "f":
-                                cuenta.logger.log_Error("Login", "El acceso a este servidor está restringido a una determinada comunidad de jugadores o a todos los abonados. No puedes acceder a él sin cumplir uno de estos requisitos.");
-                                cerrar_Socket();
+                                cuenta.logger.log_Error("Login", "El acceso a este servidor está restringido a una determinada comunidad de jugadores o a todos los abonados. No puedes acceder a él sin cumplir uno de estos requisitos");
+                                get_Desconectar_Socket();
                             break;
                         }
                     break;

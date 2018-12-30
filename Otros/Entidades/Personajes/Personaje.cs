@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Stats;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -34,8 +36,8 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public List<Hechizo> hechizos { get; set; }
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
-        public Pelea pelea;
         public int celda_id { get; set; } = 0;
+        public bool esta_reconectando { get; set; } = false;
         private bool disposed;
 
         public int porcentaje_experiencia => (int)((caracteristicas.experiencia_actual - caracteristicas.experiencia_minima_nivel) / (caracteristicas.experiencia_siguiente_nivel - caracteristicas.experiencia_minima_nivel) * 100);
@@ -45,6 +47,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public event Action caracteristicas_actualizadas;
         public event Action hechizos_actualizados;
         public event Action mapa_actualizado;
+        public event Action<bool> movimiento_celda;
         public event Action<List<int>> movimiento_pathfinding;
 
         public Personaje(int _id, string _nombre_personaje, byte _nivel, int _gremio, byte _sexo, int _gfxID, int _color1, int _color2, int _color3, string _objetos)
@@ -94,6 +97,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public void evento_Mapa_Actualizado() => mapa_actualizado?.Invoke();
         public void evento_Personaje_Seleccionado() => personaje_seleccionado?.Invoke();
         public void evento_Personaje_Pathfinding(List<int> lista) => movimiento_pathfinding?.Invoke(lista);
+        public void evento_Movimiento_Celda(bool resultado) => movimiento_celda?.Invoke(resultado);
         #endregion
 
         public void actualizar_Caracteristicas(string paquete)
@@ -226,7 +230,20 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
                 hechizos.Add(new Hechizo(hechizo_id, nombre, byte.Parse(separador[1].ToString()), char.Parse(separador[2].ToString())));
             }
             xml = null;
-            hechizos_actualizados?.Invoke();
+            hechizos_actualizados.Invoke();
+        }
+
+        public Hechizo get_Hechizo(int id) => hechizos.FirstOrDefault(f => f.id == id);
+
+        public async Task get_Manejar_Tiempo_Reconexion(Cuenta cuenta, int tiempo_espera)
+        {
+            if (esta_reconectando && tiempo_espera > 0)
+            {
+                cuenta.Estado_Cuenta = EstadoCuenta.LUCHANDO;
+                cuenta.logger.log_informacion("RECONEXIÓN", "Reconexión detectada con tiempo esperando: " + tiempo_espera + " segundos");
+                await Task.Delay(new TimeSpan(0, 0, tiempo_espera));
+                esta_reconectando = false;
+            }
         }
 
         ~Personaje() => Dispose(false);

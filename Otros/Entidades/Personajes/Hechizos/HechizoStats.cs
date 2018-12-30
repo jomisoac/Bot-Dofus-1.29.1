@@ -21,5 +21,6 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
         public byte lanzamientos_por_turno { get; set; }
         public byte lanzamientos_por_objetivo { get; set; }
         public byte intervalo { get; set; }
+        public Zonas[] areaAfectados { get; set; }
     }
 }

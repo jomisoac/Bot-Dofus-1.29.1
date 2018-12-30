@@ -4,9 +4,9 @@ namespace Bot_Dofus_1._29._1.Protocolo.Extensiones
 {
     public static class CadenasAmigables
     {
-        public static string cadena_Amigable(this EstadoCuenta state)
+        public static string cadena_Amigable(this EstadoCuenta estado)
         {
-            switch (state)
+            switch (estado)
             {
                 case EstadoCuenta.CONECTANDO:
                     return "Conectando";

@@ -59,6 +59,7 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox_cuidado_aoe = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox_lanzar_cuerpo_cuerpo = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -383,6 +384,7 @@
             this.comboBox_lista_tactica.Name = "comboBox_lista_tactica";
             this.comboBox_lista_tactica.Size = new System.Drawing.Size(643, 25);
             this.comboBox_lista_tactica.TabIndex = 1;
+            this.comboBox_lista_tactica.SelectedIndexChanged += new System.EventHandler(this.comboBox_lista_tactica_SelectedIndexChanged);
             // 
             // tabPage_hechizos_pelea
             // 
@@ -435,6 +437,7 @@
             this.tableLayoutPanel11.Controls.Add(this.checkBox2, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.checkBox_cuidado_aoe, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.checkBox3, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.checkBox_lanzar_cuerpo_cuerpo, 1, 1);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 129);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
@@ -479,6 +482,18 @@
             this.checkBox3.TabIndex = 6;
             this.checkBox3.Text = "No dañar aliados";
             this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_lanzar_cuerpo_cuerpo
+            // 
+            this.checkBox_lanzar_cuerpo_cuerpo.AutoSize = true;
+            this.checkBox_lanzar_cuerpo_cuerpo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox_lanzar_cuerpo_cuerpo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.checkBox_lanzar_cuerpo_cuerpo.Location = new System.Drawing.Point(381, 34);
+            this.checkBox_lanzar_cuerpo_cuerpo.Name = "checkBox_lanzar_cuerpo_cuerpo";
+            this.checkBox_lanzar_cuerpo_cuerpo.Size = new System.Drawing.Size(269, 26);
+            this.checkBox_lanzar_cuerpo_cuerpo.TabIndex = 7;
+            this.checkBox_lanzar_cuerpo_cuerpo.Text = "Lanzar cuerpo a cuerpo";
+            this.checkBox_lanzar_cuerpo_cuerpo.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel9
             // 
@@ -681,6 +696,7 @@
             this.button_eliminar_hechizo.Size = new System.Drawing.Size(59, 54);
             this.button_eliminar_hechizo.TabIndex = 2;
             this.button_eliminar_hechizo.UseVisualStyleBackColor = true;
+            this.button_eliminar_hechizo.Click += new System.EventHandler(this.button_eliminar_hechizo_Click);
             // 
             // button_informacion_hechizo
             // 
@@ -788,5 +804,6 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox_cuidado_aoe;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox_lanzar_cuerpo_cuerpo;
     }
 }

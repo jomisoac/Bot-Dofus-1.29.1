@@ -17,8 +17,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Enums
         RANGO_MAXIMO = 5,
         RANGO_MINIMO = 6,
         NO_ESTA_EN_LINEA = 7,
-        LINEA_DE_VISION = 8,
-        NECESITA_CELDA_LIBRE = 9,
-        DESONOCIDO = 10,
+        NECESITA_CELDA_LIBRE = 8,
+        NO_ESTA_EN_RANGO = 9,
+        NO_TIENE_LINEA_VISION = 10,
+        DESONOCIDO = 11,
     }
 }

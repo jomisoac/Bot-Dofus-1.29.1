@@ -13,11 +13,11 @@ using System.Threading;
     web: http://www.salesprendes.com
 */
 
-namespace Bot_Dofus_1._29._1.LibreriaSockets
+namespace Bot_Dofus_1._29._1.Librerias.TCP
 {
-    public abstract class ClienteProtocolo : IDisposable
+    public abstract class TcpProtocolo : ITcpSocket
     {
-        protected Socket socket;
+        public Socket socket { get; private set; }
         private byte[] buffer;
         private readonly object bloqueo = new object();
         private bool disposed;
@@ -27,20 +27,20 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
         public event Action<object> socket_informacion;
         public event Action<object> socket_desconectado;
 
-        public ClienteProtocolo(string ip, int puerto)
+        public TcpProtocolo(string ip, int puerto)
         {
             ThreadPool.QueueUserWorkItem(new WaitCallback(o =>
             {
                 try
                 {
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    buffer = new byte[5000];
+                    buffer = new byte[3000];
                     socket.BeginConnect(IPAddress.Parse(ip), puerto, conectar_CallBack, socket);
                 }
                 catch (Exception ex)
                 {
                     socket_informacion?.Invoke(ex);
-                    cerrar_Socket();
+                    get_Desconectar_Socket();
                 }
             }));
         }
@@ -59,18 +59,18 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                 }
                 else
                 {
-                    cerrar_Socket();
+                    get_Desconectar_Socket();
                     socket_informacion?.Invoke("Impossible conectar el socket con el host");
                 }
             }
             catch (Exception ex)
             {
                 socket_informacion?.Invoke(ex);
-                cerrar_Socket();
+                get_Desconectar_Socket();
             }
         }
 
-        private void paquete_Recibido(int buffersize = -1)
+        private void paquete_Recibido()
         {
             try
             {
@@ -80,14 +80,14 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                 }
                 else
                 {
-                    cerrar_Socket();
+                    get_Desconectar_Socket();
                     return;
                 }
             }
             catch (Exception e)
             {
                 socket_informacion?.Invoke(e.Message);
-                cerrar_Socket();
+                get_Desconectar_Socket();
             }
         }
 
@@ -99,32 +99,33 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                 {
                     if (esta_Conectado())
                     {
-                        int bytes_leidos = socket.EndReceive(ar, out SocketError err);
-                        if (bytes_leidos > 0 || err == SocketError.Success)
+                        int bytes_leidos = socket.EndReceive(ar, out SocketError respuesta);
+                        if (bytes_leidos > 0 && respuesta == SocketError.Success)
                         {
                             foreach (string paquete in Encoding.UTF8.GetString(buffer).Replace("\x0a", string.Empty).Split('\x00').Where(x => x != string.Empty))
                             {
-                                paquete_recibido?.Invoke(paquete);
+                                if(paquete.Length > 1)
+                                    paquete_recibido?.Invoke(paquete);
                             }
-                            buffer = new byte[5000];
+                            buffer = new byte[6000];
                             paquete_Recibido();
                         }
                         else
                         {
-                            cerrar_Socket();
+                            get_Desconectar_Socket();
                             return;
                         }
                     }
                     else
                     {
-                        cerrar_Socket();
+                        get_Desconectar_Socket();
                         return;
                     }
                 }
                 catch (Exception e)
                 {
                     socket_informacion?.Invoke(e);
-                    cerrar_Socket();
+                    get_Desconectar_Socket();
                 }
             }
         }
@@ -144,13 +145,13 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                     else
                     {
                         socket_informacion?.Invoke("Impossible enviar el socket, no conectado con el host");
-                        cerrar_Socket();
+                        get_Desconectar_Socket();
                     }
                 }
                 catch (Exception e)
                 {
                     socket_informacion?.Invoke(e);
-                    cerrar_Socket();
+                    get_Desconectar_Socket();
                 };
             }
         }
@@ -172,18 +173,18 @@ namespace Bot_Dofus_1._29._1.LibreriaSockets
                 }
                 else
                 {
-                    cerrar_Socket();
+                    get_Desconectar_Socket();
                     return;
                 }
             }
             catch (Exception e)
             {
                 socket_informacion?.Invoke(e);
-                cerrar_Socket();
+                get_Desconectar_Socket();
             }
         }
 
-        public void cerrar_Socket()
+        public void get_Desconectar_Socket()
         {
             lock (bloqueo)
             {

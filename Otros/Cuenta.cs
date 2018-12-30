@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot_Dofus_1._29._1.LibreriaSockets;
+using Bot_Dofus_1._29._1.Librerias.TCP;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Scripts;
@@ -26,23 +26,25 @@ namespace Bot_Dofus_1._29._1.Otros
         public string tiquet_game { get; set; } = string.Empty;
         public int servidor_id { get; set; } = 0;
         public Logger logger { get; private set; }
-        public ClienteProtocolo conexion = null;
+        public TcpProtocolo conexion = null;
         public Personaje personaje { get; set; }
         public ManejadorScript script { get; set; }
         public PeleaExtensiones pelea_extension { get; set; }
         public CuentaConf cuenta_configuracion { get; private set; }
+        public Pelea pelea;
         private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
         private bool disposed;
 
         public event Action evento_estado_cuenta;
-        public event Action<ClienteProtocolo> evento_fase_socket;
+        public event Action<TcpProtocolo> evento_fase_socket;
 
         public Cuenta(CuentaConf _cuenta_configuracion)
         {
             cuenta_configuracion = _cuenta_configuracion;
             servidor_id = cuenta_configuracion.get_Servidor_Id();
             logger = new Logger();
+            pelea = new Pelea(this);
             pelea_extension = new PeleaExtensiones(this);
             conexion = new Login(GlobalConf.ip_conexion, 443, this);
         }
@@ -53,6 +55,8 @@ namespace Bot_Dofus_1._29._1.Otros
         {
             if (fase_socket != EstadoSocket.NINGUNO)
             {
+                if (conexion != null)
+                    conexion.get_Desconectar_Socket();
                 conexion = new Game(ip, puerto, this);
                 Estado_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
             }
@@ -109,6 +113,8 @@ namespace Bot_Dofus_1._29._1.Otros
                         conexion.Dispose();
                     if (personaje != null)
                         personaje.Dispose();
+                    if (pelea != null)
+                        pelea.Dispose();
                 }
                 key_bienvenida = null;
                 conexion = null;
@@ -117,6 +123,7 @@ namespace Bot_Dofus_1._29._1.Otros
                 apodo = null;
                 cuenta_configuracion = null;
                 disposed = true;
+                pelea = null;
                 Estado_Cuenta = EstadoCuenta.DESCONECTADO;
                 Estado_Socket = EstadoSocket.NINGUNO;
             }

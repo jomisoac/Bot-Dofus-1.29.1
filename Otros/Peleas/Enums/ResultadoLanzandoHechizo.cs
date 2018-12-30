@@ -2,8 +2,8 @@
 {
     public enum ResultadoLanzandoHechizo
     {
-        CASTED,
-        MOVED,
-        NOT_CASTED
+        LANZADO,
+        MOVIDO,
+        NO_LANZADO
     }
 }

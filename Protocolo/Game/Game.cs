@@ -1,5 +1,6 @@
 ﻿using System;
-using Bot_Dofus_1._29._1.LibreriaSockets;
+using System.Threading.Tasks;
+using Bot_Dofus_1._29._1.Librerias.TCP;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
@@ -7,7 +8,7 @@ using Bot_Dofus_1._29._1.Protocolo.Game.Paquetes;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game
 {
-    internal class Game : ClienteProtocolo
+    internal class Game : TcpProtocolo
     {
         private readonly Cuenta cuenta = null;
 
@@ -17,7 +18,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
             paquete_recibido += analisis_Paquete;
         }
 
-        public void analisis_Paquete(string paquete)
+        public async void analisis_Paquete(string paquete)
         {
             string accion = paquete[1].ToString();
             string informacion_paquete = string.Empty;
@@ -188,7 +189,9 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                         break;
 
                         case "E":
-                            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                            cuenta.pelea.get_Combate_Finalizado();
+                            if (cuenta.personaje.esta_reconectando)
+                                cuenta.personaje.esta_reconectando = false;
                             cuenta.conexion.enviar_Paquete("GC1");
                         break;
 
@@ -210,11 +213,22 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game
                     }
                 break;
 
+                case 'M':
+                    switch (int.Parse(paquete.Substring(1).Split('|')[0]))
+                    {
+                        case 132:
+                            if (!cuenta.personaje.esta_reconectando)
+                                cuenta.personaje.esta_reconectando = true;
+                            await cuenta.personaje.get_Manejar_Tiempo_Reconexion(cuenta, int.Parse(paquete.Substring(1).Split('|')[1]));
+                        break;
+                    }
+                break;
+
                 case 'I':
                     switch(accion)
                     {
                         case "m"://Mensajes por lang
-                            byte tipo_im = byte.Parse(paquete[2].ToString().ToString());
+                            byte tipo_im = byte.Parse(paquete[2].ToString());
                             int numero_im = int.Parse(paquete.Substring(3).Split(';')[0]);
                             switch (tipo_im)
                             {

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Forms;
-using Bot_Dofus_1._29._1.LibreriaSockets;
+using Bot_Dofus_1._29._1.Librerias.TCP;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Entidades.Stats;
 using Bot_Dofus_1._29._1.Otros.Scripts;
@@ -81,8 +81,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 {
                     cuenta.conexion.paquete_recibido -= debugger.paquete_Recibido;
                     cuenta.conexion.paquete_enviado -= debugger.paquete_Enviado;
-                    cuenta.conexion.socket_informacion -= escribir_mensaje;
-                    cuenta.conexion.socket_desconectado -= escribir_mensaje;
+                    cuenta.conexion.socket_informacion -= get_Mensajes_Socket_Informacion;
+                    cuenta.conexion.socket_desconectado -= get_Mensajes_Socket_Desconexion;
                 }
 
                 cuenta.Dispose();
@@ -96,15 +96,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
-        private void cargar_Eventos_Debugger(ClienteProtocolo socket)
+        private void cargar_Eventos_Debugger(TcpProtocolo socket)
         {
             switch (cuenta.Estado_Socket)
             {
                 case EstadoSocket.CAMBIANDO_A_JUEGO:
                     socket.paquete_recibido += debugger.paquete_Recibido;
                     socket.paquete_enviado += debugger.paquete_Enviado;
-                    socket.socket_informacion += escribir_mensaje;
-                    socket.socket_desconectado += escribir_mensaje;
+                    socket.socket_informacion += get_Mensajes_Socket_Informacion;
+                    socket.socket_desconectado += get_Mensajes_Socket_Desconexion;
                 break;
 
                 case EstadoSocket.PERSONAJE_SELECCIONADO:
@@ -156,8 +156,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 cuenta.conexion.paquete_recibido += debugger.paquete_Recibido;
                 cuenta.conexion.paquete_enviado += debugger.paquete_Enviado;
-                cuenta.conexion.socket_informacion += escribir_mensaje;
-                cuenta.conexion.socket_desconectado += escribir_mensaje;
+                cuenta.conexion.socket_informacion += get_Mensajes_Socket_Informacion;
+                cuenta.conexion.socket_desconectado += get_Mensajes_Socket_Desconexion;
 
                 cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
                 cuenta.logger.log_evento += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
@@ -191,8 +191,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
             tabControl_principal.BeginInvoke((Action)(() =>
             {
                 control.Dock = DockStyle.Fill;
-                var nueva_pagina = new TabPage(nombre);
-                nueva_pagina.ImageIndex = imagen_index;
+                TabPage nueva_pagina = new TabPage(nombre)
+                {
+                    ImageIndex = imagen_index
+                };
                 nueva_pagina.Controls.Add(control);
                 tabControl_principal.TabPages.Add(nueva_pagina);
             }));
@@ -315,7 +317,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
         }
 
         #region Eventos Logger Mensajes
-        private void escribir_mensaje(object error) => escribir_mensaje(DateTime.Now.ToString("HH:mm:ss") + " -> [Conexión] " + error, LogTipos.PELIGRO.ToString("X"));
+        private void get_Mensajes_Socket_Informacion(object error) => escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] [Conexión] " + error, LogTipos.PELIGRO.ToString("X"));
+        private void get_Mensajes_Socket_Desconexion(object error) => escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] [Conexión] " + error, LogTipos.ERROR.ToString("X"));
 
         private void escribir_mensaje(string mensaje, string color)
         {
@@ -361,7 +364,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             else
             {
-                cuenta.logger.log_informacion("Script", $"Detenido {motivo}.");
+                cuenta.logger.log_informacion("Script", $"Detenido {motivo}");
             }
 
             BeginInvoke((Action)(() =>

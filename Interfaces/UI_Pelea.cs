@@ -28,17 +28,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void UI_Pelea_Load(object sender, EventArgs e)
         {
             comboBox_lista_posicionamiento.SelectedIndex = 2;
-            comboBox_lista_tactica.SelectedIndex = 2;
             comboBox_focus_hechizo.SelectedIndex = 0;
 
             acercarse_casillas_distancia.Value = cuenta.pelea_extension.configuracion.celdas_maximas;
             checkbox_espectadores.Checked = cuenta.pelea_extension.configuracion.desactivar_espectador;
+            comboBox_lista_tactica.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.tactica;
         }
 
         private void actualizar_Agregar_Lista_Hechizos()
         {
-            comboBox_lista_hechizos.Items.Clear();
-
             comboBox_lista_hechizos.DisplayMember = "nombre";
             comboBox_lista_hechizos.ValueMember = "id";
             comboBox_lista_hechizos.DataSource = cuenta.personaje.hechizos;
@@ -50,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             Hechizo hechizo = comboBox_lista_hechizos.SelectedItem as Hechizo;
 
-            cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, Convert.ToByte(numeric_lanzamientos_turno.Value)));
+            cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, checkBox_lanzar_cuerpo_cuerpo.Checked, Convert.ToByte(numeric_lanzamientos_turno.Value)));
             cuenta.pelea_extension.configuracion.guardar();
             refrescar_Lista_Hechizos();
         }
@@ -101,7 +99,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             Mapa mapa = cuenta.personaje.mapa;
             if (cuenta.personaje.mapa.get_Monstruos().Count > 0)
             {
-                int celda_actual = cuenta.personaje.celda_id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0)[0].celda_id;
+                int celda_actual = cuenta.personaje.celda_id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0).celda_id;
 
                 Task.Run(() =>
                 {
@@ -137,6 +135,22 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             cuenta.pelea_extension.configuracion.celdas_maximas = Convert.ToByte(acercarse_casillas_distancia.Value);
             cuenta.pelea_extension.configuracion.guardar();
+        }
+
+        private void comboBox_lista_tactica_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cuenta.pelea_extension.configuracion.tactica = (Tactica)comboBox_lista_tactica.SelectedIndex;
+            cuenta.pelea_extension.configuracion.guardar();
+        }
+
+        private void button_eliminar_hechizo_Click(object sender, EventArgs e)
+        {
+            if (listView_hechizos_pelea.FocusedItem == null)
+                return;
+
+            cuenta.pelea_extension.configuracion.hechizos.RemoveAt(listView_hechizos_pelea.FocusedItem.Index);
+            cuenta.pelea_extension.configuracion.guardar();
+            refrescar_Lista_Hechizos();
         }
     }
 }
