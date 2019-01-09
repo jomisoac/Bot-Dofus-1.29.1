@@ -7,6 +7,7 @@ using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
+using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -244,7 +245,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return FallosLanzandoHechizo.NINGUNO;
         }
 
-        public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(int hechizo_id, int personaje_celda, int celda_objetivo, Mapa mapa)
+        public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(int hechizo_id, int celda_objetivo, Mapa mapa)
         {
             Hechizo hechizo = cuenta.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_id);
 
@@ -259,33 +260,223 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (datos_hechizo.es_celda_vacia && !es_Celda_Libre(celda_objetivo))
                 return FallosLanzandoHechizo.NECESITA_CELDA_LIBRE;
 
-            if (datos_hechizo.es_lanzado_linea && !mapa.get_Esta_En_Linea(personaje_celda, celda_objetivo))
+            if (datos_hechizo.es_lanzado_linea && !mapa.get_Esta_En_Linea(jugador_luchador.celda_id, celda_objetivo))
                 return FallosLanzandoHechizo.NO_ESTA_EN_LINEA;
 
-            if(datos_hechizo.es_lanzado_con_vision && !mapa.get_Verificar_Linea_Vision(personaje_celda, celda_objetivo))
+            if (datos_hechizo.es_lanzado_con_vision && !mapa.get_Verificar_Linea_Vision(jugador_luchador.celda_id, celda_objetivo))
                 return FallosLanzandoHechizo.NO_TIENE_LINEA_VISION;
 
-            if (get_Rango_hechizo(personaje_celda, datos_hechizo).Contains(celda_objetivo))
+            if (!get_Rango_hechizo(jugador_luchador.celda_id, datos_hechizo, mapa).Contains(celda_objetivo))
                 return FallosLanzandoHechizo.NO_ESTA_EN_RANGO;
-            
+
             return FallosLanzandoHechizo.NINGUNO;
         }
 
-        public List<int> get_Rango_hechizo(int celda_personaje, HechizoStats hechizo_stats)
+        public List<int> get_Rango_hechizo(int celda_personaje, HechizoStats datos_hechizo, Mapa mapa)
         {
             List<int> rango = new List<int>();
 
-            foreach (var celda in HechizoShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, hechizo_stats, cuenta.personaje.mapa, cuenta.personaje.caracteristicas.alcanze.total_stats))
+            foreach (var celda in HechizoShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, datos_hechizo, mapa, cuenta.personaje.caracteristicas.alcanze.total_stats))
             {
                 if (celda == null || rango.Contains(celda.id))
                     continue;
 
-                if (hechizo_stats.es_celda_vacia && get_Celdas_Ocupadas.Contains(celda.id))
+                if (datos_hechizo.es_celda_vacia && get_Celdas_Ocupadas.Contains(celda.id))
+                {
+                    Console.WriteLine(celda.id);
                     continue;
+                }
+                if (celda.tipo != TipoCelda.CELDA_CAMINABLE || celda.tipo != TipoCelda.OBJETO_INTERACTIVO)
+                    rango.Add(celda.id);
+            }
 
-                rango.Add(celda.id);
+            if (datos_hechizo.es_lanzado_con_vision)
+            {
+                for (int i = rango.Count - 1; i >= 0; i--)
+                {
+                    if (get_Linea_Obstruida(mapa, celda_personaje, rango[i], get_Celdas_Ocupadas))
+                            rango.RemoveAt(i);
+                }
             }
             return rango;
+        }
+
+        public static bool get_Linea_Obstruida(Mapa map, int sourceCellId, int targetCellId, List<int> occupiedCells)
+        {
+            double x = map.get_Celda_X_Coordenadas(sourceCellId) + 0.5;
+            double y = map.get_Celda_Y_Coordenadas(sourceCellId) + 0.5;
+            double objetivo_x = map.get_Celda_X_Coordenadas(targetCellId) + 0.5;
+            double objetivo_y = map.get_Celda_Y_Coordenadas(targetCellId) + 0.5;
+            double anterior_x = map.get_Celda_X_Coordenadas(sourceCellId);
+            double anterior_y = map.get_Celda_Y_Coordenadas(sourceCellId);
+
+            double padX = 0;
+            double padY = 0;
+            double steps = 0;
+            int cas = 0;
+
+            if (Math.Abs(x - objetivo_x) == Math.Abs(y - objetivo_y))
+            {
+                steps = Math.Abs(x - objetivo_x);
+                padX = (objetivo_x > x) ? 1 : -1;
+                padY = (objetivo_y > y) ? 1 : -1;
+                cas = 1;
+            }
+            else if (Math.Abs(x - objetivo_x) > Math.Abs(y - objetivo_y))
+            {
+                steps = Math.Abs(x - objetivo_x);
+                padX = (objetivo_x > x) ? 1 : -1;
+                padY = (objetivo_y - y) / steps;
+                padY = padY * 100;
+                padY = Math.Ceiling(padY) / 100;
+                cas = 2;
+            }
+            else
+            {
+                steps = Math.Abs(y - objetivo_y);
+                padX = (objetivo_x - x) / steps;
+                padX = padX * 100;
+                padX = Math.Ceiling(padX) / 100;
+                padY = (objetivo_y > y) ? 1 : -1;
+                cas = 3;
+            }
+
+            int errorSup = Convert.ToInt32(Math.Round(Math.Floor(Convert.ToDouble((3 + (steps / 2))))));
+            int errorInf = Convert.ToInt32(Math.Round(Math.Floor(Convert.ToDouble((97 - (steps / 2))))));
+
+            for (int i = 0; i < steps; i++)
+            {
+                double cellX, cellY;
+                double xPadX = x + padX;
+                double yPadY = y + padY;
+
+                switch (cas)
+                {
+                    case 2:
+                        double beforeY = Math.Ceiling(y * 100 + padY * 50) / 100;
+                        double afterY = Math.Floor(y * 100 + padY * 150) / 100;
+                        double diffBeforeCenterY = Math.Floor(Math.Abs(Math.Floor(beforeY) * 100 - beforeY * 100)) / 100;
+                        double diffCenterAfterY = Math.Ceiling(Math.Abs(Math.Ceiling(afterY) * 100 - afterY * 100)) / 100;
+
+                        cellX = Math.Floor(xPadX);
+
+                        if (Math.Floor(beforeY) == Math.Floor(afterY))
+                        {
+                            cellY = Math.Floor(yPadY);
+                            if ((beforeY == cellY && afterY < cellY) || (afterY == cellY && beforeY < cellY))
+                            {
+                                cellY = Math.Ceiling(yPadY);
+                            }
+                            if (get_Es_Celda_Obstruida(cellX, cellY, map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = cellX;
+                            anterior_y = cellY;
+                        }
+                        else if (Math.Ceiling(beforeY) == Math.Ceiling(afterY))
+                        {
+                            cellY = Math.Ceiling(yPadY);
+                            if ((beforeY == cellY && afterY < cellY) || (afterY == cellY && beforeY < cellY))
+                            {
+                                cellY = Math.Floor(yPadY);
+                            }
+                            if (get_Es_Celda_Obstruida(cellX, cellY, map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = cellX;
+                            anterior_y = cellY;
+                        }
+                        else if (Math.Floor(diffBeforeCenterY * 100) <= errorSup)
+                        {
+                            if (get_Es_Celda_Obstruida(cellX, Math.Floor(afterY), map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = cellX;
+                            anterior_y = Math.Floor(afterY);
+                        }
+                        else if (Math.Floor(diffCenterAfterY * 100) >= errorInf)
+                        {
+                            if (get_Es_Celda_Obstruida(cellX, Math.Floor(beforeY), map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = cellX;
+                            anterior_y = Math.Floor(beforeY);
+                        }
+                        else
+                        {
+                            if (get_Es_Celda_Obstruida(cellX, Math.Floor(beforeY), map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = cellX;
+                            anterior_y = Math.Floor(beforeY);
+                            if (get_Es_Celda_Obstruida(cellX, Math.Floor(afterY), map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_y = Math.Floor(afterY);
+                        }
+                        break;
+
+                    case 3:
+                        double beforeX = Math.Ceiling(x * 100 + padX * 50) / 100;
+                        double afterX = Math.Floor(x * 100 + padX * 150) / 100;
+                        double diffBeforeCenterX = Math.Floor(Math.Abs(Math.Floor(beforeX) * 100 - beforeX * 100)) / 100;
+                        double diffCenterAfterX = Math.Ceiling(Math.Abs(Math.Ceiling(afterX) * 100 - afterX * 100)) / 100;
+
+                        cellY = Math.Floor(yPadY);
+
+                        if (Math.Floor(beforeX) == Math.Floor(afterX))
+                        {
+                            cellX = Math.Floor(xPadX);
+                            if ((beforeX == cellX && afterX < cellX) || (afterX == cellX && beforeX < cellX))
+                            {
+                                cellX = Math.Ceiling(xPadX);
+                            }
+                            if (get_Es_Celda_Obstruida(cellX, cellY, map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = cellX;
+                            anterior_y = cellY;
+                        }
+                        else if (Math.Ceiling(beforeX) == Math.Ceiling(afterX))
+                        {
+                            cellX = Math.Ceiling(xPadX);
+                            if ((beforeX == cellX && afterX < cellX) || (afterX == cellX && beforeX < cellX))
+                            {
+                                cellX = Math.Floor(xPadX);
+                            }
+                            if (get_Es_Celda_Obstruida(cellX, cellY, map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = cellX;
+                            anterior_y = cellY;
+                        }
+                        else if (Math.Floor(diffBeforeCenterX * 100) <= errorSup)
+                        {
+                            if (get_Es_Celda_Obstruida(Math.Floor(afterX), cellY, map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = Math.Floor(afterX);
+                            anterior_y = cellY;
+                        }
+                        else if (Math.Floor(diffCenterAfterX * 100) >= errorInf)
+                        {
+                            if (get_Es_Celda_Obstruida(Math.Floor(beforeX), cellY, map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = Math.Floor(beforeX);
+                            anterior_y = cellY;
+                        }
+                        else
+                        {
+                            if (get_Es_Celda_Obstruida(Math.Floor(beforeX), cellY, map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = Math.Floor(beforeX);
+                            anterior_y = cellY;
+                            if (get_Es_Celda_Obstruida(Math.Floor(afterX), cellY, map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                            anterior_x = Math.Floor(afterX);
+                        }
+                    break;
+
+                    default:
+                        if (get_Es_Celda_Obstruida(Math.Floor(xPadX), Math.Floor(yPadY), map, occupiedCells, targetCellId, anterior_x, anterior_y)) return true;
+                        anterior_x = Math.Floor(xPadX);
+                        anterior_y = Math.Floor(yPadY);
+                    break;
+                }
+
+                x = (x * 100 + padX * 100) / 100;
+                y = (y * 100 + padY * 100) / 100;
+            }
+            return false;
+        }
+
+        private static bool get_Es_Celda_Obstruida(double x, double y, Mapa map, List<int> occupiedCells, int targetCellId, double lastX, double lastY)
+        {
+            Celda mp = map.get_Coordenadas((int)x, (int)y);
+
+            if (!mp.es_linea_vision || (mp.id != targetCellId && occupiedCells.Contains(mp.id)))
+                return true;
+            else
+                return false;
         }
 
         #region Zona Eventos

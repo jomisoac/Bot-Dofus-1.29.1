@@ -40,7 +40,6 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
                     rango.Add(mapa.get_Coordenadas(x - r, y - i));
                 }
             }
-
             return rango.Where(c => c != null);
         }
     }

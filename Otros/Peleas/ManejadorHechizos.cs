@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
+using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
@@ -40,7 +41,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             if (enemigo != null)
             {
-                FallosLanzandoHechizo sir = cuenta.pelea.get_Puede_Lanzar_hechizo(spell.id, cuenta.pelea.jugador_luchador.celda_id, enemigo.celda_id, cuenta.personaje.mapa);
+                FallosLanzandoHechizo sir = cuenta.pelea.get_Puede_Lanzar_hechizo(spell.id, enemigo.celda_id, cuenta.personaje.mapa);
 
                 if (sir == FallosLanzandoHechizo.NINGUNO)
                 {
@@ -66,20 +67,24 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return hechizo.focus == HechizoFocus.ENEMIGO ? cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa) : cuenta.pelea.get_Obtener_Aliado_Mas_Cercano(cuenta.personaje.mapa);
         }
 
-        private ResultadoLanzandoHechizo get_Mover_Lanzar_hechizo(HechizoPelea hechizo, Luchadores enemigo)
+        private ResultadoLanzandoHechizo get_Mover_Lanzar_hechizo(HechizoPelea hechizo_pelea, Luchadores enemigo)
         {
             Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(cuenta.personaje.id);
+            Mapa mapa = cuenta.personaje.mapa;
 
+            Hechizo hechizo_general = cuenta.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
+            HechizoStats datos_hechizo = hechizo_general.get_Hechizo_Stats()[hechizo_general.nivel];
+
+            int distancia_enemigo = mapa.get_Distancia_Entre_Dos_Casillas(luchador.celda_id, enemigo.celda_id);
+            int pm_usados_lanzar_hechizo = distancia_enemigo >= datos_hechizo.alcanze_maximo ? luchador.pm : distancia_enemigo;
+            
             if(luchador.pm > 0)
             {
-                switch (cuenta.personaje.mapa.get_Mover_Celda_Resultado(luchador.celda_id, enemigo.celda_id, false, luchador.pm))
+                switch (cuenta.personaje.mapa.get_Mover_Celda_Resultado(luchador.celda_id, enemigo.celda_id, false, pm_usados_lanzar_hechizo))
                 {
                     case ResultadoMovimientos.EXITO:
-                        luchador.pm = 0;
+                        luchador.pm -= pm_usados_lanzar_hechizo;
                     return ResultadoLanzandoHechizo.MOVIDO;
-
-                    default:
-                        return ResultadoLanzandoHechizo.NO_LANZADO;
                 }
             }
             return ResultadoLanzandoHechizo.NO_LANZADO;

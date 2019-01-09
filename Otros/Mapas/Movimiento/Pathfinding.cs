@@ -167,7 +167,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 }
                 celda_actual = lista_celdas_camino[i];
                 celda_siguiente = lista_celdas_camino[i + 1];
-                camino.Append(get_Direccion_Char(get_Orientacion_Casilla(celda_actual, celda_siguiente))).Append(get_Celda_Char(celda_siguiente));
+                camino.Append(get_Direccion_String(get_Orientacion_Casilla(celda_actual, celda_siguiente, mapa))).Append(get_Celda_Char(celda_siguiente));
             }
             cuenta.personaje.evento_Personaje_Pathfinding(lista_celdas_camino);
         }
@@ -210,14 +210,21 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return celdas_siguientes;
         }
 
-        public static string get_Direccion_Char(int direccion)
+        public static string get_Direccion_String(int direccion)
         {
             if (direccion >= Hash.caracteres_array.Length)
                 return string.Empty;
             return Hash.caracteres_array[direccion].ToString();
         }
 
-        public byte get_Orientacion_Casilla(int celda_1, int celda_2)
+        public static char get_Direccion_Char(int direccion)
+        {
+            if (direccion >= Hash.caracteres_array.Length)
+                return char.MaxValue;
+            return Hash.caracteres_array[direccion];
+        }
+
+        public static byte get_Orientacion_Casilla(int celda_1, int celda_2, Mapa mapa)
         {
             int mapa_anchura = mapa.anchura;
             int[] _loc6_ = { 1, mapa_anchura, (mapa_anchura * 2) - 1, mapa_anchura - 1, -1, -mapa_anchura, (-mapa_anchura * 2) + 1, -(mapa_anchura - 1) };
