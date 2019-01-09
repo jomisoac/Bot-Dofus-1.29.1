@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
+using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 
@@ -83,6 +84,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
 
                 Task.Delay(TimeSpan.FromMilliseconds(camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino))).Wait();
+
                 if (cuenta.Estado_Cuenta != EstadoCuenta.DESCONECTADO)
                 {
                     cuenta.conexion.enviar_Paquete("GKK0");
@@ -90,6 +92,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
                     if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                         cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+
                     return ResultadoMovimientos.EXITO;
                 }
             }
@@ -186,24 +189,24 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return celda_id == celda_inicial ? -1 : celda_id;
         }
 
-        public int get_Celda_Desde_Direccion(int celda_id, char direccion)
+        public int get_Celda_Desde_Direccion(int celda_id, char direccion, int distancia = 1)
         {
             switch (direccion)
             {
                 case 'a':
-                    return celda_id + 1;
+                    return celda_id + distancia;
                 case 'b':
                     return celda_id + anchura;
                 case 'c':
-                    return celda_id + (anchura * 2 - 1);
+                    return celda_id + (anchura * 2 - distancia);
                 case 'd':
                     return celda_id + (anchura - 1);
                 case 'e':
-                    return celda_id - 1;
+                    return celda_id - distancia;
                 case 'f':
                     return celda_id - anchura;
                 case 'g':
-                    return celda_id - (anchura * 2 - 1);
+                    return celda_id - (anchura * 2 - distancia);
                 case 'h':
                     return celda_id - anchura + 1;
             }
@@ -298,7 +301,31 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return X || Y;
         }
 
-        public Celda get_Coordenadas(int x, int y) => celdas.FirstOrDefault(c => get_Celda_X_Coordenadas(c.id) == get_Celda_X_Coordenadas(x) && get_Celda_Y_Coordenadas(c.id) == get_Celda_Y_Coordenadas(y));
+        public char getDireccionOpuesta(char c)
+        {
+            switch (c)
+            {
+                case 'a':
+                    return 'e';
+                case 'b':
+                    return 'f';
+                case 'c':
+                    return 'g';
+                case 'd':
+                    return 'h';
+                case 'e':
+                    return 'a';
+                case 'f':
+                    return 'b';
+                case 'g':
+                    return 'c';
+                case 'h':
+                    return 'd';
+            }
+            return char.MaxValue;
+        }
+
+        public Celda get_Coordenadas(int x, int y) => celdas.FirstOrDefault(c => get_Celda_X_Coordenadas(c.id) == x && get_Celda_Y_Coordenadas(c.id) == y);
         #endregion
 
         #region Metodos de descompresion

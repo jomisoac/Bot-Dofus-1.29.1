@@ -141,17 +141,16 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                         break;
 
                     case 1:
+                        sExtraData = sExtraData.Substring(_loc3 + 1);
+                        _loc3 = sExtraData.IndexOf(";");
+                        int _loc6 = int.Parse(sExtraData.Substring(0, _loc3));
+                        string _loc7 = sExtraData.Substring(_loc3 + 1);
+                        int casilla_destino = Pathfinding.get_Celda_Numero(cuenta.personaje.mapa.celdas.Length, _loc7.Substring(_loc7.Length - 2));
+
                         if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                         {
-                            sExtraData = sExtraData.Substring(_loc3 + 1);
-                            _loc3 = sExtraData.IndexOf(";");
-
-                            int _loc6 = int.Parse(sExtraData.Substring(0, _loc3));
-                            string _loc7 = sExtraData.Substring(_loc3 + 1);
-
                             if (!string.IsNullOrEmpty(_loc7))
                             {
-                                int casilla_destino = Pathfinding.get_Celda_Numero(cuenta.personaje.mapa.celdas.Length, _loc7.Substring(_loc7.Length - 2));
                                 if (_loc6 == cuenta.personaje.id)//encontrar la casilla de destino
                                 {
                                     if (casilla_destino > 0)
@@ -171,6 +170,15 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                     if (GlobalConf.mostrar_mensajes_debug)
                                         cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + casilla_destino);
                                 }
+
+                            }
+                        }
+                        else
+                        {
+                            Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(_loc6);
+                            if(luchador != null)
+                            {
+                                luchador.celda_id = casilla_destino;
                             }
                         }
                     break;

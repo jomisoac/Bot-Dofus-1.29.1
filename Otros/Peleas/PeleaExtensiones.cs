@@ -1,6 +1,9 @@
 ﻿using System;
+using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
+using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -105,6 +108,22 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         }
 
         private void get_Fin_Turno()
+        {
+            if (configuracion.tactica == Tactica.PASIVA)
+            {
+                get_Acabar_Turno();
+                return;
+            }
+            if (cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
+            {
+                get_Acabar_Turno();
+                return;
+            }
+            get_Acabar_Turno();
+            return;
+        }
+
+        private void get_Acabar_Turno()
         {
             cuenta.pelea.get_Turno_Acabado();
             cuenta.conexion.enviar_Paquete("Gt");
