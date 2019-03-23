@@ -1,6 +1,6 @@
 ﻿namespace Bot_Dofus_1._29._1.Protocolo.Login.Paquetes
 {
-    public class HostsMensaje : Mensajes
+    public class HostsMensaje
     {
         public bool es_accesible = true;
         public byte estado = 0;

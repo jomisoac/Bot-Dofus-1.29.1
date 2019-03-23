@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
 {
-    internal class PersonajeSeleccion : Mensajes
+    internal class PersonajeSeleccion
     {
         private readonly int id;
         private readonly Dictionary<int, lista_personajes> lista_personaje;

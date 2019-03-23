@@ -394,16 +394,11 @@ namespace Bot_Dofus_1._29._1.Properties {
         ///   Busca una cadena traducida similar a &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;HECHIZOS&gt;
         ///	&lt;HECHIZO&gt;
-        ///		&lt;id&gt;0&lt;/id&gt;
-        ///		&lt;nivel&gt;1&lt;/nivel&gt;
-        ///		&lt;nombre&gt;Cuerpo a Cuerpo&lt;/nombre&gt;
-        ///		&lt;descripcion&gt;Ataque de cuerpo a cuerpo que ocasiona pocos daños a tu adversario. Para que sea más efectivo tendría que utilizarse con un arma. (No se trata de un hechizo en el propio sentido de la palabra).&lt;/descripcion&gt;
-        ///	&lt;/HECHIZO&gt;
-        ///	&lt;HECHIZO&gt;
         ///		&lt;id&gt;1&lt;/id&gt;
-        ///		&lt;nivel&gt;9&lt;/nivel&gt;
+        ///		&lt;nivel_requerido&gt;9&lt;/nivel_requerido&gt;
         ///		&lt;nombre&gt;Armadura Incandescente&lt;/nombre&gt;
-        ///		&lt;descripcion&gt;Esta armadura protege contra los daños de fuego.&lt; [resto de la cadena truncado]&quot;;.
+        ///		&lt;nivel1&gt;[[[265, 7, null, null, 4, 0, 0d0+7]], [[265, 8, null, null, 4, 0, 0d0+8]], 2, 0, 0, 50, 100, false, false, false, false, 0, 0, 0, 5, CcCc, [], [19, 41, 3, 1, 18], 9, false]&lt;/nivel1&gt;
+        ///		&lt;nivel2&gt;[[[265, 8, null, null, 4, 0, 0d0+8]], [[265, 9, null, null, 4, 0, 0d0+9]], 2, 0, 0, 50, 100, false, false, false, false, 0, 0, 0, 5, CcCc, [], [19, 41, 3,  [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string hechizos {
             get {

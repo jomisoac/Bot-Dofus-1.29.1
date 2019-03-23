@@ -64,6 +64,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         #endregion
 
-        public Controles.ControlMapa.ControlMapa mapa;
+        private Controles.ControlMapa.ControlMapa mapa;
     }
 }

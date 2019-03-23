@@ -1,18 +1,16 @@
-﻿using System;
-using Bot_Dofus_1._29._1.Librerias.TCP;
+﻿using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
-using Bot_Dofus_1._29._1.Protocolo.Game;
-using Bot_Dofus_1._29._1.Protocolo.Login;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
+using System;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
 
-    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+    BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
 	Creado por Alvaro Prendes
     web: http://www.salesprendes.com
 */
@@ -26,7 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public string tiquet_game { get; set; } = string.Empty;
         public int servidor_id { get; set; } = 0;
         public Logger logger { get; private set; }
-        public TcpProtocolo conexion = null;
+        public ClienteAbstracto conexion { get; set; }
         public Personaje personaje { get; set; }
         public ManejadorScript script { get; set; }
         public PeleaExtensiones pelea_extension { get; set; }
@@ -37,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Otros
         private bool disposed;
 
         public event Action evento_estado_cuenta;
-        public event Action<TcpProtocolo> evento_fase_socket;
+        public event Action<ClienteAbstracto> evento_fase_socket;
 
         public Cuenta(CuentaConf _cuenta_configuracion)
         {
@@ -46,7 +44,7 @@ namespace Bot_Dofus_1._29._1.Otros
             logger = new Logger();
             pelea = new Pelea(this);
             pelea_extension = new PeleaExtensiones(this);
-            conexion = new Login(GlobalConf.ip_conexion, 443, this);
+            conexion = new ClienteLogin(GlobalConf.ip_conexion, 443, this);
         }
 
         public string get_Nombre_Servidor() => servidor_id == 601 ? "Eratz" : "Henual";
@@ -57,7 +55,7 @@ namespace Bot_Dofus_1._29._1.Otros
             {
                 if (conexion != null)
                     conexion.get_Desconectar_Socket();
-                conexion = new Game(ip, puerto, this);
+                conexion = new ClienteGame(ip, puerto, this);
                 Estado_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
             }
         }
@@ -67,7 +65,6 @@ namespace Bot_Dofus_1._29._1.Otros
             get => estado_cuenta;
             set
             {
-                Console.WriteLine(value);
                 estado_cuenta = value;
                 evento_estado_cuenta?.Invoke();
             }
@@ -103,7 +100,7 @@ namespace Bot_Dofus_1._29._1.Otros
 
         public virtual void Dispose(bool disposing)
         {
-            if(!disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {

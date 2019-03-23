@@ -91,6 +91,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                 default:
                                     if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                                     {
+                                        
                                         if (cuenta.personaje.id == id)
                                             cuenta.personaje.celda_id = celda_id;
                                         else
@@ -105,7 +106,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
 
                                         cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda_id, vida, equipo));
                                     }
-                                    break;
+                                break;
                             }
                         }
                         else if (_loc6[0].Equals('-'))
@@ -138,7 +139,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                         if (GlobalConf.mostrar_mensajes_debug)
                             cuenta.logger.log_informacion("DEBUG", "Movimiento BUG Detectado enviando GI");
                         cuenta.conexion.enviar_Paquete("GI");
-                        break;
+                    break;
 
                     case 1:
                         sExtraData = sExtraData.Substring(_loc3 + 1);
@@ -170,16 +171,13 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                                     if (GlobalConf.mostrar_mensajes_debug)
                                         cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + casilla_destino);
                                 }
-
                             }
                         }
                         else
                         {
                             Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(_loc6);
                             if(luchador != null)
-                            {
                                 luchador.celda_id = casilla_destino;
-                            }
                         }
                     break;
                 }

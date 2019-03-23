@@ -55,7 +55,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
                     tipo = HechizoZona.SOLO;
                 break;
             }
-            return new Zonas(tipo, Compressor.index_Hash(str[1]));
+            return new Zonas(tipo, Hash.get_Hash(str[1]));
         }
 
         public static Zonas[] get_Analizar_Zonas(string str)
