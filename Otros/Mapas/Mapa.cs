@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
-using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 
@@ -31,7 +31,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         private Cuenta cuenta { get; set; } = null;
         public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
         public Dictionary<int, Personaje> personajes;
-        public Dictionary<int, Monstruo> monstruos;//id, celda
+        public Dictionary<int, Monstruo> monstruos;
         private bool disposed = false;
 
         private readonly XElement archivo_mapa;
@@ -46,13 +46,23 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             id = int.Parse(_loc3[0]);
             fecha = int.Parse(_loc3[1]);
 
-            archivo_mapa = XElement.Load("mapas/" + id + "_0" + fecha + ".xml");
-            anchura = int.Parse(archivo_mapa.Element("ANCHURA").Value);
-            altura = int.Parse(archivo_mapa.Element("ALTURA").Value);
-            mapa_data = archivo_mapa.Element("MAPA_DATA").Value;
+            FileInfo mapa_archivo = new FileInfo("mapas/" + id + "_0" + fecha + ".xml");
+            if (mapa_archivo.Exists)
+            {
+                archivo_mapa = XElement.Load(mapa_archivo.FullName);
+                anchura = int.Parse(archivo_mapa.Element("ANCHURA").Value);
+                altura = int.Parse(archivo_mapa.Element("ALTURA").Value);
+                mapa_data = archivo_mapa.Element("MAPA_DATA").Value;
 
-            archivo_mapa = null;//limpia la memoria
-            descomprimir_mapa();
+                archivo_mapa = null;//limpia la memoria
+                descomprimir_mapa();
+            }
+            else
+            {
+                cuenta.conexion.get_Desconectar_Socket();
+                cuenta.logger.log_Error("Mapa", "Archivo de mapa no encontrado bot desconectado");
+            }
+            mapa_archivo = null;
         }
 
         public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
@@ -348,7 +358,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             byte[] informacion_celda = new byte[celda_data.Length];
             for (int i = 0; i < celda_data.Length; i++)
             {
-                informacion_celda[i] = Convert.ToByte(Compressor.index_Hash(celda_data[i]));
+                informacion_celda[i] = Convert.ToByte(Hash.get_Hash(celda_data[i]));
             }
 
             celda.tipo = (TipoCelda)((informacion_celda[2] & 56) >> 3);

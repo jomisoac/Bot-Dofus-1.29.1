@@ -23,8 +23,12 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             InitializeComponent();
             paginas_cuentas_cargadas = new Dictionary<string, Pagina>();
+
             if (!Directory.Exists("mapas"))
                 Directory.CreateDirectory("mapas");
+
+            if (!Directory.Exists("items"))
+                Directory.CreateDirectory("items");
         }
 
         private void gestionDeCuentasToolStripMenuItem_Click(object sender, EventArgs e)

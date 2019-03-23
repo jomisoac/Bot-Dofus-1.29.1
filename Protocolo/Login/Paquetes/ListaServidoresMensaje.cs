@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Bot_Dofus_1._29._1.Protocolo.Login.Paquetes
 {
-    class ListaServidoresMensaje : Mensajes
+    class ListaServidoresMensaje
     {
         public int servidor_id { get; set; }
         TimeSpan tiempo_abono { get; set; }
@@ -15,7 +15,6 @@ namespace Bot_Dofus_1._29._1.Protocolo.Login.Paquetes
             servidor_id = _servidor_id;
 
             string[] loc5 = paquete.Split('|');
-            TimeSpan tiempo_abono = TimeSpan.FromMilliseconds(double.Parse(loc5[0]));
 
             for (int i = 1; i < loc5.Length; ++i)
             {

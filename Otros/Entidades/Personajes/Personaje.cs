@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
 using Bot_Dofus_1._29._1.Otros.Entidades.Stats;
 using Bot_Dofus_1._29._1.Otros.Mapas;
-using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
 
-    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+    BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
 	Creado por Alvaro Prendes
     web: http://www.salesprendes.com
 */
@@ -30,7 +30,8 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public int color1 { get; set; } = 0;
         public int color2 { get; set; } = 0;
         public int color3 { get; set; } = 0;
-        public string objetos { get; set; } = string.Empty;
+        public Cuenta cuenta { get; private set; }
+        public InventarioGeneral inventario { get; private set; }
         public int puntos_caracteristicas { get; set; } = 0;
         public CaracteristicasInformacion caracteristicas { get; set; }
         public List<Hechizo> hechizos { get; set; }
@@ -50,7 +51,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public event Action<bool> movimiento_celda;
         public event Action<List<int>> movimiento_pathfinding;
 
-        public Personaje(int _id, string _nombre_personaje, byte _nivel, int _gremio, byte _sexo, int _gfxID, int _color1, int _color2, int _color3, string _objetos)
+        public Personaje(int _id, string _nombre_personaje, byte _nivel, int _gremio, byte _sexo, int _gfxID, int _color1, int _color2, int _color3, string _objetos, Cuenta _cuenta)
         {
             id = _id;
             nombre_personaje = _nombre_personaje;
@@ -61,7 +62,8 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             color1 = _color1;
             color2 = _color2;
             color3 = _color3;
-            objetos = _objetos;
+            cuenta = _cuenta;
+            inventario = new InventarioGeneral(cuenta);
             caracteristicas = new CaracteristicasInformacion();
             hechizos = new List<Hechizo>();
         }
@@ -77,9 +79,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public void agregar_Canal_Personaje(string cadena_canales)
         {
             if (cadena_canales.Length <= 1)
-            {
                 canales += cadena_canales;
-            }
             else
             {
                 canales = cadena_canales;
@@ -136,7 +136,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
                 int equipamiento = int.Parse(_loc5[1]);
                 int dones = int.Parse(_loc5[2]);
                 int boost = int.Parse(_loc5[3]);
-
+                
                 switch (i)
                 {
                     case 9:
@@ -235,7 +235,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
 
         public Hechizo get_Hechizo(int id) => hechizos.FirstOrDefault(f => f.id == id);
 
-        public async Task get_Manejar_Tiempo_Reconexion(Cuenta cuenta, int tiempo_espera)
+        public async Task get_Manejar_Tiempo_Reconexion(int tiempo_espera)
         {
             if (esta_reconectando && tiempo_espera > 0)
             {
@@ -260,7 +260,10 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             {
                 if (disposing)
                 {
-                    if(mapa != null)
+                    if (inventario != null)
+                        inventario.Dispose();
+
+                    if (mapa != null)
                         mapa.Dispose();
                 }
                 if (hechizos != null)
@@ -269,7 +272,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
                 hechizos = null;
                 caracteristicas = null;
                 nombre_personaje = null;
-                objetos = null;
+                inventario = null;
                 disposed = true;
             }
         }

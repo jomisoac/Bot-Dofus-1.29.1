@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bot_Dofus_1._29._1.Controles.ControlMapa;
@@ -8,6 +7,14 @@ using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2018 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
 
 namespace Bot_Dofus_1._29._1.Interfaces
 {
@@ -67,7 +74,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             else
             {
-                cuenta.logger.log_Error("UI_MAPA", "Error al intentar mover el personaje");
+                cuenta.logger.log_Error("UI_MAPA", "Error al intentar mover el personaje" + celda_actual);
             }
         }
 
@@ -101,7 +108,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             mapa.BeginInvoke((Action)(() =>
             {
                 get_Dibujar_mapa(cuenta.personaje.mapa.celdas);
-                foreach(int celda in lista_celdas)
+                foreach (int celda in lista_celdas)
                 {
                     mapa.celdas[celda].Celda_Estado = CeldaEstado.PELEA_EQUIPO_AZUL;
                 }

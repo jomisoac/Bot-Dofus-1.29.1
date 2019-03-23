@@ -2,8 +2,8 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Forms;
-using Bot_Dofus_1._29._1.Librerias.TCP;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Entidades.Stats;
 using Bot_Dofus_1._29._1.Otros.Scripts;
@@ -82,7 +82,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     cuenta.conexion.paquete_recibido -= debugger.paquete_Recibido;
                     cuenta.conexion.paquete_enviado -= debugger.paquete_Enviado;
                     cuenta.conexion.socket_informacion -= get_Mensajes_Socket_Informacion;
-                    cuenta.conexion.socket_desconectado -= get_Mensajes_Socket_Desconexion;
                 }
 
                 cuenta.Dispose();
@@ -96,7 +95,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
-        private void cargar_Eventos_Debugger(TcpProtocolo socket)
+        private void cargar_Eventos_Debugger(ClienteAbstracto socket)
         {
             switch (cuenta.Estado_Socket)
             {
@@ -104,12 +103,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     socket.paquete_recibido += debugger.paquete_Recibido;
                     socket.paquete_enviado += debugger.paquete_Enviado;
                     socket.socket_informacion += get_Mensajes_Socket_Informacion;
-                    socket.socket_desconectado += get_Mensajes_Socket_Desconexion;
                 break;
 
                 case EstadoSocket.PERSONAJE_SELECCIONADO:
                     cuenta.pelea_extension.configuracion.cargar();
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
+                    agregar_Tab_Pagina("Inventario", new UI_Inventario(cuenta), 3);
                     agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
                     agregar_Tab_Pagina("Combates", new UI_Pelea(cuenta), 5);
                     cambiar_Todos_Controles_Chat(true);
@@ -130,12 +129,18 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 CaracteristicasInformacion caracteristicas = cuenta.personaje.caracteristicas;
 
-                progresBar_vitalidad.Valor = caracteristicas.vitalidad_actual;
                 progresBar_vitalidad.valor_Maximo = caracteristicas.vitalidad_maxima;
-                progresBar_energia.Valor = caracteristicas.energia_actual;
+                progresBar_vitalidad.Valor = caracteristicas.vitalidad_actual;
+
                 progresBar_energia.valor_Maximo = caracteristicas.maxima_energia;
+                progresBar_energia.Valor = caracteristicas.energia_actual;
+                
                 progresBar_experiencia.Text = cuenta.personaje.nivel.ToString();
                 progresBar_experiencia.Valor = cuenta.personaje.porcentaje_experiencia;
+
+                progresBar_pods.valor_Maximo = cuenta.personaje.inventario.pods_maximos;
+                progresBar_pods.Valor = cuenta.personaje.inventario.pods_actuales;
+                
                 label_kamas_principal.Text = caracteristicas.kamas.ToString();
             }));
         }
@@ -157,7 +162,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 cuenta.conexion.paquete_recibido += debugger.paquete_Recibido;
                 cuenta.conexion.paquete_enviado += debugger.paquete_Enviado;
                 cuenta.conexion.socket_informacion += get_Mensajes_Socket_Informacion;
-                cuenta.conexion.socket_desconectado += get_Mensajes_Socket_Desconexion;
 
                 cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
                 cuenta.logger.log_evento += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
@@ -318,7 +322,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         #region Eventos Logger Mensajes
         private void get_Mensajes_Socket_Informacion(object error) => escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] [Conexión] " + error, LogTipos.PELIGRO.ToString("X"));
-        private void get_Mensajes_Socket_Desconexion(object error) => escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] [Conexión] " + error, LogTipos.ERROR.ToString("X"));
 
         private void escribir_mensaje(string mensaje, string color)
         {

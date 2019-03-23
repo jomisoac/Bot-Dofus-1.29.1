@@ -8,6 +8,6 @@
         DEBUG = 0x4f5051,
 
         NORMAL = 0x000000,
-        PRIVADO = 0x4B90C5
+        PRIVADO = 0x4b72c5
     }
 }

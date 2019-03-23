@@ -160,28 +160,28 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
             double midCellHeight = cellHeight / 2;
             double midCellWidth = cellWidth / 2;
-
-            for (int y = 0; y < 2 * MapaAltura; y++)
+            
+            for (int y = 0; y <= (2 * MapaAltura) - 1; ++y)
             {
                 if ((y % 2) == 0)
                 {
-                    for (int x = 0; x < MapaAnchura; x++)//dibuja los impares
+                    for (int x = 0; x <= MapaAnchura - 1; x++)//dibuja los impares
                     {
-                        Point left = new Point((int)(offsetX + x * cellWidth), (int)(offsetY + y * midCellHeight + midCellHeight));
-                        Point top = new Point((int)(offsetX + (x * cellWidth) + midCellWidth), (int)(offsetY + (y * midCellHeight)));
-                        Point right = new Point((int)(offsetX + x * cellWidth + cellWidth), (int)(offsetY + y * midCellHeight + midCellHeight));
-                        Point down = new Point((int)(offsetX + (x * cellWidth) + midCellWidth), (int)(offsetY + (y * midCellHeight) + cellHeight));
+                        Point left = new Point(Convert.ToInt32(offsetX + (x * cellWidth)), Convert.ToInt32(offsetY + (y * midCellHeight) + midCellHeight));
+                        Point top = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + midCellWidth), Convert.ToInt32(offsetY + (y * midCellHeight)));
+                        Point right = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + cellWidth), Convert.ToInt32(offsetY + (y * midCellHeight) + midCellHeight));
+                        Point down = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + midCellWidth), Convert.ToInt32(offsetY + (y * midCellHeight) + cellHeight));
                         celdas[cellId++].Puntos = new[] { left, top, right, down };
                     }
                 }
                 else
                 {
-                    for (int x = 0; x < MapaAnchura - 1; x++)//dibuja los pares
+                    for (int x = 0; x <= MapaAnchura - 2; x++)//dibuja los pares
                     {
-                        Point left = new Point((int)(offsetX + x * cellWidth + midCellWidth), (int)(offsetY + y * midCellHeight + midCellHeight));
-                        Point top = new Point((int)(offsetX + x * cellWidth + cellWidth), (int)(offsetY + y * midCellHeight));
-                        Point right = new Point((int)(offsetX + x * cellWidth + cellWidth + midCellWidth), (int)(offsetY + y * midCellHeight + midCellHeight));
-                        Point down = new Point((int)(offsetX + x * cellWidth + cellWidth), (int)(offsetY + y * midCellHeight + cellHeight));
+                        Point left = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + midCellWidth), Convert.ToInt32(offsetY + (y * midCellHeight) + midCellHeight));
+                        Point top = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + cellWidth), Convert.ToInt32(offsetY + (y * midCellHeight)));
+                        Point right = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + cellWidth + midCellWidth), Convert.ToInt32(offsetY + (y * midCellHeight) + midCellHeight));
+                        Point down = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + cellWidth), Convert.ToInt32(offsetY + (y * midCellHeight) + cellHeight));
                         celdas[cellId++].Puntos = new[] { left, top, right, down };
                     }
                 }

@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Extensiones;
+
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
 
 namespace Bot_Dofus_1._29._1.Interfaces
 {
@@ -42,7 +51,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
                             listView.Items.RemoveAt(0);
                         }
 
-                        lista_paquetes.Add(paquete);
+                        if (paquete.Length > 50)
+                            lista_paquetes.Add(paquete.Substring(0, 50));
+                        else
+                            lista_paquetes.Add(paquete);
+
                         ListViewItem nuevo_objeto_lista = listView.Items.Add(DateTime.Now.ToString("HH:mm:ss"));
                         nuevo_objeto_lista.BackColor = enviado ? Color.FromArgb(242, 174, 138) : Color.FromArgb(170, 196, 237);
                         nuevo_objeto_lista.SubItems.Add(paquete);
@@ -61,17 +74,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             if(treeView.Nodes != null)
                 treeView.Nodes.Clear();
-            if (!char.IsDigit(paquete[0]))
+
+            foreach (PaqueteDatos metodo in Program.paquete_recibido.metodos)
             {
-                treeView.Nodes.Add(Extensiones.get_Enum_By_Descripcion<ListaPaquetes>(paquete.Substring(0, paquete.Length <= 3 ? 2 : 3)).ToString());
-                treeView.Nodes[0].Nodes.Add(paquete);
+                if (paquete.StartsWith(metodo.nombre_paquete))
+                {
+                    treeView.Nodes.Add(metodo.nombre_paquete);
+                    treeView.Nodes[0].Nodes.Add(paquete.Remove(0, metodo.nombre_paquete.Length));
+                    treeView.Nodes[0].Expand();
+                    break;
+                }
             }
-            else
-            {
-                treeView.Nodes.Add("VERSION_SERVIDOR");
-                treeView.Nodes.Add(paquete);
-            }
-            treeView.Nodes[0].Expand();
         }
 
         private void listView1_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)

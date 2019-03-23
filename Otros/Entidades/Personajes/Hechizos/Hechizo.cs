@@ -5,13 +5,13 @@
     Creado por Alvaro Prendes
     web: http://www.salesprendes.com
 */
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
+using Bot_Dofus_1._29._1.Properties;
+using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
-using Bot_Dofus_1._29._1.Properties;
-using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 
 namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
 {
@@ -69,6 +69,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
             hechizo_stats.lanzamientos_por_objetivo = datos_hechizo[13] == "null" ? Convert.ToByte(0) : byte.Parse(datos_hechizo[13]);
             hechizo_stats.intervalo = datos_hechizo[14] == "null" ? Convert.ToByte(0) : byte.Parse(datos_hechizo[14]);
             hechizo_stats.areaAfectados = datos_hechizo[15] == "null" ? new Zonas[0] : Zonas.get_Analizar_Zonas(datos_hechizo[15]);
+
             return hechizo_stats;
         }
     }

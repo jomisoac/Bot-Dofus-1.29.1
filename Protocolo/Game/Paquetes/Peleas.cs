@@ -43,7 +43,7 @@ namespace Bot_Dofus_1._29._1.Protocolo.Game.Paquetes
                         int celda_id = int.Parse(_loc6_[5]);
                         int vida_maxima = int.Parse(_loc6_[7]);
 
-                        if (celda_id > 0)//son espectadores papa
+                        if (celda_id > 0)//son espectadores
                         {
                             byte equipo = Convert.ToByte(id > 0 ? 1 : 0);
                             luchador?.get_Actualizar_Luchador(id, esta_vivo, vida_actual, pa, pm, celda_id, vida_maxima, equipo);

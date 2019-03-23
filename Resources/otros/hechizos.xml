@@ -3036,5 +3036,304 @@
 		<nivel6>[[[100, 2, 6, null, 0, 0, 1d5+1]], [[100, 5, 9, null, 0, 0, 1d5+4]], 4, 1, 1, 20, 50, false, true, false, false, 0, 0, 0, 0, PaPa, [], [18, 19, 3, 1, 41, 42], 0, true]</nivel6>
 		<descripcion>Ataque de cuerpo a cuerpo que ocasiona pocos daños a tu adversario. Para que sea más efectivo tendría que utilizarse con un arma. (No se trata de un hechizo en el propio sentido de la palabra).</descripcion>
 	</HECHIZO>
+  <HECHIZO>
+    <id>368</id>
+    <nivel_requerido>1</nivel_requerido>
+    <nombre>Liberación</nombre>
+    <nivel1>[[[5, 1, null, null, 0, 0]], null, 5, 0, 0, 0, 100, true, false, false, false, 1, 0, 0, 2, Xb, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[5, 2, null, null, 0, 0]], null, 5, 0, 0, 0, 100, true, false, false, false, 1, 0, 0, 2, Xb, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[5, 2, null, null, 0, 0]], null, 4, 0, 0, 0, 100, true, false, false, false, 1, 0, 0, 2, Xb, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[5, 2, null, null, 0, 0]], null, 3, 0, 0, 0, 100, true, false, false, false, 1, 0, 0, 2, Xb, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[5, 3, null, null, 0, 0]], null, 3, 0, 0, 0, 100, true, false, false, false, 1, 0, 0, 2, Xb, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[5, 4, null, null, 0, 0]], null, 3, 0, 0, 0, 100, true, false, false, false, 1, 0, 0, 2, Xb, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo permite que el lanzador haga retroceder a los jugadores que le rodean.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>367</id>
+    <nivel_requerido>1</nivel_requerido>
+    <nombre>Zanahowia</nombre>
+    <nivel1>[[[401, 210, 1, 0, 2, 0], [185, 556, 1, null, 0, 0]], null, 6, 1, 1, 0, 100, false, true, true, false, 1, 0, 0, 10, CbPa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[401, 210, 1, 0, 3, 0], [185, 556, 2, null, 0, 0]], null, 6, 1, 2, 0, 100, false, true, true, false, 1, 0, 0, 10, CbPa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[401, 210, 2, 0, 4, 0], [185, 556, 3, null, 0, 0]], null, 6, 1, 3, 0, 100, false, true, true, false, 1, 0, 0, 9, CbPa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[401, 210, 2, 0, 5, 0], [185, 556, 4, null, 0, 0]], null, 6, 1, 3, 0, 100, false, true, true, false, 1, 0, 0, 9, CbPa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[401, 210, 3, 0, 6, 0], [185, 556, 5, null, 0, 0]], null, 5, 1, 4, 0, 100, false, true, true, false, 1, 0, 0, 8, CbPa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[401, 210, 3, 0, 8, 0], [185, 556, 6, null, 0, 0]], null, 4, 1, 6, 0, 100, false, true, true, false, 1, 0, 0, 6, CbPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo pewmite plantaw una zanahowia wegenewadowa en el suelo.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>369</id>
+    <nombre>Fulminación</nombre>
+    <nivel1>[[[99, 3, 10, null, 0, 0, 1d8+2]], [[99, 11, null, null, 0, 0, 0d0+11]], 6, 0, 0, 50, 100, false, true, false, false, 1, 0, 0, 0, CcCc, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[99, 3, 12, null, 0, 0, 1d10+2]], [[99, 13, null, null, 0, 0, 0d0+13]], 6, 0, 0, 50, 100, false, true, false, false, 1, 0, 0, 0, CcCc, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[99, 3, 14, null, 0, 0, 1d12+2]], [[99, 15, null, null, 0, 0, 0d0+15]], 6, 0, 0, 50, 100, false, true, false, false, 1, 0, 0, 0, CcCc, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[99, 3, 16, null, 0, 0, 1d14+2]], [[99, 17, null, null, 0, 0, 0d0+17]], 6, 0, 0, 50, 100, false, true, false, false, 1, 0, 0, 0, CcCc, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[99, 3, 18, null, 0, 0, 1d16+2]], [[99, 19, null, null, 0, 0, 0d0+19]], 6, 0, 0, 50, 100, false, true, false, false, 1, 0, 0, 0, CcCc, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[99, 3, 30, null, 0, 0, 1d28+2]], [[99, 31, null, null, 0, 0, 0d0+31]], 5, 0, 0, 45, 100, false, true, false, false, 1, 0, 0, 0, CcCc, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Fulminación causa daños de fuego en zona, alcanzando tanto a los aliados como a los enemigos.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>370</id>
+    <nombre>Invocación de Arakna</nombre>
+    <nivel1>[[[181, 246, 1, null, 0, 0]], [[181, 2630, 1, null, 0, 0]], 6, 1, 1, 60, 100, false, true, true, false, 2, 0, 0, 11, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[181, 246, 2, null, 0, 0]], [[181, 2630, 2, null, 0, 0]], 6, 1, 1, 60, 100, false, true, true, false, 2, 0, 0, 10, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[181, 246, 3, null, 0, 0]], [[181, 2630, 3, null, 0, 0]], 6, 1, 1, 60, 100, false, true, true, false, 2, 0, 0, 9, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[181, 246, 4, null, 0, 0]], [[181, 2630, 4, null, 0, 0]], 6, 1, 1, 60, 100, false, true, true, false, 2, 0, 0, 8, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[181, 246, 5, null, 0, 0]], [[181, 2630, 5, null, 0, 0]], 6, 1, 1, 60, 100, false, true, true, false, 2, 0, 0, 7, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[181, 246, 6, null, 0, 0]], [[181, 2630, 6, null, 0, 0]], 5, 1, 1, 60, 100, false, true, true, false, 2, 0, 0, 6, PaPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo permite invocar a una arakna.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>373</id>
+    <nombre>Invocación de Chaferloko</nombre>
+    <nivel1>[[[181, 262, 1, null, 0, 0]], [[181, 1108, 1, null, 0, 0]], 6, 2, 2, 60, 100, false, false, true, false, 2, 1, 0, 16, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[181, 262, 2, null, 0, 0]], [[181, 1108, 2, null, 0, 0]], 6, 2, 2, 60, 100, false, false, true, false, 2, 1, 0, 14, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[181, 262, 3, null, 0, 0]], [[181, 1108, 3, null, 0, 0]], 6, 2, 2, 60, 100, false, false, true, false, 2, 1, 0, 12, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[181, 262, 4, null, 0, 0]], [[181, 1108, 4, null, 0, 0]], 6, 2, 2, 60, 100, false, false, true, false, 2, 1, 0, 10, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[181, 262, 5, null, 0, 0]], [[181, 1108, 5, null, 0, 0]], 6, 2, 2, 60, 100, false, false, true, false, 2, 1, 0, 8, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[181, 262, 6, null, 0, 0]], [[181, 1108, 6, null, 0, 0]], 4, 2, 2, 60, 100, false, false, true, false, 2, 1, 0, 6, PaPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo permite invocar al Charfeloko, pero ten cuidado, no por eso obedecerá a tus órdenes.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>390</id>
+    <nombre>Dominio del Bastón</nombre>
+    <nivel1>[[[165, 4, 10, null, 4, 0]], [[165, 4, 15, null, 4, 0]], 6, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[165, 4, 15, null, 4, 0]], [[165, 4, 20, null, 4, 0]], 6, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[165, 4, 20, null, 4, 0]], [[165, 4, 25, null, 4, 0]], 5, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[165, 4, 25, null, 4, 0]], [[165, 4, 30, null, 4, 0]], 4, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[165, 4, 30, null, 4, 0]], [[165, 4, 35, null, 4, 0]], 3, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[165, 4, 35, null, 4, 0]], [[165, 4, 40, null, 4, 0]], 2, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo incrementa los daños que causas cuando golpeas con un bastón.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>391</id>
+    <nombre>Dominio de la Espada</nombre>
+    <nivel1>[[[165, 6, 10, null, 4, 0]], [[165, 6, 15, null, 4, 0]], 6, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[165, 6, 15, null, 4, 0]], [[165, 6, 20, null, 4, 0]], 6, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[165, 6, 20, null, 4, 0]], [[165, 6, 25, null, 4, 0]], 5, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[165, 6, 25, null, 4, 0]], [[165, 6, 30, null, 4, 0]], 4, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[165, 6, 30, null, 4, 0]], [[165, 6, 35, null, 4, 0]], 3, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[165, 6, 35, null, 4, 0]], [[165, 6, 40, null, 4, 0]], 2, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo incrementa los daños que causas cuando golpeas con una espada.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>392</id>
+    <nombre>Dominio de los Arcos</nombre>
+    <nivel1>[[[165, 2, 10, null, 4, 0]], [[165, 2, 15, null, 4, 0]], 6, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[165, 2, 15, null, 4, 0]], [[165, 2, 20, null, 4, 0]], 6, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[165, 2, 20, null, 4, 0]], [[165, 2, 25, null, 4, 0]], 5, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[165, 2, 25, null, 4, 0]], [[165, 2, 30, null, 4, 0]], 4, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[165, 2, 30, null, 4, 0]], [[165, 2, 35, null, 4, 0]], 3, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[165, 2, 35, null, 4, 0]], [[165, 2, 40, null, 4, 0]], 2, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo incrementa los daños que causas cuando golpeas con un arco.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>393</id>
+    <nombre>Dominio de los Martillos</nombre>
+    <nivel1>[[[165, 7, 10, null, 4, 0]], [[165, 7, 15, null, 4, 0]], 6, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[165, 7, 15, null, 4, 0]], [[165, 7, 20, null, 4, 0]], 6, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[165, 7, 20, null, 4, 0]], [[165, 7, 25, null, 4, 0]], 5, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[165, 7, 25, null, 4, 0]], [[165, 7, 30, null, 4, 0]], 4, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[165, 7, 30, null, 4, 0]], [[165, 7, 35, null, 4, 0]], 3, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[165, 7, 35, null, 4, 0]], [[165, 7, 40, null, 4, 0]], 2, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo incrementa los daños que causas cuando golpeas con un martillo.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>394</id>
+    <nombre>Dominio de las Varitas</nombre>
+    <nivel1>[[[165, 3, 10, null, 4, 0]], [[165, 3, 15, null, 4, 0]], 6, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[165, 3, 15, null, 4, 0]], [[165, 3, 20, null, 4, 0]], 6, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[165, 3, 20, null, 4, 0]], [[165, 3, 25, null, 4, 0]], 5, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[165, 3, 25, null, 4, 0]], [[165, 3, 30, null, 4, 0]], 4, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[165, 3, 30, null, 4, 0]], [[165, 3, 35, null, 4, 0]], 3, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[165, 3, 35, null, 4, 0]], [[165, 3, 40, null, 4, 0]], 2, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo incrementa los daños que causas cuando golpeas con una varita.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>395</id>
+    <nombre>Dominio de las Dagas</nombre>
+    <nivel1>[[[165, 5, 10, null, 4, 0]], [[165, 5, 15, null, 4, 0]], 6, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[165, 5, 15, null, 4, 0]], [[165, 5, 20, null, 4, 0]], 6, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[165, 5, 20, null, 4, 0]], [[165, 5, 25, null, 4, 0]], 5, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[165, 5, 25, null, 4, 0]], [[165, 5, 30, null, 4, 0]], 4, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[165, 5, 30, null, 4, 0]], [[165, 5, 35, null, 4, 0]], 3, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[165, 5, 35, null, 4, 0]], [[165, 5, 40, null, 4, 0]], 2, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo incrementa los daños que causas cuando golpeas con una daga.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>396</id>
+    <nombre>Dominio de las Palas</nombre>
+    <nivel1>[[[165, 8, 10, null, 4, 0]], [[165, 8, 15, null, 4, 0]], 6, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[165, 8, 15, null, 4, 0]], [[165, 8, 20, null, 4, 0]], 6, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[165, 8, 20, null, 4, 0]], [[165, 8, 25, null, 4, 0]], 5, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[165, 8, 25, null, 4, 0]], [[165, 8, 30, null, 4, 0]], 4, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[165, 8, 30, null, 4, 0]], [[165, 8, 35, null, 4, 0]], 3, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[165, 8, 35, null, 4, 0]], [[165, 8, 40, null, 4, 0]], 2, 0, 0, 50, 100, false, false, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo incrementa los daños que causas cuando golpeas con una pala.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>397</id>
+    <nombre>Dominio de las Hachas</nombre>
+    <nivel1>[[[165, 19, 10, null, 4, 0]], [[165, 19, 15, null, 4, 0]], 6, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[165, 19, 15, null, 4, 0]], [[165, 19, 20, null, 4, 0]], 6, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[165, 19, 20, null, 4, 0]], [[165, 19, 25, null, 4, 0]], 5, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[165, 19, 25, null, 4, 0]], [[165, 19, 30, null, 4, 0]], 4, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[165, 19, 30, null, 4, 0]], [[165, 19, 35, null, 4, 0]], 3, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[165, 19, 35, null, 4, 0]], [[165, 19, 40, null, 4, 0]], 2, 0, 0, 50, 100, false, true, false, false, 3, 0, 0, 6, PaPa, [], [8, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo incrementa los daños que causas cuando golpeas con un hacha.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>410</id>
+    <nombre>Brokle</nombre>
+    <nivel1>[[[782, null, null, null, 2, 0]], [[782, null, null, null, 3, 0]], 3, 0, 1, 40, 100, false, false, false, false, 4, 0, 0, 10, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[782, null, null, null, 2, 0]], [[782, null, null, null, 3, 0]], 3, 0, 1, 40, 100, false, false, false, false, 4, 0, 0, 9, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[782, null, null, null, 2, 0]], [[782, null, null, null, 3, 0]], 3, 0, 1, 40, 100, false, false, false, false, 4, 0, 0, 8, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[782, null, null, null, 2, 0]], [[782, null, null, null, 3, 0]], 3, 0, 1, 40, 100, false, false, false, false, 4, 0, 0, 7, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[782, null, null, null, 2, 0]], [[782, null, null, null, 3, 0]], 3, 0, 1, 40, 100, false, false, false, false, 4, 0, 0, 6, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[782, null, null, null, 2, 0]], [[782, null, null, null, 3, 0]], 3, 0, 1, 40, 100, false, false, false, false, 4, 0, 0, 5, PaPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Potencia todos los lanzamientos de dados sobre la víctima.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>412</id>
+    <nombre>Feliación</nombre>
+    <nivel1>[[[92, 11, 20, null, 0, 0, 1d10+10], [108, 21, 50, null, 0, 0, 1d30+20], [5, 1, null, null, 0, 0]], [[92, 21, 25, null, 0, 0, 1d5+20], [108, 51, 55, null, 0, 0, 1d5+50], [5, 1, null, null, 0, 0]], 4, 4, 4, 50, 100, true, true, false, false, 4, 0, 1, 0, PaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[92, 12, 21, null, 0, 0, 1d10+11], [108, 23, 54, null, 0, 0, 1d32+22], [5, 1, null, null, 0, 0]], [[92, 22, 26, null, 0, 0, 1d5+21], [108, 55, 59, null, 0, 0, 1d5+54], [5, 1, null, null, 0, 0]], 4, 4, 4, 50, 100, true, true, false, false, 4, 0, 1, 0, PaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[92, 13, 22, null, 0, 0, 1d10+12], [108, 25, 58, null, 0, 0, 1d34+24], [5, 1, null, null, 0, 0]], [[92, 23, 27, null, 0, 0, 1d5+22], [108, 59, 63, null, 0, 0, 1d5+58], [5, 1, null, null, 0, 0]], 4, 4, 4, 50, 100, true, true, false, false, 4, 0, 1, 0, PaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[92, 14, 23, null, 0, 0, 1d10+13], [108, 27, 62, null, 0, 0, 1d36+26], [5, 1, null, null, 0, 0]], [[92, 24, 28, null, 0, 0, 1d5+23], [108, 63, 67, null, 0, 0, 1d5+62], [5, 1, null, null, 0, 0]], 4, 4, 4, 50, 100, true, true, false, false, 4, 0, 1, 0, PaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[92, 15, 24, null, 0, 0, 1d10+14], [108, 29, 66, null, 0, 0, 1d38+28], [5, 2, null, null, 0, 0]], [[92, 25, 29, null, 0, 0, 1d5+24], [108, 67, 71, null, 0, 0, 1d5+66], [5, 2, null, null, 0, 0]], 4, 4, 4, 50, 100, true, true, false, false, 4, 0, 1, 0, PaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[92, 19, 28, null, 0, 0, 1d10+18], [108, 36, 75, null, 0, 0, 1d40+35], [5, 2, null, null, 0, 0]], [[92, 29, 33, null, 0, 0, 1d5+28], [108, 76, 80, null, 0, 0, 1d5+75], [5, 2, null, null, 0, 0]], 4, 4, 4, 50, 100, true, true, false, false, 4, 0, 1, 0, PaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Con este hechizo harás retroceder tanto a enemigos como a los aliados, pero además, podrás robarle vida a los primeros y curar a los segundos.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>413</id>
+    <nombre>Captura de Almas</nombre>
+    <nivel1>[[[950, null, null, 2, 1, 0], [750, 1, null, null, 1, 0, 0d0+1]], null, 7, 0, 0, 0, 40, false, false, false, false, 4, 0, 0, 20, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[950, null, null, 2, 2, 0], [750, 3, null, null, 2, 0, 0d0+3]], null, 6, 0, 0, 0, 45, false, true, false, false, 4, 0, 0, 17, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[950, null, null, 2, 2, 0], [750, 6, null, null, 2, 0, 0d0+6]], null, 5, 0, 0, 0, 50, false, true, false, false, 4, 0, 0, 14, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[950, null, null, 2, 3, 0], [750, 10, null, null, 3, 0, 0d0+10]], null, 4, 0, 0, 0, 60, false, true, false, false, 4, 0, 0, 11, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[950, null, null, 2, 4, 0], [750, 15, null, null, 4, 0, 0d0+15]], null, 3, 0, 0, 0, 80, false, true, false, false, 4, 0, 0, 8, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[950, null, null, 2, 5, 0], [750, 25, null, null, 5, 0, 0d0+25]], null, 2, 0, 0, 0, 100, false, true, false, false, 4, 0, 0, 6, PaPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo activa la búsqueda de almas de criaturas vencidas al final del combate, además aumenta la probabilidad de poder capturarlas.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>414</id>
+    <nombre>Domesticación de Montura</nombre>
+    <nivel1>[[[950, null, null, 10, 1, 0], [751, 5, null, null, 1, 0, 0d0+5]], null, 7, 0, 0, 0, 30, false, false, false, false, 4, 0, 0, 25, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[950, null, null, 10, 2, 0], [751, 10, null, null, 2, 0, 0d0+10]], null, 6, 0, 0, 0, 35, false, false, false, false, 4, 0, 0, 20, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[950, null, null, 10, 3, 0], [751, 15, null, null, 3, 0, 0d0+15]], null, 5, 0, 0, 0, 40, false, false, false, false, 4, 0, 0, 15, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[950, null, null, 10, 4, 0], [751, 20, null, null, 4, 0, 0d0+20]], null, 4, 0, 0, 0, 45, false, false, false, false, 4, 0, 0, 10, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[950, null, null, 10, 5, 0], [751, 25, null, null, 5, 0, 0d0+25]], null, 3, 0, 0, 0, 50, false, false, false, false, 4, 0, 0, 5, PaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[950, null, null, 10, 5, 0], [751, 35, null, null, 5, 0, 0d0+35]], null, 2, 0, 0, 0, 100, false, false, false, false, 4, 0, 0, 5, PaPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Este hechizo permite domesticar a una montura durante unos instantes, para poder capturarla y aumentar la experciencia que ha adquirido en combate.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>416</id>
+    <nombre>Mala sombra</nombre>
+    <nivel1>[[[781, null, null, null, 2, 0]], null, 3, 1, 1, 0, 100, false, true, false, false, 4, 0, 0, 10, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[781, null, null, null, 2, 0]], null, 3, 1, 1, 0, 100, false, true, false, false, 4, 0, 0, 9, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[781, null, null, null, 2, 0]], null, 3, 1, 1, 0, 100, false, true, false, false, 4, 0, 0, 8, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[781, null, null, null, 2, 0]], null, 3, 1, 1, 0, 100, false, true, false, false, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[781, null, null, null, 2, 0]], null, 3, 1, 1, 0, 100, false, true, false, false, 4, 0, 0, 6, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[781, null, null, null, 2, 0]], null, 3, 1, 1, 0, 100, false, true, false, false, 4, 0, 0, 5, Pa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Se minimizan los lanzamientos de dados que realiza el objetivo.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>418</id>
+    <nombre>Flecha de Dispersión</nombre>
+    <nivel1>[[[5, 2, null, null, 0, 0]], null, 3, 1, 7, 0, 100, false, true, false, true, 4, 0, 0, 7, Xc, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[5, 2, null, null, 0, 0]], null, 3, 1, 8, 0, 100, false, true, false, true, 4, 0, 0, 6, Xc, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[5, 2, null, null, 0, 0]], null, 3, 1, 9, 0, 100, false, true, false, true, 4, 0, 0, 5, Xc, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[5, 2, null, null, 0, 0]], null, 3, 1, 10, 0, 100, false, true, false, true, 4, 0, 0, 4, Xc, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[5, 2, null, null, 0, 0]], null, 3, 1, 11, 0, 100, false, true, false, true, 4, 0, 0, 3, Xc, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[5, 2, null, null, 0, 0]], null, 3, 1, 12, 0, 100, false, true, false, true, 4, 0, 0, 2, Xc, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Hace retroceder a aliados y enemigos varias casillas, incluso cuando están bloqueados por otros aliados o enemigos.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>420</id>
+    <nombre>Lazo Espiritual</nombre>
+    <nivel1>[[[780, 10, null, null, 0, 0, 0d0+10]], null, 6, 1, 1, 0, 0, false, true, true, true, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[780, 20, null, null, 0, 0, 0d0+20]], null, 6, 1, 2, 0, 0, false, true, true, true, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[780, 30, null, null, 0, 0, 0d0+30]], null, 6, 1, 3, 0, 0, false, true, true, true, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[780, 40, null, null, 0, 0, 0d0+40]], null, 6, 1, 4, 0, 0, false, true, true, true, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[780, 50, null, null, 0, 0, 0d0+50]], null, 6, 1, 5, 0, 0, false, true, true, true, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[780, 60, null, null, 0, 0, 0d0+60]], null, 6, 1, 6, 0, 0, false, true, true, true, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Devuelve a la vida al último aliado muerto. Si el invocador viniese a morir, el personaje resucitado también moriría.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>421</id>
+    <nombre>Dolor Compartido</nombre>
+    <nivel1>[[[788, 138, 60, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], [[788, 138, 70, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], 2, 0, 0, 50, 100, true, true, false, false, 4, 0, 0, 5, XbXbXbXb, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[788, 138, 70, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], [[788, 138, 80, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], 2, 0, 0, 50, 100, true, true, false, false, 4, 0, 0, 5, XbXbXbXb, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[788, 138, 80, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], [[788, 138, 90, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], 2, 0, 0, 50, 100, true, true, false, false, 4, 0, 0, 5, XbXbXbXb, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[788, 138, 90, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], [[788, 138, 100, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], 2, 0, 0, 50, 100, true, true, false, false, 4, 0, 0, 5, XbXbXbXb, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[788, 138, 100, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], [[788, 138, 110, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], 2, 0, 0, 50, 100, true, true, false, false, 4, 0, 0, 5, XbXbXbXb, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[788, 138, 120, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], [[788, 138, 130, 5, 5, 0], [776, 10, null, null, 5, 0, 0d0+10]], 2, 0, 0, 50, 100, true, true, false, false, 4, 0, 0, 5, XbXbXbXb, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Aumenta los daños que pueden ocasionar los aliados cada vez que reciben daños.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>422</id>
+    <nombre>Posición Defensiva</nombre>
+    <nivel1>[[[212, 20, null, null, 1, 0, 0d0+20], [211, 20, null, null, 1, 0, 0d0+20], [213, 20, null, null, 1, 0, 0d0+20], [210, 20, null, null, 1, 0, 0d0+20], [214, 20, null, null, 1, 0, 0d0+20], [950, null, null, 42, 1, 0]], [[212, 25, null, null, 1, 0, 0d0+25], [211, 25, null, null, 1, 0, 0d0+25], [213, 25, null, null, 1, 0, 0d0+25], [210, 25, null, null, 1, 0, 0d0+25], [214, 25, null, null, 1, 0, 0d0+25], [950, null, null, 42, 1, 0]], 1, 0, 1, 40, 100, false, false, false, true, 4, 1, 1, 0, PaPaPaPaPaPaPaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[212, 21, null, null, 1, 0, 0d0+21], [211, 21, null, null, 1, 0, 0d0+21], [213, 21, null, null, 1, 0, 0d0+21], [210, 21, null, null, 1, 0, 0d0+21], [214, 21, null, null, 1, 0, 0d0+21], [950, null, null, 42, 1, 0]], [[212, 26, null, null, 1, 0, 0d0+26], [211, 26, null, null, 1, 0, 0d0+26], [213, 26, null, null, 1, 0, 0d0+26], [210, 26, null, null, 1, 0, 0d0+26], [214, 26, null, null, 1, 0, 0d0+26], [950, null, null, 42, 1, 0]], 1, 0, 2, 40, 100, false, false, false, true, 4, 2, 1, 0, PaPaPaPaPaPaPaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[212, 22, null, null, 1, 0, 0d0+22], [211, 22, null, null, 1, 0, 0d0+22], [213, 22, null, null, 1, 0, 0d0+22], [210, 22, null, null, 1, 0, 0d0+22], [214, 22, null, null, 1, 0, 0d0+22], [950, null, null, 42, 1, 0]], [[212, 27, null, null, 1, 0, 0d0+27], [211, 27, null, null, 1, 0, 0d0+27], [213, 27, null, null, 1, 0, 0d0+27], [210, 27, null, null, 1, 0, 0d0+27], [214, 27, null, null, 1, 0, 0d0+27], [950, null, null, 42, 1, 0]], 1, 0, 3, 40, 100, false, false, false, true, 4, 3, 1, 0, PaPaPaPaPaPaPaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[212, 23, null, null, 1, 0, 0d0+23], [211, 23, null, null, 1, 0, 0d0+23], [213, 23, null, null, 1, 0, 0d0+23], [210, 23, null, null, 1, 0, 0d0+23], [214, 23, null, null, 1, 0, 0d0+23], [950, null, null, 42, 1, 0]], [[212, 28, null, null, 1, 0, 0d0+28], [211, 28, null, null, 1, 0, 0d0+28], [213, 28, null, null, 1, 0, 0d0+28], [210, 28, null, null, 1, 0, 0d0+28], [214, 28, null, null, 1, 0, 0d0+28], [950, null, null, 42, 1, 0]], 1, 0, 4, 40, 100, false, false, false, true, 4, 4, 1, 0, PaPaPaPaPaPaPaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[212, 24, null, null, 1, 0, 0d0+24], [211, 24, null, null, 1, 0, 0d0+24], [213, 24, null, null, 1, 0, 0d0+24], [210, 24, null, null, 1, 0, 0d0+24], [214, 24, null, null, 1, 0, 0d0+24], [950, null, null, 42, 1, 0]], [[212, 29, null, null, 1, 0, 0d0+29], [211, 29, null, null, 1, 0, 0d0+29], [213, 29, null, null, 1, 0, 0d0+29], [210, 29, null, null, 1, 0, 0d0+29], [214, 29, null, null, 1, 0, 0d0+29], [950, null, null, 42, 1, 0]], 1, 0, 5, 40, 100, false, false, false, true, 4, 5, 1, 0, PaPaPaPaPaPaPaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[212, 25, null, null, 1, 0, 0d0+25], [211, 25, null, null, 1, 0, 0d0+25], [213, 25, null, null, 1, 0, 0d0+25], [210, 25, null, null, 1, 0, 0d0+25], [214, 25, null, null, 1, 0, 0d0+25], [950, null, null, 42, 1, 0]], [[212, 30, null, null, 1, 0, 0d0+30], [211, 30, null, null, 1, 0, 0d0+30], [213, 30, null, null, 1, 0, 0d0+30], [210, 30, null, null, 1, 0, 0d0+30], [214, 30, null, null, 1, 0, 0d0+30], [950, null, null, 42, 1, 0]], 1, 0, 7, 40, 100, false, false, false, true, 4, 6, 1, 0, PaPaPaPaPaPaPaPaPaPaPaPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Aumenta la resistencia de la armadura de un aliado pero le impide utilizar un arma.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>423</id>
+    <nombre>Embriaguez</nombre>
+    <nivel1>[[[181, 2727, 1, null, 0, 0]], null, 4, 1, 1, 0, 100, true, true, true, false, 4, 0, 0, 10, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[181, 2727, 2, null, 0, 0]], null, 4, 1, 1, 0, 100, true, true, true, false, 4, 0, 0, 9, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[181, 2727, 3, null, 0, 0]], null, 4, 1, 1, 0, 100, true, true, true, false, 4, 0, 0, 8, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[181, 2727, 4, null, 0, 0]], null, 4, 1, 1, 0, 100, true, true, true, false, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[181, 2727, 5, null, 0, 0]], null, 4, 1, 1, 0, 100, true, true, true, false, 4, 0, 0, 6, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[181, 2727, 6, null, 0, 0]], null, 4, 1, 1, 0, 100, true, true, true, false, 4, 0, 0, 5, Pa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Invoca una vasija que atrae a los enemigos y, cuando el lanzador la transporta, sana a quienes lo rodean.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>424</id>
+    <nombre>Rolbac</nombre>
+    <nivel1>[[[784, null, null, null, 0, 0]], null, 6, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 12, C_, [], [7, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[784, null, null, null, 0, 0]], null, 6, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 11, C_, [], [7, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[784, null, null, null, 0, 0]], null, 6, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 10, C_, [], [7, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[784, null, null, null, 0, 0]], null, 6, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 9, C_, [], [7, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[784, null, null, null, 0, 0]], null, 6, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 8, C_, [], [7, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[784, null, null, null, 0, 0]], null, 6, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 7, C_, [], [7, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Vuelve a colocar a todos los aliados y adversarios en la posición que tenían al principio del combate.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>425</id>
+    <nombre>Jubilación Anticipada</nombre>
+    <nivel1>[[[169, 100, null, null, 1, 0, 0d0+100], [950, null, null, 7, 1, 0], [950, null, null, 55, 5, 0]], null, 4, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 12, C_C_C_, [], [55, 19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[169, 100, null, null, 1, 0, 0d0+100], [950, null, null, 7, 1, 0], [950, null, null, 55, 5, 0]], null, 4, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 11, C_C_C_, [], [55, 19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[169, 100, null, null, 1, 0, 0d0+100], [950, null, null, 7, 1, 0], [950, null, null, 55, 5, 0]], null, 4, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 10, C_C_C_, [], [55, 19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[169, 100, null, null, 1, 0, 0d0+100], [950, null, null, 7, 1, 0], [950, null, null, 55, 5, 0]], null, 4, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 9, C_C_C_, [], [55, 19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[169, 100, null, null, 1, 0, 0d0+100], [950, null, null, 7, 1, 0], [950, null, null, 55, 5, 0]], null, 4, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 8, C_C_C_, [], [55, 19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[169, 100, null, null, 1, 0, 0d0+100], [950, null, null, 7, 1, 0], [950, null, null, 55, 5, 0]], null, 4, 0, 0, 0, 100, true, true, false, false, 4, 0, 0, 7, C_C_C_, [], [55, 19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Prohíbe el uso de todos los hechizos de desplazamiento e impide el uso de los puntos de movimiento.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>426</id>
+    <nombre>Árbol de Vida</nombre>
+    <nivel1>[[[181, 2750, 1, null, 0, 0]], null, 5, 6, 6, 0, 100, false, true, true, false, 4, 0, 0, 11, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel1>
+    <nivel2>[[[181, 2750, 2, null, 0, 0]], null, 5, 6, 6, 0, 100, false, true, true, false, 4, 0, 0, 10, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel2>
+    <nivel3>[[[181, 2750, 3, null, 0, 0]], null, 5, 6, 6, 0, 100, false, true, true, false, 4, 0, 0, 9, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel3>
+    <nivel4>[[[181, 2750, 4, null, 0, 0]], null, 5, 6, 6, 0, 100, false, true, true, false, 4, 0, 0, 8, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel4>
+    <nivel5>[[[181, 2750, 5, null, 0, 0]], null, 5, 6, 6, 0, 100, false, true, true, false, 4, 0, 0, 7, Pa, [], [19, 41, 3, 1, 18], 0, false]</nivel5>
+    <nivel6>[[[181, 2750, 6, null, 0, 0]], null, 5, 6, 6, 0, 100, false, true, true, false, 4, 0, 0, 6, Pa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Invoca un árbol que al atacarlo permite tanto a aliados como a enemigos ganar puntos de vida.</descripcion>
+  </HECHIZO>
+  <HECHIZO>
+    <id>427</id>
+    <nombre>Palabromb</nombre>
+    <nivel1>[[[787, 1679, 1, 1, 1, 0], [149, null, null, 7032, 1, 0]], null, 6, 0, 2, 0, 100, false, false, false, true, 4, 1, 1, 10, PaPa, [], [19, 41, 3, 1, 18], 1, false]</nivel1>
+    <nivel2>[[[787, 1679, 2, 1, 1, 0], [149, null, null, 7032, 1, 0]], null, 6, 0, 3, 0, 100, false, false, false, true, 4, 1, 1, 9, PaPa, [], [19, 41, 3, 1, 18], 1, false]</nivel2>
+    <nivel3>[[[787, 1679, 3, 1, 1, 0], [149, null, null, 7032, 1, 0]], null, 6, 0, 4, 0, 100, false, false, false, true, 4, 1, 1, 8, PaPa, [], [19, 41, 3, 1, 18], 1, false]</nivel3>
+    <nivel4>[[[787, 1679, 4, 1, 1, 0], [149, null, null, 7032, 1, 0]], null, 6, 0, 5, 0, 100, false, false, false, true, 4, 1, 1, 7, PaPa, [], [19, 41, 3, 1, 18], 1, false]</nivel4>
+    <nivel5>[[[787, 1679, 5, 1, 1, 0], [149, null, null, 7032, 1, 0]], null, 6, 0, 6, 0, 100, false, false, false, true, 4, 1, 1, 6, PaPa, [], [19, 41, 3, 1, 18], 1, false]</nivel5>
+    <nivel6>[[[787, 1679, 6, 1, 1, 0], [149, null, null, 7032, 1, 0]], null, 6, 0, 7, 0, 100, false, false, false, true, 4, 1, 1, 5, PaPa, [], [19, 41, 3, 1, 18], 100, false]</nivel6>
+    <descripcion>Al principio de cada turno, el blanco del hechizo ocasiona daños alrededor de sí mismo. Dichos daños dependen del número de puntos de vida que tenga.</descripcion>
+  </HECHIZO>
 </HECHIZOS>
 
