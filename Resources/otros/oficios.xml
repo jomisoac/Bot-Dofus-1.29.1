@@ -1,0 +1,140 @@
+<?xml version="1.0" standalone="yes"?>
+<OFICIOS>
+	<OFICIO>
+		<id>1</id>
+		<nombre>Base</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>2</id>
+		<nombre>Leñador</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>11</id>
+		<nombre>Forjador de espadas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>13</id>
+		<nombre>Escultor de arcos</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>14</id>
+		<nombre>Forjador de martillos</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>15</id>
+		<nombre>Zapatero</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>16</id>
+		<nombre>Joyero</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>17</id>
+		<nombre>Forjador de Dagas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>18</id>
+		<nombre>Escultor de Bastones</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>19</id>
+		<nombre>Escultor de Varitas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>20</id>
+		<nombre>Forjador de palas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>24</id>
+		<nombre>Minero</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>25</id>
+		<nombre>Panadero</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>26</id>
+		<nombre>Alquimista</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>27</id>
+		<nombre>Sastre</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>28</id>
+		<nombre>Campesino</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>31</id>
+		<nombre>Forjador de hachas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>36</id>
+		<nombre>Pescador</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>41</id>
+		<nombre>Cazador</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>56</id>
+		<nombre>Carnicero</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>58</id>
+		<nombre>Pescadero</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>60</id>
+		<nombre>Forjador de escudos</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>62</id>
+		<nombre>Zapateromago</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>65</id>
+		<nombre>Manitas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>43</id>
+    <nombre>Forjamago de Dagas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>46</id>
+    <nombre>Forjamago de Palas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>47</id>
+    <nombre>Forjamago de Hachas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>45</id>
+    <nombre>Forjamago de Martillos</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>44</id>
+		<nombre>Forjamago de Espadas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>48</id>
+    <nombre>Escultomago de Arcos</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>49</id>
+    <nombre>Escultomago de Varitas</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>50</id>
+		<nombre>Escultomago de Bastones</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>63</id>
+		<nombre>Joyeromago</nombre>
+	</OFICIO>
+	<OFICIO>
+		<id>64</id>
+		<nombre>Sastremago</nombre>
+	</OFICIO>
+</OFICIOS>
+
