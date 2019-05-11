@@ -276,11 +276,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                 case 501:
                     int tiempo_recoleccion = int.Parse(separador[3].Split(',')[1]);
-                    
+                    short celda_id = short.Parse(separador[3].Split(',')[0]);
 
                     if (id_jugador == personaje.id)
                         personaje.evento_Recoleccion_Iniciada(tiempo_recoleccion);
-                    break;
+                break;
 
                 case 900:
                     cuenta.conexion.enviar_Paquete("GA902" + id_jugador);
@@ -305,6 +305,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                     if (personaje.celda_objetivo_recoleccion == celda_id && !cliente.cuenta.esta_recolectando())
                     {
+                        cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Un personaje te ha robado el recurso");
                         cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
                         personaje.evento_Recoleccion_Acabada();
                     }

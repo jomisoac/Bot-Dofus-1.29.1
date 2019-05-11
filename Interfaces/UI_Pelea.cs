@@ -1,13 +1,12 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
-using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Bot_Dofus_1._29._1.Interfaces

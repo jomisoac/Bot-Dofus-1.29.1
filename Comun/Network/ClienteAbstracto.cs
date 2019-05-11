@@ -77,8 +77,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
             {
                 if (esta_Conectado())
                 {
-                    paquete += "\n\0";
-                    socket.Send(Encoding.UTF8.GetBytes(paquete));
+                    socket.Send(Encoding.Default.GetBytes(string.Format("{0}\n\x00", paquete)));
                     get_Evento_Enviado(paquete);
                 }
                 else
