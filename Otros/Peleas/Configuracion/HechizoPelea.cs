@@ -8,9 +8,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         public int id { get; private set; } = 0;
         public string nombre { get; private set; } = null;
         public HechizoFocus focus { get; private set; }
-        public byte lanzamientos_x_turno { get; set; } = 0;
-        public byte lanzamientos_restantes { get; set; } = 0;
-        public bool lanzar_cuerpo_cuerpo { get; private set; } = false;
+        public byte lanzamientos_x_turno { get; set; }
+        public byte lanzamientos_restantes { get; set; }
+        public bool lanzar_cuerpo_cuerpo { get; private set; }
 
         public HechizoPelea(int _id, string _nombre, HechizoFocus _focus, bool _lanzar_cuerpo_cuerpo, byte _lanzamientos_x_turno)
         {

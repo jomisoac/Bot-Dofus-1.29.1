@@ -38,21 +38,8 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 if (gestion_cuentas.ShowDialog() == DialogResult.OK)
                 {
-                    byte contador = 0;
-                    UI_Principal cuenta_lider = null;
-
-                    foreach (CuentaConf cuenta in gestion_cuentas.get_Cuentas_Cargadas())
-                    {
-                        if (contador == 0)
-                        {
-                            cuenta_lider = new UI_Principal(cuenta, cuenta.nombre_cuenta);
-                            paginas_cuentas_cargadas.Add(cuenta.nombre_cuenta, agregar_Nueva_Tab_Pagina(cuenta.nombre_cuenta, new UI_Principal(cuenta, string.Empty)));
-                        }
-                        else
-                            paginas_cuentas_cargadas.Add(cuenta.nombre_cuenta, agregar_Nueva_Tab_Pagina(cuenta.nombre_cuenta, cuenta_lider));
-
-                        contador++;
-                    }
+                   foreach (CuentaConf cuenta in gestion_cuentas.get_Cuentas_Cargadas())
+                        paginas_cuentas_cargadas.Add(cuenta.nombre_cuenta, agregar_Nueva_Tab_Pagina(cuenta.nombre_cuenta, new UI_Principal(cuenta)));
                 }
             }
         }

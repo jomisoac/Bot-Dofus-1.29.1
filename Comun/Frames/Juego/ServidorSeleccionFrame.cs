@@ -38,7 +38,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("ALK")]
-        public async Task seleccionar_Personaje(ClienteAbstracto cliente, string paquete) => await cliente.enviar_Paquete(new PersonajeSeleccion(cliente.cuenta.cuenta_configuracion.id_personaje, paquete.Substring(3)).get_Mensaje());
+        public async Task seleccionar_Personaje(ClienteAbstracto cliente, string paquete)
+        {
+            await cliente.enviar_Paquete(new PersonajeSeleccion(cliente.cuenta.cuenta_configuracion.id_personaje, paquete.Substring(3)).get_Mensaje());
+        }
 
         [PaqueteAtributo("BT")]
         public async Task get_Tiempo_Servidor(ClienteAbstracto cliente, string paquete)
@@ -64,8 +67,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             cliente.cuenta.Estado_Socket = EstadoSocket.PERSONAJE_SELECCIONADO;
             cliente.cuenta.personaje.inventario.agregar_Objetos(_loc4[9]);
 
-            if (cliente.cuenta.personaje.nombre_personaje.Equals("Campesino-aidemu"))
-                await cliente.enviar_Paquete("BYA");
+            await cliente.enviar_Paquete("BYA");
         }
     }
 }

@@ -22,33 +22,16 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
     public class ManejadorHechizos : IDisposable
     {
         private Cuenta cuenta;
-        private int hechizo_id_lanzado;
-        private short celda_objetivo;
         private bool disposed;
 
-        public ManejadorHechizos(Cuenta _cuenta)
-        {
-            cuenta = _cuenta;
-            hechizo_id_lanzado = -1;
-            celda_objetivo = -1;
-        }
+        public ManejadorHechizos(Cuenta _cuenta) => cuenta = _cuenta;
 
         public async Task<ResultadoLanzandoHechizo> manejador_Hechizos(HechizoPelea hechizo)
         {
-            if (hechizo_id_lanzado != -1 && hechizo_id_lanzado == hechizo.id)
-            {
-                await cuenta.pelea.get_Lanzar_Hechizo(hechizo.id, celda_objetivo);
-
-                hechizo_id_lanzado = -1;
-                celda_objetivo = -1;
-
-                return ResultadoLanzandoHechizo.LANZADO;
-            }
-
             if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return await lanzar_Hechizo_Celda_Vacia(hechizo);
 
-           else if (!hechizo.lanzar_cuerpo_cuerpo)
+            else if (!hechizo.lanzar_cuerpo_cuerpo)
                 return await get_Lanzar_Hechizo_Simple(hechizo);
 
             else if (hechizo.lanzar_cuerpo_cuerpo && cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
@@ -66,14 +49,14 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             if (enemigo != null)
             {
-                FallosLanzandoHechizo sir = cuenta.pelea.get_Puede_Lanzar_hechizo(spell.id, enemigo.celda_id, cuenta.personaje.mapa);
+                FallosLanzandoHechizo resultado = cuenta.pelea.get_Puede_Lanzar_hechizo(spell.id, enemigo.celda_id, cuenta.personaje.mapa);
 
-                if (sir == FallosLanzandoHechizo.NINGUNO)
+                if (resultado == FallosLanzandoHechizo.NINGUNO)
                 {
                     await cuenta.pelea.get_Lanzar_Hechizo(spell.id, enemigo.celda_id);
                     return ResultadoLanzandoHechizo.LANZADO;
                 }
-                else if(sir == FallosLanzandoHechizo.NO_ESTA_EN_RANGO)
+                else if(resultado == FallosLanzandoHechizo.NO_ESTA_EN_RANGO)
                     return await get_Mover_Lanzar_hechizo(spell, enemigo);
             }
             return ResultadoLanzandoHechizo.NO_LANZADO;
@@ -103,11 +86,28 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             
             if(luchador.pm > 0)
             {
-                switch (await cuenta.personaje.mapa.get_Mover_Celda_Resultado(luchador.celda_id, enemigo.celda_id, false, pm_usados_lanzar_hechizo))
+                ResultadoMovimientos resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(luchador.celda_id, enemigo.celda_id, false, pm_usados_lanzar_hechizo);
+
+                switch (resultado)
                 {
                     case ResultadoMovimientos.EXITO:
-                        luchador.pm -= pm_usados_lanzar_hechizo;
-                        await get_Lanzar_Hechizo_Simple(hechizo_pelea);
+                        return ResultadoLanzandoHechizo.MOVIDO;
+                }
+            }
+            return ResultadoLanzandoHechizo.NO_LANZADO;
+        }
+
+        public async Task<ResultadoLanzandoHechizo> get_Mover(Luchadores enemigo)
+        {
+            Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(cuenta.personaje.id);
+
+            if (luchador.pm > 0)
+            {
+                ResultadoMovimientos resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(luchador.celda_id, enemigo.celda_id, false, luchador.pm);
+
+                switch (resultado)
+                {
+                    case ResultadoMovimientos.EXITO:
                     return ResultadoLanzandoHechizo.MOVIDO;
                 }
             }

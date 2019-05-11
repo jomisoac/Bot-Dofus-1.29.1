@@ -6,20 +6,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
 {
     public static class Extensiones
     {
-
-        public static ArraySegment<T> SliceEx<T>(this ArraySegment<T> segment, int start, int count)
-        {
-            if (segment == default(ArraySegment<T>))
-                throw new ArgumentNullException(nameof(segment));
-
-            if (start < 0 || start >= segment.Count)
-                throw new ArgumentOutOfRangeException(nameof(start));
-
-            if (count < 1 || start + count > segment.Count)
-                throw new ArgumentOutOfRangeException(nameof(count));
-
-            return new ArraySegment<T>(segment.Array, start, count);
-        }
+        public static readonly string[] lista_mods = { "Nemetacum", "Seydlex", "Sisuphos", "Toblik", "Falgoryn", };
 
         public static T get_Or<T>(this Table table, string key, DataType type, T orValue)
         {

@@ -30,12 +30,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 
             if (grupos_disponibles.Count > 0)
             {
-                for (int i = 0; i < grupos_disponibles.Count; i++)
+                foreach (Monstruo grupo_monstruo in grupos_disponibles)
                 {
-                    switch (await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, grupos_disponibles[i].celda_id, false))
+                    switch (await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, grupo_monstruo.celda_id, false))
                     {
                         case ResultadoMovimientos.EXITO:
-                            cuenta.logger.log_informacion("SCRIPT", $"Movimiento hacia un grupo de monstruos celda: {grupos_disponibles[i].celda_id}, total de monstruos: {grupos_disponibles[i].get_Total_Monstruos}, nivel total del grupo: {grupos_disponibles[i].get_Total_Nivel_Grupo}");
+                            cuenta.logger.log_informacion("SCRIPT", $"Movimiento hacia un grupo de monstruos celda: {grupo_monstruo.celda_id}, total de monstruos: {grupo_monstruo.get_Total_Monstruos}, nivel total del grupo: {grupo_monstruo.get_Total_Nivel_Grupo}");
                         return await resultado_procesado;
 
                         case ResultadoMovimientos.PATHFINDING_ERROR:

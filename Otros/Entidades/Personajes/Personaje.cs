@@ -58,7 +58,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public event Action<bool> movimiento_celda;
         public event Action<int> recoleccion_iniciada;
         public event Action recoleccion_acabada;
-        public event Action<List<int>> movimiento_pathfinding_minimapa;
+        public event Action<List<short>> movimiento_pathfinding_minimapa;
 
         public Personaje(int _id, string _nombre_personaje, byte _nivel, byte _sexo, int _gfxID, Cuenta _cuenta)
         {
@@ -111,7 +111,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public void evento_Mapa_Actualizado() => mapa_actualizado?.Invoke();
         public void evento_Pods_Actualizados() => pods_actualizados?.Invoke();
         public void evento_Personaje_Seleccionado() => personaje_seleccionado?.Invoke();
-        public void evento_Personaje_Pathfinding_Minimapa(List<int> lista) => movimiento_pathfinding_minimapa?.Invoke(lista);
+        public void evento_Personaje_Pathfinding_Minimapa(List<short> lista) => movimiento_pathfinding_minimapa?.Invoke(lista);
         public void evento_Movimiento_Celda(bool resultado) => movimiento_celda?.Invoke(resultado);
         public void evento_Oficios_Actualizados() => oficios_actualizados?.Invoke();
         public void evento_Recoleccion_Iniciada(int tiempo) => recoleccion_iniciada?.Invoke(tiempo);

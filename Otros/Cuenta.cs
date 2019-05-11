@@ -1,4 +1,8 @@
-﻿using Bot_Dofus_1._29._1.Comun.Network;
+﻿using Bot_Dofus_1._29._1.Comun.Frames;
+using Bot_Dofus_1._29._1.Comun.Frames.Autentificacion;
+using Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta;
+using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
+using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Scripts;
@@ -6,6 +10,7 @@ using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
 using System;
+using System.Collections.Generic;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -33,8 +38,6 @@ namespace Bot_Dofus_1._29._1.Otros
         private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
         private EstadoSocket fase_socket = EstadoSocket.NINGUNO;
         private bool disposed;
-
-        /** Condiciones **/
         public bool puede_utilizar_dragopavo { get; set; } = false;
 
         public event Action evento_estado_cuenta;
@@ -43,11 +46,6 @@ namespace Bot_Dofus_1._29._1.Otros
         public Cuenta(CuentaConf _cuenta_configuracion)
         {
             cuenta_configuracion = _cuenta_configuracion;
-            conectar();
-        }
-
-        public void conectar()
-        {
             servidor_id = cuenta_configuracion.get_Servidor_Id();
             logger = new Logger();
             pelea = new Pelea(this);

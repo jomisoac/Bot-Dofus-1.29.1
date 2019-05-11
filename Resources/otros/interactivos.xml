@@ -651,4 +651,18 @@
     <habilidades>-1</habilidades>
     <recolectable>false</recolectable>
   </SKILL>
+  <SKILL>
+    <nombre>Tronco talado de madera</nombre>
+    <gfx>1836</gfx>
+    <caminable>false</caminable>
+    <habilidades>-1</habilidades>
+    <recolectable>false</recolectable>
+  </SKILL>
+  <SKILL>
+    <nombre>Fénix</nombre>
+    <gfx>542</gfx>
+    <caminable>false</caminable>
+    <habilidades>-1</habilidades>
+    <recolectable>false</recolectable>
+  </SKILL>
 </SKILLS>

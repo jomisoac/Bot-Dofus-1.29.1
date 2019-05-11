@@ -19,14 +19,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private CuentaConf configuracion_cuenta;
         private Cuenta cuenta;
 
-        public UI_Principal(CuentaConf _configuracion_cuenta, string nombre_lider)
+        public UI_Principal(CuentaConf _configuracion_cuenta)
         {
             InitializeComponent();
             configuracion_cuenta = _configuracion_cuenta;
             desconectarOconectarToolStripMenuItem.Text = "Conectar";
-
-            if(!string.IsNullOrEmpty(nombre_lider))
-                label_lider.Text = "Lider: " + nombre_lider;
         }
 
         private void UI_Principal_Load(object sender, EventArgs e)
@@ -372,13 +369,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void evento_Scripts_Detenido(string motivo)
         {
             if (string.IsNullOrEmpty(motivo))
-            {
                 cuenta.logger.log_informacion("SCRIPT", "Detenido.");
-            }
             else
-            {
                 cuenta.logger.log_informacion("SCRIPT", $"Detenido {motivo}");
-            }
 
             BeginInvoke((Action)(() =>
             {

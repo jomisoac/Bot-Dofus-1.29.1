@@ -7,7 +7,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 {
     public class PeleaConf : IDisposable
     {
-        private const string configuracion_ruta = @"Peleas/";
+        private const string configuracion_ruta = @"peleas/";
         private Cuenta cuenta;
         private bool disposed;
 
@@ -17,6 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         public bool desactivar_espectador { get; set; }
         public bool utilizar_dragopavo { get; set; }
         public Tactica tactica { get; set; }
+        public PosicionamientoInicioPelea posicionamiento { get; set; }
 
         public PeleaConf(Cuenta _cuenta)
         {
@@ -31,6 +32,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
             using (BinaryWriter bw = new BinaryWriter(File.Open(configuracion_archivo_ruta, FileMode.Create)))
             {
                 bw.Write((byte)tactica);
+                bw.Write((byte)posicionamiento);
                 bw.Write(celdas_maximas);
                 bw.Write(desactivar_espectador);
                 bw.Write(utilizar_dragopavo);
@@ -51,6 +53,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
             using (BinaryReader br = new BinaryReader(File.Open(configuracion_archivo_ruta, FileMode.Open)))
             {
                 tactica = (Tactica)br.ReadByte();
+                posicionamiento = (PosicionamientoInicioPelea)br.ReadByte();
                 celdas_maximas = br.ReadByte();
                 desactivar_espectador = br.ReadBoolean();
                 utilizar_dragopavo = br.ReadBoolean();
@@ -68,6 +71,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
             desactivar_espectador = false;
             utilizar_dragopavo = false;
             tactica = Tactica.AGRESIVA;
+            posicionamiento = PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS;
         }
 
         #region Zona Dispose

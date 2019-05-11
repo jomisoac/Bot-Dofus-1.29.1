@@ -34,32 +34,38 @@ namespace Bot_Dofus_1._29._1.Comun.Network
             {
                 cuenta = _cuenta;
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-
-                socket.BeginConnect(IPAddress.Parse(ip), puerto, delegate (IAsyncResult ar)
-                {
-                    socket = ar.AsyncState as Socket;
-                    socket.EndConnect(ar);
-
-                    buffer = new byte[socket.ReceiveBufferSize];
-                    
-                    if (esta_Conectado())
-                    {
-                        socket_informacion?.Invoke("Socket conectado correctamente");
-                        socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
-                    }
-                    else
-                    {
-                        get_Desconectar_Socket();
-                        socket_informacion?.Invoke("Impossible enviar el socket con el host");
-                    }
-
-                }, socket);
+                buffer = new byte[socket.ReceiveBufferSize];
+                socket.BeginConnect(IPAddress.Parse(ip), puerto, new AsyncCallback(conectar_CallBack), socket);
             }
             catch (Exception ex)
             {
                 socket_informacion?.Invoke(ex);
                 get_Desconectar_Socket();
+            }
+        }
+
+        private async void conectar_CallBack(IAsyncResult ar)
+        {
+            try
+            {
+                socket = ar.AsyncState as Socket;
+                socket.EndConnect(ar);
+
+                if (esta_Conectado())
+                {
+                    socket_informacion?.Invoke("Socket conectado correctamente");
+                    socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
+                }
+                else
+                {
+                    await get_Desconectar_Socket().ConfigureAwait(false);
+                    socket_informacion?.Invoke("Impossible enviar el socket con el host");
+                }
+            }
+            catch (Exception ex)
+            {
+                socket_informacion?.Invoke(ex);
+                await get_Desconectar_Socket().ConfigureAwait(false);
             }
         }
 
@@ -71,13 +77,14 @@ namespace Bot_Dofus_1._29._1.Comun.Network
             {
                 if (esta_Conectado())
                 {
-                    socket.Send(Encoding.UTF8.GetBytes(string.Format(paquete + "\n\0")));
+                    paquete += "\n\0";
+                    socket.Send(Encoding.UTF8.GetBytes(paquete));
                     get_Evento_Enviado(paquete);
                 }
                 else
                 {
                     socket_informacion?.Invoke("Impossible enviar el paquete, socket no conectado con el host");
-                    await get_Desconectar_Socket();
+                    await get_Desconectar_Socket().ConfigureAwait(false);
                 }
             }
             catch (Exception e)
