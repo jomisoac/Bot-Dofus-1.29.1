@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -27,8 +26,8 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
                 if (bytes_leidos > 0 && respuesta == SocketError.Success)
                 {
-                    string datos = Encoding.UTF8.GetString(buffer, 0, bytes_leidos);
-                   
+                    string datos = Encoding.Default.GetString(buffer, 0, bytes_leidos);
+
                     foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\0').Where(x => x != string.Empty))
                     {
                         Program.paquete_recibido.Recibir(this, paquete);

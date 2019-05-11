@@ -18,7 +18,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
                 if (bytes_leidos > 0 && respuesta == SocketError.Success)
                 {
-                    string datos = Encoding.UTF8.GetString(buffer, 0, bytes_leidos);
+                    string datos = Encoding.Default.GetString(buffer, 0, bytes_leidos);
 
                     foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\0').Where(x => x != string.Empty))
                     {

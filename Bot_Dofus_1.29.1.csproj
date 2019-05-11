@@ -192,7 +192,7 @@
     <Compile Include="Otros\Mapas\Movimiento\DuracionAnimacion.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Nodo.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Pathfinding.cs" />
-    <Compile Include="Otros\Mapas\Movimiento\ResultadoMovimientos.cs" />
+    <Compile Include="Protocolo\Enums\ResultadoMovimientos.cs" />
     <Compile Include="Otros\Mapas\Movimiento\TipoAnimacion.cs" />
     <Compile Include="Otros\Mapas\TipoCelda.cs" />
     <Compile Include="Otros\Peleas\Configuracion\HechizoPelea.cs" />

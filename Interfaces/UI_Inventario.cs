@@ -28,7 +28,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             if (!objetos_actualizados)
                 return;
 
-            BeginInvoke((Action)(() =>
+            Task.Run(() =>
             {
                 if (!IsHandleCreated)
                     return;
@@ -47,7 +47,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     foreach (ObjetosInventario obj in cuenta.personaje.inventario.recursos)
                         dataGridView_recursos.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.pods, "Eliminar" });
                 }));
-            }));
+            });
         }
 
         private void dataGridView_equipamientos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -66,7 +66,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 case "Eliminar":
                     cuenta.personaje.inventario.eliminar_Objetos(objeto, 1, true);
-                break;
+                    break;
             }
         }
 
@@ -77,15 +77,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             ObjetosInventario objeto = cuenta.personaje.inventario.recursos.ElementAt(e.RowIndex);
             string accion = dataGridView_recursos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-            
+
             if (!int.TryParse(Interaction.InputBox($"Ingresa la cantidad para {accion.ToLower()} el objeto {objeto.nombre} (0 = toda la cantidad):", accion, "1"), out int cantidad))
                 return;
 
             switch (accion)
             {
                 case "Eliminar":
-                   cuenta.personaje.inventario.eliminar_Objetos(objeto, cantidad, true);
-                break;
+                    cuenta.personaje.inventario.eliminar_Objetos(objeto, cantidad, true);
+                    break;
             }
         }
 

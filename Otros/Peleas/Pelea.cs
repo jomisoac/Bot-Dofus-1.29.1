@@ -509,6 +509,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             if (cuenta.personaje.contador_acciones > 0)
                 cuenta.personaje.contador_acciones--;
+            cuenta.personaje.celda_objetivo_recoleccion = 0;
 
             cuenta.Estado_Cuenta = EstadoCuenta.LUCHANDO;
             pelea_creada?.Invoke();

@@ -98,9 +98,6 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
                 if (cuenta.personaje.contador_acciones > 0)
                     cuenta.personaje.contador_acciones--;
-
-                
-                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
             }
         }
 

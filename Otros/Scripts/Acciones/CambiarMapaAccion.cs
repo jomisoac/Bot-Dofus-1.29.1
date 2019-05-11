@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
 using System.Text.RegularExpressions;
