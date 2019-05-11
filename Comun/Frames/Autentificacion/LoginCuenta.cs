@@ -20,15 +20,15 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
     public class LoginCuenta : Frame
     {
         [PaqueteAtributo("HC")]
-        public async Task get_Key_BienvenidaAsync(ClienteAbstracto cliente, string paquete)
+        public void get_Key_BienvenidaAsync(ClienteAbstracto cliente, string paquete)
         {
             cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTANDO;
             cliente.cuenta.Estado_Socket = EstadoSocket.LOGIN;
             cliente.cuenta.key_bienvenida = paquete.Substring(2);
 
-            await cliente.enviar_Paquete(Constantes.VERSION + "." + Constantes.SUBVERSION + "." + Constantes.SUBSUBVERSION).ConfigureAwait(false);
-            await cliente.enviar_Paquete(cliente.cuenta.cuenta_configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.cuenta_configuracion.password, cliente.cuenta.key_bienvenida)).ConfigureAwait(false);
-            await cliente.enviar_Paquete("Af").ConfigureAwait(false);
+            cliente.enviar_Paquete(Constantes.VERSION + "." + Constantes.SUBVERSION + "." + Constantes.SUBSUBVERSION);
+            cliente.enviar_Paquete(cliente.cuenta.cuenta_configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.cuenta_configuracion.password, cliente.cuenta.key_bienvenida));
+            cliente.enviar_Paquete("Af");
         }
 
         [PaqueteAtributo("Ad")]
@@ -38,22 +38,22 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         public void get_Fila_Espera_Login(ClienteAbstracto cliente, string paquete) => cliente.cuenta.logger.log_informacion("FILA DE ESPERA", "Posición " + paquete[2] + "/" + paquete[4]);
 
         [PaqueteAtributo("AH")]
-        public async Task get_Servidor_Estado(ClienteAbstracto cliente, string paquete)
+        public void get_Servidor_Estado(ClienteAbstracto cliente, string paquete)
         {
             HostsMensaje servidor = new HostsMensaje(paquete.Substring(3), cliente.cuenta.servidor_id);
             cliente.cuenta.logger.log_informacion("Login", "El servidor " + cliente.cuenta.get_Nombre_Servidor() + " esta " + (HostsMensaje.EstadosServidor)servidor.estado);
 
             if((HostsMensaje.EstadosServidor)servidor.estado == HostsMensaje.EstadosServidor.CONECTADO)
-                await cliente.enviar_Paquete("Ax").ConfigureAwait(false);
+                cliente.enviar_Paquete("Ax");
             else
             {
                 cliente.cuenta.logger.log_Error("Login", "Desconectando del servidor, para evitar anti-bot");
-                await cliente.get_Desconectar_Socket().ConfigureAwait(false);
+                cliente.get_Desconectar_Socket();
             } 
         }
 
         [PaqueteAtributo("AxK")]
-        public async Task get_Servidores_Lista(ClienteAbstracto cliente, string paquete) => await cliente.enviar_Paquete(new ListaServidoresMensaje(paquete.Substring(3), cliente.cuenta.servidor_id).get_Mensaje());
+        public void get_Servidores_Lista(ClienteAbstracto cliente, string paquete) => cliente.enviar_Paquete(new ListaServidoresMensaje(paquete.Substring(3), cliente.cuenta.servidor_id).get_Mensaje());
 
         [PaqueteAtributo("AXK")]
         public void get_Seleccion_Servidor(ClienteAbstracto cliente, string paquete)

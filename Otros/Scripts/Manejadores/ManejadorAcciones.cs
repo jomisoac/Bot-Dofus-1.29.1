@@ -94,7 +94,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
                 await Task.Delay(tiempo);
 
-                await cuenta.conexion.enviar_Paquete("GKK" + (mapa_cambiado ? 0 : cuenta.personaje.contador_acciones));
+                cuenta.conexion.enviar_Paquete("GKK" + (mapa_cambiado ? 0 : cuenta.personaje.contador_acciones));
 
                 if (cuenta.personaje.contador_acciones > 0)
                     cuenta.personaje.contador_acciones--;
@@ -128,7 +128,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             }
         }
 
-        private async void npcs_Preguntas_Recibida(string lista_preguntas)
+        private void npcs_Preguntas_Recibida(string lista_preguntas)
         {
             if (!cuenta.script.corriendo)
                 return;
@@ -142,7 +142,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 string[] respuestas_disponibles = pregunta_separada[1].Split(';');
                 int respuestas_accion = int.Parse(respuestas_disponibles[nba.respuesta_id]);
 
-                await cuenta.conexion.enviar_Paquete("DR" + pregunta_separada[0].Split(';')[0] + "|" + respuestas_accion);
+                cuenta.conexion.enviar_Paquete("DR" + pregunta_separada[0].Split(';')[0] + "|" + respuestas_accion);
             }
         }
 

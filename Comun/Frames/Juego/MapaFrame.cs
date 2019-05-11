@@ -28,7 +28,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
     internal class MapaFrame : Frame
     {
         [PaqueteAtributo("al")]
-        public async Task get_Lista_SubAreas_Alineamiento(ClienteAbstracto cliente, string paquete) => await cliente.enviar_Paquete("GC1");
+        public void get_Lista_SubAreas_Alineamiento(ClienteAbstracto cliente, string paquete) => cliente.enviar_Paquete("GC1");
 
         [PaqueteAtributo("GM")]
         public async Task get_Movimientos_Personajes(ClienteAbstracto cliente, string paquete)
@@ -106,7 +106,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     if (cuenta.personaje.id != id)
                                     {
                                         if (nombre_template.StartsWith("[") || Extensiones.lista_mods.Contains(nombre_template))
-                                            await cuenta.conexion.get_Desconectar_Socket();
+                                            cuenta.conexion.get_Desconectar_Socket();
 
                                         cuenta.personaje.mapa.agregar_Personaje(new Personaje(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda_id));
                                     }
@@ -125,14 +125,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     if (cuenta.personaje.id == id && cuenta.pelea_extension.configuracion.posicionamiento != PosicionamientoInicioPelea.INMOVIL)
                                     {
                                         if (cuenta.pelea.lista_celda_team1.Contains(celda_id))
-                                            await cuenta.conexion.enviar_Paquete("Gp" + cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.lista_celda_team1, cuenta.personaje.mapa));
+                                            cuenta.conexion.enviar_Paquete("Gp" + cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.lista_celda_team1, cuenta.personaje.mapa));
                                         else
-                                            await cuenta.conexion.enviar_Paquete("Gp" + cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.lista_celda_team2, cuenta.personaje.mapa));
+                                            cuenta.conexion.enviar_Paquete("Gp" + cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.lista_celda_team2, cuenta.personaje.mapa));
                                     }
                                     else if (cuenta.personaje.id == id && cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.INMOVIL)
                                     {
                                         await Task.Delay(300);
-                                        await cuenta.conexion.enviar_Paquete("GR1");//boton listo
+                                        cuenta.conexion.enviar_Paquete("GR1");//boton listo
                                     }
                                 }
                                 break;
@@ -149,11 +149,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GAF")]
-        public async Task get_Finalizar_Accion(ClienteAbstracto cliente, string paquete)
+        public void get_Finalizar_Accion(ClienteAbstracto cliente, string paquete)
         {
             string[] id_fin_accion = paquete.Substring(3).Split('|');
 
-            await cliente.cuenta.conexion.enviar_Paquete("GKK" + id_fin_accion[0]);
+            cliente.cuenta.conexion.enviar_Paquete("GKK" + id_fin_accion[0]);
         }
 
         [PaqueteAtributo("GAS")]
@@ -174,7 +174,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 case 0:
                     if (cuenta.Estado_Cuenta == EstadoCuenta.MOVIMIENTO)
                     {
-                        await cuenta.conexion.enviar_Paquete("GI");
+                        cuenta.conexion.enviar_Paquete("GI");
                         cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
 
                         if (GlobalConf.mostrar_mensajes_debug)
@@ -196,7 +196,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                             if (cuenta.Estado_Cuenta != EstadoCuenta.DESCONECTADO)
                             {
-                                await cuenta.conexion.enviar_Paquete("GKK" + personaje.contador_acciones);
+                                cuenta.conexion.enviar_Paquete("GKK" + personaje.contador_acciones);
                                 personaje.celda_id = celda_destino;
                                 personaje.evento_Movimiento_Celda(true);
 
@@ -283,7 +283,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     break;
 
                 case 900:
-                    await cuenta.conexion.enviar_Paquete("GA902" + id_jugador);
+                    cuenta.conexion.enviar_Paquete("GA902" + id_jugador);
                     cuenta.logger.log_informacion("INFORMACIÓN", "Desafio del personaje id: " + id_jugador + " cancelado");
                 break;
             }
@@ -326,7 +326,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("PBF")]
-        public async Task get_Antibot_1(ClienteAbstracto cliente, string paquete) => await cliente.cuenta.conexion.enviar_Paquete(paquete.Substring(0, 2) + new Random().Next(120000, 140000));
+        public void get_Antibot_1(ClienteAbstracto cliente, string paquete) => cliente.cuenta.conexion.enviar_Paquete(paquete.Substring(0, 2) + new Random().Next(120000, 140000));
 
         [PaqueteAtributo("GDM")]
         public void get_Nuevo_Mapa(ClienteAbstracto cliente, string paquete)

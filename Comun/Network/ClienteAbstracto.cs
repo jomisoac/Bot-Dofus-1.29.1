@@ -44,7 +44,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
             }
         }
 
-        private async void conectar_CallBack(IAsyncResult ar)
+        private void conectar_CallBack(IAsyncResult ar)
         {
             try
             {
@@ -58,20 +58,20 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 }
                 else
                 {
-                    await get_Desconectar_Socket().ConfigureAwait(false);
+                    get_Desconectar_Socket();
                     socket_informacion?.Invoke("Impossible enviar el socket con el host");
                 }
             }
             catch (Exception ex)
             {
                 socket_informacion?.Invoke(ex);
-                await get_Desconectar_Socket().ConfigureAwait(false);
+                get_Desconectar_Socket();
             }
         }
 
-        public virtual void recibir_CallBack(IAsyncResult ar) { }
+        public virtual void recibir_CallBack(IAsyncResult ar) {}
 
-        public Task enviar_Paquete(string paquete) => Task.Run(async () =>
+        public Task enviar_Paquete_Async(string paquete) => Task.Run(() =>
         {
             try
             {
@@ -84,17 +84,19 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 else
                 {
                     socket_informacion?.Invoke("Impossible enviar el paquete, socket no conectado con el host");
-                    await get_Desconectar_Socket().ConfigureAwait(false);
+                    get_Desconectar_Socket();
                 }
             }
             catch (Exception e)
             {
                 socket_informacion?.Invoke(e);
-                await get_Desconectar_Socket();
+                get_Desconectar_Socket();
             };
         });
 
-        public Task get_Desconectar_Socket() => Task.Run(() =>
+        public void enviar_Paquete(string paquete) => enviar_Paquete_Async(paquete).Wait();
+
+        public void get_Desconectar_Socket()
         {
             if (esta_Conectado())
             {
@@ -110,7 +112,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                     cuenta.Estado_Cuenta = EstadoCuenta.DESCONECTADO;
                 }
             }
-        });
+        }
 
         public bool esta_Conectado()
         {

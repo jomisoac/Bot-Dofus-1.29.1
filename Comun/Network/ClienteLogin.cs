@@ -10,7 +10,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
     {
         public ClienteLogin(string ip, int puerto, Cuenta cuenta) : base(ip, puerto, cuenta) { }
 
-        public override async void recibir_CallBack(IAsyncResult ar)
+        public override void recibir_CallBack(IAsyncResult ar)
         {
             if (esta_Conectado())
             {
@@ -29,17 +29,17 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                     if (esta_Conectado())
                         socket.BeginReceive(buffer, 0, buffer.Length, 0, new AsyncCallback(recibir_CallBack), this);
                     else
-                        await get_Desconectar_Socket().ConfigureAwait(false);
+                        get_Desconectar_Socket();
                 }
                 else
                 {
-                    await get_Desconectar_Socket().ConfigureAwait(false);
+                    get_Desconectar_Socket();
                     return;
                 }
             }
             else
             {
-                await get_Desconectar_Socket().ConfigureAwait(false);
+                get_Desconectar_Socket();
                 return;
             }
         }

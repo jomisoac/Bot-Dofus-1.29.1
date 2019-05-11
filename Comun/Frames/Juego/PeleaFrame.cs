@@ -19,7 +19,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
     internal class PeleaFrame : Frame
     {
         [PaqueteAtributo("GP")]
-        public async Task get_Combate_Celdas_Posicion(ClienteAbstracto cliente, string paquete)
+        public void get_Combate_Celdas_Posicion(ClienteAbstracto cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
             string[] _loc3 = paquete.Substring(2).Split('|');
@@ -31,13 +31,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 cuenta.pelea.lista_celda_team2.Add((short)((Hash.get_Hash(_loc3[1][a]) << 6) + Hash.get_Hash(_loc3[1][a + 1])));
 
             if (cuenta.pelea_extension.configuracion.desactivar_espectador)
-                await cuenta.conexion.enviar_Paquete("fS");
+               cuenta.conexion.enviar_Paquete("fS");
 
             if (cuenta.puede_utilizar_dragopavo)
             {
                 if (cuenta.pelea_extension.configuracion.utilizar_dragopavo && !cuenta.personaje.esta_utilizando_dragopavo)
                 {
-                    await cuenta.conexion.enviar_Paquete("Rr");
+                    cuenta.conexion.enviar_Paquete("Rr");
                     cuenta.personaje.esta_utilizando_dragopavo = true;
                 }
             }
@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public async Task get_Error_Cambiar_Pos_Pelea(ClienteAbstracto cliente, string paquete)
         {
             await Task.Delay(300);
-            await cliente.cuenta.conexion.enviar_Paquete("GR1");//boton listo
+            cliente.cuenta.conexion.enviar_Paquete("GR1");//boton listo
         }
 
         [PaqueteAtributo("GIC")]
@@ -68,7 +68,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 if (id_entidad == cuenta.personaje.id)
                 {
                     await Task.Delay(300);
-                    await cuenta.conexion.enviar_Paquete("GR1");//boton listo
+                    cuenta.conexion.enviar_Paquete("GR1");//boton listo
                 }
 
                 luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
@@ -113,7 +113,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GTR")]
-        public async Task get_Combate_Turno_Listo(ClienteAbstracto cliente, string paquete) => await cliente.cuenta.conexion.enviar_Paquete("GT");
+        public void get_Combate_Turno_Listo(ClienteAbstracto cliente, string paquete) => cliente.cuenta.conexion.enviar_Paquete("GT");
 
         [PaqueteAtributo("GTS")]
         public void get_Combate_Inicio_Turno(ClienteAbstracto cliente, string paquete)
@@ -125,12 +125,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GE")]
-        public async Task get_Combate_Finalizado(ClienteAbstracto cliente, string paquete)
+        public void get_Combate_Finalizado(ClienteAbstracto cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
 
             cuenta.pelea.get_Combate_Finalizado();
-            await cuenta.conexion.enviar_Paquete("BD");
+            cuenta.conexion.enviar_Paquete("BD");
         }
     }
 }

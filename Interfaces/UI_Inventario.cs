@@ -50,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }));
         }
 
-        private async void dataGridView_equipamientos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView_equipamientos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex < 5)
                 return;
@@ -65,12 +65,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
             switch (accion)
             {
                 case "Eliminar":
-                    await cuenta.personaje.inventario.eliminar_Objetos(objeto, 1, true);
+                    cuenta.personaje.inventario.eliminar_Objetos(objeto, 1, true);
                 break;
             }
         }
 
-        private async void dataGridView_recursos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView_recursos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex < 5)
                 return;
@@ -84,7 +84,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             switch (accion)
             {
                 case "Eliminar":
-                   await cuenta.personaje.inventario.eliminar_Objetos(objeto, cantidad, true);
+                   cuenta.personaje.inventario.eliminar_Objetos(objeto, cantidad, true);
                 break;
             }
         }

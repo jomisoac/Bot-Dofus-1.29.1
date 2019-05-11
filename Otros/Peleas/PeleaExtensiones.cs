@@ -140,7 +140,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await manejador_hechizos.get_Mover(cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
 
             cuenta.pelea.get_Turno_Acabado();
-            await cuenta.conexion.enviar_Paquete("Gt");
+            cuenta.conexion.enviar_Paquete("Gt");
         }
 
         #region Zona Dispose

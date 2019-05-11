@@ -226,7 +226,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }));
         }
 
-        private async void canal_CheckedChanged(object sender, EventArgs e)
+        private void canal_CheckedChanged(object sender, EventArgs e)
         {
             if (cuenta.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
             {
@@ -234,41 +234,41 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 switch (control.Name)
                 {
                     case "canal_informaciones":
-                        await cuenta.conexion.enviar_Paquete(control.Checked ? "cC+i" : "cC-i");
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+i" : "cC-i");
                     break;
 
                     case "canal_general":
-                        await cuenta.conexion.enviar_Paquete(control.Checked ? "cC+*" : "cC-*");
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+*" : "cC-*");
                     break;
 
                     case "canal_privado":
-                        await cuenta.conexion.enviar_Paquete(control.Checked ? "cC+#$p" : "cC-#$p");
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+#$p" : "cC-#$p");
                     break;
 
                     case "canal_gremio":
-                        await cuenta.conexion.enviar_Paquete(control.Checked ? "cC+%" : "cC-%");
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+%" : "cC-%");
                     break;
 
                     case "canal_alineamiento":
-                        await cuenta.conexion.enviar_Paquete(control.Checked ? "cC+!" : "cC-!");
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+!" : "cC-!");
                     break;
 
                     case "canal_reclutamiento":
-                        await cuenta.conexion.enviar_Paquete(control.Checked ? "cC+?" : "cC-?");
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+?" : "cC-?");
                     break;
 
                     case "canal_comercio":
-                        await cuenta.conexion.enviar_Paquete(control.Checked ? "cC+:" : "cC-:");
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+:" : "cC-:");
                     break;
 
                     case "canal_incarnam":
-                        await cuenta.conexion.enviar_Paquete(control.Checked ? "cC+^" : "cC-^");
+                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+^" : "cC-^");
                     break;
                 }
             }
         }
 
-        private async void textBox_enviar_consola_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_enviar_consola_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter && textBox_enviar_consola.TextLength > 0 && textBox_enviar_consola.TextLength < 255)
             {
@@ -285,7 +285,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         break;
 
                         default:
-                            await cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
+                            cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
                         break;
                     }
                     e.Handled = true;

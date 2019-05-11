@@ -86,7 +86,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
             }
         }
 
-        public async Task eliminar_Objetos(ObjetosInventario obj, int cantidad, bool paquete_eliminar)
+        public void eliminar_Objetos(ObjetosInventario obj, int cantidad, bool paquete_eliminar)
         {
             if (obj == null)
                 return;
@@ -104,7 +104,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
 
             if (paquete_eliminar)
             {
-                await cuenta.conexion.enviar_Paquete($"Od{obj.id_inventario}|{cantidad}");
+                cuenta.conexion.enviar_Paquete($"Od{obj.id_inventario}|{cantidad}");
                 cuenta.logger.log_informacion("Inventario", $"{cantidad} {obj.nombre} eliminados(s).");
                 inventario_actualizado?.Invoke(true);
             }

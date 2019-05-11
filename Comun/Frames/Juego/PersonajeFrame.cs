@@ -28,10 +28,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("PIK")]
-        public async Task get_Peticion_Grupo(ClienteAbstracto cliente, string paquete)
+        public void get_Peticion_Grupo(ClienteAbstracto cliente, string paquete)
         {
             cliente.cuenta.logger.log_informacion("Grupo", "Nueva invitación de grupo del personaje: " + paquete.Substring(3).Split('|')[0]);
-            await cliente.enviar_Paquete("PR");
+            cliente.enviar_Paquete("PR");
             cliente.cuenta.logger.log_informacion("Grupo", "Petición rechazada");
         }
 
@@ -159,11 +159,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Grupo_Abandonado(ClienteAbstracto cliente, string paquete) => cliente.cuenta.personaje.en_grupo = true;
 
         [PaqueteAtributo("ERK")]
-        public async void get_Peticion_Intercambio(ClienteAbstracto cliente, string paquete)
+        public void get_Peticion_Intercambio(ClienteAbstracto cliente, string paquete)
         {
             cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Invitación de intercambio recibida, rechazando");
-            await cliente.enviar_Paquete("EV").ConfigureAwait(false);
+            cliente.enviar_Paquete("EV");
         }
-
     }
 }
