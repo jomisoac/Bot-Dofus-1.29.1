@@ -24,12 +24,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 {
     public class Mapa : IDisposable
     {
-        private static readonly double PId4 = Math.PI / 4;
-        private static readonly double COS_PId4 = Math.Cos(PId4);
-        private static readonly double SIN_PId4 = Math.Sin(PId4);
-        private static readonly double COS_mPId4 = COS_PId4;
-        private static readonly double SIN_mPId4 = -SIN_PId4;
-
         public int id { get; set; } = 0;
         public int fecha { get; set; } = 0;
         public byte anchura { get; set; } = 15;
@@ -420,7 +414,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             byte nivel = Convert.ToByte(informacion_celda[1] & 15);
             byte slope = Convert.ToByte((informacion_celda[4] & 60) >> 2);
 
-            return new Celda(id_celda, tipo, es_linea_vision, nivel, slope, tiene_objeto_interactivo ? layer_objeto_2_num : Convert.ToInt16(-1));
+            return new Celda(id_celda, tipo, es_linea_vision, nivel, slope, tiene_objeto_interactivo ? layer_objeto_2_num : Convert.ToInt16(-1), this);
         }
         #endregion
 

@@ -192,6 +192,7 @@
     <Compile Include="Otros\Mapas\Movimiento\DuracionAnimacion.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Nodo.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Pathfinding.cs" />
+    <Compile Include="Protocolo\Enums\MapaTeleportCeldas.cs" />
     <Compile Include="Protocolo\Enums\ResultadoMovimientos.cs" />
     <Compile Include="Otros\Mapas\Movimiento\TipoAnimacion.cs" />
     <Compile Include="Otros\Mapas\TipoCelda.cs" />

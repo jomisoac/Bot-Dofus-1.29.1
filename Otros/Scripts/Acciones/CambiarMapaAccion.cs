@@ -1,7 +1,8 @@
-﻿using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
+﻿using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -17,16 +18,40 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 {
     public class CambiarMapaAccion : AccionesScript
     {
-        public int celda_id { get; private set; }
+        public MapaTeleportCeldas direccion { get; private set; }
+        public short celda_id { get; private set; }
 
-        public CambiarMapaAccion(int _celda_id) => celda_id = _celda_id;
+        public bool celda_especifica => direccion != MapaTeleportCeldas.NINGUNO && celda_id != -1;
+        public bool direccion_especifica => direccion != MapaTeleportCeldas.NINGUNO && celda_id == -1;
+
+        public CambiarMapaAccion(MapaTeleportCeldas _direccion, short _celda_id)
+        {
+            direccion = _direccion;
+            celda_id = _celda_id;
+        }
 
         internal override async Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
-            ResultadoMovimientos reusltado_movimiento = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_id, true);
+            ResultadoMovimientos resultado;
 
-            if (reusltado_movimiento != ResultadoMovimientos.EXITO)
-                return ResultadosAcciones.FALLO;
+            if (celda_especifica)
+            {
+                resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_id, true);
+
+                if (resultado != ResultadoMovimientos.EXITO)
+                    return ResultadosAcciones.FALLO;
+            }
+            else if (direccion_especifica)
+            {
+                short celda_teleport = cuenta.personaje.mapa.celdas.Where(celda => celda.tipo_teleport == direccion).Select(celda => celda.id).SingleOrDefault();
+                resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_teleport, true);
+
+                if (resultado != ResultadoMovimientos.EXITO)
+                {
+                    cuenta.logger.log_Error("SCRIPT", "Error al encontrar la celda teleport, usa el metodo por id");
+                    return ResultadosAcciones.FALLO;
+                }
+            }
 
             return ResultadosAcciones.PROCESANDO;
         }
@@ -34,13 +59,31 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         public static bool TryParse(string texto, out CambiarMapaAccion accion)
         {
             string[] partes = texto.Split('|');
-            string randomPart = partes[Randomize.get_Random_Int(0, partes.Length)];
+            string total_partes = partes[Randomize.get_Random_Int(0, partes.Length)];
 
-            Match match = Regex.Match(randomPart, @"(?<celda>\d{1,3})");
+            Match match = Regex.Match(total_partes, @"(?<direccion>arriba|derecha|abajo|izquierda)\((?<celda>\d{1,3})\)");
             if (match.Success)
             {
-                accion = new CambiarMapaAccion(int.Parse(match.Groups["celda"].Value));
+                accion = new CambiarMapaAccion((MapaTeleportCeldas)Enum.Parse(typeof(MapaTeleportCeldas), match.Groups["direccion"].Value, true), short.Parse(match.Groups["celda"].Value));
                 return true;
+            }
+            else
+            {
+                match = Regex.Match(total_partes, @"(?<direccion>arriba|derecha|abajo|izquierda)");
+                if (match.Success)
+                {
+                    accion = new CambiarMapaAccion((MapaTeleportCeldas)Enum.Parse(typeof(MapaTeleportCeldas), match.Groups["direccion"].Value, true), -1);
+                    return true;
+                }
+                else
+                {
+                    match = Regex.Match(total_partes, @"(?<celda>\d{1,3})");
+                    if (match.Success)
+                    {
+                        accion = new CambiarMapaAccion(MapaTeleportCeldas.NINGUNO, short.Parse(match.Groups["celda"].Value));
+                        return true;
+                    }
+                }
             }
             accion = null;
             return false;

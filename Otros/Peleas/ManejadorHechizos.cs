@@ -125,15 +125,15 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             Hechizo hechizo_general = cuenta.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
             HechizoStats datos_hechizo = hechizo_general.get_Hechizo_Stats()[hechizo_general.nivel];
 
-            List<int> rango = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda_id, datos_hechizo, cuenta.personaje.mapa);
-            for (int i = 0; i < rango.Count; i++)
+            List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda_id, datos_hechizo, cuenta.personaje.mapa);
+            foreach (int rango in rangos_disponibles)
             {
-                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, rango[i], cuenta.personaje.mapa) == FallosLanzandoHechizo.NINGUNO)
+                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, rango, cuenta.personaje.mapa) == FallosLanzandoHechizo.NINGUNO)
                 {
-                    if (hechizo_pelea.lanzar_cuerpo_cuerpo && cuenta.personaje.mapa.get_Distancia_Entre_Dos_Casillas(cuenta.pelea.jugador_luchador.celda_id, rango[i]) != 1)
+                    if (hechizo_pelea.lanzar_cuerpo_cuerpo && cuenta.personaje.mapa.get_Distancia_Entre_Dos_Casillas(cuenta.pelea.jugador_luchador.celda_id, rango) != 1)
                         continue;
                     
-                    await cuenta.pelea.get_Lanzar_Hechizo(hechizo_pelea.id, rango[i]);
+                    await cuenta.pelea.get_Lanzar_Hechizo(hechizo_pelea.id, rango);
                     return ResultadoLanzandoHechizo.LANZADO;
                 }
             }
