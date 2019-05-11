@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -6,7 +7,6 @@ using Bot_Dofus_1._29._1.Comun.Network;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
-
     BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
     Creado por Alvaro Prendes
     web: http://www.salesprendes.com
@@ -48,14 +48,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Transporte
             if (!esta_iniciado)
                 Inicializar();
 
-            foreach (PaqueteDatos metodo in metodos)
-            {
-                if (paquete.StartsWith(metodo.nombre_paquete))
-                {
-                    metodo.metodo.Invoke(metodo.instancia, new object[] { cliente, paquete });
-                    break;
-                }  
-            }
+            PaqueteDatos metodo = metodos.Find(m => paquete.StartsWith(m.nombre_paquete));
+
+            if(metodo != null)
+                metodo.informacion.Invoke(metodo.instancia, new object[] { cliente, paquete });
         }
     }
 }

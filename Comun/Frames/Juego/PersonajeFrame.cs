@@ -129,6 +129,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 nivel = byte.Parse(oficio.Split(';')[1]);
                 experiencia_base = uint.Parse(oficio.Split(';')[2]);
                 experiencia_actual = uint.Parse(oficio.Split(';')[3]);
+
                 if (nivel < 100)
                     experiencia_siguiente_nivel = uint.Parse(oficio.Split(';')[4]);
                 else
@@ -156,5 +157,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
         [PaqueteAtributo("PV")]
         public void get_Grupo_Abandonado(ClienteAbstracto cliente, string paquete) => cliente.cuenta.personaje.en_grupo = true;
+
+        [PaqueteAtributo("ERK")]
+        public async void get_Peticion_Intercambio(ClienteAbstracto cliente, string paquete)
+        {
+            cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Invitación de intercambio recibida, rechazando");
+            await cliente.enviar_Paquete("EV").ConfigureAwait(false);
+        }
+
     }
 }

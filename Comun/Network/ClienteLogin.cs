@@ -1,7 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
-using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -22,7 +20,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 {
                     string datos = Encoding.UTF8.GetString(buffer, 0, bytes_leidos);
 
-                    foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\x00').Where(x => x != string.Empty))
+                    foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\0').Where(x => x != string.Empty))
                     {
                         Program.paquete_recibido.Recibir(this, paquete);
                         get_Evento_Recibido(paquete);
@@ -31,17 +29,17 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                     if (esta_Conectado())
                         socket.BeginReceive(buffer, 0, buffer.Length, 0, new AsyncCallback(recibir_CallBack), this);
                     else
-                        await get_Desconectar_Socket();
+                        await get_Desconectar_Socket().ConfigureAwait(false);
                 }
                 else
                 {
-                    await get_Desconectar_Socket();
+                    await get_Desconectar_Socket().ConfigureAwait(false);
                     return;
                 }
             }
             else
             {
-                await get_Desconectar_Socket();
+                await get_Desconectar_Socket().ConfigureAwait(false);
                 return;
             }
         }

@@ -1,9 +1,17 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
 using System;
-using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
+
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
 
 namespace Bot_Dofus_1._29._1.Comun.Network
 {
@@ -19,23 +27,22 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
                 if (bytes_leidos > 0 && respuesta == SocketError.Success)
                 {
-
                     string datos = Encoding.UTF8.GetString(buffer, 0, bytes_leidos);
-
-                    foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\x00').Where(x => x != string.Empty))
+                   
+                    foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\0').Where(x => x != string.Empty))
                     {
                         Program.paquete_recibido.Recibir(this, paquete);
                         get_Evento_Recibido(paquete);
                     }
 
                     if (esta_Conectado())
-                        socket.BeginReceive(buffer, 0, buffer.Length, 0, new AsyncCallback(recibir_CallBack), this);
+                        socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
                     else
-                        await get_Desconectar_Socket();
+                        await get_Desconectar_Socket().ConfigureAwait(false);
                 }
                 else
                 {
-                    await get_Desconectar_Socket();
+                    await get_Desconectar_Socket().ConfigureAwait(false);
                     return;
                 }
             }

@@ -3,6 +3,7 @@ using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Protocolo;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Login.Paquetes;
+using Bot_Dofus_1._29._1.Utilidades;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System.Threading.Tasks;
 
@@ -25,9 +26,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
             cliente.cuenta.Estado_Socket = EstadoSocket.LOGIN;
             cliente.cuenta.key_bienvenida = paquete.Substring(2);
 
-            await cliente.enviar_Paquete(Constantes.VERSION + "." + Constantes.SUBVERSION + "." + Constantes.SUBSUBVERSION);
-            await cliente.enviar_Paquete(cliente.cuenta.cuenta_configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.cuenta_configuracion.password, cliente.cuenta.key_bienvenida));
-            await cliente.enviar_Paquete("Af");
+            await cliente.enviar_Paquete(Constantes.VERSION + "." + Constantes.SUBVERSION + "." + Constantes.SUBSUBVERSION).ConfigureAwait(false);
+            await cliente.enviar_Paquete(cliente.cuenta.cuenta_configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.cuenta_configuracion.password, cliente.cuenta.key_bienvenida)).ConfigureAwait(false);
+            await cliente.enviar_Paquete("Af").ConfigureAwait(false);
         }
 
         [PaqueteAtributo("Ad")]
@@ -43,11 +44,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
             cliente.cuenta.logger.log_informacion("Login", "El servidor " + cliente.cuenta.get_Nombre_Servidor() + " esta " + (HostsMensaje.EstadosServidor)servidor.estado);
 
             if((HostsMensaje.EstadosServidor)servidor.estado == HostsMensaje.EstadosServidor.CONECTADO)
-                await cliente.enviar_Paquete("Ax");
+                await cliente.enviar_Paquete("Ax").ConfigureAwait(false);
             else
             {
-                cliente.cuenta.logger.log_Error("Login", "Desconectando del servidor, para evitar anticheat");
-                await cliente.get_Desconectar_Socket();
+                cliente.cuenta.logger.log_Error("Login", "Desconectando del servidor, para evitar anti-bot");
+                await cliente.get_Desconectar_Socket().ConfigureAwait(false);
             } 
         }
 

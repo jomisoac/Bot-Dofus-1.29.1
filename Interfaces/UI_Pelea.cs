@@ -27,13 +27,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void UI_Pelea_Load(object sender, EventArgs e)
         {
-            comboBox_lista_posicionamiento.SelectedIndex = 2;
             comboBox_focus_hechizo.SelectedIndex = 0;
 
             acercarse_casillas_distancia.Value = cuenta.pelea_extension.configuracion.celdas_maximas;
             checkbox_espectadores.Checked = cuenta.pelea_extension.configuracion.desactivar_espectador;
             checkBox_utilizar_dragopavo.Checked = cuenta.pelea_extension.configuracion.utilizar_dragopavo;
             comboBox_lista_tactica.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.tactica;
+            comboBox_lista_posicionamiento.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.posicionamiento;
         }
 
         private void actualizar_Agregar_Lista_Hechizos()
@@ -156,6 +156,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
             cuenta.pelea_extension.configuracion.hechizos.RemoveAt(listView_hechizos_pelea.FocusedItem.Index);
             cuenta.pelea_extension.configuracion.guardar();
             refrescar_Lista_Hechizos();
+        }
+
+        private void comboBox_lista_posicionamiento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cuenta.pelea_extension.configuracion.posicionamiento = (PosicionamientoInicioPelea)comboBox_lista_posicionamiento.SelectedIndex;
+            cuenta.pelea_extension.configuracion.guardar();
         }
     }
 }

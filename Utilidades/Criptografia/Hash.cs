@@ -64,9 +64,9 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
             return puerto;
         }
 
-        public static int get_Hash(char ch)
+        public static short get_Hash(char ch)
         {
-            for (int i = 0; i < caracteres_array.Length; i++)
+            for (short i = 0; i < caracteres_array.Length; i++)
                 if (caracteres_array[i] == ch)
                     return i;
 

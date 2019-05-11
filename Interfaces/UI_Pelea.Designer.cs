@@ -198,6 +198,7 @@
             this.comboBox_lista_posicionamiento.Name = "comboBox_lista_posicionamiento";
             this.comboBox_lista_posicionamiento.Size = new System.Drawing.Size(376, 25);
             this.comboBox_lista_posicionamiento.TabIndex = 2;
+            this.comboBox_lista_posicionamiento.SelectedIndexChanged += new System.EventHandler(this.comboBox_lista_posicionamiento_SelectedIndexChanged);
             // 
             // label1
             // 

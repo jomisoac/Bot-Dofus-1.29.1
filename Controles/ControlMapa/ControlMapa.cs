@@ -202,7 +202,6 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 {
                     celda.DrawBackground(this, g, ModoDibujo);
                     celda.DrawForeground(this, g);
-                    
                 }
 
                 if (celda.esta_En_Rectangulo(g.ClipBounds))

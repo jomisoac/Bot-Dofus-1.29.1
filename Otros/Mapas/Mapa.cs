@@ -24,6 +24,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 {
     public class Mapa : IDisposable
     {
+        private static readonly double PId4 = Math.PI / 4;
+        private static readonly double COS_PId4 = Math.Cos(PId4);
+        private static readonly double SIN_PId4 = Math.Sin(PId4);
+        private static readonly double COS_mPId4 = COS_PId4;
+        private static readonly double SIN_mPId4 = -SIN_PId4;
+
         public int id { get; set; } = 0;
         public int fecha { get; set; } = 0;
         public byte anchura { get; set; } = 15;
@@ -62,7 +68,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             else
             {
                 cuenta.conexion.get_Desconectar_Socket();
-                cuenta.logger.log_Error("Mapa", $"Archivo de mapa no encontrado bot desconectado, id mapa: {id}");
+                cuenta.logger.log_Error("Mapa", $"Archivo de mapa no encontrado bot desconectado, id mapa: {id}, fecha correcta: {fecha}");
             }
             mapa_archivo = null;
         }
@@ -74,9 +80,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             if (celda_destino < 0 || celda_destino > celdas.Length)
                 return ResultadoMovimientos.FALLO;
 
-            bool esta_en_pelea = cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO;
-
-            if (!esta_en_pelea)
+            if (!cuenta.esta_luchando())
             {
                 if (cuenta.esta_ocupado)
                     return ResultadoMovimientos.FALLO;
@@ -87,21 +91,23 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
             if (celdas[celda_destino].tipo == TipoCelda.OBJETO_INTERACTIVO && celdas[celda_destino].objeto_interactivo == null)
                 return ResultadoMovimientos.FALLO;
-
+            
             if (cuenta.personaje.celda_id == celda_destino)
                 return ResultadoMovimientos.MISMA_CELDA;
-
-            Pathfinding camino = new Pathfinding(cuenta, esta_en_pelea, esquivar_monstruos, pm_pelea);
+            
+            Pathfinding camino = new Pathfinding(cuenta, esquivar_monstruos, pm_pelea);
             if (camino.get_Camino(celda_actual, celda_destino))
             {
-                if (!esta_en_pelea)
+                if (!cuenta.esta_luchando())
                     cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
 
                 if (cuenta.personaje.contador_acciones > 0)
                     cuenta.personaje.contador_acciones--;
 
                 await cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
-                camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino);
+
+                if(!cuenta.esta_luchando())
+                    camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino);
 
                 return ResultadoMovimientos.EXITO;
             }
@@ -423,6 +429,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         {
             if (monstruos == null)
                 monstruos = new Dictionary<int, Monstruo>();
+
             if (!monstruos.ContainsKey(monstruo.id))
                 monstruos.Add(monstruo.id, monstruo);
         }
@@ -433,6 +440,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             {
                 if (monstruos.ContainsKey(id))
                     monstruos.Remove(id);
+
                 if (monstruos.Count <= 0)//si no tiene ninguno volvera a ser nulo
                     monstruos = null;
             }

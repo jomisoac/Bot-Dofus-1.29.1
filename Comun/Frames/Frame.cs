@@ -1,4 +1,6 @@
-﻿namespace Bot_Dofus_1._29._1.Comun.Frames
+﻿using System;
+
+namespace Bot_Dofus_1._29._1.Comun.Frames
 {
-    public class Frame{}
+    public class Frame { } 
 }

@@ -102,12 +102,12 @@
             this.cantidad_maxima = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView_oficios = new System.Windows.Forms.DataGridView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Experiencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -970,6 +970,7 @@
             this.dataGridView_skills.Name = "dataGridView_skills";
             this.dataGridView_skills.ReadOnly = true;
             this.dataGridView_skills.RowHeadersVisible = false;
+            this.dataGridView_skills.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_skills.Size = new System.Drawing.Size(784, 291);
             this.dataGridView_skills.TabIndex = 2;
             // 
@@ -1032,16 +1033,9 @@
             this.dataGridView_oficios.Name = "dataGridView_oficios";
             this.dataGridView_oficios.ReadOnly = true;
             this.dataGridView_oficios.RowHeadersVisible = false;
+            this.dataGridView_oficios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_oficios.Size = new System.Drawing.Size(784, 261);
             this.dataGridView_oficios.TabIndex = 1;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "24_DNA-24.png");
-            this.imageList1.Images.SetKeyName(1, "magic32.png");
-            this.imageList1.Images.SetKeyName(2, "Iron_Axe_32.png");
             // 
             // Id
             // 
@@ -1078,6 +1072,14 @@
             this.porcentaje.HeaderText = "Porcentaje";
             this.porcentaje.Name = "porcentaje";
             this.porcentaje.ReadOnly = true;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "24_DNA-24.png");
+            this.imageList1.Images.SetKeyName(1, "magic32.png");
+            this.imageList1.Images.SetKeyName(2, "Iron_Axe_32.png");
             // 
             // UI_Personaje
             // 

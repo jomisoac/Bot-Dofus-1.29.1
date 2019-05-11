@@ -63,7 +63,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.progresBar_experiencia = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_pods = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.label_kamas_principal = new System.Windows.Forms.Label();
-            this.label_lider = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel_principal.SuspendLayout();
             this.tabControl_principal.SuspendLayout();
@@ -562,20 +561,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.label_kamas_principal.TabIndex = 9;
             this.label_kamas_principal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label_lider
-            // 
-            this.label_lider.AutoSize = true;
-            this.label_lider.BackColor = System.Drawing.SystemColors.Control;
-            this.label_lider.Location = new System.Drawing.Point(596, 6);
-            this.label_lider.Name = "label_lider";
-            this.label_lider.Size = new System.Drawing.Size(0, 17);
-            this.label_lider.TabIndex = 2;
-            // 
             // UI_Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label_lider);
             this.Controls.Add(this.tableLayoutPanel_principal);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.menuStrip1);
@@ -644,6 +633,5 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private System.Windows.Forms.Label label_kamas_principal;
         private System.Windows.Forms.ToolStripMenuItem cargarScriptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iniciarScriptToolStripMenuItem;
-        private System.Windows.Forms.Label label_lider;
     }
 }

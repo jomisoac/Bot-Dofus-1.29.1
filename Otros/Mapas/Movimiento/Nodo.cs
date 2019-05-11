@@ -9,7 +9,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 {
     class Nodo
     {
-        public int id { get; set; }
+        public short id { get; set; }
         public int posicion_x { get; set; }
         public int posicion_y { get; set; }
         public bool es_caminable { get; set; }
@@ -18,7 +18,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         public int coste_f { get; set; }
         public Nodo nodo_padre { get; set; }
 
-        public Nodo(int _id, int _posicion_x, int _posicion_y, bool _es_caminable)
+        public Nodo(short _id, int _posicion_x, int _posicion_y, bool _es_caminable)
         {
             id = _id;
             posicion_x = _posicion_x;
