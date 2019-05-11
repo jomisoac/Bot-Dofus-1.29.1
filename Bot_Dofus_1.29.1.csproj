@@ -240,7 +240,6 @@
     <Compile Include="Protocolo\Login\Paquetes\ListaServidoresMensaje.cs" />
     <Compile Include="Utilidades\Configuracion\GlobalConf.cs" />
     <Compile Include="Utilidades\Configuracion\CuentaConf.cs" />
-    <Compile Include="Utilidades\Correo.cs" />
     <Compile Include="Utilidades\Criptografia\Hash.cs" />
     <Compile Include="Utilidades\Criptografia\Randomize.cs" />
     <Compile Include="Utilidades\Extensiones\Extensiones.cs" />

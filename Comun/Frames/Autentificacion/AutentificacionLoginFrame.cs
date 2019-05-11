@@ -15,17 +15,17 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
     class AutentificacionLogin : Frame
     {
         [PaqueteAtributo("AlEf")]
-        public async void get_Error_Datos(ClienteAbstracto cliente, string paquete)
+        public void get_Error_Datos(ClienteAbstracto cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "Conexión rechazada. Nombre de cuenta o contraseña incorrectos.");
-           await cliente.get_Desconectar_Socket();
+           cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEv")]
-        public async void get_Error_Version(ClienteAbstracto cliente, string paquete)
+        public void get_Error_Version(ClienteAbstracto cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "La versión %1 de Dofus que tienes instalada no es compatible con este servidor. Para poder jugar, instala la versión %2. El cliente DOFUS se va a cerrar.");
-            await cliente.get_Desconectar_Socket();
+            cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEb")]

@@ -24,7 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             respuesta_id = _respuesta_id;
         }
 
-        internal override async Task<ResultadosAcciones> proceso(Cuenta cuenta)
+        internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
             Npcs npc = null;
             Dictionary<int, Npcs> npcs = cuenta.personaje.mapa.get_Npcs();
@@ -33,15 +33,15 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             {
                 int index = (npc_id * -1) - 1;
                 if (npcs.Count() <= index)
-                    return ResultadosAcciones.FALLO;
+                    return resultado_fallado;
 
                 npc = npcs.ElementAt(index).Value;
             }
             else
                 npc = npcs.FirstOrDefault(n => n.Value.npc_id == npc_id).Value;
 
-            await cuenta.conexion.enviar_Paquete("DC" + npc.id);
-            return ResultadosAcciones.PROCESANDO;
+            cuenta.conexion.enviar_Paquete("DC" + npc.id);
+            return resultado_procesado;
         }
     }
 }

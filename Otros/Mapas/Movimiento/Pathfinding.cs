@@ -1,4 +1,6 @@
-﻿using Bot_Dofus_1._29._1.Protocolo.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
+using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -69,12 +71,16 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 }
             }
 
-            if (esquivar_monstruos && cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
+            if (esquivar_monstruos && !cuenta.esta_luchando())
             {
-                mapa.get_Monstruos().ToList().ForEach(monstruo =>
-                {
-                    lista_celdas_no_permitidas.Add(celdas[monstruo.Value.celda_id]);
-                });
+                foreach (Monstruo monstruo in mapa.get_Monstruos().Values)
+                    lista_celdas_no_permitidas.Add(celdas[monstruo.celda_id]);
+            }
+
+            if(cuenta.esta_luchando())
+            {
+                foreach (short celda in cuenta.pelea.get_Celdas_Ocupadas)
+                    lista_celdas_no_permitidas.Add(celdas[celda]);
             }
         }
 
@@ -124,7 +130,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 
                     if (!lista_celdas_permitidas.Contains(celda_siguiente))
                         lista_celdas_permitidas.Add(celda_siguiente);
-                    else if (temporal_g >= celda_siguiente.coste_g)
+                    else if (temporal_g > celda_siguiente.coste_g)
                         continue;
 
                     celda_siguiente.coste_g = temporal_g;
@@ -144,7 +150,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             {
                 if (cuenta.esta_luchando())
                 {
-                    if (get_Distancia_Nodos(nodo_inicial, nodo_actual) <= pm_pelea || get_Distancia_Nodos(nodo_inicial, nodo_final) < pm_pelea)
+                    if (get_Distancia_Nodos(nodo_actual, nodo_inicial) <= pm_pelea || get_Distancia_Nodos(nodo_inicial, nodo_final) <= pm_pelea)
                         lista_celdas_camino.Add(nodo_actual.id);
                 }
                 else
@@ -165,14 +171,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(lista_celdas_camino);
         }
 
-        private List<Nodo> get_Celda_Siguiente(Nodo node)
+        private List<Nodo> get_Celda_Siguiente(Nodo nodo)
         {
             List<Nodo> celdas_siguientes = new List<Nodo>();
 
-            Nodo celda_derecha = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) + 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id));
-            Nodo celda_izquierda = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) - 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id));
-            Nodo celda_inferior = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) + 1);
-            Nodo celda_superior = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) - 1);
+            Nodo celda_derecha = celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x + 1 && nodec.posicion_y == nodo.posicion_y);
+            Nodo celda_izquierda = celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x - 1 && nodec.posicion_y == nodo.posicion_y);
+            Nodo celda_inferior = celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x && nodec.posicion_y == nodo.posicion_y + 1);
+            Nodo celda_superior = celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x && nodec.posicion_y == nodo.posicion_y - 1);
 
             if (celda_derecha != null)
                 celdas_siguientes.Add(celda_derecha);
@@ -183,13 +189,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             if (celda_superior != null)
                 celdas_siguientes.Add(celda_superior);
 
-            if (!cuenta.esta_luchando())
+            if (!cuenta.esta_luchando())//Diagonales
             {
-                //Diagonales
-                Nodo celda_superior_izquierda = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) - 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) - 1);
-                Nodo celda_inferior_derecha = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) + 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) + 1);
-                Nodo celda_inferior_izquierda = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) - 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) + 1);
-                Nodo celda_superior_derecha = celdas.FirstOrDefault(nodec => mapa.get_Celda_X_Coordenadas(nodec.id) == mapa.get_Celda_X_Coordenadas(node.id) + 1 && mapa.get_Celda_Y_Coordenadas(nodec.id) == mapa.get_Celda_Y_Coordenadas(node.id) - 1);
+                Nodo celda_superior_izquierda = celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x - 1 && nodec.posicion_y == nodo.posicion_y - 1);
+                Nodo celda_inferior_derecha = celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x + 1 && nodec.posicion_y == nodo.posicion_y + 1);
+                Nodo celda_inferior_izquierda = celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x - 1 && nodec.posicion_y == nodo.posicion_y + 1);
+                Nodo celda_superior_derecha = celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x + 1 && nodec.posicion_y == nodo.posicion_y - 1);
 
                 if (celda_superior_izquierda != null)
                     celdas_siguientes.Add(celda_superior_izquierda);

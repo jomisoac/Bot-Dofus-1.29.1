@@ -106,17 +106,19 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 {
                     cuenta.logger.log_informacion("PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino);
 
-                    switch (await mapa.get_Mover_Celda_Resultado(celda_actual, celda_monstruo_destino, false))
+                    ResultadoMovimientos resultado = await mapa.get_Mover_Celda_Resultado(celda_actual, celda_monstruo_destino, false);
+
+                    switch (resultado)
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("PELEAS", "Desplazando para comenzar el combate");
-                            break;
+                        break;
 
                         case ResultadoMovimientos.MISMA_CELDA:
                         case ResultadoMovimientos.FALLO:
                         case ResultadoMovimientos.PATHFINDING_ERROR:
                             cuenta.logger.log_Error("PELEAS", "El monstruo no esta en la casilla selecciona");
-                            break;
+                        break;
                     }
                 }
             }

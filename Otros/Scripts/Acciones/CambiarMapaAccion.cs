@@ -22,29 +22,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 
         internal override async Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
-            ResultadoMovimientos resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_id, true);
+            ResultadoMovimientos reusltado_movimiento = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_id, true);
 
-            if (resultado != ResultadoMovimientos.EXITO)
+            if (reusltado_movimiento != ResultadoMovimientos.EXITO)
                 return ResultadosAcciones.FALLO;
 
-            bool mapa_cambiado = false;
-
-            void evento_Mapa_Cambiado()
-            {
-                mapa_cambiado = true;
-            }
-
-            cuenta.personaje.mapa_actualizado += evento_Mapa_Cambiado;
-
-            for (byte i = 0; i < 20 && !mapa_cambiado && cuenta.script.corriendo; i++)
-                await Task.Delay(1000);
-
-            cuenta.personaje.mapa_actualizado -= evento_Mapa_Cambiado;
-
-            if (mapa_cambiado || !cuenta.script.corriendo)
-                return ResultadosAcciones.PROCESANDO;
-
-            return (await proceso(cuenta));
+            return ResultadosAcciones.PROCESANDO;
         }
 
         public static bool TryParse(string texto, out CambiarMapaAccion accion)

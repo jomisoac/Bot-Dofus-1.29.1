@@ -310,8 +310,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             {
                 foreach (ObjetosInventario saco in sacos)
                 {
-                    await cuenta.conexion.enviar_Paquete("OU" + saco.id_inventario + "|");
-                    await cuenta.personaje.inventario.eliminar_Objetos(saco, 1, false);
+                    cuenta.conexion.enviar_Paquete("OU" + saco.id_inventario + "|");
+                    cuenta.personaje.inventario.eliminar_Objetos(saco, 1, false);
                     await Task.Delay(500);
                 }
 

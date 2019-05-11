@@ -91,10 +91,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
             if (celdas[celda_destino].tipo == TipoCelda.OBJETO_INTERACTIVO && celdas[celda_destino].objeto_interactivo == null)
                 return ResultadoMovimientos.FALLO;
-            
+
             if (cuenta.personaje.celda_id == celda_destino)
                 return ResultadoMovimientos.MISMA_CELDA;
-            
+
             Pathfinding camino = new Pathfinding(cuenta, esquivar_monstruos, pm_pelea);
             if (camino.get_Camino(celda_actual, celda_destino))
             {
@@ -104,9 +104,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 if (cuenta.personaje.contador_acciones > 0)
                     cuenta.personaje.contador_acciones--;
 
-                await cuenta.conexion.enviar_Paquete("GA001" + camino.get_Pathfinding_Limpio());
+                await cuenta.conexion.enviar_Paquete_Async("GA001" + camino.get_Pathfinding_Limpio());
 
-                if(!cuenta.esta_luchando())
+                if (!cuenta.esta_luchando())
                     camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino);
 
                 return ResultadoMovimientos.EXITO;
@@ -132,7 +132,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 foreach (short interactivo in celda.objeto_interactivo.modelo.habilidades)
                 {
                     if (elementos_ids.Contains(interactivo))
-                        elementos_utilizables.Add(celda.id, celda.objeto_interactivo); 
+                        elementos_utilizables.Add(celda.id, celda.objeto_interactivo);
                 }
             }
 
@@ -165,11 +165,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                     {
                         if (cuenta.personaje.get_Skills_Recoleccion_Disponibles().Contains(habilidad))
                         {
-                            await cuenta.conexion.enviar_Paquete("GA500" + elemento.Key + ";" + habilidad);
+                            cuenta.conexion.enviar_Paquete("GA500" + elemento.Key + ";" + habilidad);
                             cuenta.personaje.celda_objetivo_recoleccion = elemento.Key;
                         }
                     }
-               return true;
+                    return true;
             }
             return false;
         }
@@ -419,7 +419,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             short layer_objeto_2_num = Convert.ToInt16(((informacion_celda[0] & 2) << 12) + ((informacion_celda[7] & 1) << 12) + (informacion_celda[8] << 6) + informacion_celda[9]);
             byte nivel = Convert.ToByte(informacion_celda[1] & 15);
             byte slope = Convert.ToByte((informacion_celda[4] & 60) >> 2);
-            
+
             return new Celda(id_celda, tipo, es_linea_vision, nivel, slope, tiene_objeto_interactivo ? layer_objeto_2_num : Convert.ToInt16(-1));
         }
         #endregion
