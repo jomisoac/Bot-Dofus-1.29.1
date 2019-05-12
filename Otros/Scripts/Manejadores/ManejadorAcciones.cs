@@ -72,32 +72,19 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                     }
                 }
             }
-            else if (accion_actual is RecoleccionAccion)
-            {
-                if (es_correcto)
-                    cuenta.personaje.contador_acciones++;
-            }
         }
 
-        private async void get_Recoleccion_Iniciada(int tiempo)
+        private void get_Recoleccion_Iniciada()
         {
             if (!cuenta.script.corriendo)
                 return;
 
             if (accion_actual is RecoleccionAccion)
             {
-                cuenta.Estado_Cuenta = EstadoCuenta.RECOLECTANDO;
                 contador_recoleccion++;
 
                 if (cuenta.script.manejador_script.get_Global_Or("MOSTRAR_CONTADOR_RECOLECCION", DataType.Boolean, false))
                     cuenta.logger.log_informacion("SCRIPT", $"Recolección número: #{contador_recoleccion}");
-
-                await Task.Delay(tiempo);
-
-                cuenta.conexion.enviar_Paquete("GKK" + (mapa_cambiado ? 0 : cuenta.personaje.contador_acciones));
-
-                if (cuenta.personaje.contador_acciones > 0)
-                    cuenta.personaje.contador_acciones--;
             }
         }
 

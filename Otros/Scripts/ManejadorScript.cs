@@ -106,9 +106,6 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 return;
             try
             {
-                if (cuenta.personaje.contador_acciones > 0)
-                    cuenta.personaje.contador_acciones--;
-
                 await aplicar_Comprobaciones();
 
                 if (!corriendo)

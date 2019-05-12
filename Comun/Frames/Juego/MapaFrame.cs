@@ -163,14 +163,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("GA")]
         public async Task get_Iniciar_Accion(ClienteGame cliente, string paquete)
         {
-            string[] separador = paquete.Split(';');
-            int accion = int.Parse(separador[1]);
+            string[] separador = paquete.Substring(2).Split(';');
+            int id_accion = int.Parse(separador[1]);
             int id_jugador = int.Parse(separador[2]);
             Cuenta cuenta = cliente.cuenta;
             Personaje personaje = cuenta.personaje;
             Luchadores luchador = null;
 
-            switch (accion)
+            switch (id_accion)
             {
                 case 0:
                     if (cuenta.Estado_Cuenta == EstadoCuenta.MOVIMIENTO)
@@ -197,7 +197,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                             if (cuenta.Estado_Cuenta != EstadoCuenta.DESCONECTADO)
                             {
-                                cuenta.conexion.enviar_Paquete("GKK" + personaje.contador_acciones);
+                                cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
                                 personaje.celda_id = celda_destino;
                                 personaje.evento_Movimiento_Celda(true);
 
@@ -280,7 +280,15 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     short celda_id = short.Parse(separador[3].Split(',')[0]);
 
                     if (id_jugador == personaje.id)
-                        personaje.evento_Recoleccion_Iniciada(tiempo_recoleccion);
+                    {
+                        cuenta.Estado_Cuenta = EstadoCuenta.RECOLECTANDO;
+
+                        personaje.evento_Recoleccion_Iniciada();
+
+                        await Task.Delay(tiempo_recoleccion);
+                        cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
+                    }
+                        
                 break;
 
                 case 900:

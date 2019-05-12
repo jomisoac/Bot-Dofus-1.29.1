@@ -95,9 +95,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 if (!cuenta.esta_luchando())
                     cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
 
-                if (cuenta.personaje.contador_acciones > 0)
-                    cuenta.personaje.contador_acciones--;
-
                 await cuenta.conexion.enviar_Paquete_Async("GA001" + camino.get_Pathfinding_Limpio());
 
                 if (!cuenta.esta_luchando())
