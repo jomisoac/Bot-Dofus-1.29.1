@@ -80,5 +80,27 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
                 sb.AppendFormat("{0:X2}", (int)c);
             return sb.ToString().Trim();
         }
+
+        public static string get_Celda_Char(short celda_id)
+        {
+            return caracteres_array[celda_id / 64] + "" + caracteres_array[celda_id % 64];
+        }
+
+        public static short get_Celda_Id_Desde_hash(string celdaCodigo)
+        {
+            char char1 = celdaCodigo[0], char2 = celdaCodigo[1];
+            short code1 = 0, code2 = 0, a = 0;
+            while (a < caracteres_array.Length)
+            {
+                if (caracteres_array[a] == char1)
+                    code1 = (short)(a * 64);
+
+                if (caracteres_array[a] == char2)
+                    code2 = a;
+
+                a++;
+            }
+            return (short)(code1 + code2);
+        }
     }
 }

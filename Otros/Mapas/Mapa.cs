@@ -62,7 +62,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             else
             {
                 cuenta.conexion.get_Desconectar_Socket();
-                cuenta.logger.log_Error("Mapa", $"Archivo de mapa no encontrado bot desconectado, id mapa: {id}, fecha correcta: {fecha}");
+                cuenta.logger.log_Error("Mapa", $"Archivo de mapa no encontrado bot desconectado, id mapa: {id}, fecha correcta: 0{fecha}");
             }
             mapa_archivo = null;
         }

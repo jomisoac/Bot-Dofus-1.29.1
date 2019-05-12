@@ -1,6 +1,4 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Protocolo.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -21,10 +19,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
     public class Pathfinding : IDisposable
     {
         private Nodo[] celdas;
-        private Mapa mapa { get; }
+        private Mapa mapa { get; set; }
         private List<Nodo> lista_celdas_no_permitidas = new List<Nodo>();
-        private List<Nodo> lista_celdas_permitidas = new List<Nodo>();
-        private List<short> lista_celdas_camino = new List<short>();
+        private List<Nodo> celdas_camino = new List<Nodo>();
         private Cuenta cuenta;
         private readonly int pm_pelea;
         public static int tiempo;
@@ -61,7 +58,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         {
             foreach (Celda celda in mapa.celdas)
             {
-                if (celda.tipo == TipoCelda.CELDA_TELEPORT)
+                if (celda.tipo == TipoCelda.CELDA_TELEPORT && !cuenta.esta_luchando())
                     lista_celdas_no_permitidas.Add(celdas[celda.id]);
 
                 else if (celda.objeto_interactivo_id != -1)
@@ -88,7 +85,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         {
             Nodo inicio = celdas[celda_inicio];
             Nodo final = celdas[celda_final];
-            lista_celdas_permitidas.Add(inicio);
+
+            List<Nodo> lista_celdas_permitidas = new List<Nodo>() { inicio };
             lista_celdas_no_permitidas.Remove(celdas[celda_final]);
 
             while (lista_celdas_permitidas.Count > 0)
@@ -106,7 +104,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                     if (lista_celdas_permitidas[i].coste_g == lista_celdas_permitidas[index].coste_g)
                         index = i;
 
-                    if (cuenta.esta_luchando()) continue;
+                    if (!cuenta.esta_luchando()) continue;
 
                     if (lista_celdas_permitidas[i].coste_g == lista_celdas_permitidas[index].coste_g)
                         index = i;
@@ -130,7 +128,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 
                     if (!lista_celdas_permitidas.Contains(celda_siguiente))
                         lista_celdas_permitidas.Add(celda_siguiente);
-                    else if (temporal_g > celda_siguiente.coste_g)
+                    else if (temporal_g >= celda_siguiente.coste_g)
                         continue;
 
                     celda_siguiente.coste_g = temporal_g;
@@ -151,24 +149,21 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 if (cuenta.esta_luchando())
                 {
                     if (get_Distancia_Nodos(nodo_actual, nodo_inicial) <= pm_pelea || get_Distancia_Nodos(nodo_inicial, nodo_final) <= pm_pelea)
-                        lista_celdas_camino.Add(nodo_actual.id);
+                        celdas_camino.Add(nodo_actual);
                 }
                 else
-                    lista_celdas_camino.Add(nodo_actual.id);
+                    celdas_camino.Add(nodo_actual);
 
                 nodo_actual = nodo_actual.nodo_padre;
             }
-            lista_celdas_camino.Add(nodo_inicial.id);
-            lista_celdas_camino.Reverse();
 
-            short celda_actual, celda_siguiente = 0;
-            for (int i = 0; i < lista_celdas_camino.Count - 1; i++)
-            {
-                celda_actual = lista_celdas_camino[i];
-                celda_siguiente = lista_celdas_camino[i + 1];
-                camino.Append(get_Direccion_String(get_Orientacion_Casilla(celda_actual, celda_siguiente, mapa))).Append(get_Celda_Char(celda_siguiente));
-            }
-            cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(lista_celdas_camino);
+            celdas_camino.Add(nodo_inicial);
+            celdas_camino.Reverse();
+            
+            for (int i = 0; i < celdas_camino.Count - 1; i++)
+                camino.Append(get_Direccion_Dos_Celdas(celdas_camino[i], celdas_camino[i + 1])).Append(Hash.get_Celda_Char(celdas_camino[i + 1].id));
+
+            cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(celdas_camino);
         }
 
         private List<Nodo> get_Celda_Siguiente(Nodo nodo)
@@ -208,33 +203,19 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return celdas_siguientes;
         }
 
-        public static string get_Direccion_String(int direccion)
-        {
-            if (direccion >= Hash.caracteres_array.Length)
-                return string.Empty;
-            return Hash.caracteres_array[direccion].ToString();
-        }
-
-        public static char get_Direccion_Char(int direccion)
-        {
-            if (direccion >= Hash.caracteres_array.Length)
-                return char.MaxValue;
-            return Hash.caracteres_array[direccion];
-        }
-
         public int get_Tiempo_Desplazamiento_Mapa(int casilla_inicio, int casilla_final)
         {
             tiempo = 20;
-            DuracionAnimacion tipo_animacion = lista_celdas_camino.Count < 6 ? tiempo_tipo_animacion[TipoAnimacion.CAMINANDO] : tiempo_tipo_animacion[TipoAnimacion.CORRIENDO];
+            DuracionAnimacion tipo_animacion = celdas_camino.Count < 6 ? tiempo_tipo_animacion[TipoAnimacion.CAMINANDO] : tiempo_tipo_animacion[TipoAnimacion.CORRIENDO];
             Celda anterior_celda = cuenta.personaje.mapa.celdas[casilla_inicio], siguiente_celda;
 
-            for (int i = 0; i < lista_celdas_camino.Count - 1; i++)
+            for (int i = 0; i < celdas_camino.Count - 1; i++)
             {
-                siguiente_celda = cuenta.personaje.mapa.celdas[lista_celdas_camino[i + 1]];
+                siguiente_celda = cuenta.personaje.mapa.celdas[celdas_camino[i + 1].id];
 
-                if (mapa.get_Celda_Y_Coordenadas(anterior_celda.id) == mapa.get_Celda_Y_Coordenadas(siguiente_celda.id))
+                if (celdas_camino[i].posicion_y == celdas_camino[i + 1].posicion_y)
                     tiempo += tipo_animacion.horizontal;
-                else if (mapa.get_Celda_X_Coordenadas(anterior_celda.id) == mapa.get_Celda_Y_Coordenadas(siguiente_celda.id))
+                else if (celdas_camino[i].posicion_x == celdas_camino[i].posicion_y)
                     tiempo += tipo_animacion.vertical;
                 else
                     tiempo += tipo_animacion.lineal;
@@ -256,49 +237,32 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return tiempo;
         }
 
-        public static byte get_Orientacion_Casilla(short celda_1, short celda_2, Mapa mapa)
+        private char get_Direccion_Dos_Celdas(Nodo celda_1, Nodo celda_2)
         {
             byte mapa_anchura = mapa.anchura;
             int[] _loc6_ = { 1, mapa_anchura, (mapa_anchura * 2) - 1, mapa_anchura - 1, -1, -mapa_anchura, (-mapa_anchura * 2) + 1, -(mapa_anchura - 1) };
-            int _loc7_ = celda_2 - celda_1;
+            int _loc7_ = celda_2.id - celda_1.id;
 
             for (int i = 7; i >= 0; i += -1)
             {
                 if (_loc6_[i] == _loc7_)
-                    return Convert.ToByte(i);
+                    return (char)(i + 'a');
             }
 
-            int resultado_x = mapa.get_Celda_X_Coordenadas(celda_2) - mapa.get_Celda_X_Coordenadas(celda_1);
-            int resultado_y = mapa.get_Celda_Y_Coordenadas(celda_2) - mapa.get_Celda_Y_Coordenadas(celda_1);
+            int resultado_x = celda_2.posicion_x - celda_1.posicion_x;
+            int resultado_y = celda_2.posicion_y - celda_1.posicion_y;
 
             if (resultado_x == 0)
             {
                 if (resultado_y > 0)
-                    return 3;
+                    return (char) (3 + 'a');
                 else
-                    return 7;
+                    return (char)(7 + 'a');
             }
             else if (resultado_x > 0)
-                return 1;
+                return (char)(1 + 'a');
             else
-                return 5;
-        }
-
-        public static string get_Celda_Char(short celda)
-        {
-            int CharCode2 = celda % Hash.caracteres_array.Length;
-            int CharCode1 = (celda - CharCode2) / Hash.caracteres_array.Length;
-            return Hash.caracteres_array[CharCode1].ToString() + Hash.caracteres_array[CharCode2].ToString();
-        }
-
-        public static short get_Celda_Numero(int total_celdas, string celda_char)
-        {
-            for (short i = 0; i < total_celdas; i++)
-            {
-                if (get_Celda_Char(i) == celda_char)
-                    return i;
-            }
-            return -1;
+                return (char)(5 + 'a');
         }
 
         private int get_Distancia_Nodos(Nodo a, Nodo b)
@@ -345,10 +309,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 cuenta = null;
                 lista_celdas_no_permitidas.Clear();
                 lista_celdas_no_permitidas = null;
-                lista_celdas_permitidas.Clear();
-                lista_celdas_permitidas = null;
-                lista_celdas_camino.Clear();
-                lista_celdas_camino = null;
+                celdas_camino.Clear();
+                celdas_camino = null;
                 camino.Clear();
                 camino = null;
                 disposed = true;
