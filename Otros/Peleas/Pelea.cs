@@ -507,8 +507,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         #region Zona Eventos
         public void get_Combate_Creado()
         {
-            if (cuenta.personaje.contador_acciones > 0)
-                cuenta.personaje.contador_acciones--;
             cuenta.personaje.celda_objetivo_recoleccion = 0;
 
             cuenta.Estado_Cuenta = EstadoCuenta.LUCHANDO;
@@ -527,9 +525,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             lista_celda_team1.Clear();
             lista_celda_team2.Clear();
             jugador_luchador = null;
-
-            if (cuenta.personaje.contador_acciones > 0)
-                cuenta.personaje.contador_acciones--;
 
             pelea_acabada?.Invoke();
 

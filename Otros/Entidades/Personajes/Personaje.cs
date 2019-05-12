@@ -35,7 +35,6 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
         public int celda_id { get; set; } = 0;
-        public byte contador_acciones { get; set; } = 0;
         public short celda_objetivo_recoleccion { get; set; } = 0;
         public bool en_grupo { get; set; } = false;
         private bool disposed;
@@ -57,7 +56,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public event Action mapa_actualizado;
         public event Action<string> pregunta_npc_recibida;
         public event Action<bool> movimiento_celda;
-        public event Action<int> recoleccion_iniciada;
+        public event Action recoleccion_iniciada;
         public event Action recoleccion_acabada;
         public event Action<List<Nodo>> movimiento_pathfinding_minimapa;
 
@@ -115,7 +114,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public void evento_Personaje_Pathfinding_Minimapa(List<Nodo> lista) => movimiento_pathfinding_minimapa?.Invoke(lista);
         public void evento_Movimiento_Celda(bool resultado) => movimiento_celda?.Invoke(resultado);
         public void evento_Oficios_Actualizados() => oficios_actualizados?.Invoke();
-        public void evento_Recoleccion_Iniciada(int tiempo) => recoleccion_iniciada?.Invoke(tiempo);
+        public void evento_Recoleccion_Iniciada() => recoleccion_iniciada?.Invoke();
         public void evento_Recoleccion_Acabada() => recoleccion_acabada?.Invoke();
         public void evento_Pregunta_Npc(string lista_preguntas) => pregunta_npc_recibida?.Invoke(lista_preguntas);
         #endregion
