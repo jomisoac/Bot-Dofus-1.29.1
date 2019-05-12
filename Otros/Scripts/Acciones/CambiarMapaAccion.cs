@@ -21,7 +21,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         public MapaTeleportCeldas direccion { get; private set; }
         public short celda_id { get; private set; }
 
-        public bool celda_especifica => direccion != MapaTeleportCeldas.NINGUNO && celda_id != -1;
+        public bool celda_especifica => direccion == MapaTeleportCeldas.NINGUNO && celda_id != -1;
         public bool direccion_especifica => direccion != MapaTeleportCeldas.NINGUNO && celda_id == -1;
 
         public CambiarMapaAccion(MapaTeleportCeldas _direccion, short _celda_id)

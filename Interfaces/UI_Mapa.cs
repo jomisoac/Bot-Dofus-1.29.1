@@ -1,6 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Controles.ControlMapa;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
@@ -102,14 +103,14 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
-        private void get_Dibujar_Pathfinding(List<short> lista_celdas)
+        private void get_Dibujar_Pathfinding(List<Nodo> lista_celdas)
         {
             mapa.BeginInvoke((Action)(() =>
             {
                 get_Dibujar_mapa(cuenta.personaje.mapa.celdas);
 
-                foreach (int celda in lista_celdas)
-                    mapa.celdas[celda].Celda_Estado = CeldaEstado.PELEA_EQUIPO_AZUL;
+                foreach (Nodo celda in lista_celdas)
+                    mapa.celdas[celda.id].Celda_Estado = CeldaEstado.PELEA_EQUIPO_AZUL;
 
                 mapa.Invalidate();
             }));

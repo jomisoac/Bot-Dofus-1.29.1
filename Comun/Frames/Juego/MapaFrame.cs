@@ -10,6 +10,7 @@ using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using System;
 using System.Linq;
@@ -183,7 +184,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 break;
 
                 case 1:
-                    short celda_destino = Pathfinding.get_Celda_Numero(personaje.mapa.celdas.Length, separador[3].Substring(separador[3].Length - 2));
+                    short celda_destino = Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2));
 
                     if (id_jugador == personaje.id)//encontrar la casilla de destino
                     {

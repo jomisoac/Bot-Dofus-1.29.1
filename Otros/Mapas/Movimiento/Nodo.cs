@@ -7,7 +7,7 @@
 */
 namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 {
-    class Nodo
+    public class Nodo
     {
         public short id { get; set; }
         public int posicion_x { get; set; }
