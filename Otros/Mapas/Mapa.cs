@@ -408,10 +408,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             bool es_linea_vision = (informacion_celda[0] & 1) == 1;
             bool tiene_objeto_interactivo = ((informacion_celda[7] & 2) >> 1) != 0;
             short layer_objeto_2_num = Convert.ToInt16(((informacion_celda[0] & 2) << 12) + ((informacion_celda[7] & 1) << 12) + (informacion_celda[8] << 6) + informacion_celda[9]);
+            short layer_objeto_1_num = Convert.ToInt16(((informacion_celda[0] & 4) << 11) + ((informacion_celda[4] & 1) << 12) + (informacion_celda[5] << 6) + informacion_celda[6]);
             byte nivel = Convert.ToByte(informacion_celda[1] & 15);
             byte slope = Convert.ToByte((informacion_celda[4] & 60) >> 2);
 
-            return new Celda(id_celda, tipo, es_linea_vision, nivel, slope, tiene_objeto_interactivo ? layer_objeto_2_num : Convert.ToInt16(-1), this);
+            return new Celda(id_celda, tipo, es_linea_vision, nivel, slope, tiene_objeto_interactivo ? layer_objeto_2_num : Convert.ToInt16(-1), layer_objeto_1_num, layer_objeto_2_num, this);
         }
         #endregion
 

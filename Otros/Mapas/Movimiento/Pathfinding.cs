@@ -220,15 +220,15 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 else
                     tiempo += tipo_animacion.lineal;
 
-                if (anterior_celda.layerGroundLevel < siguiente_celda.layerGroundLevel)
+                if (anterior_celda.layer_ground_nivel < siguiente_celda.layer_ground_nivel)
                     tiempo += 100;
-                else if (siguiente_celda.layerGroundLevel > anterior_celda.layerGroundLevel)
+                else if (siguiente_celda.layer_ground_nivel > anterior_celda.layer_ground_nivel)
                     tiempo -= 100;
-                else if (anterior_celda.layerGroundSlope != siguiente_celda.layerGroundSlope)
+                else if (anterior_celda.layer_ground_slope != siguiente_celda.layer_ground_slope)
                 {
-                    if (anterior_celda.layerGroundSlope == 1)
+                    if (anterior_celda.layer_ground_slope == 1)
                         tiempo += 100;
-                    else if (siguiente_celda.layerGroundSlope == 1)
+                    else if (siguiente_celda.layer_ground_slope == 1)
                         tiempo -= 100;
                 }
                 anterior_celda = siguiente_celda;
