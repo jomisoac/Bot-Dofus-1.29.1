@@ -665,4 +665,11 @@
     <habilidades>-1</habilidades>
     <recolectable>false</recolectable>
   </SKILL>
+  <SKILL>
+    <nombre>Carreta gigante con trigo</nombre>
+    <gfx>523</gfx>
+    <caminable>false</caminable>
+    <habilidades>-1</habilidades>
+    <recolectable>false</recolectable>
+  </SKILL>
 </SKILLS>
