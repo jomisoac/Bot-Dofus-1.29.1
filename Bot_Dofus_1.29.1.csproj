@@ -180,6 +180,7 @@
     <Compile Include="Otros\Entidades\Personajes\Hechizos\HechizoStats.cs" />
     <Compile Include="Otros\Entidades\Personajes\Hechizos\HechizoZona.cs" />
     <Compile Include="Otros\Entidades\Personajes\Hechizos\Shaper.cs" />
+    <Compile Include="Otros\Entidades\Personajes\Hechizos\ShaperEntry.cs" />
     <Compile Include="Otros\Entidades\Personajes\Hechizos\Zonas.cs" />
     <Compile Include="Otros\Entidades\Personajes\Inventario\InventarioGeneral.cs" />
     <Compile Include="Otros\Entidades\Personajes\Inventario\ObjetosInventario.cs" />

@@ -96,11 +96,6 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridView_skills = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad_minima = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad_maxima = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView_oficios = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -108,6 +103,11 @@
             this.Experiencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad_minima = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad_maxima = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tiempo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -974,44 +974,6 @@
             this.dataGridView_skills.Size = new System.Drawing.Size(784, 291);
             this.dataGridView_skills.TabIndex = 2;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.FillWeight = 180F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Nombre";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 180;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 180;
-            // 
-            // cantidad_minima
-            // 
-            this.cantidad_minima.HeaderText = "Cantidad Mínima";
-            this.cantidad_minima.Name = "cantidad_minima";
-            this.cantidad_minima.ReadOnly = true;
-            this.cantidad_minima.Width = 150;
-            // 
-            // cantidad_maxima
-            // 
-            this.cantidad_maxima.HeaderText = "Cantidad máxima";
-            this.cantidad_maxima.MinimumWidth = 150;
-            this.cantidad_maxima.Name = "cantidad_maxima";
-            this.cantidad_maxima.ReadOnly = true;
-            this.cantidad_maxima.Width = 150;
-            // 
-            // tiempo
-            // 
-            this.tiempo.HeaderText = "Tiempo/Porcentaje";
-            this.tiempo.Name = "tiempo";
-            this.tiempo.ReadOnly = true;
-            this.tiempo.Width = 150;
-            // 
             // dataGridView_oficios
             // 
             this.dataGridView_oficios.AllowUserToAddRows = false;
@@ -1080,6 +1042,46 @@
             this.imageList1.Images.SetKeyName(0, "24_DNA-24.png");
             this.imageList1.Images.SetKeyName(1, "magic32.png");
             this.imageList1.Images.SetKeyName(2, "Iron_Axe_32.png");
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 180F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Nombre";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 180;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 180;
+            // 
+            // cantidad_minima
+            // 
+            this.cantidad_minima.HeaderText = "Cantidad Mínima";
+            this.cantidad_minima.MinimumWidth = 130;
+            this.cantidad_minima.Name = "cantidad_minima";
+            this.cantidad_minima.ReadOnly = true;
+            this.cantidad_minima.Width = 130;
+            // 
+            // cantidad_maxima
+            // 
+            this.cantidad_maxima.HeaderText = "Cantidad máxima";
+            this.cantidad_maxima.MinimumWidth = 135;
+            this.cantidad_maxima.Name = "cantidad_maxima";
+            this.cantidad_maxima.ReadOnly = true;
+            this.cantidad_maxima.Width = 135;
+            // 
+            // tiempo
+            // 
+            this.tiempo.HeaderText = "Tiempo/Porcentaje";
+            this.tiempo.MinimumWidth = 130;
+            this.tiempo.Name = "tiempo";
+            this.tiempo.ReadOnly = true;
+            this.tiempo.Width = 130;
             // 
             // UI_Personaje
             // 
@@ -1197,15 +1199,15 @@
         private System.Windows.Forms.DataGridView dataGridView_oficios;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.DataGridView dataGridView_skills;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_minima;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_maxima;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tiempo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nivel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Experiencia;
         private System.Windows.Forms.DataGridViewTextBoxColumn porcentaje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_minima;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_maxima;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tiempo;
     }
 }

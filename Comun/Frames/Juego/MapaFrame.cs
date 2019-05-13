@@ -66,7 +66,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                                     cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda_id, vida, equipo));
                                 }
-                            break;
+                                break;
 
                             case -3://monstruos
                                 string[] templates = nombre_template.Split(',');
@@ -125,10 +125,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                                     if (cuenta.personaje.id == id && cuenta.pelea_extension.configuracion.posicionamiento != PosicionamientoInicioPelea.INMOVIL)
                                     {
+                                        /** la posicion es aleatoria pero el paquete GP siempre aparecera primero el team donde esta el pj **/
                                         if (cuenta.pelea.lista_celda_team1.Contains(celda_id))
                                             cuenta.conexion.enviar_Paquete("Gp" + cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.lista_celda_team1, cuenta.personaje.mapa));
-                                        else
-                                            cuenta.conexion.enviar_Paquete("Gp" + cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.lista_celda_team2, cuenta.personaje.mapa));
                                     }
                                     else if (cuenta.personaje.id == id && cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.INMOVIL)
                                     {
@@ -165,136 +164,129 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             string[] separador = paquete.Substring(2).Split(';');
             int id_accion = int.Parse(separador[1]);
-            int id_jugador = int.Parse(separador[2]);
-            Cuenta cuenta = cliente.cuenta;
-            Personaje personaje = cuenta.personaje;
-            Luchadores luchador = null;
 
-            switch (id_accion)
+            if (id_accion > 0)//Error: GA;0
             {
-                case 0:
-                    if (cuenta.Estado_Cuenta == EstadoCuenta.MOVIMIENTO)
-                    {
-                        cuenta.conexion.enviar_Paquete("GI");
-                        cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                int id_jugador = int.Parse(separador[2]);
+                Cuenta cuenta = cliente.cuenta;
+                Personaje personaje = cuenta.personaje;
+                Luchadores luchador = null;
 
-                        if (GlobalConf.mostrar_mensajes_debug)
-                            cuenta.logger.log_Error("DEBUG", "Movimiento BUG Detectado enviando GI");
-                    }
-                break;
+                switch (id_accion)
+                {
+                    case 1:
+                        short celda_destino = Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2));
 
-                case 1:
-                    short celda_destino = Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2));
-
-                    if (id_jugador == personaje.id)//encontrar la casilla de destino
-                    {
-                        if (celda_destino > 0 && personaje.celda_id != celda_destino)
+                        if (id_jugador == personaje.id)//encontrar la casilla de destino
                         {
-                            if(!cuenta.esta_luchando())
-                                await Task.Delay(Pathfinding.tiempo);
-                            else
-                                await Task.Delay(300 * personaje.mapa.get_Distancia_Entre_Dos_Casillas(personaje.celda_id, celda_destino));
-
-                            if (cuenta.Estado_Cuenta != EstadoCuenta.DESCONECTADO)
+                            if (celda_destino > 0 && personaje.celda_id != celda_destino)
                             {
-                                cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
-                                personaje.celda_id = celda_destino;
-                                personaje.evento_Movimiento_Celda(true);
-
                                 if (!cuenta.esta_luchando())
-                                    cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                                    await Task.Delay(Pathfinding.tiempo);
+                                else
+                                    await Task.Delay(300 * personaje.mapa.get_Distancia_Entre_Dos_Casillas(personaje.celda_id, celda_destino));
+
+                                if (cuenta.Estado_Cuenta != EstadoCuenta.DESCONECTADO)
+                                {
+                                    cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
+                                    personaje.celda_id = celda_destino;
+                                    personaje.evento_Movimiento_Celda(true);
+
+                                    if (!cuenta.esta_luchando())
+                                        cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                                }
                             }
                         }
-                    }
-                    else if (personaje.mapa.get_Personajes().ContainsKey(id_jugador) && !cuenta.esta_luchando())
-                    {
-                        personaje.mapa.get_Personajes()[id_jugador].celda_id = celda_destino;
+                        else if (personaje.mapa.get_Personajes().ContainsKey(id_jugador) && !cuenta.esta_luchando())
+                        {
+                            personaje.mapa.get_Personajes()[id_jugador].celda_id = celda_destino;
 
-                        if (GlobalConf.mostrar_mensajes_debug)
-                            cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un personaje a la casilla: " + celda_destino);
-                    }
-                    else if (personaje.mapa.get_Monstruos().ContainsKey(id_jugador) && !cuenta.esta_luchando())
-                    {
-                        personaje.mapa.get_Monstruos()[id_jugador].celda_id = celda_destino;
+                            if (GlobalConf.mostrar_mensajes_debug)
+                                cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un personaje a la casilla: " + celda_destino);
+                        }
+                        else if (personaje.mapa.get_Monstruos().ContainsKey(id_jugador) && !cuenta.esta_luchando())
+                        {
+                            personaje.mapa.get_Monstruos()[id_jugador].celda_id = celda_destino;
 
-                        if (GlobalConf.mostrar_mensajes_debug)
-                            cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + celda_destino);
-                    }
+                            if (GlobalConf.mostrar_mensajes_debug)
+                                cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + celda_destino);
+                        }
 
-                    if (cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO)
-                    {
-                        luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
-                        if (luchador != null)
-                            luchador.celda_id = celda_destino;
-                    }
-               break;
+                        if (cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO)
+                        {
+                            luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
+                            if (luchador != null)
+                                luchador.celda_id = celda_destino;
+                        }
+                        break;
 
-                case 2: //Cargando el mapa
-                    await Task.Delay(200);
-                break;
-
-                case 102:
-                    if (cuenta.esta_luchando())
-                    {
-                        luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
-                        byte pa_utilizados = byte.Parse(separador[3].Split(',')[1].Substring(1));
-
-                        if (luchador != null)
-                            luchador.pa -= pa_utilizados;
-                    }
+                    case 2: //Cargando el mapa
+                        await Task.Delay(200);
                     break;
 
-                case 103:
-                    if (cuenta.esta_luchando())
-                    {
-                        int id_muerto = int.Parse(separador[3]);
+                    case 102:
+                        if (cuenta.esta_luchando())
+                        {
+                            luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
+                            byte pa_utilizados = byte.Parse(separador[3].Split(',')[1].Substring(1));
 
-                        luchador = cuenta.pelea.get_Luchador_Por_Id(id_muerto);
-                        if (luchador != null)
-                            luchador.esta_vivo = false;
-                    }
+                            if (luchador != null)
+                                luchador.pa -= pa_utilizados;
+                        }
                     break;
 
-                case 129: //movimiento en pelea con exito
-                    if (cuenta.esta_luchando())
-                    {
-                        luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
-                        short pm_utilizados = short.Parse(separador[3].Split(',')[1].Substring(1));
+                    case 103:
+                        if (cuenta.esta_luchando())
+                        {
+                            int id_muerto = int.Parse(separador[3]);
 
-                        if (luchador != null)
-                            luchador.pm -= pm_utilizados;
+                            luchador = cuenta.pelea.get_Luchador_Por_Id(id_muerto);
+                            if (luchador != null)
+                                luchador.esta_vivo = false;
+                        }
+                    break;
+
+                    case 129: //movimiento en pelea con exito
+                        if (cuenta.esta_luchando())
+                        {
+                            luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
+                            short pm_utilizados = short.Parse(separador[3].Split(',')[1].Substring(1));
+
+                            if (luchador != null)
+                                luchador.pm -= pm_utilizados;
+
+                            if (id_jugador == personaje.id)
+                                cuenta.pelea.get_Movimiento_Exito();
+                        }
+                    break;
+
+                    case 302:
+                    case 300: //hechizo lanzado con exito
+                        if (id_jugador == cuenta.personaje.id)
+                            cuenta.pelea.get_Hechizo_Lanzado();
+                    break;
+
+                    case 501:
+                        int tiempo_recoleccion = int.Parse(separador[3].Split(',')[1]);
+                        short celda_id = short.Parse(separador[3].Split(',')[0]);
 
                         if (id_jugador == personaje.id)
-                            cuenta.pelea.get_Movimiento_Exito();
-                    }
-                break;
+                        {
+                            cuenta.Estado_Cuenta = EstadoCuenta.RECOLECTANDO;
 
-                case 302:
-                case 300: //hechizo lanzado con exito
-                    if (id_jugador == cuenta.personaje.id)
-                        cuenta.pelea.get_Hechizo_Lanzado();
-                break;
+                            personaje.evento_Recoleccion_Iniciada();
 
-                case 501:
-                    int tiempo_recoleccion = int.Parse(separador[3].Split(',')[1]);
-                    short celda_id = short.Parse(separador[3].Split(',')[0]);
+                            await Task.Delay(tiempo_recoleccion);
+                            cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
+                        }
 
-                    if (id_jugador == personaje.id)
-                    {
-                        cuenta.Estado_Cuenta = EstadoCuenta.RECOLECTANDO;
+                    break;
 
-                        personaje.evento_Recoleccion_Iniciada();
-
-                        await Task.Delay(tiempo_recoleccion);
-                        cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
-                    }
-                        
-                break;
-
-                case 900:
-                    cuenta.conexion.enviar_Paquete("GA902" + id_jugador);
-                    cuenta.logger.log_informacion("INFORMACIÓN", "Desafio del personaje id: " + id_jugador + " cancelado");
-                break;
+                    case 900:
+                        cuenta.conexion.enviar_Paquete("GA902" + id_jugador);
+                        cuenta.logger.log_informacion("INFORMACIÓN", "Desafio del personaje id: " + id_jugador + " cancelado");
+                    break;
+                }
             }
         }
 

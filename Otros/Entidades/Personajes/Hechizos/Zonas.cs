@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
         public static Zonas Parse(string str)
         {
             if (str.Length != 2)
-                throw new ArgumentException("str : taille invalide");
+                throw new ArgumentException("zona invalida");
 
             HechizoZona tipo;
 
@@ -66,9 +66,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
             Zonas[] result = new Zonas[str.Length / 2];
 
             for (int i = 0; i < str.Length; i += 2)
-            {
                 result[i / 2] = Parse(str[i].ToString() + str[i + 1].ToString());
-            }
 
             return result;
         }
