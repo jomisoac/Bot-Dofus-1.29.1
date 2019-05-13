@@ -15,6 +15,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         private ConcurrentQueue<AccionesScript> fila_acciones;
         private AccionesScript accion_actual;
         private TimerWrapper timeout_timer;
+        public int contador_peleas_mapa { get; private set; }
+
         public event Action<bool> evento_accion_finalizada;
         private bool disposed;
         private bool mapa_cambiado;
@@ -41,11 +43,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void evento_Mapa_Cambiado()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.corriendo || accion_actual == null)
                 return;
 
             mapa_cambiado = true;
 
+            // cuando inicia una pelea "resetea el mapa"
+            if (!(accion_actual is PeleasAccion))
+                contador_peleas_mapa = 0;
+
+            //si el bot se mete en una pelea
             if (!(accion_actual is CambiarMapaAccion) && !(accion_actual is PeleasAccion) && !(accion_actual is RecoleccionAccion))
                 return;
 
@@ -62,7 +69,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             {
                 if (es_correcto)
                 {
-                    for (int delay = 0; delay < 6000 && cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO; delay += 500)
+                    for (int delay = 0; delay < 10000 && cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO; delay += 500)
                         await Task.Delay(500);
 
                     if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
@@ -71,6 +78,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                         acciones_Salida(100);
                     }
                 }
+            }
+            else if (accion_actual is CambiarMapaAccion && !es_correcto)
+            {
+                cuenta.script.detener_Script("error al mover a la celda");
             }
         }
 
@@ -105,6 +116,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (accion_actual is PeleasAccion)
             {
                 timeout_timer.Stop();
+                contador_peleas_mapa++;
                 contador_pelea++;
 
                 if (cuenta.script.manejador_script.get_Global_Or("MOSTRAR_CONTADOR_PELEAS", DataType.Boolean, false))
@@ -221,9 +233,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             if (fila_acciones.Count > 0)
             {
-                if (fila_acciones.TryDequeue(out AccionesScript action))
+                if (fila_acciones.TryDequeue(out AccionesScript accion))
                 {
-                    accion_actual = action;
+                    accion_actual = accion;
                     await procesar_Accion_Actual();
                 }
             }

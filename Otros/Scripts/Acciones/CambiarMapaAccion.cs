@@ -39,7 +39,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                 resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_id, true);
 
                 if (resultado != ResultadoMovimientos.EXITO)
+                {
+                    cuenta.logger.log_Error("SCRIPT", "Error al mover a la celda especificada: " + resultado);
                     return ResultadosAcciones.FALLO;
+                }
+                    
             }
             else if (direccion_especifica)
             {
