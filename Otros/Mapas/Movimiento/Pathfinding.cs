@@ -143,14 +143,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         private void get_Camino_Retroceso(Nodo nodo_inicial, Nodo nodo_final)
         {
             Nodo nodo_actual = nodo_final;
+            byte test = 0;
             
             while (nodo_actual != nodo_inicial)
             {
-                if (cuenta.esta_luchando())
-                {
-                    if (get_Distancia_Nodos(nodo_actual, nodo_inicial) <= pm_pelea || get_Distancia_Nodos(nodo_inicial, nodo_final) <= pm_pelea)
-                        celdas_camino.Add(nodo_actual);
-                }
+                if (cuenta.esta_luchando() && get_Distancia_Nodos(nodo_actual, nodo_inicial) <= pm_pelea || get_Distancia_Nodos(nodo_inicial, nodo_final) <= pm_pelea)
+                    celdas_camino.Add(nodo_actual);
                 else
                     celdas_camino.Add(nodo_actual);
 

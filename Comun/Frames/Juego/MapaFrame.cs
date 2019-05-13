@@ -296,20 +296,37 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             foreach (string interactivo in paquete.Substring(4).Split('|'))
             {
                 string[] separador = interactivo.Split(';');
-                Personaje personaje = cliente.cuenta.personaje;
+                Cuenta cuenta = cliente.cuenta;
+                Personaje personaje = cuenta.personaje;
                 short celda_id = short.Parse(separador[0]);
                 byte estado = byte.Parse(separador[1]);
 
-                if (estado >= 2 && 4 >= estado)
+                switch(estado)//aveces pescador no envia IQ
                 {
-                    personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
+                    case 2:
+                        personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
 
-                    if (personaje.celda_objetivo_recoleccion == celda_id && !cliente.cuenta.esta_recolectando())
-                    {
-                        cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Un personaje te ha robado el recurso");
-                        cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-                        personaje.evento_Recoleccion_Acabada();
-                    }
+                        if (personaje.celda_objetivo_recoleccion == celda_id && !cliente.cuenta.esta_recolectando())
+                        {
+                            cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Un personaje te ha robado el recurso");
+                            cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                            personaje.evento_Recoleccion_Acabada();
+                        }
+                    break;
+
+                    case 3://pescador no envia IQ porque aveces no pesca pero si manda GDF;3
+                        personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
+
+                        if (cuenta.esta_recolectando() && personaje.celda_objetivo_recoleccion == celda_id)
+                        {
+                            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                            cuenta.personaje.evento_Recoleccion_Acabada();
+                        }
+                    break;
+
+                    case 4:// reaparece
+                        personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
+                    break;
                 }
             }
         }

@@ -128,15 +128,15 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             int vida = -1;
             Luchadores enemigo = null;
 
-            foreach (Luchadores luchador_enemigo in get_Enemigos)
+            foreach (Luchadores enemigo_actual in get_Enemigos)
             {
-                if (!luchador_enemigo.esta_vivo)
+                if (!enemigo_actual.esta_vivo)
                     continue;
 
-                if (vida == -1 || luchador_enemigo.porcentaje_vida < vida)
+                if (vida == -1 || enemigo_actual.porcentaje_vida < vida)
                 {
-                    vida = luchador_enemigo.porcentaje_vida;
-                    enemigo = luchador_enemigo;
+                    vida = enemigo_actual.porcentaje_vida;
+                    enemigo = enemigo_actual;
                 }
             }
             return enemigo;
@@ -170,15 +170,15 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             foreach (Luchadores luchador_enemigo in get_Enemigos)
             {
-                if (luchador_enemigo.esta_vivo)
-                {
-                    distancia_temporal = mapa.get_Distancia_Entre_Dos_Casillas(jugador_luchador.celda_id, luchador_enemigo.celda_id);
+                if (!luchador_enemigo.esta_vivo)
+                    continue;
+                
+                distancia_temporal = mapa.get_Distancia_Entre_Dos_Casillas(jugador_luchador.celda_id, luchador_enemigo.celda_id);
 
-                    if (distancia == -1 || distancia_temporal < distancia)
-                    {
-                        distancia = distancia_temporal;
-                        enemigo = luchador_enemigo;
-                    }
+                if (distancia == -1 || distancia_temporal < distancia)
+                {
+                    distancia = distancia_temporal;
+                    enemigo = luchador_enemigo;
                 }
             }
             return enemigo;
@@ -513,7 +513,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             pelea_creada?.Invoke();
             cuenta.logger.log_informacion("PELEA", "Nueva pelea iniciada");
         }
-        
+
         public void get_Combate_Finalizado()
         {
             enemigos.Clear();
