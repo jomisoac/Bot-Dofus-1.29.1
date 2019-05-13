@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             Hechizo hechizo = comboBox_lista_hechizos.SelectedItem as Hechizo;
 
-            cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, checkBox_lanzar_cuerpo_cuerpo.Checked, Convert.ToByte(numeric_lanzamientos_turno.Value)));
+            cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, checkBox_lanzar_cuerpo_cuerpo.Checked, Convert.ToByte(numeric_lanzamientos_turno.Value), checkBox_AOE.Checked, checkBox_cuidado_aoe.Checked));
             cuenta.pelea_extension.configuracion.guardar();
             refrescar_Lista_Hechizos();
         }
@@ -57,13 +57,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             listView_hechizos_pelea.Items.Clear();
 
-            cuenta.pelea_extension.configuracion.hechizos.ForEach(hechizo =>
+            foreach(HechizoPelea hechizo in cuenta.pelea_extension.configuracion.hechizos)
             {
                 listView_hechizos_pelea.Items.Add(hechizo.id.ToString()).SubItems.AddRange(new string[]
                 {
-                    hechizo.nombre, hechizo.focus.ToString(), hechizo.lanzamientos_x_turno.ToString()
+                    hechizo.nombre, hechizo.focus.ToString(), hechizo.lanzamientos_x_turno.ToString(), hechizo.lanzar_cuerpo_cuerpo ? "Si" : "No", hechizo.es_aoe ? "Si" : "No"
                 });
-            });
+            }
         }
 
         private void button_subir_hechizo_Click(object sender, EventArgs e)

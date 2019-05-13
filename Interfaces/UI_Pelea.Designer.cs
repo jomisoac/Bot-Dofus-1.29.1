@@ -57,7 +57,7 @@
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox_agregar_hechizo = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox_AOE = new System.Windows.Forms.CheckBox();
             this.checkBox_cuidado_aoe = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox_lanzar_cuerpo_cuerpo = new System.Windows.Forms.CheckBox();
@@ -74,12 +74,14 @@
             this.nombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.focus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.n_lanzamientos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CAC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.button_subir_hechizo = new System.Windows.Forms.Button();
             this.button_bajar_hechizo = new System.Windows.Forms.Button();
             this.button_eliminar_hechizo = new System.Windows.Forms.Button();
             this.button_informacion_hechizo = new System.Windows.Forms.Button();
             this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
+            this.AOE = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage_general_pelea.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -419,8 +421,8 @@
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 90.48913F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.51087F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 91.84782F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.152174F));
             this.tableLayoutPanel7.Controls.Add(this.groupBox_agregar_hechizo, 0, 1);
             this.tableLayoutPanel7.Controls.Add(this.listView_hechizos_pelea, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel8, 1, 0);
@@ -428,8 +430,8 @@
             this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 4);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 2;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.4684F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.5316F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.23792F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.76208F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(736, 538);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
@@ -439,9 +441,9 @@
             this.groupBox_agregar_hechizo.Controls.Add(this.tableLayoutPanel9);
             this.groupBox_agregar_hechizo.Controls.Add(this.button_agregar_hechizo);
             this.groupBox_agregar_hechizo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_agregar_hechizo.Location = new System.Drawing.Point(3, 252);
+            this.groupBox_agregar_hechizo.Location = new System.Drawing.Point(3, 241);
             this.groupBox_agregar_hechizo.Name = "groupBox_agregar_hechizo";
-            this.groupBox_agregar_hechizo.Size = new System.Drawing.Size(659, 283);
+            this.groupBox_agregar_hechizo.Size = new System.Drawing.Size(669, 294);
             this.groupBox_agregar_hechizo.TabIndex = 1;
             this.groupBox_agregar_hechizo.TabStop = false;
             this.groupBox_agregar_hechizo.Text = "Agregar un hechizo";
@@ -451,7 +453,7 @@
             this.tableLayoutPanel11.ColumnCount = 2;
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.88668F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.11332F));
-            this.tableLayoutPanel11.Controls.Add(this.checkBox2, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.checkBox_AOE, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.checkBox_cuidado_aoe, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.checkBox3, 0, 1);
             this.tableLayoutPanel11.Controls.Add(this.checkBox_lanzar_cuerpo_cuerpo, 1, 1);
@@ -461,29 +463,29 @@
             this.tableLayoutPanel11.RowCount = 2;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(653, 63);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(663, 63);
             this.tableLayoutPanel11.TabIndex = 3;
             // 
-            // checkBox2
+            // checkBox_AOE
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.checkBox2.Location = new System.Drawing.Point(3, 3);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(372, 25);
-            this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "Golpear a tantos enemigos como sea posible";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox_AOE.AutoSize = true;
+            this.checkBox_AOE.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox_AOE.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.checkBox_AOE.Location = new System.Drawing.Point(3, 3);
+            this.checkBox_AOE.Name = "checkBox_AOE";
+            this.checkBox_AOE.Size = new System.Drawing.Size(377, 25);
+            this.checkBox_AOE.TabIndex = 4;
+            this.checkBox_AOE.Text = "Golpear a tantos enemigos como sea posible";
+            this.checkBox_AOE.UseVisualStyleBackColor = true;
             // 
             // checkBox_cuidado_aoe
             // 
             this.checkBox_cuidado_aoe.AutoSize = true;
             this.checkBox_cuidado_aoe.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox_cuidado_aoe.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.checkBox_cuidado_aoe.Location = new System.Drawing.Point(381, 3);
+            this.checkBox_cuidado_aoe.Location = new System.Drawing.Point(386, 3);
             this.checkBox_cuidado_aoe.Name = "checkBox_cuidado_aoe";
-            this.checkBox_cuidado_aoe.Size = new System.Drawing.Size(269, 25);
+            this.checkBox_cuidado_aoe.Size = new System.Drawing.Size(274, 25);
             this.checkBox_cuidado_aoe.TabIndex = 5;
             this.checkBox_cuidado_aoe.Text = "No auto-dañarse";
             this.checkBox_cuidado_aoe.UseVisualStyleBackColor = true;
@@ -495,7 +497,7 @@
             this.checkBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.checkBox3.Location = new System.Drawing.Point(3, 34);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(372, 26);
+            this.checkBox3.Size = new System.Drawing.Size(377, 26);
             this.checkBox3.TabIndex = 6;
             this.checkBox3.Text = "No dañar aliados";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -505,9 +507,9 @@
             this.checkBox_lanzar_cuerpo_cuerpo.AutoSize = true;
             this.checkBox_lanzar_cuerpo_cuerpo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox_lanzar_cuerpo_cuerpo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.checkBox_lanzar_cuerpo_cuerpo.Location = new System.Drawing.Point(381, 34);
+            this.checkBox_lanzar_cuerpo_cuerpo.Location = new System.Drawing.Point(386, 34);
             this.checkBox_lanzar_cuerpo_cuerpo.Name = "checkBox_lanzar_cuerpo_cuerpo";
-            this.checkBox_lanzar_cuerpo_cuerpo.Size = new System.Drawing.Size(269, 26);
+            this.checkBox_lanzar_cuerpo_cuerpo.Size = new System.Drawing.Size(274, 26);
             this.checkBox_lanzar_cuerpo_cuerpo.TabIndex = 7;
             this.checkBox_lanzar_cuerpo_cuerpo.Text = "Lanzar cuerpo a cuerpo";
             this.checkBox_lanzar_cuerpo_cuerpo.UseVisualStyleBackColor = true;
@@ -530,7 +532,7 @@
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.35088F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.91228F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(653, 108);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(663, 108);
             this.tableLayoutPanel9.TabIndex = 2;
             // 
             // label6
@@ -540,7 +542,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label6.Location = new System.Drawing.Point(3, 38);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(282, 35);
+            this.label6.Size = new System.Drawing.Size(287, 35);
             this.label6.TabIndex = 3;
             this.label6.Text = "Focus:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -552,7 +554,7 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(282, 38);
+            this.label5.Size = new System.Drawing.Size(287, 38);
             this.label5.TabIndex = 0;
             this.label5.Text = "Hechizo:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -562,9 +564,9 @@
             this.comboBox_lista_hechizos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_lista_hechizos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_lista_hechizos.FormattingEnabled = true;
-            this.comboBox_lista_hechizos.Location = new System.Drawing.Point(291, 3);
+            this.comboBox_lista_hechizos.Location = new System.Drawing.Point(296, 3);
             this.comboBox_lista_hechizos.Name = "comboBox_lista_hechizos";
-            this.comboBox_lista_hechizos.Size = new System.Drawing.Size(359, 25);
+            this.comboBox_lista_hechizos.Size = new System.Drawing.Size(364, 25);
             this.comboBox_lista_hechizos.TabIndex = 1;
             // 
             // comboBox_focus_hechizo
@@ -577,9 +579,9 @@
             "Aliado",
             "Encima",
             "Celda vacía"});
-            this.comboBox_focus_hechizo.Location = new System.Drawing.Point(291, 41);
+            this.comboBox_focus_hechizo.Location = new System.Drawing.Point(296, 41);
             this.comboBox_focus_hechizo.Name = "comboBox_focus_hechizo";
-            this.comboBox_focus_hechizo.Size = new System.Drawing.Size(359, 25);
+            this.comboBox_focus_hechizo.Size = new System.Drawing.Size(364, 25);
             this.comboBox_focus_hechizo.TabIndex = 4;
             // 
             // label7
@@ -590,7 +592,7 @@
             this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label7.Location = new System.Drawing.Point(3, 73);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(282, 35);
+            this.label7.Size = new System.Drawing.Size(287, 35);
             this.label7.TabIndex = 5;
             this.label7.Text = "Número de lanzamientos por turno:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -598,14 +600,14 @@
             // numeric_lanzamientos_turno
             // 
             this.numeric_lanzamientos_turno.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numeric_lanzamientos_turno.Location = new System.Drawing.Point(291, 76);
+            this.numeric_lanzamientos_turno.Location = new System.Drawing.Point(296, 76);
             this.numeric_lanzamientos_turno.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.numeric_lanzamientos_turno.Name = "numeric_lanzamientos_turno";
-            this.numeric_lanzamientos_turno.Size = new System.Drawing.Size(359, 25);
+            this.numeric_lanzamientos_turno.Size = new System.Drawing.Size(364, 25);
             this.numeric_lanzamientos_turno.TabIndex = 6;
             this.numeric_lanzamientos_turno.Value = new decimal(new int[] {
             1,
@@ -617,9 +619,9 @@
             // 
             this.button_agregar_hechizo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button_agregar_hechizo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button_agregar_hechizo.Location = new System.Drawing.Point(3, 249);
+            this.button_agregar_hechizo.Location = new System.Drawing.Point(3, 260);
             this.button_agregar_hechizo.Name = "button_agregar_hechizo";
-            this.button_agregar_hechizo.Size = new System.Drawing.Size(653, 31);
+            this.button_agregar_hechizo.Size = new System.Drawing.Size(663, 31);
             this.button_agregar_hechizo.TabIndex = 1;
             this.button_agregar_hechizo.Text = "Agregar hechizo";
             this.button_agregar_hechizo.UseVisualStyleBackColor = true;
@@ -631,14 +633,16 @@
             this.id,
             this.nombre,
             this.focus,
-            this.n_lanzamientos});
+            this.n_lanzamientos,
+            this.CAC,
+            this.AOE});
             this.listView_hechizos_pelea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_hechizos_pelea.FullRowSelect = true;
             this.listView_hechizos_pelea.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
             this.listView_hechizos_pelea.Location = new System.Drawing.Point(3, 3);
             this.listView_hechizos_pelea.Name = "listView_hechizos_pelea";
-            this.listView_hechizos_pelea.Size = new System.Drawing.Size(659, 243);
+            this.listView_hechizos_pelea.Size = new System.Drawing.Size(669, 232);
             this.listView_hechizos_pelea.TabIndex = 0;
             this.listView_hechizos_pelea.UseCompatibleStateImageBehavior = false;
             this.listView_hechizos_pelea.View = System.Windows.Forms.View.Details;
@@ -651,17 +655,22 @@
             // nombre
             // 
             this.nombre.Text = "Nombre";
-            this.nombre.Width = 213;
+            this.nombre.Width = 178;
             // 
             // focus
             // 
             this.focus.Text = "Focus";
-            this.focus.Width = 178;
+            this.focus.Width = 97;
             // 
             // n_lanzamientos
             // 
-            this.n_lanzamientos.Text = "Numero de lanzamientos";
-            this.n_lanzamientos.Width = 171;
+            this.n_lanzamientos.Text = "Lanzamientos x turno";
+            this.n_lanzamientos.Width = 136;
+            // 
+            // CAC
+            // 
+            this.CAC.Text = "Lanzar CAC";
+            this.CAC.Width = 79;
             // 
             // tableLayoutPanel8
             // 
@@ -672,14 +681,14 @@
             this.tableLayoutPanel8.Controls.Add(this.button_eliminar_hechizo, 0, 2);
             this.tableLayoutPanel8.Controls.Add(this.button_informacion_hechizo, 0, 3);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(668, 3);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(678, 3);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 4;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(65, 243);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(55, 232);
             this.tableLayoutPanel8.TabIndex = 1;
             // 
             // button_subir_hechizo
@@ -688,7 +697,7 @@
             this.button_subir_hechizo.Image = global::Bot_Dofus_1._29._1.Properties.Resources.flecha_arriba;
             this.button_subir_hechizo.Location = new System.Drawing.Point(3, 3);
             this.button_subir_hechizo.Name = "button_subir_hechizo";
-            this.button_subir_hechizo.Size = new System.Drawing.Size(59, 54);
+            this.button_subir_hechizo.Size = new System.Drawing.Size(49, 52);
             this.button_subir_hechizo.TabIndex = 0;
             this.button_subir_hechizo.UseVisualStyleBackColor = true;
             this.button_subir_hechizo.Click += new System.EventHandler(this.button_subir_hechizo_Click);
@@ -697,9 +706,9 @@
             // 
             this.button_bajar_hechizo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_bajar_hechizo.Image = global::Bot_Dofus_1._29._1.Properties.Resources.flecha_abajo;
-            this.button_bajar_hechizo.Location = new System.Drawing.Point(3, 63);
+            this.button_bajar_hechizo.Location = new System.Drawing.Point(3, 61);
             this.button_bajar_hechizo.Name = "button_bajar_hechizo";
-            this.button_bajar_hechizo.Size = new System.Drawing.Size(59, 54);
+            this.button_bajar_hechizo.Size = new System.Drawing.Size(49, 52);
             this.button_bajar_hechizo.TabIndex = 1;
             this.button_bajar_hechizo.UseVisualStyleBackColor = true;
             this.button_bajar_hechizo.Click += new System.EventHandler(this.button_bajar_hechizo_Click);
@@ -708,9 +717,9 @@
             // 
             this.button_eliminar_hechizo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_eliminar_hechizo.Image = global::Bot_Dofus_1._29._1.Properties.Resources.cruz_roja_pequeña;
-            this.button_eliminar_hechizo.Location = new System.Drawing.Point(3, 123);
+            this.button_eliminar_hechizo.Location = new System.Drawing.Point(3, 119);
             this.button_eliminar_hechizo.Name = "button_eliminar_hechizo";
-            this.button_eliminar_hechizo.Size = new System.Drawing.Size(59, 54);
+            this.button_eliminar_hechizo.Size = new System.Drawing.Size(49, 52);
             this.button_eliminar_hechizo.TabIndex = 2;
             this.button_eliminar_hechizo.UseVisualStyleBackColor = true;
             this.button_eliminar_hechizo.Click += new System.EventHandler(this.button_eliminar_hechizo_Click);
@@ -719,9 +728,9 @@
             // 
             this.button_informacion_hechizo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_informacion_hechizo.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
-            this.button_informacion_hechizo.Location = new System.Drawing.Point(3, 183);
+            this.button_informacion_hechizo.Location = new System.Drawing.Point(3, 177);
             this.button_informacion_hechizo.Name = "button_informacion_hechizo";
-            this.button_informacion_hechizo.Size = new System.Drawing.Size(59, 57);
+            this.button_informacion_hechizo.Size = new System.Drawing.Size(49, 52);
             this.button_informacion_hechizo.TabIndex = 3;
             this.button_informacion_hechizo.UseVisualStyleBackColor = true;
             // 
@@ -731,6 +740,10 @@
             this.lista_imagenes.TransparentColor = System.Drawing.Color.Transparent;
             this.lista_imagenes.Images.SetKeyName(0, "1 - Home24.png");
             this.lista_imagenes.Images.SetKeyName(1, "magic32.png");
+            // 
+            // AOE
+            // 
+            this.AOE.Text = "AOE";
             // 
             // UI_Pelea
             // 
@@ -818,10 +831,12 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.CheckBox checkbox_espectadores;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox_AOE;
         private System.Windows.Forms.CheckBox checkBox_cuidado_aoe;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox_lanzar_cuerpo_cuerpo;
         private System.Windows.Forms.CheckBox checkBox_utilizar_dragopavo;
+        private System.Windows.Forms.ColumnHeader CAC;
+        private System.Windows.Forms.ColumnHeader AOE;
     }
 }
