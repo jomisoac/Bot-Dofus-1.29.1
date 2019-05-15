@@ -6,10 +6,10 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Npcs
     {
         public int id { get; set; }
         public int npc_id { get; private set; }
-        public int celda_id { get; set; }
+        public short celda_id { get; set; }
         private bool disposed;
 
-        public Npcs(int _id, int _npc_id, int _celda_id)
+        public Npcs(int _id, int _npc_id, short _celda_id)
         {
             id = _id;
             npc_id = _npc_id;

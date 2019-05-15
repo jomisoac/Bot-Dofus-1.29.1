@@ -99,7 +99,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             Mapa mapa = cuenta.personaje.mapa;
             if (cuenta.personaje.mapa.get_Monstruos().Count > 0)
             {
-                int celda_actual = cuenta.personaje.celda_id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0).celda_id;
+                short celda_actual = cuenta.personaje.celda_id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0).celda_id;
 
                 if (celda_actual != celda_monstruo_destino & celda_monstruo_destino != -1)
                 {

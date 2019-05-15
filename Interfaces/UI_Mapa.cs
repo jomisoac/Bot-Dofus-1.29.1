@@ -50,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private async void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
         {
-            int celda_actual = cuenta.personaje.celda_id, celda_destino = celda.id;
+            short celda_actual = cuenta.personaje.celda_id, celda_destino = celda.id;
 
             if (botones == MouseButtons.Left && celda_actual != 0 && celda_destino != 0)
             {
@@ -102,14 +102,14 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
-        private void get_Dibujar_Pathfinding(List<Nodo> lista_celdas)
+        private void get_Dibujar_Pathfinding(List<short> lista_celdas)
         {
             mapa.BeginInvoke((Action)(() =>
             {
                 get_Dibujar_mapa(cuenta.personaje.mapa.celdas);
 
-                foreach (Nodo celda in lista_celdas)
-                    mapa.celdas[celda.id].Celda_Estado = CeldaEstado.PELEA_EQUIPO_AZUL;
+                foreach (short celda in lista_celdas)
+                    mapa.celdas[celda].Celda_Estado = CeldaEstado.PELEA_EQUIPO_AZUL;
 
                 mapa.Invalidate();
             }));

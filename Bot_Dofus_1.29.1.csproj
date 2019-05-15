@@ -193,6 +193,10 @@
     <Compile Include="Otros\Mapas\Movimiento\DuracionAnimacion.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Nodo.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Pathfinding.cs" />
+    <Compile Include="Otros\Mapas\Movimiento\Peleas\MovimientoNodo.cs" />
+    <Compile Include="Otros\Mapas\Movimiento\Peleas\NodoPelea.cs" />
+    <Compile Include="Otros\Mapas\Movimiento\Peleas\PeleaCamino.cs" />
+    <Compile Include="Otros\Mapas\Movimiento\Peleas\PeleasPathfinder.cs" />
     <Compile Include="Protocolo\Enums\MapaTeleportCeldas.cs" />
     <Compile Include="Protocolo\Enums\ResultadoMovimientos.cs" />
     <Compile Include="Otros\Mapas\Movimiento\TipoAnimacion.cs" />
@@ -484,5 +488,6 @@
   <ItemGroup>
     <None Include="Resources\otros\interactivos.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

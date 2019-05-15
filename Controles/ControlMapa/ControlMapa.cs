@@ -128,7 +128,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         {
             celdas = new CeldaMapa[2 * MapaAltura * MapaAnchura];
 
-            int cellId = 0;
+            short cellId = 0;
             CeldaMapa celda;
             for (int y = 0; y < MapaAltura; y++)
             {

@@ -19,7 +19,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Enums
         NO_ESTA_EN_LINEA = 7,
         NECESITA_CELDA_LIBRE = 8,
         NO_ESTA_EN_RANGO = 9,
-        NO_TIENE_LINEA_VISION = 10,
-        DESONOCIDO = 11,
+        DESONOCIDO = 10,
     }
 }

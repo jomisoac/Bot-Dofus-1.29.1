@@ -1,9 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
-using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return await lanzar_Hechizo_Celda_Vacia(hechizo);
-            
+
             if (!hechizo.lanzar_cuerpo_cuerpo && !hechizo.es_aoe)
                 return await get_Lanzar_Hechizo_Simple(hechizo);
 
@@ -40,7 +39,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             //si el hechizo es cuerpo a cuerpo pero no esta cuerpo a cuerpo hay que mover el bot
             if (hechizo.lanzar_cuerpo_cuerpo && !hechizo.es_aoe && !cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
-                return await get_Mover_Lanzar_hechizo(hechizo, get_Objetivo_Mas_Cercano(hechizo));
+                return await get_Mover_Lanzar_hechizo_Simple(hechizo, get_Objetivo_Mas_Cercano(hechizo));
 
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
@@ -62,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                     return ResultadoLanzandoHechizo.LANZADO;
                 }
                 if (resultado == FallosLanzandoHechizo.NO_ESTA_EN_RANGO)
-                    return await get_Mover_Lanzar_hechizo(hechizo, enemigo);
+                    return await get_Mover_Lanzar_hechizo_Simple(hechizo, enemigo);
             }
             else if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return await lanzar_Hechizo_Celda_Vacia(hechizo);
@@ -81,45 +80,72 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return hechizo.focus == HechizoFocus.ENEMIGO ? cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa) : cuenta.pelea.get_Obtener_Aliado_Mas_Cercano(cuenta.personaje.mapa);
         }
 
-        private async Task<ResultadoLanzandoHechizo> get_Mover_Lanzar_hechizo(HechizoPelea hechizo_pelea, Luchadores enemigo)
+        private async Task<ResultadoLanzandoHechizo> get_Mover_Lanzar_hechizo_Simple(HechizoPelea hechizo_pelea, Luchadores enemigo)
         {
+            KeyValuePair<short, MovimientoNodo>? nodo = null;
+            int pmUsed = 99;
             Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(cuenta.personaje.id);
-            Mapa mapa = cuenta.personaje.mapa;
 
-            Hechizo hechizo_general = cuenta.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
-            HechizoStats datos_hechizo = hechizo_general.get_Hechizo_Stats()[hechizo_general.nivel];
-
-            int distancia_enemigo = mapa.get_Distancia_Entre_Dos_Casillas(luchador.celda_id, enemigo.celda_id);
-            int pm_usados_lanzar_hechizo = distancia_enemigo >= datos_hechizo.alcanze_maximo ? luchador.pm : distancia_enemigo;
-
-            if (luchador.pm > 0)
+            foreach (KeyValuePair<short, MovimientoNodo> movimiento in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda_id))
             {
-                ResultadoMovimientos resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(luchador.celda_id, enemigo.celda_id, false, pm_usados_lanzar_hechizo);
+                if (!movimiento.Value.alcanzable)
+                    continue;
 
-                switch (resultado)
+                if (hechizo_pelea.lanzar_cuerpo_cuerpo && !cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Aliado(movimiento.Key))
+                    continue;
+
+                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, enemigo.celda_id, cuenta.personaje.mapa) != FallosLanzandoHechizo.NINGUNO)
+                    continue;
+
+                if (movimiento.Value.camino.celdas_accesibles.Count <= pmUsed)
                 {
-                    case ResultadoMovimientos.EXITO:
-                        return ResultadoLanzandoHechizo.MOVIDO;
+                    nodo = movimiento;
+                    pmUsed = movimiento.Value.camino.celdas_accesibles.Count;
                 }
             }
+
+            if (nodo != null)
+            {
+                await cuenta.personaje.mapa.get_Mover_Celda_Pelea(nodo);
+                return ResultadoLanzandoHechizo.MOVIDO;
+            }
+
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
 
-        public async Task<ResultadoLanzandoHechizo> get_Mover(Luchadores enemigo)
+        public async Task get_Mover(bool cercano, Luchadores target)
         {
-            Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(cuenta.personaje.id);
+            KeyValuePair<short, MovimientoNodo>? nodo = null;
+            int distancia_total = -1;
+            int distancia = -1;
 
-            if (luchador.pm > 0)
+            distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda_id);
+
+            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda_id))
             {
-                ResultadoMovimientos resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(luchador.celda_id, enemigo.celda_id, false, luchador.pm);
+                if (!kvp.Value.alcanzable)
+                    continue;
 
-                switch (resultado)
+                int tempTotalDistances = Get_Total_Distancia_Enemigo(kvp.Key);
+
+                if ((cercano && tempTotalDistances <= distancia_total) || (!cercano && tempTotalDistances >= distancia_total))
                 {
-                    case ResultadoMovimientos.EXITO:
-                        return ResultadoLanzandoHechizo.MOVIDO;
+                    if (cercano)
+                    {
+                        nodo = kvp;
+                        distancia_total = tempTotalDistances;
+                    }
+                    else if (kvp.Value.camino.celdas_accesibles.Count >= distancia)
+                    {
+                        nodo = kvp;
+                        distancia_total = tempTotalDistances;
+                        distancia = kvp.Value.camino.celdas_accesibles.Count;
+                    }
                 }
             }
-            return ResultadoLanzandoHechizo.NO_LANZADO;
+
+            if (nodo != null)
+                await cuenta.personaje.mapa.get_Mover_Celda_Pelea(nodo);
         }
 
         private async Task<ResultadoLanzandoHechizo> lanzar_Hechizo_Celda_Vacia(HechizoPelea hechizo_pelea)
@@ -148,6 +174,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
+
+        public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => (cuenta.personaje.mapa.get_Distancia_Entre_Dos_Casillas(celda_id, e.celda_id) - 1));
 
         #region Zona Dispose
         ~ManejadorHechizos() => Dispose(false);
