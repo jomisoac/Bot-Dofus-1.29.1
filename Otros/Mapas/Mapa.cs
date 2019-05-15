@@ -3,6 +3,7 @@ using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
+using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -69,7 +70,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
 
-        public async Task<ResultadoMovimientos> get_Mover_Celda_Resultado(int celda_actual, int celda_destino, bool esquivar_monstruos, int pm_pelea = 3)
+        public async Task<ResultadoMovimientos> get_Mover_Celda_Resultado(short celda_actual, short celda_destino, bool esquivar_monstruos)
         {
             if (celda_destino < 0 || celda_destino > celdas.Length)
                 return ResultadoMovimientos.FALLO;
@@ -89,21 +90,37 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             if (cuenta.personaje.celda_id == celda_destino)
                 return ResultadoMovimientos.MISMA_CELDA;
 
-            Pathfinding camino = new Pathfinding(cuenta, esquivar_monstruos, pm_pelea);
-            if (camino.get_Camino(celda_actual, celda_destino))
+            Pathfinding path = new Pathfinding(cuenta);
+
+            if (path.get_Puede_Caminar(celda_actual, celda_destino, esquivar_monstruos))
             {
-                if (!cuenta.esta_luchando())
-                    cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
-
-                await cuenta.conexion.enviar_Paquete_Async("GA001" + camino.get_Pathfinding_Limpio());
-
-                if (!cuenta.esta_luchando())
-                    camino.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino);
+                cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
+                await cuenta.conexion.enviar_Paquete_Async("GA001" + Pathfinding.get_Pathfinding_Limpio(path.celdas_camino, this));
+                path.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino);
+                cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(path.celdas_camino);
 
                 return ResultadoMovimientos.EXITO;
             }
+
             cuenta.personaje.evento_Movimiento_Celda(false);
             return ResultadoMovimientos.FALLO;
+        }
+
+        public async Task get_Mover_Celda_Pelea(KeyValuePair<short, MovimientoNodo>? nodo)
+        {
+            if (!cuenta.esta_luchando())
+                return;
+
+            if (nodo == null || nodo.Value.Value.camino.celdas_accesibles.Count == 0)
+                return;
+
+            if (nodo.Value.Key == cuenta.pelea.jugador_luchador.celda_id)
+                return;
+
+            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.pelea.jugador_luchador.celda_id);
+
+            await cuenta.conexion.enviar_Paquete_Async("GA001" + Pathfinding.get_Pathfinding_Limpio(nodo.Value.Value.camino.celdas_accesibles, this));
+            cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(nodo.Value.Value.camino.celdas_accesibles);
         }
 
         public bool get_Puede_Recolectar_Elementos_Interactivos(List<short> elementos_ids) => get_Interactivos_Utilizables(elementos_ids).Count > 0;
@@ -213,119 +230,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return grupos_monstruos_disponibles;
         }
 
-        public bool get_Verificar_Linea_Vision(int cell1, int cell2)
-        {
-            int dist = get_Distancia_Entre_Dos_Casillas(cell1, cell2);
-            List<int> los = new List<int>();
-            if (dist > 2)
-                los = get_Linea_Vision(cell1, cell2);
-            if (los != null && dist > 2)
-            {
-                foreach (int i in los)
-                {
-                    if (i != cell1 && i != cell2 && !celdas[i].es_linea_vision)
-                        return false;
-                }
-            }
-            if (dist > 2)
-            {
-                int cell = get_Obtener_Celda_Cercana(cell2, cell1);
-                if (cell != -1 && !celdas[cell].es_linea_vision)
-                    return false;
-            }
-            return true;
-        }
-
-        public int get_Obtener_Celda_Cercana(int celda_inicial, int celda_final)
-        {
-            int dist = 1000;
-            int celda_id = celda_inicial;
-            char[] dirs = { 'b', 'd', 'f', 'h' };
-            foreach (char d in dirs)
-            {
-                int celda = get_Celda_Desde_Direccion(celda_inicial, d);
-                int dis = get_Distancia_Entre_Dos_Casillas(celda_final, celda);
-                if (dis < dist && celdas[celda].tipo == TipoCelda.CELDA_CAMINABLE && cuenta.pelea.es_Celda_Libre(celda))
-                {
-                    dist = dis;
-                    celda_id = celda;
-                }
-            }
-            return celda_id == celda_inicial ? -1 : celda_id;
-        }
-
-        public int get_Celda_Desde_Direccion(int celda_id, char direccion, int distancia = 1)
-        {
-            switch (direccion)
-            {
-                case 'a':
-                    return celda_id + distancia;
-                case 'b':
-                    return celda_id + anchura;
-                case 'c':
-                    return celda_id + (anchura * 2 - distancia);
-                case 'd':
-                    return celda_id + (anchura - 1);
-                case 'e':
-                    return celda_id - distancia;
-                case 'f':
-                    return celda_id - anchura;
-                case 'g':
-                    return celda_id - (anchura * 2 - distancia);
-                case 'h':
-                    return celda_id - anchura + 1;
-            }
-            return -1;
-        }
-
-        public List<int> get_Linea_Vision(int celda_1, int celda_2)
-        {
-            List<int> Los = new List<int>();
-            int celda_id = celda_1;
-            bool next = false;
-            int[] dir1 = { 1, -1, 29, -29, 15, 14, -15, -14 };
-
-            foreach (int i in dir1)
-            {
-                Los.Clear();
-                celda_id = celda_1;
-                Los.Add(celda_id);
-                next = false;
-                while (!next)
-                {
-                    celda_id += i;
-                    Los.Add(celda_id);
-                    if (get_Es_Borde2(celda_id) || get_Es_Borde1(celda_id) || celda_id <= 0 || celda_id >= 480)
-                        next = true;
-                    if (celda_id == celda_2)
-                    {
-                        return Los;
-                    }
-                }
-            }
-            return null;
-        }
-
-        public static bool get_Es_Borde1(int id)
-        {
-            int[] bordes = { 1, 30, 59, 88, 117, 146, 175, 204, 233, 262, 291, 320, 349, 378, 407, 436, 465, 15, 44, 73, 102, 131, 160, 189, 218, 247, 276, 305, 334, 363, 392, 421, 450, 479 };
-            List<int> test = new List<int>();
-            foreach (int i in bordes)
-                test.Add(i);
-
-            return test.Contains(id);
-        }
-
-        public static bool get_Es_Borde2(int id)
-        {
-            int[] bordes = { 16, 45, 74, 103, 132, 161, 190, 219, 248, 277, 306, 335, 364, 393, 422, 451, 29, 58, 87, 116, 145, 174, 203, 232, 261, 290, 319, 348, 377, 406, 435, 464 };
-            List<int> test = new List<int>();
-            foreach (int i in bordes)
-                test.Add(i);
-
-            return test.Contains(id);
-        }
-
         #region Metodos
         public int get_Celda_Y_Coordenadas(int celda_id)
         {
@@ -356,30 +260,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             bool Y = get_Celda_Y_Coordenadas(celda_1) == get_Celda_Y_Coordenadas(celda_2);
 
             return X || Y;
-        }
-
-        public char getDireccionOpuesta(char c)
-        {
-            switch (c)
-            {
-                case 'a':
-                    return 'e';
-                case 'b':
-                    return 'f';
-                case 'c':
-                    return 'g';
-                case 'd':
-                    return 'h';
-                case 'e':
-                    return 'a';
-                case 'f':
-                    return 'b';
-                case 'g':
-                    return 'c';
-                case 'h':
-                    return 'd';
-            }
-            return char.MaxValue;
         }
 
         public Celda get_Coordenadas(int x, int y) => celdas.FirstOrDefault(c => get_Celda_X_Coordenadas(c.id) == x && get_Celda_Y_Coordenadas(c.id) == y);

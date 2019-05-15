@@ -21,7 +21,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
     public class Pelea : IDisposable
     {
-        private Cuenta cuenta;
+        public Cuenta cuenta { get; private set; }
         private ConcurrentDictionary<int, Luchadores> luchadores;
         private ConcurrentDictionary<int, Luchadores> enemigos;
         private ConcurrentDictionary<int, Luchadores> aliados;
@@ -287,9 +287,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (datos_hechizo.es_lanzado_linea && !mapa.get_Esta_En_Linea(jugador_luchador.celda_id, celda_objetivo))
                 return FallosLanzandoHechizo.NO_ESTA_EN_LINEA;
 
-            if (datos_hechizo.es_lanzado_con_vision && !mapa.get_Verificar_Linea_Vision(jugador_luchador.celda_id, celda_objetivo))
-                return FallosLanzandoHechizo.NO_TIENE_LINEA_VISION;
-
             if (!get_Rango_hechizo(jugador_luchador.celda_id, datos_hechizo, mapa).Contains(celda_objetivo))
                 return FallosLanzandoHechizo.NO_ESTA_EN_RANGO;
 
@@ -300,7 +297,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             List<int> rango = new List<int>();
 
-            foreach (Celda celda in HechizoShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, datos_hechizo, mapa, cuenta.personaje.caracteristicas.alcanze.total_stats))
+            foreach (Celda celda in HechizoShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, datos_hechizo, cuenta.personaje.mapa, cuenta.personaje.caracteristicas.alcanze.total_stats))
             {
                 if (celda == null || rango.Contains(celda.id))
                     continue;

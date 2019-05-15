@@ -7,10 +7,10 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
     public class CeldaMapa
     {
         public static CeldaEstado HighestState = Enum.GetValues(typeof(CeldaEstado)).Cast<CeldaEstado>().Max();
-        public int id;
+        public short id;
         private Point[] mapa_puntos;
 
-        public CeldaMapa(int _id)
+        public CeldaMapa(short _id)
         {
             id = _id;
             activo = true;

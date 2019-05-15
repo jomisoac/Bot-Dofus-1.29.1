@@ -137,7 +137,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         private async Task get_Fin_Turno()
         {
             if (!cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
-                await manejador_hechizos.get_Mover(cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
+                await manejador_hechizos.get_Mover(true, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
+            else if (cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
+                await manejador_hechizos.get_Mover(false, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
 
             cuenta.pelea.get_Turno_Acabado();
             cuenta.conexion.enviar_Paquete("Gt");

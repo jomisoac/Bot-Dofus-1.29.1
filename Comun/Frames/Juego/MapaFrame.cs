@@ -250,7 +250,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         if (cuenta.esta_luchando())
                         {
                             luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
-                            short pm_utilizados = short.Parse(separador[3].Split(',')[1].Substring(1));
+                            byte pm_utilizados = byte.Parse(separador[3].Split(',')[1].Substring(1));
 
                             if (luchador != null)
                                 luchador.pm -= pm_utilizados;
@@ -279,7 +279,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             await Task.Delay(tiempo_recoleccion);
                             cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
                         }
-
                     break;
 
                     case 900:
@@ -301,7 +300,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 short celda_id = short.Parse(separador[0]);
                 byte estado = byte.Parse(separador[1]);
 
-                switch(estado)//aveces pescador no envia IQ
+                switch(estado)
                 {
                     case 2:
                         personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
@@ -314,9 +313,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         }
                     break;
 
-                    case 3://pescador no envia IQ porque aveces no pesca pero si manda GDF;3
+                    case 3:
                         personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
 
+                        //pescador no envia IQ porque aveces no pesca pero si manda GDF;3
                         if (cuenta.esta_recolectando() && personaje.celda_objetivo_recoleccion == celda_id)
                         {
                             cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
