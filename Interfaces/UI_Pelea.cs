@@ -99,13 +99,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
             Mapa mapa = cuenta.personaje.mapa;
             if (cuenta.personaje.mapa.get_Monstruos().Count > 0)
             {
-                short celda_actual = cuenta.personaje.celda_id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0).celda_id;
+                short celda_actual = cuenta.personaje.celda.id, celda_monstruo_destino = mapa.get_Monstruos().Values.ElementAt(0).celda.id;
 
                 if (celda_actual != celda_monstruo_destino & celda_monstruo_destino != -1)
                 {
                     cuenta.logger.log_informacion("PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino);
 
-                    ResultadoMovimientos resultado = await mapa.get_Mover_Celda_Resultado(celda_actual, celda_monstruo_destino, false);
+                    ResultadoMovimientos resultado = await mapa.get_Mover_Celda_Mapa(celda_actual, celda_monstruo_destino, false);
 
                     switch (resultado)
                     {

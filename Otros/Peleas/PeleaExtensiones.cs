@@ -1,10 +1,12 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
+using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -137,13 +139,50 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         private async Task get_Fin_Turno()
         {
             if (!cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
-                await manejador_hechizos.get_Mover(true, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
+                await get_Mover(true, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
             else if (cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
-                await manejador_hechizos.get_Mover(false, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
+                await get_Mover(false, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
 
             cuenta.pelea.get_Turno_Acabado();
             cuenta.conexion.enviar_Paquete("Gt");
         }
+
+        public async Task get_Mover(bool cercano, Luchadores enemigo)
+        {
+            KeyValuePair<short, MovimientoNodo>? nodo = null;
+            int distancia_total = -1;
+            int distancia = -1;
+
+            distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda.id);
+
+            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda.id))
+            {
+                if (!kvp.Value.alcanzable)
+                    continue;
+
+                int tempTotalDistances = Get_Total_Distancia_Enemigo(kvp.Key);
+
+                if ((cercano && tempTotalDistances <= distancia_total) || (!cercano && tempTotalDistances >= distancia_total))
+                {
+                    if (cercano)
+                    {
+                        nodo = kvp;
+                        distancia_total = tempTotalDistances;
+                    }
+                    else if (kvp.Value.camino.celdas_accesibles.Count >= distancia)
+                    {
+                        nodo = kvp;
+                        distancia_total = tempTotalDistances;
+                        distancia = kvp.Value.camino.celdas_accesibles.Count;
+                    }
+                }
+            }
+
+            if (nodo != null)
+                await cuenta.personaje.mapa.get_Mover_Celda_Pelea(nodo);
+        }
+
+        public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => e.celda.get_Distancia_Entre_Dos_Casillas(celda_id) - 1);
 
         #region Zona Dispose
         ~PeleaExtensiones() => Dispose(false);

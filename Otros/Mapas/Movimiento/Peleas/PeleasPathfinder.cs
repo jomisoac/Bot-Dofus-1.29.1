@@ -19,7 +19,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
             cuadricula = new NodoCeldas[mapa.celdas.Length];
 
             foreach (Celda celda in mapa.celdas)
-                cuadricula[celda.id] = new NodoCeldas(celda.id, mapa.get_Celda_X_Coordenadas(celda.id), mapa.get_Celda_Y_Coordenadas(celda.id), celda.tipo != TipoCelda.NO_CAMINABLE && celda.tipo != TipoCelda.OBJETO_INTERACTIVO || celda.objeto_interactivo_id != -1);
+                cuadricula[celda.id] = new NodoCeldas(celda);
         }
 
         public static PeleaCamino get_Path_Pelea(short celda_actual, short celda_objetivo, Dictionary<short, MovimientoNodo> celdas)
@@ -94,9 +94,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
 
                 for (int i = 0; i < adyecentes.Count; i++)
                 {
-                    if (celdas_prohibidas.ContainsKey(adyecentes[i].id))
+                    if (celdas_prohibidas.ContainsKey(adyecentes[i].celda.id))
                     {
-                        NodoPelea anterior = celdas_prohibidas[adyecentes[i].id];
+                        NodoPelea anterior = celdas_prohibidas[adyecentes[i].celda.id];
                         if (anterior.pm_disponible > pm_disponibles)
                             continue;
 
@@ -104,12 +104,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
                             continue;
                     }
 
-                    if (!adyecentes[i].es_caminable)
+                    if (!adyecentes[i].celda.es_Caminable())
                         continue;
 
-                    celdas[adyecentes[i].id] = new MovimientoNodo(celda_id, accesible);
-                    nodo = new NodoPelea(adyecentes[i].id, pm_disponibles, pa_disponibles, distancia);
-                    celdas_prohibidas[adyecentes[i].id] = nodo;
+                    celdas[adyecentes[i].celda.id] = new MovimientoNodo(celda_id, accesible);
+                    nodo = new NodoPelea(adyecentes[i].celda.id, pm_disponibles, pa_disponibles, distancia);
+                    celdas_prohibidas[adyecentes[i].celda.id] = nodo;
 
                     if (actual.distancia < maximos_pm)
                         celdas_permitidas.Add(nodo);
@@ -126,10 +126,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
         {
             List<NodoCeldas> celdas_siguientes = new List<NodoCeldas>();
 
-            NodoCeldas celda_derecha = cuadricula.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x + 1 && nodec.posicion_y == nodo.posicion_y);
-            NodoCeldas celda_izquierda = cuadricula.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x - 1 && nodec.posicion_y == nodo.posicion_y);
-            NodoCeldas celda_inferior = cuadricula.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x && nodec.posicion_y == nodo.posicion_y + 1);
-            NodoCeldas celda_superior = cuadricula.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x && nodec.posicion_y == nodo.posicion_y - 1);
+            NodoCeldas celda_derecha = cuadricula.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x + 1 && nodec.celda.y == nodo.celda.y);
+            NodoCeldas celda_izquierda = cuadricula.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x - 1 && nodec.celda.y == nodo.celda.y);
+            NodoCeldas celda_inferior = cuadricula.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x && nodec.celda.y == nodo.celda.y + 1);
+            NodoCeldas celda_superior = cuadricula.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x && nodec.celda.y == nodo.celda.y - 1);
 
             if (celda_derecha != null)
                 celdas_siguientes.Add(celda_derecha);

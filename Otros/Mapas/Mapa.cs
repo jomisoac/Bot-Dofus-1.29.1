@@ -26,10 +26,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
     public class Mapa : IDisposable
     {
         public int id { get; set; } = 0;
-        public int fecha { get; set; } = 0;
         public byte anchura { get; set; } = 15;
         public byte altura { get; set; } = 17;
-        public string mapa_data { get; set; }
+        public string data { get; set; }
         public Celda[] celdas;
         private Cuenta cuenta { get; set; } = null;
         public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
@@ -47,15 +46,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             string[] _loc3 = paquete.Split('|');
             cuenta = _cuenta;
             id = int.Parse(_loc3[0]);
-            fecha = int.Parse(_loc3[1]);
 
-            FileInfo mapa_archivo = new FileInfo("mapas/" + id + "_0" + fecha + ".xml");
+            FileInfo mapa_archivo = new FileInfo("mapas/" + id + ".xml");
             if (mapa_archivo.Exists)
             {
                 archivo_mapa = XElement.Load(mapa_archivo.FullName);
                 anchura = byte.Parse(archivo_mapa.Element("ANCHURA").Value);
                 altura = byte.Parse(archivo_mapa.Element("ALTURA").Value);
-                mapa_data = archivo_mapa.Element("MAPA_DATA").Value;
+                data = archivo_mapa.Element("MAPA_DATA").Value;
 
                 archivo_mapa = null;//limpia la memoria
                 descomprimir_mapa();
@@ -63,34 +61,32 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             else
             {
                 cuenta.conexion.get_Desconectar_Socket();
-                cuenta.logger.log_Error("Mapa", $"Archivo de mapa no encontrado bot desconectado, id mapa: {id}, fecha correcta: 0{fecha}");
+                cuenta.logger.log_Error("Mapa", $"Archivo de mapa no encontrado bot desconectado, id mapa: {id}");
             }
             mapa_archivo = null;
         }
 
         public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
 
-        public async Task<ResultadoMovimientos> get_Mover_Celda_Resultado(short celda_actual, short celda_destino, bool esquivar_monstruos)
+        public async Task<ResultadoMovimientos> get_Mover_Celda_Mapa(short celda_actual, short celda_destino, bool esquivar_monstruos)
         {
             if (celda_destino < 0 || celda_destino > celdas.Length)
                 return ResultadoMovimientos.FALLO;
 
-            if (!cuenta.esta_luchando())
-            {
-                if (cuenta.esta_ocupado)
-                    return ResultadoMovimientos.FALLO;
-            }
+            if (cuenta.esta_ocupado)
+                return ResultadoMovimientos.FALLO;
 
             if (celdas[celda_destino].tipo == TipoCelda.NO_CAMINABLE && celdas[celda_destino].objeto_interactivo == null)
                 return ResultadoMovimientos.FALLO;
 
+
             if (celdas[celda_destino].tipo == TipoCelda.OBJETO_INTERACTIVO && celdas[celda_destino].objeto_interactivo == null)
                 return ResultadoMovimientos.FALLO;
 
-            if (cuenta.personaje.celda_id == celda_destino)
+            if (cuenta.personaje.celda.id == celda_destino)
                 return ResultadoMovimientos.MISMA_CELDA;
 
-            Pathfinding path = new Pathfinding(cuenta);
+            Pathfinding path = new Pathfinding(this);
 
             if (path.get_Puede_Caminar(celda_actual, celda_destino, esquivar_monstruos))
             {
@@ -114,10 +110,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             if (nodo == null || nodo.Value.Value.camino.celdas_accesibles.Count == 0)
                 return;
 
-            if (nodo.Value.Key == cuenta.pelea.jugador_luchador.celda_id)
+            if (nodo.Value.Key == cuenta.pelea.jugador_luchador.celda.id)
                 return;
 
-            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.pelea.jugador_luchador.celda_id);
+            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.pelea.jugador_luchador.celda.id);
 
             await cuenta.conexion.enviar_Paquete_Async("GA001" + Pathfinding.get_Pathfinding_Limpio(nodo.Value.Value.camino.celdas_accesibles, this));
             cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(nodo.Value.Value.camino.celdas_accesibles);
@@ -163,7 +159,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         private async Task<bool> get_Movimiento_Interactivo(KeyValuePair<short, ObjetoInteractivo> elemento)
         {
-            ResultadoMovimientos resultado = await get_Mover_Celda_Resultado(cuenta.personaje.celda_id, elemento.Key, true);
+            ResultadoMovimientos resultado = await get_Mover_Celda_Mapa(cuenta.personaje.celda.id, elemento.Key, true);
 
             switch (resultado)
             {
@@ -173,11 +169,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                     {
                         if (cuenta.personaje.get_Skills_Recoleccion_Disponibles().Contains(habilidad))
                         {
-                            cuenta.conexion.enviar_Paquete("GA500" + elemento.Key + ";" + habilidad);
+                            await cuenta.conexion.enviar_Paquete_Async("GA500" + elemento.Key + ";" + habilidad);
                             cuenta.personaje.celda_objetivo_recoleccion = elemento.Key;
                         }
                     }
-                    return true;
+                return true;
             }
             return false;
         }
@@ -230,50 +226,17 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return grupos_monstruos_disponibles;
         }
 
-        #region Metodos
-        public int get_Celda_Y_Coordenadas(int celda_id)
-        {
-            int loc5 = celda_id / ((anchura * 2) - 1);
-            int loc6 = celda_id - (loc5 * ((anchura * 2) - 1));
-            int loc7 = loc6 % anchura;
-            return loc5 - loc7;
-        }
-
-        public int get_Celda_X_Coordenadas(int celda_id) => (celda_id - ((anchura - 1) * get_Celda_Y_Coordenadas(celda_id))) / anchura;
-
-
-        public int get_Distancia_Entre_Dos_Casillas(int celda_1, int celda_2)
-        {
-            if (celda_1 != celda_2)
-            {
-                int diferencia_x = Math.Abs(get_Celda_X_Coordenadas(celda_1) - get_Celda_X_Coordenadas(celda_2));
-                int diferencia_y = Math.Abs(get_Celda_Y_Coordenadas(celda_1) - get_Celda_Y_Coordenadas(celda_2));
-                return diferencia_x + diferencia_y;
-            }
-            else
-                return 0;
-        }
-
-        public bool get_Esta_En_Linea(int celda_1, int celda_2)
-        {
-            bool X = get_Celda_X_Coordenadas(celda_1) == get_Celda_X_Coordenadas(celda_2);
-            bool Y = get_Celda_Y_Coordenadas(celda_1) == get_Celda_Y_Coordenadas(celda_2);
-
-            return X || Y;
-        }
-
-        public Celda get_Coordenadas(int x, int y) => celdas.FirstOrDefault(c => get_Celda_X_Coordenadas(c.id) == x && get_Celda_Y_Coordenadas(c.id) == y);
-        #endregion
+        public Celda get_Coordenadas(int x, int y) => celdas.FirstOrDefault(celda => celda.x == x && celda.y == y);
 
         #region Metodos de descompresion
         public void descomprimir_mapa()
         {
-            celdas = new Celda[mapa_data.Length / 10];
+            celdas = new Celda[data.Length / 10];
             string valores_celda;
 
-            for (int i = 0; i < mapa_data.Length; i += 10)
+            for (int i = 0; i < data.Length; i += 10)
             {
-                valores_celda = mapa_data.Substring(i, 10);
+                valores_celda = data.Substring(i, 10);
                 celdas[i / 10] = descompimir_Celda(valores_celda, Convert.ToInt16(i / 10));
             }
         }
@@ -402,7 +365,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 celdas = null;
                 personajes = null;
                 cuenta = null;
-                mapa_data = null;
+                data = null;
                 disposed = true;
             }
         }

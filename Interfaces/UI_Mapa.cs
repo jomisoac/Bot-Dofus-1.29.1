@@ -50,11 +50,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private async void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
         {
-            short celda_actual = cuenta.personaje.celda_id, celda_destino = celda.id;
+            short celda_actual = cuenta.personaje.celda.id, celda_destino = celda.id;
 
             if (botones == MouseButtons.Left && celda_actual != 0 && celda_destino != 0)
             {
-                ResultadoMovimientos resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(celda_actual, celda_destino, true);
+                ResultadoMovimientos resultado = await cuenta.personaje.mapa.get_Mover_Celda_Mapa(celda_actual, celda_destino, true);
 
                 switch (resultado)
                 {

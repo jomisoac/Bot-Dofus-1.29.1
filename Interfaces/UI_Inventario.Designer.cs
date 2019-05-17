@@ -33,13 +33,6 @@
             this.tabControl_mision = new System.Windows.Forms.TabControl();
             this.tabPage_equipamiento = new System.Windows.Forms.TabPage();
             this.dataGridView_equipamientos = new System.Windows.Forms.DataGridView();
-            this.id_Inventario_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_modelo_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.posicion_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pods_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eliminar_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage_varios = new System.Windows.Forms.TabPage();
             this.dataGridView_varios = new System.Windows.Forms.DataGridView();
             this.id_inventario_varios = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +51,13 @@
             this.eliminar_recursos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage_mision = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.id_Inventario_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_modelo_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.posicion_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pods_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eliminar_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl_mision.SuspendLayout();
             this.tabPage_equipamiento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_equipamientos)).BeginInit();
@@ -104,7 +104,7 @@
             this.dataGridView_equipamientos.AllowUserToResizeColumns = false;
             this.dataGridView_equipamientos.AllowUserToResizeRows = false;
             this.dataGridView_equipamientos.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridView_equipamientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_equipamientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView_equipamientos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_Inventario_equipamiento,
             this.id_modelo_equipamiento,
@@ -123,63 +123,6 @@
             this.dataGridView_equipamientos.Size = new System.Drawing.Size(776, 460);
             this.dataGridView_equipamientos.TabIndex = 0;
             this.dataGridView_equipamientos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_equipamientos_CellContentClick);
-            // 
-            // id_Inventario_equipamiento
-            // 
-            this.id_Inventario_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.id_Inventario_equipamiento.HeaderText = "ID Inventario";
-            this.id_Inventario_equipamiento.MinimumWidth = 110;
-            this.id_Inventario_equipamiento.Name = "id_Inventario_equipamiento";
-            this.id_Inventario_equipamiento.ReadOnly = true;
-            this.id_Inventario_equipamiento.Width = 110;
-            // 
-            // id_modelo_equipamiento
-            // 
-            this.id_modelo_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.id_modelo_equipamiento.HeaderText = "ID Modelo";
-            this.id_modelo_equipamiento.MinimumWidth = 100;
-            this.id_modelo_equipamiento.Name = "id_modelo_equipamiento";
-            this.id_modelo_equipamiento.ReadOnly = true;
-            // 
-            // nombre_equipamiento
-            // 
-            this.nombre_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.nombre_equipamiento.HeaderText = "Nombre";
-            this.nombre_equipamiento.MinimumWidth = 100;
-            this.nombre_equipamiento.Name = "nombre_equipamiento";
-            this.nombre_equipamiento.ReadOnly = true;
-            // 
-            // cantidad_equipamiento
-            // 
-            this.cantidad_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cantidad_equipamiento.HeaderText = "Cantidad";
-            this.cantidad_equipamiento.MinimumWidth = 100;
-            this.cantidad_equipamiento.Name = "cantidad_equipamiento";
-            this.cantidad_equipamiento.ReadOnly = true;
-            // 
-            // posicion_equipamiento
-            // 
-            this.posicion_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.posicion_equipamiento.HeaderText = "Posición";
-            this.posicion_equipamiento.MinimumWidth = 100;
-            this.posicion_equipamiento.Name = "posicion_equipamiento";
-            this.posicion_equipamiento.ReadOnly = true;
-            // 
-            // pods_equipamiento
-            // 
-            this.pods_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.pods_equipamiento.HeaderText = "Pods";
-            this.pods_equipamiento.MinimumWidth = 100;
-            this.pods_equipamiento.Name = "pods_equipamiento";
-            this.pods_equipamiento.ReadOnly = true;
-            // 
-            // eliminar_equipamiento
-            // 
-            this.eliminar_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.eliminar_equipamiento.HeaderText = "Eliminar";
-            this.eliminar_equipamiento.MinimumWidth = 100;
-            this.eliminar_equipamiento.Name = "eliminar_equipamiento";
-            this.eliminar_equipamiento.ReadOnly = true;
             // 
             // tabPage_varios
             // 
@@ -371,6 +314,64 @@
             this.imageList1.Images.SetKeyName(1, "pocion.png");
             this.imageList1.Images.SetKeyName(2, "recursos.png");
             this.imageList1.Images.SetKeyName(3, "llave.png");
+            // 
+            // id_Inventario_equipamiento
+            // 
+            this.id_Inventario_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.id_Inventario_equipamiento.HeaderText = "ID Inventario";
+            this.id_Inventario_equipamiento.MinimumWidth = 110;
+            this.id_Inventario_equipamiento.Name = "id_Inventario_equipamiento";
+            this.id_Inventario_equipamiento.ReadOnly = true;
+            this.id_Inventario_equipamiento.Width = 110;
+            // 
+            // id_modelo_equipamiento
+            // 
+            this.id_modelo_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.id_modelo_equipamiento.HeaderText = "ID Modelo";
+            this.id_modelo_equipamiento.MinimumWidth = 100;
+            this.id_modelo_equipamiento.Name = "id_modelo_equipamiento";
+            this.id_modelo_equipamiento.ReadOnly = true;
+            // 
+            // nombre_equipamiento
+            // 
+            this.nombre_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.nombre_equipamiento.HeaderText = "Nombre";
+            this.nombre_equipamiento.MinimumWidth = 120;
+            this.nombre_equipamiento.Name = "nombre_equipamiento";
+            this.nombre_equipamiento.ReadOnly = true;
+            this.nombre_equipamiento.Width = 120;
+            // 
+            // cantidad_equipamiento
+            // 
+            this.cantidad_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cantidad_equipamiento.HeaderText = "Cantidad";
+            this.cantidad_equipamiento.MinimumWidth = 100;
+            this.cantidad_equipamiento.Name = "cantidad_equipamiento";
+            this.cantidad_equipamiento.ReadOnly = true;
+            // 
+            // posicion_equipamiento
+            // 
+            this.posicion_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.posicion_equipamiento.HeaderText = "Posición";
+            this.posicion_equipamiento.MinimumWidth = 100;
+            this.posicion_equipamiento.Name = "posicion_equipamiento";
+            this.posicion_equipamiento.ReadOnly = true;
+            // 
+            // pods_equipamiento
+            // 
+            this.pods_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.pods_equipamiento.HeaderText = "Pods";
+            this.pods_equipamiento.MinimumWidth = 100;
+            this.pods_equipamiento.Name = "pods_equipamiento";
+            this.pods_equipamiento.ReadOnly = true;
+            // 
+            // eliminar_equipamiento
+            // 
+            this.eliminar_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.eliminar_equipamiento.HeaderText = "Eliminar";
+            this.eliminar_equipamiento.MinimumWidth = 100;
+            this.eliminar_equipamiento.Name = "eliminar_equipamiento";
+            this.eliminar_equipamiento.ReadOnly = true;
             // 
             // UI_Inventario
             // 
