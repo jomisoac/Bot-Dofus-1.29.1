@@ -281,7 +281,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         break;
 
                         case "/cellid":
-                            escribir_mensaje(cuenta.personaje.celda_id.ToString(), "0040FF");
+                            escribir_mensaje(cuenta.personaje.celda.id.ToString(), "0040FF");
                         break;
 
                         default:

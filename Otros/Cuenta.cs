@@ -11,6 +11,7 @@ using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -50,7 +51,7 @@ namespace Bot_Dofus_1._29._1.Otros
             logger = new Logger();
             pelea = new Pelea(this);
             pelea_extension = new PeleaExtensiones(this);
-            conexion = new ClienteLogin(GlobalConf.ip_conexion, GlobalConf.puerto_conexion, this);
+            conexion = new ClienteLogin(IPAddress.Parse(GlobalConf.ip_conexion), GlobalConf.puerto_conexion, this);
         }
 
         public string get_Nombre_Servidor() => servidor_id == 601 ? "Eratz" : "Henual";
@@ -61,7 +62,7 @@ namespace Bot_Dofus_1._29._1.Otros
             {
                 if (conexion != null)
                     conexion.get_Desconectar_Socket();
-                conexion = new ClienteGame(ip, puerto, this);
+                conexion = new ClienteGame(IPAddress.Parse(ip), puerto, this);
                 Estado_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
             }
         }

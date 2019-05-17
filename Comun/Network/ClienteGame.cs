@@ -1,6 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -16,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 {
     internal class ClienteGame : ClienteAbstracto
     {
-        public ClienteGame(string ip, int puerto, Cuenta cuenta) : base(ip, puerto, cuenta) { }
+        public ClienteGame(IPAddress ip, int puerto, Cuenta cuenta) : base(ip, puerto, cuenta) { }
 
         public override void recibir_CallBack(IAsyncResult ar)
         {

@@ -28,14 +28,14 @@ namespace Bot_Dofus_1._29._1.Comun.Network
         public event Action<object> socket_informacion;
         
 
-        public ClienteAbstracto(string ip, int puerto, Cuenta _cuenta)
+        public ClienteAbstracto(IPAddress ip, int puerto, Cuenta _cuenta)
         {
             try
             {
                 cuenta = _cuenta;
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 buffer = new byte[socket.ReceiveBufferSize];
-                socket.BeginConnect(IPAddress.Parse(ip), puerto, new AsyncCallback(conectar_CallBack), socket);
+                socket.BeginConnect(ip, puerto, new AsyncCallback(conectar_CallBack), socket);
             }
             catch (Exception ex)
             {

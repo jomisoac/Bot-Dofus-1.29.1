@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 
             if (celda_especifica)
             {
-                resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_id, true);
+                resultado = await cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, celda_id, true);
 
                 if (resultado != ResultadoMovimientos.EXITO)
                 {
@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             else if (direccion_especifica)
             {
                 short celda_teleport = cuenta.personaje.mapa.celdas.Where(celda => celda.tipo_teleport == direccion).Select(celda => celda.id).SingleOrDefault();
-                resultado = await cuenta.personaje.mapa.get_Mover_Celda_Resultado(cuenta.personaje.celda_id, celda_teleport, true);
+                resultado = await cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, celda_teleport, true);
 
                 if (resultado != ResultadoMovimientos.EXITO)
                 {

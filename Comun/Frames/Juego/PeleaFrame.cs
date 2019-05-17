@@ -1,6 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -25,11 +26,8 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             string[] _loc3 = paquete.Substring(2).Split('|');
 
             for (int a = 0; a < _loc3[0].Length; a += 2)
-                cuenta.pelea.lista_celda_team1.Add((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1])));
+                cuenta.pelea.celdas_preparacion.Add((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1])));
                 
-            for (int a = 0; a < _loc3[1].Length; a += 2)
-                cuenta.pelea.lista_celda_team2.Add((short)((Hash.get_Hash(_loc3[1][a]) << 6) + Hash.get_Hash(_loc3[1][a + 1])));
-
             if (cuenta.pelea_extension.configuracion.desactivar_espectador)
                cuenta.conexion.enviar_Paquete("fS");
 
@@ -57,13 +55,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             Cuenta cuenta = cliente.cuenta;
             string[] separador_posiciones = paquete.Substring(4).Split('|');
             int id_entidad;
-            short celda_id;
+            Celda celda;
             Luchadores luchador = null;
 
             foreach (string posicion in separador_posiciones)
             {
                 id_entidad = int.Parse(posicion.Split(';')[0]);
-                celda_id = short.Parse(posicion.Split(';')[1]);
+                celda = cuenta.personaje.mapa.celdas[short.Parse(posicion.Split(';')[1])];
 
                 if (id_entidad == cuenta.personaje.id)
                 {
@@ -74,7 +72,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
 
                 if (luchador != null)
-                    luchador.celda_id -= celda_id;
+                    luchador.celda = celda;
             }
         }
 
@@ -82,6 +80,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Combate_Info_Stats(ClienteAbstracto cliente, string paquete)
         {
             string[] separador = paquete.Substring(4).Split('|');
+            Mapa mapa = cliente.cuenta.personaje.mapa;
 
             for (int i = 0; i < separador.Length; ++i)
             {
@@ -97,17 +96,17 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         int vida_actual = int.Parse(_loc6_[2]);
                         byte pa = byte.Parse(_loc6_[3]);
                         byte pm = byte.Parse(_loc6_[4]);
-                        short celda_id = short.Parse(_loc6_[5]);
+                        Celda celda = mapa.celdas[short.Parse(_loc6_[5])];
                         int vida_maxima = int.Parse(_loc6_[7]);
 
-                        if (celda_id > 0)//son espectadores
+                        if (celda.id > 0)//son espectadores
                         {
                             byte equipo = Convert.ToByte(id > 0 ? 1 : 0);
-                            luchador?.get_Actualizar_Luchador(id, esta_vivo, vida_actual, pa, pm, celda_id, vida_maxima, equipo);
+                            luchador?.get_Actualizar_Luchador(id, esta_vivo, vida_actual, pa, pm, celda, vida_maxima, equipo);
                         }
                     }
                     else
-                        luchador?.get_Actualizar_Luchador(id, esta_vivo, 0, 0, 0, -1, 0, 0);
+                        luchador?.get_Actualizar_Luchador(id, esta_vivo, 0, 0, 0, null, 0, 0);
                 }
             }
         }

@@ -18,12 +18,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 {
     public class Pathfinding : IDisposable
     {
-        public NodoCeldas[] cuadricula_celdas { get; private set; }
-        private Mapa mapa { get; set; }
-        private List<NodoCeldas> lista_celdas_no_permitidas = new List<NodoCeldas>();
+        private NodoCeldas[] cuadricula_celdas { get; set; }
         public List<short> celdas_camino { get; private set; }
-        private Cuenta cuenta;
-        public static int tiempo;
+        private Mapa mapa { get; set; }
+
+        public static int tiempo_desplazamiento = 0;
         private bool disposed;
 
         private static readonly Dictionary<TipoAnimacion, DuracionAnimacion> tiempo_tipo_animacion = new Dictionary<TipoAnimacion, DuracionAnimacion>()
@@ -34,10 +33,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             { TipoAnimacion.FANTASMA, new DuracionAnimacion(57, 85, 50) }//speed hack ;)
         };
 
-        public Pathfinding(Cuenta _cuenta)
+        public Pathfinding(Mapa _mapa)
         {
-            cuenta = _cuenta;
-            mapa = cuenta.personaje.mapa;
+            mapa = _mapa;
             celdas_camino = new List<short>();
             cuadricula_celdas = new NodoCeldas[mapa.celdas.Length];
 
@@ -47,7 +45,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         private void rellenar_cuadricula()
         {
             foreach (Celda celda in mapa.celdas)
-                cuadricula_celdas[celda.id] = new NodoCeldas(celda.id, mapa.get_Celda_X_Coordenadas(celda.id), mapa.get_Celda_Y_Coordenadas(celda.id), celda.tipo != TipoCelda.NO_CAMINABLE && celda.tipo != TipoCelda.OBJETO_INTERACTIVO || celda.objeto_interactivo_id != -1);
+                cuadricula_celdas[celda.id] = new NodoCeldas(celda);
         }
 
         private void cargar_Obstaculos(bool esquivar_monstruos, out List<NodoCeldas> lista_celdas_no_permitidas)
@@ -58,18 +56,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             {
                 if (celda.tipo == TipoCelda.CELDA_TELEPORT)
                     lista_celdas_no_permitidas.Add(cuadricula_celdas[celda.id]);
-
-                else if (celda.objeto_interactivo_id != -1)
-                {
-                    if (celda.objeto_interactivo != null && !celda.objeto_interactivo.modelo.caminable)
-                        lista_celdas_no_permitidas.Add(cuadricula_celdas[celda.id]);
-                }
             }
 
             if (esquivar_monstruos)
             {
                 foreach (Monstruo monstruo in mapa.get_Monstruos().Values)
-                    lista_celdas_no_permitidas.Add(cuadricula_celdas[monstruo.celda_id]);
+                    lista_celdas_no_permitidas.Add(cuadricula_celdas[monstruo.celda.id]);
             }
         }
 
@@ -114,7 +106,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 
                 foreach (NodoCeldas celda_siguiente in get_Celdas_Adyecentes(actual))
                 {
-                    if (lista_celdas_no_permitidas.Contains(celda_siguiente) || !celda_siguiente.es_caminable)
+                    if (lista_celdas_no_permitidas.Contains(celda_siguiente) || !celda_siguiente.celda.es_Caminable())
                         continue;
 
                     int temporal_g = actual.coste_g + get_Distancia_Nodos(celda_siguiente, actual);
@@ -139,11 +131,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 
             while (nodo_actual != nodo_inicial)
             {
-                celdas_camino.Add(nodo_actual.id);
+                celdas_camino.Add(nodo_actual.celda.id);
                 nodo_actual = nodo_actual.nodo_padre;
             }
 
-            celdas_camino.Add(nodo_inicial.id);
+            celdas_camino.Add(nodo_inicial.celda.id);
             celdas_camino.Reverse();
         }
 
@@ -151,10 +143,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         {
             List<NodoCeldas> celdas_siguientes = new List<NodoCeldas>();
 
-            NodoCeldas celda_derecha = cuadricula_celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x + 1 && nodec.posicion_y == nodo.posicion_y);
-            NodoCeldas celda_izquierda = cuadricula_celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x - 1 && nodec.posicion_y == nodo.posicion_y);
-            NodoCeldas celda_inferior = cuadricula_celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x && nodec.posicion_y == nodo.posicion_y + 1);
-            NodoCeldas celda_superior = cuadricula_celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x && nodec.posicion_y == nodo.posicion_y - 1);
+            NodoCeldas celda_derecha = cuadricula_celdas.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x + 1 && nodec.celda.y == nodo.celda.y);
+            NodoCeldas celda_izquierda = cuadricula_celdas.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x - 1 && nodec.celda.y == nodo.celda.y);
+            NodoCeldas celda_inferior = cuadricula_celdas.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x && nodec.celda.y == nodo.celda.y + 1);
+            NodoCeldas celda_superior = cuadricula_celdas.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x && nodec.celda.y == nodo.celda.y - 1);
 
             if (celda_derecha != null)
                 celdas_siguientes.Add(celda_derecha);
@@ -164,28 +156,27 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 celdas_siguientes.Add(celda_inferior);
             if (celda_superior != null)
                 celdas_siguientes.Add(celda_superior);
+            
+            NodoCeldas superior_izquierda = cuadricula_celdas.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x - 1 && nodec.celda.y == nodo.celda.y - 1);
+            NodoCeldas inferior_derecha = cuadricula_celdas.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x + 1 && nodec.celda.y == nodo.celda.y + 1);
+            NodoCeldas inferior_izquierda = cuadricula_celdas.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x - 1 && nodec.celda.y == nodo.celda.y + 1);
+            NodoCeldas superior_derecha = cuadricula_celdas.FirstOrDefault(nodec => nodec.celda.x == nodo.celda.x + 1 && nodec.celda.y == nodo.celda.y - 1);
 
-            //Diagonales
-            NodoCeldas celda_superior_izquierda = cuadricula_celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x - 1 && nodec.posicion_y == nodo.posicion_y - 1);
-            NodoCeldas celda_inferior_derecha = cuadricula_celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x + 1 && nodec.posicion_y == nodo.posicion_y + 1);
-            NodoCeldas celda_inferior_izquierda = cuadricula_celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x - 1 && nodec.posicion_y == nodo.posicion_y + 1);
-            NodoCeldas celda_superior_derecha = cuadricula_celdas.FirstOrDefault(nodec => nodec.posicion_x == nodo.posicion_x + 1 && nodec.posicion_y == nodo.posicion_y - 1);
-
-            if (celda_superior_izquierda != null)
-                celdas_siguientes.Add(celda_superior_izquierda);
-            if (celda_inferior_derecha != null)
-                celdas_siguientes.Add(celda_inferior_derecha);
-            if (celda_inferior_izquierda != null)
-                celdas_siguientes.Add(celda_inferior_izquierda);
-            if (celda_superior_derecha != null)
-                celdas_siguientes.Add(celda_superior_derecha);
+            if (superior_izquierda != null)
+                celdas_siguientes.Add(superior_izquierda);
+            if (inferior_derecha != null)
+                celdas_siguientes.Add(inferior_derecha);
+            if (inferior_izquierda != null)
+                celdas_siguientes.Add(inferior_izquierda);
+            if (superior_derecha != null)
+                celdas_siguientes.Add(superior_derecha);
 
             return celdas_siguientes;
         }
 
         public int get_Tiempo_Desplazamiento_Mapa(int casilla_inicio, int casilla_final)
         {
-            tiempo = 20;
+            tiempo_desplazamiento = 20;
             DuracionAnimacion tipo_animacion = celdas_camino.Count < 6 ? tiempo_tipo_animacion[TipoAnimacion.CAMINANDO] : tiempo_tipo_animacion[TipoAnimacion.CORRIENDO];
             Celda anterior_celda = mapa.celdas[casilla_inicio], siguiente_celda;
 
@@ -193,32 +184,33 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             {
                 siguiente_celda = mapa.celdas[celdas_camino[i + 1]];
 
-                if (cuadricula_celdas[anterior_celda.id].posicion_y == cuadricula_celdas[siguiente_celda.id].posicion_y)
-                    tiempo += tipo_animacion.horizontal;
-                else if (cuadricula_celdas[anterior_celda.id].posicion_x == cuadricula_celdas[siguiente_celda.id].posicion_y)
-                    tiempo += tipo_animacion.vertical;
+                if (cuadricula_celdas[anterior_celda.id].celda.y == cuadricula_celdas[siguiente_celda.id].celda.y)
+                    tiempo_desplazamiento += tipo_animacion.horizontal;
+                else if (cuadricula_celdas[anterior_celda.id].celda.x == cuadricula_celdas[siguiente_celda.id].celda.y)
+                    tiempo_desplazamiento += tipo_animacion.vertical;
                 else
-                    tiempo += tipo_animacion.lineal;
+                    tiempo_desplazamiento += tipo_animacion.lineal;
 
                 if (anterior_celda.layer_ground_nivel < siguiente_celda.layer_ground_nivel)
-                    tiempo += 100;
+                    tiempo_desplazamiento += 100;
                 else if (siguiente_celda.layer_ground_nivel > anterior_celda.layer_ground_nivel)
-                    tiempo -= 100;
+                    tiempo_desplazamiento -= 100;
                 else if (anterior_celda.layer_ground_slope != siguiente_celda.layer_ground_slope)
                 {
                     if (anterior_celda.layer_ground_slope == 1)
-                        tiempo += 100;
+                        tiempo_desplazamiento += 100;
                     else if (siguiente_celda.layer_ground_slope == 1)
-                        tiempo -= 100;
+                        tiempo_desplazamiento -= 100;
                 }
                 anterior_celda = siguiente_celda;
             }
 
-            return tiempo;
+            return tiempo_desplazamiento;
         }
 
         private static char get_Direccion_Dos_Celdas(short celda_1, short celda_2, Mapa mapa)
         {
+            Celda celda1 = mapa.celdas[celda_1], celda2 = mapa.celdas[celda_2];
             byte mapa_anchura = mapa.anchura;
             int[] _loc6_ = { 1, mapa_anchura, (mapa_anchura * 2) - 1, mapa_anchura - 1, -1, -mapa_anchura, (-mapa_anchura * 2) + 1, -(mapa_anchura - 1) };
             int _loc7_ = celda_2 - celda_1;
@@ -229,8 +221,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                     return (char)(i + 'a');
             }
 
-            int resultado_x = mapa.get_Celda_X_Coordenadas(celda_2) - mapa.get_Celda_X_Coordenadas(celda_1);
-            int resultado_y = mapa.get_Celda_Y_Coordenadas(celda_2) - mapa.get_Celda_Y_Coordenadas(celda_1);
+            int resultado_x = celda2.x - celda1.x;
+            int resultado_y = celda2.y - celda1.y;
 
             if (resultado_x == 0)
             {
@@ -245,7 +237,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 return (char)(5 + 'a');
         }
 
-        private int get_Distancia_Nodos(NodoCeldas a, NodoCeldas b) => ((a.posicion_x - b.posicion_x) * (a.posicion_x - b.posicion_x)) + ((a.posicion_y - b.posicion_y) * (a.posicion_y - b.posicion_y));
+        private int get_Distancia_Nodos(NodoCeldas a, NodoCeldas b) => ((a.celda.x - b.celda.x) * (a.celda.x - b.celda.x)) + ((a.celda.y - b.celda.y) * (a.celda.y - b.celda.y));
 
         public static string get_Pathfinding_Limpio(List<short> celdas_camino, Mapa mapa)
         {
@@ -283,9 +275,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             if (!disposed)
             {
                 cuadricula_celdas = null;
-                cuenta = null;
-                lista_celdas_no_permitidas.Clear();
-                lista_celdas_no_permitidas = null;
+                mapa = null;
                 celdas_camino.Clear();
                 celdas_camino = null;
                 disposed = true;

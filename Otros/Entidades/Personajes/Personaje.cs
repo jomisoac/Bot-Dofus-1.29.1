@@ -34,7 +34,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public List<Oficio> oficios { get; private set; }
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
-        public short celda_id { get; set; } = 0;
+        public Celda celda { get; set; }
         public short celda_objetivo_recoleccion { get; set; } = 0;
         public bool en_grupo { get; set; } = false;
         private bool disposed;
@@ -82,12 +82,12 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             oficios[0].skills.Add(new SkillsOficio(114, 1, 1, -1));
         }
 
-        public Personaje(int _id, string _nombre_personaje, byte _sexo, short _celda_id)//Paquete GM+
+        public Personaje(int _id, string _nombre_personaje, byte _sexo, Celda _celda)//Paquete GM+
         {
             id = _id;
             nombre_personaje = _nombre_personaje;
             sexo = _sexo;
-            celda_id = _celda_id;
+            celda = _celda;
         }
 
         public void agregar_Canal_Personaje(string cadena_canales)

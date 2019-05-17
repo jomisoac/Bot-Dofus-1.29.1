@@ -9,21 +9,15 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 {
     public class NodoCeldas
     {
-        public short id { get; set; }
-        public int posicion_x { get; set; }
-        public int posicion_y { get; set; }
-        public bool es_caminable { get; set; }
+        public Celda celda { get; set; }
         public int coste_h { get; set; }
         public int coste_g { get; set; }
         public int coste_f { get; set; }
         public NodoCeldas nodo_padre { get; set; }
 
-        public NodoCeldas(short _id, int _posicion_x, int _posicion_y, bool _es_caminable)
+        public NodoCeldas(Celda _celda)
         {
-            id = _id;
-            posicion_x = _posicion_x;
-            posicion_y = _posicion_y;
-            es_caminable = _es_caminable;
+            celda = _celda;
         }
     }
 }

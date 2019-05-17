@@ -23,6 +23,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public byte layer_ground_slope { get; private set; } = 0;
         public ObjetoInteractivo objeto_interactivo { get; private set; }
         public MapaTeleportCeldas tipo_teleport { get; private set; } = MapaTeleportCeldas.NINGUNO;
+        public Mapa mapa { get; private set; } = null;
+        public int x { get; private set; } = 0;
+        public int y { get; private set; } = 0;
 
         public static readonly int[] texturas_teleport = { 1030, 1029, 1764, 2298, 745 };
 
@@ -41,26 +44,56 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             layer_ground_nivel = _nivel;
             layer_ground_slope = _slope;
             objeto_interactivo_id = _objeto_interactivo_id;
+            mapa = _mapa;
 
             if (objeto_interactivo_id != -1)
                 objeto_interactivo = new ObjetoInteractivo(objeto_interactivo_id);
+            
+            byte mapa_anchura = mapa.anchura;
+            int _loc5 = id / ((mapa_anchura * 2) - 1);
+            int _loc6 = id - (_loc5 * ((mapa_anchura * 2) - 1));
+            int _loc7 = _loc6 % mapa_anchura;
+            y = _loc5 - _loc7;
+            x = (id - ((mapa_anchura - 1) * y)) / mapa_anchura;
 
             if (tipo == TipoCelda.CELDA_TELEPORT)
             {
-                int temporal_x = _mapa.get_Celda_X_Coordenadas(id), temporal_y = _mapa.get_Celda_Y_Coordenadas(id);
-
-                if ((temporal_x - 1) == temporal_y)
+                if ((x - 1) == y)
                     tipo_teleport = MapaTeleportCeldas.IZQUIERDA;
-                else if ((temporal_x - 27) == temporal_y)
+                else if ((x - 27) == y)
                     tipo_teleport = MapaTeleportCeldas.DERECHA;
-                else if ((temporal_x + temporal_y) == 31)
+                else if ((x + y) == 31)
                     tipo_teleport = MapaTeleportCeldas.ABAJO;
-                else if (temporal_y < 0)
+                else if (y < 0)
                 {
-                    if ((temporal_x - Math.Abs(temporal_y)) == 1)
+                    if ((x - Math.Abs(y)) == 1)
                         tipo_teleport = MapaTeleportCeldas.ARRIBA;
                 }
             }
+        }
+
+        public int get_Distancia_Entre_Dos_Casillas(short destino)
+        {
+            Celda celda_destino = mapa.celdas[destino];
+
+            return Math.Abs(x - celda_destino.x) + Math.Abs(y - celda_destino.y);
+        }
+
+        public bool get_Esta_En_Linea(short destino)
+        {
+            Celda celda_destino = mapa.celdas[destino];
+
+            return x == celda_destino.x || y == celda_destino.y;
+        }
+
+        public bool es_Caminable() => tipo != TipoCelda.NO_CAMINABLE && !es_Interactivo();
+
+        public bool es_Interactivo()
+        {
+            if (tipo == TipoCelda.OBJETO_INTERACTIVO)
+                return true;
+
+            return objeto_interactivo != null && !objeto_interactivo.modelo.caminable;
         }
     }
 }

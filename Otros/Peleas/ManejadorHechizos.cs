@@ -53,11 +53,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             if (enemigo != null)
             {
-                FallosLanzandoHechizo resultado = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id, enemigo.celda_id, cuenta.personaje.mapa);
+                FallosLanzandoHechizo resultado = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id, enemigo.celda.id, cuenta.personaje.mapa);
 
                 if (resultado == FallosLanzandoHechizo.NINGUNO)
                 {
-                    await cuenta.pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda_id);
+                    await cuenta.pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda.id);
                     return ResultadoLanzandoHechizo.LANZADO;
                 }
                 if (resultado == FallosLanzandoHechizo.NO_ESTA_EN_RANGO)
@@ -83,10 +83,10 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         private async Task<ResultadoLanzandoHechizo> get_Mover_Lanzar_hechizo_Simple(HechizoPelea hechizo_pelea, Luchadores enemigo)
         {
             KeyValuePair<short, MovimientoNodo>? nodo = null;
-            int pmUsed = 99;
+            int pm_utilizados = 99;
             Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(cuenta.personaje.id);
 
-            foreach (KeyValuePair<short, MovimientoNodo> movimiento in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda_id))
+            foreach (KeyValuePair<short, MovimientoNodo> movimiento in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda.id))
             {
                 if (!movimiento.Value.alcanzable)
                     continue;
@@ -94,13 +94,13 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 if (hechizo_pelea.lanzar_cuerpo_cuerpo && !cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Aliado(movimiento.Key))
                     continue;
 
-                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, enemigo.celda_id, cuenta.personaje.mapa) != FallosLanzandoHechizo.NINGUNO)
+                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, enemigo.celda.id, cuenta.personaje.mapa) != FallosLanzandoHechizo.NINGUNO)
                     continue;
 
-                if (movimiento.Value.camino.celdas_accesibles.Count <= pmUsed)
+                if (movimiento.Value.camino.celdas_accesibles.Count <= pm_utilizados)
                 {
                     nodo = movimiento;
-                    pmUsed = movimiento.Value.camino.celdas_accesibles.Count;
+                    pm_utilizados = movimiento.Value.camino.celdas_accesibles.Count;
                 }
             }
 
@@ -113,40 +113,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
 
-        public async Task get_Mover(bool cercano, Luchadores target)
-        {
-            KeyValuePair<short, MovimientoNodo>? nodo = null;
-            int distancia_total = -1;
-            int distancia = -1;
-
-            distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda_id);
-
-            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda_id))
-            {
-                if (!kvp.Value.alcanzable)
-                    continue;
-
-                int tempTotalDistances = Get_Total_Distancia_Enemigo(kvp.Key);
-
-                if ((cercano && tempTotalDistances <= distancia_total) || (!cercano && tempTotalDistances >= distancia_total))
-                {
-                    if (cercano)
-                    {
-                        nodo = kvp;
-                        distancia_total = tempTotalDistances;
-                    }
-                    else if (kvp.Value.camino.celdas_accesibles.Count >= distancia)
-                    {
-                        nodo = kvp;
-                        distancia_total = tempTotalDistances;
-                        distancia = kvp.Value.camino.celdas_accesibles.Count;
-                    }
-                }
-            }
-
-            if (nodo != null)
-                await cuenta.personaje.mapa.get_Mover_Celda_Pelea(nodo);
-        }
+        
 
         private async Task<ResultadoLanzandoHechizo> lanzar_Hechizo_Celda_Vacia(HechizoPelea hechizo_pelea)
         {
@@ -159,12 +126,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             Hechizo hechizo_general = cuenta.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
             HechizoStats datos_hechizo = hechizo_general.get_Hechizo_Stats()[hechizo_general.nivel];
 
-            List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda_id, datos_hechizo, cuenta.personaje.mapa);
-            foreach (int rango in rangos_disponibles)
+            List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda.id, datos_hechizo, cuenta.personaje.mapa);
+            foreach (short rango in rangos_disponibles)
             {
                 if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, rango, cuenta.personaje.mapa) == FallosLanzandoHechizo.NINGUNO)
                 {
-                    if (hechizo_pelea.lanzar_cuerpo_cuerpo && cuenta.personaje.mapa.get_Distancia_Entre_Dos_Casillas(cuenta.pelea.jugador_luchador.celda_id, rango) != 1)
+                    if (hechizo_pelea.lanzar_cuerpo_cuerpo && cuenta.pelea.jugador_luchador.celda.get_Distancia_Entre_Dos_Casillas(rango) != 1)
                         continue;
 
                     await cuenta.pelea.get_Lanzar_Hechizo(hechizo_pelea.id, rango);
@@ -174,8 +141,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
-
-        public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => (cuenta.personaje.mapa.get_Distancia_Entre_Dos_Casillas(celda_id, e.celda_id) - 1));
 
         #region Zona Dispose
         ~ManejadorHechizos() => Dispose(false);
