@@ -65,7 +65,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     byte pm = byte.Parse(informaciones[14]);
                                     byte equipo = byte.Parse(informaciones[15]);
 
-                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda, vida, equipo));
+                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda.id, vida, equipo));
                                 }
                                 break;
 
@@ -123,7 +123,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     byte pm = byte.Parse(informaciones[16]);
                                     byte equipo = byte.Parse(informaciones[24]);
 
-                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda, vida, equipo));
+                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda.id, vida, equipo));
 
                                     if (cuenta.personaje.id == id && cuenta.pelea_extension.configuracion.posicionamiento != PosicionamientoInicioPelea.INMOVIL)
                                     {
@@ -221,7 +221,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         {
                             luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
                             if (luchador != null)
-                                luchador.celda = mapa.celdas[celda_destino];
+                                luchador.celda_id = celda_destino;
                         }
                         break;
 
