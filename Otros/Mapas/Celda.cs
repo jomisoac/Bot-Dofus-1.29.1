@@ -27,6 +27,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public int x { get; private set; } = 0;
         public int y { get; private set; } = 0;
 
+        /** pathfinder **/
+        public int coste_h { get; set; } = 0;
+        public int coste_g { get; set; } = 0;
+        public int coste_f { get; set; } = 0;
+        public Celda nodo_padre { get; set; } = null;
+
         public static readonly int[] texturas_teleport = { 1030, 1029, 1764, 2298, 745 };
 
         public Celda(short _id, TipoCelda _tipo, bool _es_linea_vision, byte _nivel, byte _slope, short _objeto_interactivo_id, short layer_object_1_num, short layer_object_2_num, Mapa _mapa)

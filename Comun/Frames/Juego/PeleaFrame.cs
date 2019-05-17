@@ -55,13 +55,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             Cuenta cuenta = cliente.cuenta;
             string[] separador_posiciones = paquete.Substring(4).Split('|');
             int id_entidad;
-            Celda celda;
+            short celda;
             Luchadores luchador = null;
 
             foreach (string posicion in separador_posiciones)
             {
                 id_entidad = int.Parse(posicion.Split(';')[0]);
-                celda = cuenta.personaje.mapa.celdas[short.Parse(posicion.Split(';')[1])];
+                celda = short.Parse(posicion.Split(';')[1]);
 
                 if (id_entidad == cuenta.personaje.id)
                 {
@@ -72,7 +72,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
 
                 if (luchador != null)
-                    luchador.celda = celda;
+                    luchador.celda_id = celda;
             }
         }
 
@@ -96,17 +96,17 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         int vida_actual = int.Parse(_loc6_[2]);
                         byte pa = byte.Parse(_loc6_[3]);
                         byte pm = byte.Parse(_loc6_[4]);
-                        Celda celda = mapa.celdas[short.Parse(_loc6_[5])];
+                        short celda = short.Parse(_loc6_[5]);
                         int vida_maxima = int.Parse(_loc6_[7]);
 
-                        if (celda.id > 0)//son espectadores
+                        if (celda > 0)//son espectadores
                         {
                             byte equipo = Convert.ToByte(id > 0 ? 1 : 0);
                             luchador?.get_Actualizar_Luchador(id, esta_vivo, vida_actual, pa, pm, celda, vida_maxima, equipo);
                         }
                     }
                     else
-                        luchador?.get_Actualizar_Luchador(id, esta_vivo, 0, 0, 0, null, 0, 0);
+                        luchador?.get_Actualizar_Luchador(id, esta_vivo, 0, 0, 0, -1, 0, 0);
                 }
             }
         }

@@ -53,11 +53,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             if (enemigo != null)
             {
-                FallosLanzandoHechizo resultado = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id, enemigo.celda.id, cuenta.personaje.mapa);
+                FallosLanzandoHechizo resultado = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id, enemigo.celda_id, cuenta.personaje.mapa);
 
                 if (resultado == FallosLanzandoHechizo.NINGUNO)
                 {
-                    await cuenta.pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda.id);
+                    await cuenta.pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda_id);
                     return ResultadoLanzandoHechizo.LANZADO;
                 }
                 if (resultado == FallosLanzandoHechizo.NO_ESTA_EN_RANGO)
@@ -77,7 +77,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return null;
 
-            return hechizo.focus == HechizoFocus.ENEMIGO ? cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa) : cuenta.pelea.get_Obtener_Aliado_Mas_Cercano(cuenta.personaje.mapa);
+            return hechizo.focus == HechizoFocus.ENEMIGO ? cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano() : cuenta.pelea.get_Obtener_Aliado_Mas_Cercano();
         }
 
         private async Task<ResultadoLanzandoHechizo> get_Mover_Lanzar_hechizo_Simple(HechizoPelea hechizo_pelea, Luchadores enemigo)
@@ -86,7 +86,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             int pm_utilizados = 99;
             Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(cuenta.personaje.id);
 
-            foreach (KeyValuePair<short, MovimientoNodo> movimiento in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda.id))
+            foreach (KeyValuePair<short, MovimientoNodo> movimiento in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda_id))
             {
                 if (!movimiento.Value.alcanzable)
                     continue;
@@ -94,7 +94,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 if (hechizo_pelea.lanzar_cuerpo_cuerpo && !cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Aliado(movimiento.Key))
                     continue;
 
-                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, enemigo.celda.id, cuenta.personaje.mapa) != FallosLanzandoHechizo.NINGUNO)
+                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, enemigo.celda_id, cuenta.personaje.mapa) != FallosLanzandoHechizo.NINGUNO)
                     continue;
 
                 if (movimiento.Value.camino.celdas_accesibles.Count <= pm_utilizados)
@@ -126,12 +126,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             Hechizo hechizo_general = cuenta.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
             HechizoStats datos_hechizo = hechizo_general.get_Hechizo_Stats()[hechizo_general.nivel];
 
-            List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda.id, datos_hechizo, cuenta.personaje.mapa);
+            List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda_id, datos_hechizo, cuenta.personaje.mapa);
             foreach (short rango in rangos_disponibles)
             {
                 if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, rango, cuenta.personaje.mapa) == FallosLanzandoHechizo.NINGUNO)
                 {
-                    if (hechizo_pelea.lanzar_cuerpo_cuerpo && cuenta.pelea.jugador_luchador.celda.get_Distancia_Entre_Dos_Casillas(rango) != 1)
+                    if (hechizo_pelea.lanzar_cuerpo_cuerpo && cuenta.personaje.mapa.celdas[rango].get_Distancia_Entre_Dos_Casillas(cuenta.pelea.jugador_luchador.celda_id) != 1)
                         continue;
 
                     await cuenta.pelea.get_Lanzar_Hechizo(hechizo_pelea.id, rango);

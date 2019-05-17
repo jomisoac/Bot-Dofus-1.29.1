@@ -139,9 +139,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         private async Task get_Fin_Turno()
         {
             if (!cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
-                await get_Mover(true, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
+                await get_Mover(true, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano());
             else if (cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
-                await get_Mover(false, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano(cuenta.personaje.mapa));
+                await get_Mover(false, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano());
 
             cuenta.pelea.get_Turno_Acabado();
             cuenta.conexion.enviar_Paquete("Gt");
@@ -153,9 +153,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             int distancia_total = -1;
             int distancia = -1;
 
-            distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda.id);
+            distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda_id);
 
-            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda.id))
+            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda_id))
             {
                 if (!kvp.Value.alcanzable)
                     continue;
@@ -182,7 +182,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await cuenta.personaje.mapa.get_Mover_Celda_Pelea(nodo);
         }
 
-        public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => e.celda.get_Distancia_Entre_Dos_Casillas(celda_id) - 1);
+        public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => cuenta.personaje.mapa.celdas[e.celda_id].get_Distancia_Entre_Dos_Casillas(celda_id) - 1);
 
         #region Zona Dispose
         ~PeleaExtensiones() => Dispose(false);

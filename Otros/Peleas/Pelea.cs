@@ -28,6 +28,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         private Dictionary<int, int> hechizos_intervalo;// hechizoID, turnos intervalo
         private Dictionary<int, int> total_hechizos_lanzados;//hechizoID, total veces
         private Dictionary<int, Dictionary<int, int>> total_hechizos_lanzados_en_celda;//hechizoID (celda, veces)
+        private Celda[] celdas_mapa;
         public List<short> celdas_preparacion;
         public LuchadorPersonaje jugador_luchador { get; private set; }
         private bool disposed;
@@ -36,7 +37,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public IEnumerable<Luchadores> get_Enemigos => enemigos.Values.Where(e => e.esta_vivo);
         public IEnumerable<Luchadores> get_Luchadores => luchadores.Values.Where(f => f.esta_vivo);
         public int total_enemigos_vivos => get_Enemigos.Count(f => f.esta_vivo);
-        public List<short> get_Celdas_Ocupadas => get_Luchadores.Select(f => f.celda.id).ToList();
+        public List<short> get_Celdas_Ocupadas => get_Luchadores.Select(f => f.celda_id).ToList();
 
         public event Action pelea_creada;
         public event Action pelea_iniciada;
@@ -141,7 +142,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return enemigo;
         }
 
-        public Luchadores get_Obtener_Aliado_Mas_Cercano(Mapa mapa)
+        public Luchadores get_Obtener_Aliado_Mas_Cercano()
         {
             int distancia = -1, distancia_temporal;
             Luchadores aliado = null;
@@ -150,8 +151,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             {
                 if (!luchador_aliado.esta_vivo)
                     continue;
-                
-                distancia_temporal = jugador_luchador.celda.get_Distancia_Entre_Dos_Casillas(luchador_aliado.celda.id);
+
+                distancia_temporal = celdas_mapa[jugador_luchador.celda_id].get_Distancia_Entre_Dos_Casillas(luchador_aliado.celda_id);
 
                 if (distancia == -1 || distancia_temporal < distancia)
                 {
@@ -163,7 +164,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return aliado;
         }
 
-        public Luchadores get_Obtener_Enemigo_Mas_Cercano(Mapa mapa)
+        public Luchadores get_Obtener_Enemigo_Mas_Cercano()
         {
             int distancia = -1, distancia_temporal;
             Luchadores enemigo = null;
@@ -172,9 +173,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             {
                 if (!luchador_enemigo.esta_vivo)
                     continue;
-                
-                distancia_temporal = jugador_luchador.celda.get_Distancia_Entre_Dos_Casillas(luchador_enemigo.celda.id);
-                
+
+                distancia_temporal = celdas_mapa[jugador_luchador.celda_id].get_Distancia_Entre_Dos_Casillas(luchador_enemigo.celda_id);
+
                 if (distancia == -1 || distancia_temporal < distancia)
                 {
                     distancia = distancia_temporal;
@@ -190,7 +191,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 jugador_luchador = new LuchadorPersonaje(cuenta.personaje.nombre_personaje, cuenta.personaje.nivel, luchador);
 
             else if (!luchadores.TryAdd(luchador.id, luchador))
-                luchador.get_Actualizar_Luchador(luchador.id, luchador.esta_vivo, luchador.vida_actual, luchador.pa, luchador.pm, luchador.celda, luchador.vida_maxima, luchador.equipo);
+                luchador.get_Actualizar_Luchador(luchador.id, luchador.esta_vivo, luchador.vida_actual, luchador.pa, luchador.pm, luchador.celda_id, luchador.vida_maxima, luchador.equipo);
 
             get_Ordenar_Luchadores();
         }
@@ -231,20 +232,20 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return celda_id;
         }
 
-        public int get_Distancia_Desde_Enemigo(Celda celda_actual) => get_Enemigos.Sum(e => celda_actual.get_Distancia_Entre_Dos_Casillas(e.celda.id) - 1);
+        public int get_Distancia_Desde_Enemigo(Celda celda_actual) => get_Enemigos.Sum(e => celda_actual.get_Distancia_Entre_Dos_Casillas(e.celda_id) - 1);
 
         public Luchadores get_Luchador_Esta_En_Celda(int celda_id)
         {
-            if (jugador_luchador?.celda.id == celda_id)
+            if (jugador_luchador?.celda_id == celda_id)
                 return jugador_luchador;
 
-            return get_Luchadores.FirstOrDefault(f => f.esta_vivo && f.celda.id == celda_id);
+            return get_Luchadores.FirstOrDefault(f => f.esta_vivo && f.celda_id == celda_id);
         }
 
         public bool es_Celda_Libre(short celda_id) => get_Luchador_Esta_En_Celda(celda_id) == null;
 
-        public IEnumerable<Luchadores> get_Cuerpo_A_Cuerpo_Enemigo(short celda_id = -1) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda_id == -1 ? jugador_luchador.celda.get_Distancia_Entre_Dos_Casillas(enemigo.celda.id) : enemigo.celda.get_Distancia_Entre_Dos_Casillas(celda_id)) == 1);
-        public IEnumerable<Luchadores> get_Cuerpo_A_Cuerpo_Aliado(short celda_id = -1) => get_Aliados.Where(aliado => aliado.esta_vivo && (celda_id == -1 ? jugador_luchador.celda.get_Distancia_Entre_Dos_Casillas(aliado.celda.id) : aliado.celda.get_Distancia_Entre_Dos_Casillas(celda_id)) == 1);
+        public IEnumerable<Luchadores> get_Cuerpo_A_Cuerpo_Enemigo(short celda_id = -1) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda_id == -1 ? celdas_mapa[jugador_luchador.celda_id].get_Distancia_Entre_Dos_Casillas(enemigo.celda_id) : celdas_mapa[enemigo.celda_id].get_Distancia_Entre_Dos_Casillas(celda_id)) == 1);
+        public IEnumerable<Luchadores> get_Cuerpo_A_Cuerpo_Aliado(short celda_id = -1) => get_Aliados.Where(aliado => aliado.esta_vivo && (celda_id == -1 ? celdas_mapa[jugador_luchador.celda_id].get_Distancia_Entre_Dos_Casillas(aliado.celda_id) : celdas_mapa[aliado.celda_id].get_Distancia_Entre_Dos_Casillas(celda_id)) == 1);
         public bool esta_Cuerpo_A_Cuerpo_Con_Enemigo(short celda_id = -1) => get_Cuerpo_A_Cuerpo_Enemigo(celda_id).Count() > 0;
         public bool esta_Cuerpo_A_Cuerpo_Con_Aliado(short celda_id = -1) => get_Cuerpo_A_Cuerpo_Aliado(celda_id).Count() > 0;
 
@@ -284,10 +285,10 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (datos_hechizo.es_celda_vacia && !es_Celda_Libre(celda_objetivo))
                 return FallosLanzandoHechizo.NECESITA_CELDA_LIBRE;
 
-            if (datos_hechizo.es_lanzado_linea && !jugador_luchador.celda.get_Esta_En_Linea(celda_objetivo))
+            if (datos_hechizo.es_lanzado_linea && !celdas_mapa[jugador_luchador.celda_id].get_Esta_En_Linea(celda_objetivo))
                 return FallosLanzandoHechizo.NO_ESTA_EN_LINEA;
 
-            if (!get_Rango_hechizo(jugador_luchador.celda.id, datos_hechizo, mapa).Contains(celda_objetivo))
+            if (!get_Rango_hechizo(jugador_luchador.celda_id, datos_hechizo, mapa).Contains(celda_objetivo))
                 return FallosLanzandoHechizo.NO_ESTA_EN_RANGO;
 
             return FallosLanzandoHechizo.NINGUNO;
@@ -505,6 +506,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         #region Zona Eventos
         public void get_Combate_Creado()
         {
+            celdas_mapa = cuenta.personaje.mapa.celdas;
             cuenta.personaje.celda_objetivo_recoleccion = 0;
 
             cuenta.Estado_Cuenta = EstadoCuenta.LUCHANDO;
