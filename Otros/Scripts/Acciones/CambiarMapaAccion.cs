@@ -30,34 +30,28 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             celda_id = _celda_id;
         }
 
-        internal override async Task<ResultadosAcciones> proceso(Cuenta cuenta)
+        internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
-            ResultadoMovimientos resultado;
-
             if (celda_especifica)
             {
-                resultado = await cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, celda_id, true);
-
-                if (resultado != ResultadoMovimientos.EXITO)
+                if (cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, celda_id, true) != ResultadoMovimientos.EXITO)
                 {
-                    cuenta.logger.log_Error("SCRIPT", "Error al mover a la celda especificada: " + resultado);
-                    return ResultadosAcciones.FALLO;
+                    cuenta.logger.log_Error("SCRIPT", "Error al mover a la celda especificada: ");
+                    return resultado_fallado;
                 }
-                    
             }
             else if (direccion_especifica)
             {
                 short celda_teleport = cuenta.personaje.mapa.celdas.Where(celda => celda.tipo_teleport == direccion).Select(celda => celda.id).SingleOrDefault();
-                resultado = await cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, celda_teleport, true);
 
-                if (resultado != ResultadoMovimientos.EXITO)
+                if (cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, celda_teleport, true) != ResultadoMovimientos.EXITO)
                 {
                     cuenta.logger.log_Error("SCRIPT", "Error al encontrar la celda teleport, usa el metodo por id");
-                    return ResultadosAcciones.FALLO;
+                    return resultado_fallado;
                 }
             }
 
-            return ResultadosAcciones.PROCESANDO;
+            return resultado_procesado;
         }
 
         public static bool TryParse(string texto, out CambiarMapaAccion accion)

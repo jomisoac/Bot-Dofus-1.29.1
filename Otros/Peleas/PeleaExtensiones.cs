@@ -107,7 +107,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                     esperando_sequencia_fin = true;
 
                     if (GlobalConf.mostrar_mensajes_debug)
-                        cuenta.logger.log_informacion("DEBUG", $"Movimiento para intentar lanzar el hechizo {hechizo_actual.nombre} ");
+                        cuenta.logger.log_informacion("DEBUG", $"El bot se ha desplazado porque no ha podido lanzar {hechizo_actual.nombre} ");
                 break;
             }
         }

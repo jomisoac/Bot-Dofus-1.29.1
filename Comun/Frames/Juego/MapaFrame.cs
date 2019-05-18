@@ -81,11 +81,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     monstruo.moobs_dentro_grupo.Add(new Monstruo(id, int.Parse(templates[m]), celda, int.Parse(niveles[m])));
 
                                 cuenta.personaje.mapa.agregar_Monstruo(monstruo);
-                            break;
+                                break;
 
                             case -4://NPC
                                 cuenta.personaje.mapa.agregar_Npc(new Npcs(id, int.Parse(nombre_template), celda));
-                            break;
+                                break;
 
                             case -5:
                                 break;
@@ -98,10 +98,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 break;
 
                             case -9:
-                            break;
+                                break;
 
                             case -10:
-                            break;
+                                break;
 
                             default:
                                 if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
@@ -127,11 +127,15 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                                     if (cuenta.personaje.id == id && cuenta.pelea_extension.configuracion.posicionamiento != PosicionamientoInicioPelea.INMOVIL)
                                     {
+                                        await Task.Delay(300);
+
                                         /** la posicion es aleatoria pero el paquete GP siempre aparecera primero el team donde esta el pj **/
                                         short celda_posicion = cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.celdas_preparacion, cuenta.personaje.mapa);
 
                                         if (celda_posicion != celda.id)
                                             cuenta.conexion.enviar_Paquete("Gp" + celda_posicion);
+                                        else
+                                            cuenta.conexion.enviar_Paquete("GR1");
                                     }
                                     else if (cuenta.personaje.id == id)
                                     {
@@ -139,7 +143,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                         cuenta.conexion.enviar_Paquete("GR1");//boton listo
                                     }
                                 }
-                            break;
+                                break;
                         }
                     }
                     else if (_loc6[0].Equals('-'))
@@ -149,7 +153,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             int id = int.Parse(_loc6.Substring(1));
                             cuenta.personaje.mapa.eliminar_Personaje(id);
                             cuenta.personaje.mapa.eliminar_Monstruo(id);
-                        }  
+                        }
                     }
                 }
             }
@@ -185,21 +189,21 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         Mapa mapa = personaje.mapa;
                         short celda_destino = Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2));
 
-                        if (id_jugador == personaje.id)
+                        if (id_jugador == personaje.id && celda_destino > 0 && personaje.celda.id != celda_destino)
                         {
-                            if (celda_destino > 0 && personaje.celda.id != celda_destino)
+                            if (!cuenta.esta_luchando())
+                                await Task.Delay(Pathfinding.tiempo_desplazamiento);
+                            else
+                                await Task.Delay(300 * personaje.celda.get_Distancia_Entre_Dos_Casillas(celda_destino));
+
+                            cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
+                            personaje.celda = mapa.celdas[celda_destino];
+
+
+                            if (!cuenta.esta_luchando())
                             {
-                                if (!cuenta.esta_luchando())
-                                    await Task.Delay(Pathfinding.tiempo_desplazamiento);
-                                else
-                                    await Task.Delay(300 * personaje.celda.get_Distancia_Entre_Dos_Casillas(celda_destino));
-
-                                cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
-                                personaje.celda = mapa.celdas[celda_destino];
                                 personaje.evento_Movimiento_Celda(true);
-
-                                if (!cuenta.esta_luchando())
-                                    cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
                             }
                         }
                         else if (mapa.get_Personajes().ContainsKey(id_jugador) && !cuenta.esta_luchando())
@@ -331,19 +335,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
                         break;
                 }
-            }
-        }
-
-        [PaqueteAtributo("IQ")]
-        public void get_Numero_Arriba_Pj(ClienteAbstracto cliente, string paquete)
-        {
-            int id = int.Parse(paquete.Substring(2).Split('|')[0]);
-            Cuenta cuenta = cliente.cuenta;
-
-            if (cuenta.esta_recolectando() && cuenta.personaje.id == id)
-            {
-                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-                cuenta.personaje.evento_Recoleccion_Acabada();
             }
         }
 

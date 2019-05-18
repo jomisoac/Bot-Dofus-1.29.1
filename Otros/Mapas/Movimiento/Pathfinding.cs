@@ -36,8 +36,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
         public Pathfinding(Mapa _mapa)
         {
             mapa = _mapa;
-            celdas_camino = new List<short>();
             celdas = mapa.celdas;
+            celdas_camino = new List<short>();
         }
 
         private void cargar_Obstaculos(ref List<Celda> celdas_no_permitidas)
@@ -102,8 +102,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                     celda_siguiente.coste_f = celda_siguiente.coste_g + celda_siguiente.coste_h;
                     celda_siguiente.nodo_padre = actual;
                 }
-
-
             }
             return false;
         }
@@ -191,17 +189,24 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             return tiempo_desplazamiento;
         }
 
-        private static char get_Direccion_Dos_Celdas(short celda_1, short celda_2, Mapa mapa)
+        private static char get_Direccion_Dos_Celdas(short celda_1, short celda_2, bool es_pelea, Mapa mapa)
         {
-            Celda celda1 = mapa.celdas[celda_1], celda2 = mapa.celdas[celda_2];
-            byte mapa_anchura = mapa.anchura;
-            int[] _loc6_ = { 1, mapa_anchura, (mapa_anchura * 2) - 1, mapa_anchura - 1, -1, -mapa_anchura, (-mapa_anchura * 2) + 1, -(mapa_anchura - 1) };
-            int _loc7_ = celda_2 - celda_1;
+            if (celda_1 == celda_2 || mapa == null)
+                return (char)0;
 
-            for (int i = 7; i >= 0; i += -1)
+            Celda celda1 = mapa.celdas[celda_1], celda2 = mapa.celdas[celda_2];
+
+            if(!es_pelea)
             {
-                if (_loc6_[i] == _loc7_)
-                    return (char)(i + 'a');
+                byte mapa_anchura = mapa.anchura;
+                int[] _loc6_ = { 1, mapa_anchura, (mapa_anchura * 2) - 1, mapa_anchura - 1, -1, -mapa_anchura, (-mapa_anchura * 2) + 1, -(mapa_anchura - 1) };
+                int _loc7_ = celda_2 - celda_1;
+
+                for (int i = 7; i >= 0; i += -1)
+                {
+                    if (_loc6_[i] == _loc7_)
+                        return (char)(i + 'a');
+                }
             }
 
             int resultado_x = celda2.x - celda1.x;
@@ -222,12 +227,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
 
         private int get_Distancia_Nodos(Celda a, Celda b) => ((a.x - b.x) * (a.x - b.x)) + ((a.y - b.y) * (a.y - b.y));
 
-        public static string get_Pathfinding_Limpio(List<short> celdas_camino, Mapa mapa)
+        public static string get_Pathfinding_Limpio(List<short> celdas_camino, bool es_pelea, Mapa mapa)
         {
             StringBuilder pathfinding_limpio = new StringBuilder(), camino = new StringBuilder();
 
             for (int i = 0; i < celdas_camino.Count - 1; i++)
-                camino.Append(get_Direccion_Dos_Celdas(celdas_camino[i], celdas_camino[i + 1], mapa)).Append(Hash.get_Celda_Char(celdas_camino[i + 1]));
+                camino.Append(get_Direccion_Dos_Celdas(celdas_camino[i], celdas_camino[i + 1], es_pelea, mapa)).Append(Hash.get_Celda_Char(celdas_camino[i + 1]));
 
             if (camino.ToString().Length >= 3)
             {
@@ -241,6 +246,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             {
                 pathfinding_limpio.Append(camino.ToString());
             }
+
             return pathfinding_limpio.ToString();
         }
 

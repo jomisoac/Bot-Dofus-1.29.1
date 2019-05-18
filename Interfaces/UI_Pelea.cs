@@ -94,7 +94,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             refrescar_Lista_Hechizos();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             Mapa mapa = cuenta.personaje.mapa;
             if (cuenta.personaje.mapa.get_Monstruos().Count > 0)
@@ -105,9 +105,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 {
                     cuenta.logger.log_informacion("PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino);
 
-                    ResultadoMovimientos resultado = await mapa.get_Mover_Celda_Mapa(celda_actual, celda_monstruo_destino, false);
-
-                    switch (resultado)
+                    switch (mapa.get_Mover_Celda_Mapa(celda_actual, celda_monstruo_destino, false))
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("PELEAS", "Desplazando para comenzar el combate");

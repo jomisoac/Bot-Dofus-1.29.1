@@ -48,15 +48,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
-        private async void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
+        private void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
         {
             short celda_actual = cuenta.personaje.celda.id, celda_destino = celda.id;
 
             if (botones == MouseButtons.Left && celda_actual != 0 && celda_destino != 0)
             {
-                ResultadoMovimientos resultado = await cuenta.personaje.mapa.get_Mover_Celda_Mapa(celda_actual, celda_destino, true);
-
-                switch (resultado)
+                switch (cuenta.personaje.mapa.get_Mover_Celda_Mapa(celda_actual, celda_destino, true))
                 {
                     case ResultadoMovimientos.EXITO:
                         cuenta.logger.log_informacion("UI_MAPA", "Personaje desplazado a la casilla: " + celda_destino);

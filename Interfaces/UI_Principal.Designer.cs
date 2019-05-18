@@ -360,7 +360,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.textBox_enviar_consola.Enabled = false;
             this.textBox_enviar_consola.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.textBox_enviar_consola.Location = new System.Drawing.Point(3, 3);
-            this.textBox_enviar_consola.MaxLength = 50;
+            this.textBox_enviar_consola.MaxLength = 80;
             this.textBox_enviar_consola.Name = "textBox_enviar_consola";
             this.textBox_enviar_consola.Size = new System.Drawing.Size(743, 25);
             this.textBox_enviar_consola.TabIndex = 0;
