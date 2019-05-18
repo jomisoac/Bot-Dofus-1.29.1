@@ -53,8 +53,8 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
                 if (esta_Conectado())
                 {
-                    socket_informacion?.Invoke("Socket conectado correctamente");
                     socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
+                    socket_informacion?.Invoke("Socket conectado correctamente");
                 }
                 else
                 {
@@ -103,13 +103,14 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 socket.Shutdown(SocketShutdown.Both);
                 socket.Close();
                 Dispose();
-                socket_informacion?.Invoke("Socket desconectado del host");
 
                 if (cuenta != null && cuenta.Estado_Socket != EstadoSocket.CAMBIANDO_A_JUEGO)
                 {
                     cuenta.Estado_Socket = EstadoSocket.NINGUNO;
                     cuenta.Estado_Cuenta = EstadoCuenta.DESCONECTADO;
                 }
+
+                socket_informacion?.Invoke("Socket desconectado del host");
             }
         }
 

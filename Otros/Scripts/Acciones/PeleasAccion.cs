@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
+using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,32 +25,37 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             monstruos_obligatorios = _monstruos_obligatorios;
         }
 
-        internal override async Task<ResultadosAcciones> proceso(Cuenta cuenta)
+        internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
-            List<Monstruo> grupos_disponibles = cuenta.personaje.mapa.get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
+            Mapa mapa = cuenta.personaje.mapa;
+            List<Monstruo> grupos_disponibles = mapa.get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
 
             if (grupos_disponibles.Count > 0)
             {
                 foreach (Monstruo grupo_monstruo in grupos_disponibles)
                 {
-                    switch (await cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, grupo_monstruo.celda.id, false))
+                    if (mapa.celdas[grupo_monstruo.celda.id].tipo == TipoCelda.CELDA_TELEPORT)
+                        continue;
+
+                    switch (mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, grupo_monstruo.celda.id, false))
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("SCRIPT", $"Movimiento hacia un grupo de monstruos celda: {grupo_monstruo.celda.id}, total de monstruos: {grupo_monstruo.get_Total_Monstruos}, nivel total del grupo: {grupo_monstruo.get_Total_Nivel_Grupo}");
-                        return await resultado_procesado;
+                        return resultado_procesado;
 
                         case ResultadoMovimientos.PATHFINDING_ERROR:
                         case ResultadoMovimientos.MISMA_CELDA:
-                            cuenta.logger.log_Peligro("Script", "El camino hacia el grupo de monstruos está bloqueado");
+                            cuenta.logger.log_Peligro("SCRIPT", "El camino hacia el grupo de monstruos está bloqueado");
                             continue;
 
                         default:
                             cuenta.script.detener_Script("Movimiento hacia el grupo de monstruos erróneo");
-                        return await resultado_fallado;
+                        return resultado_fallado;
                     }
                 }
             }
-            return await resultado_hecho;
+
+            return resultado_hecho;
         }
     }
 }

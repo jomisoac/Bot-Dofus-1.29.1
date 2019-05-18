@@ -113,8 +113,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
 
-        
-
         private async Task<ResultadoLanzandoHechizo> lanzar_Hechizo_Celda_Vacia(HechizoPelea hechizo_pelea)
         {
             if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id) != FallosLanzandoHechizo.NINGUNO)

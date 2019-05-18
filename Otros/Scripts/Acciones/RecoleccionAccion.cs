@@ -10,20 +10,18 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 
         public RecoleccionAccion(List<short> _elementos) => elementos = _elementos;
 
-        internal override async Task<ResultadosAcciones> proceso(Cuenta cuenta)
+        internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
             Personaje personaje = cuenta.personaje;
 
             if (personaje.mapa.get_Puede_Recolectar_Elementos_Interactivos(elementos))
             {
-                bool puede_recolectar = await personaje.mapa.Recolectar(elementos);
+                if (!personaje.mapa.Recolectar(elementos))
+                    return resultado_fallado;
 
-                if (!puede_recolectar)
-                    return await resultado_fallado;
-
-                return await resultado_procesado;
+                return resultado_procesado;
             }
-            return await resultado_hecho;
+            return resultado_hecho;
         }
     }
 }

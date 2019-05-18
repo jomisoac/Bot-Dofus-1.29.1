@@ -74,7 +74,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
                     if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                     {
-                        cuenta.logger.log_Peligro("Scripts", "Error al lanzar la pelea, los monstruos pudieron haberse movido o sido robados!");
+                        cuenta.logger.log_Peligro("SCRIPT", "Error al lanzar la pelea, los monstruos pudieron haberse movido o sido robados!");
                         acciones_Salida(100);
                     }
                 }

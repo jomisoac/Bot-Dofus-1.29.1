@@ -1,4 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Peleas;
+using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -77,13 +79,27 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
                 celdas_permitidas.Remove(actual);
                 Celda nodo_celda = cuadricula[actual.celda_id];
                 List<Celda> adyecentes = get_Celdas_Adyecentes(nodo_celda, cuadricula);
+                
+                int i = 0;
+                while (i < adyecentes.Count)
+                {
+                    Luchadores placador = pelea.get_Luchadores.FirstOrDefault(f => f.celda_id == adyecentes[i]?.id);
+
+                    if (adyecentes[i] != null && placador == null)
+                    {
+                        i++;
+                        continue;
+                    }
+
+                    adyecentes.RemoveAt(i);
+                }
 
                 int pm_disponibles = actual.pm_disponible - 1;
                 int pa_disponibles = actual.pa_disponible;
                 int distancia = actual.distancia + 1;
                 bool accesible = pm_disponibles >= 0;
 
-                for (int i = 0; i < adyecentes.Count; i++)
+                for (i = 0; i < adyecentes.Count; i++)
                 {
                     if (celdas_prohibidas.ContainsKey(adyecentes[i].id))
                     {

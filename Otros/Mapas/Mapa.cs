@@ -25,12 +25,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 {
     public class Mapa : IDisposable
     {
-        public int id { get; set; } = 0;
-        public byte anchura { get; set; } = 15;
-        public byte altura { get; set; } = 17;
+        public int id { get; set; }
+        public byte anchura { get; set; }
+        public byte altura { get; set; }
         public string data { get; set; }
         public Celda[] celdas;
-        private Cuenta cuenta { get; set; } = null;
+        private Cuenta cuenta { get; set; }
         public bool verificar_Mapa_Actual(int mapa_id) => mapa_id == id;
         public Dictionary<int, Personaje> personajes;
         public Dictionary<int, Monstruo> monstruos;
@@ -68,7 +68,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
 
-        public async Task<ResultadoMovimientos> get_Mover_Celda_Mapa(short celda_actual, short celda_destino, bool esquivar_monstruos)
+        public ResultadoMovimientos get_Mover_Celda_Mapa(short celda_actual, short celda_destino, bool esquivar_monstruos)
         {
             if (celda_destino < 0 || celda_destino > celdas.Length)
                 return ResultadoMovimientos.FALLO;
@@ -91,8 +91,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             if (path.get_Puede_Caminar(celda_actual, celda_destino, esquivar_monstruos))
             {
                 cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
-                await cuenta.conexion.enviar_Paquete_Async("GA001" + Pathfinding.get_Pathfinding_Limpio(path.celdas_camino, this));
+                
                 path.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino);
+                cuenta.conexion.enviar_Paquete("GA001" + Pathfinding.get_Pathfinding_Limpio(path.celdas_camino, false, this));
                 cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(path.celdas_camino);
 
                 return ResultadoMovimientos.EXITO;
@@ -115,7 +116,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
             nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.pelea.jugador_luchador.celda_id);
 
-            await cuenta.conexion.enviar_Paquete_Async("GA001" + Pathfinding.get_Pathfinding_Limpio(nodo.Value.Value.camino.celdas_accesibles, this));
+            await cuenta.conexion.enviar_Paquete_Async("GA001" + Pathfinding.get_Pathfinding_Limpio(nodo.Value.Value.camino.celdas_accesibles, true, this));
             cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(nodo.Value.Value.camino.celdas_accesibles);
         }
 
@@ -143,25 +144,23 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return elementos_utilizables;
         }
 
-        public async Task<bool> Recolectar(List<short> elementos_ids)
+        public bool Recolectar(List<short> elementos_ids)
         {
             if (cuenta.esta_ocupado)
                 return false;
 
             foreach (KeyValuePair<short, ObjetoInteractivo> kvp in get_Interactivos_Utilizables(elementos_ids))
             {
-                if (await get_Movimiento_Interactivo(kvp))
+                if (get_Movimiento_Interactivo(kvp))
                     return true;
             }
 
             return false;
         }
 
-        private async Task<bool> get_Movimiento_Interactivo(KeyValuePair<short, ObjetoInteractivo> elemento)
+        private bool get_Movimiento_Interactivo(KeyValuePair<short, ObjetoInteractivo> elemento)
         {
-            ResultadoMovimientos resultado = await get_Mover_Celda_Mapa(cuenta.personaje.celda.id, elemento.Key, true);
-
-            switch (resultado)
+            switch (get_Mover_Celda_Mapa(cuenta.personaje.celda.id, elemento.Key, true))
             {
                 case ResultadoMovimientos.MISMA_CELDA:
                 case ResultadoMovimientos.EXITO:
@@ -169,7 +168,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                     {
                         if (cuenta.personaje.get_Skills_Recoleccion_Disponibles().Contains(habilidad))
                         {
-                            await cuenta.conexion.enviar_Paquete_Async("GA500" + elemento.Key + ";" + habilidad);
+                            cuenta.conexion.enviar_Paquete_Async("GA500" + elemento.Key + ";" + habilidad);
                             cuenta.personaje.celda_objetivo_recoleccion = elemento.Key;
                         }
                     }
@@ -219,9 +218,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 }
 
                 if (es_valido)
-                {
                     grupos_monstruos_disponibles.Add(grupo_monstruos);
-                }
             }
             return grupos_monstruos_disponibles;
         }

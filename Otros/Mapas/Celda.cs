@@ -92,9 +92,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return x == celda_destino.x || y == celda_destino.y;
         }
 
-        public bool es_Caminable() => tipo != TipoCelda.NO_CAMINABLE && !es_Interactivo();
+        public bool es_Caminable() => tipo != TipoCelda.NO_CAMINABLE && !es_Interactivo_Caminable();
 
-        public bool es_Interactivo()
+        public bool es_Interactivo_Caminable()
         {
             if (tipo == TipoCelda.OBJETO_INTERACTIVO)
                 return true;
