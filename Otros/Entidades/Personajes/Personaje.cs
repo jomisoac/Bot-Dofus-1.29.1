@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Oficios;
@@ -36,7 +37,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public string canales { get; set; } = string.Empty;
         public Mapa mapa;
         public Celda celda { get; set; }
-        public short celda_objetivo_recoleccion { get; set; } = 0;
+        public Manejador manejador;
         public bool en_grupo { get; set; } = false;
         private bool disposed;
 
@@ -54,11 +55,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
         public event Action pods_actualizados;
         public event Action hechizos_actualizados;
         public event Action oficios_actualizados;
-        public event Action mapa_actualizado;
         public event Action<string> pregunta_npc_recibida;
-        public event Action<bool> movimiento_celda;
-        public event Action recoleccion_iniciada;
-        public event Action recoleccion_acabada;
         public event Action<List<short>> movimiento_pathfinding_minimapa;
 
         public Personaje(int _id, string _nombre_personaje, byte _nivel, byte _sexo, int _gfxID, Cuenta _cuenta)
@@ -69,6 +66,8 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             sexo = _sexo;
             gfxID = _gfxID;
             cuenta = _cuenta;
+            mapa = new Mapa(cuenta);
+            manejador = new Manejador(cuenta, mapa);
             inventario = new InventarioGeneral(cuenta);
             caracteristicas = new CaracteristicasInformacion();
             hechizos = new List<Hechizo>();
@@ -108,15 +107,11 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes
             socket_canal_personaje?.Invoke();
         }
 
-        #region Eventos 
-        public void evento_Mapa_Actualizado() => mapa_actualizado?.Invoke();
+        #region Eventos
         public void evento_Pods_Actualizados() => pods_actualizados?.Invoke();
         public void evento_Personaje_Seleccionado() => personaje_seleccionado?.Invoke();
         public void evento_Personaje_Pathfinding_Minimapa(List<short> lista) => movimiento_pathfinding_minimapa?.Invoke(lista);
-        public void evento_Movimiento_Celda(bool resultado) => movimiento_celda?.Invoke(resultado);
         public void evento_Oficios_Actualizados() => oficios_actualizados?.Invoke();
-        public void evento_Recoleccion_Iniciada() => recoleccion_iniciada?.Invoke();
-        public void evento_Recoleccion_Acabada() => recoleccion_acabada?.Invoke();
         public void evento_Pregunta_Npc(string lista_preguntas) => pregunta_npc_recibida?.Invoke(lista_preguntas);
         #endregion
 

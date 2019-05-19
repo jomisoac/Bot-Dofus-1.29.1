@@ -1,7 +1,6 @@
-﻿using Bot_Dofus_1._29._1.Protocolo.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -34,7 +33,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         {
             if (celda_especifica)
             {
-                if (cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, celda_id, true) != ResultadoMovimientos.EXITO)
+                if (!cuenta.personaje.manejador.movimientos.get_Cambiar_Mapa(direccion, celda_id, true))
                 {
                     cuenta.logger.log_Error("SCRIPT", "Error al mover a la celda especificada: ");
                     return resultado_fallado;
@@ -42,9 +41,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             }
             else if (direccion_especifica)
             {
-                short celda_teleport = cuenta.personaje.mapa.celdas.Where(celda => celda.tipo_teleport == direccion).Select(celda => celda.id).SingleOrDefault();
-
-                if (cuenta.personaje.mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, celda_teleport, true) != ResultadoMovimientos.EXITO)
+                if (!cuenta.personaje.manejador.movimientos.get_Cambiar_Mapa(direccion, true))
                 {
                     cuenta.logger.log_Error("SCRIPT", "Error al encontrar la celda teleport, usa el metodo por id");
                     return resultado_fallado;

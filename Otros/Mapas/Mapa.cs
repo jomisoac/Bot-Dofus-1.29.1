@@ -35,22 +35,24 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public Dictionary<int, Personaje> personajes;
         public Dictionary<int, Monstruo> monstruos;
         public Dictionary<int, Npcs> npcs;
-        private readonly XElement archivo_mapa;
         private bool disposed = false;
 
-        public Mapa(Cuenta _cuenta, string paquete)
+        public event Action mapa_actualizado;
+
+        public Mapa(Cuenta _cuenta) => cuenta = _cuenta;
+        
+        public void get_Actualizar_Mapa(string paquete)
         {
             get_Personajes().Clear();
             get_Monstruos().Clear();
 
             string[] _loc3 = paquete.Split('|');
-            cuenta = _cuenta;
             id = int.Parse(_loc3[0]);
 
             FileInfo mapa_archivo = new FileInfo("mapas/" + id + ".xml");
             if (mapa_archivo.Exists)
             {
-                archivo_mapa = XElement.Load(mapa_archivo.FullName);
+                XElement archivo_mapa = XElement.Load(mapa_archivo.FullName);
                 anchura = byte.Parse(archivo_mapa.Element("ANCHURA").Value);
                 altura = byte.Parse(archivo_mapa.Element("ALTURA").Value);
                 data = archivo_mapa.Element("MAPA_DATA").Value;
@@ -64,119 +66,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 cuenta.logger.log_Error("Mapa", $"Archivo de mapa no encontrado bot desconectado, id mapa: {id}");
             }
             mapa_archivo = null;
+
+            mapa_actualizado?.Invoke();
         }
 
         public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
-
-        public ResultadoMovimientos get_Mover_Celda_Mapa(short celda_actual, short celda_destino, bool esquivar_monstruos)
-        {
-            if (celda_destino < 0 || celda_destino > celdas.Length)
-                return ResultadoMovimientos.FALLO;
-
-            if (cuenta.esta_ocupado)
-                return ResultadoMovimientos.FALLO;
-
-            if (celdas[celda_destino].tipo == TipoCelda.NO_CAMINABLE && celdas[celda_destino].objeto_interactivo == null)
-                return ResultadoMovimientos.FALLO;
-
-
-            if (celdas[celda_destino].tipo == TipoCelda.OBJETO_INTERACTIVO && celdas[celda_destino].objeto_interactivo == null)
-                return ResultadoMovimientos.FALLO;
-
-            if (cuenta.personaje.celda.id == celda_destino)
-                return ResultadoMovimientos.MISMA_CELDA;
-
-            Pathfinding path = new Pathfinding(this);
-
-            if (path.get_Puede_Caminar(celda_actual, celda_destino, esquivar_monstruos))
-            {
-                cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
-                
-                path.get_Tiempo_Desplazamiento_Mapa(celda_actual, celda_destino);
-                cuenta.conexion.enviar_Paquete("GA001" + Pathfinding.get_Pathfinding_Limpio(path.celdas_camino, false, this));
-                cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(path.celdas_camino);
-
-                return ResultadoMovimientos.EXITO;
-            }
-
-            cuenta.personaje.evento_Movimiento_Celda(false);
-            return ResultadoMovimientos.FALLO;
-        }
-
-        public async Task get_Mover_Celda_Pelea(KeyValuePair<short, MovimientoNodo>? nodo)
-        {
-            if (!cuenta.esta_luchando())
-                return;
-
-            if (nodo == null || nodo.Value.Value.camino.celdas_accesibles.Count == 0)
-                return;
-
-            if (nodo.Value.Key == cuenta.pelea.jugador_luchador.celda_id)
-                return;
-
-            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.pelea.jugador_luchador.celda_id);
-
-            await cuenta.conexion.enviar_Paquete_Async("GA001" + Pathfinding.get_Pathfinding_Limpio(nodo.Value.Value.camino.celdas_accesibles, true, this));
-            cuenta.personaje.evento_Personaje_Pathfinding_Minimapa(nodo.Value.Value.camino.celdas_accesibles);
-        }
-
-        public bool get_Puede_Recolectar_Elementos_Interactivos(List<short> elementos_ids) => get_Interactivos_Utilizables(elementos_ids).Count > 0;
-
-        private Dictionary<short, ObjetoInteractivo> get_Interactivos_Utilizables(List<short> elementos_ids)
-        {
-            Dictionary<short, ObjetoInteractivo> elementos_utilizables = new Dictionary<short, ObjetoInteractivo>();
-
-            foreach (Celda celda in celdas)
-            {
-                if (celda == null || celda.objeto_interactivo == null)
-                    continue;
-
-                if (!celda.objeto_interactivo.es_utilizable || !celda.objeto_interactivo.modelo.recolectable)
-                    continue;
-
-                foreach (short interactivo in celda.objeto_interactivo.modelo.habilidades)
-                {
-                    if (elementos_ids.Contains(interactivo))
-                        elementos_utilizables.Add(celda.id, celda.objeto_interactivo);
-                }
-            }
-
-            return elementos_utilizables;
-        }
-
-        public bool Recolectar(List<short> elementos_ids)
-        {
-            if (cuenta.esta_ocupado)
-                return false;
-
-            foreach (KeyValuePair<short, ObjetoInteractivo> kvp in get_Interactivos_Utilizables(elementos_ids))
-            {
-                if (get_Movimiento_Interactivo(kvp))
-                    return true;
-            }
-
-            return false;
-        }
-
-        private bool get_Movimiento_Interactivo(KeyValuePair<short, ObjetoInteractivo> elemento)
-        {
-            switch (get_Mover_Celda_Mapa(cuenta.personaje.celda.id, elemento.Key, true))
-            {
-                case ResultadoMovimientos.MISMA_CELDA:
-                case ResultadoMovimientos.EXITO:
-                    foreach (short habilidad in elemento.Value.modelo.habilidades)
-                    {
-                        if (cuenta.personaje.get_Skills_Recoleccion_Disponibles().Contains(habilidad))
-                        {
-                            cuenta.conexion.enviar_Paquete_Async("GA500" + elemento.Key + ";" + habilidad);
-                            cuenta.personaje.celda_objetivo_recoleccion = elemento.Key;
-                        }
-                    }
-                return true;
-            }
-            return false;
-        }
-
+        
         public bool get_Puede_Luchar_Contra_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios) => get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios).Count > 0;
 
         public List<Monstruo> get_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios)

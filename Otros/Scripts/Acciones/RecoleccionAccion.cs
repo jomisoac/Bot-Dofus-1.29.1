@@ -14,9 +14,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         {
             Personaje personaje = cuenta.personaje;
 
-            if (personaje.mapa.get_Puede_Recolectar_Elementos_Interactivos(elementos))
+            if (personaje.manejador.recoleccion.get_Puede_Recolectar(elementos))
             {
-                if (!personaje.mapa.Recolectar(elementos))
+                if (!personaje.manejador.recoleccion.get_Recolectar(elementos))
                     return resultado_fallado;
 
                 return resultado_procesado;

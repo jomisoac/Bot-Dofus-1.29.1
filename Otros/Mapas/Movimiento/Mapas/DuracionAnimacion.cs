@@ -5,7 +5,7 @@
     Creado por Alvaro Prendes
     web: http://www.salesprendes.com
 */
-namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
+namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
 {
     internal class DuracionAnimacion
     {

@@ -6,8 +6,8 @@
     web: http://www.salesprendes.com
 */
 
+using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System;
 using System.Linq;
 
@@ -22,7 +22,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public byte layer_ground_nivel { get; private set; } = 0;
         public byte layer_ground_slope { get; private set; } = 0;
         public ObjetoInteractivo objeto_interactivo { get; private set; }
-        public MapaTeleportCeldas tipo_teleport { get; private set; } = MapaTeleportCeldas.NINGUNO;
         public Mapa mapa { get; private set; } = null;
         public int x { get; private set; } = 0;
         public int y { get; private set; } = 0;
@@ -53,7 +52,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             mapa = _mapa;
 
             if (objeto_interactivo_id != -1)
-                objeto_interactivo = new ObjetoInteractivo(objeto_interactivo_id);
+                objeto_interactivo = new ObjetoInteractivo(objeto_interactivo_id, id);
             
             byte mapa_anchura = mapa.anchura;
             int _loc5 = id / ((mapa_anchura * 2) - 1);
@@ -61,21 +60,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             int _loc7 = _loc6 % mapa_anchura;
             y = _loc5 - _loc7;
             x = (id - ((mapa_anchura - 1) * y)) / mapa_anchura;
-
-            if (tipo == TipoCelda.CELDA_TELEPORT)
-            {
-                if ((x - 1) == y)
-                    tipo_teleport = MapaTeleportCeldas.IZQUIERDA;
-                else if ((x - 27) == y)
-                    tipo_teleport = MapaTeleportCeldas.DERECHA;
-                else if ((x + y) == 31)
-                    tipo_teleport = MapaTeleportCeldas.ABAJO;
-                else if (y < 0)
-                {
-                    if ((x - Math.Abs(y)) == 1)
-                        tipo_teleport = MapaTeleportCeldas.ARRIBA;
-                }
-            }
         }
 
         public int get_Distancia_Entre_Dos_Casillas(short destino)

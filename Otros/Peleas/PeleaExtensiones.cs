@@ -179,7 +179,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             }
 
             if (nodo != null)
-                await cuenta.personaje.mapa.get_Mover_Celda_Pelea(nodo);
+                await cuenta.personaje.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
         }
 
         public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => cuenta.personaje.mapa.celdas[e.celda_id].get_Distancia_Entre_Dos_Casillas(celda_id) - 1);

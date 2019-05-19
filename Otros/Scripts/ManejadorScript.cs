@@ -246,7 +246,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (accion == null)
                 return;
 
-            if (cuenta.personaje.mapa.get_Puede_Recolectar_Elementos_Interactivos(accion.elementos))
+            if (cuenta.personaje.manejador.recoleccion.get_Puede_Recolectar(accion.elementos))
                 manejar_acciones.enqueue_Accion(accion, true);
             else
                 procesar_Actual_Bandera(true);
@@ -361,11 +361,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 switch (banderas[bandera_id])
                 {
                     case RecoleccionBandera _:
-                        RecoleccionAccion gatherAction = crar_Accion_Recoleccion();
+                        RecoleccionAccion accion_recoleccion = crar_Accion_Recoleccion();
 
-                        if (cuenta.personaje.mapa.get_Puede_Recolectar_Elementos_Interactivos(gatherAction.elementos))
+                        if (cuenta.personaje.manejador.recoleccion.get_Puede_Recolectar(accion_recoleccion.elementos))
                         {
-                            procesar_Actual_Entrada(gatherAction);
+                            procesar_Actual_Entrada(accion_recoleccion);
                             return;
                         }
                     break;

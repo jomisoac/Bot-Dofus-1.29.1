@@ -106,7 +106,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             if (nodo != null)
             {
-                await cuenta.personaje.mapa.get_Mover_Celda_Pelea(nodo);
+                await cuenta.personaje.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
                 return ResultadoLanzandoHechizo.MOVIDO;
             }
 

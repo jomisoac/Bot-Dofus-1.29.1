@@ -1,6 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Recolecciones;
 using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
@@ -175,12 +176,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             string[] separador = paquete.Substring(2).Split(';');
             int id_accion = int.Parse(separador[1]);
+            Cuenta cuenta = cliente.cuenta;
+            Personaje personaje = cuenta.personaje;
 
             if (id_accion > 0)//Error: GA;0
             {
                 int id_jugador = int.Parse(separador[2]);
-                Cuenta cuenta = cliente.cuenta;
-                Personaje personaje = cuenta.personaje;
                 Luchadores luchador = null;
 
                 switch (id_accion)
@@ -188,50 +189,48 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     case 1:
                         Mapa mapa = personaje.mapa;
                         short celda_destino = Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2));
+                        byte tipo_gkk_movimiento;
 
-                        if (id_jugador == personaje.id && celda_destino > 0 && personaje.celda.id != celda_destino)
+                        if (!cuenta.esta_luchando())
                         {
-                            if (!cuenta.esta_luchando())
-                                await Task.Delay(Pathfinding.tiempo_desplazamiento);
-                            else
-                                await Task.Delay(300 * personaje.celda.get_Distancia_Entre_Dos_Casillas(celda_destino));
-
-                            cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
-                            personaje.celda = mapa.celdas[celda_destino];
-
-
-                            if (!cuenta.esta_luchando())
+                            if (id_jugador == personaje.id && celda_destino > 0 && personaje.celda.id != celda_destino)
                             {
-                                personaje.evento_Movimiento_Celda(true);
-                                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                                tipo_gkk_movimiento = byte.Parse(separador[0]);
+
+                                Celda celda = mapa.celdas[celda_destino];
+                                await personaje.manejador.movimientos.evento_Movimiento_Finalizado(celda, tipo_gkk_movimiento, true);
+                            }
+                            else if (mapa.get_Personajes().ContainsKey(id_jugador))
+                            {
+                                mapa.get_Personajes()[id_jugador].celda = mapa.celdas[celda_destino];
+
+                                if (GlobalConf.mostrar_mensajes_debug)
+                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un personaje a la casilla: " + celda_destino);
+                            }
+                            else if (mapa.get_Monstruos().ContainsKey(id_jugador))
+                            {
+                                mapa.get_Monstruos()[id_jugador].celda = mapa.celdas[celda_destino];
+
+                                if (GlobalConf.mostrar_mensajes_debug)
+                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + celda_destino);
                             }
                         }
-                        else if (mapa.get_Personajes().ContainsKey(id_jugador) && !cuenta.esta_luchando())
+                        else
                         {
-                            mapa.get_Personajes()[id_jugador].celda = mapa.celdas[celda_destino];
+                            tipo_gkk_movimiento = byte.Parse(separador[0]);
 
-                            if (GlobalConf.mostrar_mensajes_debug)
-                                cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un personaje a la casilla: " + celda_destino);
-                        }
-                        else if (mapa.get_Monstruos().ContainsKey(id_jugador) && !cuenta.esta_luchando())
-                        {
-                            mapa.get_Monstruos()[id_jugador].celda = mapa.celdas[celda_destino];
-
-                            if (GlobalConf.mostrar_mensajes_debug)
-                                cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + celda_destino);
-                        }
-
-                        if (cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO)
-                        {
                             luchador = cuenta.pelea.get_Luchador_Por_Id(id_jugador);
                             if (luchador != null)
                                 luchador.celda_id = celda_destino;
+
+                            await Task.Delay(300 * personaje.celda.get_Distancia_Entre_Dos_Casillas(celda_destino));
+                            cuenta.conexion.enviar_Paquete("GKK" + tipo_gkk_movimiento);
                         }
-                        break;
+                    break;
 
                     case 2: //Cargando el mapa
                         await Task.Delay(200);
-                        break;
+                    break;
 
                     case 102:
                         if (cuenta.esta_luchando())
@@ -278,14 +277,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     case 501:
                         int tiempo_recoleccion = int.Parse(separador[3].Split(',')[1]);
                         short celda_id = short.Parse(separador[3].Split(',')[0]);
+                        byte tipo_gkk_recoleccion = byte.Parse(separador[0]);
 
-                        if (id_jugador == personaje.id)
-                        {
-                            cuenta.Estado_Cuenta = EstadoCuenta.RECOLECTANDO;
-                            personaje.evento_Recoleccion_Iniciada();
-                            await Task.Delay(tiempo_recoleccion);
-                            cuenta.conexion.enviar_Paquete("GKK" + byte.Parse(separador[0]));
-                        }
+                        await personaje.manejador.recoleccion.evento_Recoleccion_Iniciada(id_jugador, tiempo_recoleccion, celda_id, tipo_gkk_recoleccion);
                         break;
 
                     case 900:
@@ -293,6 +287,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         cuenta.logger.log_informacion("INFORMACIÓN", "Desafio del personaje id: " + id_jugador + " cancelado");
                         break;
                 }
+            }
+            else
+            {
+                await personaje.manejador.movimientos.evento_Movimiento_Finalizado(null, 0, false);
             }
         }
 
@@ -311,27 +309,19 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 {
                     case 2:
                         personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
-
-                        if (personaje.celda_objetivo_recoleccion == celda_id && !cliente.cuenta.esta_recolectando())
-                        {
-                            cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Un personaje te ha robado el recurso");
-                            cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-                            personaje.evento_Recoleccion_Acabada();
-                        }
                         break;
 
                     case 3:
                         personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
 
                         //pescador no envia IQ porque aveces no pesca pero si manda GDF;3
-                        if (cuenta.esta_recolectando() && personaje.celda_objetivo_recoleccion == celda_id)
+                        if (cuenta.esta_recolectando())
                         {
-                            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-                            cuenta.personaje.evento_Recoleccion_Acabada();
+                            personaje.manejador.recoleccion.evento_Recoleccion_Acabada(RecoleccionResultado.RECOLECTADO);
                         }
-                        break;
+                    break;
 
-                    case 4:// reaparece
+                    case 4:// reaparece asi se fuerza el cambio de mapa 
                         personaje.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
                         break;
                 }
@@ -344,9 +334,8 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("GDM")]
         public void get_Nuevo_Mapa(ClienteAbstracto cliente, string paquete)
         {
-            cliente.cuenta.personaje.mapa = new Mapa(cliente.cuenta, paquete.Substring(4));
+            cliente.cuenta.personaje.mapa.get_Actualizar_Mapa(paquete.Substring(4));
             cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-            cliente.cuenta.personaje.evento_Mapa_Actualizado();
         }
     }
 }
