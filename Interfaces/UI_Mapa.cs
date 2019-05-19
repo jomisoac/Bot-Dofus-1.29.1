@@ -1,8 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Controles.ControlMapa;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
-using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             cuenta = _cuenta;
 
             mapa.clic_celda += mapa_Control_Celda_Clic;
-            cuenta.personaje.mapa_actualizado += get_Eventos_Mapa_Cambiado;
+            cuenta.personaje.mapa.mapa_actualizado += get_Eventos_Mapa_Cambiado;
             cuenta.personaje.movimiento_pathfinding_minimapa += get_Dibujar_Pathfinding;
         }
 
@@ -54,7 +53,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             if (botones == MouseButtons.Left && celda_actual != 0 && celda_destino != 0)
             {
-                switch (cuenta.personaje.mapa.get_Mover_Celda_Mapa(celda_actual, celda_destino, true))
+                ResultadoMovimientos resultado = cuenta.personaje.manejador.movimientos.get_Mover_A_Celda(celda_destino, true);
+
+                switch (resultado)
                 {
                     case ResultadoMovimientos.EXITO:
                         cuenta.logger.log_informacion("UI_MAPA", "Personaje desplazado a la casilla: " + celda_destino);
@@ -65,7 +66,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     break;
 
                     default:
-                        cuenta.logger.log_Error("UI_MAPA", "Error desplazando el personaje a la casilla: " + celda_destino);
+                        cuenta.logger.log_Error("UI_MAPA", "Error desplazando el personaje a la casilla: " + celda_destino + " resultado: " + resultado);
                     break;
                 }
             }

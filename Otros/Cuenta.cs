@@ -96,6 +96,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public bool esta_dialogando() => Estado_Cuenta == EstadoCuenta.ALMACENAMIENTO || Estado_Cuenta == EstadoCuenta.HABLANDO || Estado_Cuenta == EstadoCuenta.INTERCAMBIO || Estado_Cuenta == EstadoCuenta.COMPRANDO || Estado_Cuenta == EstadoCuenta.VENDIENDO;
         public bool esta_luchando() => Estado_Cuenta == EstadoCuenta.LUCHANDO;
         public bool esta_recolectando() => Estado_Cuenta == EstadoCuenta.RECOLECTANDO;
+        public bool esta_desplazando() => Estado_Cuenta == EstadoCuenta.MOVIMIENTO;
 
         ~Cuenta() => Dispose(false);
 

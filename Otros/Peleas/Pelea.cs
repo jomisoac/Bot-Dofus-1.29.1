@@ -507,7 +507,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public void get_Combate_Creado()
         {
             celdas_mapa = cuenta.personaje.mapa.celdas;
-            cuenta.personaje.celda_objetivo_recoleccion = 0;
 
             cuenta.Estado_Cuenta = EstadoCuenta.LUCHANDO;
             pelea_creada?.Invoke();

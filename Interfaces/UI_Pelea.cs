@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
@@ -105,7 +106,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 {
                     cuenta.logger.log_informacion("PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino);
 
-                    switch (mapa.get_Mover_Celda_Mapa(celda_actual, celda_monstruo_destino, false))
+                    switch (cuenta.personaje.manejador.movimientos.get_Mover_A_Celda(celda_monstruo_destino, false))
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("PELEAS", "Desplazando para comenzar el combate");

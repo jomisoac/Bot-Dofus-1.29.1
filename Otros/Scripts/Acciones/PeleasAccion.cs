@@ -1,4 +1,5 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
+﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
+using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System.Collections.Generic;
@@ -34,15 +35,15 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             {
                 foreach (Monstruo grupo_monstruo in grupos_disponibles)
                 {
-                    if (mapa.celdas[grupo_monstruo.celda.id].tipo == TipoCelda.CELDA_TELEPORT)
+                    if (grupo_monstruo.celda.tipo == TipoCelda.CELDA_TELEPORT)
                         continue;
 
-                    switch (mapa.get_Mover_Celda_Mapa(cuenta.personaje.celda.id, grupo_monstruo.celda.id, false))
+                    switch (cuenta.personaje.manejador.movimientos.get_Mover_A_Celda(grupo_monstruo.celda.id, false))
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("SCRIPT", $"Movimiento hacia un grupo de monstruos celda: {grupo_monstruo.celda.id}, total de monstruos: {grupo_monstruo.get_Total_Monstruos}, nivel total del grupo: {grupo_monstruo.get_Total_Nivel_Grupo}");
                         return resultado_procesado;
-
+                            
                         case ResultadoMovimientos.PATHFINDING_ERROR:
                         case ResultadoMovimientos.MISMA_CELDA:
                             cuenta.logger.log_Peligro("SCRIPT", "El camino hacia el grupo de monstruos está bloqueado");

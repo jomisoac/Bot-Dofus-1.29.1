@@ -1,4 +1,5 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
+﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Recolecciones;
+using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades;
@@ -31,14 +32,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             timeout_timer = new TimerWrapper(60000, time_Out_Callback);
             Personaje personaje = cuenta.personaje;
             
-            personaje.mapa_actualizado += evento_Mapa_Cambiado;
+            personaje.mapa.mapa_actualizado += evento_Mapa_Cambiado;
             cuenta.pelea.pelea_creada += get_Pelea_Creada;
-            personaje.movimiento_celda += evento_Movimiento_Celda;
+            personaje.manejador.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
             personaje.pregunta_npc_recibida += npcs_Preguntas_Recibida;
             personaje.inventario.almacenamiento_abierto += iniciar_Almacenamiento;
             personaje.inventario.almacenamiento_cerrado += cerrar_Almacenamiento;
-            personaje.recoleccion_iniciada += get_Recoleccion_Iniciada;
-            personaje.recoleccion_acabada += get_Recoleccion_Acabada;
+            personaje.manejador.recoleccion.recoleccion_iniciada += get_Recoleccion_Iniciada;
+            personaje.manejador.recoleccion.recoleccion_acabada += get_Recoleccion_Acabada;
         }
 
         private void evento_Mapa_Cambiado()
@@ -99,13 +100,25 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             }
         }
 
-        private void get_Recoleccion_Acabada()
+        private void get_Recoleccion_Acabada(RecoleccionResultado resultado)
         {
             if (!cuenta.script.corriendo)
                 return;
 
             if (accion_actual is RecoleccionAccion)
-                acciones_Salida(700);
+            {
+                switch (resultado)
+                {
+                    case RecoleccionResultado.FALLO:
+                        cuenta.script.detener_Script("Error recolectando");
+                    break;
+
+                    default:
+                        acciones_Salida(1000);
+                    break;
+                }
+            }
+                
         }
 
         private void get_Pelea_Creada()
