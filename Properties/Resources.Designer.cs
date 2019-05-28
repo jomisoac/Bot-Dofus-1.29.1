@@ -63,6 +63,246 @@ namespace Bot_Dofus_1._29._1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _10 {
+            get {
+                object obj = ResourceManager.GetObject("_10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _100 {
+            get {
+                object obj = ResourceManager.GetObject("_100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _101 {
+            get {
+                object obj = ResourceManager.GetObject("_101", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _11 {
+            get {
+                object obj = ResourceManager.GetObject("_11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _110 {
+            get {
+                object obj = ResourceManager.GetObject("_110", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _111 {
+            get {
+                object obj = ResourceManager.GetObject("_111", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _120 {
+            get {
+                object obj = ResourceManager.GetObject("_120", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _121 {
+            get {
+                object obj = ResourceManager.GetObject("_121", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _20 {
+            get {
+                object obj = ResourceManager.GetObject("_20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _21 {
+            get {
+                object obj = ResourceManager.GetObject("_21", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _30 {
+            get {
+                object obj = ResourceManager.GetObject("_30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _31 {
+            get {
+                object obj = ResourceManager.GetObject("_31", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _40 {
+            get {
+                object obj = ResourceManager.GetObject("_40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _41 {
+            get {
+                object obj = ResourceManager.GetObject("_41", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _50 {
+            get {
+                object obj = ResourceManager.GetObject("_50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _51 {
+            get {
+                object obj = ResourceManager.GetObject("_51", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _60 {
+            get {
+                object obj = ResourceManager.GetObject("_60", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _61 {
+            get {
+                object obj = ResourceManager.GetObject("_61", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _70 {
+            get {
+                object obj = ResourceManager.GetObject("_70", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _71 {
+            get {
+                object obj = ResourceManager.GetObject("_71", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _80 {
+            get {
+                object obj = ResourceManager.GetObject("_80", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _81 {
+            get {
+                object obj = ResourceManager.GetObject("_81", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _90 {
+            get {
+                object obj = ResourceManager.GetObject("_90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _91 {
+            get {
+                object obj = ResourceManager.GetObject("_91", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap agilidad {
             get {
                 object obj = ResourceManager.GetObject("agilidad", resourceCulture);
@@ -397,8 +637,8 @@ namespace Bot_Dofus_1._29._1.Properties {
         ///		&lt;id&gt;1&lt;/id&gt;
         ///		&lt;nivel_requerido&gt;9&lt;/nivel_requerido&gt;
         ///		&lt;nombre&gt;Armadura Incandescente&lt;/nombre&gt;
-        ///		&lt;nivel1&gt;[[[265, 7, null, null, 4, 0, 0d0+7]], [[265, 8, null, null, 4, 0, 0d0+8]], 2, 0, 0, 50, 100, false, false, false, false, 0, 0, 0, 5, CcCc, [], [19, 41, 3, 1, 18], 9, false]&lt;/nivel1&gt;
-        ///		&lt;nivel2&gt;[[[265, 8, null, null, 4, 0, 0d0+8]], [[265, 9, null, null, 4, 0, 0d0+9]], 2, 0, 0, 50, 100, false, false, false, false, 0, 0, 0, 5, CcCc, [], [19, 41, 3,  [resto de la cadena truncado]&quot;;.
+        ///		&lt;nivel1&gt;[[[265, 7, -1, -1, 4, 0, 0d0+7]], [[265, 8, -1, -1, 4, 0, 0d0+8]], 2, 0, 0, 50, 100, false, false, false, false, 0, 0, 0, 5, CcCc, [], [19, 41, 3, 1, 18], 9, false]&lt;/nivel1&gt;
+        ///		&lt;nivel2&gt;[[[265, 8, -1, -1, 4, 0, 0d0+8]], [[265, 9, -1, -1, 4, 0, 0d0+9]], 2, 0, 0, 50, 100, false, false, false, false, 0, 0, 0, 5, CcCc, [], [19, 41, 3, 1, 18], 9, false [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string hechizos {
             get {

@@ -1,0 +1,58 @@
+﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario.Enums;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
+using System;
+using System.IO;
+using System.Xml.Linq;
+
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
+
+namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
+{
+    public class ObjetosInventario
+    {
+        public uint id_inventario { get; private set; }
+        public int id_modelo { get; private set; }
+        public string nombre { get; private set; } = "Desconocido";
+        public int cantidad { get; set; }
+        public InventarioPosiciones posicion { get; set; } = InventarioPosiciones.NO_EQUIPADO;
+        public short pods { get; private set; } //algunos objetos pesan mas de 128 por eso no puede ser byte
+        public byte tipo { get; private set; }
+        public TipoObjetosInventario tipo_inventario { get; private set; } = TipoObjetosInventario.DESCONOCIDO;
+        private readonly XElement archivo_objeto;
+
+        public ObjetosInventario(string paquete)
+        {
+            string[] separador = paquete.Split('~');
+
+            id_inventario = Convert.ToUInt32(separador[0], 16);
+            id_modelo = Convert.ToInt32(separador[1], 16);
+            cantidad = Convert.ToInt32(separador[2], 16);
+            
+            if(!string.IsNullOrEmpty(separador[3]))
+                posicion = (InventarioPosiciones)Convert.ToSByte(separador[3], 16);
+
+            FileInfo archivo_item = new FileInfo("items/" + id_modelo + ".xml");
+            if (archivo_item.Exists)
+            {
+                archivo_objeto = XElement.Load(archivo_item.FullName);
+                nombre = archivo_objeto.Element("NOMBRE").Value;
+                pods = byte.Parse(archivo_objeto.Element("PODS").Value);
+                tipo = byte.Parse(archivo_objeto.Element("TIPO").Value);
+                tipo_inventario = InventarioUtiles.get_Objetos_Inventario(tipo);
+
+                archivo_objeto = null;
+            }
+
+            archivo_item = null;
+        }
+
+        public bool objeto_esta_equipado() => posicion > InventarioPosiciones.NO_EQUIPADO;
+    }
+}

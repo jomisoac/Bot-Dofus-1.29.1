@@ -9,16 +9,17 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Enums
 {
     public enum FallosLanzandoHechizo
     {
-        NINGUNO = 0,
-        DEMASIADOS_LANZAMIENTOS = 1,
-        DEMASIADOS_LANZAMIENTOS_POR_OBJETIVO = 2,
-        COOLDOWN = 3,
-        PUNTOS_ACCION = 4,
-        RANGO_MAXIMO = 5,
-        RANGO_MINIMO = 6,
-        NO_ESTA_EN_LINEA = 7,
-        NECESITA_CELDA_LIBRE = 8,
-        NO_ESTA_EN_RANGO = 9,
-        DESONOCIDO = 10,
+        NINGUNO,
+        DEMASIADOS_LANZAMIENTOS,
+        DEMASIADOS_LANZAMIENTOS_POR_OBJETIVO,
+        COOLDOWN,
+        PUNTOS_ACCION,
+        RANGO_MAXIMO,
+        RANGO_MINIMO,
+        NO_ESTA_EN_LINEA,
+        NECESITA_CELDA_LIBRE,
+        NO_ESTA_EN_RANGO,
+        DEMASIADAS_INVOCACIONES,
+        DESONOCIDO,
     }
 }

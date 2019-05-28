@@ -75,13 +75,13 @@
             this.focus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.n_lanzamientos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CAC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.AOE = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.button_subir_hechizo = new System.Windows.Forms.Button();
             this.button_bajar_hechizo = new System.Windows.Forms.Button();
             this.button_eliminar_hechizo = new System.Windows.Forms.Button();
             this.button_informacion_hechizo = new System.Windows.Forms.Button();
             this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
-            this.AOE = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage_general_pelea.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -165,8 +165,8 @@
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 21);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.07942F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.05054F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.80144F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.32852F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.23827F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(724, 277);
@@ -184,7 +184,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(718, 33);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(718, 35);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // comboBox_lista_posicionamiento
@@ -209,7 +209,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(330, 33);
+            this.label1.Size = new System.Drawing.Size(330, 35);
             this.label1.TabIndex = 1;
             this.label1.Text = "Posicionamiento al comenzar el combate:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -672,6 +672,10 @@
             this.CAC.Text = "Lanzar CAC";
             this.CAC.Width = 79;
             // 
+            // AOE
+            // 
+            this.AOE.Text = "AOE";
+            // 
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.ColumnCount = 1;
@@ -740,10 +744,6 @@
             this.lista_imagenes.TransparentColor = System.Drawing.Color.Transparent;
             this.lista_imagenes.Images.SetKeyName(0, "1 - Home24.png");
             this.lista_imagenes.Images.SetKeyName(1, "magic32.png");
-            // 
-            // AOE
-            // 
-            this.AOE.Text = "AOE";
             // 
             // UI_Pelea
             // 

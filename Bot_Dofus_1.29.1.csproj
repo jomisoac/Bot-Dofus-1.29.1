@@ -39,8 +39,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <FileAlignment>1024</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -85,21 +86,22 @@
     <Compile Include="Comun\Frames\Transporte\PaqueteAtributo.cs" />
     <Compile Include="Comun\Frames\Transporte\PaqueteDatos.cs" />
     <Compile Include="Comun\Frames\Transporte\PaqueteRecibido.cs" />
-    <Compile Include="Comun\Network\ClienteGame.cs" />
     <Compile Include="Controles\ColorCheckBox\ColorCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controles\ControlMapa\CeldaEstado.cs" />
-    <Compile Include="Controles\ControlMapa\CeldaMapa.cs" />
-    <Compile Include="Controles\ControlMapa\Modo_Dibujo.cs" />
-    <Compile Include="Controles\LayoutPanel\FlowLayoutPanelBuffered.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controles\ControlMapa\Animaciones\MovimientoAnimacion.cs" />
+    <Compile Include="Controles\ControlMapa\Animaciones\TipoAnimaciones.cs" />
+    <Compile Include="Controles\ControlMapa\CalidadMapa.cs" />
+    <Compile Include="Controles\ControlMapa\Celdas\CeldaEstado.cs" />
+    <Compile Include="Controles\ControlMapa\Celdas\CeldaMapa.cs" />
     <Compile Include="Controles\ControlMapa\ControlMapa.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controles\ControlMapa\ControlMapa.Designer.cs">
+    <Compile Include="Controles\ControlMapa\ControlMapa.designer.cs">
       <DependentUpon>ControlMapa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\LayoutPanel\FlowLayoutPanelBuffered.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controles\ProgresBar\ProgresBar.cs">
       <SubType>Component</SubType>
@@ -135,7 +137,6 @@
     </Compile>
     <Compile Include="Comun\Frames\Autentificacion\LoginCuenta.cs" />
     <Compile Include="Comun\Frames\Frame.cs" />
-    <Compile Include="Comun\Network\ClienteLogin.cs" />
     <Compile Include="Interfaces\UI_Inventario.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -145,7 +146,7 @@
     <Compile Include="Interfaces\UI_Mapa.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interfaces\UI_Mapa.Designer.cs">
+    <Compile Include="Interfaces\UI_Mapa.designer.cs">
       <DependentUpon>UI_Mapa.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\UI_Pelea.cs">
@@ -173,23 +174,30 @@
       <DependentUpon>UI_Debugger.cs</DependentUpon>
     </Compile>
     <Compile Include="Otros\Cuenta.cs" />
-    <Compile Include="Otros\Entidades\Entidad.cs" />
-    <Compile Include="Otros\Entidades\Manejadores\Manejador.cs" />
-    <Compile Include="Otros\Entidades\Manejadores\Movimientos\Movimiento.cs" />
-    <Compile Include="Otros\Entidades\Manejadores\Recolecciones\Recoleccion.cs" />
-    <Compile Include="Otros\Entidades\Manejadores\Recolecciones\RecoleccionResultado.cs" />
-    <Compile Include="Otros\Entidades\Monstruos\Monstruo.cs" />
-    <Compile Include="Otros\Entidades\Npcs\Npcs.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Hechizos\HechizoShape.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Hechizos\HechizoStats.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Hechizos\HechizoZona.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Hechizos\Shaper.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Hechizos\ShaperEntry.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Hechizos\Zonas.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Inventario\InventarioGeneral.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Inventario\ObjetosInventario.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Oficios\Oficio.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Oficios\SkillsOficio.cs" />
+    <Compile Include="Otros\Game\Entidades\Entidad.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Interactivos\Interactivo.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Manejador.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Movimientos\Movimiento.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Recolecciones\Recoleccion.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Recolecciones\RecoleccionResultado.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Teleports\Teleport.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Teleports\TipoTeleport.cs" />
+    <Compile Include="Otros\Game\Entidades\Monstruos\Monstruo.cs" />
+    <Compile Include="Otros\Game\Entidades\Npcs\Npcs.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoEfecto.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoShape.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoStats.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoZona.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\Shaper.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\ShaperEntry.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\Zonas.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\InventarioGeneral.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\Enums\InventarioPosiciones.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\InventarioUtiles.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\ObjetosInventario.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Oficios\Oficio.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Oficios\SkillsOficio.cs" />
+    <Compile Include="Otros\Game\Juego.cs" />
     <Compile Include="Otros\Mapas\Celda.cs" />
     <Compile Include="Otros\Mapas\Interactivo\ObjetoInteractivo.cs" />
     <Compile Include="Otros\Mapas\Interactivo\ObjetoInteractivoModelo.cs" />
@@ -201,8 +209,8 @@
     <Compile Include="Otros\Mapas\Movimiento\Peleas\NodoPelea.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Peleas\PeleaCamino.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Peleas\PeleasPathfinder.cs" />
-    <Compile Include="Otros\Entidades\Manejadores\Movimientos\MapaTeleportCeldas.cs" />
-    <Compile Include="Otros\Entidades\Manejadores\Movimientos\ResultadoMovimientos.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Movimientos\MapaTeleportCeldas.cs" />
+    <Compile Include="Otros\Game\Entidades\Manejadores\Movimientos\ResultadoMovimientos.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Mapas\TipoAnimacion.cs" />
     <Compile Include="Otros\Mapas\TipoCelda.cs" />
     <Compile Include="Otros\Peleas\Configuracion\HechizoPelea.cs" />
@@ -217,14 +225,15 @@
     <Compile Include="Otros\Peleas\Pelea.cs" />
     <Compile Include="Otros\Peleas\Peleadores\LuchadorPersonaje.cs" />
     <Compile Include="Otros\Peleas\PeleaExtensiones.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Hechizos\Hechizo.cs" />
-    <Compile Include="Otros\Entidades\Personajes\Personaje.cs" />
-    <Compile Include="Otros\Entidades\Stats\CaracteristicasBase.cs" />
-    <Compile Include="Otros\Entidades\Stats\CaracteristicasInformacion.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\Hechizo.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Personaje.cs" />
+    <Compile Include="Otros\Game\Entidades\Stats\CaracteristicasBase.cs" />
+    <Compile Include="Otros\Game\Entidades\Stats\CaracteristicasInformacion.cs" />
     <Compile Include="Otros\Scripts\Acciones\AccionesScript.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\AlmacenarTodosLosObjetosAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\CambiarMapaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\CerrarVentanaAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Inventario\EquiparItem.cs" />
     <Compile Include="Otros\Scripts\Acciones\NpcBancoAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\PeleasAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\RecoleccionAccion.cs" />
@@ -239,11 +248,11 @@
     <Compile Include="Otros\Scripts\ManejadorScript.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Comun\Network\ClienteAbstracto.cs" />
+    <Compile Include="Comun\Network\ClienteTcp.cs" />
     <Compile Include="Protocolo\Constantes.cs" />
     <Compile Include="Protocolo\Enums\EstadoCuenta.cs" />
     <Compile Include="Protocolo\Enums\EstadoSocket.cs" />
-    <Compile Include="Protocolo\Enums\TipoObjetosInventario.cs" />
+    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\Enums\TipoObjetosInventario.cs" />
     <Compile Include="Protocolo\Extensiones\CadenasAmigables.cs" />
     <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccion.cs" />
     <Compile Include="Protocolo\Login\Paquetes\HostsMensaje.cs" />
@@ -263,6 +272,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controles\TabControl\TabControl.resx">
       <DependentUpon>TabControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GestionCuentas.resx">
       <DependentUpon>GestionCuentas.cs</DependentUpon>
@@ -270,9 +280,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Opciones.resx">
       <DependentUpon>Opciones.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\UI_Inventario.resx">
       <DependentUpon>UI_Inventario.cs</DependentUpon>
@@ -491,6 +503,81 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\otros\interactivos.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconos\teleport_mapa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\41.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\51.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\61.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\70.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\71.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\81.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\91.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\101.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\110.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\111.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\120.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\razas\121.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

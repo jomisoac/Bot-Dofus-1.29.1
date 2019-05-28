@@ -56,7 +56,7 @@
             this.nombre_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cantidad_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.posicion_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pods_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accion_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eliminar_equipamiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl_mision.SuspendLayout();
             this.tabPage_equipamiento.SuspendLayout();
@@ -111,7 +111,7 @@
             this.nombre_equipamiento,
             this.cantidad_equipamiento,
             this.posicion_equipamiento,
-            this.pods_equipamiento,
+            this.accion_equipamiento,
             this.eliminar_equipamiento});
             this.dataGridView_equipamientos.Cursor = System.Windows.Forms.Cursors.Default;
             this.dataGridView_equipamientos.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -327,10 +327,12 @@
             // id_modelo_equipamiento
             // 
             this.id_modelo_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.id_modelo_equipamiento.FillWeight = 90F;
             this.id_modelo_equipamiento.HeaderText = "ID Modelo";
-            this.id_modelo_equipamiento.MinimumWidth = 100;
+            this.id_modelo_equipamiento.MinimumWidth = 90;
             this.id_modelo_equipamiento.Name = "id_modelo_equipamiento";
             this.id_modelo_equipamiento.ReadOnly = true;
+            this.id_modelo_equipamiento.Width = 95;
             // 
             // nombre_equipamiento
             // 
@@ -344,10 +346,12 @@
             // cantidad_equipamiento
             // 
             this.cantidad_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cantidad_equipamiento.FillWeight = 80F;
             this.cantidad_equipamiento.HeaderText = "Cantidad";
-            this.cantidad_equipamiento.MinimumWidth = 100;
+            this.cantidad_equipamiento.MinimumWidth = 80;
             this.cantidad_equipamiento.Name = "cantidad_equipamiento";
             this.cantidad_equipamiento.ReadOnly = true;
+            this.cantidad_equipamiento.Width = 85;
             // 
             // posicion_equipamiento
             // 
@@ -357,13 +361,14 @@
             this.posicion_equipamiento.Name = "posicion_equipamiento";
             this.posicion_equipamiento.ReadOnly = true;
             // 
-            // pods_equipamiento
+            // accion_equipamiento
             // 
-            this.pods_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.pods_equipamiento.HeaderText = "Pods";
-            this.pods_equipamiento.MinimumWidth = 100;
-            this.pods_equipamiento.Name = "pods_equipamiento";
-            this.pods_equipamiento.ReadOnly = true;
+            this.accion_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.accion_equipamiento.HeaderText = "Acción";
+            this.accion_equipamiento.MaxInputLength = 50;
+            this.accion_equipamiento.MinimumWidth = 100;
+            this.accion_equipamiento.Name = "accion_equipamiento";
+            this.accion_equipamiento.ReadOnly = true;
             // 
             // eliminar_equipamiento
             // 
@@ -419,7 +424,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre_equipamiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_equipamiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn posicion_equipamiento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pods_equipamiento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accion_equipamiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn eliminar_equipamiento;
     }
 }

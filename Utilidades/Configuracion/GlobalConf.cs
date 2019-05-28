@@ -17,15 +17,13 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
         private static List<CuentaConf> lista_cuentas;
         private static readonly string ruta_archivo_cuentas = Path.Combine(Directory.GetCurrentDirectory(), "cuentas.bot");
         public static bool mostrar_mensajes_debug { get; set; }
-        public static bool modo_ultra_perfomance = false;
         public static string ip_conexion = "34.251.172.139";
         public static short puerto_conexion = 443;
 
         static GlobalConf()
         {
             lista_cuentas = new List<CuentaConf>();
-            mostrar_mensajes_debug = true;
-            modo_ultra_perfomance = false;
+            mostrar_mensajes_debug = false;
         }
 
         public static void cargar_Todas_Cuentas()
@@ -41,7 +39,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
                         lista_cuentas.Add(CuentaConf.cargar_Una_Cuenta(br));
                     }
                     mostrar_mensajes_debug = br.ReadBoolean();
-                    modo_ultra_perfomance = br.ReadBoolean();
                     ip_conexion = br.ReadString();
                     puerto_conexion = br.ReadInt16();
                 }
@@ -59,7 +56,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
                 bw.Write(lista_cuentas.Count);
                 lista_cuentas.ForEach(a => a.guardar_Cuenta(bw));
                 bw.Write(mostrar_mensajes_debug);
-                bw.Write(modo_ultra_perfomance);
                 bw.Write(ip_conexion);
                 bw.Write(puerto_conexion);
             }

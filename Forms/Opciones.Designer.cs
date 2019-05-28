@@ -32,7 +32,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox_mensajes_debug = new System.Windows.Forms.CheckBox();
-            this.checkBox_modo_perfomance = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.boton_opciones_guardar = new System.Windows.Forms.Button();
@@ -81,7 +80,6 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.checkBox_mensajes_debug, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox_modo_perfomance, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 21);
@@ -106,17 +104,6 @@
             this.checkBox_mensajes_debug.TabIndex = 0;
             this.checkBox_mensajes_debug.Text = "Mostrar los mensajes debug";
             this.checkBox_mensajes_debug.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_modo_perfomance
-            // 
-            this.checkBox_modo_perfomance.AutoSize = true;
-            this.checkBox_modo_perfomance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox_modo_perfomance.Location = new System.Drawing.Point(3, 29);
-            this.checkBox_modo_perfomance.Name = "checkBox_modo_perfomance";
-            this.checkBox_modo_perfomance.Size = new System.Drawing.Size(366, 20);
-            this.checkBox_modo_perfomance.TabIndex = 1;
-            this.checkBox_modo_perfomance.Text = "Modo ultra rápido (Gasta menos memoria)";
-            this.checkBox_modo_perfomance.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -250,7 +237,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button boton_opciones_guardar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.CheckBox checkBox_modo_perfomance;
         private System.Windows.Forms.Label label_ip_conexion;
         private System.Windows.Forms.TextBox textBox_ip_servidor;
         private System.Windows.Forms.Label label_puerto_servidor;

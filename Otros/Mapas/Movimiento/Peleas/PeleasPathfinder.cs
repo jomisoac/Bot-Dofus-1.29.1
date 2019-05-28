@@ -83,9 +83,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
                 int i = 0;
                 while (i < adyecentes.Count)
                 {
-                    Luchadores placador = pelea.get_Luchadores.FirstOrDefault(f => f.celda_id == adyecentes[i]?.id);
+                    Luchadores enemigo = pelea.get_Luchadores.FirstOrDefault(f => f.celda_id == adyecentes[i]?.id);
 
-                    if (adyecentes[i] != null && placador == null)
+                    if (adyecentes[i] != null && enemigo == null)
                     {
                         i++;
                         continue;
@@ -111,7 +111,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
                             continue;
                     }
 
-                    if (!cuadricula[adyecentes[i].id].es_Caminable())
+                    if (!adyecentes[i].es_Caminable())
                         continue;
 
                     celdas[adyecentes[i].id] = new MovimientoNodo(nodo_celda.id, accesible);
@@ -129,6 +129,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
             return celdas;
         }
 
+        //pelea no utiliza diagonales
         public static List<Celda> get_Celdas_Adyecentes(Celda nodo, Celda[] celdas)
         {
             List<Celda> celdas_adyecentes = new List<Celda>();

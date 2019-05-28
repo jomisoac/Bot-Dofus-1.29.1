@@ -1,10 +1,6 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Protocolo.Extensiones;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -28,22 +24,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
             celdas = mapa.celdas;
         }
 
-        private void cargar_Obstaculos(ref List<Celda> celdas_no_permitidas)
+        public List<short> get_Path(Celda celda_inicio, Celda celda_final, List<Celda> celdas_no_permitidas)
         {
-            foreach (Monstruo monstruo in mapa.get_Monstruos().Values)
-                celdas_no_permitidas.Add(monstruo.celda);
-        }
-
-        public List<short> get_Path(short celda_inicio, short celda_final, bool esquivar_monstruos)
-        {
-            Celda inicio = celdas[celda_inicio];
-            Celda final = celdas[celda_final];
-
-            List<Celda> celdas_permitidas = new List<Celda>() { inicio };
-            List<Celda> celdas_no_permitidas = new List<Celda>();
-
-            if (esquivar_monstruos)
-                cargar_Obstaculos(ref celdas_no_permitidas);
+            List<Celda> celdas_permitidas = new List<Celda>() { celda_inicio };
 
             while (celdas_permitidas.Count > 0)
             {
@@ -66,8 +49,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
 
                 Celda actual = celdas_permitidas[index];
 
-                if (actual == final)
-                    return get_Camino_Retroceso(inicio, final);
+                if (actual == celda_final)
+                    return get_Camino_Retroceso(celda_inicio, celda_final);
 
                 celdas_permitidas.Remove(actual);
                 celdas_no_permitidas.Add(actual);
@@ -77,8 +60,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
                     if (celdas_no_permitidas.Contains(celda_siguiente) || !celda_siguiente.es_Caminable())
                         continue;
 
-                    if (celda_siguiente.tipo == TipoCelda.CELDA_TELEPORT && celda_siguiente != final)
-                        continue;
+                    if (celda_siguiente.es_Teleport() && celda_siguiente != celda_final)
+                       continue;
 
                     int temporal_g = actual.coste_g + get_Distancia_Nodos(celda_siguiente, actual);
 
@@ -88,7 +71,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
                         continue;
 
                     celda_siguiente.coste_g = temporal_g;
-                    celda_siguiente.coste_h = get_Distancia_Nodos(celda_siguiente, final);
+                    celda_siguiente.coste_h = get_Distancia_Nodos(celda_siguiente, celda_final);
                     celda_siguiente.coste_f = celda_siguiente.coste_g + celda_siguiente.coste_h;
                     celda_siguiente.nodo_padre = actual;
                 }
@@ -150,16 +133,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
         }
 
         private int get_Distancia_Nodos(Celda a, Celda b) => ((a.x - b.x) * (a.x - b.x)) + ((a.y - b.y) * (a.y - b.y));
-        
+
         #region Zona Dispose
+        public void Dispose() => Dispose(true);
         ~Pathfinder() => Dispose(false);
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
+        
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

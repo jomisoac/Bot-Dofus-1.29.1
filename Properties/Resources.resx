@@ -286,4 +286,76 @@
   <data name="interactivos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\otros\interactivos.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_101" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\101.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_110" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\110.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_111" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\111.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_120" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\120.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_121" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\121.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_31" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\31.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_41" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\41.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_51" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\51.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_60" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_61" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\61.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_70" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\70.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_71" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\71.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_81" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\81.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_91" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\razas\91.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

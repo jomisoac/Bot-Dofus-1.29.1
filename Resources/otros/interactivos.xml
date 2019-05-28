@@ -646,7 +646,7 @@
   </SKILL>
   <SKILL>
     <nombre>Cartel</nombre>
-    <gfx>1988,1986,1985,1531,1528,1533,1532,1533,1528,1529,1530</gfx>
+    <gfx>1988,1986,1985,1531,1533,1532,1528,1529,1530</gfx>
     <caminable>false</caminable>
     <habilidades>-1</habilidades>
     <recolectable>false</recolectable>
@@ -670,6 +670,13 @@
     <gfx>523</gfx>
     <caminable>false</caminable>
     <habilidades>-1</habilidades>
+    <recolectable>false</recolectable>
+  </SKILL>
+  <SKILL>
+    <nombre>Máquina de hilar</nombre>
+    <gfx>6666</gfx>
+    <caminable>false</caminable>
+    <habilidades>95</habilidades>
     <recolectable>false</recolectable>
   </SKILL>
 </SKILLS>

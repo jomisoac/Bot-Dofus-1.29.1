@@ -61,14 +61,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         public bool es_Global(string key) => script.Globals[key] != null;
         public void Set_Global(string key, object value) => script.Globals[key] = value;
 
+        public void Dispose() => Dispose(true);
         ~LuaManejadorScript() => Dispose(false);
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
+        
         protected virtual void Dispose(bool disposing)
         {
             if (disposed)

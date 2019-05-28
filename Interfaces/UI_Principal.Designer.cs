@@ -21,7 +21,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             base.Dispose(disposing);
         }
-        
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();

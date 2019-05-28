@@ -123,7 +123,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     if (entrada["mapa"] == null)
                         continue;
 
-                    if (!cuenta.personaje.mapa.verificar_Mapa_Actual(int.Parse(entrada["mapa"].ToString())))
+                    if (!cuenta.juego.mapa.esta_En_Mapa(entrada["mapa"].ToString()))
                         continue;
 
                     procesar_Entradas(entrada);
@@ -156,7 +156,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private async Task verificar_Muerte()
         {
-            if (cuenta.personaje.caracteristicas.energia_actual == 0)
+            if (cuenta.juego.personaje.caracteristicas.energia_actual == 0)
             {
                 cuenta.logger.log_informacion("SCRIPT", "El personaje esta muerto, pasando a modo fenix");
                 estado_script = EstadoScript.FENIX;
@@ -179,7 +179,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         private bool get_Maximos_Pods()
         {
             int maxPods = manejador_script.get_Global_Or("MAXIMOS_PODS", DataType.Number, 90);
-            return cuenta.personaje.inventario.porcentaje_pods >= maxPods;
+            return cuenta.juego.personaje.inventario.porcentaje_pods >= maxPods;
         }
 
         private void procesar_Entradas(Table entry)
@@ -246,7 +246,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (accion == null)
                 return;
 
-            if (cuenta.personaje.manejador.recoleccion.get_Puede_Recolectar(accion.elementos))
+            if (cuenta.juego.manejador.recoleccion.get_Puede_Recolectar(accion.elementos))
                 manejar_acciones.enqueue_Accion(accion, true);
             else
                 procesar_Actual_Bandera(true);
@@ -264,13 +264,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     if (etg.Type != DataType.Number)
                         continue;
 
-                    if (cuenta.personaje.get_Tiene_Skill_Id((int)etg.Number))
+                    if (cuenta.juego.personaje.get_Tiene_Skill_Id((int)etg.Number))
                         recursos_id.Add((short)etg.Number);
                 }
             }
 
             if (recursos_id.Count == 0)
-                recursos_id.AddRange(cuenta.personaje.get_Skills_Recoleccion_Disponibles());
+                recursos_id.AddRange(cuenta.juego.personaje.get_Skills_Recoleccion_Disponibles());
 
             if (recursos_id.Count == 0)
             {
@@ -301,14 +301,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!manejador_script.get_Global_Or("ABRIR_SACOS", DataType.Boolean, false))
                 return;
 
-            List<ObjetosInventario> sacos = cuenta.personaje.inventario.objetos.Where(o => o.tipo == 100).ToList();
+            List<ObjetosInventario> sacos = cuenta.juego.personaje.inventario.objetos.Where(o => o.tipo == 100).ToList();
 
             if (sacos.Count > 0)
             {
                 foreach (ObjetosInventario saco in sacos)
                 {
                     cuenta.conexion.enviar_Paquete("OU" + saco.id_inventario + "|");
-                    cuenta.personaje.inventario.eliminar_Objetos(saco, 1, false);
+                    cuenta.juego.personaje.inventario.eliminar_Objetos(saco, 1, false);
                     await Task.Delay(500);
                 }
 
@@ -320,7 +320,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             PeleasAccion accion = pelea_accion ?? get_Crear_Pelea_Accion();
 
-            if (cuenta.personaje.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion.monstruos_minimos, accion.monstruos_maximos, accion.monstruo_nivel_minimo, accion.monstruo_nivel_maximo, accion.monstruos_prohibidos, accion.monstruos_obligatorios))
+            if (cuenta.juego.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion.monstruos_minimos, accion.monstruos_maximos, accion.monstruo_nivel_minimo, accion.monstruo_nivel_maximo, accion.monstruos_prohibidos, accion.monstruos_obligatorios))
             {
                 manejar_acciones.enqueue_Accion(accion, true);
             }
@@ -341,7 +341,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             int vida_minima = auto_regeneracion.get_Or("vida_minima", DataType.Number, 0);
             int vida_maxima = auto_regeneracion.get_Or("vida_maxima", DataType.Number, 100);
 
-            if (vida_minima == 0 || cuenta.personaje.caracteristicas.porcentaje_vida > vida_minima)
+            if (vida_minima == 0 || cuenta.juego.personaje.caracteristicas.porcentaje_vida > vida_minima)
                 return;
         }
 
@@ -363,7 +363,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     case RecoleccionBandera _:
                         RecoleccionAccion accion_recoleccion = crar_Accion_Recoleccion();
 
-                        if (cuenta.personaje.manejador.recoleccion.get_Puede_Recolectar(accion_recoleccion.elementos))
+                        if (cuenta.juego.manejador.recoleccion.get_Puede_Recolectar(accion_recoleccion.elementos))
                         {
                             procesar_Actual_Entrada(accion_recoleccion);
                             return;
@@ -373,7 +373,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     case PeleaBandera _:
                         PeleasAccion accion_pelea = get_Crear_Pelea_Accion();
 
-                        if (cuenta.personaje.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion_pelea.monstruos_minimos, accion_pelea.monstruos_maximos, accion_pelea.monstruo_nivel_minimo, accion_pelea.monstruo_nivel_maximo, accion_pelea.monstruos_prohibidos, accion_pelea.monstruos_obligatorios))
+                        if (cuenta.juego.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion_pelea.monstruos_minimos, accion_pelea.monstruos_maximos, accion_pelea.monstruo_nivel_minimo, accion_pelea.monstruo_nivel_maximo, accion_pelea.monstruos_prohibidos, accion_pelea.monstruos_obligatorios))
                         {
                             procesar_Actual_Entrada(accion_pelea);
                             return;
@@ -460,14 +460,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         #endregion
 
         #region Zona Dispose
+        public void Dispose() => Dispose(true);
         ~ManejadorScript() => Dispose(false);
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
+        
         public virtual void Dispose(bool disposing)
         {
             if (disposed)

@@ -15,46 +15,46 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
     class AutentificacionLogin : Frame
     {
         [PaqueteAtributo("AlEf")]
-        public void get_Error_Datos(ClienteAbstracto cliente, string paquete)
+        public void get_Error_Datos(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "Conexión rechazada. Nombre de cuenta o contraseña incorrectos.");
-           cliente.get_Desconectar_Socket();
+            cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEv")]
-        public void get_Error_Version(ClienteAbstracto cliente, string paquete)
+        public void get_Error_Version(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "La versión %1 de Dofus que tienes instalada no es compatible con este servidor. Para poder jugar, instala la versión %2. El cliente DOFUS se va a cerrar.");
             cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEb")]
-        public void get_Error_Baneado(ClienteAbstracto cliente, string paquete)
+        public void get_Error_Baneado(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "Conexión rechazada. Tu cuenta ha sido baneada.");
             cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEd")]
-        public void get_Error_Conectado(ClienteAbstracto cliente, string paquete)
+        public void get_Error_Conectado(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "Esta cuenta ya está conectada a un servidor de juego. Por favor, inténtalo de nuevo.");
             cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEk")]
-        public void get_Error_Baneado_Tiempo(ClienteAbstracto cliente, string paquete)
+        public void get_Error_Baneado_Tiempo(ClienteTcp cliente, string paquete)
         {
             string[] informacion_ban = paquete.Substring(3).Split('|');
             int dias = int.Parse(informacion_ban[0].Substring(1)), horas = int.Parse(informacion_ban[1]), minutos = int.Parse(informacion_ban[2]);
             StringBuilder mensaje = new StringBuilder().Append("Tu cuenta estará inválida durante ");
 
             if (dias > 0)
-                mensaje.Append(dias + " días con ");
+                mensaje.Append(dias + " días");
             if (horas > 0)
-                mensaje.Append(horas + " horas y ");
+                mensaje.Append(horas + " con horas");
             if (minutos > 0)
-                mensaje.Append(minutos + " minutos");
+                mensaje.Append(minutos + " y minutos");
 
             cliente.cuenta.logger.log_Error("Login", mensaje.ToString());
             cliente.get_Desconectar_Socket();

@@ -6,7 +6,6 @@
     web: http://www.salesprendes.com
 */
 
-using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using System;
 using System.Linq;
@@ -16,11 +15,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
     public class Celda
     {
         public short id { get; private set; } = 0;
+        public bool activa { get; private set; } = false;
         public short objeto_interactivo_id { get; private set; } = 0;
         public TipoCelda tipo { get; private set; } = TipoCelda.NO_CAMINABLE;
         public bool es_linea_vision { get; private set; } = false;
         public byte layer_ground_nivel { get; private set; } = 0;
         public byte layer_ground_slope { get; private set; } = 0;
+        public short layer_object_1_num { get; private set; } = 0;
+        public short layer_object_2_num { get; private set; } = 0;
         public ObjetoInteractivo objeto_interactivo { get; private set; }
         public Mapa mapa { get; private set; } = null;
         public int x { get; private set; } = 0;
@@ -34,16 +36,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         public static readonly int[] texturas_teleport = { 1030, 1029, 1764, 2298, 745 };
 
-        public Celda(short _id, TipoCelda _tipo, bool _es_linea_vision, byte _nivel, byte _slope, short _objeto_interactivo_id, short layer_object_1_num, short layer_object_2_num, Mapa _mapa)
+        public Celda(short _id, bool esta_activa, TipoCelda _tipo, bool _es_linea_vision, byte _nivel, byte _slope, short _objeto_interactivo_id, short _layer_object_1_num, short _layer_object_2_num, Mapa _mapa)
         {
             id = _id;
+            activa = esta_activa;
+            tipo = _tipo;
 
-            if (texturas_teleport.Contains(layer_object_1_num) || texturas_teleport.Contains(layer_object_2_num))
-                tipo = TipoCelda.CELDA_TELEPORT;
-            else if (_tipo == TipoCelda.CELDA_TELEPORT)
-                tipo = TipoCelda.CELDA_CAMINABLE;
-            else
-                tipo = _tipo;
+            layer_object_1_num = _layer_object_1_num;
+            layer_object_2_num = _layer_object_2_num;
 
             es_linea_vision = _es_linea_vision;
             layer_ground_nivel = _nivel;
@@ -52,8 +52,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             mapa = _mapa;
 
             if (objeto_interactivo_id != -1)
-                objeto_interactivo = new ObjetoInteractivo(objeto_interactivo_id, id);
-            
+                objeto_interactivo = new ObjetoInteractivo(objeto_interactivo_id, this);
+
             byte mapa_anchura = mapa.anchura;
             int _loc5 = id / ((mapa_anchura * 2) - 1);
             int _loc6 = id - (_loc5 * ((mapa_anchura * 2) - 1));
@@ -61,6 +61,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             y = _loc5 - _loc7;
             x = (id - ((mapa_anchura - 1) * y)) / mapa_anchura;
         }
+
+        public int get_Distancia_Entre_Dos_Casillas(Celda destino) => Math.Abs(x - destino.x) + Math.Abs(y - destino.y);
+
 
         public int get_Distancia_Entre_Dos_Casillas(short destino)
         {
@@ -76,14 +79,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return x == celda_destino.x || y == celda_destino.y;
         }
 
-        public bool es_Caminable() => tipo != TipoCelda.NO_CAMINABLE && !es_Interactivo_Caminable();
-
-        public bool es_Interactivo_Caminable()
-        {
-            if (tipo == TipoCelda.OBJETO_INTERACTIVO)
-                return true;
-
-            return objeto_interactivo != null && !objeto_interactivo.modelo.caminable;
-        }
+        public bool es_Teleport() => texturas_teleport.Contains(layer_object_1_num) || texturas_teleport.Contains(layer_object_2_num);
+        public bool es_Interactivo() => tipo == TipoCelda.OBJETO_INTERACTIVO || objeto_interactivo != null;
+        public bool es_Caminable() => activa && tipo != TipoCelda.NO_CAMINABLE && !es_Interactivo_Caminable();
+        public bool es_Interactivo_Caminable() => tipo == TipoCelda.OBJETO_INTERACTIVO || objeto_interactivo != null && !objeto_interactivo.modelo.caminable;
     }
 }

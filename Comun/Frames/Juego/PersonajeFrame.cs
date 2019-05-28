@@ -1,12 +1,9 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Oficios;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
-using System;
-using System.Threading.Tasks;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -21,14 +18,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
     class PersonajeFrame : Frame
     {
         [PaqueteAtributo("As")]
-        public void get_Stats_Actualizados(ClienteAbstracto cliente, string paquete)
-        {
-            if (cliente.cuenta.personaje != null)
-                cliente.cuenta.personaje.actualizar_Caracteristicas(paquete);
-        }
+        public void get_Stats_Actualizados(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.actualizar_Caracteristicas(paquete);
 
         [PaqueteAtributo("PIK")]
-        public void get_Peticion_Grupo(ClienteAbstracto cliente, string paquete)
+        public void get_Peticion_Grupo(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_informacion("Grupo", "Nueva invitación de grupo del personaje: " + paquete.Substring(3).Split('|')[0]);
             cliente.enviar_Paquete("PR");
@@ -36,49 +29,49 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("SL")]
-        public void get_Lista_Hechizos(ClienteAbstracto cliente, string paquete)
+        public void get_Lista_Hechizos(ClienteTcp cliente, string paquete)
         {
             if (!paquete[2].Equals('o'))
-                cliente.cuenta.personaje.actualizar_Hechizos(paquete.Substring(2));
+                cliente.cuenta.juego.personaje.actualizar_Hechizos(paquete.Substring(2));
         }
 
         [PaqueteAtributo("Ow")]
-        public void get_Actualizacion_Pods(ClienteAbstracto cliente, string paquete)
+        public void get_Actualizacion_Pods(ClienteTcp cliente, string paquete)
         {
             string[] pods = paquete.Substring(2).Split('|');
             short pods_actuales = short.Parse(pods[0]);
             short pods_maximos = short.Parse(pods[1]);
-            Personaje personaje = cliente.cuenta.personaje;
+            Personaje personaje = cliente.cuenta.juego.personaje;
 
             personaje.inventario.pods_actuales = pods_actuales;
             personaje.inventario.pods_maximos = pods_maximos;
-            cliente.cuenta.personaje.evento_Pods_Actualizados();
+            cliente.cuenta.juego.personaje.evento_Pods_Actualizados();
         }
 
         [PaqueteAtributo("DV")]
-        public void get_Cerrar_Dialogo(ClienteAbstracto cliente, string paquete)
+        public void get_Cerrar_Dialogo(ClienteTcp cliente, string paquete)
         {
             if (cliente.cuenta.Estado_Cuenta == EstadoCuenta.ALMACENAMIENTO)//Banco
-                cliente.cuenta.personaje.inventario.evento_Almacenamiento_Abierto();
+                cliente.cuenta.juego.personaje.inventario.evento_Almacenamiento_Abierto();
         }
 
         [PaqueteAtributo("EV")]
-        public void get_Ventana_Cerrada(ClienteAbstracto cliente, string paquete)
+        public void get_Ventana_Cerrada(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
 
             if (cuenta.Estado_Cuenta == EstadoCuenta.ALMACENAMIENTO)
             {
                 cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-                cuenta.personaje.inventario.evento_Almacenamiento_Cerrado();
+                cuenta.juego.personaje.inventario.evento_Almacenamiento_Cerrado();
             }
         }
 
         [PaqueteAtributo("JS")]
-        public void get_Skills_Oficio(ClienteAbstracto cliente, string paquete)
+        public void get_Skills_Oficio(ClienteTcp cliente, string paquete)
         {
             string[] separador_skill;
-            Personaje personaje = cliente.cuenta.personaje;
+            Personaje personaje = cliente.cuenta.juego.personaje;
             Oficio oficio;
             SkillsOficio skill = null;
             short id_oficio, id_skill;
@@ -115,10 +108,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("JX")]
-        public void get_Experiencia_Oficio(ClienteAbstracto cliente, string paquete)
+        public void get_Experiencia_Oficio(ClienteTcp cliente, string paquete)
         {
             string[] separador_oficio_experiencia = paquete.Substring(3).Split('|');
-            Personaje personaje = cliente.cuenta.personaje;
+            Personaje personaje = cliente.cuenta.juego.personaje;
             uint experiencia_actual, experiencia_base, experiencia_siguiente_nivel;
             short id;
             byte nivel;
@@ -141,25 +134,25 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("Re")]
-        public void get_Datos_Montura(ClienteAbstracto cliente, string paquete) => cliente.cuenta.puede_utilizar_dragopavo = true;
+        public void get_Datos_Montura(ClienteTcp cliente, string paquete) => cliente.cuenta.puede_utilizar_dragopavo = true;
 
         [PaqueteAtributo("OAKO")]
-        public void get_Aparecer_Objeto(ClienteAbstracto cliente, string paquete) => cliente.cuenta.personaje.inventario.agregar_Objetos(paquete.Substring(4));
+        public void get_Aparecer_Objeto(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.inventario.agregar_Objetos(paquete.Substring(4));
 
         [PaqueteAtributo("OQ")]
-        public void get_Modificar_Cantidad_Objeto(ClienteAbstracto cliente, string paquete) => cliente.cuenta.personaje.inventario.modificar_Objetos(paquete.Substring(2));
+        public void get_Modificar_Cantidad_Objeto(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.inventario.modificar_Objetos(paquete.Substring(2));
 
         [PaqueteAtributo("ECK")]
-        public void get_Intercambio_Ventana_Abierta(ClienteAbstracto cliente, string paquete) => cliente.cuenta.Estado_Cuenta = EstadoCuenta.ALMACENAMIENTO;
+        public void get_Intercambio_Ventana_Abierta(ClienteTcp cliente, string paquete) => cliente.cuenta.Estado_Cuenta = EstadoCuenta.ALMACENAMIENTO;
 
         [PaqueteAtributo("PCK")]
-        public void get_Grupo_Aceptado(ClienteAbstracto cliente, string paquete) => cliente.cuenta.personaje.en_grupo = true;
+        public void get_Grupo_Aceptado(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.en_grupo = true;
 
         [PaqueteAtributo("PV")]
-        public void get_Grupo_Abandonado(ClienteAbstracto cliente, string paquete) => cliente.cuenta.personaje.en_grupo = true;
+        public void get_Grupo_Abandonado(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.en_grupo = true;
 
         [PaqueteAtributo("ERK")]
-        public void get_Peticion_Intercambio(ClienteAbstracto cliente, string paquete)
+        public void get_Peticion_Intercambio(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Invitación de intercambio recibida, rechazando");
             cliente.enviar_Paquete("EV");

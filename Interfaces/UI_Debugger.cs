@@ -39,7 +39,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void agregar_Nuevo_Paquete(string paquete, bool enviado)
         {
-            if (Debugger_activado.Checked && !GlobalConf.modo_ultra_perfomance)
+            if (checkbox_debugger.Checked)
             {
                 try
                 {

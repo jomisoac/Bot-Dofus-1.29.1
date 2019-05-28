@@ -1,18 +1,67 @@
-﻿using System;
+﻿using Bot_Dofus_1._29._1.Controles.ControlMapa.Animaciones;
+using Bot_Dofus_1._29._1.Controles.ControlMapa.Celdas;
+using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Mapas;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Timers;
 using System.Windows.Forms;
+
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
 
 namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 {
+    [Serializable]
     public partial class ControlMapa : UserControl
     {
+        public int mapa_altura { get; set; }
+        public int mapa_anchura { get; set; }
+        private CalidadMapa tipo_calidad;
+        private bool mapa_raton_abajo;
+        private CeldaMapa celda_retenida;
+        private CeldaMapa celda_abajo;
+        private Cuenta cuenta;
+        private ConcurrentDictionary<int, MovimientoAnimacion> animaciones;
+        private System.Timers.Timer animaciones_timer;
+        private bool mostrar_animaciones;
+        private bool mostrar_celdas;
+
         public delegate void CellClickedHandler(CeldaMapa celda, MouseButtons botones);
         public event CellClickedHandler clic_celda;
         public event Action<CeldaMapa, CeldaMapa> clic_celda_terminado;
+
+        public ControlMapa()
+        {
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            tipo_calidad = CalidadMapa.MEDIA;
+            mapa_altura = 17;
+            mapa_anchura = 15;
+            TraceOnOver = false;
+            ColorCeldaInactiva = Color.DarkGray;
+            ColorCeldaActiva = Color.Gray;
+
+            mostrar_animaciones = true;
+            animaciones = new ConcurrentDictionary<int, MovimientoAnimacion>();
+            animaciones_timer = new System.Timers.Timer(80);
+            animaciones_timer.Elapsed += animacion_Finalizada;
+
+            set_Celda_Numero();
+            dibujar_Cuadricula();
+
+            InitializeComponent();
+        }
 
         protected void OnCellClicked(CeldaMapa cell, MouseButtons buttons)
         {
@@ -24,53 +73,24 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             clic_celda_terminado?.Invoke(cell, last);
         }
 
-        private int mapa_altura, mapa_anchura;
-        private bool mapa_calidad_baja;
-        private bool mapa_raton_abajo;
-        private CeldaMapa mapa_celda_retenida;
-        private CeldaMapa mapa_celda_abajo;
-
-        public ControlMapa()
+        public bool Mostrar_Animaciones
         {
-            DoubleBuffered = true;
-            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-            MapaAltura = 17;
-            MapaAnchura = 15;
-            ModoDibujo = Modo_Dibujo.TODO;
-            TraceOnOver = false;
-            ColorCeldaInactiva = Color.DarkGray;
-            ColorCeldaActiva = Color.Transparent;
-            colores_Celda_Estado = new Dictionary<CeldaEstado, Color>
-            {
-                { CeldaEstado.CAMINABLE, Color.Gray},
-                { CeldaEstado.NO_CAMINABLE, Color.Maroon},
-                { CeldaEstado.PELEA_EQUIPO_AZUL, Color.DodgerBlue},
-                { CeldaEstado.PELEA_EQUIPO_ROJO, Color.Red},
-                { CeldaEstado.CELDA_TELEPORT, Color.Orange},
-                { CeldaEstado.OBJETO_INTERACTIVO, Color.LightGoldenrodYellow}
-            };
-            set_Celda_Numero();
-            dibujar_Mapa();
-            InitializeComponent();
-        }
-
-        public int MapaAltura
-        {
-            get => mapa_altura;
+            get => mostrar_animaciones;
             set
             {
-                mapa_altura = value;
-                set_Celda_Numero();
+                mostrar_animaciones = value;
+                if (mostrar_animaciones)
+                    animaciones_timer.Start();
             }
         }
 
-        public int MapaAnchura
+        public bool Mostrar_Celdas_Id
         {
-            get => mapa_anchura;
+            get => mostrar_celdas;
             set
             {
-                mapa_anchura = value;
-                set_Celda_Numero();
+                mostrar_celdas = value;
+                Invalidate();
             }
         }
 
@@ -80,7 +100,6 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         public int RealCellWidth { get; private set; }
         public Color ColorCeldaInactiva { get; set; }
         public Color ColorCeldaActiva { get; set; }
-        public Modo_Dibujo ModoDibujo { get; set; }
         public bool TraceOnOver { get; set; }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -90,49 +109,58 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public Dictionary<CeldaEstado, Color> colores_Celda_Estado { get; set; }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [Browsable(false)]
         public CeldaMapa[] celdas { get; set; }
 
-        public bool CalidadBaja
+        public CalidadMapa TipoCalidad
         {
-            get => mapa_calidad_baja;
+            get => tipo_calidad;
             set
             {
-                mapa_calidad_baja = value;
+                tipo_calidad = value;
                 Invalidate();
             }
         }
 
+        public void set_Cuenta(Cuenta _cuenta) => cuenta = _cuenta;
+
         private void aplicar_Calidad_Mapa(Graphics g)
         {
-            if (mapa_calidad_baja)
+            switch (tipo_calidad)
             {
-                g.CompositingMode = CompositingMode.SourceOver;
-                g.CompositingQuality = CompositingQuality.HighSpeed;
-                g.InterpolationMode = InterpolationMode.Low;
-                g.SmoothingMode = SmoothingMode.HighSpeed;
-            }
-            else
-            {
-                g.CompositingMode = CompositingMode.SourceOver;
-                g.CompositingQuality = CompositingQuality.HighQuality;
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.SmoothingMode = SmoothingMode.HighQuality;
+
+                case CalidadMapa.BAJA:
+                    g.CompositingMode = CompositingMode.SourceOver;
+                    g.CompositingQuality = CompositingQuality.HighSpeed;
+                    g.InterpolationMode = InterpolationMode.Low;
+                    g.SmoothingMode = SmoothingMode.HighSpeed;
+                break;
+
+                case CalidadMapa.MEDIA:
+                    g.CompositingMode = CompositingMode.SourceOver;
+                    g.CompositingQuality = CompositingQuality.GammaCorrected;
+                    g.InterpolationMode = InterpolationMode.High;
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                 break;
+
+
+                case CalidadMapa.ALTA:
+                    g.CompositingMode = CompositingMode.SourceOver;
+                    g.CompositingQuality = CompositingQuality.HighQuality;
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = SmoothingMode.HighQuality;
+                break;
             }
         }
 
         private void set_Celda_Numero()
         {
-            celdas = new CeldaMapa[2 * MapaAltura * MapaAnchura];
+            celdas = new CeldaMapa[2 * mapa_altura * mapa_anchura];
 
             short cellId = 0;
             CeldaMapa celda;
-            for (int y = 0; y < MapaAltura; y++)
+            for (int y = 0; y < mapa_altura; y++)
             {
-                for (int x = 0; x < MapaAnchura * 2; x++)
+                for (int x = 0; x < mapa_anchura * 2; x++)
                 {
                     celda = new CeldaMapa(cellId++);
                     celdas[celda.id] = celda;
@@ -142,30 +170,30 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
         private double get_Maximo_Escalado()
         {
-            double celda_anchura = Width / (double)(MapaAnchura + 1);
-            double cellHeight = Height / (double)(MapaAltura + 1);
+            double celda_anchura = Width / (double)(mapa_anchura + 1);
+            double cellHeight = Height / (double)(mapa_altura + 1);
             celda_anchura = Math.Min(cellHeight * 2, celda_anchura);
 
             return celda_anchura;
         }
 
-        public void dibujar_Mapa()
+        public void dibujar_Cuadricula()
         {
             int cellId = 0;
             double cellWidth = get_Maximo_Escalado();
             double cellHeight = Math.Ceiling(cellWidth / 2);
 
-            int offsetX = Convert.ToInt32((Width - ((MapaAnchura + 0.5) * cellWidth)) / 2);
-            var offsetY = Convert.ToInt32((Height - ((MapaAltura + 0.5) * cellHeight)) / 2);
+            int offsetX = Convert.ToInt32((Width - ((mapa_anchura + 0.5) * cellWidth)) / 2);
+            var offsetY = Convert.ToInt32((Height - ((mapa_altura + 0.5) * cellHeight)) / 2);
 
             double midCellHeight = cellHeight / 2;
             double midCellWidth = cellWidth / 2;
-            
-            for (int y = 0; y <= (2 * MapaAltura) - 1; ++y)
+
+            for (int y = 0; y <= (2 * mapa_altura) - 1; ++y)
             {
                 if ((y % 2) == 0)
                 {
-                    for (int x = 0; x <= MapaAnchura - 1; x++)//dibuja los impares
+                    for (int x = 0; x <= mapa_anchura - 1; x++)//dibuja los impares
                     {
                         Point left = new Point(Convert.ToInt32(offsetX + (x * cellWidth)), Convert.ToInt32(offsetY + (y * midCellHeight) + midCellHeight));
                         Point top = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + midCellWidth), Convert.ToInt32(offsetY + (y * midCellHeight)));
@@ -176,7 +204,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 }
                 else
                 {
-                    for (int x = 0; x <= MapaAnchura - 2; x++)//dibuja los pares
+                    for (int x = 0; x <= mapa_anchura - 2; x++)//dibuja los pares
                     {
                         Point left = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + midCellWidth), Convert.ToInt32(offsetY + (y * midCellHeight) + midCellHeight));
                         Point top = new Point(Convert.ToInt32(offsetX + (x * cellWidth) + cellWidth), Convert.ToInt32(offsetY + (y * midCellHeight)));
@@ -190,34 +218,159 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             RealCellWidth = (int)cellWidth;
         }
 
-        public void Draw(Graphics g)
+        public void dibujar_Celdas(Graphics g)
         {
             aplicar_Calidad_Mapa(g);
             g.Clear(BackColor);
-            Pen pen = new Pen(ForeColor);
 
-            foreach(CeldaMapa celda in celdas)
+            foreach (CeldaMapa celda in celdas)
             {
                 if (celda.esta_En_Rectangulo(g.ClipBounds))
                 {
-                    celda.DrawBackground(this, g, ModoDibujo);
-                    celda.DrawForeground(this, g);
+                    switch (celda.estado)
+                    {
+                        case CeldaEstado.CAMINABLE:
+                            celda.dibujar_Color(g, Color.Gray, Color.White);
+
+                            if (mostrar_celdas)
+                                celda.dibujar_Celda_Id(this, g);
+                        break;
+
+                        case CeldaEstado.OBSTACULO:
+                            if (mostrar_celdas)
+                                celda.dibujar_Celda_Id(this, g);
+                            else
+                                celda.dibujar_Obstaculo(g, Color.Gray, Color.FromArgb(60, 60, 60));
+                        break;
+
+                        case CeldaEstado.CELDA_TELEPORT:
+                            celda.dibujar_Color(g, Color.Gray, Color.Orange);
+                            celda.dibujar_Celda_Id(this, g);
+                        break;
+
+                        case CeldaEstado.OBJETO_INTERACTIVO:
+                            celda.dibujar_Color(g, Color.LightGoldenrodYellow, Color.LightGoldenrodYellow);
+                            celda.dibujar_Celda_Id(this, g);
+                        break;
+
+                        default:
+                            celda.dibujar_Color(g, Color.Gray, Color.DarkGray);
+                        break;
+                    }
+
+                    if (celda.id == cuenta?.juego?.personaje?.celda?.id)
+                        celda.dibujar_FillPie(g, Color.Blue, RealCellHeight / 2);
                 }
 
-                if (celda.esta_En_Rectangulo(g.ClipBounds))
-                    celda.DrawBorder(g, pen);
+                dibujar_Animaciones(g);
             }
         }
 
+        #region Animaciones
+        public void agregar_Animacion(int id, List<short> path, int duracion, TipoAnimaciones actor)
+        {
+            if (path.Count < 2 || !mostrar_animaciones)
+                return;
+            
+            if (animaciones.ContainsKey(id))
+                animacion_Finalizada(animaciones[id]);
+            
+            MovimientoAnimacion nueva_animacion = new MovimientoAnimacion(id, path.Select(f => celdas[f]), duracion, actor);
+            nueva_animacion.finalizado += animacion_Finalizada;
+            animaciones.TryAdd(id, nueva_animacion);
+            nueva_animacion.iniciar();
+        }
+
+        private void animacion_Finalizada(MovimientoAnimacion animacion)
+        {
+            animacion.finalizado -= animacion_Finalizada;
+            animaciones.TryRemove(animacion.entidad_id, out MovimientoAnimacion animacion_eliminada);
+            animacion.Dispose();
+
+            Invalidate();
+        }
+
+        private void dibujar_Animaciones(Graphics g)
+        {
+            foreach (MovimientoAnimacion animacion in animaciones.Values)
+            {
+                if (animacion.path == null)
+                    continue;
+
+                using (SolidBrush brush = new SolidBrush(get_Animacion_Color(animacion)))
+                    g.FillPie(brush, animacion.actual_punto.X - (RealCellHeight / 2 / 2), animacion.actual_punto.Y - RealCellHeight / 2 / 2,  RealCellHeight / 2, RealCellHeight / 2, 0, 360);
+            }
+        }
+
+        private void animacion_Finalizada(object sender, ElapsedEventArgs e)
+        {
+            if (animaciones.Count > 0)
+            {
+                Invalidate();
+            }
+            else if (!mostrar_animaciones)
+            {
+                animaciones_timer.Stop();
+            }
+        }
+
+        private Color get_Animacion_Color(MovimientoAnimacion animacion)
+        {
+            switch (animacion.tipo_animacion)
+            {
+                case TipoAnimaciones.PERSONAJE:
+                    return Color.Blue;
+
+                case TipoAnimaciones.GRUPO_MONSTRUOS:
+                    return Color.DarkRed;
+
+                default:
+                return Color.FromArgb(81, 113, 202);
+
+            }
+        }
+
+        public void refrescar_Mapa()
+        {
+            if (cuenta.juego.mapa == null)
+                return;
+
+            animaciones.Clear();
+            animaciones_timer.Stop();
+
+            Celda[] celdas_mapa = cuenta.juego.mapa.celdas;
+            
+            foreach (Celda celda in celdas_mapa)
+            {
+                celdas[celda.id].estado = CeldaEstado.NO_CAMINABLE;
+
+                if (celda.es_Caminable())
+                    celdas[celda.id].estado = CeldaEstado.CAMINABLE;
+
+                if (celda.es_linea_vision)
+                    celdas[celda.id].estado = CeldaEstado.OBSTACULO;
+
+                 if (celda.es_Teleport())
+                    celdas[celda.id].estado = CeldaEstado.CELDA_TELEPORT;
+
+                 if(celda.es_Interactivo())
+                    celdas[celda.id].estado = CeldaEstado.OBJETO_INTERACTIVO;
+            }
+
+            animaciones_timer.Start();
+            Invalidate();
+        }
+        #endregion
+
         protected override void OnPaint(PaintEventArgs e)
         {
-            Draw(e.Graphics);
+            dibujar_Celdas(e.Graphics);
             base.OnPaint(e);
         }
 
         protected override void OnResize(EventArgs e)
         {
-            dibujar_Mapa();
+            dibujar_Cuadricula();
             Invalidate();
             base.OnResize(e);
         }
@@ -227,10 +380,10 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             if (mapa_raton_abajo)
             {
                 CeldaMapa celda = get_Celda(e.Location);
-                if (mapa_celda_retenida != null && mapa_celda_retenida != celda)
+                if (celda_retenida != null && celda_retenida != celda)
                 {
-                    OnCellClicked(mapa_celda_retenida, e.Button);
-                    mapa_celda_retenida = celda;
+                    OnCellClicked(celda_retenida, e.Button);
+                    celda_retenida = celda;
                 }
                 if (celda != null)
                     OnCellClicked(celda, e.Button);
@@ -246,14 +399,14 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 {
                     CurrentCellOver.MouseOverPen = null;
 
-                    rect = CurrentCellOver.Rectangle;
+                    rect = CurrentCellOver.Rectangulo;
                     last = CurrentCellOver;
                 }
 
                 if (cell != null)
                 {
                     cell.MouseOverPen = new Pen(BorderColorOnOver, 1);
-                    rect = rect != Rectangle.Empty ? Rectangle.Union(rect, cell.Rectangle) : cell.Rectangle;
+                    rect = rect != Rectangle.Empty ? Rectangle.Union(rect, cell.Rectangulo) : cell.Rectangulo;
                     CurrentCellOver = cell;
                 }
 
@@ -273,7 +426,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
             if (cell != null)
             {
-                mapa_celda_retenida = mapa_celda_abajo = cell;
+                celda_retenida = celda_abajo = cell;
             }
             mapa_raton_abajo = true;
             base.OnMouseDown(e);
@@ -284,29 +437,17 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             mapa_raton_abajo = false;
             CeldaMapa cell = get_Celda(e.Location);
 
-            if (mapa_celda_retenida != null)
+            if (celda_retenida != null)
             {
-                OnCellClicked(mapa_celda_retenida, e.Button);
-                mapa_celda_retenida = null;
+                OnCellClicked(celda_retenida, e.Button);
+                celda_retenida = null;
             }
             base.OnMouseUp(e);
         }
-
-        public CeldaMapa get_Celda(Point p) => celdas.FirstOrDefault(cell => cell.esta_En_Rectangulo(new Rectangle(p.X - RealCellWidth, p.Y - RealCellHeight, RealCellWidth, RealCellHeight)) && PointInPoly(p, cell.Puntos));
-        public CeldaMapa get_Celda(int id) => celdas.FirstOrDefault(cell => cell.id == id);
-        public void Invalidate(CeldaMapa celda) => Invalidate(celda.Rectangle);
-
-        public void Invalidate(params CeldaMapa[] cells)
-        {
-            if (cells.Length == 0)
-                base.Invalidate();
-            else
-                Invalidate(cells as IEnumerable<CeldaMapa>);
-        }
-
-        public void Invalidate(IEnumerable<CeldaMapa> celdas) => Invalidate(celdas.Select(entry => entry.Rectangle).Aggregate(Rectangle.Union));
-
-        public static bool PointInPoly(Point p, Point[] poly)
+        
+        public CeldaMapa get_Celda(Point p) => celdas.FirstOrDefault(cell => cell.esta_En_Rectangulo(new Rectangle(p.X - RealCellWidth, p.Y - RealCellHeight, RealCellWidth, RealCellHeight)) && PointInPoly(cell.Puntos, p));
+        
+        public static bool PointInPoly(Point[] poly, Point p)
         {
             int x_antiguo, y_antiguo, x_nuevo, y_nuevo, x1, y1, x2, y2;
             bool inside = false;
@@ -317,7 +458,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             x_antiguo = poly[poly.Length - 1].X;
             y_antiguo = poly[poly.Length - 1].Y;
 
-            poly.ToList().ForEach(t =>
+            foreach(Point t in poly)
             {
                 x_nuevo = t.X;
                 y_nuevo = t.Y;
@@ -343,7 +484,8 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 }
                 x_antiguo = x_nuevo;
                 y_antiguo = y_nuevo;
-            });
+            }
+
             return inside;
         }
     }

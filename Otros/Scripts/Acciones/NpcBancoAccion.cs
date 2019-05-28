@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
+using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
             Npcs npc = null;
-            Dictionary<int, Npcs> npcs = cuenta.personaje.mapa.get_Npcs();
+            IDictionary<int, Npcs> npcs = cuenta.juego.mapa.npcs;
 
             if (npc_id < 0)
             {
