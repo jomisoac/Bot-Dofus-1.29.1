@@ -21,7 +21,6 @@ namespace Bot_Dofus_1._29._1.Forms
             InitializeComponent();
 
             checkBox_mensajes_debug.Checked = GlobalConf.mostrar_mensajes_debug;
-            checkBox_modo_perfomance.Checked = GlobalConf.modo_ultra_perfomance;
             textBox_ip_servidor.Text = GlobalConf.ip_conexion;
             textBox_puerto_servidor.Text = Convert.ToString(GlobalConf.puerto_conexion);
         }
@@ -41,7 +40,6 @@ namespace Bot_Dofus_1._29._1.Forms
             }
 
             GlobalConf.mostrar_mensajes_debug = checkBox_mensajes_debug.Checked;
-            GlobalConf.modo_ultra_perfomance = checkBox_modo_perfomance.Checked;
             GlobalConf.ip_conexion = textBox_ip_servidor.Text;
             GlobalConf.puerto_conexion = short.Parse(textBox_puerto_servidor.Text);
             GlobalConf.guardar_Configuracion();

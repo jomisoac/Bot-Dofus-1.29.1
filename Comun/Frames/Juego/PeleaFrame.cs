@@ -20,7 +20,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
     internal class PeleaFrame : Frame
     {
         [PaqueteAtributo("GP")]
-        public void get_Combate_Celdas_Posicion(ClienteAbstracto cliente, string paquete)
+        public void get_Combate_Celdas_Posicion(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
             string[] _loc3 = paquete.Substring(2).Split('|');
@@ -33,24 +33,27 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
             if (cuenta.puede_utilizar_dragopavo)
             {
-                if (cuenta.pelea_extension.configuracion.utilizar_dragopavo && !cuenta.personaje.esta_utilizando_dragopavo)
+                if (cuenta.pelea_extension.configuracion.utilizar_dragopavo && !cuenta.juego.personaje.esta_utilizando_dragopavo)
                 {
                     cuenta.conexion.enviar_Paquete("Rr");
-                    cuenta.personaje.esta_utilizando_dragopavo = true;
+                    cuenta.juego.personaje.esta_utilizando_dragopavo = true;
                 }
             }
-            cuenta.pelea.get_Combate_Creado();
+            
         }
 
         [PaqueteAtributo("GICE")]
-        public async Task get_Error_Cambiar_Pos_Pelea(ClienteAbstracto cliente, string paquete)
+        public async Task get_Error_Cambiar_Pos_Pelea(ClienteTcp cliente, string paquete)
         {
-            await Task.Delay(300);
-            cliente.cuenta.conexion.enviar_Paquete("GR1");//boton listo
+            if(cliente.cuenta.esta_luchando())
+            {
+                await Task.Delay(300);
+                cliente.cuenta.conexion.enviar_Paquete("GR1");//boton listo
+            }
         }
 
         [PaqueteAtributo("GIC")]
-        public async Task get_Cambiar_Pos_Pelea(ClienteAbstracto cliente, string paquete)
+        public async Task get_Cambiar_Pos_Pelea(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
             string[] separador_posiciones = paquete.Substring(4).Split('|');
@@ -63,7 +66,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 id_entidad = int.Parse(posicion.Split(';')[0]);
                 celda = short.Parse(posicion.Split(';')[1]);
 
-                if (id_entidad == cuenta.personaje.id)
+                if (id_entidad == cuenta.juego.personaje.id)
                 {
                     await Task.Delay(300);
                     cuenta.conexion.enviar_Paquete("GR1");//boton listo
@@ -77,10 +80,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GTM")]
-        public void get_Combate_Info_Stats(ClienteAbstracto cliente, string paquete)
+        public void get_Combate_Info_Stats(ClienteTcp cliente, string paquete)
         {
             string[] separador = paquete.Substring(4).Split('|');
-            Mapa mapa = cliente.cuenta.personaje.mapa;
+            Mapa mapa = cliente.cuenta.juego.mapa;
 
             for (int i = 0; i < separador.Length; ++i)
             {
@@ -112,24 +115,54 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GTR")]
-        public void get_Combate_Turno_Listo(ClienteAbstracto cliente, string paquete) => cliente.cuenta.conexion.enviar_Paquete("GT");
+        public void get_Combate_Turno_Listo(ClienteTcp cliente, string paquete)
+        {
+            Cuenta cuenta = cliente.cuenta;
+            int id = int.Parse(paquete.Substring(3));
 
-        [PaqueteAtributo("GTS")]
-        public void get_Combate_Inicio_Turno(ClienteAbstracto cliente, string paquete)
+            if(cuenta.juego.personaje.id == id)
+                cliente.cuenta.conexion.enviar_Paquete("BD");
+
+            cliente.cuenta.conexion.enviar_Paquete("GT");
+        }
+
+        [PaqueteAtributo("GJK")]
+        public void get_Combate_Unirse_Pelea(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
 
-            if (int.Parse(paquete.Substring(3).Split('|')[0]) == cuenta.personaje.id && cliente.cuenta.pelea.total_enemigos_vivos > 0)
+            //GJK - estado|boton_cancelar|mostrat_botones|espectador|tiempo|tipo_pelea
+            string[] separador = paquete.Substring(3).Split('|');
+            byte estado_pelea = byte.Parse(separador[0]);
+
+            switch(estado_pelea)
+            {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    cuenta.pelea.get_Combate_Creado();
+                break;
+            }
+        }
+
+        [PaqueteAtributo("GTS")]
+        public void get_Combate_Inicio_Turno(ClienteTcp cliente, string paquete)
+        {
+            Cuenta cuenta = cliente.cuenta;
+
+            if (int.Parse(paquete.Substring(3).Split('|')[0]) == cuenta.juego.personaje.id && cliente.cuenta.pelea.total_enemigos_vivos > 0)
                 cuenta.pelea.get_Turno_Iniciado();
         }
 
         [PaqueteAtributo("GE")]
-        public void get_Combate_Finalizado(ClienteAbstracto cliente, string paquete)
+        public void get_Combate_Finalizado(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
 
             cuenta.pelea.get_Combate_Finalizado();
-            cuenta.conexion.enviar_Paquete("BD");
+            cuenta.conexion.enviar_Paquete("GC1");
         }
     }
 }

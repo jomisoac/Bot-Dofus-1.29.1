@@ -73,18 +73,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
             throw new IndexOutOfRangeException(ch + " no esta en el array del hash");
         }
 
-        public static string encriptar_hexadecimal(string input)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (char c in input)
-                sb.AppendFormat("{0:X2}", (int)c);
-            return sb.ToString().Trim();
-        }
-
-        public static string get_Celda_Char(short celda_id)
-        {
-            return caracteres_array[celda_id / 64] + "" + caracteres_array[celda_id % 64];
-        }
+        public static string get_Celda_Char(short celda_id) => caracteres_array[celda_id / 64] + "" + caracteres_array[celda_id % 64];
 
         public static short get_Celda_Id_Desde_hash(string celdaCodigo)
         {

@@ -43,7 +43,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Transporte
             }
         }
 
-        public void Recibir(ClienteAbstracto cliente, string paquete)
+        public void Recibir(ClienteTcp cliente, string paquete)
         {
             if (!esta_iniciado)
                 Inicializar();

@@ -31,7 +31,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.Debugger_activado = new System.Windows.Forms.CheckBox();
+            this.checkbox_debugger = new System.Windows.Forms.CheckBox();
             this.button_limpiar_logs_debugger = new System.Windows.Forms.Button();
             this.listView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -85,7 +85,7 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.59524F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.40476F));
-            this.tableLayoutPanel2.Controls.Add(this.Debugger_activado, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.checkbox_debugger, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_limpiar_logs_debugger, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 4);
@@ -96,19 +96,19 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(336, 42);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // Debugger_activado
+            // checkbox_debugger
             // 
-            this.Debugger_activado.AutoSize = true;
-            this.Debugger_activado.Checked = true;
-            this.Debugger_activado.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Debugger_activado.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Debugger_activado.Location = new System.Drawing.Point(3, 4);
-            this.Debugger_activado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Debugger_activado.Name = "Debugger_activado";
-            this.Debugger_activado.Size = new System.Drawing.Size(80, 34);
-            this.Debugger_activado.TabIndex = 0;
-            this.Debugger_activado.Text = "Activado";
-            this.Debugger_activado.UseVisualStyleBackColor = true;
+            this.checkbox_debugger.AutoSize = true;
+            this.checkbox_debugger.Checked = true;
+            this.checkbox_debugger.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkbox_debugger.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkbox_debugger.Location = new System.Drawing.Point(3, 4);
+            this.checkbox_debugger.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkbox_debugger.Name = "checkbox_debugger";
+            this.checkbox_debugger.Size = new System.Drawing.Size(80, 34);
+            this.checkbox_debugger.TabIndex = 0;
+            this.checkbox_debugger.Text = "Activado";
+            this.checkbox_debugger.UseVisualStyleBackColor = true;
             // 
             // button_limpiar_logs_debugger
             // 
@@ -184,7 +184,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.CheckBox Debugger_activado;
+        private System.Windows.Forms.CheckBox checkbox_debugger;
         private System.Windows.Forms.Button button_limpiar_logs_debugger;
         private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.ColumnHeader columnHeader1;

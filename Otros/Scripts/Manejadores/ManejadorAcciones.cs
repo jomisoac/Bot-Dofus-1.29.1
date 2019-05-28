@@ -1,5 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Recolecciones;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades;
@@ -30,16 +30,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             cuenta = _cuenta;
             fila_acciones = new ConcurrentQueue<AccionesScript>();
             timeout_timer = new TimerWrapper(60000, time_Out_Callback);
-            Personaje personaje = cuenta.personaje;
+            Personaje personaje = cuenta.juego.personaje;
             
-            personaje.mapa.mapa_actualizado += evento_Mapa_Cambiado;
+            cuenta.juego.mapa.mapa_actualizado += evento_Mapa_Cambiado;
             cuenta.pelea.pelea_creada += get_Pelea_Creada;
-            personaje.manejador.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
+            cuenta.juego.manejador.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
             personaje.pregunta_npc_recibida += npcs_Preguntas_Recibida;
             personaje.inventario.almacenamiento_abierto += iniciar_Almacenamiento;
             personaje.inventario.almacenamiento_cerrado += cerrar_Almacenamiento;
-            personaje.manejador.recoleccion.recoleccion_iniciada += get_Recoleccion_Iniciada;
-            personaje.manejador.recoleccion.recoleccion_acabada += get_Recoleccion_Acabada;
+            cuenta.juego.manejador.recoleccion.recoleccion_iniciada += get_Recoleccion_Iniciada;
+            cuenta.juego.manejador.recoleccion.recoleccion_acabada += get_Recoleccion_Acabada;
         }
 
         private void evento_Mapa_Cambiado()
@@ -114,7 +114,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                     break;
 
                     default:
-                        acciones_Salida(1000);
+                        acciones_Salida(800);
                     break;
                 }
             }
@@ -269,13 +269,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         }
 
         #region Zona Dispose
+        public void Dispose() => Dispose(true);
         ~ManejadorAcciones() => Dispose(false);
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
 
         protected virtual void Dispose(bool disposing)
         {

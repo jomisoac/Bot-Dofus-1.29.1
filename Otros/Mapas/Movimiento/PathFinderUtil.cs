@@ -24,11 +24,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             { TipoAnimacion.FANTASMA, new DuracionAnimacion(57, 85, 50) }//speed hack ;)
         };
 
-        public static int get_Tiempo_Desplazamiento_Mapa(Celda casilla_actual, List<short> celdas_camino, Mapa _mapa)
+        public static int get_Tiempo_Desplazamiento_Mapa(short casilla_inicial, List<short> celdas_camino, Mapa _mapa)
         {
             int tiempo_desplazamiento = 20;
             DuracionAnimacion tipo_animacion = celdas_camino.Count < 6 ? tiempo_tipo_animacion[TipoAnimacion.CAMINANDO] : tiempo_tipo_animacion[TipoAnimacion.CORRIENDO];
-            Celda siguiente_celda;
+            Celda casilla_actual = _mapa.celdas[casilla_inicial], siguiente_celda;
 
             for (int i = 0; i < celdas_camino.Count - 1; i++)
             {

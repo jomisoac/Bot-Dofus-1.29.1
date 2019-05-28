@@ -3,6 +3,7 @@ using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
+using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,14 +47,20 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private async Task<ResultadoLanzandoHechizo> get_Lanzar_Hechizo_Simple(HechizoPelea hechizo)
         {
-            if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id) != FallosLanzandoHechizo.NINGUNO)
+            FallosLanzandoHechizo resultado_puede_lanzar_hechizo = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id);
+
+            if (resultado_puede_lanzar_hechizo != FallosLanzandoHechizo.NINGUNO)
+            {
+                if (GlobalConf.mostrar_mensajes_debug)
+                    cuenta.logger.log_informacion("DEBUG", $"Hechizo {hechizo.nombre} no lanzado motivo: " + resultado_puede_lanzar_hechizo);
                 return ResultadoLanzandoHechizo.NO_LANZADO;
+            }
 
             Luchadores enemigo = get_Objetivo_Mas_Cercano(hechizo);
 
             if (enemigo != null)
             {
-                FallosLanzandoHechizo resultado = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id, enemigo.celda_id, cuenta.personaje.mapa);
+                FallosLanzandoHechizo resultado = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id, enemigo.celda_id, cuenta.juego.mapa);
 
                 if (resultado == FallosLanzandoHechizo.NINGUNO)
                 {
@@ -84,9 +91,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             KeyValuePair<short, MovimientoNodo>? nodo = null;
             int pm_utilizados = 99;
-            Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(cuenta.personaje.id);
+            //Luchadores luchador = cuenta.pelea.get_Luchador_Por_Id(cuenta.personaje.id);
 
-            foreach (KeyValuePair<short, MovimientoNodo> movimiento in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda_id))
+            foreach (KeyValuePair<short, MovimientoNodo> movimiento in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.juego.mapa, cuenta.pelea.jugador_luchador.celda_id))
             {
                 if (!movimiento.Value.alcanzable)
                     continue;
@@ -94,7 +101,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 if (hechizo_pelea.lanzar_cuerpo_cuerpo && !cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Aliado(movimiento.Key))
                     continue;
 
-                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, enemigo.celda_id, cuenta.personaje.mapa) != FallosLanzandoHechizo.NINGUNO)
+                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, enemigo.celda_id, cuenta.juego.mapa) != FallosLanzandoHechizo.NINGUNO)
                     continue;
 
                 if (movimiento.Value.camino.celdas_accesibles.Count <= pm_utilizados)
@@ -106,7 +113,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             if (nodo != null)
             {
-                await cuenta.personaje.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
+                await cuenta.juego.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
                 return ResultadoLanzandoHechizo.MOVIDO;
             }
 
@@ -115,21 +122,27 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private async Task<ResultadoLanzandoHechizo> lanzar_Hechizo_Celda_Vacia(HechizoPelea hechizo_pelea)
         {
-            if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id) != FallosLanzandoHechizo.NINGUNO)
+            FallosLanzandoHechizo resultado_puede_lanzar_hechizo = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id);
+
+            if (resultado_puede_lanzar_hechizo != FallosLanzandoHechizo.NINGUNO)
+            {
+                if (GlobalConf.mostrar_mensajes_debug)
+                    cuenta.logger.log_informacion("DEBUG", $"Hechizo {hechizo_pelea.nombre} no lanzado motivo: " + resultado_puede_lanzar_hechizo);
                 return ResultadoLanzandoHechizo.NO_LANZADO;
+            }
 
             if (hechizo_pelea.focus == HechizoFocus.CELDA_VACIA && cuenta.pelea.get_Cuerpo_A_Cuerpo_Enemigo().Count() == 4)
                 return ResultadoLanzandoHechizo.NO_LANZADO;
 
-            Hechizo hechizo_general = cuenta.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
+            Hechizo hechizo_general = cuenta.juego.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
             HechizoStats datos_hechizo = hechizo_general.get_Hechizo_Stats()[hechizo_general.nivel];
 
-            List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda_id, datos_hechizo, cuenta.personaje.mapa);
+            List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda_id, datos_hechizo, cuenta.juego.mapa);
             foreach (short rango in rangos_disponibles)
             {
-                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, rango, cuenta.personaje.mapa) == FallosLanzandoHechizo.NINGUNO)
+                if (cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo_pelea.id, rango, cuenta.juego.mapa) == FallosLanzandoHechizo.NINGUNO)
                 {
-                    if (hechizo_pelea.lanzar_cuerpo_cuerpo && cuenta.personaje.mapa.celdas[rango].get_Distancia_Entre_Dos_Casillas(cuenta.pelea.jugador_luchador.celda_id) != 1)
+                    if (hechizo_pelea.lanzar_cuerpo_cuerpo && cuenta.juego.mapa.celdas[rango].get_Distancia_Entre_Dos_Casillas(cuenta.pelea.jugador_luchador.celda_id) != 1)
                         continue;
 
                     await cuenta.pelea.get_Lanzar_Hechizo(hechizo_pelea.id, rango);
@@ -141,14 +154,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         }
 
         #region Zona Dispose
+        public void Dispose() => Dispose(true);
         ~ManejadorHechizos() => Dispose(false);
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
+        
         public virtual void Dispose(bool disposing)
         {
             if (!disposed)

@@ -1,5 +1,4 @@
 ﻿using MoonSharp.Interpreter;
-using System;
 using System.Collections.Generic;
 
 namespace Bot_Dofus_1._29._1.Utilidades.Extensiones

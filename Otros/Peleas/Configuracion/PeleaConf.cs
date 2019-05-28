@@ -11,7 +11,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         private Cuenta cuenta;
         private bool disposed;
 
-        private string configuracion_archivo_ruta => Path.Combine(configuracion_ruta, $"{cuenta.cuenta_configuracion.nombre_cuenta}_{cuenta.personaje.nombre_personaje}.config");
+        private string configuracion_archivo_ruta => Path.Combine(configuracion_ruta, $"{cuenta.cuenta_configuracion.nombre_cuenta}_{cuenta.juego.personaje.nombre_personaje}.config");
         public List<HechizoPelea> hechizos { get; private set; }
         public byte celdas_maximas { get; set; }
         public bool desactivar_espectador { get; set; }
@@ -75,14 +75,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         }
 
         #region Zona Dispose
+        public void Dispose() => Dispose(true);
         ~PeleaConf() => Dispose(false);
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
+        
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

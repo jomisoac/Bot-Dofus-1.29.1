@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Bot_Dofus_1._29._1.Controles.ControlMapa;
+using System.IO;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1

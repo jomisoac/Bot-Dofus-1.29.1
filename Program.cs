@@ -17,12 +17,12 @@ using System.Xml.Linq;
 
 namespace Bot_Dofus_1._29._1
 {
-    static class Program
+    internal static class Program
     {
         public static PaqueteRecibido paquete_recibido;
 
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -34,7 +34,7 @@ namespace Bot_Dofus_1._29._1
                 paquete_recibido = new PaqueteRecibido();
                 paquete_recibido.Inicializar();
             });
-            
+
             Application.Run(new Principal());
         }
     }

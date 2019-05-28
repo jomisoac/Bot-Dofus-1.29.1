@@ -1,6 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Mapas;
-using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
-using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
+﻿using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
@@ -90,9 +88,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             {
                 case ResultadoLanzandoHechizo.NO_LANZADO:
                     await get_Procesar_Siguiente_Hechizo(hechizo_actual);
-
-                    if (GlobalConf.mostrar_mensajes_debug)
-                        cuenta.logger.log_informacion("DEBUG", $"Hechizo {hechizo_actual.nombre} no lanzado");
                 break;
 
                 case ResultadoLanzandoHechizo.LANZADO:
@@ -155,7 +150,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda_id);
 
-            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.personaje.mapa, cuenta.pelea.jugador_luchador.celda_id))
+            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.juego.mapa, cuenta.pelea.jugador_luchador.celda_id))
             {
                 if (!kvp.Value.alcanzable)
                     continue;
@@ -179,20 +174,15 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             }
 
             if (nodo != null)
-                await cuenta.personaje.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
+                await cuenta.juego.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
         }
 
-        public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => cuenta.personaje.mapa.celdas[e.celda_id].get_Distancia_Entre_Dos_Casillas(celda_id) - 1);
+        public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => cuenta.juego.mapa.celdas[e.celda_id].get_Distancia_Entre_Dos_Casillas(celda_id) - 1);
 
         #region Zona Dispose
+        public void Dispose() => Dispose(true);
         ~PeleaExtensiones() => Dispose(false);
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
+        
         public virtual void Dispose(bool disposing)
         {
             if (!disposed)

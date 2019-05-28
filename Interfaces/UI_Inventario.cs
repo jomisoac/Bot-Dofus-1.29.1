@@ -1,5 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario.Enums;
 using Microsoft.VisualBasic;
 using System;
 using System.Linq;
@@ -17,10 +18,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             InitializeComponent();
             set_DoubleBuffered(dataGridView_equipamientos);
+            set_DoubleBuffered(dataGridView_varios);
             set_DoubleBuffered(dataGridView_recursos);
 
             cuenta = _cuenta;
-            cuenta.personaje.inventario.inventario_actualizado += actualizar_Inventario;
+            cuenta.juego.personaje.inventario.inventario_actualizado += actualizar_Inventario;
         }
 
         private void actualizar_Inventario(bool objetos_actualizados)
@@ -36,15 +38,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 BeginInvoke((Action)(() =>
                 {
                     dataGridView_equipamientos.Rows.Clear();
-                    foreach (ObjetosInventario obj in cuenta.personaje.inventario.equipamiento)
-                        dataGridView_equipamientos.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.posicion, obj.pods, "Eliminar" });
+                    foreach (ObjetosInventario obj in cuenta.juego.personaje.inventario.equipamiento)
+                        dataGridView_equipamientos.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.posicion, obj.posicion == InventarioPosiciones.NO_EQUIPADO ? "Equipar" : "Desequipar", "Eliminar" });
 
                     dataGridView_varios.Rows.Clear();
-                    foreach (ObjetosInventario obj in cuenta.personaje.inventario.varios)
+                    foreach (ObjetosInventario obj in cuenta.juego.personaje.inventario.varios)
                         dataGridView_varios.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.pods, "Eliminar" });
 
                     dataGridView_recursos.Rows.Clear();
-                    foreach (ObjetosInventario obj in cuenta.personaje.inventario.recursos)
+                    foreach (ObjetosInventario obj in cuenta.juego.personaje.inventario.recursos)
                         dataGridView_recursos.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.pods, "Eliminar" });
                 }));
             });
@@ -55,18 +57,24 @@ namespace Bot_Dofus_1._29._1.Interfaces
             if (e.ColumnIndex < 5)
                 return;
 
-            ObjetosInventario objeto = cuenta.personaje.inventario.equipamiento.ElementAt(e.RowIndex);
-
-            if (Interaction.MsgBox("Realmente deseas eliminar " + objeto.nombre + "?", MsgBoxStyle.YesNo, "Eliminar un objeto") != MsgBoxResult.Yes)
-                return;
-
+            ObjetosInventario objeto = cuenta.juego.personaje.inventario.equipamiento.ElementAt(e.RowIndex);
+            
             string accion = dataGridView_equipamientos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
             switch (accion)
             {
+                case "Equipar":
+                    cuenta.juego.personaje.inventario.equipar_Objeto(objeto);
+                break;
+
+                case "Desequipar":
+                    cuenta.juego.personaje.inventario.desequipar_Objeto(objeto);
+                break;
+
                 case "Eliminar":
-                    cuenta.personaje.inventario.eliminar_Objetos(objeto, 1, true);
-                    break;
+                    if (MessageBox.Show("Realmente deseas eliminar " + objeto.nombre + "?", "Eliminar un objeto", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        cuenta.juego.personaje.inventario.eliminar_Objetos(objeto, 1, true);
+                break;
             }
         }
 
@@ -75,17 +83,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
             if (e.ColumnIndex < 5)
                 return;
 
-            ObjetosInventario objeto = cuenta.personaje.inventario.recursos.ElementAt(e.RowIndex);
+            ObjetosInventario objeto = cuenta.juego.personaje.inventario.recursos.ElementAt(e.RowIndex);
             string accion = dataGridView_recursos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-            if (!int.TryParse(Interaction.InputBox($"Ingresa la cantidad para {accion.ToLower()} el objeto {objeto.nombre} (0 = toda la cantidad):", accion, "1"), out int cantidad))
+            if (!int.TryParse(Interaction.InputBox($"Ingresa la cantidad para {accion.ToLower()} el objeto {objeto.nombre} (0 = todos):", accion, "1"), out int cantidad))
                 return;
 
             switch (accion)
             {
                 case "Eliminar":
-                    cuenta.personaje.inventario.eliminar_Objetos(objeto, cantidad, true);
-                    break;
+                    cuenta.juego.personaje.inventario.eliminar_Objetos(objeto, cantidad, true);
+                break;
             }
         }
 
