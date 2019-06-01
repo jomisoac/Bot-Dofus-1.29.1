@@ -1,6 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario.Enums;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System;
 using System.IO;
 using System.Xml.Linq;

@@ -1,5 +1,4 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

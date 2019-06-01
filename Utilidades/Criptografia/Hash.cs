@@ -5,17 +5,13 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
 {
     public class Hash
     {
+        public static readonly string abecedario = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
         public static char[] caracteres_array = new char[]
         {
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F',
             'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
             'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '_'
-        };
-
-        public static char[] HEX_CHARS = new char[]
-        {
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
         };
 
         public static string encriptar_Password(string password, string key)
@@ -79,6 +75,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
         {
             char char1 = celdaCodigo[0], char2 = celdaCodigo[1];
             short code1 = 0, code2 = 0, a = 0;
+
             while (a < caracteres_array.Length)
             {
                 if (caracteres_array[a] == char1)

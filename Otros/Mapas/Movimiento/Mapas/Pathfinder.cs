@@ -57,7 +57,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
 
                 foreach (Celda celda_siguiente in get_Celdas_Adyecentes(actual))
                 {
-                    if (celdas_no_permitidas.Contains(celda_siguiente) || !celda_siguiente.es_Caminable())
+                    if (celdas_no_permitidas.Contains(celda_siguiente) || !celda_siguiente.es_Caminable() && celda_siguiente != celda_final)
                         continue;
 
                     if (celda_siguiente.es_Teleport() && celda_siguiente != celda_final)

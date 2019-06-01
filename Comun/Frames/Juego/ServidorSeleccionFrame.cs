@@ -1,9 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
-using System;
+using Bot_Dofus_1._29._1.Otros.Enums;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -23,7 +21,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("ATK0")]
         public void resultado_Servidor_Seleccion(ClienteTcp cliente, string paquete)
         {
-            cliente.enviar_Paquete("Ak" + Hash.HEX_CHARS[Convert.ToInt16(paquete.Substring(3, 1))]);
+            cliente.enviar_Paquete("Ak0");
             cliente.enviar_Paquete("AV");
         }
 
@@ -49,7 +47,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 int id = int.Parse(_loc11_[0]);
                 string nombre = _loc11_[1];
 
-                if (nombre.Equals(cuenta.cuenta_configuracion.nombre_personaje))
+                if(string.Compare(nombre.ToUpper(), cuenta.cuenta_configuracion.nombre_personaje.ToUpper(), false) == 0)
                 {
                     cliente.enviar_Paquete("AS" + id);
                     encontrado = true;

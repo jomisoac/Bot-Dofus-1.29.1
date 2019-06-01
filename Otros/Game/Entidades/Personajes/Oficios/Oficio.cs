@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Oficios
+namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios
 {
     public class Oficio
     {

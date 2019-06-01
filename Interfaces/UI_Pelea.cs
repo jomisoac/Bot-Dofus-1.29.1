@@ -30,7 +30,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             acercarse_casillas_distancia.Value = cuenta.pelea_extension.configuracion.celdas_maximas;
             checkbox_espectadores.Checked = cuenta.pelea_extension.configuracion.desactivar_espectador;
-            checkBox_utilizar_dragopavo.Checked = cuenta.pelea_extension.configuracion.utilizar_dragopavo;
+
+            if (cuenta.puede_utilizar_dragopavo)
+                checkBox_utilizar_dragopavo.Checked = cuenta.pelea_extension.configuracion.utilizar_dragopavo;
+            else
+                checkBox_utilizar_dragopavo.Enabled = false;
+
             comboBox_lista_tactica.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.tactica;
             comboBox_lista_posicionamiento.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.posicionamiento;
         }

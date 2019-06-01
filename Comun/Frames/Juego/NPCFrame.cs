@@ -1,6 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
+using Bot_Dofus_1._29._1.Otros.Enums;
 
 namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 {

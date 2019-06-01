@@ -89,23 +89,12 @@
             this.label_alcanze = new System.Windows.Forms.Label();
             this.label_invocaciones = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dataGridView_oficios = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Experiencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView_skills = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad_minima = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad_maxima = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.label14 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.uI_Hechizos1 = new Bot_Dofus_1._29._1.Interfaces.UI_Hechizos();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.ui_hechizos = new Bot_Dofus_1._29._1.Interfaces.UI_Hechizos();
+            this.ui_oficios = new Bot_Dofus_1._29._1.Interfaces.UI_Oficios();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -129,10 +118,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_oficios)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_skills)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -845,7 +832,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.uI_Hechizos1);
+            this.tabPage2.Controls.Add(this.ui_hechizos);
             this.tabPage2.Controls.Add(this.panel1);
             this.tabPage2.ImageIndex = 1;
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
@@ -857,153 +844,14 @@
             this.tabPage2.Text = "Hechizos";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // panel1
             // 
-            this.tabPage3.Controls.Add(this.dataGridView_oficios);
-            this.tabPage3.Controls.Add(this.dataGridView_skills);
-            this.tabPage3.ImageIndex = 2;
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(796, 570);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Oficios";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView_oficios
-            // 
-            this.dataGridView_oficios.AllowUserToAddRows = false;
-            this.dataGridView_oficios.AllowUserToDeleteRows = false;
-            this.dataGridView_oficios.AllowUserToOrderColumns = true;
-            this.dataGridView_oficios.AllowUserToResizeColumns = false;
-            this.dataGridView_oficios.AllowUserToResizeRows = false;
-            this.dataGridView_oficios.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridView_oficios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_oficios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
-            this.Nombre,
-            this.Nivel,
-            this.Experiencia,
-            this.porcentaje});
-            this.dataGridView_oficios.Cursor = System.Windows.Forms.Cursors.Default;
-            this.dataGridView_oficios.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_oficios.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView_oficios.Name = "dataGridView_oficios";
-            this.dataGridView_oficios.ReadOnly = true;
-            this.dataGridView_oficios.RowHeadersVisible = false;
-            this.dataGridView_oficios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_oficios.Size = new System.Drawing.Size(790, 279);
-            this.dataGridView_oficios.TabIndex = 1;
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "ID";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            // 
-            // Nombre
-            // 
-            this.Nombre.FillWeight = 200F;
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.MinimumWidth = 200;
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            this.Nombre.Width = 200;
-            // 
-            // Nivel
-            // 
-            this.Nivel.HeaderText = "Nivel";
-            this.Nivel.Name = "Nivel";
-            this.Nivel.ReadOnly = true;
-            // 
-            // Experiencia
-            // 
-            this.Experiencia.FillWeight = 200F;
-            this.Experiencia.HeaderText = "Experiencia";
-            this.Experiencia.MinimumWidth = 200;
-            this.Experiencia.Name = "Experiencia";
-            this.Experiencia.ReadOnly = true;
-            this.Experiencia.Width = 200;
-            // 
-            // porcentaje
-            // 
-            this.porcentaje.HeaderText = "Porcentaje";
-            this.porcentaje.Name = "porcentaje";
-            this.porcentaje.ReadOnly = true;
-            // 
-            // dataGridView_skills
-            // 
-            this.dataGridView_skills.AllowUserToAddRows = false;
-            this.dataGridView_skills.AllowUserToDeleteRows = false;
-            this.dataGridView_skills.AllowUserToOrderColumns = true;
-            this.dataGridView_skills.AllowUserToResizeColumns = false;
-            this.dataGridView_skills.AllowUserToResizeRows = false;
-            this.dataGridView_skills.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridView_skills.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_skills.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.cantidad_minima,
-            this.cantidad_maxima,
-            this.tiempo});
-            this.dataGridView_skills.Cursor = System.Windows.Forms.Cursors.Default;
-            this.dataGridView_skills.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridView_skills.Location = new System.Drawing.Point(3, 282);
-            this.dataGridView_skills.MultiSelect = false;
-            this.dataGridView_skills.Name = "dataGridView_skills";
-            this.dataGridView_skills.ReadOnly = true;
-            this.dataGridView_skills.RowHeadersVisible = false;
-            this.dataGridView_skills.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_skills.Size = new System.Drawing.Size(790, 285);
-            this.dataGridView_skills.TabIndex = 2;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.FillWeight = 180F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Nombre";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 180;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 180;
-            // 
-            // cantidad_minima
-            // 
-            this.cantidad_minima.HeaderText = "Cantidad Mínima";
-            this.cantidad_minima.MinimumWidth = 130;
-            this.cantidad_minima.Name = "cantidad_minima";
-            this.cantidad_minima.ReadOnly = true;
-            this.cantidad_minima.Width = 130;
-            // 
-            // cantidad_maxima
-            // 
-            this.cantidad_maxima.HeaderText = "Cantidad máxima";
-            this.cantidad_maxima.MinimumWidth = 135;
-            this.cantidad_maxima.Name = "cantidad_maxima";
-            this.cantidad_maxima.ReadOnly = true;
-            this.cantidad_maxima.Width = 135;
-            // 
-            // tiempo
-            // 
-            this.tiempo.HeaderText = "Tiempo/Porcentaje";
-            this.tiempo.MinimumWidth = 130;
-            this.tiempo.Name = "tiempo";
-            this.tiempo.ReadOnly = true;
-            this.tiempo.Width = 130;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "24_DNA-24.png");
-            this.imageList1.Images.SetKeyName(1, "magic32.png");
-            this.imageList1.Images.SetKeyName(2, "Iron_Axe_32.png");
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(3, 548);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(790, 18);
+            this.panel1.TabIndex = 1;
             // 
             // label14
             // 
@@ -1017,24 +865,45 @@
             this.label14.Text = "Puntos: 0";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel1
+            // tabPage3
             // 
-            this.panel1.Controls.Add(this.label14);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 548);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(790, 18);
-            this.panel1.TabIndex = 1;
+            this.tabPage3.Controls.Add(this.ui_oficios);
+            this.tabPage3.ImageIndex = 2;
+            this.tabPage3.Location = new System.Drawing.Point(4, 30);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(796, 570);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Oficios";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // uI_Hechizos1
+            // imageList1
             // 
-            this.uI_Hechizos1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uI_Hechizos1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.uI_Hechizos1.Location = new System.Drawing.Point(3, 4);
-            this.uI_Hechizos1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.uI_Hechizos1.Name = "uI_Hechizos1";
-            this.uI_Hechizos1.Size = new System.Drawing.Size(790, 544);
-            this.uI_Hechizos1.TabIndex = 2;
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "24_DNA-24.png");
+            this.imageList1.Images.SetKeyName(1, "magic32.png");
+            this.imageList1.Images.SetKeyName(2, "Iron_Axe_32.png");
+            // 
+            // ui_hechizos
+            // 
+            this.ui_hechizos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ui_hechizos.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.ui_hechizos.Location = new System.Drawing.Point(3, 4);
+            this.ui_hechizos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ui_hechizos.Name = "ui_hechizos";
+            this.ui_hechizos.Size = new System.Drawing.Size(790, 544);
+            this.ui_hechizos.TabIndex = 2;
+            // 
+            // ui_oficios
+            // 
+            this.ui_oficios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ui_oficios.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.ui_oficios.Location = new System.Drawing.Point(3, 3);
+            this.ui_oficios.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ui_oficios.Name = "ui_oficios";
+            this.ui_oficios.Size = new System.Drawing.Size(790, 564);
+            this.ui_oficios.TabIndex = 0;
             // 
             // UI_Personaje
             // 
@@ -1070,11 +939,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_oficios)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_skills)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1139,23 +1006,12 @@
         private System.Windows.Forms.Label stats_inteligencia;
         private System.Windows.Forms.Label stats_suerte;
         private System.Windows.Forms.Label stats_agilidad;
-        private System.Windows.Forms.DataGridView dataGridView_oficios;
-        private System.Windows.Forms.DataGridView dataGridView_skills;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nivel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Experiencia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn porcentaje;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_minima;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_maxima;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tiempo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox_caracteristicas;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel1;
-        private UI_Hechizos uI_Hechizos1;
+        private UI_Hechizos ui_hechizos;
+        private UI_Oficios ui_oficios;
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Oficios;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Stats;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 
@@ -38,7 +37,6 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
 
         /** Estados **/
         public bool esta_utilizando_dragopavo { get; set; } = false;
-        public bool esta_reconectando { get; set; } = false;
 
 
         public int porcentaje_experiencia => (int)((caracteristicas.experiencia_actual - caracteristicas.experiencia_minima_nivel) / (caracteristicas.experiencia_siguiente_nivel - caracteristicas.experiencia_minima_nivel) * 100);

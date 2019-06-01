@@ -1,4 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Protocolo.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Enums;
 using MoonSharp.Interpreter;
 
 namespace Bot_Dofus_1._29._1.Utilidades.Extensiones

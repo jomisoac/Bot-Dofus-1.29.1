@@ -155,6 +155,12 @@
     <Compile Include="Interfaces\UI_Mapa.designer.cs">
       <DependentUpon>UI_Mapa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\UI_Oficios.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interfaces\UI_Oficios.Designer.cs">
+      <DependentUpon>UI_Oficios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\UI_Pelea.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -255,12 +261,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comun\Network\ClienteTcp.cs" />
-    <Compile Include="Protocolo\Constantes.cs" />
-    <Compile Include="Protocolo\Enums\EstadoCuenta.cs" />
-    <Compile Include="Protocolo\Enums\EstadoSocket.cs" />
+    <Compile Include="Otros\Enums\EstadoCuenta.cs" />
+    <Compile Include="Otros\Enums\EstadoSocket.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Inventario\Enums\TipoObjetosInventario.cs" />
-    <Compile Include="Protocolo\Login\Paquetes\HostsMensaje.cs" />
-    <Compile Include="Protocolo\Login\Paquetes\ListaServidoresMensaje.cs" />
+    <Compile Include="Otros\Enums\EstadosServidor.cs" />
     <Compile Include="Utilidades\Configuracion\GlobalConf.cs" />
     <Compile Include="Utilidades\Configuracion\CuentaConf.cs" />
     <Compile Include="Utilidades\Criptografia\Hash.cs" />
@@ -299,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\UI_Mapa.resx">
       <DependentUpon>UI_Mapa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\UI_Oficios.resx">
+      <DependentUpon>UI_Oficios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\UI_Pelea.resx">
       <DependentUpon>UI_Pelea.cs</DependentUpon>
