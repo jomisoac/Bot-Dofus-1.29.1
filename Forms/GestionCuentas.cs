@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -110,5 +111,40 @@ namespace Bot_Dofus_1._29._1.Forms
 
         public List<CuentaConf> get_Cuentas_Cargadas() => cuentas_cargadas;
         private void listViewCuentas_MouseDoubleClick(object sender, MouseEventArgs e) => conectarToolStripMenuItem.PerformClick();
+        
+        private void modificar_Cuenta(object sender, EventArgs e)
+        {
+            if (listViewCuentas.SelectedItems.Count == 1 && listViewCuentas.FocusedItem != null)
+            {
+                CuentaConf cuenta = GlobalConf.get_Cuenta(listViewCuentas.SelectedItems[0].Index);
+
+                switch(sender.ToString())
+                {
+                    case "Cuenta":
+                        string nueva_cuenta = Interaction.InputBox($"Ingresa la nueva cuenta", "Modificar cuenta", cuenta.nombre_cuenta);
+
+                        if(!string.IsNullOrEmpty(nueva_cuenta))
+                            cuenta.nombre_cuenta = nueva_cuenta;
+                    break;
+
+                    case "Contraseña":
+                        string nueva_password = Interaction.InputBox($"Ingresa la nueva contraseña", "Modificar contraseña", cuenta.password);
+
+                        if (!string.IsNullOrEmpty(nueva_password))
+                            cuenta.password = nueva_password;
+                    break;
+
+                    default://nombre del personaje
+                        string nuevo_personaje = Interaction.InputBox($"Ingresa el nombre del nuevo personaje", "Modificar nombre de personaje", cuenta.nombre_personaje);
+
+                        if (!string.IsNullOrEmpty(nuevo_personaje))
+                            cuenta.nombre_personaje = nuevo_personaje;
+                    break;
+                }
+
+                GlobalConf.guardar_Configuracion();
+                cargar_Cuentas_Lista();
+            }
+        }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Network;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game;
 using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Scripts;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
 using System;
@@ -32,8 +32,8 @@ namespace Bot_Dofus_1._29._1.Otros
         public CuentaConf cuenta_configuracion { get; private set; }
         public Pelea pelea;
         private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
-        private bool disposed;
         public bool puede_utilizar_dragopavo { get; set; } = false;
+        private bool disposed;
 
         public event Action evento_estado_cuenta;
 

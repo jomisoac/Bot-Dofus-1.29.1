@@ -27,6 +27,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("Im020")]
         public void get_Mensaje_Abrir_Cofre_Perder_Kamas(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "Has tenido que dar " + paquete.Split(';')[1] + " kamas para poder acceder a este cofre.");
 
+        [PaqueteAtributo("Im025")]
+        public void get_Mensaje_Mascota_Feliz(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "¡Tu mascota está muy contenta de volver a verte!");
+
         [PaqueteAtributo("Im037")]
         public void get_Mensaje_Modo_Away_Dofus(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "Desde ahora serás considerado como ausente.");
     }

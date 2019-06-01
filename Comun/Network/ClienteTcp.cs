@@ -1,5 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using System;
 using System.Linq;
 using System.Net;
@@ -38,7 +38,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
         {
             try
             {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
                 buffer = new byte[socket.ReceiveBufferSize];
                 Estado_Socket = EstadoSocket.NINGUNO;
                 semaforo = new SemaphoreSlim(1);
@@ -88,7 +88,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
             if (bytes_leidos > 0 && respuesta == SocketError.Success)
             {
-                string datos = Encoding.Default.GetString(buffer, 0, bytes_leidos);
+                string datos = Encoding.UTF8.GetString(buffer, 0, bytes_leidos);
 
                 foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\0').Where(x => x != string.Empty))
                 {
@@ -114,7 +114,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                     return;
 
                 paquete += "\n\x00";
-                byte[] byte_paquete = Encoding.Default.GetBytes(paquete);
+                byte[] byte_paquete = Encoding.UTF8.GetBytes(paquete);
 
                 await semaforo.WaitAsync().ConfigureAwait(false);
 

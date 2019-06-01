@@ -1,5 +1,4 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Oficios;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -21,14 +20,14 @@ namespace Bot_Dofus_1._29._1.Interfaces
         public UI_Personaje(Cuenta _cuenta)
         {
             InitializeComponent();
-            DoubleBuffered = true;
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-
             cuenta = _cuenta;
+
+            ui_hechizos.set_Cuenta(cuenta);
+            ui_oficios.set_Cuenta(cuenta);
+
             cuenta.juego.personaje.personaje_seleccionado += personaje_Seleccionado_Servidor_Juego;
             cuenta.juego.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
-            cuenta.juego.personaje.oficios_actualizados += personaje_Oficios_Actualizados;
-        }
+         }
 
         private void personaje_Seleccionado_Servidor_Juego()
         {
@@ -65,20 +64,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 //Otros
                 label_capital_stats.Text = cuenta.juego.personaje.puntos_caracteristicas.ToString();
                 label_nivel_personaje.Text = $"Nivel {cuenta.juego.personaje.nivel}";
-            }));
-        }
-
-        private void personaje_Oficios_Actualizados()
-        {
-            BeginInvoke((Action)(() =>
-            {
-                dataGridView_oficios.Rows.Clear();
-                foreach (Oficio oficio in cuenta.juego.personaje.oficios)
-                    dataGridView_oficios.Rows.Add(new object[] { oficio.id, oficio.nombre, oficio.nivel, oficio.experiencia_actual + "/" + oficio.experiencia_siguiente_nivel, oficio.get_Experiencia_Porcentaje + "%" });
-
-                dataGridView_skills.Rows.Clear();
-                foreach (SkillsOficio skill in cuenta.juego.personaje.get_Skills_Disponibles())
-                    dataGridView_skills.Rows.Add(new object[] { skill.id, skill.interactivo_modelo.nombre, skill.cantidad_minima, skill.cantidad_maxima, skill.es_craft ? skill.tiempo + "%" : skill.tiempo.ToString() });
             }));
         }
     }

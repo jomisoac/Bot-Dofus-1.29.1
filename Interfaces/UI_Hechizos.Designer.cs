@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.dataGridView_hechizos = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subir = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hechizos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,13 +41,15 @@
             this.dataGridView_hechizos.AllowUserToAddRows = false;
             this.dataGridView_hechizos.AllowUserToDeleteRows = false;
             this.dataGridView_hechizos.AllowUserToOrderColumns = true;
+            this.dataGridView_hechizos.AllowUserToResizeColumns = false;
+            this.dataGridView_hechizos.AllowUserToResizeRows = false;
             this.dataGridView_hechizos.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_hechizos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_hechizos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
-            this.Nombre,
-            this.Nivel,
-            this.Subir});
+            this.id,
+            this.nombre,
+            this.nivel,
+            this.accion});
             this.dataGridView_hechizos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_hechizos.Location = new System.Drawing.Point(0, 0);
             this.dataGridView_hechizos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -60,29 +62,36 @@
             this.dataGridView_hechizos.Size = new System.Drawing.Size(790, 500);
             this.dataGridView_hechizos.TabIndex = 0;
             // 
-            // Id
+            // id
             // 
-            this.Id.HeaderText = "id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
+            this.id.HeaderText = "Id";
+            this.id.MinimumWidth = 100;
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
             // 
-            // Nombre
+            // nombre
             // 
-            this.Nombre.HeaderText = "nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
+            this.nombre.FillWeight = 300F;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.MinimumWidth = 300;
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            this.nombre.Width = 300;
             // 
-            // Nivel
+            // nivel
             // 
-            this.Nivel.HeaderText = "nivel";
-            this.Nivel.Name = "Nivel";
-            this.Nivel.ReadOnly = true;
+            this.nivel.HeaderText = "Nivel";
+            this.nivel.Name = "nivel";
+            this.nivel.ReadOnly = true;
             // 
-            // Subir
+            // accion
             // 
-            this.Subir.HeaderText = "subir";
-            this.Subir.Name = "Subir";
-            this.Subir.ReadOnly = true;
+            this.accion.FillWeight = 200F;
+            this.accion.HeaderText = "Acción";
+            this.accion.MinimumWidth = 200;
+            this.accion.Name = "accion";
+            this.accion.ReadOnly = true;
+            this.accion.Width = 200;
             // 
             // UI_Hechizos
             // 
@@ -101,9 +110,9 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView_hechizos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nivel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Subir;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nivel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accion;
     }
 }

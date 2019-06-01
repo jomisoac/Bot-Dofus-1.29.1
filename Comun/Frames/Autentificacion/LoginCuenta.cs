@@ -1,9 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Protocolo;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
-using Bot_Dofus_1._29._1.Protocolo.Login.Paquetes;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 
 /*
@@ -27,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
             cliente.Estado_Socket = EstadoSocket.LOGIN;
             cuenta.key_bienvenida = paquete.Substring(2);
 
-            cliente.enviar_Paquete(Constantes.VERSION + "." + Constantes.SUBVERSION + "." + Constantes.SUBSUBVERSION);
+            cliente.enviar_Paquete("1.29.1");
             cliente.enviar_Paquete(cliente.cuenta.cuenta_configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.cuenta_configuracion.password, cliente.cuenta.key_bienvenida));
             cliente.enviar_Paquete("Af");
         }
@@ -41,20 +39,59 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         [PaqueteAtributo("AH")]
         public void get_Servidor_Estado(ClienteTcp cliente, string paquete)
         {
-            HostsMensaje servidor = new HostsMensaje(paquete.Substring(3), cliente.cuenta.servidor_id);
-            cliente.cuenta.logger.log_informacion("Login", "El servidor " + cliente.cuenta.get_Nombre_Servidor() + " esta " + (HostsMensaje.EstadosServidor)servidor.estado);
+            Cuenta cuenta = cliente.cuenta;
+            string[] _loc5_ = paquete.Substring(2).Split('|');
+            int _loc6_ = 0;
+            bool accesible = true;
 
-            if((HostsMensaje.EstadosServidor)servidor.estado == HostsMensaje.EstadosServidor.CONECTADO)
-                cliente.enviar_Paquete("Ax");
-            else
+            while (_loc6_ < _loc5_.Length && accesible)
             {
-                cliente.cuenta.logger.log_Error("Login", "Desconectando del servidor, para evitar anti-bot");
-                cliente.get_Desconectar_Socket();
-            } 
+                string[] _loc7_ = _loc5_[_loc6_].ToString().Split(';');
+                int id = int.Parse(_loc7_[0]);
+                byte estado = byte.Parse(_loc7_[1]);
+                byte poblacion = byte.Parse(_loc7_[2]);
+                bool registro = _loc7_[3] == "1";
+
+                if (id == cuenta.servidor_id)
+                {
+                    cliente.cuenta.logger.log_informacion("LOGIN", "El servidor " + id + " esta " + (EstadosServidor)estado);
+
+                    if (estado != 1)
+                    {
+                        cliente.cuenta.logger.log_Error("LOGIN", "Servidor no accesible cuando este accesible se re-conectara");
+                        accesible = false;
+                    }
+                }
+                _loc6_++;
+            }
+
+            if(accesible)
+                cliente.enviar_Paquete("Ax");
         }
 
         [PaqueteAtributo("AxK")]
-        public void get_Servidores_Lista(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete(new ListaServidoresMensaje(paquete.Substring(3), cliente.cuenta.servidor_id).get_Mensaje());
+        public void get_Servidores_Lista(ClienteTcp cliente, string paquete)
+        {
+            Cuenta cuenta = cliente.cuenta;
+            string[] loc5 = paquete.Substring(3).Split('|');
+            int contador = 1;
+            bool seleccionado = false;
+
+            while(contador < loc5.Length && !seleccionado)
+            {
+                string[] _loc10_ = loc5[contador].Split(',');
+                int servidor = int.Parse(_loc10_[0]);
+                int numero_total_personajes = int.Parse(_loc10_[1]);
+
+                if (cuenta.servidor_id == servidor)
+                {
+                    cliente.enviar_Paquete("AX" + cuenta.servidor_id);
+                    seleccionado = true;
+                }
+
+                contador++;
+            }
+        }
 
         [PaqueteAtributo("AXK")]
         public void get_Seleccion_Servidor(ClienteTcp cliente, string paquete)

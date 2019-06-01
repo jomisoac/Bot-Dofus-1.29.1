@@ -42,6 +42,10 @@
             this.ColumnaNombrePersonaje = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripFormCuentas = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.conectarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cuentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contraseñaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nombreDelPersonajeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AgregarCuenta = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -56,6 +60,7 @@
             this.label_Eleccion_Servidor = new System.Windows.Forms.Label();
             this.label_Nombre_Personaje = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox_nombre_personaje = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox_Servidor = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
@@ -65,8 +70,6 @@
             this.boton_Agregar_Cuenta = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
-            this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox_nombre_personaje = new System.Windows.Forms.TextBox();
             this.tabControlPrincipalCuentas.SuspendLayout();
             this.ListaCuentas.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -164,8 +167,8 @@
             this.label_informacionClickCuentas.Name = "label_informacionClickCuentas";
             this.label_informacionClickCuentas.Size = new System.Drawing.Size(393, 40);
             this.label_informacionClickCuentas.TabIndex = 1;
-            this.label_informacionClickCuentas.Text = "Haz click derecho para conectar/eliminar una cuenta\r\nDoble click encima de una cu" +
-    "enta para conectarla";
+            this.label_informacionClickCuentas.Text = "Haz clic derecho para conectar/modificar/eliminar una cuenta\r\nDoble clic encima d" +
+    "e una cuenta para conectarla";
             this.label_informacionClickCuentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // listViewCuentas
@@ -219,6 +222,38 @@
             this.conectarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.conectarToolStripMenuItem.Text = "Conectar";
             this.conectarToolStripMenuItem.Click += new System.EventHandler(this.conectarToolStripMenuItem_Click);
+            // 
+            // modificarToolStripMenuItem
+            // 
+            this.modificarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cuentaToolStripMenuItem,
+            this.contraseñaToolStripMenuItem,
+            this.nombreDelPersonajeToolStripMenuItem});
+            this.modificarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_ajustes;
+            this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.modificarToolStripMenuItem.Text = "Modificar";
+            // 
+            // cuentaToolStripMenuItem
+            // 
+            this.cuentaToolStripMenuItem.Name = "cuentaToolStripMenuItem";
+            this.cuentaToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.cuentaToolStripMenuItem.Text = "Cuenta";
+            this.cuentaToolStripMenuItem.Click += new System.EventHandler(this.modificar_Cuenta);
+            // 
+            // contraseñaToolStripMenuItem
+            // 
+            this.contraseñaToolStripMenuItem.Name = "contraseñaToolStripMenuItem";
+            this.contraseñaToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.contraseñaToolStripMenuItem.Text = "Contraseña";
+            this.contraseñaToolStripMenuItem.Click += new System.EventHandler(this.modificar_Cuenta);
+            // 
+            // nombreDelPersonajeToolStripMenuItem
+            // 
+            this.nombreDelPersonajeToolStripMenuItem.Name = "nombreDelPersonajeToolStripMenuItem";
+            this.nombreDelPersonajeToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.nombreDelPersonajeToolStripMenuItem.Text = "Nombre del personaje";
+            this.nombreDelPersonajeToolStripMenuItem.Click += new System.EventHandler(this.modificar_Cuenta);
             // 
             // eliminarToolStripMenuItem
             // 
@@ -295,8 +330,8 @@
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label1.Size = new System.Drawing.Size(400, 35);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Deja el el campo \"nombre del personaje\" en blanco si quieres que el bot conecte e" +
-    "l primer personaje de la cuenta";
+            this.label1.Text = "Deja el campo \"personaje\" en blanco si quieres que el bot conecte el primer perso" +
+    "naje de la cuenta";
             // 
             // checkBox_Agregar_Retroceder
             // 
@@ -413,6 +448,15 @@
             this.tableLayoutPanel7.Size = new System.Drawing.Size(305, 55);
             this.tableLayoutPanel7.TabIndex = 4;
             // 
+            // textBox_nombre_personaje
+            // 
+            this.textBox_nombre_personaje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_nombre_personaje.Location = new System.Drawing.Point(3, 21);
+            this.textBox_nombre_personaje.MaxLength = 25;
+            this.textBox_nombre_personaje.Name = "textBox_nombre_personaje";
+            this.textBox_nombre_personaje.Size = new System.Drawing.Size(299, 25);
+            this.textBox_nombre_personaje.TabIndex = 5;
+            // 
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.ColumnCount = 1;
@@ -518,22 +562,6 @@
             this.imagenesFormCuentas.Images.SetKeyName(0, "agregar_cuenta.png");
             this.imagenesFormCuentas.Images.SetKeyName(1, "lista_cuentas.png");
             // 
-            // modificarToolStripMenuItem
-            // 
-            this.modificarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_ajustes;
-            this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.modificarToolStripMenuItem.Text = "Modificar";
-            // 
-            // textBox_nombre_personaje
-            // 
-            this.textBox_nombre_personaje.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_nombre_personaje.Location = new System.Drawing.Point(3, 21);
-            this.textBox_nombre_personaje.MaxLength = 25;
-            this.textBox_nombre_personaje.Name = "textBox_nombre_personaje";
-            this.textBox_nombre_personaje.Size = new System.Drawing.Size(299, 25);
-            this.textBox_nombre_personaje.TabIndex = 5;
-            // 
             // GestionCuentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -617,5 +645,8 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox_nombre_personaje;
+        private System.Windows.Forms.ToolStripMenuItem cuentaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem contraseñaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nombreDelPersonajeToolStripMenuItem;
     }
 }

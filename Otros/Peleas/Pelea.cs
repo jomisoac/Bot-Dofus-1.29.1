@@ -1,8 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

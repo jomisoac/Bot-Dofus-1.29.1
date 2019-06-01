@@ -1,7 +1,4 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
-using System;
-using System.Linq;
-using System.Xml.Linq;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -11,7 +8,7 @@ using System.Xml.Linq;
     web: http://www.salesprendes.com
 */
 
-namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Oficios
+namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios
 {
     public class SkillsOficio
     {

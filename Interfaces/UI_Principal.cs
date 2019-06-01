@@ -1,8 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Stats;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Logs;

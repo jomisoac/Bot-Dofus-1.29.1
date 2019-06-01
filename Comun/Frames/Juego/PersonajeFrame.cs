@@ -1,9 +1,9 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Oficios;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1

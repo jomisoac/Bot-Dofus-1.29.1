@@ -1,7 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Recolecciones;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
-using Bot_Dofus_1._29._1.Protocolo.Enums;
 using Bot_Dofus_1._29._1.Utilidades;
 using MoonSharp.Interpreter;
 using System;
