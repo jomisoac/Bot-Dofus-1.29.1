@@ -57,7 +57,6 @@ namespace Bot_Dofus_1._29._1.Otros
             {
                 conexion.Estado_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
                 conexion.get_Desconectar_Socket();
-
                 conexion.conexion_Servidor(IPAddress.Parse(ip), puerto);
             }
         }

@@ -69,7 +69,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 return;
 
             Hechizo hechizo = cuenta.juego.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_id);
-            HechizoStats datos_hechizo = hechizo.get_Hechizo_Stats()[hechizo.nivel];
+            HechizoStats datos_hechizo = hechizo.get_Stats(hechizo.nivel);
 
             if (datos_hechizo.intervalo > 0 && !hechizos_intervalo.ContainsKey(hechizo.id))
                 hechizos_intervalo.Add(hechizo.id, datos_hechizo.intervalo);
@@ -260,7 +260,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizo == null)
                 return FallosLanzandoHechizo.DESONOCIDO;
 
-            HechizoStats datos_hechizo = hechizo.get_Hechizo_Stats()[hechizo.nivel];
+            HechizoStats datos_hechizo = hechizo.get_Stats(hechizo.nivel);
 
             if (jugador_luchador.pa < datos_hechizo.coste_pa)
                 return FallosLanzandoHechizo.PUNTOS_ACCION;
@@ -284,7 +284,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizo == null)
                 return FallosLanzandoHechizo.DESONOCIDO;
 
-            HechizoStats datos_hechizo = hechizo.get_Hechizo_Stats()[hechizo.nivel];
+            HechizoStats datos_hechizo = hechizo.get_Stats(hechizo.nivel);
 
             if (datos_hechizo.lanzamientos_por_objetivo > 0 && total_hechizos_lanzados_en_celda.ContainsKey(hechizo_id) && total_hechizos_lanzados_en_celda[hechizo_id].ContainsKey(celda_objetivo) && total_hechizos_lanzados_en_celda[hechizo_id][celda_objetivo] >= datos_hechizo.lanzamientos_por_objetivo)
                 return FallosLanzandoHechizo.DEMASIADOS_LANZAMIENTOS_POR_OBJETIVO;
@@ -469,13 +469,17 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                         }
                         else if (Math.Floor(diffBeforeCenterX * 100) <= error_superior)
                         {
-                            if (get_Es_Celda_Obstruida(Math.Floor(afterX), cellY, mapa, celdas_ocupadas, celda_objetivo, anterior_x, anterior_y)) return true;
+                            if (get_Es_Celda_Obstruida(Math.Floor(afterX), cellY, mapa, celdas_ocupadas, celda_objetivo, anterior_x, anterior_y))
+                                return true;
+
                             anterior_x = Math.Floor(afterX);
                             anterior_y = cellY;
                         }
                         else if (Math.Floor(diffCenterAfterX * 100) >= error_info)
                         {
-                            if (get_Es_Celda_Obstruida(Math.Floor(beforeX), cellY, mapa, celdas_ocupadas, celda_objetivo, anterior_x, anterior_y)) return true;
+                            if (get_Es_Celda_Obstruida(Math.Floor(beforeX), cellY, mapa, celdas_ocupadas, celda_objetivo, anterior_x, anterior_y))
+                                return true;
+
                             anterior_x = Math.Floor(beforeX);
                             anterior_y = cellY;
                         }

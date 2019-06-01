@@ -105,6 +105,12 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
             if (objeto == null)
                 return false;
 
+            if(objeto.nivel > cuenta.juego.personaje.nivel)
+            {
+                cuenta.logger.log_Error("INVENTARIO", $"El nivel del objeto {objeto.nombre} es superior al nivel actual.");
+                return false;
+            }
+
             if (objeto.posicion != InventarioPosiciones.NO_EQUIPADO)//objeto ya esta equipado
                 return false;
 

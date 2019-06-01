@@ -1,12 +1,9 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
-using Bot_Dofus_1._29._1.Protocolo.Game.Paquetes;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
-using System.Threading.Tasks;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -41,18 +38,32 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("ALK")]
         public void seleccionar_Personaje(ClienteTcp cliente, string paquete)
         {
-            cliente.enviar_Paquete(new PersonajeSeleccion(cliente.cuenta.cuenta_configuracion.id_personaje, paquete.Substring(3)).get_Mensaje());
+            Cuenta cuenta = cliente.cuenta;
+            string[] _loc6_ = paquete.Substring(3).Split('|');
+            int contador = 2;
+            bool encontrado = false;
+
+            while(contador < _loc6_.Length && !encontrado)
+            {
+                string[] _loc11_ = _loc6_[contador].Split(';');
+                int id = int.Parse(_loc11_[0]);
+                string nombre = _loc11_[1];
+
+                if (nombre.Equals(cuenta.cuenta_configuracion.nombre_personaje))
+                {
+                    cliente.enviar_Paquete("AS" + id);
+                    encontrado = true;
+                }
+
+                contador++;
+            }
         }
 
         [PaqueteAtributo("BT")]
         public void get_Tiempo_Servidor(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
-
             cliente.enviar_Paquete("GI");
-
-            if(!cuenta.esta_luchando())
-                cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
         }
 
         [PaqueteAtributo("ASK")]
@@ -63,7 +74,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
             int id = int.Parse(_loc4[0]);
             string nombre = _loc4[1];
-            byte nivel = byte.Parse(_loc4[2]); //maximo nivel en dofus 200, maximo valor de byte 255 2^8-1
+            byte nivel = byte.Parse(_loc4[2]);
             byte raza_id = byte.Parse(_loc4[3]);
             byte sexo = byte.Parse(_loc4[4]);
 
@@ -74,6 +85,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             cliente.enviar_Paquete("BYA");
             cuenta.juego.personaje.evento_Personaje_Seleccionado();
             cuenta.conexion.Estado_Socket = EstadoSocket.CONECTADO;
+            cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
         }
     }
 }

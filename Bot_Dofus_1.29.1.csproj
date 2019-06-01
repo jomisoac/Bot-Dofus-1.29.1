@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Bot_Dofus_1._29._1</RootNamespace>
     <AssemblyName>Bot_Dofus_1.29.1</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -137,6 +137,12 @@
     </Compile>
     <Compile Include="Comun\Frames\Autentificacion\LoginCuenta.cs" />
     <Compile Include="Comun\Frames\Frame.cs" />
+    <Compile Include="Interfaces\UI_Hechizos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interfaces\UI_Hechizos.Designer.cs">
+      <DependentUpon>UI_Hechizos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\UI_Inventario.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -253,8 +259,6 @@
     <Compile Include="Protocolo\Enums\EstadoCuenta.cs" />
     <Compile Include="Protocolo\Enums\EstadoSocket.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Inventario\Enums\TipoObjetosInventario.cs" />
-    <Compile Include="Protocolo\Extensiones\CadenasAmigables.cs" />
-    <Compile Include="Protocolo\Game\Paquetes\PersonajeSeleccion.cs" />
     <Compile Include="Protocolo\Login\Paquetes\HostsMensaje.cs" />
     <Compile Include="Protocolo\Login\Paquetes\ListaServidoresMensaje.cs" />
     <Compile Include="Utilidades\Configuracion\GlobalConf.cs" />
@@ -285,6 +289,9 @@
     <EmbeddedResource Include="Forms\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\UI_Hechizos.resx">
+      <DependentUpon>UI_Hechizos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\UI_Inventario.resx">
       <DependentUpon>UI_Inventario.cs</DependentUpon>
@@ -496,7 +503,9 @@
     <None Include="Resources\iconos\flecha_arriba.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\otros\hechizos.xml" />
+    <None Include="Resources\otros\hechizos.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\otros\oficios.xml" />

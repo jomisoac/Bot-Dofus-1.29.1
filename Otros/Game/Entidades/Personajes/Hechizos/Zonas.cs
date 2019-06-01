@@ -57,18 +57,5 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
             }
             return new Zonas(tipo, Hash.get_Hash(str[1]));
         }
-
-        public static Zonas[] get_Analizar_Zonas(string str)
-        {
-            if (str.Length % 2 != 0)
-                throw new ArgumentException("tamaño invalido");
-
-            Zonas[] result = new Zonas[str.Length / 2];
-
-            for (int i = 0; i < str.Length; i += 2)
-                result[i / 2] = Parse(str[i].ToString() + str[i + 1].ToString());
-
-            return result;
-        }
     }
 }

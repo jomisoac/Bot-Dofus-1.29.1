@@ -221,18 +221,17 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
             hechizos.Clear();
 
             string[] limitador = paquete.Split(';'), separador;
-            XElement xml = XElement.Parse(Properties.Resources.hechizos);
-            string nombre;
-            int hechizo_id;
+            short hechizo_id;
+            byte nivel;
 
             for (int i = 0; i < limitador.Length - 1; ++i)
             {
                 separador = limitador[i].Split('~');
-                hechizo_id = int.Parse(separador[0].ToString());
-                nombre = xml.Elements("HECHIZO").Where(e => int.Parse(e.Element("id").Value) == hechizo_id).Elements("nombre").Select(e => e.Value).FirstOrDefault();
-                hechizos.Add(new Hechizo(hechizo_id, nombre, byte.Parse(separador[1].ToString()), char.Parse(separador[2].ToString())));
+                hechizo_id = short.Parse(separador[0]);
+                nivel = byte.Parse(separador[1]);
+
+                hechizos.Add(Hechizo.get_Hechizo(hechizo_id, nivel));
             }
-            xml = null;
             hechizos_actualizados.Invoke();
         }
 

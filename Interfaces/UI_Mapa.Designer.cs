@@ -137,8 +137,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.control_mapa.ColorCeldaInactiva = System.Drawing.Color.DarkGray;
             this.control_mapa.Dock = System.Windows.Forms.DockStyle.Fill;
             this.control_mapa.Location = new System.Drawing.Point(3, 3);
-            this.control_mapa.mapa_altura = 17;
-            this.control_mapa.mapa_anchura = 15;
+            this.control_mapa.mapa_altura = ((byte)(17));
+            this.control_mapa.mapa_anchura = ((byte)(15));
             this.control_mapa.Mostrar_Animaciones = true;
             this.control_mapa.Mostrar_Celdas_Id = false;
             this.control_mapa.Name = "control_mapa";

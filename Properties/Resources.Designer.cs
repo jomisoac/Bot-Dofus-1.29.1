@@ -637,8 +637,9 @@ namespace Bot_Dofus_1._29._1.Properties {
         ///		&lt;id&gt;1&lt;/id&gt;
         ///		&lt;nivel_requerido&gt;9&lt;/nivel_requerido&gt;
         ///		&lt;nombre&gt;Armadura Incandescente&lt;/nombre&gt;
-        ///		&lt;nivel1&gt;[[[265, 7, -1, -1, 4, 0, 0d0+7]], [[265, 8, -1, -1, 4, 0, 0d0+8]], 2, 0, 0, 50, 100, false, false, false, false, 0, 0, 0, 5, CcCc, [], [19, 41, 3, 1, 18], 9, false]&lt;/nivel1&gt;
-        ///		&lt;nivel2&gt;[[[265, 8, -1, -1, 4, 0, 0d0+8]], [[265, 9, -1, -1, 4, 0, 0d0+9]], 2, 0, 0, 50, 100, false, false, false, false, 0, 0, 0, 5, CcCc, [], [19, 41, 3, 1, 18], 9, false [resto de la cadena truncado]&quot;;.
+        ///		&lt;nivel1&gt;[[[265,7,-1,-1,4,0,0d0+7]],[[265,8,-1,-1,4,0,0d0+8]],2,0,0,50,100,false,false,false,false,0,0,0,5,CcCc,[],[19,41,3,1,18],9,false]&lt;/nivel1&gt;
+        ///		&lt;nivel2&gt;[[[265,8,-1,-1,4,0,0d0+8]],[[265,9,-1,-1,4,0,0d0+9]],2,0,0,50,100,false,false,false,false,0,0,0,5,CcCc,[],[19,41,3,1,18],9,false]&lt;/nivel2&gt;
+        ///		&lt;nivel3&gt;[[[265,9,-1,-1,4,0,0d0+9]],[[265,10,-1,-1,4,0,0d0 [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string hechizos {
             get {

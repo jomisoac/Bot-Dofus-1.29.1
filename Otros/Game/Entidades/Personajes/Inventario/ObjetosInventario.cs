@@ -22,7 +22,8 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
         public string nombre { get; private set; } = "Desconocido";
         public int cantidad { get; set; }
         public InventarioPosiciones posicion { get; set; } = InventarioPosiciones.NO_EQUIPADO;
-        public short pods { get; private set; } //algunos objetos pesan mas de 128 por eso no puede ser byte
+        public short pods { get; private set; }
+        public short nivel { get; private set; } = 0;
         public byte tipo { get; private set; }
         public TipoObjetosInventario tipo_inventario { get; private set; } = TipoObjetosInventario.DESCONOCIDO;
         private readonly XElement archivo_objeto;
@@ -43,8 +44,9 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
             {
                 archivo_objeto = XElement.Load(archivo_item.FullName);
                 nombre = archivo_objeto.Element("NOMBRE").Value;
-                pods = byte.Parse(archivo_objeto.Element("PODS").Value);
+                pods = short.Parse(archivo_objeto.Element("PODS").Value);
                 tipo = byte.Parse(archivo_objeto.Element("TIPO").Value);
+                nivel = short.Parse(archivo_objeto.Element("NIVEL").Value);
                 tipo_inventario = InventarioUtiles.get_Objetos_Inventario(tipo);
 
                 archivo_objeto = null;

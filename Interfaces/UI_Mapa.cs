@@ -48,8 +48,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
             Mapa mapa = cuenta.juego.mapa;
             Celda[] celdas_mapa_juego = mapa.celdas;
 
-            control_mapa.mapa_anchura = cuenta.juego.mapa.anchura;
-            control_mapa.mapa_altura = cuenta.juego.mapa.altura;
+            byte anchura_actual = control_mapa.mapa_anchura, altura_actual = control_mapa.mapa_altura;
+            byte anchura_nueva = cuenta.juego.mapa.anchura, altura_nueva = cuenta.juego.mapa.altura;
+
+            if (anchura_actual != anchura_nueva || altura_actual != altura_nueva)
+            {
+                control_mapa.mapa_anchura = cuenta.juego.mapa.anchura;
+                control_mapa.mapa_altura = cuenta.juego.mapa.altura;
+
+                control_mapa.set_Celda_Numero();
+                control_mapa.dibujar_Cuadricula();
+            }
 
             BeginInvoke((Action)(() =>
             {

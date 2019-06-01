@@ -56,7 +56,6 @@
             this.label_Eleccion_Servidor = new System.Windows.Forms.Label();
             this.label_Nombre_Personaje = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.seleccion_id_personaje = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox_Servidor = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
@@ -66,6 +65,8 @@
             this.boton_Agregar_Cuenta = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.imagenesFormCuentas = new System.Windows.Forms.ImageList(this.components);
+            this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox_nombre_personaje = new System.Windows.Forms.TextBox();
             this.tabControlPrincipalCuentas.SuspendLayout();
             this.ListaCuentas.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -79,7 +80,6 @@
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.seleccion_id_personaje)).BeginInit();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -207,15 +207,16 @@
             // 
             this.contextMenuStripFormCuentas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.conectarToolStripMenuItem,
+            this.modificarToolStripMenuItem,
             this.eliminarToolStripMenuItem});
             this.contextMenuStripFormCuentas.Name = "contextMenuStripFormCuentas";
-            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(123, 48);
+            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(126, 70);
             // 
             // conectarToolStripMenuItem
             // 
             this.conectarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.flecha_direccion_izquierda;
             this.conectarToolStripMenuItem.Name = "conectarToolStripMenuItem";
-            this.conectarToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.conectarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.conectarToolStripMenuItem.Text = "Conectar";
             this.conectarToolStripMenuItem.Click += new System.EventHandler(this.conectarToolStripMenuItem_Click);
             // 
@@ -223,7 +224,7 @@
             // 
             this.eliminarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.cruz_roja;
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.eliminarToolStripMenuItem.Text = "Eliminar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
@@ -401,7 +402,7 @@
             // 
             this.tableLayoutPanel7.ColumnCount = 1;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Controls.Add(this.seleccion_id_personaje, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.textBox_nombre_personaje, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(129, 180);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -411,29 +412,6 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(305, 55);
             this.tableLayoutPanel7.TabIndex = 4;
-            // 
-            // seleccion_id_personaje
-            // 
-            this.seleccion_id_personaje.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seleccion_id_personaje.Location = new System.Drawing.Point(3, 21);
-            this.seleccion_id_personaje.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.seleccion_id_personaje.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.seleccion_id_personaje.Name = "seleccion_id_personaje";
-            this.seleccion_id_personaje.Size = new System.Drawing.Size(299, 25);
-            this.seleccion_id_personaje.TabIndex = 0;
-            this.seleccion_id_personaje.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // tableLayoutPanel8
             // 
@@ -540,6 +518,22 @@
             this.imagenesFormCuentas.Images.SetKeyName(0, "agregar_cuenta.png");
             this.imagenesFormCuentas.Images.SetKeyName(1, "lista_cuentas.png");
             // 
+            // modificarToolStripMenuItem
+            // 
+            this.modificarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_ajustes;
+            this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.modificarToolStripMenuItem.Text = "Modificar";
+            // 
+            // textBox_nombre_personaje
+            // 
+            this.textBox_nombre_personaje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_nombre_personaje.Location = new System.Drawing.Point(3, 21);
+            this.textBox_nombre_personaje.MaxLength = 25;
+            this.textBox_nombre_personaje.Name = "textBox_nombre_personaje";
+            this.textBox_nombre_personaje.Size = new System.Drawing.Size(299, 25);
+            this.textBox_nombre_personaje.TabIndex = 5;
+            // 
             // GestionCuentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -574,7 +568,7 @@
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.seleccion_id_personaje)).EndInit();
+            this.tableLayoutPanel7.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
@@ -621,6 +615,7 @@
         private System.Windows.Forms.ToolStripMenuItem conectarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.NumericUpDown seleccion_id_personaje;
+        private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox_nombre_personaje;
     }
 }
