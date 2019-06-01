@@ -3,12 +3,11 @@ using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Stats;
 using Bot_Dofus_1._29._1.Protocolo.Enums;
-using Bot_Dofus_1._29._1.Protocolo.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
 using System;
 using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
@@ -37,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             if (Principal.get_Paginas_Cuentas_Cargadas().ContainsKey(nombre_cuenta))
             {
-                if(cuenta != null)
+                if (cuenta != null)
                     desconectar_Cuenta();
 
                 Principal.get_Paginas_Cuentas_Cargadas()[nombre_cuenta].contenido.Dispose();
@@ -79,8 +78,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void desconectar_Cuenta()
         {
-            Console.WriteLine("hola jajajaj");
-
             cuenta.Dispose();
             cuenta = null;
 
@@ -106,14 +103,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 case EstadoSocket.DESCONECTADO:
                     desconectar_Cuenta();
-                break;
+                    break;
 
                 case EstadoSocket.CAMBIANDO_A_JUEGO:
-                    cuenta.pelea_extension.configuracion.cargar();
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
                     agregar_Tab_Pagina("Inventario", new UI_Inventario(cuenta), 3);
-                    agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
-                    agregar_Tab_Pagina("Combates", new UI_Pelea(cuenta), 5);
 
                     cuenta.juego.personaje.mensaje_chat += socket_Evento_Chat;
                     cuenta.juego.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
@@ -121,6 +115,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 break;
 
                 case EstadoSocket.CONECTADO:
+                    cuenta.pelea_extension.configuracion.cargar();
+                    agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
+                    agregar_Tab_Pagina("Combates", new UI_Pelea(cuenta), 5);
+
                     cambiar_Todos_Controles_Chat(true);
                 break;
             }
@@ -193,7 +191,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 case EstadoCuenta.DESCONECTADO:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_rojo);
-                break;
+                    break;
 
                 case EstadoCuenta.CONECTANDO:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_naranja);
@@ -201,8 +199,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                 default:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_verde);
-                break;
+                    break;
             }
+
             if (cuenta != null && Principal.paginas_cuentas_cargadas.ContainsKey(configuracion_cuenta.nombre_cuenta))
                 Principal.paginas_cuentas_cargadas[configuracion_cuenta.nombre_cuenta].cabezera.propiedad_Estado = cuenta.Estado_Cuenta.cadena_Amigable();
         }
@@ -245,35 +244,35 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 {
                     case "canal_informaciones":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+i" : "cC-i");
-                    break;
+                        break;
 
                     case "canal_general":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+*" : "cC-*");
-                    break;
+                        break;
 
                     case "canal_privado":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+#$p" : "cC-#$p");
-                    break;
+                        break;
 
                     case "canal_gremio":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+%" : "cC-%");
-                    break;
+                        break;
 
                     case "canal_alineamiento":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+!" : "cC-!");
-                    break;
+                        break;
 
                     case "canal_reclutamiento":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+?" : "cC-?");
-                    break;
+                        break;
 
                     case "canal_comercio":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+:" : "cC-:");
-                    break;
+                        break;
 
                     case "canal_incarnam":
                         cuenta.conexion.enviar_Paquete(control.Checked ? "cC+^" : "cC-^");
-                    break;
+                        break;
                 }
             }
         }
@@ -288,15 +287,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     {
                         case "/mapid":
                             escribir_mensaje(cuenta.juego.mapa.id.ToString(), "0040FF");
-                        break;
+                            break;
 
                         case "/cellid":
                             escribir_mensaje(cuenta.juego.personaje.celda.id.ToString(), "0040FF");
-                        break;
+                            break;
 
                         default:
                             cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
-                        break;
+                            break;
                     }
                     e.Handled = true;
                     e.SuppressKeyPress = true;

@@ -347,10 +347,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Mapa_Cambiado(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
-
-            if (!cuenta.esta_luchando())
-                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-
             cuenta.juego.mapa.get_Evento_Mapa_Cambiado();
         }
 

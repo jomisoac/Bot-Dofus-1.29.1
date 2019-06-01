@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
             bw.Write(es_aoe);
             bw.Write(cuidado_aoe);
         }
-
+        
         public static HechizoPelea cargar(BinaryReader br) => new HechizoPelea(br.ReadInt32(), br.ReadString(), (HechizoFocus)br.ReadByte(), br.ReadBoolean(), br.ReadByte(), br.ReadBoolean(), br.ReadBoolean());
     }
 }

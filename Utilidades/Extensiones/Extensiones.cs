@@ -1,11 +1,47 @@
-﻿using MoonSharp.Interpreter;
-using System.Collections.Generic;
+﻿using Bot_Dofus_1._29._1.Protocolo.Enums;
+using MoonSharp.Interpreter;
 
 namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
 {
     public static class Extensiones
     {
         public static readonly string[] lista_mods = { "Nemetacum", "Seydlex", "Sisuphos", "Toblik", "Falgoryn", };
+
+        public static string cadena_Amigable(this EstadoCuenta estado)
+        {
+            switch (estado)
+            {
+                case EstadoCuenta.CONECTANDO:
+                    return "Conectando";
+                case EstadoCuenta.DESCONECTADO:
+                    return "Desconectando";
+                case EstadoCuenta.INTERCAMBIO:
+                    return "Intercambiando";
+                case EstadoCuenta.LUCHANDO:
+                    return "En combate";
+                case EstadoCuenta.RECOLECTANDO:
+                    return "Recolectando";
+                case EstadoCuenta.MOVIMIENTO:
+                    return "Desplazando";
+                case EstadoCuenta.CONECTADO_INACTIVO:
+                    return "Inactivo";
+                case EstadoCuenta.ALMACENAMIENTO:
+                    return "En almacenamiento";
+                case EstadoCuenta.HABLANDO:
+                    return "En dialogo";
+                case EstadoCuenta.COMPRANDO:
+                    return "Comprando";
+                case EstadoCuenta.VENDIENDO:
+                    return "Vendiendo";
+                case EstadoCuenta.REGENERANDO_VIDA:
+                    return "Regenerando Vida";
+                default:
+                    return "-";
+            }
+        }
+
+        public static string get_Substring_Seguro(this string texto, int inicio, int longitud) => texto.Length <= inicio ? " " : texto.Length - inicio <= longitud ? texto.Substring(inicio) : texto.Substring(inicio, longitud);
+        public static string Truncar(this string texto, int maxima_longitud) => texto.Length <= maxima_longitud ? texto : $"{texto.Substring(0, maxima_longitud)}...";
 
         public static T get_Or<T>(this Table table, string key, DataType type, T orValue)
         {
@@ -22,38 +58,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
             {
                 return orValue;
             }
-        }
-
-        public static List<string> get_Dividir_Matrices(string string_analizado, char comienzo_matriz, char final_matriz, char separador)
-        {
-            List<string> resultado = new List<string>();
-            resultado.Add(string.Empty);
-            int corchete = 0;
-
-            foreach (char v in string_analizado)
-            {
-                if (v != ' ')
-                {
-                    if (v == comienzo_matriz)
-                    {
-                        corchete++;
-                        if (corchete < 2)
-                            continue;
-                    }
-                    else if (v == final_matriz)
-                    {
-                        corchete--;
-                        if (corchete == 0)
-                            continue;
-                    }
-
-                    if (v == separador && corchete == 1)
-                        resultado.Add(string.Empty);
-                    else
-                        resultado[resultado.Count - 1] += v;
-                }
-            }
-            return resultado;
         }
     }
 }

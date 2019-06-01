@@ -809,11 +809,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.ListView listView_hechizos_pelea;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.Button button_subir_hechizo;
-        private System.Windows.Forms.Button button_bajar_hechizo;
-        private System.Windows.Forms.Button button_eliminar_hechizo;
-        private System.Windows.Forms.Button button_informacion_hechizo;
         private System.Windows.Forms.GroupBox groupBox_agregar_hechizo;
         private System.Windows.Forms.Button button_agregar_hechizo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
@@ -838,5 +833,10 @@
         private System.Windows.Forms.CheckBox checkBox_utilizar_dragopavo;
         private System.Windows.Forms.ColumnHeader CAC;
         private System.Windows.Forms.ColumnHeader AOE;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.Button button_subir_hechizo;
+        private System.Windows.Forms.Button button_bajar_hechizo;
+        private System.Windows.Forms.Button button_eliminar_hechizo;
+        private System.Windows.Forms.Button button_informacion_hechizo;
     }
 }

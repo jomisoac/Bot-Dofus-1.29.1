@@ -25,8 +25,8 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
     [Serializable]
     public partial class ControlMapa : UserControl
     {
-        public int mapa_altura { get; set; }
-        public int mapa_anchura { get; set; }
+        public byte mapa_altura { get; set; }
+        public byte mapa_anchura { get; set; }
         private CalidadMapa tipo_calidad;
         private bool mapa_raton_abajo;
         private CeldaMapa celda_retenida;
@@ -152,7 +152,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             }
         }
 
-        private void set_Celda_Numero()
+        public void set_Celda_Numero()
         {
             celdas = new CeldaMapa[2 * mapa_altura * mapa_anchura];
 
@@ -216,6 +216,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             }
             RealCellHeight = (int)cellHeight;
             RealCellWidth = (int)cellWidth;
+            Invalidate();
         }
 
         public void dibujar_Celdas(Graphics g)
@@ -371,7 +372,6 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         protected override void OnResize(EventArgs e)
         {
             dibujar_Cuadricula();
-            Invalidate();
             base.OnResize(e);
         }
 

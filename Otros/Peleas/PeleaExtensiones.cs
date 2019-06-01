@@ -59,7 +59,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await get_Fin_Turno();
                 return;
             }
-
+            
             await get_Procesar_hechizo();
         }
 
@@ -75,7 +75,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             }
 
             HechizoPelea hechizo_actual = configuracion.hechizos[hechizo_lanzado_index];
-
+            
             if (hechizo_actual.lanzamientos_restantes == 0)
             {
                 await get_Procesar_Siguiente_Hechizo(hechizo_actual);

@@ -27,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void UI_Pelea_Load(object sender, EventArgs e)
         {
             comboBox_focus_hechizo.SelectedIndex = 0;
-            
+
             acercarse_casillas_distancia.Value = cuenta.pelea_extension.configuracion.celdas_maximas;
             checkbox_espectadores.Checked = cuenta.pelea_extension.configuracion.desactivar_espectador;
             checkBox_utilizar_dragopavo.Checked = cuenta.pelea_extension.configuracion.utilizar_dragopavo;

@@ -135,7 +135,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 return ResultadoLanzandoHechizo.NO_LANZADO;
 
             Hechizo hechizo_general = cuenta.juego.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
-            HechizoStats datos_hechizo = hechizo_general.get_Hechizo_Stats()[hechizo_general.nivel];
+            HechizoStats datos_hechizo = hechizo_general.get_Stats(hechizo_general.nivel);
 
             List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda_id, datos_hechizo, cuenta.juego.mapa);
             foreach (short rango in rangos_disponibles)

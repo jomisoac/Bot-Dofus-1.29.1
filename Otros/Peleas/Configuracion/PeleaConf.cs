@@ -7,11 +7,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 {
     public class PeleaConf : IDisposable
     {
-        private const string configuracion_ruta = @"peleas/";
+        private const string carpeta_configuracion = @"peleas/";
         private Cuenta cuenta;
         private bool disposed;
 
-        private string configuracion_archivo_ruta => Path.Combine(configuracion_ruta, $"{cuenta.cuenta_configuracion.nombre_cuenta}_{cuenta.juego.personaje.nombre_personaje}.config");
+        private string archivo_configuracion => Path.Combine(carpeta_configuracion, $"{cuenta.juego.personaje.nombre_personaje}.config");
         public List<HechizoPelea> hechizos { get; private set; }
         public byte celdas_maximas { get; set; }
         public bool desactivar_espectador { get; set; }
@@ -27,9 +27,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 
         public void guardar()
         {
-            Directory.CreateDirectory(configuracion_ruta);
+            Directory.CreateDirectory(carpeta_configuracion);
 
-            using (BinaryWriter bw = new BinaryWriter(File.Open(configuracion_archivo_ruta, FileMode.Create)))
+            using (BinaryWriter bw = new BinaryWriter(File.Open(archivo_configuracion, FileMode.Create)))
             {
                 bw.Write((byte)tactica);
                 bw.Write((byte)posicionamiento);
@@ -44,20 +44,20 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 
         public void cargar()
         {
-            if (!File.Exists(configuracion_archivo_ruta))
+            if (!File.Exists(archivo_configuracion))
             {
                 get_Perfil_Defecto();
                 return;
             }
-
-            using (BinaryReader br = new BinaryReader(File.Open(configuracion_archivo_ruta, FileMode.Open)))
+            
+            using (BinaryReader br = new BinaryReader(File.Open(archivo_configuracion, FileMode.Open)))
             {
                 tactica = (Tactica)br.ReadByte();
                 posicionamiento = (PosicionamientoInicioPelea)br.ReadByte();
                 celdas_maximas = br.ReadByte();
                 desactivar_espectador = br.ReadBoolean();
                 utilizar_dragopavo = br.ReadBoolean();
-
+                
                 hechizos.Clear();
                 byte c = br.ReadByte();
                 for (int i = 0; i < c; i++)

@@ -16,14 +16,14 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
         public string nombre_cuenta { get; set; } = string.Empty;
         public string password { get; set; } = string.Empty;
         public string servidor { get; set; } = string.Empty;
-        public int id_personaje { get; set; } = 0;
+        public string nombre_personaje { get; set; } = string.Empty;
 
-        public CuentaConf(string _nombre_cuenta, string _password, string _servidor, int _id_personaje)
+        public CuentaConf(string _nombre_cuenta, string _password, string _servidor, string _nombre_personaje)
         {
             nombre_cuenta = _nombre_cuenta;
             password = _password;
             servidor = _servidor;
-            id_personaje = _id_personaje;
+            nombre_personaje = _nombre_personaje;
         }
 
         public void guardar_Cuenta(BinaryWriter bw)
@@ -31,14 +31,14 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             bw.Write(nombre_cuenta);
             bw.Write(password);
             bw.Write(servidor);
-            bw.Write(id_personaje);
+            bw.Write(nombre_personaje);
         }
 
         public static CuentaConf cargar_Una_Cuenta(BinaryReader br)
         {
             try
             {
-                return new CuentaConf(br.ReadString(), br.ReadString(), br.ReadString(), br.ReadInt32());
+                return new CuentaConf(br.ReadString(), br.ReadString(), br.ReadString(), br.ReadString());
             }
             catch
             {

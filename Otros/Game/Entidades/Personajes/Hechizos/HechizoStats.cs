@@ -25,7 +25,6 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
         public byte lanzamientos_por_turno { get; set; }
         public byte lanzamientos_por_objetivo { get; set; }
         public byte intervalo { get; set; }
-        public Zonas[] areaAfectados { get; set; }
 
         public List<HechizoEfecto> efectos_normales { get; private set; }
         public List<HechizoEfecto> efectos_criticos { get; private set; }
@@ -35,5 +34,14 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
             efectos_normales = new List<HechizoEfecto>();
             efectos_criticos = new List<HechizoEfecto>();
         }
+
+        public void agregar_efecto(HechizoEfecto effect, bool es_critico)
+        {
+            if (!es_critico)
+                efectos_normales.Add(effect);
+            else
+                efectos_criticos.Add(effect);
+        }
+
     }
 }

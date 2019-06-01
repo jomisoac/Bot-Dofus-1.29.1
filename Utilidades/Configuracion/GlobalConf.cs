@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             }
         }
 
-        public static void agregar_Cuenta(string nombre_cuenta, string password, string servidor, int id_personaje) => lista_cuentas.Add(new CuentaConf(nombre_cuenta, password, servidor, id_personaje));
+        public static void agregar_Cuenta(string nombre_cuenta, string password, string servidor, string nombre_personaje) => lista_cuentas.Add(new CuentaConf(nombre_cuenta, password, servidor, nombre_personaje));
         public static void eliminar_Cuenta(int cuenta_index) => lista_cuentas.RemoveAt(cuenta_index);
         public static CuentaConf get_Cuenta(string nombre_cuenta) => lista_cuentas.FirstOrDefault(cuenta => cuenta.nombre_cuenta == nombre_cuenta);
         public static List<CuentaConf> get_Lista_Cuentas() => lista_cuentas;

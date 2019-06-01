@@ -32,12 +32,46 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI_Personaje));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox_imagen_personaje = new System.Windows.Forms.GroupBox();
+            this.label_nivel_personaje = new System.Windows.Forms.Label();
+            this.label_nombre_personaje = new System.Windows.Forms.Label();
+            this.imagen_personaje = new System.Windows.Forms.PictureBox();
+            this.groupBox_puntos_stats = new System.Windows.Forms.GroupBox();
+            this.label_capital_stats = new System.Windows.Forms.Label();
+            this.label_texto_capital_stats = new System.Windows.Forms.Label();
+            this.groupBox_caracteristicas = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.button5 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.label_puntos_vida = new System.Windows.Forms.Label();
+            this.stats_agilidad = new System.Windows.Forms.Label();
+            this.stats_suerte = new System.Windows.Forms.Label();
+            this.stats_inteligencia = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.button_subir_vitalidad = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.stats_fuerza = new System.Windows.Forms.Label();
+            this.stats_sabiduria = new System.Windows.Forms.Label();
+            this.stats_vitalidad = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
@@ -54,37 +88,6 @@
             this.label_prospeccion = new System.Windows.Forms.Label();
             this.label_alcanze = new System.Windows.Forms.Label();
             this.label_invocaciones = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
-            this.pictureBox13 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.button_subir_vitalidad = new System.Windows.Forms.Button();
-            this.stats_vitalidad = new System.Windows.Forms.Label();
-            this.stats_sabiduria = new System.Windows.Forms.Label();
-            this.stats_fuerza = new System.Windows.Forms.Label();
-            this.stats_inteligencia = new System.Windows.Forms.Label();
-            this.stats_suerte = new System.Windows.Forms.Label();
-            this.stats_agilidad = new System.Windows.Forms.Label();
-            this.groupBox_puntos_stats = new System.Windows.Forms.GroupBox();
-            this.label_capital_stats = new System.Windows.Forms.Label();
-            this.label_texto_capital_stats = new System.Windows.Forms.Label();
-            this.groupBox_imagen_personaje = new System.Windows.Forms.GroupBox();
-            this.label_nivel_personaje = new System.Windows.Forms.Label();
-            this.label_nombre_personaje = new System.Windows.Forms.Label();
-            this.imagen_personaje = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView_oficios = new System.Windows.Forms.DataGridView();
@@ -100,34 +103,36 @@
             this.cantidad_maxima = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.groupBox_caracteristicas = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.uI_Hechizos1 = new Bot_Dofus_1._29._1.Interfaces.UI_Hechizos();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.groupBox_imagen_personaje.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imagen_personaje)).BeginInit();
+            this.groupBox_puntos_stats.SuspendLayout();
+            this.groupBox_caracteristicas.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
-            this.groupBox_puntos_stats.SuspendLayout();
-            this.groupBox_imagen_personaje.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imagen_personaje)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_oficios)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_skills)).BeginInit();
-            this.panel2.SuspendLayout();
-            this.groupBox_caracteristicas.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -157,6 +162,124 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Características";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox_caracteristicas, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 4);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(790, 562);
+            this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBox_imagen_personaje);
+            this.panel2.Controls.Add(this.groupBox_puntos_stats);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(389, 556);
+            this.panel2.TabIndex = 2;
+            // 
+            // groupBox_imagen_personaje
+            // 
+            this.groupBox_imagen_personaje.Controls.Add(this.label_nivel_personaje);
+            this.groupBox_imagen_personaje.Controls.Add(this.label_nombre_personaje);
+            this.groupBox_imagen_personaje.Controls.Add(this.imagen_personaje);
+            this.groupBox_imagen_personaje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_imagen_personaje.Location = new System.Drawing.Point(0, 0);
+            this.groupBox_imagen_personaje.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox_imagen_personaje.Name = "groupBox_imagen_personaje";
+            this.groupBox_imagen_personaje.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox_imagen_personaje.Size = new System.Drawing.Size(389, 516);
+            this.groupBox_imagen_personaje.TabIndex = 0;
+            this.groupBox_imagen_personaje.TabStop = false;
+            this.groupBox_imagen_personaje.Text = "Personaje";
+            // 
+            // label_nivel_personaje
+            // 
+            this.label_nivel_personaje.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_nivel_personaje.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_nivel_personaje.Location = new System.Drawing.Point(244, 64);
+            this.label_nivel_personaje.Name = "label_nivel_personaje";
+            this.label_nivel_personaje.Size = new System.Drawing.Size(142, 33);
+            this.label_nivel_personaje.TabIndex = 8;
+            this.label_nivel_personaje.Text = "-";
+            this.label_nivel_personaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label_nombre_personaje
+            // 
+            this.label_nombre_personaje.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_nombre_personaje.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_nombre_personaje.Location = new System.Drawing.Point(244, 22);
+            this.label_nombre_personaje.Name = "label_nombre_personaje";
+            this.label_nombre_personaje.Size = new System.Drawing.Size(142, 42);
+            this.label_nombre_personaje.TabIndex = 7;
+            this.label_nombre_personaje.Text = "-";
+            this.label_nombre_personaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // imagen_personaje
+            // 
+            this.imagen_personaje.Dock = System.Windows.Forms.DockStyle.Left;
+            this.imagen_personaje.Location = new System.Drawing.Point(3, 22);
+            this.imagen_personaje.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.imagen_personaje.Name = "imagen_personaje";
+            this.imagen_personaje.Size = new System.Drawing.Size(241, 490);
+            this.imagen_personaje.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imagen_personaje.TabIndex = 6;
+            this.imagen_personaje.TabStop = false;
+            // 
+            // groupBox_puntos_stats
+            // 
+            this.groupBox_puntos_stats.Controls.Add(this.label_capital_stats);
+            this.groupBox_puntos_stats.Controls.Add(this.label_texto_capital_stats);
+            this.groupBox_puntos_stats.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox_puntos_stats.Location = new System.Drawing.Point(0, 516);
+            this.groupBox_puntos_stats.Name = "groupBox_puntos_stats";
+            this.groupBox_puntos_stats.Size = new System.Drawing.Size(389, 40);
+            this.groupBox_puntos_stats.TabIndex = 1;
+            this.groupBox_puntos_stats.TabStop = false;
+            this.groupBox_puntos_stats.Text = "Stats";
+            // 
+            // label_capital_stats
+            // 
+            this.label_capital_stats.AutoSize = true;
+            this.label_capital_stats.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label_capital_stats.Location = new System.Drawing.Point(373, 21);
+            this.label_capital_stats.Name = "label_capital_stats";
+            this.label_capital_stats.Size = new System.Drawing.Size(13, 17);
+            this.label_capital_stats.TabIndex = 1;
+            this.label_capital_stats.Text = "-";
+            this.label_capital_stats.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_texto_capital_stats
+            // 
+            this.label_texto_capital_stats.AutoSize = true;
+            this.label_texto_capital_stats.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_texto_capital_stats.Location = new System.Drawing.Point(3, 21);
+            this.label_texto_capital_stats.Name = "label_texto_capital_stats";
+            this.label_texto_capital_stats.Size = new System.Drawing.Size(100, 17);
+            this.label_texto_capital_stats.TabIndex = 0;
+            this.label_texto_capital_stats.Text = "Puntos de stats:";
+            this.label_texto_capital_stats.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // groupBox_caracteristicas
+            // 
+            this.groupBox_caracteristicas.Controls.Add(this.tableLayoutPanel5);
+            this.groupBox_caracteristicas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_caracteristicas.Location = new System.Drawing.Point(398, 3);
+            this.groupBox_caracteristicas.Name = "groupBox_caracteristicas";
+            this.groupBox_caracteristicas.Size = new System.Drawing.Size(389, 556);
+            this.groupBox_caracteristicas.TabIndex = 0;
+            this.groupBox_caracteristicas.TabStop = false;
+            this.groupBox_caracteristicas.Text = "Características";
             // 
             // tableLayoutPanel5
             // 
@@ -230,6 +353,16 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(383, 532);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
+            // button5
+            // 
+            this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button5.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
+            this.button5.Location = new System.Drawing.Point(345, 483);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(35, 46);
+            this.button5.TabIndex = 23;
+            this.button5.UseVisualStyleBackColor = true;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -240,6 +373,16 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // button4
+            // 
+            this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button4.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
+            this.button4.Location = new System.Drawing.Point(345, 443);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(35, 34);
+            this.button4.TabIndex = 22;
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -252,6 +395,16 @@
             this.label1.Text = "Puntos de vida";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // button3
+            // 
+            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button3.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
+            this.button3.Location = new System.Drawing.Point(345, 403);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(35, 34);
+            this.button3.TabIndex = 21;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // label_puntos_vida
             // 
             this.label_puntos_vida.AutoSize = true;
@@ -262,6 +415,49 @@
             this.label_puntos_vida.TabIndex = 2;
             this.label_puntos_vida.Text = "-";
             this.label_puntos_vida.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // stats_agilidad
+            // 
+            this.stats_agilidad.AutoSize = true;
+            this.stats_agilidad.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stats_agilidad.Location = new System.Drawing.Point(206, 480);
+            this.stats_agilidad.Name = "stats_agilidad";
+            this.stats_agilidad.Size = new System.Drawing.Size(133, 52);
+            this.stats_agilidad.TabIndex = 18;
+            this.stats_agilidad.Text = "-";
+            this.stats_agilidad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // stats_suerte
+            // 
+            this.stats_suerte.AutoSize = true;
+            this.stats_suerte.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stats_suerte.Location = new System.Drawing.Point(206, 440);
+            this.stats_suerte.Name = "stats_suerte";
+            this.stats_suerte.Size = new System.Drawing.Size(133, 40);
+            this.stats_suerte.TabIndex = 17;
+            this.stats_suerte.Text = "-";
+            this.stats_suerte.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // stats_inteligencia
+            // 
+            this.stats_inteligencia.AutoSize = true;
+            this.stats_inteligencia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stats_inteligencia.Location = new System.Drawing.Point(206, 400);
+            this.stats_inteligencia.Name = "stats_inteligencia";
+            this.stats_inteligencia.Size = new System.Drawing.Size(133, 40);
+            this.stats_inteligencia.TabIndex = 16;
+            this.stats_inteligencia.Text = "-";
+            this.stats_inteligencia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
+            this.button2.Location = new System.Drawing.Point(345, 363);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(35, 34);
+            this.button2.TabIndex = 20;
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // pictureBox2
             // 
@@ -274,6 +470,16 @@
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
+            this.button1.Location = new System.Drawing.Point(345, 323);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(35, 34);
+            this.button1.TabIndex = 19;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // pictureBox3
             // 
             this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -284,6 +490,181 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 4;
             this.pictureBox3.TabStop = false;
+            // 
+            // button_subir_vitalidad
+            // 
+            this.button_subir_vitalidad.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_subir_vitalidad.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
+            this.button_subir_vitalidad.Location = new System.Drawing.Point(345, 283);
+            this.button_subir_vitalidad.Name = "button_subir_vitalidad";
+            this.button_subir_vitalidad.Size = new System.Drawing.Size(35, 34);
+            this.button_subir_vitalidad.TabIndex = 12;
+            this.button_subir_vitalidad.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Location = new System.Drawing.Point(51, 480);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(149, 52);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "Agilidad";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // stats_fuerza
+            // 
+            this.stats_fuerza.AutoSize = true;
+            this.stats_fuerza.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stats_fuerza.Location = new System.Drawing.Point(206, 360);
+            this.stats_fuerza.Name = "stats_fuerza";
+            this.stats_fuerza.Size = new System.Drawing.Size(133, 40);
+            this.stats_fuerza.TabIndex = 15;
+            this.stats_fuerza.Text = "-";
+            this.stats_fuerza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // stats_sabiduria
+            // 
+            this.stats_sabiduria.AutoSize = true;
+            this.stats_sabiduria.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stats_sabiduria.Location = new System.Drawing.Point(206, 320);
+            this.stats_sabiduria.Name = "stats_sabiduria";
+            this.stats_sabiduria.Size = new System.Drawing.Size(133, 40);
+            this.stats_sabiduria.TabIndex = 14;
+            this.stats_sabiduria.Text = "-";
+            this.stats_sabiduria.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // stats_vitalidad
+            // 
+            this.stats_vitalidad.AutoSize = true;
+            this.stats_vitalidad.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stats_vitalidad.Location = new System.Drawing.Point(206, 280);
+            this.stats_vitalidad.Name = "stats_vitalidad";
+            this.stats_vitalidad.Size = new System.Drawing.Size(133, 40);
+            this.stats_vitalidad.TabIndex = 13;
+            this.stats_vitalidad.Text = "-";
+            this.stats_vitalidad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Location = new System.Drawing.Point(51, 440);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(149, 40);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Suerte";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label11.Location = new System.Drawing.Point(51, 400);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(149, 40);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Inteligencia";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.Location = new System.Drawing.Point(51, 360);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(149, 40);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Fuerza";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Location = new System.Drawing.Point(51, 320);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(149, 40);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Sabiduría";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(51, 280);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(149, 40);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Vitalidad";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pictureBox13
+            // 
+            this.pictureBox13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox13.Image = global::Bot_Dofus_1._29._1.Properties.Resources.agilidad;
+            this.pictureBox13.Location = new System.Drawing.Point(3, 483);
+            this.pictureBox13.Name = "pictureBox13";
+            this.pictureBox13.Size = new System.Drawing.Size(42, 46);
+            this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox13.TabIndex = 5;
+            this.pictureBox13.TabStop = false;
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox12.Image = global::Bot_Dofus_1._29._1.Properties.Resources.suerte;
+            this.pictureBox12.Location = new System.Drawing.Point(3, 443);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(42, 34);
+            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox12.TabIndex = 4;
+            this.pictureBox12.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox11.Image = global::Bot_Dofus_1._29._1.Properties.Resources.inteligencia;
+            this.pictureBox11.Location = new System.Drawing.Point(3, 403);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(42, 34);
+            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox11.TabIndex = 3;
+            this.pictureBox11.TabStop = false;
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox10.Image = global::Bot_Dofus_1._29._1.Properties.Resources.fuerza;
+            this.pictureBox10.Location = new System.Drawing.Point(3, 363);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(42, 34);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox10.TabIndex = 2;
+            this.pictureBox10.TabStop = false;
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox9.Image = global::Bot_Dofus_1._29._1.Properties.Resources.sabiduria;
+            this.pictureBox9.Location = new System.Drawing.Point(3, 323);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(42, 34);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox9.TabIndex = 1;
+            this.pictureBox9.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox8.Image = global::Bot_Dofus_1._29._1.Properties.Resources.vitalidad;
+            this.pictureBox8.Location = new System.Drawing.Point(3, 283);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(42, 34);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 0;
+            this.pictureBox8.TabStop = false;
             // 
             // pictureBox4
             // 
@@ -462,348 +843,10 @@
             this.label_invocaciones.Text = "-";
             this.label_invocaciones.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // button5
-            // 
-            this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button5.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
-            this.button5.Location = new System.Drawing.Point(345, 483);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(35, 46);
-            this.button5.TabIndex = 23;
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button4.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
-            this.button4.Location = new System.Drawing.Point(345, 443);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(35, 34);
-            this.button4.TabIndex = 22;
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
-            this.button3.Location = new System.Drawing.Point(345, 403);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(35, 34);
-            this.button3.TabIndex = 21;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
-            this.button2.Location = new System.Drawing.Point(345, 363);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(35, 34);
-            this.button2.TabIndex = 20;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
-            this.button1.Location = new System.Drawing.Point(345, 323);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 34);
-            this.button1.TabIndex = 19;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox8.Image = global::Bot_Dofus_1._29._1.Properties.Resources.vitalidad;
-            this.pictureBox8.Location = new System.Drawing.Point(3, 283);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(42, 34);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox8.TabIndex = 0;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox9.Image = global::Bot_Dofus_1._29._1.Properties.Resources.sabiduria;
-            this.pictureBox9.Location = new System.Drawing.Point(3, 323);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(42, 34);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox9.TabIndex = 1;
-            this.pictureBox9.TabStop = false;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox10.Image = global::Bot_Dofus_1._29._1.Properties.Resources.fuerza;
-            this.pictureBox10.Location = new System.Drawing.Point(3, 363);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(42, 34);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox10.TabIndex = 2;
-            this.pictureBox10.TabStop = false;
-            // 
-            // pictureBox11
-            // 
-            this.pictureBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox11.Image = global::Bot_Dofus_1._29._1.Properties.Resources.inteligencia;
-            this.pictureBox11.Location = new System.Drawing.Point(3, 403);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(42, 34);
-            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox11.TabIndex = 3;
-            this.pictureBox11.TabStop = false;
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox12.Image = global::Bot_Dofus_1._29._1.Properties.Resources.suerte;
-            this.pictureBox12.Location = new System.Drawing.Point(3, 443);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(42, 34);
-            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox12.TabIndex = 4;
-            this.pictureBox12.TabStop = false;
-            // 
-            // pictureBox13
-            // 
-            this.pictureBox13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox13.Image = global::Bot_Dofus_1._29._1.Properties.Resources.agilidad;
-            this.pictureBox13.Location = new System.Drawing.Point(3, 483);
-            this.pictureBox13.Name = "pictureBox13";
-            this.pictureBox13.Size = new System.Drawing.Size(42, 46);
-            this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox13.TabIndex = 5;
-            this.pictureBox13.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(51, 280);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 40);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Vitalidad";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(51, 320);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(149, 40);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Sabiduría";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(51, 360);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(149, 40);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Fuerza";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Location = new System.Drawing.Point(51, 400);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(149, 40);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Inteligencia";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Location = new System.Drawing.Point(51, 440);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(149, 40);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "Suerte";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label13.Location = new System.Drawing.Point(51, 480);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(149, 52);
-            this.label13.TabIndex = 11;
-            this.label13.Text = "Agilidad";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button_subir_vitalidad
-            // 
-            this.button_subir_vitalidad.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_subir_vitalidad.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_mas;
-            this.button_subir_vitalidad.Location = new System.Drawing.Point(345, 283);
-            this.button_subir_vitalidad.Name = "button_subir_vitalidad";
-            this.button_subir_vitalidad.Size = new System.Drawing.Size(35, 34);
-            this.button_subir_vitalidad.TabIndex = 12;
-            this.button_subir_vitalidad.UseVisualStyleBackColor = true;
-            // 
-            // stats_vitalidad
-            // 
-            this.stats_vitalidad.AutoSize = true;
-            this.stats_vitalidad.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stats_vitalidad.Location = new System.Drawing.Point(206, 280);
-            this.stats_vitalidad.Name = "stats_vitalidad";
-            this.stats_vitalidad.Size = new System.Drawing.Size(133, 40);
-            this.stats_vitalidad.TabIndex = 13;
-            this.stats_vitalidad.Text = "-";
-            this.stats_vitalidad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // stats_sabiduria
-            // 
-            this.stats_sabiduria.AutoSize = true;
-            this.stats_sabiduria.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stats_sabiduria.Location = new System.Drawing.Point(206, 320);
-            this.stats_sabiduria.Name = "stats_sabiduria";
-            this.stats_sabiduria.Size = new System.Drawing.Size(133, 40);
-            this.stats_sabiduria.TabIndex = 14;
-            this.stats_sabiduria.Text = "-";
-            this.stats_sabiduria.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // stats_fuerza
-            // 
-            this.stats_fuerza.AutoSize = true;
-            this.stats_fuerza.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stats_fuerza.Location = new System.Drawing.Point(206, 360);
-            this.stats_fuerza.Name = "stats_fuerza";
-            this.stats_fuerza.Size = new System.Drawing.Size(133, 40);
-            this.stats_fuerza.TabIndex = 15;
-            this.stats_fuerza.Text = "-";
-            this.stats_fuerza.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // stats_inteligencia
-            // 
-            this.stats_inteligencia.AutoSize = true;
-            this.stats_inteligencia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stats_inteligencia.Location = new System.Drawing.Point(206, 400);
-            this.stats_inteligencia.Name = "stats_inteligencia";
-            this.stats_inteligencia.Size = new System.Drawing.Size(133, 40);
-            this.stats_inteligencia.TabIndex = 16;
-            this.stats_inteligencia.Text = "-";
-            this.stats_inteligencia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // stats_suerte
-            // 
-            this.stats_suerte.AutoSize = true;
-            this.stats_suerte.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stats_suerte.Location = new System.Drawing.Point(206, 440);
-            this.stats_suerte.Name = "stats_suerte";
-            this.stats_suerte.Size = new System.Drawing.Size(133, 40);
-            this.stats_suerte.TabIndex = 17;
-            this.stats_suerte.Text = "-";
-            this.stats_suerte.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // stats_agilidad
-            // 
-            this.stats_agilidad.AutoSize = true;
-            this.stats_agilidad.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stats_agilidad.Location = new System.Drawing.Point(206, 480);
-            this.stats_agilidad.Name = "stats_agilidad";
-            this.stats_agilidad.Size = new System.Drawing.Size(133, 52);
-            this.stats_agilidad.TabIndex = 18;
-            this.stats_agilidad.Text = "-";
-            this.stats_agilidad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox_puntos_stats
-            // 
-            this.groupBox_puntos_stats.Controls.Add(this.label_capital_stats);
-            this.groupBox_puntos_stats.Controls.Add(this.label_texto_capital_stats);
-            this.groupBox_puntos_stats.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox_puntos_stats.Location = new System.Drawing.Point(0, 516);
-            this.groupBox_puntos_stats.Name = "groupBox_puntos_stats";
-            this.groupBox_puntos_stats.Size = new System.Drawing.Size(389, 40);
-            this.groupBox_puntos_stats.TabIndex = 1;
-            this.groupBox_puntos_stats.TabStop = false;
-            this.groupBox_puntos_stats.Text = "Stats";
-            // 
-            // label_capital_stats
-            // 
-            this.label_capital_stats.AutoSize = true;
-            this.label_capital_stats.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label_capital_stats.Location = new System.Drawing.Point(373, 21);
-            this.label_capital_stats.Name = "label_capital_stats";
-            this.label_capital_stats.Size = new System.Drawing.Size(13, 17);
-            this.label_capital_stats.TabIndex = 1;
-            this.label_capital_stats.Text = "-";
-            this.label_capital_stats.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label_texto_capital_stats
-            // 
-            this.label_texto_capital_stats.AutoSize = true;
-            this.label_texto_capital_stats.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label_texto_capital_stats.Location = new System.Drawing.Point(3, 21);
-            this.label_texto_capital_stats.Name = "label_texto_capital_stats";
-            this.label_texto_capital_stats.Size = new System.Drawing.Size(100, 17);
-            this.label_texto_capital_stats.TabIndex = 0;
-            this.label_texto_capital_stats.Text = "Puntos de stats:";
-            this.label_texto_capital_stats.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // groupBox_imagen_personaje
-            // 
-            this.groupBox_imagen_personaje.Controls.Add(this.label_nivel_personaje);
-            this.groupBox_imagen_personaje.Controls.Add(this.label_nombre_personaje);
-            this.groupBox_imagen_personaje.Controls.Add(this.imagen_personaje);
-            this.groupBox_imagen_personaje.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_imagen_personaje.Location = new System.Drawing.Point(0, 0);
-            this.groupBox_imagen_personaje.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox_imagen_personaje.Name = "groupBox_imagen_personaje";
-            this.groupBox_imagen_personaje.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox_imagen_personaje.Size = new System.Drawing.Size(389, 516);
-            this.groupBox_imagen_personaje.TabIndex = 0;
-            this.groupBox_imagen_personaje.TabStop = false;
-            this.groupBox_imagen_personaje.Text = "Personaje";
-            // 
-            // label_nivel_personaje
-            // 
-            this.label_nivel_personaje.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_nivel_personaje.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_nivel_personaje.Location = new System.Drawing.Point(244, 64);
-            this.label_nivel_personaje.Name = "label_nivel_personaje";
-            this.label_nivel_personaje.Size = new System.Drawing.Size(142, 33);
-            this.label_nivel_personaje.TabIndex = 8;
-            this.label_nivel_personaje.Text = "-";
-            this.label_nivel_personaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label_nombre_personaje
-            // 
-            this.label_nombre_personaje.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_nombre_personaje.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_nombre_personaje.Location = new System.Drawing.Point(244, 22);
-            this.label_nombre_personaje.Name = "label_nombre_personaje";
-            this.label_nombre_personaje.Size = new System.Drawing.Size(142, 42);
-            this.label_nombre_personaje.TabIndex = 7;
-            this.label_nombre_personaje.Text = "-";
-            this.label_nombre_personaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // imagen_personaje
-            // 
-            this.imagen_personaje.Dock = System.Windows.Forms.DockStyle.Left;
-            this.imagen_personaje.Location = new System.Drawing.Point(3, 22);
-            this.imagen_personaje.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.imagen_personaje.Name = "imagen_personaje";
-            this.imagen_personaje.Size = new System.Drawing.Size(241, 490);
-            this.imagen_personaje.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imagen_personaje.TabIndex = 6;
-            this.imagen_personaje.TabStop = false;
-            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.uI_Hechizos1);
+            this.tabPage2.Controls.Add(this.panel1);
             this.tabPage2.ImageIndex = 1;
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -962,41 +1005,36 @@
             this.imageList1.Images.SetKeyName(1, "magic32.png");
             this.imageList1.Images.SetKeyName(2, "Iron_Axe_32.png");
             // 
-            // panel2
+            // label14
             // 
-            this.panel2.Controls.Add(this.groupBox_imagen_personaje);
-            this.panel2.Controls.Add(this.groupBox_puntos_stats);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(389, 556);
-            this.panel2.TabIndex = 2;
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(724, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(66, 17);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Puntos: 0";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox_caracteristicas
+            // panel1
             // 
-            this.groupBox_caracteristicas.Controls.Add(this.tableLayoutPanel5);
-            this.groupBox_caracteristicas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_caracteristicas.Location = new System.Drawing.Point(398, 3);
-            this.groupBox_caracteristicas.Name = "groupBox_caracteristicas";
-            this.groupBox_caracteristicas.Size = new System.Drawing.Size(389, 556);
-            this.groupBox_caracteristicas.TabIndex = 0;
-            this.groupBox_caracteristicas.TabStop = false;
-            this.groupBox_caracteristicas.Text = "Características";
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(3, 548);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(790, 18);
+            this.panel1.TabIndex = 1;
             // 
-            // tableLayoutPanel1
+            // uI_Hechizos1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox_caracteristicas, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 4);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(790, 562);
-            this.tableLayoutPanel1.TabIndex = 3;
+            this.uI_Hechizos1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uI_Hechizos1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.uI_Hechizos1.Location = new System.Drawing.Point(3, 4);
+            this.uI_Hechizos1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.uI_Hechizos1.Name = "uI_Hechizos1";
+            this.uI_Hechizos1.Size = new System.Drawing.Size(790, 544);
+            this.uI_Hechizos1.TabIndex = 2;
             // 
             // UI_Personaje
             // 
@@ -1009,31 +1047,34 @@
             this.Size = new System.Drawing.Size(804, 604);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.groupBox_imagen_personaje.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imagen_personaje)).EndInit();
+            this.groupBox_puntos_stats.ResumeLayout(false);
+            this.groupBox_puntos_stats.PerformLayout();
+            this.groupBox_caracteristicas.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
-            this.groupBox_puntos_stats.ResumeLayout(false);
-            this.groupBox_puntos_stats.PerformLayout();
-            this.groupBox_imagen_personaje.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imagen_personaje)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_oficios)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_skills)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.groupBox_caracteristicas.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1113,5 +1154,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox_caracteristicas;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel panel1;
+        private UI_Hechizos uI_Hechizos1;
     }
 }

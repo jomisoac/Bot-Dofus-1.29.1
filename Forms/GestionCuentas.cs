@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 if(!Principal.get_Paginas_Cuentas_Cargadas().ContainsKey(x.nombre_cuenta))
                 {
-                    listViewCuentas.Items.Add(x.nombre_cuenta).SubItems.AddRange(new string[] { x.servidor, x.id_personaje.ToString() });
+                    listViewCuentas.Items.Add(x.nombre_cuenta).SubItems.AddRange(new string[] { x.servidor, x.nombre_personaje });
                 }
             });
         }
@@ -51,12 +51,12 @@ namespace Bot_Dofus_1._29._1.Forms
                     return;
                 }
 
-                GlobalConf.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), Convert.ToInt32(seleccion_id_personaje.Value));
+                GlobalConf.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_nombre_personaje.Text);
                 cargar_Cuentas_Lista();
 
                 textBox_Nombre_Cuenta.Clear();
                 textBox_Password.Clear();
-                seleccion_id_personaje.Value = 1;
+                textBox_nombre_personaje.Clear();
 
                 if (checkBox_Agregar_Retroceder.Checked)
                 {
