@@ -14,7 +14,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
                 case EstadoCuenta.CONECTANDO:
                     return "Conectando";
                 case EstadoCuenta.DESCONECTADO:
-                    return "Desconectando";
+                    return "Desconectado";
                 case EstadoCuenta.INTERCAMBIO:
                     return "Intercambiando";
                 case EstadoCuenta.LUCHANDO:

@@ -5,7 +5,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
 {
     public class Hash
     {
-        public static readonly string abecedario = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
         public static char[] caracteres_array = new char[]
         {
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',

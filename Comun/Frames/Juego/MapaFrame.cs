@@ -1,10 +1,10 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Recolecciones;
 using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
 using Bot_Dofus_1._29._1.Otros.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
@@ -339,8 +339,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 }
             }
         }
+
         [PaqueteAtributo("GDM")]
-        public void get_Nuevo_Mapa(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.mapa.get_Actualizar_Mapa(paquete.Substring(4));
+        public void get_Nuevo_Mapa(ClienteTcp cliente, string paquete) => Task.Run(() =>
+        {
+            cliente.cuenta.juego.mapa.get_Actualizar_Mapa(paquete.Substring(4));
+        }).Wait();
 
         [PaqueteAtributo("GDK")]
         public void get_Mapa_Cambiado(ClienteTcp cliente, string paquete)

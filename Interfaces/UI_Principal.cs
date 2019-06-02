@@ -74,12 +74,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             else if (desconectarOconectarToolStripMenuItem.Text.Equals("Desconectar"))
                 desconectar_Cuenta();
-        }
+        } 
 
-        private void desconectar_Cuenta()
+        private void desconectar_Cuenta(bool disposed = true)
         {
-            cuenta.Dispose();
-            cuenta = null;
+            if(disposed)
+            {
+                cuenta?.Dispose();
+                cuenta = null;
+            }
 
             if (!IsHandleCreated)
                 return;
@@ -89,27 +92,20 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 cambiar_Todos_Controles_Chat(false);
 
                 for (int i = 2; i < tabControl_principal.TabPages.Count; ++i)
-                {
                     tabControl_principal.TabPages[i].Enabled = false;
-                }
-            }));
 
-            desconectarOconectarToolStripMenuItem.Text = "Conectar";
+                desconectarOconectarToolStripMenuItem.Text = "Conectar";
+            }));
         }
 
         private void cargar_Eventos_Debugger(ClienteTcp socket)
         {
             switch (socket.Estado_Socket)
             {
-                case EstadoSocket.DESCONECTADO:
-                    desconectar_Cuenta();
-                    break;
-
                 case EstadoSocket.CAMBIANDO_A_JUEGO:
                     agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
                     agregar_Tab_Pagina("Inventario", new UI_Inventario(cuenta), 3);
-
-                    cuenta.juego.personaje.mensaje_chat += socket_Evento_Chat;
+                    
                     cuenta.juego.personaje.caracteristicas_actualizadas += personaje_Caracteristicas_Actualizadas;
                     cuenta.juego.personaje.pods_actualizados += personaje_Pods_Actualizados;
                 break;
@@ -120,6 +116,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     agregar_Tab_Pagina("Combates", new UI_Pelea(cuenta), 5);
 
                     cambiar_Todos_Controles_Chat(true);
+                    cargar_Canales_Chat();
                 break;
             }
         }
@@ -151,20 +148,20 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }));
         }
 
-        private void cambiar_Todos_Controles_Chat(bool estado_botones)
+        private void cambiar_Todos_Controles_Chat(bool estado)
         {
             BeginInvoke((Action)(() =>
             {
-                canal_informaciones.Enabled = estado_botones;
-                canal_general.Enabled = estado_botones;
-                canal_privado.Enabled = estado_botones;
-                canal_gremio.Enabled = estado_botones;
-                canal_alineamiento.Enabled = estado_botones;
-                canal_reclutamiento.Enabled = estado_botones;
-                canal_comercio.Enabled = estado_botones;
-                canal_incarnam.Enabled = estado_botones;
-                textBox_enviar_consola.Enabled = estado_botones;
-                cargarScriptToolStripMenuItem.Enabled = estado_botones;
+                canal_informaciones.Enabled = estado;
+                canal_general.Enabled = estado;
+                canal_privado.Enabled = estado;
+                canal_gremio.Enabled = estado;
+                canal_alineamiento.Enabled = estado;
+                canal_reclutamiento.Enabled = estado;
+                canal_comercio.Enabled = estado;
+                canal_incarnam.Enabled = estado;
+                textBox_enviar_consola.Enabled = estado;
+                cargarScriptToolStripMenuItem.Enabled = estado;
             }));
         }
 
@@ -191,7 +188,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 case EstadoCuenta.DESCONECTADO:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_rojo);
-                    break;
+                    desconectar_Cuenta(false);
+                break;
 
                 case EstadoCuenta.CONECTANDO:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_naranja);
@@ -199,7 +197,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                 default:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_verde);
-                    break;
+                break;
             }
 
             if (cuenta != null && Principal.paginas_cuentas_cargadas.ContainsKey(configuracion_cuenta.nombre_cuenta))
@@ -220,13 +218,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }));
         }
 
-        private void socket_Evento_Chat()
+        private void cargar_Canales_Chat()
         {
             BeginInvoke((Action)(() =>
             {
                 canal_informaciones.Checked = cuenta.juego.personaje.canales.Contains("i");
                 canal_general.Checked = cuenta.juego.personaje.canales.Contains("*");
-                canal_privado.Checked = cuenta.juego.personaje.canales.Contains("#$p");
+                canal_privado.Checked = cuenta.juego.personaje.canales.Contains("#");
                 canal_gremio.Checked = cuenta.juego.personaje.canales.Contains("%");
                 canal_alineamiento.Checked = cuenta.juego.personaje.canales.Contains("!");
                 canal_reclutamiento.Checked = cuenta.juego.personaje.canales.Contains("?");
@@ -235,46 +233,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }));
         }
 
-        private void canal_CheckedChanged(object sender, EventArgs e)
+        private void canal_Chat_Click(object sender, EventArgs e)
         {
-            if (cuenta.juego.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
-            {
-                CheckBox control = sender as CheckBox;
-                switch (control.Name)
-                {
-                    case "canal_informaciones":
-                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+i" : "cC-i");
-                        break;
+            string[] canales = { "i", "*", "#$p", "%", "!", "?", ":", "^" };
+            CheckBox control = sender as CheckBox;
 
-                    case "canal_general":
-                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+*" : "cC-*");
-                        break;
-
-                    case "canal_privado":
-                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+#$p" : "cC-#$p");
-                        break;
-
-                    case "canal_gremio":
-                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+%" : "cC-%");
-                        break;
-
-                    case "canal_alineamiento":
-                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+!" : "cC-!");
-                        break;
-
-                    case "canal_reclutamiento":
-                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+?" : "cC-?");
-                        break;
-
-                    case "canal_comercio":
-                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+:" : "cC-:");
-                        break;
-
-                    case "canal_incarnam":
-                        cuenta.conexion.enviar_Paquete(control.Checked ? "cC+^" : "cC-^");
-                        break;
-                }
-            }
+            cuenta.conexion.enviar_Paquete((control.Checked ? "cC+" : "cC-") + canales[control.TabIndex]);
         }
 
         private void textBox_enviar_consola_KeyDown(object sender, KeyEventArgs e)
@@ -283,20 +247,33 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 if (cuenta.juego.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
                 {
-                    switch (textBox_enviar_consola.Text)
+                    switch (textBox_enviar_consola.Text.ToUpper())
                     {
-                        case "/mapid":
+                        case "/MAPID":
                             escribir_mensaje(cuenta.juego.mapa.id.ToString(), "0040FF");
-                            break;
+                        break;
 
-                        case "/cellid":
+                        case "/CELLID":
                             escribir_mensaje(cuenta.juego.personaje.celda.id.ToString(), "0040FF");
-                            break;
+                        break;
 
                         default:
-                            cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
-                            break;
+                            string[] separador = textBox_enviar_consola.Text.Split(new char[0]);
+                            
+                            switch(separador[0].ToUpper())
+                            {
+                                case "/W":
+                                    int substring = separador[0].Length + separador[1].Length + 2;
+                                    cuenta.conexion.enviar_Paquete("BM" + separador[1] + "|" + textBox_enviar_consola.Text.Substring(substring) + "|");
+                                break;
+
+                                default:
+                                    cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
+                                break;
+                            }
+                        break;
                     }
+
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                     textBox_enviar_consola.Clear();

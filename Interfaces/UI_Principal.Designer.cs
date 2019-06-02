@@ -228,7 +228,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_incarnam.Size = new System.Drawing.Size(15, 14);
             this.canal_incarnam.TabIndex = 7;
             this.canal_incarnam.UseVisualStyleBackColor = false;
-            this.canal_incarnam.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            this.canal_incarnam.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // canal_informaciones
             // 
@@ -242,7 +242,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_informaciones.Size = new System.Drawing.Size(15, 14);
             this.canal_informaciones.TabIndex = 0;
             this.canal_informaciones.UseVisualStyleBackColor = false;
-            this.canal_informaciones.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            this.canal_informaciones.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // canal_comercio
             // 
@@ -256,7 +256,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_comercio.Size = new System.Drawing.Size(15, 14);
             this.canal_comercio.TabIndex = 6;
             this.canal_comercio.UseVisualStyleBackColor = false;
-            this.canal_comercio.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            this.canal_comercio.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // canal_alineamiento
             // 
@@ -270,7 +270,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_alineamiento.Size = new System.Drawing.Size(15, 14);
             this.canal_alineamiento.TabIndex = 4;
             this.canal_alineamiento.UseVisualStyleBackColor = false;
-            this.canal_alineamiento.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            this.canal_alineamiento.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // canal_reclutamiento
             // 
@@ -284,7 +284,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_reclutamiento.Size = new System.Drawing.Size(15, 14);
             this.canal_reclutamiento.TabIndex = 5;
             this.canal_reclutamiento.UseVisualStyleBackColor = false;
-            this.canal_reclutamiento.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            this.canal_reclutamiento.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // canal_gremio
             // 
@@ -298,7 +298,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_gremio.Size = new System.Drawing.Size(15, 14);
             this.canal_gremio.TabIndex = 3;
             this.canal_gremio.UseVisualStyleBackColor = false;
-            this.canal_gremio.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            this.canal_gremio.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // canal_privado
             // 
@@ -312,7 +312,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_privado.Size = new System.Drawing.Size(15, 14);
             this.canal_privado.TabIndex = 2;
             this.canal_privado.UseVisualStyleBackColor = false;
-            this.canal_privado.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            this.canal_privado.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // canal_general
             // 
@@ -326,7 +326,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_general.Size = new System.Drawing.Size(15, 14);
             this.canal_general.TabIndex = 1;
             this.canal_general.UseVisualStyleBackColor = false;
-            this.canal_general.CheckedChanged += new System.EventHandler(this.canal_CheckedChanged);
+            this.canal_general.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // textbox_logs
             // 

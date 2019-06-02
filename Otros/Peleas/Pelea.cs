@@ -277,7 +277,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return FallosLanzandoHechizo.NINGUNO;
         }
 
-        public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(int hechizo_id, short celda_objetivo, Mapa mapa)
+        public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(int hechizo_id, short celda_actual, short celda_objetivo, Mapa mapa)
         {
             Hechizo hechizo = cuenta.juego.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_id);
 
@@ -295,7 +295,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (datos_hechizo.es_lanzado_linea && !celdas_mapa[jugador_luchador.celda_id].get_Esta_En_Linea(celda_objetivo))
                 return FallosLanzandoHechizo.NO_ESTA_EN_LINEA;
 
-            if (!get_Rango_hechizo(jugador_luchador.celda_id, datos_hechizo, mapa).Contains(celda_objetivo))
+            if (!get_Rango_hechizo(celda_actual, datos_hechizo, mapa).Contains(celda_objetivo))
                 return FallosLanzandoHechizo.NO_ESTA_EN_RANGO;
 
             return FallosLanzandoHechizo.NINGUNO;

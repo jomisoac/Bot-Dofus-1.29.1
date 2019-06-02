@@ -17,28 +17,35 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
         [PaqueteAtributo("AlEf")]
         public void get_Error_Datos(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("Login", "Conexión rechazada. Nombre de cuenta o contraseña incorrectos.");
+            cliente.cuenta.logger.log_Error("LOGIN", "Conexión rechazada. Nombre de cuenta o contraseña incorrectos.");
+            cliente.get_Desconectar_Socket();
+        }
+
+        [PaqueteAtributo("AlEa")]
+        public void get_Error_Ya_Conectado(ClienteTcp cliente, string paquete)
+        {
+            cliente.cuenta.logger.log_Error("LOGIN", "Ya conectado. Inténtalo de nuevo.");
             cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEv")]
         public void get_Error_Version(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("Login", "La versión %1 de Dofus que tienes instalada no es compatible con este servidor. Para poder jugar, instala la versión %2. El cliente DOFUS se va a cerrar.");
+            cliente.cuenta.logger.log_Error("LOGIN", "La versión %1 de Dofus que tienes instalada no es compatible con este servidor. Para poder jugar, instala la versión %2. El cliente DOFUS se va a cerrar.");
             cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEb")]
         public void get_Error_Baneado(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("Login", "Conexión rechazada. Tu cuenta ha sido baneada.");
+            cliente.cuenta.logger.log_Error("LOGIN", "Conexión rechazada. Tu cuenta ha sido baneada.");
             cliente.get_Desconectar_Socket();
         }
 
         [PaqueteAtributo("AlEd")]
         public void get_Error_Conectado(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("Login", "Esta cuenta ya está conectada a un servidor de juego. Por favor, inténtalo de nuevo.");
+            cliente.cuenta.logger.log_Error("LOGIN", "Esta cuenta ya está conectada a un servidor de juego. Por favor, inténtalo de nuevo.");
             cliente.get_Desconectar_Socket();
         }
 
@@ -56,7 +63,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
             if (minutos > 0)
                 mensaje.Append(minutos + " y minutos");
 
-            cliente.cuenta.logger.log_Error("Login", mensaje.ToString());
+            cliente.cuenta.logger.log_Error("LOGIN", mensaje.ToString());
             cliente.get_Desconectar_Socket();
         }
     }

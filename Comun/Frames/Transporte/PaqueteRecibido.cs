@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -50,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Transporte
 
             PaqueteDatos metodo = metodos.Find(m => paquete.StartsWith(m.nombre_paquete));
 
-            if(metodo != null)
+            if (metodo != null)
                 metodo.informacion.Invoke(metodo.instancia, new object[] { cliente, paquete });
         }
     }

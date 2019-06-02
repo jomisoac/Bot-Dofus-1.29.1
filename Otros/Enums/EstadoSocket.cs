@@ -3,7 +3,6 @@
     public enum EstadoSocket
     {
         NINGUNO,
-        DESCONECTADO,
         LOGIN,
         CAMBIANDO_A_JUEGO,
         CONECTADO

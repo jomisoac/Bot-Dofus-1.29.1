@@ -65,12 +65,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void despues_De_Archivo()
         {
-            manejador_script.Set_Global("imprimirExito", new Action<string>((mensaje) => cuenta.logger.log_informacion("Script", mensaje)));
-            manejador_script.Set_Global("imprimirError", new Action<string>((mensaje) => cuenta.logger.log_Error("Script", mensaje)));
-            manejador_script.Set_Global("detenerScript", new Action(() => detener_Script()));
-
-            manejador_script.Set_Global("estaRecolectando", (Func<bool>)cuenta.esta_recolectando);
-            manejador_script.Set_Global("estaDialogando", (Func<bool>)cuenta.esta_dialogando);
+            manejador_script.Set_Global("imprimir_exito", new Action<string>((mensaje) => cuenta.logger.log_informacion("Script", mensaje)));
+            manejador_script.Set_Global("imprimir_error", new Action<string>((mensaje) => cuenta.logger.log_Error("Script", mensaje)));
+            manejador_script.Set_Global("detener_script", new Action(() => detener_Script()));
+            
+            manejador_script.Set_Global("esta_recolectando", (Func<bool>)cuenta.esta_recolectando);
+            manejador_script.Set_Global("esta_dialogando", (Func<bool>)cuenta.esta_dialogando);
         }
 
         public void activar_Script()
@@ -469,9 +469,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             {
                 if (disposing)
                 {
-                    manejador_script.Dispose();
-                    manejar_acciones.Dispose();
+                    manejador_script?.Dispose();
+                    manejar_acciones?.Dispose();
                 }
+
                 manejar_acciones = null;
                 manejador_script = null;
                 activado = false;

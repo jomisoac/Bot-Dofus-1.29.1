@@ -1,4 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using System;

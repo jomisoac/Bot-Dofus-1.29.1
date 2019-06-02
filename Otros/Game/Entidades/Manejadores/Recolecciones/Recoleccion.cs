@@ -1,5 +1,5 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
-using Bot_Dofus_1._29._1.Otros.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Recolecciones
+namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
 {
     public class Recoleccion : IDisposable
     {
@@ -85,7 +85,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Recolecciones
                 case ResultadoMovimientos.EXITO:
                 case ResultadoMovimientos.MISMA_CELDA:
                     get_Intentar_Recolectar_Interactivo();
-                    return true;
+                return true;
 
                 default:
                     get_Cancelar_Interactivo();
