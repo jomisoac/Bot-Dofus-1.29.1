@@ -43,7 +43,6 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
 
         /** Eventos **/
         public event Action personaje_seleccionado;
-        public event Action mensaje_chat;
         public event Action caracteristicas_actualizadas;
         public event Action pods_actualizados;
         public event Action hechizos_actualizados;
@@ -81,16 +80,12 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
             if (cadena_canales.Length <= 1)
                 canales += cadena_canales;
             else
-            {
                 canales = cadena_canales;
-                mensaje_chat?.Invoke();
-            }
         }
 
         public void eliminar_Canal_Personaje(string simbolo_canal)
         {
             canales = canales.Replace(simbolo_canal, string.Empty);
-            mensaje_chat?.Invoke();
         }
 
         #region Eventos

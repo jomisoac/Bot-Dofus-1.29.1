@@ -86,11 +86,12 @@ namespace Bot_Dofus_1._29._1.Otros
             {
                 if (disposing)
                 {
-                    script.Dispose();
-                    conexion.Dispose();
-                    juego.Dispose();
-                    pelea.Dispose();
+                    script?.Dispose();
+                    conexion?.Dispose();
+                    juego?.Dispose();
+                    pelea?.Dispose();
                 }
+                Estado_Cuenta = EstadoCuenta.DESCONECTADO;
 
                 key_bienvenida = null;
                 conexion = null;
@@ -99,9 +100,6 @@ namespace Bot_Dofus_1._29._1.Otros
                 apodo = null;
                 cuenta_configuracion = null;
                 pelea = null;
-                Estado_Cuenta = EstadoCuenta.DESCONECTADO;
-                evento_estado_cuenta?.Invoke();
-
                 disposed = true;
             }
         }

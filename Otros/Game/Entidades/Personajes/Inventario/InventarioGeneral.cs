@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
 {
@@ -54,6 +55,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
                     _objetos.TryAdd(Convert.ToUInt32(separador[0], 16), objeto);
                 }
             }
+
             inventario_actualizado?.Invoke(true);
         }
 
@@ -105,7 +107,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
             if (objeto == null)
                 return false;
 
-            if(objeto.nivel > cuenta.juego.personaje.nivel)
+            if (objeto.nivel > cuenta.juego.personaje.nivel)
             {
                 cuenta.logger.log_Error("INVENTARIO", $"El nivel del objeto {objeto.nombre} es superior al nivel actual.");
                 return false;

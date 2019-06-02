@@ -631,15 +631,13 @@ namespace Bot_Dofus_1._29._1.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
+        ///   Busca una cadena traducida similar a &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;HECHIZOS&gt;
-        ///	&lt;HECHIZO&gt;
-        ///		&lt;id&gt;1&lt;/id&gt;
-        ///		&lt;nivel_requerido&gt;9&lt;/nivel_requerido&gt;
-        ///		&lt;nombre&gt;Armadura Incandescente&lt;/nombre&gt;
-        ///		&lt;nivel1&gt;[[[265,7,-1,-1,4,0,0d0+7]],[[265,8,-1,-1,4,0,0d0+8]],2,0,0,50,100,false,false,false,false,0,0,0,5,CcCc,[],[19,41,3,1,18],9,false]&lt;/nivel1&gt;
-        ///		&lt;nivel2&gt;[[[265,8,-1,-1,4,0,0d0+8]],[[265,9,-1,-1,4,0,0d0+9]],2,0,0,50,100,false,false,false,false,0,0,0,5,CcCc,[],[19,41,3,1,18],9,false]&lt;/nivel2&gt;
-        ///		&lt;nivel3&gt;[[[265,9,-1,-1,4,0,0d0+9]],[[265,10,-1,-1,4,0,0d0 [resto de la cadena truncado]&quot;;.
+        ///  &lt;HECHIZO ID=&quot;1&quot;&gt;
+        ///    &lt;NOMBRE&gt;Armadura Incandescente&lt;/NOMBRE&gt;
+        ///    &lt;NIVEL ID=&quot;1&quot; COSTE_PA=&quot;2&quot; RANGO_MINIMO=&quot;0&quot; RANGO_MAXIMO=&quot;0&quot; LANZ_EN_LINEA=&quot;FALSE&quot; NECESITA_VISION=&quot;FALSE&quot; NECESITA_CELDA_LIBRE=&quot;FALSE&quot; RANGO_MODIFICABLE=&quot;FALSE&quot; MAX_LANZ_POR_TURNO=&quot;0&quot; MAX_LANZ_POR_OBJETIVO=&quot;0&quot; COOLDOWN=&quot;5&quot;&gt;
+        ///      &lt;EFECTO TIPO=&quot;265&quot; COOLDOWN=&quot;4&quot; OBJETIVO=&quot;-1&quot; ZONA=&quot;Cc&quot; ES_CRITICO=&quot;FALSE&quot; /&gt;
+        ///      &lt;EFECTO TIPO=&quot;265&quot; COOLDOWN=&quot;4&quot; OBJETIVO=&quot;-1&quot; ZONA=&quot;Cc&quot; ES_CRITICO=&quot;TRUE&quot;  [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string hechizos {
             get {

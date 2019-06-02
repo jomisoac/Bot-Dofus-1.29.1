@@ -1,4 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -34,7 +34,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             if (celda_especifica)
             {
                 Celda celda = cuenta.juego.mapa.celdas[celda_id];
-                if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion, celda, true))
+                if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion, celda))
                 {
                     cuenta.logger.log_Error("SCRIPT", "Error al mover a la celda especificada: ");
                     return resultado_fallado;
@@ -42,7 +42,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             }
             else if (direccion_especifica)
             {
-                if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion, true))
+                if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion))
                 {
                     cuenta.logger.log_Error("SCRIPT", "Error al encontrar la celda teleport, usa el metodo por id");
                     return resultado_fallado;

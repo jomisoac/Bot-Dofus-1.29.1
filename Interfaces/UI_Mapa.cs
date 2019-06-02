@@ -2,7 +2,7 @@
 using Bot_Dofus_1._29._1.Controles.ControlMapa.Animaciones;
 using Bot_Dofus_1._29._1.Controles.ControlMapa.Celdas;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using System;
@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void UI_Mapa_Load(object sender, EventArgs e)
         {
             comboBox_calidad_minimapa.SelectedIndex = (byte)control_mapa.TipoCalidad;
-            
+
             control_mapa.clic_celda += mapa_Control_Celda_Clic;
             cuenta.juego.mapa.mapa_actualizado += get_Eventos_Mapa_Cambiado;
             cuenta.juego.mapa.entidades_actualizadas += () => control_mapa.Invalidate();
@@ -59,12 +59,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 control_mapa.set_Celda_Numero();
                 control_mapa.dibujar_Cuadricula();
             }
-
             BeginInvoke((Action)(() =>
             {
                 label_mapa_id.Text = "MAPA ID: " + mapa.id;
             }));
-            
+
             control_mapa.refrescar_Mapa();
         }
 
@@ -81,7 +80,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 {
                     case ResultadoMovimientos.EXITO:
                         cuenta.logger.log_informacion("UI_MAPA", "Personaje desplazado a la casilla: " + celda_destino.id);
-                    break;
+                        break;
 
                     case ResultadoMovimientos.MISMA_CELDA:
                         cuenta.logger.log_Error("UI_MAPA", "El jugador está en la misma a la seleccionada");
@@ -89,7 +88,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                     default:
                         cuenta.logger.log_Error("UI_MAPA", "Error desplazando el personaje a la casilla: " + celda_destino.id + " resultado: " + resultado);
-                    break;
+                        break;
                 }
             }
             else
@@ -103,7 +102,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             Mapa mapa = cuenta.juego.mapa;
             control_mapa.agregar_Animacion(cuenta.juego.personaje.id, lista_celdas, PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(lista_celdas.First(), lista_celdas, mapa), TipoAnimaciones.PERSONAJE);
         });
-        
+
         private void comboBox_calidad_minimapa_SelectedIndexChanged(object sender, EventArgs e) => control_mapa.TipoCalidad = (CalidadMapa)comboBox_calidad_minimapa.SelectedIndex;
         private void checkBox_animaciones_CheckedChanged(object sender, EventArgs e) => control_mapa.Mostrar_Animaciones = checkBox_animaciones.Checked;
         private void checkBox_mostrar_celdas_CheckedChanged(object sender, EventArgs e) => control_mapa.Mostrar_Celdas_Id = checkBox_mostrar_celdas.Checked;

@@ -103,7 +103,6 @@ namespace Bot_Dofus_1._29._1.Comun.Network
             }
             else
                 get_Desconectar_Socket();
-
         }
 
         public async Task enviar_Paquete_Async(string paquete)
@@ -136,13 +135,17 @@ namespace Bot_Dofus_1._29._1.Comun.Network
         {
             if (esta_Conectado())
             {
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
+                if (socket != null && socket.Connected)
+                {
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Disconnect(false);
+                    socket.Close();
+                }
 
                 socket_informacion?.Invoke("Socket desconectado del host");
 
                 if (Estado_Socket != EstadoSocket.CAMBIANDO_A_JUEGO)
-                    Dispose();
+                    cuenta?.Dispose();
             }
         }
 
@@ -183,16 +186,17 @@ namespace Bot_Dofus_1._29._1.Comun.Network
         {
             if (!disposed)
             {
-                if(socket != null && socket.Connected)
+                if (socket != null && socket.Connected)
                 {
                     socket.Shutdown(SocketShutdown.Both);
+                    socket.Disconnect(false);
                     socket.Close();
                 }
 
                 if (disposing)
                 {
-                    socket.Dispose();
-                    semaforo.Dispose();
+                    socket?.Dispose();
+                    semaforo?.Dispose();
                 }
 
                 semaforo = null;
@@ -202,7 +206,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 paquete_recibido = null;
                 paquete_enviado = null;
                 socket_informacion = null;
-                fase_socket = EstadoSocket.DESCONECTADO;
+
                 disposed = true;
             }
         }

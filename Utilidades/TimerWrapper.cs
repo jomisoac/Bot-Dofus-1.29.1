@@ -9,19 +9,19 @@ namespace Bot_Dofus_1._29._1.Utilidades
         public bool habilitado { get; private set; }
         public int intervalo { get; set; }
 
-        public TimerWrapper(int interval, TimerCallback callback)
+        public TimerWrapper(int _intervalo, TimerCallback callback)
         {
-            intervalo = interval;
+            intervalo = _intervalo;
             timer = new Timer(callback, null, Timeout.Infinite, Timeout.Infinite);
         }
 
-        public void Start(bool rightAway = false)
+        public void Start(bool inmediatamente = false)
         {
             if (habilitado)
                 return;
 
             habilitado = true;
-            timer.Change(rightAway ? 0 : intervalo, intervalo);
+            timer.Change(inmediatamente ? 0 : intervalo, intervalo);
         }
 
         public void Stop()

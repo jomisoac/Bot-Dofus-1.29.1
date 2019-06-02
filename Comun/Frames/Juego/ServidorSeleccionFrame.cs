@@ -2,6 +2,7 @@
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
+using System.Threading.Tasks;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -41,13 +42,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             int contador = 2;
             bool encontrado = false;
 
-            while(contador < _loc6_.Length && !encontrado)
+            while (contador < _loc6_.Length && !encontrado)
             {
                 string[] _loc11_ = _loc6_[contador].Split(';');
                 int id = int.Parse(_loc11_[0]);
                 string nombre = _loc11_[1];
 
-                if(string.Compare(nombre.ToUpper(), cuenta.cuenta_configuracion.nombre_personaje.ToUpper(), false) == 0)
+                if (string.Compare(nombre.ToUpper(), cuenta.cuenta_configuracion.nombre_personaje.ToUpper(), false) == 0)
                 {
                     cliente.enviar_Paquete("AS" + id);
                     encontrado = true;
@@ -77,10 +78,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             byte sexo = byte.Parse(_loc4[4]);
 
             cuenta.juego.personaje.set_Datos_Personaje(id, nombre, nivel, sexo, raza_id);
-            cuenta.juego.personaje.inventario.agregar_Objetos(_loc4[9]);
+
+            Task.Run(() => cuenta.juego.personaje.inventario.agregar_Objetos(_loc4[9])).Wait();
 
             cliente.enviar_Paquete("GC1");
             cliente.enviar_Paquete("BYA");
+
             cuenta.juego.personaje.evento_Personaje_Seleccionado();
             cuenta.conexion.Estado_Socket = EstadoSocket.CONECTADO;
             cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;

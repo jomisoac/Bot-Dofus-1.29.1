@@ -10,7 +10,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
+
+namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 {
     public class Movimiento : IDisposable
     {
@@ -51,7 +59,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos
             return true; // direccion NINGUNA
         }
 
-        public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, Celda celda, bool esquivar_monstruos)
+        public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, Celda celda)
         {
             if (cuenta.esta_ocupado)
                 return false;
@@ -59,10 +67,10 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos
             if (!get_Puede_Cambiar_Mapa(direccion, celda))
                 return false;
 
-            return get_Mover_Para_Cambiar_mapa(celda, esquivar_monstruos);
+            return get_Mover_Para_Cambiar_mapa(celda);
         }
 
-        public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, bool esquivar_monstruos)
+        public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion)
         {
             if (cuenta.esta_ocupado)
                 return false;
@@ -73,7 +81,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos
             {
                 Celda celda = celdas_teleport[Randomize.get_Random_Int(0, celdas_teleport.Count)];
 
-                if (get_Cambiar_Mapa(direccion, celda, esquivar_monstruos))
+                if (get_Cambiar_Mapa(direccion, celda))
                     return true;
 
                 celdas_teleport.Remove(celda);
@@ -100,13 +108,19 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos
             if (celda_destino.tipo == TipoCelda.OBJETO_INTERACTIVO && celda_destino.objeto_interactivo == null)
                 return ResultadoMovimientos.FALLO;
 
-            List<short> path_temporal = pathfinder.get_Path(cuenta.juego.personaje.celda, celda_destino, celdas_no_permitidas);
+            List<short> path_temporal = pathfinder.get_Path(cuenta.juego.personaje.celda, celda_destino, celdas_no_permitidas, detener_delante);
             
             if (path_temporal == null || path_temporal.Count == 0)
-            {
-                cuenta.logger.log_Peligro("MOVIMIENTOS", "Pathfinder inválido o vacío");
                 return ResultadoMovimientos.PATHFINDING_ERROR;
-            }
+
+            if (!detener_delante && path_temporal.Last() != celda_destino.id)
+                return ResultadoMovimientos.PATHFINDING_ERROR;
+
+            if (detener_delante && path_temporal.Count == 1 && path_temporal[0] == cuenta.juego.personaje.celda.id)
+                return ResultadoMovimientos.MISMA_CELDA;
+
+            if (detener_delante && path_temporal.Count == 2 && path_temporal[0] == cuenta.juego.personaje.celda.id && path_temporal[1] == celda_destino.id)
+                return ResultadoMovimientos.MISMA_CELDA;
 
             actual_path = path_temporal;
             enviar_Paquete_Movimiento();
@@ -130,7 +144,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos
             cuenta.juego.personaje.evento_Personaje_Pathfinding_Minimapa(nodo.Value.Value.camino.celdas_accesibles);
         }
 
-        private bool get_Mover_Para_Cambiar_mapa(Celda celda, bool esquivar_monstruos)
+        private bool get_Mover_Para_Cambiar_mapa(Celda celda)
         {
             switch (get_Mover_A_Celda(celda, mapa.celdas_ocupadas))
             {

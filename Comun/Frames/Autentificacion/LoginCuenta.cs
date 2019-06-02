@@ -52,20 +52,18 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                 byte poblacion = byte.Parse(_loc7_[2]);
                 bool registro = _loc7_[3] == "1";
 
-                if (id == cuenta.servidor_id)
-                {
-                    cliente.cuenta.logger.log_informacion("LOGIN", "El servidor " + id + " esta " + (EstadosServidor)estado);
+                cliente.cuenta.logger.log_informacion("LOGIN", "El servidor " + (id == 601 ? "Eratz" : "Henual") + " esta " + (EstadosServidor)estado);
 
-                    if (estado != 1)
-                    {
-                        cliente.cuenta.logger.log_Error("LOGIN", "Servidor no accesible cuando este accesible se re-conectara");
-                        accesible = false;
-                    }
+                if (id == cuenta.servidor_id && estado != 1)
+                {
+                    cliente.cuenta.logger.log_Error("LOGIN", "Servidor no accesible cuando este accesible se re-conectara");
+                    accesible = false;
                 }
+
                 _loc6_++;
             }
 
-            if(accesible)
+            if (accesible)
                 cliente.enviar_Paquete("Ax");
         }
 
@@ -77,7 +75,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
             int contador = 1;
             bool seleccionado = false;
 
-            while(contador < loc5.Length && !seleccionado)
+            while (contador < loc5.Length && !seleccionado)
             {
                 string[] _loc10_ = loc5[contador].Split(',');
                 int servidor = int.Parse(_loc10_[0]);

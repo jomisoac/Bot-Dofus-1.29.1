@@ -1,8 +1,8 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using System;
 
-namespace Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Interactivos
+namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Interactivos
 {
     public class Interactivo : IDisposable
     {

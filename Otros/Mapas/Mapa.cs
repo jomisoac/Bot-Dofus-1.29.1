@@ -67,8 +67,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 x = sbyte.Parse(archivo_mapa.Element("X").Value);
                 y = sbyte.Parse(archivo_mapa.Element("Y").Value);
 
-                await Task.Run(() => descomprimir_mapa(archivo_mapa.Element("MAPA_DATA").Value)).ConfigureAwait(false);
-                
+                descomprimir_mapa(archivo_mapa.Element("MAPA_DATA").Value);
                 archivo_mapa = null;//limpia la memoria
             }
             else

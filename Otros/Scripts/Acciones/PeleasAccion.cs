@@ -1,5 +1,5 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Manejadores.Movimientos;
-using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
+﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using System.Collections.Generic;
 using System.Threading.Tasks;
