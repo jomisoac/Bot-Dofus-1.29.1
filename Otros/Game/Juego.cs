@@ -29,9 +29,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game
             {
                 if (disposing)
                 {
-                    mapa.Dispose();
-                    personaje.Dispose();
-                    manejador.Dispose();
+                    mapa?.Dispose();
+                    personaje?.Dispose();
+                    manejador?.Dispose();
                 }
 
                 mapa = null;

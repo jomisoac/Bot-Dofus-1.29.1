@@ -34,7 +34,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             {
                 foreach (Monstruo grupo_monstruo in grupos_disponibles)
                 {
-                    switch (cuenta.juego.manejador.movimientos.get_Mover_A_Celda(grupo_monstruo.celda, new List<Celda>(), false))
+                    switch (cuenta.juego.manejador.movimientos.get_Mover_A_Celda(grupo_monstruo.celda, new List<Celda>()))
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("SCRIPT", $"Movimiento hacia un grupo de monstruos celda: {grupo_monstruo.celda.id}, total de monstruos: {grupo_monstruo.get_Total_Monstruos}, nivel total del grupo: {grupo_monstruo.get_Total_Nivel_Grupo}");

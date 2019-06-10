@@ -1,5 +1,7 @@
-﻿using Bot_Dofus_1._29._1.Otros.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario.Enums;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas;
@@ -8,13 +10,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/*
+    Este archivo es parte del proyecto BotDofus_1.29.1
+
+    BotDofus_1.29.1 Copyright (C) 2019 Alvaro Prendes — Todos los derechos reservados.
+    Creado por Alvaro Prendes
+    web: http://www.salesprendes.com
+*/
+
 namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
 {
     public class Recoleccion : IDisposable
     {
         private Cuenta cuenta;
         private Mapa mapa;
-        private ObjetoInteractivo interactivo_recolectando;
+        public ObjetoInteractivo interactivo_recolectando;
         private List<int> interactivos_no_utilizables;
         private bool robado;
         private Pathfinder pathfinder;
@@ -56,29 +66,31 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
         {
             Dictionary<short, ObjetoInteractivo> elementos_utilizables = new Dictionary<short, ObjetoInteractivo>();
 
-            foreach (Celda celda in mapa.celdas)
+            foreach (ObjetoInteractivo interactivo in mapa.interactivos.Values)
             {
-                if (celda == null || celda.objeto_interactivo == null)
+                if (!interactivo.es_utilizable || !interactivo.modelo.recolectable)
                     continue;
 
-                if (!celda.objeto_interactivo.es_utilizable || !celda.objeto_interactivo.modelo.recolectable)
-                    continue;
-
-                foreach (short interactivo in celda.objeto_interactivo.modelo.habilidades)
+                foreach (short habilidad in interactivo.modelo.habilidades)
                 {
-                    if (elementos_ids.Contains(interactivo))
-                        elementos_utilizables.Add(celda.id, celda.objeto_interactivo);
+                    if (elementos_ids.Contains(habilidad))
+                        elementos_utilizables.Add(interactivo.celda.id, interactivo);
                 }
             }
-
+            
             return elementos_utilizables;
         }
 
         private bool get_Intentar_Mover_Interactivo(KeyValuePair<short, ObjetoInteractivo> interactivo)
         {
             interactivo_recolectando = interactivo.Value;
+            byte distancia_detener = 1;
+            ObjetosInventario arma = cuenta.juego.personaje.inventario.get_Objeto_en_Posicion(InventarioPosiciones.ARMA);
 
-             ResultadoMovimientos resultado = cuenta.juego.manejador.movimientos.get_Mover_A_Celda(interactivo_recolectando.celda, mapa.celdas_ocupadas, true);
+            if(arma != null)
+                distancia_detener = get_Distancia_herramienta(arma.id_modelo);
+
+             ResultadoMovimientos resultado = cuenta.juego.manejador.movimientos.get_Mover_A_Celda(interactivo_recolectando.celda, mapa.celdas_ocupadas, true, distancia_detener);
 
             switch (resultado)
             {
@@ -158,6 +170,44 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
             interactivo_recolectando = null;
             interactivos_no_utilizables.Clear();
             robado = false;
+        }
+
+        public static byte get_Distancia_herramienta(int id_objeto)
+        {
+            switch (id_objeto)
+            {
+                case 8541:
+                case 6661:
+                case 596:
+                    return 2;
+
+                case 1866:
+                    return 3;
+
+                case 1865:
+                case 1864:
+                    return 4;
+
+                case 1867:
+                case 2188:
+                    return 5;
+
+                case 1863:
+                case 1862:
+                    return 6;
+
+                case 1868:
+                    return 7;
+
+                case 1861:
+                case 1860:
+                    return 8;
+
+                case 2366:
+                    return 9;
+            }
+
+            return 1;
         }
 
         #region Zona Dispose

@@ -24,7 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
             celdas = mapa.celdas;
         }
 
-        public List<short> get_Path(Celda celda_inicio, Celda celda_final, List<Celda> celdas_no_permitidas, bool detener_delante)
+        public List<short> get_Path(Celda celda_inicio, Celda celda_final, List<Celda> celdas_no_permitidas, bool detener_delante, byte distancia_detener)
         {
             List<Celda> celdas_permitidas = new List<Celda>() { celda_inicio };
 
@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
 
                 Celda actual = celdas_permitidas[index];
 
-                if (detener_delante && get_Distancia_Nodos(actual, celda_final) == 1 && !celda_final.es_Caminable())
+                if (detener_delante && get_Distancia_Nodos(actual, celda_final) == distancia_detener && !celda_final.es_Caminable())
                     return get_Camino_Retroceso(celda_inicio, actual);
 
                 if (actual == celda_final)

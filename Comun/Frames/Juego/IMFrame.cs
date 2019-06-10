@@ -30,6 +30,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("Im025")]
         public void get_Mensaje_Mascota_Feliz(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "¡Tu mascota está muy contenta de volver a verte!");
 
+        [PaqueteAtributo("Im0157")]
+        public void get_Mensaje_Error_Chat_Difusion(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "Este canal no tiene la difusión accesible más que a los abonados de nivel " + paquete.Split(';')[1]);
+
         [PaqueteAtributo("Im037")]
         public void get_Mensaje_Modo_Away_Dofus(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "Desde ahora serás considerado como ausente.");
     }

@@ -2,13 +2,13 @@
 using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
+using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 /*
@@ -35,6 +35,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public ConcurrentDictionary<int, Personaje> personajes;
         public ConcurrentDictionary<int, Monstruo> monstruos;
         public ConcurrentDictionary<int, Npcs> npcs;
+        public ConcurrentDictionary<int, ObjetoInteractivo> interactivos;
 
         public event Action mapa_actualizado;
         public event Action entidades_actualizadas;
@@ -47,9 +48,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             personajes = new ConcurrentDictionary<int, Personaje>();
             monstruos = new ConcurrentDictionary<int, Monstruo>();
             npcs = new ConcurrentDictionary<int, Npcs>();
+            interactivos = new ConcurrentDictionary<int, ObjetoInteractivo>();
         }
 
-        public async void get_Actualizar_Mapa(string paquete)
+        public void get_Actualizar_Mapa(string paquete)
         {
             personajes.Clear();
             monstruos.Clear();
@@ -77,18 +79,13 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             }
 
             mapa_archivo = null;
-
         }
 
         public string mapa_coordenadas => $"[{x},{y}]";
         public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
         public bool esta_En_Mapa(string coordenadas) => coordenadas == id.ToString() || coordenadas == mapa_coordenadas;
         public Celda get_Celda_Por_Coordenadas(int x, int y) => celdas.FirstOrDefault(celda => celda.x == x && celda.y == y);
-
-        public List<Celda> celdas_ocupadas => personajes.Values.Select(f => f.celda)
-            .Union(monstruos.Values.Select(f => f.celda))
-            .Union(npcs.Values.Select(f => f.celda)).ToList();
-
+        public List<Celda> celdas_ocupadas => personajes.Values.Select(f => f.celda).Union(monstruos.Values.Select(f => f.celda)).Union(npcs.Values.Select(f => f.celda)).ToList();
         public bool get_Puede_Luchar_Contra_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios) => get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios).Count > 0;
 
         public List<Monstruo> get_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios)
@@ -214,6 +211,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
             personajes.Clear();
             monstruos.Clear();
+            interactivos.Clear();
             npcs.Clear();
             celdas = null;
             personajes = null;
