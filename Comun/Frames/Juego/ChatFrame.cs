@@ -52,7 +52,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 break;
 
                 default:
-                    canal = "General";
+                    canal = "GENERAL";
                 break;
             }
 

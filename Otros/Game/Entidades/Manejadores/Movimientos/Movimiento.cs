@@ -91,7 +91,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             return false;
         }
 
-        public ResultadoMovimientos get_Mover_A_Celda(Celda celda_destino, List<Celda> celdas_no_permitidas, bool detener_delante = false)
+        public ResultadoMovimientos get_Mover_A_Celda(Celda celda_destino, List<Celda> celdas_no_permitidas, bool detener_delante = false, byte distancia_detener = 0)
         {
             if (celda_destino.id < 0 || celda_destino.id > mapa.celdas.Length)
                 return ResultadoMovimientos.FALLO;
@@ -108,7 +108,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (celda_destino.tipo == TipoCelda.OBJETO_INTERACTIVO && celda_destino.objeto_interactivo == null)
                 return ResultadoMovimientos.FALLO;
 
-            List<short> path_temporal = pathfinder.get_Path(cuenta.juego.personaje.celda, celda_destino, celdas_no_permitidas, detener_delante);
+            List<short> path_temporal = pathfinder.get_Path(cuenta.juego.personaje.celda, celda_destino, celdas_no_permitidas, detener_delante, distancia_detener);
             
             if (path_temporal == null || path_temporal.Count == 0)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
@@ -118,7 +118,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
             if (detener_delante && path_temporal.Count == 1 && path_temporal[0] == cuenta.juego.personaje.celda.id)
                 return ResultadoMovimientos.MISMA_CELDA;
-
+            
             if (detener_delante && path_temporal.Count == 2 && path_temporal[0] == cuenta.juego.personaje.celda.id && path_temporal[1] == celda_destino.id)
                 return ResultadoMovimientos.MISMA_CELDA;
 

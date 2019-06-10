@@ -81,28 +81,33 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa.Celdas
         {
             using (GraphicsPath path = new GraphicsPath())
             {
-                Point[] newPoints = new Point[15];
+                path.AddLines(new PointF[]
+                {
+                    new PointF(Puntos[0].X, Puntos[0].Y - 10),
+                    new PointF(Puntos[1].X, Puntos[1].Y - 10),
+                    new PointF(Puntos[2].X, Puntos[2].Y - 10),
+                    new PointF(Puntos[3].X, Puntos[3].Y - 10),
+                    new PointF(Puntos[0].X, Puntos[0].Y - 10)
+                });
 
-                newPoints[0] = new Point(Puntos[0].X, Puntos[0].Y - 10);
-                newPoints[1] = new Point(Puntos[1].X, Puntos[1].Y - 10);
-                newPoints[2] = new Point(Puntos[2].X, Puntos[2].Y - 10);
-                newPoints[3] = new Point(Puntos[3].X, Puntos[3].Y - 10);
-                newPoints[4] = new Point(Puntos[0].X, Puntos[0].Y - 10);
+                path.AddLines(new PointF[]
+                {
+                    new PointF(Puntos[0].X, Puntos[0].Y - 10),
+                    new PointF(Puntos[3].X, Puntos[3].Y - 10),
+                    Puntos[3],
+                    Puntos[0],
+                    new PointF(Puntos[0].X, Puntos[0].Y - 10),
+                });
 
-                newPoints[5] = new Point(Puntos[0].X, Puntos[0].Y - 10);
-                newPoints[6] = new Point(Puntos[3].X, Puntos[3].Y - 10);
-                newPoints[7] = Puntos[3];
-                newPoints[8] = Puntos[0];
-                newPoints[9] = new Point(Puntos[0].X, Puntos[0].Y - 10);
-
-                newPoints[10] = new Point(Puntos[3].X, Puntos[3].Y - 10);
-                newPoints[11] = new Point(Puntos[2].X, Puntos[2].Y - 10);
-                newPoints[12] = Puntos[2];
-                newPoints[13] = Puntos[3];
-                newPoints[14] = new Point(Puntos[3].X, Puntos[3].Y - 10);
-
-                path.AddLines(newPoints);
-
+                path.AddLines(new PointF[]
+                {
+                    new PointF(Puntos[3].X, Puntos[3].Y - 10),
+                    new PointF(Puntos[2].X, Puntos[2].Y - 10),
+                    Puntos[2],
+                    Puntos[3],
+                    new PointF(Puntos[3].X, Puntos[3].Y - 10),
+                });
+                
                 using (SolidBrush brush = new SolidBrush(fillingColor))
                     g.FillPath(brush, path);
 
@@ -111,7 +116,6 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa.Celdas
             }
         }
 
-        public bool esta_En_Rectangulo(Rectangle rectangulo) => Rectangulo.IntersectsWith(rectangulo);
         public bool esta_En_Rectangulo(RectangleF rectangulo) => Rectangulo.IntersectsWith(Rectangle.Ceiling(rectangulo));
     }
 }

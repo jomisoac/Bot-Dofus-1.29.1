@@ -59,11 +59,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("BT")]
-        public void get_Tiempo_Servidor(ClienteTcp cliente, string paquete)
-        {
-            Cuenta cuenta = cliente.cuenta;
-            cliente.enviar_Paquete("GI");
-        }
+        public void get_Tiempo_Servidor(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete("GI");
 
         [PaqueteAtributo("ASK")]
         public void personaje_Seleccionado(ClienteTcp cliente, string paquete)

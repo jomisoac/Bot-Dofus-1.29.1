@@ -161,7 +161,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GAS")]
-        public void get_Inicio_Accion(ClienteTcp cliente, string paquete) { }
+        public async Task get_Inicio_Accion(ClienteTcp cliente, string paquete) => await Task.Delay(200);
 
         [PaqueteAtributo("GA")]
         public async Task get_Iniciar_Accion(ClienteTcp cliente, string paquete)
@@ -323,14 +323,15 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 {
                     case 2:
                         cuenta.juego.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
-                        break;
+                    break;
 
                     case 3:
                         cuenta.juego.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
 
-                        //pescador no envia IQ porque aveces no pesca pero si manda GDF;3
                         if(cuenta.esta_recolectando())
                             cuenta.juego.manejador.recoleccion.evento_Recoleccion_Acabada(RecoleccionResultado.RECOLECTADO, celda_id);
+                        else
+                            cuenta.juego.manejador.recoleccion.evento_Recoleccion_Acabada(RecoleccionResultado.ROBADO, celda_id);
                     break;
 
                     case 4:// reaparece asi se fuerza el cambio de mapa 

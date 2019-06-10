@@ -79,10 +79,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void desconectar_Cuenta(bool disposed = true)
         {
             if(disposed)
-            {
                 cuenta?.Dispose();
-                cuenta = null;
-            }
+
+            cuenta = null;
 
             if (!IsHandleCreated)
                 return;
@@ -160,6 +159,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 canal_reclutamiento.Enabled = estado;
                 canal_comercio.Enabled = estado;
                 canal_incarnam.Enabled = estado;
+                comboBox_lista_canales.Enabled = estado;
                 textBox_enviar_consola.Enabled = estado;
                 cargarScriptToolStripMenuItem.Enabled = estado;
             }));
@@ -230,15 +230,19 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 canal_reclutamiento.Checked = cuenta.juego.personaje.canales.Contains("?");
                 canal_comercio.Checked = cuenta.juego.personaje.canales.Contains(":");
                 canal_incarnam.Checked = cuenta.juego.personaje.canales.Contains("^");
+                comboBox_lista_canales.SelectedIndex = 0;
             }));
         }
 
         private void canal_Chat_Click(object sender, EventArgs e)
         {
-            string[] canales = { "i", "*", "#$p", "%", "!", "?", ":", "^" };
-            CheckBox control = sender as CheckBox;
+            if (cuenta?.Estado_Cuenta != EstadoCuenta.DESCONECTADO && cuenta?.Estado_Cuenta != EstadoCuenta.CONECTANDO)
+            {
+                string[] canales = { "i", "*", "#$p", "%", "!", "?", ":", "^" };
+                CheckBox control = sender as CheckBox;
 
-            cuenta.conexion.enviar_Paquete((control.Checked ? "cC+" : "cC-") + canales[control.TabIndex]);
+                cuenta.conexion.enviar_Paquete((control.Checked ? "cC+" : "cC-") + canales[control.TabIndex]);
+            }
         }
 
         private void textBox_enviar_consola_KeyDown(object sender, KeyEventArgs e)
@@ -258,17 +262,22 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         break;
 
                         default:
-                            string[] separador = textBox_enviar_consola.Text.Split(new char[0]);
-                            
-                            switch(separador[0].ToUpper())
+                            switch(comboBox_lista_canales.SelectedIndex)
                             {
-                                case "/W":
-                                    int substring = separador[0].Length + separador[1].Length + 2;
-                                    cuenta.conexion.enviar_Paquete("BM" + separador[1] + "|" + textBox_enviar_consola.Text.Substring(substring) + "|");
+                                case 0://General
+                                    cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
                                 break;
 
-                                default:
-                                    cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
+                                case 1://Reclutamiento
+                                    cuenta.conexion.enviar_Paquete("BM?|" + textBox_enviar_consola.Text + "|");
+                                break;
+
+                                case 2://Comercio
+                                    cuenta.conexion.enviar_Paquete("BM:|" + textBox_enviar_consola.Text + "|");
+                                break;
+
+                                case 3://Mensaje privado
+                                    cuenta.conexion.enviar_Paquete("BM" + textBox_nombre_privado.Text + "|" + textBox_enviar_consola.Text + "|");
                                 break;
                             }
                         break;
@@ -279,6 +288,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     textBox_enviar_consola.Clear();
                 }
             }
+        }
+
+        private void comboBox_lista_canales_Valor_Cambiado(object sender, EventArgs e)
+        {
+            ComboBox control = sender as ComboBox;
+            textBox_nombre_privado.Enabled = control.SelectedIndex == 3;
         }
 
         private void cargarScriptToolStripMenuItem_Click(object sender, EventArgs e)
