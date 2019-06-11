@@ -29,7 +29,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public sbyte x { get; set; }
         public sbyte y { get; set; }
         public Celda[] celdas;
-        private Cuenta cuenta { get; set; }
 
         /** Concurrent para forzar thread-safety **/
         public ConcurrentDictionary<int, Personaje> personajes;
@@ -41,10 +40,8 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public event Action entidades_actualizadas;
         private bool disposed = false;
 
-        public Mapa(Cuenta _cuenta)
+        public Mapa()
         {
-            cuenta = _cuenta;
-
             personajes = new ConcurrentDictionary<int, Personaje>();
             monstruos = new ConcurrentDictionary<int, Monstruo>();
             npcs = new ConcurrentDictionary<int, Npcs>();
@@ -56,6 +53,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             personajes.Clear();
             monstruos.Clear();
             npcs.Clear();
+            interactivos.Clear();
 
             string[] _loc3 = paquete.Split('|');
             id = int.Parse(_loc3[0]);
@@ -71,11 +69,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
                 descomprimir_mapa(archivo_mapa.Element("MAPA_DATA").Value);
                 archivo_mapa = null;//limpia la memoria
-            }
-            else
-            {
-                cuenta.conexion.get_Desconectar_Socket();
-                cuenta.logger.log_Error("Mapa", $"Archivo de mapa no encontrado bot desconectado, id mapa: {id}");
             }
 
             mapa_archivo = null;
@@ -217,7 +210,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             personajes = null;
             monstruos = null;
             npcs = null;
-            cuenta = null;
             disposed = true;
         }
         #endregion

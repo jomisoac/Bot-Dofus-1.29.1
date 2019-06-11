@@ -14,7 +14,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game
 
         internal Juego(Cuenta cuenta)
         {
-            mapa = new Mapa(cuenta);
+            mapa = new Mapa();
             personaje = new Personaje(cuenta);
             manejador = new Manejador(cuenta, mapa);
         }
