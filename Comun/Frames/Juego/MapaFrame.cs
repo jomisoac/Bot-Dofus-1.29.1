@@ -322,11 +322,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 switch (estado)
                 {
                     case 2:
-                        cuenta.juego.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
-                    break;
+                        cuenta.juego.mapa.interactivos[celda_id].es_utilizable = false;
+                        break;
 
                     case 3:
-                        cuenta.juego.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
+                        cuenta.juego.mapa.interactivos[celda_id].es_utilizable = false;
 
                         if(cuenta.esta_recolectando())
                             cuenta.juego.manejador.recoleccion.evento_Recoleccion_Acabada(RecoleccionResultado.RECOLECTADO, celda_id);
@@ -335,7 +335,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     break;
 
                     case 4:// reaparece asi se fuerza el cambio de mapa 
-                        cuenta.juego.mapa.celdas[celda_id].objeto_interactivo.es_utilizable = false;
+                        cuenta.juego.mapa.interactivos[celda_id].es_utilizable = false;
                     break;
                 }
             }

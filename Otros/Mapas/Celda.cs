@@ -56,7 +56,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 objeto_interactivo = new ObjetoInteractivo(objeto_interactivo_id, this);
                 mapa.interactivos.TryAdd(id, objeto_interactivo);
             }
-                
 
             byte mapa_anchura = mapa.anchura;
             int _loc5 = id / ((mapa_anchura * 2) - 1);
