@@ -78,9 +78,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
         public bool esta_En_Mapa(string coordenadas) => coordenadas == id.ToString() || coordenadas == mapa_coordenadas;
         public Celda get_Celda_Por_Coordenadas(int x, int y) => celdas.FirstOrDefault(celda => celda.x == x && celda.y == y);
-        public List<Celda> celdas_ocupadas => personajes.Values.Select(f => f.celda).Union(monstruos.Values.Select(f => f.celda)).Union(npcs.Values.Select(f => f.celda)).ToList();
         public bool get_Puede_Luchar_Contra_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios) => get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios).Count > 0;
 
+        // si el destino es una celda teleport, aunque haya un monstruo encima de la celda no causara agresion
+        public List<Celda> celdas_ocupadas => personajes.Values.Select(c => c.celda).Union(monstruos.Values.Where(m => m.celda.tipo != TipoCelda.CELDA_TELEPORT).Select(m => m.celda)).Union(npcs.Values.Select(n => n.celda)).ToList();
+        
         public List<Monstruo> get_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios)
         {
             List<Monstruo> grupos_monstruos_disponibles = new List<Monstruo>();

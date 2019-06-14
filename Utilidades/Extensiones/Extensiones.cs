@@ -5,7 +5,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
 {
     public static class Extensiones
     {
-        public static readonly string[] lista_mods = { "Nemetacum", "Seydlex", "Sisuphos", "Toblik", "Falgoryn", };
+        public static readonly string[] lista_mods = new string[] { "Nemetacum", "Seydlex", "Sisuphos", "Toblik", "Falgoryn", };
 
         public static string cadena_Amigable(this EstadoCuenta estado)
         {
@@ -39,9 +39,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
                     return "-";
             }
         }
-
-        public static string get_Substring_Seguro(this string texto, int inicio, int longitud) => texto.Length <= inicio ? " " : texto.Length - inicio <= longitud ? texto.Substring(inicio) : texto.Substring(inicio, longitud);
-        public static string Truncar(this string texto, int maxima_longitud) => texto.Length <= maxima_longitud ? texto : $"{texto.Substring(0, maxima_longitud)}...";
 
         public static T get_Or<T>(this Table table, string key, DataType type, T orValue)
         {

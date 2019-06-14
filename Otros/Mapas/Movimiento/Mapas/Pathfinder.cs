@@ -24,7 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
             celdas = mapa.celdas;
         }
 
-        public List<short> get_Path(Celda celda_inicio, Celda celda_final, List<Celda> celdas_no_permitidas, bool detener_delante, byte distancia_detener)
+        public List<Celda> get_Path(Celda celda_inicio, Celda celda_final, List<Celda> celdas_no_permitidas, bool detener_delante, byte distancia_detener)
         {
             List<Celda> celdas_permitidas = new List<Celda>() { celda_inicio };
 
@@ -83,18 +83,18 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
             return null;
         }
 
-        private List<short> get_Camino_Retroceso(Celda nodo_inicial, Celda nodo_final)
+        private List<Celda> get_Camino_Retroceso(Celda nodo_inicial, Celda nodo_final)
         {
             Celda nodo_actual = nodo_final;
-            List<short> celdas_camino = new List<short>();
+            List<Celda> celdas_camino = new List<Celda>();
 
             while (nodo_actual != nodo_inicial)
             {
-                celdas_camino.Add(nodo_actual.id);
+                celdas_camino.Add(nodo_actual);
                 nodo_actual = nodo_actual.nodo_padre;
             }
 
-            celdas_camino.Add(nodo_inicial.id);
+            celdas_camino.Add(nodo_inicial);
             celdas_camino.Reverse();
 
             return celdas_camino;

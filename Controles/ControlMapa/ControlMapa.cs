@@ -267,7 +267,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         }
 
         #region Animaciones
-        public void agregar_Animacion(int id, List<short> path, int duracion, TipoAnimaciones actor)
+        public void agregar_Animacion(int id, List<Celda> path, int duracion, TipoAnimaciones actor)
         {
             if (path.Count < 2 || !mostrar_animaciones)
                 return;
@@ -275,7 +275,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             if (animaciones.ContainsKey(id))
                 animacion_Finalizada(animaciones[id]);
             
-            MovimientoAnimacion nueva_animacion = new MovimientoAnimacion(id, path.Select(f => celdas[f]), duracion, actor);
+            MovimientoAnimacion nueva_animacion = new MovimientoAnimacion(id, path.Select(f => celdas[f.id]), duracion, actor);
             nueva_animacion.finalizado += animacion_Finalizada;
             animaciones.TryAdd(id, nueva_animacion);
             nueva_animacion.iniciar();
