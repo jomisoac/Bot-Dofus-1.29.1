@@ -744,7 +744,7 @@
             // pictureBox7
             // 
             this.pictureBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox7.Image = global::Bot_Dofus_1._29._1.Properties.Resources.invocaciones_disponibles;
+            this.pictureBox7.Image = global::Bot_Dofus_1._29._1.Properties.Resources.invocaciones;
             this.pictureBox7.Location = new System.Drawing.Point(3, 243);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(42, 34);

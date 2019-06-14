@@ -19,7 +19,7 @@ namespace Bot_Dofus_1._29._1.Properties {
     // a través de una herramienta como ResGen o Visual Studio.
     // Para agregar o quitar un miembro, edite el archivo .ResX y, a continuación, vuelva a ejecutar ResGen
     // con la opción /str o recompile su proyecto de VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -453,46 +453,6 @@ namespace Bot_Dofus_1._29._1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap curaciones {
-            get {
-                object obj = ResourceManager.GetObject("curaciones", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap danos {
-            get {
-                object obj = ResourceManager.GetObject("danos", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap danos_armas {
-            get {
-                object obj = ResourceManager.GetObject("danos_armas", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap danos_porciento {
-            get {
-                object obj = ResourceManager.GetObject("danos_porciento", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap dinero_kamas {
             get {
                 object obj = ResourceManager.GetObject("dinero_kamas", resourceCulture);
@@ -513,49 +473,9 @@ namespace Bot_Dofus_1._29._1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap documento_rojo {
-            get {
-                object obj = ResourceManager.GetObject("documento_rojo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap energia {
             get {
                 object obj = ResourceManager.GetObject("energia", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap energia_stats {
-            get {
-                object obj = ResourceManager.GetObject("energia_stats", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap esquiva_pa {
-            get {
-                object obj = ResourceManager.GetObject("esquiva_pa", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap esquiva_pm {
-            get {
-                object obj = ResourceManager.GetObject("esquiva_pm", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -616,16 +536,6 @@ namespace Bot_Dofus_1._29._1.Properties {
         internal static System.Drawing.Bitmap gestion_cuentas {
             get {
                 object obj = ResourceManager.GetObject("gestion_cuentas", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap golpes_criticos {
-            get {
-                object obj = ResourceManager.GetObject("golpes_criticos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -717,9 +627,9 @@ namespace Bot_Dofus_1._29._1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap invocaciones_disponibles {
+        internal static System.Drawing.Bitmap invocaciones {
             get {
-                object obj = ResourceManager.GetObject("invocaciones_disponibles", resourceCulture);
+                object obj = ResourceManager.GetObject("invocaciones", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -815,56 +725,6 @@ namespace Bot_Dofus_1._29._1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap resistencia_aire {
-            get {
-                object obj = ResourceManager.GetObject("resistencia_aire", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap resistencia_fuerza {
-            get {
-                object obj = ResourceManager.GetObject("resistencia_fuerza", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap resistencia_inteligencia {
-            get {
-                object obj = ResourceManager.GetObject("resistencia_inteligencia", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap resistencia_neutral {
-            get {
-                object obj = ResourceManager.GetObject("resistencia_neutral", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap resistencia_suert {
-            get {
-                object obj = ResourceManager.GetObject("resistencia_suert", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap sabiduria {
             get {
                 object obj = ResourceManager.GetObject("sabiduria", resourceCulture);
@@ -888,16 +748,6 @@ namespace Bot_Dofus_1._29._1.Properties {
         internal static System.Drawing.Bitmap terminal {
             get {
                 object obj = ResourceManager.GetObject("terminal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap trampas_porciento {
-            get {
-                object obj = ResourceManager.GetObject("trampas_porciento", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

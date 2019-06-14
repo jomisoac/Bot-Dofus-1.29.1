@@ -265,6 +265,11 @@
     <Compile Include="Otros\Enums\EstadoSocket.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Inventario\Enums\TipoObjetosInventario.cs" />
     <Compile Include="Otros\Enums\EstadosServidor.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\Configuracion\GlobalConf.cs" />
     <Compile Include="Utilidades\Configuracion\CuentaConf.cs" />
     <Compile Include="Utilidades\Criptografia\Hash.cs" />
@@ -322,14 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -595,6 +595,8 @@
   <ItemGroup>
     <None Include="Resources\razas\121.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\stats\invocaciones.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

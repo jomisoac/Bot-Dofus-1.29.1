@@ -59,6 +59,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 control_mapa.set_Celda_Numero();
                 control_mapa.dibujar_Cuadricula();
             }
+
             BeginInvoke((Action)(() =>
             {
                 label_mapa_id.Text = "MAPA ID: " + mapa.id;
@@ -97,7 +98,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
-        private void get_Dibujar_Pathfinding(List<short> lista_celdas) => Task.Run(() =>
+        private void get_Dibujar_Pathfinding(List<Celda> lista_celdas) => Task.Run(() =>
         {
             Mapa mapa = cuenta.juego.mapa;
             control_mapa.agregar_Animacion(cuenta.juego.personaje.id, lista_celdas, PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(lista_celdas.First(), lista_celdas, mapa), TipoAnimaciones.PERSONAJE);

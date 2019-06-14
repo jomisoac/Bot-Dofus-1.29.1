@@ -151,32 +151,11 @@
   <data name="cruz_roja_pequeña" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\cruz_roja_pequeña.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="curaciones" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\curaciones.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="danos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\danos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="danos_armas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\danos_armas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="danos_porciento" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\danos_porciento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="dinero_kamas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\dinero_kamas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="energia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stats\energia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="energia_stats" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\energia_stats.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="esquiva_pa" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\esquiva_pa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="esquiva_pm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\esquiva_pm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="flecha_direccion_izquierda" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\flecha_direccion_izquierda.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -186,9 +165,6 @@
   </data>
   <data name="gestion_cuentas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\gestion_cuentas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="golpes_criticos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\golpes_criticos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icono_escoba" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\icono_escoba.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -201,9 +177,6 @@
   </data>
   <data name="inteligencia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stats\inteligencia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="invocaciones_disponibles" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\invocaciones_disponibles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lista_cuentas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\lista_cuentas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,21 +193,6 @@
   <data name="prospeccion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stats\prospeccion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="resistencia_aire" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\resistencia_aire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="resistencia_fuerza" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\resistencia_fuerza.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="resistencia_inteligencia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\resistencia_inteligencia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="resistencia_neutral" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\resistencia_neutral.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="resistencia_suert" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\resistencia_suert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="sabiduria" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stats\sabiduria.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -243,9 +201,6 @@
   </data>
   <data name="terminal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\terminal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="trampas_porciento" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats\trampas_porciento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="vitalidad" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stats\vitalidad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -261,9 +216,6 @@
   </data>
   <data name="documento_azul" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\documento_azul.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="documento_rojo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconos\documento_rojo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="boton_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconos\boton_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -357,5 +309,8 @@
   </data>
   <data name="_91" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\razas\91.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="invocaciones" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stats\invocaciones.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

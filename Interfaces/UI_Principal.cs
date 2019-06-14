@@ -349,17 +349,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
         #region Eventos Scripts
         private void evento_Scripts_Cargado(string nombre)
         {
-            cuenta.logger.log_informacion("SCRIPT", $"'{nombre}' Cargado.");
+            cuenta.logger.log_informacion("SCRIPT", $"'{nombre}' cargado.");
             BeginInvoke((Action)(() =>
             {
-                ScriptTituloStripMenuItem.Text = $"{nombre.Truncar(16)}";
+                ScriptTituloStripMenuItem.Text = $"{(nombre.Length > 16 ? nombre.Substring(0, 16) : nombre )}";
                 iniciarScriptToolStripMenuItem.Enabled = true;
             }));
         }
 
         private void evento_Scripts_Iniciado()
         {
-            cuenta.logger.log_informacion("SCRIPT", "Iniciado.");
+            cuenta.logger.log_informacion("SCRIPT", "Iniciado");
             BeginInvoke((Action)(() =>
             {
                 cargarScriptToolStripMenuItem.Enabled = false;

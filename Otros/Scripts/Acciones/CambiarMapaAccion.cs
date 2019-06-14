@@ -34,19 +34,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             if (celda_especifica)
             {
                 Celda celda = cuenta.juego.mapa.celdas[celda_id];
+
                 if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion, celda))
-                {
-                    cuenta.logger.log_Error("SCRIPT", "Error al mover a la celda especificada: ");
                     return resultado_fallado;
-                }
             }
             else if (direccion_especifica)
             {
                 if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion))
-                {
-                    cuenta.logger.log_Error("SCRIPT", "Error al encontrar la celda teleport, usa el metodo por id");
                     return resultado_fallado;
-                }
             }
 
             return resultado_procesado;

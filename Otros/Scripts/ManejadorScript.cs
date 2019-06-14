@@ -87,7 +87,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
         }
 
-        public void detener_Script(string mensaje = "Script pausado")
+        public void detener_Script(string mensaje = "script pausado")
         {
             if (!activado)
                 return;

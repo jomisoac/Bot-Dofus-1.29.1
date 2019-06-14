@@ -1,17 +1,16 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("Bot_Dofus_1.29.1")]
-[assembly: AssemblyDescription("Creado por Alvaro Prendes")]
+[assembly: AssemblyTitle("Bot Dofus 1.29.1")]
+[assembly: AssemblyDescription("Creado por Alvaro Prendes C#")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Bot_Dofus_1.29.1")]
-[assembly: AssemblyCopyright("Copyright ©  2018 - 2019 Alvaro Prendes")]
-[assembly: AssemblyTrademark("Aidemu ©")]
+[assembly: AssemblyProduct("C# Bot Dofus 1.29.1")]
+[assembly: AssemblyCopyright("Copyright ©  2019 - 2020 Alvaro Prendes")]
+[assembly: AssemblyTrademark("Aidemu © ANKAMA GAMES")]
 [assembly: AssemblyCulture("")]
 
 // Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 

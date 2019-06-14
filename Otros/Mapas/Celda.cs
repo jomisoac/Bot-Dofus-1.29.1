@@ -16,7 +16,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
     {
         public short id { get; private set; } = 0;
         public bool activa { get; private set; } = false;
-        public short objeto_interactivo_id { get; private set; } = 0;
         public TipoCelda tipo { get; private set; } = TipoCelda.NO_CAMINABLE;
         public bool es_linea_vision { get; private set; } = false;
         public byte layer_ground_nivel { get; private set; } = 0;
@@ -48,12 +47,11 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             es_linea_vision = _es_linea_vision;
             layer_ground_nivel = _nivel;
             layer_ground_slope = _slope;
-            objeto_interactivo_id = _objeto_interactivo_id;
             mapa = _mapa;
 
-            if (objeto_interactivo_id != -1)
+            if (_objeto_interactivo_id != -1)
             {
-                objeto_interactivo = new ObjetoInteractivo(objeto_interactivo_id, this);
+                objeto_interactivo = new ObjetoInteractivo(_objeto_interactivo_id, this);
                 mapa.interactivos.TryAdd(id, objeto_interactivo);
             }
 
@@ -66,8 +64,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         }
 
         public int get_Distancia_Entre_Dos_Casillas(Celda destino) => Math.Abs(x - destino.x) + Math.Abs(y - destino.y);
-
-
+        
         public int get_Distancia_Entre_Dos_Casillas(short destino)
         {
             Celda celda_destino = mapa.celdas[destino];
@@ -80,6 +77,21 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             Celda celda_destino = mapa.celdas[destino];
 
             return x == celda_destino.x || y == celda_destino.y;
+        }
+
+        public char get_Direccion(Celda celda)
+        {
+            if (x == celda.x)
+                return celda.y < y ? (char)(3 + 'a') : (char)(7 + 'a');
+            else if (y == celda.y)
+                return celda.x < x ? (char)(1 + 'a') : (char)(5 + 'a');
+            
+            else if (x > celda.x)
+                return y > celda.y ? (char)(2 + 'a') : (char)(0 + 'a');
+            else if (x < celda.x)
+                return y < celda.y ? (char)(6 + 'a') : (char)(4 + 'a');
+
+            throw new Exception("Error direccion no encontrada");
         }
 
         public bool es_Teleport() => texturas_teleport.Contains(layer_object_1_num) || texturas_teleport.Contains(layer_object_2_num);
