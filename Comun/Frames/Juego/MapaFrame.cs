@@ -42,7 +42,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     informaciones = _loc6.Substring(1).Split(';');
                     if (_loc6[0].Equals('+'))
                     {
-                        Celda celda = cuenta.juego.mapa.celdas[short.Parse(informaciones[0])];
+                        Celda celda = cuenta.juego.mapa.get_Celda_Id(short.Parse(informaciones[0]));
                         int id = int.Parse(informaciones[3]);
                         nombre_template = informaciones[4];
                         tipo = informaciones[5];
@@ -60,7 +60,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     byte pm = byte.Parse(informaciones[14]);
                                     byte equipo = byte.Parse(informaciones[15]);
 
-                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda.id, vida, equipo));
+                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda, vida, equipo));
                                 }
                             break;
 
@@ -117,14 +117,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     byte pm = byte.Parse(informaciones[16]);
                                     byte equipo = byte.Parse(informaciones[24]);
 
-                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda.id, vida, equipo));
+                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda, vida, equipo));
 
                                     if (cuenta.juego.personaje.id == id && cuenta.pelea_extension.configuracion.posicionamiento != PosicionamientoInicioPelea.INMOVIL)
                                     {
                                         await Task.Delay(300);
 
                                         /** la posicion es aleatoria pero el paquete GP siempre aparecera primero el team donde esta el pj **/
-                                        short celda_posicion = cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.celdas_preparacion, cuenta.juego.mapa);
+                                        short celda_posicion = cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.celdas_preparacion);
 
                                         if (celda_posicion != celda.id)
                                             cuenta.conexion.enviar_Paquete("Gp" + celda_posicion);
@@ -175,12 +175,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             {
                 int id_entidad = int.Parse(separador[2]);
                 Luchadores luchador = null;
+                Mapa mapa = cuenta.juego.mapa;
 
                 switch (id_accion)
                 {
                     case 1:
-                        Mapa mapa = cuenta.juego.mapa;
-                        Celda celda_destino = mapa.celdas[Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2))];
+                        Celda celda_destino = mapa.get_Celda_Id(Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2)));
                         byte tipo_gkk_movimiento;
 
                         if (!cuenta.esta_luchando())
@@ -218,7 +218,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
                             if (luchador != null)
                             {
-                                luchador.celda_id = celda_destino.id;
+                                luchador.celda = celda_destino;
 
                                 if (luchador.id == personaje.id)
                                 {
@@ -279,7 +279,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         byte pm = byte.Parse(separador[17]);
                         byte equipo = byte.Parse(separador[25]);
 
-                        cuenta.pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, celda, vida, equipo, id_entidad));
+                        cuenta.pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, mapa.get_Celda_Id(celda), vida, equipo, id_entidad));
                     break;
 
                     case 302:

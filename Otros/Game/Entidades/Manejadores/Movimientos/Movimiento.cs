@@ -135,11 +135,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (nodo == null || nodo.Value.Value.camino.celdas_accesibles.Count == 0)
                 return;
 
-            if (nodo.Value.Key == cuenta.pelea.jugador_luchador.celda_id)
+            if (nodo.Value.Key == cuenta.pelea.jugador_luchador.celda.id)
                 return;
 
-            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.pelea.jugador_luchador.celda_id);
-
+            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.pelea.jugador_luchador.celda.id);
             List<Celda> lista_celdas = nodo.Value.Value.camino.celdas_accesibles.Select(c => mapa.get_Celda_Id(c)).ToList();
 
             await cuenta.conexion.enviar_Paquete_Async("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas));

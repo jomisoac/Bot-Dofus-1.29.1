@@ -23,10 +23,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Combate_Celdas_Posicion(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
+            Mapa mapa = cuenta.juego.mapa;
             string[] _loc3 = paquete.Substring(2).Split('|');
 
             for (int a = 0; a < _loc3[0].Length; a += 2)
-                cuenta.pelea.celdas_preparacion.Add((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1])));
+                cuenta.pelea.celdas_preparacion.Add(mapa.get_Celda_Id((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1]))));
                 
             if (cuenta.pelea_extension.configuracion.desactivar_espectador)
                cuenta.conexion.enviar_Paquete("fS");
@@ -39,7 +40,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     cuenta.juego.personaje.esta_utilizando_dragopavo = true;
                 }
             }
-            
         }
 
         [PaqueteAtributo("GICE")]
@@ -59,6 +59,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             string[] separador_posiciones = paquete.Substring(4).Split('|');
             int id_entidad;
             short celda;
+            Mapa mapa = cuenta.juego.mapa;
             Luchadores luchador = null;
 
             foreach (string posicion in separador_posiciones)
@@ -75,7 +76,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
 
                 if (luchador != null)
-                    luchador.celda_id = celda;
+                    luchador.celda = mapa.get_Celda_Id(celda);
             }
         }
 
@@ -105,11 +106,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         if (celda > 0)//son espectadores
                         {
                             byte equipo = Convert.ToByte(id > 0 ? 1 : 0);
-                            luchador?.get_Actualizar_Luchador(id, esta_vivo, vida_actual, pa, pm, celda, vida_maxima, equipo);
+                            luchador?.get_Actualizar_Luchador(id, esta_vivo, vida_actual, pa, pm, mapa.get_Celda_Id(celda), vida_maxima, equipo);
                         }
                     }
                     else
-                        luchador?.get_Actualizar_Luchador(id, esta_vivo, 0, 0, 0, -1, 0, 0);
+                        luchador?.get_Actualizar_Luchador(id, esta_vivo, 0, 0, 0, null, 0, 0);
                 }
             }
         }

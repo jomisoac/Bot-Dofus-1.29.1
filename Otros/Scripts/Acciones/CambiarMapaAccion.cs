@@ -33,7 +33,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         {
             if (celda_especifica)
             {
-                Celda celda = cuenta.juego.mapa.celdas[celda_id];
+                Celda celda = cuenta.juego.mapa.get_Celda_Id(celda_id);
 
                 if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion, celda))
                     return resultado_fallado;

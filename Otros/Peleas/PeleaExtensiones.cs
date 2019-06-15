@@ -1,4 +1,5 @@
-﻿using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
+﻿using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
@@ -145,17 +146,18 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public async Task get_Mover(bool cercano, Luchadores enemigo)
         {
             KeyValuePair<short, MovimientoNodo>? nodo = null;
+            Mapa mapa = cuenta.juego.mapa;
             int distancia_total = -1;
             int distancia = -1;
 
-            distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda_id);
+            distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda);
 
-            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, cuenta.juego.mapa, cuenta.pelea.jugador_luchador.celda_id))
+            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, mapa, cuenta.pelea.jugador_luchador.celda))
             {
                 if (!kvp.Value.alcanzable)
                     continue;
 
-                int tempTotalDistances = Get_Total_Distancia_Enemigo(kvp.Key);
+                int tempTotalDistances = Get_Total_Distancia_Enemigo(mapa.get_Celda_Id(kvp.Key));
 
                 if ((cercano && tempTotalDistances <= distancia_total) || (!cercano && tempTotalDistances >= distancia_total))
                 {
@@ -177,7 +179,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await cuenta.juego.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
         }
 
-        public int Get_Total_Distancia_Enemigo(short celda_id) => cuenta.pelea.get_Enemigos.Sum(e => cuenta.juego.mapa.celdas[e.celda_id].get_Distancia_Entre_Dos_Casillas(celda_id) - 1);
+        public int Get_Total_Distancia_Enemigo(Celda celda) => cuenta.pelea.get_Enemigos.Sum(e => e.celda.get_Distancia_Entre_Dos_Casillas(celda) - 1);
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
