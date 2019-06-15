@@ -42,10 +42,11 @@ namespace Bot_Dofus_1._29._1
                 XElement.Parse(Properties.Resources.hechizos).Descendants("HECHIZO").ToList().ForEach(mapa =>
                 {
                     Hechizo hechizo = new Hechizo(short.Parse(mapa.Attribute("ID").Value), mapa.Element("NOMBRE").Value);
-                    HechizoStats hechizo_stats = new HechizoStats();
-
+                    
                     mapa.Descendants("NIVEL").ToList().ForEach(stats =>
                     {
+                        HechizoStats hechizo_stats = new HechizoStats();
+
                         hechizo_stats.coste_pa = byte.Parse(stats.Attribute("COSTE_PA").Value);
                         hechizo_stats.alcanze_minimo = byte.Parse(stats.Attribute("RANGO_MINIMO").Value);
                         hechizo_stats.alcanze_maximo = byte.Parse(stats.Attribute("RANGO_MAXIMO").Value);
@@ -64,13 +65,11 @@ namespace Bot_Dofus_1._29._1
                             hechizo_stats.agregar_efecto(new HechizoEfecto(int.Parse(efecto.Attribute("TIPO").Value), Zonas.Parse(efecto.Attribute("ZONA").Value)), bool.Parse(efecto.Attribute("ES_CRITICO").Value));
                         });
 
-                        hechizo.get_Agregar_Hechizo_Stats(byte.Parse(stats.Attribute("ID").Value), hechizo_stats);
+                        hechizo.get_Agregar_Hechizo_Stats(byte.Parse(stats.Attribute("NIVEL").Value), hechizo_stats);
                     });
                 });
             }).Wait();
-
             Application.Run(new Principal());
         }
-
     }
 }

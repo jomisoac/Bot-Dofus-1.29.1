@@ -44,7 +44,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             comboBox_lista_hechizos.DisplayMember = "nombre";
             comboBox_lista_hechizos.ValueMember = "id";
-            comboBox_lista_hechizos.DataSource = cuenta.juego.personaje.hechizos;
+            comboBox_lista_hechizos.DataSource = cuenta.juego.personaje.hechizos.Values.ToList();
 
             comboBox_lista_hechizos.SelectedIndex = 0;
         }

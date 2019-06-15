@@ -11,7 +11,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
         {
             int rango_maximo = spellLevel.alcanze_maximo + (spellLevel.es_alcanze_modificable ? rango_adicional : 0);
             Celda celda = mapa.celdas[celda_actual];
-
+            
             if (spellLevel.es_lanzado_linea)
                 return Shaper.Cruz(celda.x, celda.y, spellLevel.alcanze_minimo, rango_maximo, mapa);
             else

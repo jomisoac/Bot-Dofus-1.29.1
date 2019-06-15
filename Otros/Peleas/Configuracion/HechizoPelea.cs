@@ -5,7 +5,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 {
     public class HechizoPelea
     {
-        public int id { get; private set; } = 0;
+        public short id { get; private set; } = 0;
         public string nombre { get; private set; } = null;
         public HechizoFocus focus { get; private set; }
         public byte lanzamientos_x_turno { get; set; }
@@ -14,7 +14,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         public bool es_aoe { get; private set; }
         public bool cuidado_aoe { get; private set; }
 
-        public HechizoPelea(int _id, string _nombre, HechizoFocus _focus, bool _lanzar_cuerpo_cuerpo, byte _lanzamientos_x_turno, bool _es_aoe, bool _cuidado_aoe)
+        public HechizoPelea(short _id, string _nombre, HechizoFocus _focus, bool _lanzar_cuerpo_cuerpo, byte _lanzamientos_x_turno, bool _es_aoe, bool _cuidado_aoe)
         {
             id = _id;
             nombre = _nombre;
@@ -37,6 +37,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
             bw.Write(cuidado_aoe);
         }
         
-        public static HechizoPelea cargar(BinaryReader br) => new HechizoPelea(br.ReadInt32(), br.ReadString(), (HechizoFocus)br.ReadByte(), br.ReadBoolean(), br.ReadByte(), br.ReadBoolean(), br.ReadBoolean());
+        public static HechizoPelea cargar(BinaryReader br) => new HechizoPelea(br.ReadInt16(), br.ReadString(), (HechizoFocus)br.ReadByte(), br.ReadBoolean(), br.ReadByte(), br.ReadBoolean(), br.ReadBoolean());
     }
 }

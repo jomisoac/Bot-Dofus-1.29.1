@@ -46,15 +46,14 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void get_Eventos_Mapa_Cambiado()
         {
             Mapa mapa = cuenta.juego.mapa;
-            Celda[] celdas_mapa_juego = mapa.celdas;
 
             byte anchura_actual = control_mapa.mapa_anchura, altura_actual = control_mapa.mapa_altura;
-            byte anchura_nueva = cuenta.juego.mapa.anchura, altura_nueva = cuenta.juego.mapa.altura;
+            byte anchura_nueva = mapa.anchura, altura_nueva = mapa.altura;
 
             if (anchura_actual != anchura_nueva || altura_actual != altura_nueva)
             {
-                control_mapa.mapa_anchura = cuenta.juego.mapa.anchura;
-                control_mapa.mapa_altura = cuenta.juego.mapa.altura;
+                control_mapa.mapa_anchura = anchura_nueva;
+                control_mapa.mapa_altura = altura_nueva;
 
                 control_mapa.set_Celda_Numero();
                 control_mapa.dibujar_Cuadricula();
@@ -89,7 +88,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                     default:
                         cuenta.logger.log_Error("UI_MAPA", "Error desplazando el personaje a la casilla: " + celda_destino.id + " resultado: " + resultado);
-                        break;
+                    break;
                 }
             }
             else
@@ -98,12 +97,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
-        private void get_Dibujar_Pathfinding(List<Celda> lista_celdas) => Task.Run(() =>
-        {
-            Mapa mapa = cuenta.juego.mapa;
-            control_mapa.agregar_Animacion(cuenta.juego.personaje.id, lista_celdas, PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(lista_celdas.First(), lista_celdas, mapa), TipoAnimaciones.PERSONAJE);
-        });
-
+        private void get_Dibujar_Pathfinding(List<Celda> lista_celdas) => Task.Run(() => control_mapa.agregar_Animacion(cuenta.juego.personaje.id, lista_celdas, PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(lista_celdas.First(), lista_celdas), TipoAnimaciones.PERSONAJE));
         private void comboBox_calidad_minimapa_SelectedIndexChanged(object sender, EventArgs e) => control_mapa.TipoCalidad = (CalidadMapa)comboBox_calidad_minimapa.SelectedIndex;
         private void checkBox_animaciones_CheckedChanged(object sender, EventArgs e) => control_mapa.Mostrar_Animaciones = checkBox_animaciones.Checked;
         private void checkBox_mostrar_celdas_CheckedChanged(object sender, EventArgs e) => control_mapa.Mostrar_Celdas_Id = checkBox_mostrar_celdas.Checked;
