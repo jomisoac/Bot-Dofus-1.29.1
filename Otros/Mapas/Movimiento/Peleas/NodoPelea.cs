@@ -2,14 +2,14 @@
 {
     public class NodoPelea
     {
-        public short celda_id { get; private set; }
+        public Celda celda { get; private set; }
         public int pm_disponible { get; private set; }
         public int pa_disponible { get; private set; }
         public int distancia { get; private set; }
 
-        public NodoPelea(short _celda_id, int _pm_disponible, int _pa_disponible, int _distancia)
+        public NodoPelea(Celda _celda, int _pm_disponible, int _pa_disponible, int _distancia)
         {
-            celda_id = _celda_id;
+            celda = _celda;
             pm_disponible = _pm_disponible;
             pa_disponible = _pa_disponible;
             distancia = _distancia;

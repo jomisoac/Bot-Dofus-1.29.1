@@ -70,7 +70,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
         {
             Mapa mapa = cuenta.juego.mapa;
-            Celda celda_actual = cuenta.juego.personaje.celda, celda_destino = mapa.celdas[celda.id];
+            Celda celda_actual = cuenta.juego.personaje.celda, celda_destino = mapa.get_Celda_Id(celda.id);
 
             if (botones == MouseButtons.Left && celda_actual.id != 0 && celda_destino.id != 0)
             {
