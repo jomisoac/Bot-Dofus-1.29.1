@@ -27,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
         public InventarioGeneral inventario { get; private set; }
         public int puntos_caracteristicas { get; set; } = 0;
         public CaracteristicasInformacion caracteristicas { get; set; }
-        public List<Hechizo> hechizos { get; set; }
+        public Dictionary<short, Hechizo> hechizos { get; set; }//id_hechizo, hechizo
         public List<Oficio> oficios { get; private set; }
         public string canales { get; set; } = string.Empty;
         public Celda celda { get; set; }
@@ -54,7 +54,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
         {
             inventario = new InventarioGeneral(cuenta);
             caracteristicas = new CaracteristicasInformacion();
-            hechizos = new List<Hechizo>();
+            hechizos = new Dictionary<short, Hechizo>();
             oficios = new List<Oficio>();
         }
 
@@ -83,10 +83,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
                 canales = cadena_canales;
         }
 
-        public void eliminar_Canal_Personaje(string simbolo_canal)
-        {
-            canales = canales.Replace(simbolo_canal, string.Empty);
-        }
+        public void eliminar_Canal_Personaje(string simbolo_canal) => canales = canales.Replace(simbolo_canal, string.Empty);
 
         #region Eventos
         public void evento_Pods_Actualizados() => pods_actualizados?.Invoke();
@@ -214,21 +211,23 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
             hechizos.Clear();
 
             string[] limitador = paquete.Split(';'), separador;
+            Hechizo hechizo;
             short hechizo_id;
-            byte nivel;
 
             for (int i = 0; i < limitador.Length - 1; ++i)
             {
                 separador = limitador[i].Split('~');
                 hechizo_id = short.Parse(separador[0]);
-                nivel = byte.Parse(separador[1]);
 
-                hechizos.Add(Hechizo.get_Hechizo(hechizo_id, nivel));
+                hechizo = Hechizo.get_Hechizo(hechizo_id);
+                hechizo.nivel = byte.Parse(separador[1]);
+
+                hechizos.Add(hechizo_id, hechizo);
             }
             hechizos_actualizados.Invoke();
         }
 
-        public Hechizo get_Hechizo(int id) => hechizos.FirstOrDefault(f => f.id == id);
+        public Hechizo get_Hechizo(short id) => hechizos[id];
         public bool get_Tiene_Skill_Id(int id) => oficios.FirstOrDefault(j => j.skills.FirstOrDefault(s => s.id == id) != null) != null;
         public IEnumerable<SkillsOficio> get_Skills_Disponibles() => oficios.SelectMany(oficio => oficio.skills.Select(skill => skill));
         public IEnumerable<short> get_Skills_Recoleccion_Disponibles() => oficios.SelectMany(oficio => oficio.skills.Where(skill => !skill.es_craft).Select(skill => skill.id));

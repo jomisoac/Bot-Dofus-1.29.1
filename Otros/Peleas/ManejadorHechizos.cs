@@ -47,7 +47,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private async Task<ResultadoLanzandoHechizo> get_Lanzar_Hechizo_Simple(HechizoPelea hechizo)
         {
-            FallosLanzandoHechizo resultado_puede_lanzar_hechizo = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id);
+            Pelea pelea = cuenta.pelea;
+            FallosLanzandoHechizo resultado_puede_lanzar_hechizo = pelea.get_Puede_Lanzar_hechizo(hechizo.id);
 
             if (resultado_puede_lanzar_hechizo != FallosLanzandoHechizo.NINGUNO)
             {
@@ -60,11 +61,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             if (enemigo != null)
             {
-                FallosLanzandoHechizo resultado = cuenta.pelea.get_Puede_Lanzar_hechizo(hechizo.id, cuenta.pelea.jugador_luchador.celda_id, enemigo.celda_id, cuenta.juego.mapa);
-
+                FallosLanzandoHechizo resultado = pelea.get_Puede_Lanzar_hechizo(hechizo.id, pelea.jugador_luchador.celda_id, enemigo.celda_id, cuenta.juego.mapa);
+                
                 if (resultado == FallosLanzandoHechizo.NINGUNO)
                 {
-                    await cuenta.pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda_id);
+                    await pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda_id);
                     return ResultadoLanzandoHechizo.LANZADO;
                 }
                 else if (resultado == FallosLanzandoHechizo.NO_ESTA_EN_RANGO)
@@ -74,17 +75,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 return await lanzar_Hechizo_Celda_Vacia(hechizo);
 
             return ResultadoLanzandoHechizo.NO_LANZADO;
-        }
-
-        private Luchadores get_Objetivo_Mas_Cercano(HechizoPelea hechizo)
-        {
-            if (hechizo.focus == HechizoFocus.ENCIMA)
-                return cuenta.pelea.jugador_luchador;
-
-            if (hechizo.focus == HechizoFocus.CELDA_VACIA)
-                return null;
-
-            return hechizo.focus == HechizoFocus.ENEMIGO ? cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano() : cuenta.pelea.get_Obtener_Aliado_Mas_Cercano();
         }
 
         private async Task<ResultadoLanzandoHechizo> get_Mover_Lanzar_hechizo_Simple(HechizoPelea hechizo_pelea, Luchadores enemigo)
@@ -133,8 +123,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizo_pelea.focus == HechizoFocus.CELDA_VACIA && cuenta.pelea.get_Cuerpo_A_Cuerpo_Enemigo().Count() == 4)
                 return ResultadoLanzandoHechizo.NO_LANZADO;
 
-            Hechizo hechizo_general = cuenta.juego.personaje.hechizos.FirstOrDefault(f => f.id == hechizo_pelea.id);
-            HechizoStats datos_hechizo = hechizo_general.get_Stats(hechizo_general.nivel);
+            Hechizo hechizo = cuenta.juego.personaje.get_Hechizo(hechizo_pelea.id);
+            HechizoStats datos_hechizo = hechizo.get_Stats();
 
             List<int> rangos_disponibles = cuenta.pelea.get_Rango_hechizo(cuenta.pelea.jugador_luchador.celda_id, datos_hechizo, cuenta.juego.mapa);
             foreach (short rango in rangos_disponibles)
@@ -150,6 +140,17 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             }
 
             return ResultadoLanzandoHechizo.NO_LANZADO;
+        }
+
+        private Luchadores get_Objetivo_Mas_Cercano(HechizoPelea hechizo)
+        {
+            if (hechizo.focus == HechizoFocus.ENCIMA)
+                return cuenta.pelea.jugador_luchador;
+
+            if (hechizo.focus == HechizoFocus.CELDA_VACIA)
+                return null;
+
+            return hechizo.focus == HechizoFocus.ENEMIGO ? cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano() : cuenta.pelea.get_Obtener_Aliado_Mas_Cercano();
         }
 
         #region Zona Dispose

@@ -1,10 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Hechizos;
-using Bot_Dofus_1._29._1.Properties;
-using Bot_Dofus_1._29._1.Utilidades.Extensiones;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System.Collections.Generic;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -20,8 +14,8 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
     {
         public short id { get; private set; }
         public string nombre { get; private set; }
-        public byte nivel { get; private set; }
-        private Dictionary<byte, HechizoStats> statsHechizos;//nivel, informacion
+        public byte nivel { get; set; }
+        public Dictionary<byte, HechizoStats> statsHechizos;//nivel, informacion
 
         public static Dictionary<short, Hechizo> hechizos_cargados = new Dictionary<short, Hechizo>();
 
@@ -34,22 +28,15 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
             hechizos_cargados.Add(id, this);
         }
 
-        public HechizoStats get_Stats(byte nivel) => statsHechizos[nivel];
-
-        public void get_Agregar_Hechizo_Stats(byte nivel, HechizoStats stats)
+        public void get_Agregar_Hechizo_Stats(byte _nivel, HechizoStats stats)
         {
-            if (statsHechizos.ContainsKey(nivel))
-                statsHechizos.Remove(nivel);
+            if (statsHechizos.ContainsKey(_nivel))
+                statsHechizos.Remove(_nivel);
 
-            statsHechizos.Add(nivel, stats);
+            statsHechizos.Add(_nivel, stats);
         }
 
-        public static Hechizo get_Hechizo(short id, byte nivel)
-        {
-            Hechizo hechizo = hechizos_cargados[id];
-            hechizo.nivel = nivel;
-
-            return hechizo;
-        }
+        public HechizoStats get_Stats() => statsHechizos[nivel];
+        public static Hechizo get_Hechizo(short id) => hechizos_cargados[id];
     }
 }

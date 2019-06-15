@@ -42,6 +42,5 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
             else
                 efectos_criticos.Add(effect);
         }
-
     }
 }

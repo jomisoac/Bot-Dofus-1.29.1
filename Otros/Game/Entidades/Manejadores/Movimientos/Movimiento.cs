@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas;
@@ -168,18 +169,19 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         public async Task evento_Movimiento_Finalizado(Celda celda_destino, byte tipo_gkk, bool correcto)
         {
+            Personaje personaje = cuenta.juego.personaje;
             cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
 
             if (correcto)
             {
-                await Task.Delay(PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(cuenta.juego.personaje.celda, actual_path, mapa));
+                await Task.Delay(PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(personaje.celda, actual_path, personaje.esta_utilizando_dragopavo));
 
                 //por si en el delay el bot esta desconectado
                 if (cuenta == null || cuenta.Estado_Cuenta == EstadoCuenta.DESCONECTADO)
                     return;
 
                 cuenta.conexion.enviar_Paquete("GKK" + tipo_gkk);
-                cuenta.juego.personaje.celda = celda_destino;
+                personaje.celda = celda_destino;
             }
 
             actual_path = null;

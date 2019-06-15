@@ -62,6 +62,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos
 
             if (radio_minimo == 0)
                 rango.Add(mapa.get_Celda_Por_Coordenadas(x, y));
+
             for (int radius = radio_minimo == 0 ? 1 : radio_minimo; radius <= radio_maximo; radius++)
             {
                 for (int i = 0; i < radius; i++)
