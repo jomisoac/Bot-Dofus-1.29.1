@@ -7,7 +7,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Logs
     {
         public event Action<LogMensajes, string> log_evento;
 
-
         private void log_Final(string referencia, string mensaje, string color, Exception ex = null)
         {
             try
@@ -27,6 +26,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Logs
                 return;
             log_Final(referencia, mensaje, ((int)color).ToString("X"), ex);
         }
+
         public void log_Error(string referencia, string mensaje) => log_Final(referencia, mensaje, LogTipos.ERROR);
         public void log_Peligro(string referencia, string mensaje) => log_Final(referencia, mensaje, LogTipos.PELIGRO);
         public void log_informacion(string referencia, string mensaje) => log_Final(referencia, mensaje, LogTipos.INFORMACION);

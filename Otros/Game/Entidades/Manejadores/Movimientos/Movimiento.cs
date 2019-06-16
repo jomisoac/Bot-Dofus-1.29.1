@@ -113,7 +113,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (path_temporal == null || path_temporal.Count == 0)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
             
-            if (path_temporal.Last().id != celda_destino.id)
+            if (!detener_delante && path_temporal.Last().id != celda_destino.id)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
 
             if (detener_delante && path_temporal.Count == 1 && path_temporal[0].id == cuenta.juego.personaje.celda.id)
@@ -147,14 +147,15 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         private bool get_Mover_Para_Cambiar_mapa(Celda celda)
         {
-            switch (get_Mover_A_Celda(celda, mapa.celdas_ocupadas))
+            var resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas);
+            switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:
-                        cuenta.logger.log_Error("MOVIMIENTOS", $"Mapa actual: {mapa.id} desplazando para cambiar el mapa a la casilla: " + celda.id);
+                        cuenta.logger.log_informacion("MOVIMIENTOS", $"Mapa actual: {mapa.id} desplazando para cambiar el mapa a la casilla: {celda.id}");
                 return true;
 
                 default:
-                        cuenta.logger.log_Error("MOVIMIENTOS", $"camino hacia {celda.id} fallado o bloqueado");
+                        cuenta.logger.log_Error("MOVIMIENTOS", $"camino hacia {celda.id} fallado o bloqueado resultado: {resultado}");
                 return false;
             }
         }

@@ -62,15 +62,8 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             InitializeComponent();
         }
 
-        protected void OnCellClicked(CeldaMapa cell, MouseButtons buttons)
-        {
-            clic_celda?.Invoke(cell, buttons);
-        }
-
-        protected void OnCellOver(CeldaMapa cell, CeldaMapa last)
-        {
-            clic_celda_terminado?.Invoke(cell, last);
-        }
+        protected void OnCellClicked(CeldaMapa cell, MouseButtons buttons) => clic_celda?.Invoke(cell, buttons);
+        protected void OnCellOver(CeldaMapa cell, CeldaMapa last) => clic_celda_terminado?.Invoke(cell, last);
 
         public bool Mostrar_Animaciones
         {
@@ -326,7 +319,6 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
                 default:
                 return Color.FromArgb(81, 113, 202);
-
             }
         }
 

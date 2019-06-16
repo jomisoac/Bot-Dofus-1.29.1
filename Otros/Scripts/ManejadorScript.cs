@@ -1,6 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento;
+using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Global;
+using Bot_Dofus_1._29._1.Otros.Scripts.Api;
 using Bot_Dofus_1._29._1.Otros.Scripts.Banderas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
 using Bot_Dofus_1._29._1.Utilidades.Extensiones;
@@ -24,11 +26,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
     public class ManejadorScript : IDisposable
     {
         private Cuenta cuenta;
-        public LuaManejadorScript manejador_script;
+        private LuaManejadorScript manejador_script;
         private ManejadorAcciones manejar_acciones;
         private EstadoScript estado_script;
         private List<Bandera> banderas;
         private int bandera_id;
+        private API api;
         private bool disposed;
 
         public bool activado { get; set; }
@@ -43,10 +46,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             cuenta = _cuenta;
             manejador_script = new LuaManejadorScript();
-            manejar_acciones = new ManejadorAcciones(cuenta);
+            manejar_acciones = new ManejadorAcciones(cuenta, manejador_script);
             banderas = new List<Bandera>();
+            api = new API(cuenta, manejar_acciones);
 
-            manejar_acciones.evento_accion_finalizada += get_Accion_Finalizada;
+            manejar_acciones.evento_accion_normal += get_Accion_Finalizada;
             cuenta.pelea.pelea_creada += get_Pelea_Creada;
             cuenta.pelea.pelea_acabada += get_Pelea_Acabada;
         }
@@ -65,10 +69,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void despues_De_Archivo()
         {
+            manejador_script.Set_Global("api", api);
+
             manejador_script.Set_Global("imprimir_exito", new Action<string>((mensaje) => cuenta.logger.log_informacion("Script", mensaje)));
             manejador_script.Set_Global("imprimir_error", new Action<string>((mensaje) => cuenta.logger.log_Error("Script", mensaje)));
             manejador_script.Set_Global("detener_script", new Action(() => detener_Script()));
-            
+            manejador_script.Set_Global("delay_funcion", new Action<int>((ms) => manejar_acciones.enqueue_Accion(new DelayAccion(ms), true)));
+
             manejador_script.Set_Global("esta_recolectando", (Func<bool>)cuenta.esta_recolectando);
             manejador_script.Set_Global("esta_dialogando", (Func<bool>)cuenta.esta_dialogando);
         }
@@ -285,6 +292,27 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             manejar_acciones.enqueue_Accion(new NpcBancoAccion(-1, 0));
             manejar_acciones.enqueue_Accion(new AlmacenarTodosLosObjetosAccion());
+
+            //recuperar objetos almacenados
+            Table recuperar_objetos = manejador_script.get_Global_Or<Table>("BANK_RECUPERAR_OBJETOS", DataType.Table, null);
+
+            if (recuperar_objetos != null)
+            {
+                foreach (DynValue valor in recuperar_objetos.Values)
+                {
+                    if (valor.Type != DataType.Table)
+                        continue;
+
+                    DynValue objeto = valor.Table.Get("objeto");
+                    DynValue cantidad = valor.Table.Get("cantidad");
+
+                    if (objeto.IsNil() || objeto.Type != DataType.Number || cantidad.IsNil() || cantidad.Type != DataType.Number)
+                        continue;
+
+                    //meter enqueue
+                }
+            }
+
             manejar_acciones.enqueue_Accion(new CerrarVentanaAccion(), true);
         }
 

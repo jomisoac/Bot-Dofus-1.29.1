@@ -80,11 +80,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 {
                     case ResultadoMovimientos.EXITO:
                         cuenta.logger.log_informacion("UI_MAPA", "Personaje desplazado a la casilla: " + celda_destino.id);
-                        break;
+                    break;
 
                     case ResultadoMovimientos.MISMA_CELDA:
                         cuenta.logger.log_Error("UI_MAPA", "El jugador está en la misma a la seleccionada");
-                        break;
+                    break;
 
                     default:
                         cuenta.logger.log_Error("UI_MAPA", "Error desplazando el personaje a la casilla: " + celda_destino.id + " resultado: " + resultado);
@@ -93,7 +93,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             else
             {
-                cuenta.logger.log_Error("UI_MAPA", "Error al intentar mover el personaje" + celda_actual.id);
+                cuenta.logger.log_Error("UI_MAPA", "Error al intentar mover el personaje a la casilla: " + celda_actual.id);
             }
         }
 

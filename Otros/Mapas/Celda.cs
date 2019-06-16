@@ -23,7 +23,6 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public short layer_object_1_num { get; private set; } = 0;
         public short layer_object_2_num { get; private set; } = 0;
         public ObjetoInteractivo objeto_interactivo { get; private set; }
-        public Mapa mapa { get; private set; } = null;
         public int x { get; private set; } = 0;
         public int y { get; private set; } = 0;
 
@@ -47,15 +46,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             es_linea_vision = _es_linea_vision;
             layer_ground_nivel = _nivel;
             layer_ground_slope = _slope;
-            mapa = _mapa;
 
             if (_objeto_interactivo_id != -1)
             {
                 objeto_interactivo = new ObjetoInteractivo(_objeto_interactivo_id, this);
-                mapa.interactivos.TryAdd(id, objeto_interactivo);
+                _mapa.interactivos.TryAdd(id, objeto_interactivo);
             }
 
-            byte mapa_anchura = mapa.anchura;
+            byte mapa_anchura = _mapa.anchura;
             int _loc5 = id / ((mapa_anchura * 2) - 1);
             int _loc6 = id - (_loc5 * ((mapa_anchura * 2) - 1));
             int _loc7 = _loc6 % mapa_anchura;
