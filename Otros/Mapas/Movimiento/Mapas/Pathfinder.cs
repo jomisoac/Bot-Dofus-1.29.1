@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
 
                 Celda actual = celdas_permitidas[index];
 
-                if (detener_delante && get_Distancia_Nodos(actual, celda_final) == distancia_detener && !celda_final.es_Caminable())
+                if (detener_delante && get_Distancia_Nodos(actual, celda_final) <= distancia_detener && !celda_final.es_Caminable())
                     return get_Camino_Retroceso(celda_inicio, actual);
 
                 if (actual == celda_final)

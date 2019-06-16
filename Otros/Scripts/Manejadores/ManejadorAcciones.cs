@@ -13,21 +13,22 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
     public class ManejadorAcciones : IDisposable
     {
         private Cuenta cuenta;
+        public LuaManejadorScript manejador_script;
         private ConcurrentQueue<AccionesScript> fila_acciones;
         private AccionesScript accion_actual;
+        private DynValue coroutine_actual;
         private TimerWrapper timeout_timer;
-        public int contador_peleas_mapa { get; private set; }
-
-        public event Action<bool> evento_accion_finalizada;
-        private bool disposed;
+        private int contador_pelea, contador_recoleccion, contador_peleas_mapa;
         private bool mapa_cambiado;
+        private bool disposed;
 
-        //contadores
-        private int contador_pelea, contador_recoleccion;
+        public event Action<bool> evento_accion_normal;
+        public event Action<bool> evento_accion_personalizada;
 
-        public ManejadorAcciones(Cuenta _cuenta)
+        public ManejadorAcciones(Cuenta _cuenta, LuaManejadorScript _manejador_script)
         {
             cuenta = _cuenta;
+            manejador_script = _manejador_script;
             fila_acciones = new ConcurrentQueue<AccionesScript>();
             timeout_timer = new TimerWrapper(60000, time_Out_Callback);
             Personaje personaje = cuenta.juego.personaje;
@@ -95,7 +96,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             {
                 contador_recoleccion++;
 
-                if (cuenta.script.manejador_script.get_Global_Or("MOSTRAR_CONTADOR_RECOLECCION", DataType.Boolean, false))
+                if (manejador_script.get_Global_Or("MOSTRAR_CONTADOR_RECOLECCION", DataType.Boolean, false))
                     cuenta.logger.log_informacion("SCRIPT", $"Recolección número: #{contador_recoleccion}");
             }
         }
@@ -132,7 +133,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 contador_peleas_mapa++;
                 contador_pelea++;
 
-                if (cuenta.script.manejador_script.get_Global_Or("MOSTRAR_CONTADOR_PELEAS", DataType.Boolean, false))
+                if (manejador_script.get_Global_Or("MOSTRAR_CONTADOR_PELEAS", DataType.Boolean, false))
                     cuenta.logger.log_informacion("SCRIPT", $"Combate número: #{contador_pelea}");
             }
         }
@@ -163,6 +164,15 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 acciones_Salida(0);
         }
 
+        public void get_Funcion_Personalizada(DynValue coroutine)
+        {
+            if (!cuenta.script.corriendo || coroutine_actual != null)
+                return;
+
+            coroutine_actual = coroutine;
+            procesar_Coroutine();
+        }
+
         private void limpiar_Acciones()
         {
             while (fila_acciones.TryDequeue(out AccionesScript temporal)) { };
@@ -185,6 +195,24 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             if (accion_actual is CerrarVentanaAccion)
                 acciones_Salida(400);
+        }
+
+        private void procesar_Coroutine()
+        {
+            if (!cuenta.script.corriendo)
+                return;
+
+            try
+            {
+                DynValue result = coroutine_actual.Coroutine.Resume();
+                
+                if (result.Type == DataType.Void)
+                    acciones_Funciones_Finalizadas();
+            }
+            catch (Exception ex)
+            {
+                cuenta.script.detener_Script(ex.ToString());
+            }
         }
 
         private async Task procesar_Accion_Actual()
@@ -225,11 +253,26 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (mapa_cambiado)
             {
                 mapa_cambiado = false;
-                evento_accion_finalizada?.Invoke(true);
+                evento_accion_normal?.Invoke(true);
             }
             else
             {
-                evento_accion_finalizada?.Invoke(false);
+                evento_accion_normal?.Invoke(false);
+            }
+        }
+
+        private void acciones_Funciones_Finalizadas()
+        {
+            coroutine_actual = null;
+
+            if (mapa_cambiado)
+            {
+                mapa_cambiado = false;
+                evento_accion_personalizada?.Invoke(true);
+            }
+            else
+            {
+                evento_accion_personalizada?.Invoke(false);
             }
         }
 
@@ -283,6 +326,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 accion_actual = null;
                 fila_acciones = null;
                 cuenta = null;
+                manejador_script = null;
                 timeout_timer = null;
                 disposed = true;
             }

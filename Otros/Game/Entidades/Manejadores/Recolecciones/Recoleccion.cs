@@ -1,6 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
 using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario.Enums;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
@@ -33,6 +34,8 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
         public event Action recoleccion_iniciada;
         public event Action<RecoleccionResultado> recoleccion_acabada;
 
+        public static readonly int[] herramientas_pescar = { 8541, 6661, 596, 1866, 1865, 1864, 1867, 2188, 1863, 1862, 1868, 1861, 1860, 2366 };
+        
         public Recoleccion(Cuenta _cuenta, Movimiento movimientos, Mapa _mapa)
         {
             cuenta = _cuenta;
@@ -65,16 +68,37 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
         private Dictionary<short, ObjetoInteractivo> get_Interactivos_Utilizables(List<short> elementos_ids)
         {
             Dictionary<short, ObjetoInteractivo> elementos_utilizables = new Dictionary<short, ObjetoInteractivo>();
+            Personaje personaje = cuenta.juego.personaje;
+
+            ObjetosInventario arma = personaje.inventario.get_Objeto_en_Posicion(InventarioPosiciones.ARMA);
+            byte distancia_arma = 1;
+            bool es_herramienta_pescar = herramientas_pescar.Contains(arma.id_modelo);
+
+            if (arma != null)
+                distancia_arma = get_Distancia_herramienta(arma.id_modelo);
 
             foreach (ObjetoInteractivo interactivo in mapa.interactivos.Values)
             {
                 if (!interactivo.es_utilizable || !interactivo.modelo.recolectable)
                     continue;
 
+                List<Celda> path = pathfinder.get_Path(personaje.celda, interactivo.celda, mapa.celdas_ocupadas, true, distancia_arma);
+
+                if (path == null || path.Count == 0)
+                    continue;
+
                 foreach (short habilidad in interactivo.modelo.habilidades)
                 {
-                    if (elementos_ids.Contains(habilidad))
-                        elementos_utilizables.Add(interactivo.celda.id, interactivo);
+                    if (!elementos_ids.Contains(habilidad))
+                        continue;
+
+                    if (!es_herramienta_pescar && path.Last().get_Distancia_Entre_Dos_Casillas(interactivo.celda) != 1)
+                        continue;
+
+                    if (es_herramienta_pescar && path.Last().get_Distancia_Entre_Dos_Casillas(interactivo.celda) > distancia_arma)
+                        continue;
+
+                    elementos_utilizables.Add(interactivo.celda.id, interactivo);
                 }
             }
             
@@ -89,10 +113,8 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
 
             if(arma != null)
                 distancia_detener = get_Distancia_herramienta(arma.id_modelo);
-
-             ResultadoMovimientos resultado = cuenta.juego.manejador.movimientos.get_Mover_A_Celda(interactivo_recolectando.celda, mapa.celdas_ocupadas, true, distancia_detener);
-
-            switch (resultado)
+            
+            switch (cuenta.juego.manejador.movimientos.get_Mover_A_Celda(interactivo_recolectando.celda, mapa.celdas_ocupadas, true, distancia_detener))
             {
                 case ResultadoMovimientos.EXITO:
                 case ResultadoMovimientos.MISMA_CELDA:
@@ -165,49 +187,49 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
             interactivos_no_utilizables.Clear();
         }
 
-        public void limpiar()
-        {
-            interactivo_recolectando = null;
-            interactivos_no_utilizables.Clear();
-            robado = false;
-        }
-
-        public static byte get_Distancia_herramienta(int id_objeto)
+        public byte get_Distancia_herramienta(int id_objeto)
         {
             switch (id_objeto)
             {
-                case 8541:
-                case 6661:
-                case 596:
+                case 8541://Caña de aprendiz de pescador
+                case 6661://Caña para kuakuás
+                case 596://Caña de pescar corta
                     return 2;
 
-                case 1866:
+                case 1866://Caña de pescar estándar
                     return 3;
 
-                case 1865:
-                case 1864:
+                case 1865://Caña cúbica
+                case 1864://La aguja de tejer
                     return 4;
 
-                case 1867:
-                case 2188:
+                case 1867://Gran caña de pescar
+                case 2188://Caña para pischis
                     return 5;
 
-                case 1863:
-                case 1862:
+                case 1863://Caña Jillo
+                case 1862://El Palo de Amor
                     return 6;
 
                 case 1868:
                     return 7;
 
-                case 1861:
-                case 1860:
+                case 1861://La Gran Perca
+                case 1860://Caña arpón
                     return 8;
 
-                case 2366:
+                case 2366://Caña para kralamares
                     return 9;
             }
 
             return 1;
+        }
+
+        public void limpiar()
+        {
+            interactivo_recolectando = null;
+            interactivos_no_utilizables.Clear();
+            robado = false;
         }
 
         #region Zona Dispose
