@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 Bitmap imagen_raza = Properties.Resources.ResourceManager.GetObject("_" + cuenta.juego.personaje.raza_id + cuenta.juego.personaje.sexo) as Bitmap;
                 imagen_personaje.Image = imagen_raza;
 
-                label_nombre_personaje.Text = cuenta.juego.personaje.nombre_personaje;
+                label_nombre_personaje.Text = cuenta.juego.personaje.nombre;
             }));
         }
 

@@ -191,7 +191,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public void get_Agregar_Luchador(Luchadores luchador)
         {
             if (luchador.id == cuenta.juego.personaje.id)
-                jugador_luchador = new LuchadorPersonaje(cuenta.juego.personaje.nombre_personaje, cuenta.juego.personaje.nivel, luchador);
+                jugador_luchador = new LuchadorPersonaje(cuenta.juego.personaje.nombre, cuenta.juego.personaje.nivel, luchador);
 
             else if (!luchadores.TryAdd(luchador.id, luchador))
                 luchador.get_Actualizar_Luchador(luchador.id, luchador.esta_vivo, luchador.vida_actual, luchador.pa, luchador.pm, luchador.celda, luchador.vida_maxima, luchador.equipo, luchador.id_invocador);

@@ -20,12 +20,13 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
     public class Personaje : Entidad
     {
         public int id { get; set; } = 0;
-        public string nombre_personaje { get; set; } = string.Empty;
+        public string nombre { get; set; } = string.Empty;
         public byte nivel { get; set; } = 0;
         public byte sexo { get; set; } = 0;
         public byte raza_id { get; set; } = 0;
         public InventarioGeneral inventario { get; private set; }
         public int puntos_caracteristicas { get; set; } = 0;
+        public int kamas { get; private set; } = 0;
         public CaracteristicasInformacion caracteristicas { get; set; }
         public Dictionary<short, Hechizo> hechizos { get; set; }//id_hechizo, hechizo
         public List<Oficio> oficios { get; private set; }
@@ -61,7 +62,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
         public Personaje(int _id, string _nombre_personaje, byte _sexo, Celda _celda)//Paquete GM+
         {
             id = _id;
-            nombre_personaje = _nombre_personaje;
+            nombre = _nombre_personaje;
             sexo = _sexo;
             celda = _celda;
         }
@@ -69,7 +70,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
         public void set_Datos_Personaje(int _id, string _nombre_personaje, byte _nivel, byte _sexo, byte _raza_id)
         {
             id = _id;
-            nombre_personaje = _nombre_personaje;
+            nombre = _nombre_personaje;
             nivel = _nivel;
             sexo = _sexo;
             raza_id = _raza_id;
@@ -101,7 +102,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
             caracteristicas.experiencia_actual = double.Parse(_loc5[0]);
             caracteristicas.experiencia_minima_nivel = double.Parse(_loc5[1]);
             caracteristicas.experiencia_siguiente_nivel = double.Parse(_loc5[2]);
-            caracteristicas.kamas = int.Parse(_loc3[1]);
+            kamas = int.Parse(_loc3[1]);
             puntos_caracteristicas = int.Parse(_loc3[2]);
 
             _loc5 = _loc3[5].Split(',');
@@ -247,7 +248,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
                 
                 hechizos = null;
                 caracteristicas = null;
-                nombre_personaje = null;
+                nombre = null;
                 inventario = null;
                 disposed = true;
             }

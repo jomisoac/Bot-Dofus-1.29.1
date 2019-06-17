@@ -63,13 +63,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!File.Exists(ruta_archivo) || !ruta_archivo.EndsWith(".lua"))
                 throw new Exception("Archivo no encontrado o no es válido.");
 
-            manejador_script.cargar_Desde_Archivo(ruta_archivo, despues_De_Archivo);
+            manejador_script.cargar_Desde_Archivo(ruta_archivo, funciones_Personalizadas);
             evento_script_cargado?.Invoke(Path.GetFileNameWithoutExtension(ruta_archivo));
         }
 
-        private void despues_De_Archivo()
+        private void funciones_Personalizadas()
         {
             manejador_script.Set_Global("api", api);
+
+            //no necesita coroutines
+            manejador_script.Set_Global("personaje", api.personaje);
 
             manejador_script.Set_Global("imprimir_exito", new Action<string>((mensaje) => cuenta.logger.log_informacion("Script", mensaje)));
             manejador_script.Set_Global("imprimir_error", new Action<string>((mensaje) => cuenta.logger.log_Error("Script", mensaje)));

@@ -18,10 +18,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         public Script script { get; private set; }
         private bool disposed = false;
 
-        public void cargar_Desde_Archivo(string ruta_archivo, Action antes_de_archivo)
+        public void cargar_Desde_Archivo(string ruta_archivo, Action funciones_Personalizadas)
         {
             script = new Script();
-            antes_de_archivo();
+            funciones_Personalizadas();
             script.DoFile(ruta_archivo);
         }
 
@@ -34,9 +34,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             DynValue resultado = script.Call(funcion);
 
-            if (resultado.Type != DataType.Table)
-                return null;
-            return resultado.Table.Values.Where(f => f.Type == DataType.Table).Select(f => f.Table);
+            return resultado.Type != DataType.Table ? null : resultado.Table.Values.Where(f => f.Type == DataType.Table).Select(f => f.Table);
         }
 
         public T get_Global_Or<T>(string key, DataType tipo, T valor_or)
@@ -61,16 +59,21 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         public bool es_Global(string key) => script.Globals[key] != null;
         public void Set_Global(string key, object value) => script.Globals[key] = value;
 
-        public void Dispose() => Dispose(true);
+        //Registra todas las clases con el atributo [MoonSharpUserData]
+        public static void inicializar_Funciones() => UserData.RegisterAssembly();
+
+        #region Zona Dispose
         ~LuaManejadorScript() => Dispose(false);
-        
+        public void Dispose() => Dispose(true);
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposed)
             {
                 script = null;
                 disposed = true;
-            } 
+            }
         }
+        #endregion
     }
 }

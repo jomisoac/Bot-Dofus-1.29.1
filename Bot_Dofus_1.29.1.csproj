@@ -253,6 +253,7 @@
     <Compile Include="Otros\Scripts\Acciones\RecoleccionAccion.cs" />
     <Compile Include="Otros\Scripts\Api\API.cs" />
     <Compile Include="Otros\Scripts\Api\InventarioApi.cs" />
+    <Compile Include="Otros\Scripts\Api\PersonajeApi.cs" />
     <Compile Include="Otros\Scripts\Banderas\Bandera.cs" />
     <Compile Include="Otros\Scripts\Banderas\CambiarMapa.cs" />
     <Compile Include="Otros\Scripts\Banderas\FuncionPersonalizada.cs" />

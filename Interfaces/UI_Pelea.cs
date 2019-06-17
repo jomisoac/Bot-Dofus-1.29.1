@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
@@ -102,11 +103,14 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void button1_Click(object sender, EventArgs e)
         {
             Mapa mapa = cuenta.juego.mapa;
-            if (mapa.monstruos.Count > 0)
-            {
-                Celda celda_actual = cuenta.juego.personaje.celda, celda_monstruo_destino = mapa.monstruos.Values.ElementAt(0).celda;
 
-                if (celda_actual.id != celda_monstruo_destino.id & celda_monstruo_destino.id != -1)
+            List<Monstruo> monstruos = cuenta.juego.mapa.entidades.Values.Select(n => n as Monstruo).ToList();
+
+            if (monstruos.Count > 0)
+            {
+                Celda celda_actual = cuenta.juego.personaje.celda, celda_monstruo_destino = monstruos[0].celda;
+
+                if (celda_actual.id != celda_monstruo_destino.id & celda_monstruo_destino.id > 0)
                 {
                     cuenta.logger.log_informacion("UI_PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino.id);
 

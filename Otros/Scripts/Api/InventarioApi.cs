@@ -3,14 +3,16 @@ using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario.Enums;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Inventario;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
 using MoonSharp.Interpreter;
+using System;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 {
     [MoonSharpUserData]
-    public class InventarioApi
+    public class InventarioApi : IDisposable
     {
         private Cuenta cuenta;
         private ManejadorAcciones manejar_acciones;
+        private bool disposed = false;
 
         public InventarioApi(Cuenta _cuenta, ManejadorAcciones _manejar_acciones)
         {
@@ -32,5 +34,20 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
             manejar_acciones.enqueue_Accion(new EquiparItem(modelo_id), true);
             return true;
         }
+
+        #region Zona Dispose
+        ~InventarioApi() => Dispose(false);
+        public void Dispose() => Dispose(true);
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                cuenta = null;
+                manejar_acciones = null;
+                disposed = true;
+            }
+        }
+        #endregion
     }
 }

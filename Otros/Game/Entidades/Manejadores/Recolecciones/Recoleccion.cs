@@ -72,12 +72,15 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
 
             ObjetosInventario arma = personaje.inventario.get_Objeto_en_Posicion(InventarioPosiciones.ARMA);
             byte distancia_arma = 1;
-            bool es_herramienta_pescar = herramientas_pescar.Contains(arma.id_modelo);
+            bool es_herramienta_pescar = false;
 
             if (arma != null)
+            {
                 distancia_arma = get_Distancia_herramienta(arma.id_modelo);
+                es_herramienta_pescar = herramientas_pescar.Contains(arma.id_modelo);
+            }
 
-            foreach (ObjetoInteractivo interactivo in mapa.interactivos.Values)
+            foreach (ObjetoInteractivo interactivo in mapa.interactivos)
             {
                 if (!interactivo.es_utilizable || !interactivo.modelo.recolectable)
                     continue;
@@ -92,7 +95,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
                     if (!elementos_ids.Contains(habilidad))
                         continue;
 
-                    if (!es_herramienta_pescar && path.Last().get_Distancia_Entre_Dos_Casillas(interactivo.celda) != 1)
+                    if (!es_herramienta_pescar && path.Last().get_Distancia_Entre_Dos_Casillas(interactivo.celda) > 1)
                         continue;
 
                     if (es_herramienta_pescar && path.Last().get_Distancia_Entre_Dos_Casillas(interactivo.celda) > distancia_arma)

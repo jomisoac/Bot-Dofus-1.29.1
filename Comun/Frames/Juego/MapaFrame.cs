@@ -4,6 +4,7 @@ using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
 using Bot_Dofus_1._29._1.Otros.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
@@ -74,39 +75,18 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 for (int m = 1; m < templates.Length; ++m)
                                     monstruo.moobs_dentro_grupo.Add(new Monstruo(id, int.Parse(templates[m]), celda, int.Parse(niveles[m])));
 
-                                cuenta.juego.mapa.agregar_Entidad(monstruo);
+                                cuenta.juego.mapa.entidades.TryAdd(id, monstruo);
                             break;
 
                             case -4://NPC
-                                cuenta.juego.mapa.agregar_Entidad(new Npcs(id, int.Parse(nombre_template), celda));
+                                cuenta.juego.mapa.entidades.TryAdd(id, new Npcs(id, int.Parse(nombre_template), celda));
                             break;
-
-                            case -5:
-                                break;
-
-                            case -6:
-                                break;
-
-                            case -7:
-                            case -8:
-                                break;
-
-                            case -9:
-                                break;
-
-                            case -10:
-                                break;
 
                             default:// jugador
                                 if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                                 {
                                     if (cuenta.juego.personaje.id != id)
-                                    {
-                                        if (nombre_template.StartsWith("[") || Extensiones.lista_mods.Contains(nombre_template))
-                                            cuenta.conexion.get_Desconectar_Socket();
-
-                                        cuenta.juego.mapa.agregar_Entidad(new Personaje(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda));
-                                    }
+                                        cuenta.juego.mapa.entidades.TryAdd(id, new Personaje(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda));
                                     else
                                         cuenta.juego.personaje.celda = celda;
                                 }
@@ -137,7 +117,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                         cuenta.conexion.enviar_Paquete("GR1");//boton listo
                                     }
                                 }
-                                break;
+                             break;
                         }
                     }
                     else if (_loc6[0].Equals('-'))
@@ -145,7 +125,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                         {
                             int id = int.Parse(_loc6.Substring(1));
-                            cuenta.juego.mapa.eliminar_Entidad(id);
+                            cuenta.juego.mapa.entidades.TryRemove(id, out Entidad entidad);
                         }
                     }
                 }
@@ -191,25 +171,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 
                                 await cuenta.juego.manejador.movimientos.evento_Movimiento_Finalizado(celda_destino, tipo_gkk_movimiento, true);
                             }
-                            else if (mapa.personajes.TryGetValue(id_entidad, out Personaje personaje_mapa))
+                            else if (mapa.entidades.TryGetValue(id_entidad, out Entidad entidad))
                             {
-                                personaje_mapa.celda = celda_destino;
+                                entidad.celda = celda_destino;
 
                                 if (GlobalConf.mostrar_mensajes_debug)
-                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un personaje a la casilla: " + celda_destino.id);
-                            }
-                            else if (mapa.monstruos.TryGetValue(id_entidad, out Monstruo monstruo_mapa))
-                            {
-                                monstruo_mapa.celda = celda_destino;
-                                if (GlobalConf.mostrar_mensajes_debug)
-                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de un grupo de monstruo a la casilla: " + celda_destino.id);
-                            }
-                            else if (mapa.npcs.TryGetValue(id_entidad, out Npcs npc_mapa))
-                            {
-                                npc_mapa.celda = celda_destino;
-
-                                if (GlobalConf.mostrar_mensajes_debug)
-                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de npc a la casilla: " + celda_destino.id);
+                                    cuenta.logger.log_informacion("DEBUG", "Detectado movimiento de una entidad a la casilla: " + celda_destino.id);
                             }
                             mapa.evento_Entidad_Actualizada();
                         }

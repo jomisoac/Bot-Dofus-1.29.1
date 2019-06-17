@@ -15,7 +15,6 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Stats
         public double experiencia_actual { get; set; }
         public double experiencia_minima_nivel { get; set; }
         public double experiencia_siguiente_nivel { get; set; }
-        public int kamas { get; set; }
         public int energia_actual { get; set; }
         public int maxima_energia { get; set; }
         public int vitalidad_actual { get; set; }
