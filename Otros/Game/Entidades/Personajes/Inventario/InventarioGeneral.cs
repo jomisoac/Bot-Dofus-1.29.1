@@ -47,12 +47,9 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
                 if (!obj.Equals(string.Empty))
                 {
                     string[] separador = obj.Split('~');
-                    int cantidad = Convert.ToInt32(separador[2], 16);
                     uint id_inventario = Convert.ToUInt32(separador[0], 16);
-
                     ObjetosInventario objeto = new ObjetosInventario(obj);
-
-                    _objetos.TryAdd(Convert.ToUInt32(separador[0], 16), objeto);
+                    _objetos.TryAdd(id_inventario, objeto);
                 }
             }
 

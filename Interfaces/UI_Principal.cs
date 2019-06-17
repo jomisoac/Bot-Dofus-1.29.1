@@ -2,7 +2,7 @@
 using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Stats;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
@@ -124,17 +124,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             BeginInvoke((Action)(() =>
             {
-                CaracteristicasInformacion caracteristicas = cuenta.juego.personaje.caracteristicas;
+                Personaje personaje = cuenta.juego.personaje;
 
-                progresBar_vitalidad.valor_Maximo = caracteristicas.vitalidad_maxima;
-                progresBar_vitalidad.Valor = caracteristicas.vitalidad_actual;
+                progresBar_vitalidad.valor_Maximo = personaje.caracteristicas.vitalidad_maxima;
+                progresBar_vitalidad.Valor = personaje.caracteristicas.vitalidad_actual;
 
-                progresBar_energia.valor_Maximo = caracteristicas.maxima_energia;
-                progresBar_energia.Valor = caracteristicas.energia_actual;
-                progresBar_experiencia.Text = cuenta.juego.personaje.nivel.ToString();
-                progresBar_experiencia.Valor = cuenta.juego.personaje.porcentaje_experiencia;
+                progresBar_energia.valor_Maximo = personaje.caracteristicas.maxima_energia;
+                progresBar_energia.Valor = personaje.caracteristicas.energia_actual;
+                progresBar_experiencia.Text = personaje.nivel.ToString();
+                progresBar_experiencia.Valor = personaje.porcentaje_experiencia;
 
-                label_kamas_principal.Text = caracteristicas.kamas.ToString("0,0");
+                label_kamas_principal.Text = personaje.kamas.ToString("0,0");
             }));
         }
 

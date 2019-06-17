@@ -5,8 +5,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
 {
     public static class Extensiones
     {
-        public static readonly string[] lista_mods = new string[] { "Nemetacum", "Seydlex", "Sisuphos", "Toblik", "Falgoryn", };
-
         public static string cadena_Amigable(this EstadoCuenta estado)
         {
             switch (estado)

@@ -27,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
             Npcs npc = null;
-            IDictionary<int, Npcs> npcs = cuenta.juego.mapa.npcs;
+            IEnumerable<Npcs> npcs = cuenta.juego.mapa.entidades.Values.Select(n => n as Npcs);
 
             if (npc_id < 0)
             {
@@ -35,10 +35,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                 if (npcs.Count() <= index)
                     return resultado_fallado;
 
-                npc = npcs.ElementAt(index).Value;
+                npc = npcs.ElementAt(index);
             }
             else
-                npc = npcs.FirstOrDefault(n => n.Value.npc_id == npc_id).Value;
+                npc = npcs.FirstOrDefault(n => n.npc_id == npc_id);
 
             cuenta.conexion.enviar_Paquete("DC" + npc.id);
             return resultado_procesado;

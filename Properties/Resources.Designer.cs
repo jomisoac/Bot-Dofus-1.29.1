@@ -545,9 +545,9 @@ namespace Bot_Dofus_1._29._1.Properties {
         ///&lt;HECHIZOS&gt;
         ///  &lt;HECHIZO ID=&quot;1&quot;&gt;
         ///    &lt;NOMBRE&gt;Armadura Incandescente&lt;/NOMBRE&gt;
-        ///    &lt;NIVEL ID=&quot;1&quot; COSTE_PA=&quot;2&quot; RANGO_MINIMO=&quot;0&quot; RANGO_MAXIMO=&quot;0&quot; LANZ_EN_LINEA=&quot;FALSE&quot; NECESITA_VISION=&quot;FALSE&quot; NECESITA_CELDA_LIBRE=&quot;FALSE&quot; RANGO_MODIFICABLE=&quot;FALSE&quot; MAX_LANZ_POR_TURNO=&quot;0&quot; MAX_LANZ_POR_OBJETIVO=&quot;0&quot; COOLDOWN=&quot;5&quot;&gt;
+        ///    &lt;NIVEL NIVEL=&quot;1&quot; COSTE_PA=&quot;2&quot; RANGO_MINIMO=&quot;0&quot; RANGO_MAXIMO=&quot;0&quot; LANZ_EN_LINEA=&quot;FALSE&quot; NECESITA_VISION=&quot;FALSE&quot; NECESITA_CELDA_LIBRE=&quot;FALSE&quot; RANGO_MODIFICABLE=&quot;FALSE&quot; MAX_LANZ_POR_TURNO=&quot;0&quot; MAX_LANZ_POR_OBJETIVO=&quot;0&quot; COOLDOWN=&quot;5&quot;&gt;
         ///      &lt;EFECTO TIPO=&quot;265&quot; COOLDOWN=&quot;4&quot; OBJETIVO=&quot;-1&quot; ZONA=&quot;Cc&quot; ES_CRITICO=&quot;FALSE&quot; /&gt;
-        ///      &lt;EFECTO TIPO=&quot;265&quot; COOLDOWN=&quot;4&quot; OBJETIVO=&quot;-1&quot; ZONA=&quot;Cc&quot; ES_CRITICO=&quot;TRUE&quot;  [resto de la cadena truncado]&quot;;.
+        ///      &lt;EFECTO TIPO=&quot;265&quot; COOLDOWN=&quot;4&quot; OBJETIVO=&quot;-1&quot; ZONA=&quot;Cc&quot; ES_CRITICO=&quot;TRU [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string hechizos {
             get {

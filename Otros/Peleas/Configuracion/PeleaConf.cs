@@ -11,7 +11,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         private Cuenta cuenta;
         private bool disposed;
 
-        private string archivo_configuracion => Path.Combine(carpeta_configuracion, $"{cuenta.juego.personaje.nombre_personaje}.config");
+        private string archivo_configuracion => Path.Combine(carpeta_configuracion, $"{cuenta.juego.personaje.nombre}.config");
         public List<HechizoPelea> hechizos { get; private set; }
         public byte celdas_maximas { get; set; }
         public bool desactivar_espectador { get; set; }
