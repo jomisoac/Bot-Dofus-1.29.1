@@ -32,7 +32,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         /** Concurrent para forzar thread-safety **/
         public ConcurrentDictionary<int, Entidad> entidades;
-        public List<ObjetoInteractivo> interactivos;
+        public ConcurrentDictionary<int, ObjetoInteractivo> interactivos;
 
         public event Action mapa_actualizado;
         public event Action entidades_actualizadas;
@@ -41,7 +41,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public Mapa()
         {
             entidades = new ConcurrentDictionary<int, Entidad>();
-            interactivos = new List<ObjetoInteractivo>();
+            interactivos = new ConcurrentDictionary<int, ObjetoInteractivo>();
         }
 
         public void get_Actualizar_Mapa(string paquete)

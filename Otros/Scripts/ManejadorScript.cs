@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Global;
@@ -74,8 +75,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             //no necesita coroutines
             manejador_script.Set_Global("personaje", api.personaje);
 
-            manejador_script.Set_Global("imprimir_exito", new Action<string>((mensaje) => cuenta.logger.log_informacion("Script", mensaje)));
-            manejador_script.Set_Global("imprimir_error", new Action<string>((mensaje) => cuenta.logger.log_Error("Script", mensaje)));
+            manejador_script.Set_Global("mensaje", new Action<string>((mensaje) => cuenta.logger.log_informacion("SCRIPT", mensaje)));
+            manejador_script.Set_Global("mensaje_error", new Action<string>((mensaje) => cuenta.logger.log_Error("SCRIPT", mensaje)));
             manejador_script.Set_Global("detener_script", new Action(() => detener_Script()));
             manejador_script.Set_Global("delay_funcion", new Action<int>((ms) => manejar_acciones.enqueue_Accion(new DelayAccion(ms), true)));
 
@@ -85,16 +86,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         public void activar_Script()
         {
-            if (manejador_script.script != null)
-            {
-                if (activado || cuenta.esta_ocupado)
-                    return;
+            if (activado || cuenta.esta_ocupado)
+                return;
 
-                activado = true;
-                evento_script_iniciado?.Invoke();
-                estado_script = EstadoScript.MOVIMIENTO;
-                iniciar_Script();
-            }
+            activado = true;
+            evento_script_iniciado?.Invoke();
+            estado_script = EstadoScript.MOVIMIENTO;
+            iniciar_Script();
         }
 
         public void detener_Script(string mensaje = "script pausado")
@@ -231,21 +229,23 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
             Bandera bandera_actual = banderas[bandera_id];
 
-            if (bandera_actual is RecoleccionBandera)
+            switch (bandera_actual)
             {
-                manejar_Recoleccion_Bandera(tiene_accion_disponible as RecoleccionAccion);
-            }
-            else if (bandera_actual is PeleaBandera)
-            {
-                manejar_Pelea_mapa(tiene_accion_disponible as PeleasAccion);
-            }
-            else if (bandera_actual is NPCBancoBandera)
-            {
-                manejar_Npc_Banco_Bandera();
-            }
-            else if (bandera_actual is CambiarMapa mapa)
-            {
-                manejar_Cambio_Mapa(mapa);
+                case RecoleccionBandera _:
+                    manejar_Recoleccion_Bandera(tiene_accion_disponible as RecoleccionAccion);
+                break;
+
+                case PeleaBandera _:
+                    manejar_Pelea_mapa(tiene_accion_disponible as PeleasAccion);
+                break;
+
+                case NPCBancoBandera _:
+                    manejar_Npc_Banco_Bandera();
+                break;
+
+                case CambiarMapa mapa:
+                    manejar_Cambio_Mapa(mapa);
+                break;
             }
         }
 
@@ -369,11 +369,43 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (auto_regeneracion == null)
                 return;
 
+            Personaje personaje = cuenta.juego.personaje;
             int vida_minima = auto_regeneracion.get_Or("vida_minima", DataType.Number, 0);
             int vida_maxima = auto_regeneracion.get_Or("vida_maxima", DataType.Number, 100);
 
-            if (vida_minima == 0 || cuenta.juego.personaje.caracteristicas.porcentaje_vida > vida_minima)
+            if (vida_minima == 0 || personaje.caracteristicas.porcentaje_vida > vida_minima)
                 return;
+
+            int fin_vida = vida_maxima * personaje.caracteristicas.vitalidad_maxima / 100;
+            int vida_para_regenerar = fin_vida - personaje.caracteristicas.vitalidad_actual;
+
+            List<int> objetos = auto_regeneracion.Get("objetos").ToObject<List<int>>();
+
+            foreach (int id_objeto in objetos)
+            {
+                if (vida_para_regenerar < 20)
+                    break;
+
+                ObjetosInventario objeto = personaje.inventario.get_Objeto_Modelo_Id(id_objeto);
+
+                if (objeto == null)
+                    continue;
+
+                if (objeto.vida_regenerada <= 0)
+                    continue;
+
+                int cantidad_necesaria = (int)Math.Floor(vida_para_regenerar / (double)objeto.vida_regenerada);
+                int cantidad_correcta = Math.Min(cantidad_necesaria, (int)objeto.cantidad);
+
+                for (int j = 0; j < cantidad_correcta; j++)
+                {
+                    cuenta.conexion.enviar_Paquete("OU" + objeto.id_inventario + "|");
+                    cuenta.juego.personaje.inventario.eliminar_Objetos(objeto, 1, false);
+                    await Task.Delay(800);
+                }
+
+                vida_para_regenerar -= objeto.vida_regenerada * cantidad_correcta;
+            }
         }
 
         private void procesar_Actual_Bandera(bool evitar_comprobaciones = false)
@@ -399,7 +431,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                             procesar_Actual_Entrada(accion_recoleccion);
                             return;
                         }
-                    break;
+                        break;
 
                     case PeleaBandera _:
                         PeleasAccion accion_pelea = get_Crear_Pelea_Accion();
@@ -440,6 +472,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     monstruos_prohibidos.Add((int)fm.Number);
                 }
             }
+
             entrada = manejador_script.get_Global_Or<Table>("MONSTRUOS_OBLIGATORIOS", DataType.Table, null);
             if (entrada != null)
             {
@@ -450,6 +483,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     monstruos_obligatorios.Add((int)mm.Number);
                 }
             }
+
             return new PeleasAccion(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
         }
 
@@ -493,7 +527,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         #region Zona Dispose
         public void Dispose() => Dispose(true);
         ~ManejadorScript() => Dispose(false);
-        
+
         public virtual void Dispose(bool disposing)
         {
             if (disposed)

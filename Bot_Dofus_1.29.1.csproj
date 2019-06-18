@@ -399,40 +399,16 @@
     <None Include="Resources\iconos\icono_escoba.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\stats\curaciones.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\danos.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\danos_armas.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\danos_porciento.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\stats\energia.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\stats\esquiva_pa.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\esquiva_pm.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\stats\fuerza.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\golpes_criticos.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stats\iniciativa.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stats\inteligencia.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\invocaciones_disponibles.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stats\PA.png" />
@@ -444,28 +420,10 @@
     <None Include="Resources\stats\prospeccion.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\stats\resistencia_aire.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\resistencia_fuerza.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\resistencia_inteligencia.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\resistencia_neutral.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\resistencia_suert.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\stats\sabiduria.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stats\suerte.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stats\trampas_porciento.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stats\vitalidad.png" />
@@ -486,9 +444,6 @@
     <None Include="Resources\iconos\dinero_kamas.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\stats\energia_stats.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\iconos\experiencia.png" />
   </ItemGroup>
   <ItemGroup>
@@ -499,9 +454,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconos\documento_azul.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconos\documento_rojo.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconos\boton_play.png" />
@@ -525,9 +477,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\otros\interactivos.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconos\teleport_mapa.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\razas\10.png" />

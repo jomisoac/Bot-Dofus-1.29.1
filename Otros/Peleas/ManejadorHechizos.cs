@@ -32,14 +32,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return await lanzar_Hechizo_Celda_Vacia(hechizo);
 
-            if (!hechizo.lanzar_cuerpo_cuerpo && !hechizo.es_aoe)
+            if (!hechizo.lanzar_cuerpo_cuerpo && !hechizo.es_aoe && !cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
                 return await get_Lanzar_Hechizo_Simple(hechizo);
 
-            //si el hechizo es cuerpo a cuerpo y esta cuerpo a cuerpo lanzara el hechizo
             if (hechizo.lanzar_cuerpo_cuerpo && !hechizo.es_aoe && cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
                 return await get_Lanzar_Hechizo_Simple(hechizo);
 
-            //si el hechizo es cuerpo a cuerpo pero no esta cuerpo a cuerpo hay que mover el bot
             if (hechizo.lanzar_cuerpo_cuerpo && !hechizo.es_aoe && !cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
                 return await get_Mover_Lanzar_hechizo_Simple(hechizo, get_Objetivo_Mas_Cercano(hechizo));
 
@@ -69,7 +67,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                     await pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda.id);
                     return ResultadoLanzandoHechizo.LANZADO;
                 }
-                else if (resultado == FallosLanzandoHechizo.NO_ESTA_EN_RANGO)
+
+                if (resultado == FallosLanzandoHechizo.NO_ESTA_EN_RANGO)
                     return await get_Mover_Lanzar_hechizo_Simple(hechizo, enemigo);
             }
             else if (hechizo.focus == HechizoFocus.CELDA_VACIA)
@@ -147,13 +146,15 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private Luchadores get_Objetivo_Mas_Cercano(HechizoPelea hechizo)
         {
+            Pelea pelea = cuenta.pelea;
+
             if (hechizo.focus == HechizoFocus.ENCIMA)
-                return cuenta.pelea.jugador_luchador;
+                return pelea.jugador_luchador;
 
             if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return null;
 
-            return hechizo.focus == HechizoFocus.ENEMIGO ? cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano() : cuenta.pelea.get_Obtener_Aliado_Mas_Cercano();
+            return hechizo.focus == HechizoFocus.ENEMIGO ? pelea.get_Obtener_Enemigo_Mas_Cercano() : pelea.get_Obtener_Aliado_Mas_Cercano();
         }
 
         #region Zona Dispose

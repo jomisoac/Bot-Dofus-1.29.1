@@ -4,7 +4,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
 {
@@ -37,7 +36,6 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
         }
 
         public ObjetosInventario get_Objeto_Modelo_Id(int gid) => objetos.FirstOrDefault(f => f.id_modelo == gid);
-
         public ObjetosInventario get_Objeto_en_Posicion(InventarioPosiciones posicion) => objetos.FirstOrDefault(o => o.posicion == posicion);
 
         public void agregar_Objetos(string paquete)
@@ -52,7 +50,6 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
                     _objetos.TryAdd(id_inventario, objeto);
                 }
             }
-
             inventario_actualizado?.Invoke(true);
         }
 

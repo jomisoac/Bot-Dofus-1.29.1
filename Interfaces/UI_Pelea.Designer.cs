@@ -638,6 +638,7 @@
             this.AOE});
             this.listView_hechizos_pelea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_hechizos_pelea.FullRowSelect = true;
+            this.listView_hechizos_pelea.HideSelection = false;
             this.listView_hechizos_pelea.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
             this.listView_hechizos_pelea.Location = new System.Drawing.Point(3, 3);

@@ -80,7 +80,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
                 es_herramienta_pescar = herramientas_pescar.Contains(arma.id_modelo);
             }
 
-            foreach (ObjetoInteractivo interactivo in mapa.interactivos)
+            foreach (ObjetoInteractivo interactivo in mapa.interactivos.Values)
             {
                 if (!interactivo.es_utilizable || !interactivo.modelo.recolectable)
                     continue;

@@ -97,7 +97,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 contador_recoleccion++;
 
                 if (manejador_script.get_Global_Or("MOSTRAR_CONTADOR_RECOLECCION", DataType.Boolean, false))
-                    cuenta.logger.log_informacion("SCRIPT", $"Recolección número: #{contador_recoleccion}");
+                    cuenta.logger.log_informacion("SCRIPT", $"Recolección #{contador_recoleccion}");
             }
         }
 
@@ -134,7 +134,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 contador_pelea++;
 
                 if (manejador_script.get_Global_Or("MOSTRAR_CONTADOR_PELEAS", DataType.Boolean, false))
-                    cuenta.logger.log_informacion("SCRIPT", $"Combate número: #{contador_pelea}");
+                    cuenta.logger.log_informacion("SCRIPT", $"Combate #{contador_pelea}");
             }
         }
 
