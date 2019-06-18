@@ -24,6 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
         public short pods { get; private set; }
         public short nivel { get; private set; } = 0;
         public byte tipo { get; private set; }
+        public short vida_regenerada { get; }
         public TipoObjetosInventario tipo_inventario { get; private set; } = TipoObjetosInventario.DESCONOCIDO;
         private readonly XElement archivo_objeto;
 
@@ -34,9 +35,23 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
             id_inventario = Convert.ToUInt32(separador[0], 16);
             id_modelo = Convert.ToInt32(separador[1], 16);
             cantidad = Convert.ToInt32(separador[2], 16);
-            
-            if(!string.IsNullOrEmpty(separador[3]))
+
+            if (!string.IsNullOrEmpty(separador[3]))
                 posicion = (InventarioPosiciones)Convert.ToSByte(separador[3], 16);
+
+            string[] split = separador[4].Split(',');
+            foreach (string stat in split)
+            {
+                string[] separador_stats = stat.Split('#');
+                string id = separador_stats[0];
+
+                if (string.IsNullOrEmpty(id))
+                    continue;
+
+                int stat_id = Convert.ToInt32(id, 16);
+                if (stat_id == 110)
+                    vida_regenerada = Convert.ToInt16(separador_stats[1], 16);
+            }
 
             FileInfo archivo_item = new FileInfo("items/" + id_modelo + ".xml");
             if (archivo_item.Exists)

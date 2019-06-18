@@ -50,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             if (_objeto_interactivo_id != -1)
             {
                 objeto_interactivo = new ObjetoInteractivo(_objeto_interactivo_id, this);
-                _mapa.interactivos.Add(objeto_interactivo);
+                _mapa.interactivos.TryAdd(id, objeto_interactivo);
             }
 
             byte mapa_anchura = _mapa.anchura;

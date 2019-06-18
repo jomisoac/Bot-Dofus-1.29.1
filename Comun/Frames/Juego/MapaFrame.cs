@@ -82,6 +82,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 cuenta.juego.mapa.entidades.TryAdd(id, new Npcs(id, int.Parse(nombre_template), celda));
                             break;
 
+                            case -5:
+                            case -6:
+                            case -7:
+                            case -8:
+                            case -9:
+                            case -10:
+                            break;
+
                             default:// jugador
                                 if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                                 {
@@ -290,7 +298,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 {
                     case 2:
                         cuenta.juego.mapa.interactivos[celda_id].es_utilizable = false;
-                        break;
+                    break;
 
                     case 3:
                         cuenta.juego.mapa.interactivos[celda_id].es_utilizable = false;
