@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -7,16 +6,16 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
 {
     public class Cabezera : Control
     {
-        public string titulo, estado;
+        public string cuenta, estado, grupo;
         public Image imagen;
         public bool esta_seleccionada;
 
-        public string propiedad_Titulo
+        public string propiedad_Cuenta
         {
-            get => titulo;
+            get => cuenta;
             set
             {
-                titulo = value;
+                cuenta = value;
                 Invalidate();
             }
         }
@@ -27,6 +26,16 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
             set
             {
                 estado = value;
+                Invalidate();
+            }
+        }
+
+        public string propiedad_Grupo
+        {
+            get => grupo;
+            set
+            {
+                grupo = value;
                 Invalidate();
             }
         }
@@ -81,19 +90,22 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
                 g.DrawImage(imagen, new Rectangle(4, 8, 28, 28));
                 limites.X += 30;
             }
+            Font fuente = new Font(Font.FontFamily, Font.Size - 1.6F);
 
-            if (!string.IsNullOrEmpty(titulo) && !string.IsNullOrEmpty(estado))
+            if (!string.IsNullOrEmpty(cuenta) && !string.IsNullOrEmpty(estado) && !string.IsNullOrEmpty(grupo))
             {
-                SizeF titulo_tamano = g.MeasureString(titulo, Font);
-                SizeF _estado_tamano = g.MeasureString(titulo, new Font(Font.FontFamily, Font.Size - 2));
+                SizeF titulo_tamano = g.MeasureString(cuenta, fuente);
+                SizeF estado_tamano = g.MeasureString(estado, fuente);
+                SizeF estado_grupo = g.MeasureString(grupo, fuente);
 
-                g.DrawString(titulo, Font, Brushes.Black, limites.X, 20 - (titulo_tamano.Height + _estado_tamano.Height) / 2);
-                g.DrawString(estado, new Font(Font.FontFamily, Font.Size - 2), Brushes.Black, limites.X, 20 - (titulo_tamano.Height + _estado_tamano.Height) / 2 + titulo_tamano.Height);
+                g.DrawString(char.ToUpper(cuenta[0]) + cuenta.Substring(1), fuente, Brushes.Black, limites.X, 25 - ((titulo_tamano.Height + estado_tamano.Height + estado_grupo.Height) / 2));
+                g.DrawString($"Estado: {estado}", fuente, Brushes.Black, limites.X, 20 - ((titulo_tamano.Height + estado_tamano.Height + estado_grupo.Height) / 2) + titulo_tamano.Height);
+                g.DrawString($"Grupo: {grupo}", fuente, Brushes.Black, limites.X, 15 - ((titulo_tamano.Height + estado_tamano.Height + estado_grupo.Height) / 2) + titulo_tamano.Height + estado_tamano.Height);
             }
-            else if (!string.IsNullOrEmpty(titulo))
+            else if (!string.IsNullOrEmpty(cuenta))
             {
-                SizeF titleSize = g.MeasureString(titulo, Font);
-                g.DrawString(titulo, Font, Brushes.Black, limites.X, 20 - titleSize.Height / 2);
+                SizeF titulo_tamano = g.MeasureString(cuenta, fuente);
+                g.DrawString(cuenta, fuente, Brushes.Black, limites.X, 25 - titulo_tamano.Height / 2);
             }
         }
     }

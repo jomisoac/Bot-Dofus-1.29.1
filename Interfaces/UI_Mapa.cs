@@ -2,6 +2,7 @@
 using Bot_Dofus_1._29._1.Controles.ControlMapa.Animaciones;
 using Bot_Dofus_1._29._1.Controles.ControlMapa.Celdas;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
@@ -74,7 +75,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             if (botones == MouseButtons.Left && celda_actual.id != 0 && celda_destino.id != 0)
             {
-                ResultadoMovimientos resultado = cuenta.juego.manejador.movimientos.get_Mover_A_Celda(celda_destino, mapa.celdas_ocupadas);
+                ResultadoMovimientos resultado = cuenta.juego.manejador.movimientos.get_Mover_A_Celda(celda_destino, mapa.celdas_ocupadas());
 
                 switch (resultado)
                 {

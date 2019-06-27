@@ -119,6 +119,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario
                 case 60:
                 case 65:
                 case 68:
+                case 84:
                 case 96:
                 case 98:
                 case 100:

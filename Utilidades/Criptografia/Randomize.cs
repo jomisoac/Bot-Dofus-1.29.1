@@ -9,7 +9,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
         private static readonly ThreadLocal<Random> random = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
         private static readonly object bloqueo = new object();
 
-        public static int get_Random_Int(int minimo, int maximo)
+        public static int get_Random(int minimo, int maximo)
         {
             lock (bloqueo)
             {

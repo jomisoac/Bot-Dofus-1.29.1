@@ -1,6 +1,9 @@
 ﻿using Bot_Dofus_1._29._1.Controles.ControlMapa.Animaciones;
 using Bot_Dofus_1._29._1.Controles.ControlMapa.Celdas;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
+using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using System;
 using System.Collections.Concurrent;
@@ -251,8 +254,17 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                         break;
                     }
 
-                    if (celda.id == cuenta?.juego?.personaje?.celda?.id)
-                        celda.dibujar_FillPie(g, Color.Blue, RealCellHeight / 2);
+                    if(cuenta != null)
+                    {
+                        if (celda.id == cuenta.juego.personaje.celda.id && !animaciones.ContainsKey(cuenta.juego.personaje.id))
+                            celda.dibujar_FillPie(g, Color.Blue, RealCellHeight / 2);
+                        else if (cuenta.juego.mapa.entidades.Values.Where(m => m is Monstruo).FirstOrDefault(m => m.celda.id == celda.id && !animaciones.ContainsKey(m.id)) != null)
+                            celda.dibujar_FillPie(g, Color.DarkRed, RealCellHeight / 2);
+                        else if (cuenta.juego.mapa.entidades.Values.Where(n => n is Npc).FirstOrDefault(n => n.celda.id == celda.id && !animaciones.ContainsKey(n.id)) != null)
+                            celda.dibujar_FillPie(g, Color.FromArgb(179, 120, 211), RealCellHeight / 2);
+                        else if (cuenta.juego.mapa.entidades.Values.Where(p => p is Personaje).FirstOrDefault(p => p.celda.id == celda.id && !animaciones.ContainsKey(p.id)) != null)
+                            celda.dibujar_FillPie(g, Color.FromArgb(81, 113, 202), RealCellHeight / 2);
+                    }
                 }
 
                 dibujar_Animaciones(g);

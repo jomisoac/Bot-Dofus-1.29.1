@@ -1,6 +1,10 @@
-﻿using Bot_Dofus_1._29._1.Otros;
+﻿using Bot_Dofus_1._29._1.Comun.Frames;
+using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
+using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
+using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -20,17 +24,15 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 {
     public class ClienteTcp : IDisposable
     {
-        protected Socket socket { get; private set; }
-        protected byte[] buffer { get; set; }
+        private Socket socket { get; set; }
+        private byte[] buffer { get; set; }
         public Cuenta cuenta;
-        private EstadoSocket fase_socket;
         private SemaphoreSlim semaforo;
-        protected bool disposed;
+        private bool disposed;
 
         public event Action<string> paquete_recibido;
         public event Action<string> paquete_enviado;
         public event Action<string> socket_informacion;
-        public event Action<ClienteTcp> evento_fase_socket;
 
         public ClienteTcp(Cuenta _cuenta) => cuenta = _cuenta;
 
@@ -38,9 +40,8 @@ namespace Bot_Dofus_1._29._1.Comun.Network
         {
             try
             {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 buffer = new byte[socket.ReceiveBufferSize];
-                Estado_Socket = EstadoSocket.NINGUNO;
                 semaforo = new SemaphoreSlim(1);
                 socket.BeginConnect(ip, puerto, new AsyncCallback(conectar_CallBack), socket);
             }
@@ -92,17 +93,15 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
                 foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\0').Where(x => x != string.Empty))
                 {
-                    Program.paquete_recibido.Recibir(this, paquete);
+                    PaqueteRecibido.Recibir(this, paquete);
                     paquete_recibido?.Invoke(paquete);
                 }
 
                 if (esta_Conectado())
                     socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
-                else
-                    get_Desconectar_Socket();
             }
             else
-                get_Desconectar_Socket();
+                cuenta.desconectar();
         }
 
         public async Task enviar_Paquete_Async(string paquete)
@@ -143,9 +142,6 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 }
 
                 socket_informacion?.Invoke("Socket desconectado del host");
-
-                if (Estado_Socket != EstadoSocket.CAMBIANDO_A_JUEGO)
-                    cuenta?.Dispose();
             }
         }
 
@@ -162,19 +158,6 @@ namespace Bot_Dofus_1._29._1.Comun.Network
             catch (ObjectDisposedException)
             {
                 return false;
-            }
-        }
-
-        public EstadoSocket Estado_Socket
-        {
-            get => fase_socket;
-            internal set
-            {
-                EstadoSocket antiguo_valor = fase_socket;
-                fase_socket = value;
-
-                if (antiguo_valor != fase_socket)
-                    evento_fase_socket?.Invoke(this);
             }
         }
 
@@ -195,8 +178,8 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
                 if (disposing)
                 {
-                    socket?.Dispose();
-                    semaforo?.Dispose();
+                    socket.Dispose();
+                    semaforo.Dispose();
                 }
 
                 semaforo = null;
@@ -205,8 +188,6 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 buffer = null;
                 paquete_recibido = null;
                 paquete_enviado = null;
-                socket_informacion = null;
-
                 disposed = true;
             }
         }

@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, Celda celda)
         {
-            if (cuenta.esta_ocupado)
+            if (cuenta.esta_ocupado())
                 return false;
 
             if (!get_Puede_Cambiar_Mapa(direccion, celda))
@@ -72,14 +72,14 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion)
         {
-            if (cuenta.esta_ocupado)
+            if (cuenta.esta_ocupado())
                 return false;
 
             List<Celda> celdas_teleport = cuenta.juego.mapa.celdas.Where(celda => celda.tipo == TipoCelda.CELDA_TELEPORT).Select(celda => celda).ToList();
 
             while (celdas_teleport.Count > 0)
             {
-                Celda celda = celdas_teleport[Randomize.get_Random_Int(0, celdas_teleport.Count)];
+                Celda celda = celdas_teleport[Randomize.get_Random(0, celdas_teleport.Count)];
 
                 if (get_Cambiar_Mapa(direccion, celda))
                     return true;
@@ -96,7 +96,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (celda_destino.id < 0 || celda_destino.id > mapa.celdas.Length)
                 return ResultadoMovimientos.FALLO;
 
-            if (cuenta.esta_ocupado || actual_path != null)
+            if (cuenta.esta_ocupado() || actual_path != null)
                 return ResultadoMovimientos.FALLO;
             
             if (celda_destino.id == cuenta.juego.personaje.celda.id)
@@ -135,10 +135,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (nodo == null || nodo.Value.Value.camino.celdas_accesibles.Count == 0)
                 return;
 
-            if (nodo.Value.Key == cuenta.pelea.jugador_luchador.celda.id)
+            if (nodo.Value.Key == cuenta.juego.pelea.jugador_luchador.celda.id)
                 return;
 
-            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.pelea.jugador_luchador.celda.id);
+            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.juego.pelea.jugador_luchador.celda.id);
             List<Celda> lista_celdas = nodo.Value.Value.camino.celdas_accesibles.Select(c => mapa.get_Celda_Id(c)).ToList();
 
             await cuenta.conexion.enviar_Paquete_Async("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas));
@@ -147,7 +147,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         private bool get_Mover_Para_Cambiar_mapa(Celda celda)
         {
-            var resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas);
+            var resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas());
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:

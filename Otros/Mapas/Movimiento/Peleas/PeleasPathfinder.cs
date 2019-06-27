@@ -119,7 +119,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
                 }
             }
 
-            foreach (var celda in celdas.Keys)
+            foreach (short celda in celdas.Keys)
                 celdas[celda].camino = get_Path_Pelea(celda_actual.id, celda, celdas);
 
             return celdas;

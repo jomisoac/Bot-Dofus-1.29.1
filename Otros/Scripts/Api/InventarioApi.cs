@@ -29,8 +29,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
         }
 
         public int pods() => cuenta.juego.personaje.inventario.pods_actuales;
-        public int pods_maximos() => cuenta.juego.personaje.inventario.pods_maximos;
-        public int pods_porcentaje() => cuenta.juego.personaje.inventario.porcentaje_pods;
+        public int podsMaximos() => cuenta.juego.personaje.inventario.pods_maximos;
+        public int podsPorcentaje() => cuenta.juego.personaje.inventario.porcentaje_pods;
+        public bool tieneObjeto(int modelo_id) => cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id) != null;
 
         public bool equipar(int modelo_id)
         {

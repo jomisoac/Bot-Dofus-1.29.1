@@ -69,16 +69,16 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             Celda celda_destino = camino.Last();
 
             if (camino.Count <= 2)
-                return celda_destino.get_Direccion(camino.First()) + Hash.get_Celda_Char(celda_destino.id);
+                return celda_destino.get_Direccion_Char(camino.First()) + Hash.get_Celda_Char(celda_destino.id);
 
             StringBuilder pathfinder = new StringBuilder();
-            char direccion_anterior = camino[1].get_Direccion(camino.First()), direccion_actual;
+            char direccion_anterior = camino[1].get_Direccion_Char(camino.First()), direccion_actual;
             
             for (int i = 2; i < camino.Count; i++)
             {
                 Celda celda_actual = camino[i];
                 Celda celda_anterior = camino[i - 1];
-                direccion_actual = celda_actual.get_Direccion(celda_anterior);
+                direccion_actual = celda_actual.get_Direccion_Char(celda_anterior);
 
                 if (direccion_anterior != direccion_actual)
                 {

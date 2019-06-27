@@ -22,11 +22,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
             Cuenta cuenta = cliente.cuenta;
 
             cuenta.Estado_Cuenta = EstadoCuenta.CONECTANDO;
-            cliente.Estado_Socket = EstadoSocket.LOGIN;
             cuenta.key_bienvenida = paquete.Substring(2);
 
             cliente.enviar_Paquete("1.29.1");
-            cliente.enviar_Paquete(cliente.cuenta.cuenta_configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.cuenta_configuracion.password, cliente.cuenta.key_bienvenida));
+            cliente.enviar_Paquete(cliente.cuenta.configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.configuracion.password, cliente.cuenta.key_bienvenida));
             cliente.enviar_Paquete("Af");
         }
 
@@ -52,7 +51,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                 byte poblacion = byte.Parse(_loc7_[2]);
                 bool registro = _loc7_[3] == "1";
 
-                if (id == cuenta.servidor_id)
+                if (id == cuenta.get_Id_Servidor())
                 {
                     cliente.cuenta.logger.log_informacion("LOGIN", "El servidor " + (id == 601 ? "Eratz" : "Henual") + " esta " + (EstadosServidor)estado);
 
@@ -83,10 +82,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                 string[] _loc10_ = loc5[contador].Split(',');
                 int servidor_id = int.Parse(_loc10_[0]);
 
-                if (cuenta.servidor_id == servidor_id)
+                if (cuenta.get_Id_Servidor() == servidor_id)
                 {
-                    cliente.enviar_Paquete("AX" + cuenta.servidor_id);
+                    cliente.enviar_Paquete("AX" + cuenta.get_Id_Servidor());
                     seleccionado = true;
+                    cuenta.juego.personaje.evento_Servidor_Seleccionado();
                 }
 
                 contador++;

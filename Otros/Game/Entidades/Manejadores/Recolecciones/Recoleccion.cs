@@ -52,7 +52,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
 
         public bool get_Recolectar(List<short> elementos)
         {
-            if (cuenta.esta_ocupado || interactivo_recolectando != null)
+            if (cuenta.esta_ocupado() || interactivo_recolectando != null)
                 return false;
 
             foreach (KeyValuePair<short, ObjetoInteractivo> kvp in get_Interactivos_Utilizables(elementos))
@@ -85,7 +85,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
                 if (!interactivo.es_utilizable || !interactivo.modelo.recolectable)
                     continue;
 
-                List<Celda> path = pathfinder.get_Path(personaje.celda, interactivo.celda, mapa.celdas_ocupadas, true, distancia_arma);
+                List<Celda> path = pathfinder.get_Path(personaje.celda, interactivo.celda, mapa.celdas_ocupadas(), true, distancia_arma);
 
                 if (path == null || path.Count == 0)
                     continue;
@@ -117,7 +117,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
             if(arma != null)
                 distancia_detener = get_Distancia_herramienta(arma.id_modelo);
             
-            switch (cuenta.juego.manejador.movimientos.get_Mover_A_Celda(interactivo_recolectando.celda, mapa.celdas_ocupadas, true, distancia_detener))
+            switch (cuenta.juego.manejador.movimientos.get_Mover_A_Celda(interactivo_recolectando.celda, mapa.celdas_ocupadas(), true, distancia_detener))
             {
                 case ResultadoMovimientos.EXITO:
                 case ResultadoMovimientos.MISMA_CELDA:

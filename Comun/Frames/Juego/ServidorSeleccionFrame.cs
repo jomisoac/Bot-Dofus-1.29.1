@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 int id = int.Parse(_loc11_[0]);
                 string nombre = _loc11_[1];
 
-                if (string.Compare(nombre.ToUpper(), cuenta.cuenta_configuracion.nombre_personaje.ToUpper(), false) == 0)
+                if (string.Compare(nombre.ToUpper(), cuenta.configuracion.nombre_personaje.ToUpper(), false) == 0)
                 {
                     cliente.enviar_Paquete("AS" + id);
                     encontrado = true;
@@ -81,7 +81,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             cliente.enviar_Paquete("BYA");
 
             cuenta.juego.personaje.evento_Personaje_Seleccionado();
-            cuenta.conexion.Estado_Socket = EstadoSocket.CONECTADO;
             cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
         }
     }

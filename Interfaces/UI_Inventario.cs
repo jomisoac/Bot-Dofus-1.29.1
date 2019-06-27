@@ -47,7 +47,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                     dataGridView_recursos.Rows.Clear();
                     foreach (ObjetosInventario obj in cuenta.juego.personaje.inventario.recursos)
-                        dataGridView_recursos.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.pods, "Eliminar" });
+                        dataGridView_recursos.Rows.Add(new object[6] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.pods, "Eliminar" });
+
+                    dataGridView_mision.Rows.Clear();
+                    foreach (ObjetosInventario obj in cuenta.juego.personaje.inventario.mision)
+                        dataGridView_mision.Rows.Add(new object[4] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad });
+
                 }));
             });
         }

@@ -35,23 +35,36 @@ namespace Bot_Dofus_1._29._1.Forms
 
             GlobalConf.get_Lista_Cuentas().ForEach(x =>
             {
-                if(!Principal.get_Paginas_Cuentas_Cargadas().ContainsKey(x.nombre_cuenta))
-                {
-                    listViewCuentas.Items.Add(x.nombre_cuenta).SubItems.AddRange(new string[] { x.servidor, x.nombre_personaje });
-                }
+                if (!Principal.cuentas_cargadas.ContainsKey(x.nombre_cuenta))
+                    listViewCuentas.Items.Add(x.nombre_cuenta).SubItems.AddRange(new string[2] { x.servidor, x.nombre_personaje });
             });
         }
 
         private void boton_Agregar_Cuenta_Click(object sender, EventArgs e)
         {
-            if (textBox_Nombre_Cuenta.TextLength != 0 && textBox_Password.TextLength != 0)
+            if (GlobalConf.get_Cuenta(textBox_Nombre_Cuenta.Text) != null && GlobalConf.mostrar_mensajes_debug)
             {
-                if (GlobalConf.get_Cuenta(textBox_Nombre_Cuenta.Text) != null)
-                {
-                    MessageBox.Show("Ya existe una cuenta con el nombre de cuenta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                MessageBox.Show("Ya existe una cuenta con el nombre de cuenta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            bool tiene_errores = false;
+            tableLayoutPanel6.Controls.OfType<TableLayoutPanel>().ToList().ForEach(panel =>
+            {
+                panel.Controls.OfType<TextBox>().ToList().ForEach(textbox =>
+                {
+                    if (string.IsNullOrEmpty(textbox.Text) || textbox.Text.Split(new char[0]).Length > 1)
+                    {
+                        textbox.BackColor = Color.Red;
+                        tiene_errores = true;
+                    }
+                    else
+                        textbox.BackColor = Color.White;
+                });
+            });
+
+            if(!tiene_errores)
+            {
                 GlobalConf.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_nombre_personaje.Text);
                 cargar_Cuentas_Lista();
 
@@ -60,20 +73,9 @@ namespace Bot_Dofus_1._29._1.Forms
                 textBox_nombre_personaje.Clear();
 
                 if (checkBox_Agregar_Retroceder.Checked)
-                {
                     tabControlPrincipalCuentas.SelectedIndex = 0;
-                }
+
                 GlobalConf.guardar_Configuracion();
-            }
-            else
-            {
-                tableLayoutPanel6.Controls.OfType<TableLayoutPanel>().ToList().ForEach(panel =>
-                {
-                    panel.Controls.OfType<TextBox>().ToList().ForEach(textbox =>
-                    {
-                        textbox.BackColor = string.IsNullOrEmpty(textbox.Text) ? Color.Red : Color.White;
-                    });
-                });
             }
         }
 
@@ -101,7 +103,7 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             if (listViewCuentas.SelectedItems.Count > 0 && listViewCuentas.FocusedItem != null)
             {
-                foreach(ListViewItem cuenta in listViewCuentas.SelectedItems)
+                foreach (ListViewItem cuenta in listViewCuentas.SelectedItems)
                     cuentas_cargadas.Add(GlobalConf.get_Lista_Cuentas().FirstOrDefault(f => f.nombre_cuenta == cuenta.Text));
 
                 DialogResult = DialogResult.OK;
@@ -111,35 +113,35 @@ namespace Bot_Dofus_1._29._1.Forms
 
         public List<CuentaConf> get_Cuentas_Cargadas() => cuentas_cargadas;
         private void listViewCuentas_MouseDoubleClick(object sender, MouseEventArgs e) => conectarToolStripMenuItem.PerformClick();
-        
+
         private void modificar_Cuenta(object sender, EventArgs e)
         {
             if (listViewCuentas.SelectedItems.Count == 1 && listViewCuentas.FocusedItem != null)
             {
                 CuentaConf cuenta = GlobalConf.get_Cuenta(listViewCuentas.SelectedItems[0].Index);
 
-                switch(sender.ToString())
+                switch (sender.ToString())
                 {
                     case "Cuenta":
                         string nueva_cuenta = Interaction.InputBox($"Ingresa la nueva cuenta", "Modificar cuenta", cuenta.nombre_cuenta);
 
-                        if(!string.IsNullOrEmpty(nueva_cuenta))
+                        if (!string.IsNullOrEmpty(nueva_cuenta))
                             cuenta.nombre_cuenta = nueva_cuenta;
-                    break;
+                        break;
 
                     case "Contraseña":
                         string nueva_password = Interaction.InputBox($"Ingresa la nueva contraseña", "Modificar contraseña", cuenta.password);
 
                         if (!string.IsNullOrEmpty(nueva_password))
                             cuenta.password = nueva_password;
-                    break;
+                        break;
 
                     default://nombre del personaje
                         string nuevo_personaje = Interaction.InputBox($"Ingresa el nombre del nuevo personaje", "Modificar nombre de personaje", cuenta.nombre_personaje);
 
                         if (!string.IsNullOrEmpty(nuevo_personaje))
                             cuenta.nombre_personaje = nuevo_personaje;
-                    break;
+                        break;
                 }
 
                 GlobalConf.guardar_Configuracion();

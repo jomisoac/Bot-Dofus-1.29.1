@@ -195,7 +195,7 @@
     <Compile Include="Otros\Game\Entidades\Manejadores\Teleports\Teleport.cs" />
     <Compile Include="Otros\Game\Entidades\Manejadores\Teleports\TipoTeleport.cs" />
     <Compile Include="Otros\Game\Entidades\Monstruos\Monstruo.cs" />
-    <Compile Include="Otros\Game\Entidades\Npcs\Npcs.cs" />
+    <Compile Include="Otros\Game\Entidades\Npcs\Npc.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoEfecto.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoShape.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoStats.cs" />
@@ -210,6 +210,9 @@
     <Compile Include="Otros\Game\Entidades\Personajes\Oficios\Oficio.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Oficios\SkillsOficio.cs" />
     <Compile Include="Otros\Game\Juego.cs" />
+    <Compile Include="Otros\Grupos\Agrupamiento.cs" />
+    <Compile Include="Otros\Grupos\Grupo.cs" />
+    <Compile Include="Otros\IEliminable.cs" />
     <Compile Include="Otros\Mapas\Celda.cs" />
     <Compile Include="Otros\Mapas\Interactivo\ObjetoInteractivo.cs" />
     <Compile Include="Otros\Mapas\Interactivo\ObjetoInteractivoModelo.cs" />
@@ -244,15 +247,20 @@
     <Compile Include="Otros\Scripts\Acciones\AccionesScript.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\AlmacenarTodosLosObjetosAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\RecuperarObjetoBanco.cs" />
-    <Compile Include="Otros\Scripts\Acciones\CambiarMapaAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Mapas\CambiarMapaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\CerrarVentanaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Global\DelayAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Inventario\EquiparItem.cs" />
-    <Compile Include="Otros\Scripts\Acciones\NpcBancoAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Mapas\MoverCeldaAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Npcs\NpcAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Npcs\NpcBancoAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Npcs\RespuestaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\PeleasAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\RecoleccionAccion.cs" />
     <Compile Include="Otros\Scripts\Api\API.cs" />
     <Compile Include="Otros\Scripts\Api\InventarioApi.cs" />
+    <Compile Include="Otros\Scripts\Api\MapaApi.cs" />
+    <Compile Include="Otros\Scripts\Api\NpcAPI.cs" />
     <Compile Include="Otros\Scripts\Api\PersonajeApi.cs" />
     <Compile Include="Otros\Scripts\Banderas\Bandera.cs" />
     <Compile Include="Otros\Scripts\Banderas\CambiarMapa.cs" />
@@ -268,7 +276,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comun\Network\ClienteTcp.cs" />
     <Compile Include="Otros\Enums\EstadoCuenta.cs" />
-    <Compile Include="Otros\Enums\EstadoSocket.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Inventario\Enums\TipoObjetosInventario.cs" />
     <Compile Include="Otros\Enums\EstadosServidor.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -552,6 +559,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stats\invocaciones.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\api_ayuda.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

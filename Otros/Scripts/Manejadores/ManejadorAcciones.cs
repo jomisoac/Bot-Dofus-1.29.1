@@ -1,11 +1,17 @@
-﻿using Bot_Dofus_1._29._1.Otros.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
+using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
+using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs;
 using Bot_Dofus_1._29._1.Utilidades;
 using MoonSharp.Interpreter;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
@@ -34,7 +40,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             Personaje personaje = cuenta.juego.personaje;
             
             cuenta.juego.mapa.mapa_actualizado += evento_Mapa_Cambiado;
-            cuenta.pelea.pelea_creada += get_Pelea_Creada;
+            cuenta.juego.pelea.pelea_creada += get_Pelea_Creada;
             cuenta.juego.manejador.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
             personaje.pregunta_npc_recibida += npcs_Preguntas_Recibida;
             personaje.inventario.almacenamiento_abierto += iniciar_Almacenamiento;
@@ -55,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 contador_peleas_mapa = 0;
 
             //si el bot se mete en una pelea
-            if (!(accion_actual is CambiarMapaAccion) && !(accion_actual is PeleasAccion) && !(accion_actual is RecoleccionAccion))
+            if (!(accion_actual is CambiarMapaAccion) && !(accion_actual is PeleasAccion) && !(accion_actual is RecoleccionAccion) && coroutine_actual == null)
                 return;
 
             limpiar_Acciones();
@@ -83,7 +89,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             }
             else if (accion_actual is CambiarMapaAccion && !es_correcto)
             {
-                cuenta.script.detener_Script("error al mover a la celda");
+                cuenta.script.detener_Script("error al cambiar de mapa");
+            }
+            else if (accion_actual is MoverCeldaAccion mtca)
+            {
+                if (es_correcto)
+                    acciones_Salida(0);
+                else
+                    cuenta.script.detener_Script("error al mover a la celda");
             }
         }
 
@@ -119,7 +132,6 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                     break;
                 }
             }
-                
         }
 
         private void get_Pelea_Creada()
@@ -138,7 +150,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             }
         }
 
-        private void npcs_Preguntas_Recibida(string lista_preguntas)
+        private void npcs_Preguntas_Recibida()
         {
             if (!cuenta.script.corriendo)
                 return;
@@ -148,11 +160,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 if (cuenta.Estado_Cuenta != EstadoCuenta.HABLANDO)
                     return;
 
-                string[] pregunta_separada = lista_preguntas.Split('|');
-                string[] respuestas_disponibles = pregunta_separada[1].Split(';');
-                int respuestas_accion = int.Parse(respuestas_disponibles[nba.respuesta_id]);
+                IEnumerable<Npc> npcs = cuenta.juego.mapa.lista_npcs();
+                Npc npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
 
-                cuenta.conexion.enviar_Paquete("DR" + pregunta_separada[0].Split(';')[0] + "|" + respuestas_accion);
+                cuenta.conexion.enviar_Paquete("DR" + npc.pregunta + "|" + npc.respuestas[0]);
+            }
+            else if (accion_actual is NpcAccion || accion_actual is RespuestaAccion)
+            {
+                acciones_Salida(400);
             }
         }
 
@@ -169,7 +184,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (!cuenta.script.corriendo || coroutine_actual != null)
                 return;
 
-            coroutine_actual = coroutine;
+            coroutine_actual = manejador_script.script.CreateCoroutine(coroutine);
             procesar_Coroutine();
         }
 
@@ -205,7 +220,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             try
             {
                 DynValue result = coroutine_actual.Coroutine.Resume();
-                
+
                 if (result.Type == DataType.Void)
                     acciones_Funciones_Finalizadas();
             }
@@ -276,7 +291,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             }
         }
 
-        private void acciones_Salida(int delay) => Task.Factory.StartNew(async () =>
+        private void acciones_Salida(int delay, [CallerMemberName]string caller = "") => Task.Factory.StartNew(async () =>
         {
             if (cuenta?.script.corriendo == false)
                 return;
@@ -286,6 +301,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             if (delay > 0)
                 await Task.Delay(delay);
+
+
+            cuenta.logger.log_Peligro(caller, $"esperando {delay} milisegundos.");
 
             if (fila_acciones.Count > 0)
             {
@@ -297,7 +315,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             }
             else
             {
-                acciones_Finalizadas();
+                if (coroutine_actual != null)
+                    procesar_Coroutine();
+                else
+                    acciones_Finalizadas();
             }
 
         }, TaskCreationOptions.LongRunning);
@@ -306,9 +327,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         {
             limpiar_Acciones();
             accion_actual = null;
+            coroutine_actual = null;
+            timeout_timer.Stop();
+
             contador_pelea = 0;
             contador_recoleccion = 0;
-            timeout_timer.Stop();
         }
 
         #region Zona Dispose

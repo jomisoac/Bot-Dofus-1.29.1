@@ -1,6 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game;
+using Bot_Dofus_1._29._1.Otros.Grupos;
 using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Scripts;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
@@ -23,42 +24,56 @@ namespace Bot_Dofus_1._29._1.Otros
         public string apodo { get; set; } = string.Empty;
         public string key_bienvenida { get; set; } = string.Empty;
         public string tiquet_game { get; set; } = string.Empty;
-        public int servidor_id { get; set; } = 0;
         public Logger logger { get; private set; }
         public ClienteTcp conexion { get; set; }
         public Juego juego { get; private set; }
         public ManejadorScript script { get; set; }
         public PeleaExtensiones pelea_extension { get; set; }
-        public CuentaConf cuenta_configuracion { get; private set; }
-        public Pelea pelea;
+        public CuentaConf configuracion { get; private set; }
         private EstadoCuenta estado_cuenta = EstadoCuenta.DESCONECTADO;
-        public bool puede_utilizar_dragopavo { get; set; } = false;
+        public bool puede_utilizar_dragopavo = false;
+
+        public Grupo grupo { get; set; }
+        public bool tiene_grupo => grupo != null;
+        public bool es_lider_grupo => !tiene_grupo || grupo.lider == this;
+
         private bool disposed;
-
         public event Action evento_estado_cuenta;
+        public event Action cuenta_desconectada;
 
-        public Cuenta(CuentaConf _cuenta_configuracion)
+        public Cuenta(CuentaConf _configuracion)
         {
-            cuenta_configuracion = _cuenta_configuracion;
-            servidor_id = cuenta_configuracion.get_Servidor_Id();
+            configuracion = _configuracion;
             logger = new Logger();
-            pelea = new Pelea(this);
             juego = new Juego(this);
             pelea_extension = new PeleaExtensiones(this);
             script = new ManejadorScript(this);
-            conexion = new ClienteTcp(this);
         }
 
-        public string get_Nombre_Servidor() => servidor_id == 601 ? "Eratz" : "Henual";
+        public int get_Id_Servidor() => configuracion.get_Servidor_Id();
+        public string get_Nombre_Servidor() => configuracion.get_Servidor_Id() == 601 ? "Eratz" : "Henual";
+
+        public void conectar()
+        {
+            conexion = new ClienteTcp(this);
+            conexion.conexion_Servidor(IPAddress.Parse(GlobalConf.ip_conexion), GlobalConf.puerto_conexion);
+        }
+
+        public void desconectar()
+        {
+            conexion.Dispose();
+            conexion = null;
+
+            script.detener_Script();
+            juego.limpiar();
+            Estado_Cuenta = EstadoCuenta.DESCONECTADO;
+            cuenta_desconectada?.Invoke();
+        }
 
         public void cambiando_Al_Servidor_Juego(string ip, int puerto)
         {
-            if (conexion.Estado_Socket != EstadoSocket.NINGUNO)
-            {
-                conexion.Estado_Socket = EstadoSocket.CAMBIANDO_A_JUEGO;
-                conexion.get_Desconectar_Socket();
-                conexion.conexion_Servidor(IPAddress.Parse(ip), puerto);
-            }
+            conexion.get_Desconectar_Socket();
+            conexion.conexion_Servidor(IPAddress.Parse(ip), puerto);
         }
 
         public EstadoCuenta Estado_Cuenta
@@ -71,12 +86,13 @@ namespace Bot_Dofus_1._29._1.Otros
             }
         }
 
-        public bool esta_ocupado => Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO && Estado_Cuenta != EstadoCuenta.REGENERANDO_VIDA;
+        public bool esta_ocupado() => Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO && Estado_Cuenta != EstadoCuenta.REGENERANDO_VIDA;
         public bool esta_dialogando() => Estado_Cuenta == EstadoCuenta.ALMACENAMIENTO || Estado_Cuenta == EstadoCuenta.HABLANDO || Estado_Cuenta == EstadoCuenta.INTERCAMBIO || Estado_Cuenta == EstadoCuenta.COMPRANDO || Estado_Cuenta == EstadoCuenta.VENDIENDO;
         public bool esta_luchando() => Estado_Cuenta == EstadoCuenta.LUCHANDO;
         public bool esta_recolectando() => Estado_Cuenta == EstadoCuenta.RECOLECTANDO;
         public bool esta_desplazando() => Estado_Cuenta == EstadoCuenta.MOVIMIENTO;
 
+        #region Zona Dispose
         public void Dispose() => Dispose(true);
         ~Cuenta() => Dispose(false);
 
@@ -86,22 +102,21 @@ namespace Bot_Dofus_1._29._1.Otros
             {
                 if (disposing)
                 {
-                    script?.Dispose();
+                    script.Dispose();
                     conexion?.Dispose();
-                    juego?.Dispose();
-                    pelea?.Dispose();
+                    juego.Dispose();
                 }
                 Estado_Cuenta = EstadoCuenta.DESCONECTADO;
-
+                script = null;
                 key_bienvenida = null;
                 conexion = null;
                 logger = null;
                 juego = null;
                 apodo = null;
-                cuenta_configuracion = null;
-                pelea = null;
+                configuracion = null;
                 disposed = true;
             }
         }
+        #endregion
     }
 }

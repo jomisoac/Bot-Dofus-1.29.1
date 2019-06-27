@@ -47,8 +47,8 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
             Pagina pagina = new Pagina(titulo, anchura_cabezera);
             paginas.Add(titulo, pagina);
 
-            pagina.cabezera.Click += (s, e) => seleccionar_Pagina((s as Cabezera).propiedad_Titulo);
-            pagina.contenido.Disposed += (s, e) => eliminar_Pagina(pagina.cabezera.propiedad_Titulo);
+            pagina.cabezera.Click += (s, e) => seleccionar_Pagina((s as Cabezera).propiedad_Cuenta);
+            pagina.contenido.Disposed += (s, e) => eliminar_Pagina(pagina.cabezera.propiedad_Cuenta);
 
             panelCabezeraCuentas.Controls.Add(pagina.cabezera);
             panelContenidoCuenta.Controls.Add(pagina.contenido);

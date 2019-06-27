@@ -64,7 +64,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public int get_Distancia_Entre_Dos_Casillas(Celda destino) => Math.Abs(x - destino.x) + Math.Abs(y - destino.y);
         public bool get_Esta_En_Linea(Celda destino) => x == destino.x || y == destino.y;
 
-        public char get_Direccion(Celda celda)
+        public char get_Direccion_Char(Celda celda)
         {
             if (x == celda.x)
                 return celda.y < y ? (char)(3 + 'a') : (char)(7 + 'a');

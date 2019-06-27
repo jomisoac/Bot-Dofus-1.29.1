@@ -1,0 +1,58 @@
+function delay(ms)
+	delay(ms)
+	coroutine.yield()
+end
+
+mapa =
+{
+	enCelda = api.mapa.enCelda,
+	enMapa = api.mapa.enMapa,
+	actualMapa = api.mapa.actualMapa,
+	actualPosicion = api.mapa.actualPosicion,
+
+	moverCelda = function(celda_id)
+		if api.mapa.moverCelda(celda_id) then
+			coroutine.yield()
+		end
+	end,
+
+	cambiarMapa = function(posicion)
+		if api.mapa.cambiarMapa(posicion) then
+			coroutine.yield()
+		end
+	end
+}
+
+npc =
+{
+	npcBanco = function(npc_id)
+		if api.npc.npcBanco(npcId) then
+			coroutine.yield()
+		end
+	end,
+
+	hablarNpc = function(npc_id)
+		if api.npc.hablarNpc(npc_id) then
+			coroutine.yield()
+		end
+	end,
+
+	responder = function(respuesta_id)
+		api.npc.responder(respuesta_id)
+		coroutine.yield()
+	end
+}
+
+inventario =
+{
+	pods = api.inventario.pods,
+	podsMaximos = api.inventario.podsMaximos,
+	podsPorcentaje = api.inventario.podsPorcentaje,
+	tieneObjeto = api.inventario.tieneObjeto,
+
+	equiparObjeto = function(modelo_id)
+		if api.inventario.equipar(modelo_id) then
+			coroutine.yield()
+		end
+	end
+}

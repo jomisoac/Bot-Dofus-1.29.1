@@ -3,6 +3,7 @@ using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Global;
+using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs;
 using Bot_Dofus_1._29._1.Otros.Scripts.Api;
 using Bot_Dofus_1._29._1.Otros.Scripts.Banderas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
@@ -28,7 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
     {
         private Cuenta cuenta;
         private LuaManejadorScript manejador_script;
-        private ManejadorAcciones manejar_acciones;
+        public ManejadorAcciones manejar_acciones{ get; private set; }
         private EstadoScript estado_script;
         private List<Bandera> banderas;
         private int bandera_id;
@@ -52,8 +53,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             api = new API(cuenta, manejar_acciones);
 
             manejar_acciones.evento_accion_normal += get_Accion_Finalizada;
-            cuenta.pelea.pelea_creada += get_Pelea_Creada;
-            cuenta.pelea.pelea_acabada += get_Pelea_Acabada;
+            manejar_acciones.evento_accion_personalizada += get_Accion_Personalizada_Finalizada;
+            cuenta.juego.pelea.pelea_creada += get_Pelea_Creada;
+            cuenta.juego.pelea.pelea_acabada += get_Pelea_Acabada;
         }
 
         public void get_Desde_Archivo(string ruta_archivo)
@@ -76,17 +78,19 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             manejador_script.Set_Global("personaje", api.personaje);
 
             manejador_script.Set_Global("mensaje", new Action<string>((mensaje) => cuenta.logger.log_informacion("SCRIPT", mensaje)));
-            manejador_script.Set_Global("mensaje_error", new Action<string>((mensaje) => cuenta.logger.log_Error("SCRIPT", mensaje)));
+            manejador_script.Set_Global("error", new Action<string>((mensaje) => cuenta.logger.log_Error("SCRIPT", mensaje)));
             manejador_script.Set_Global("detener_script", new Action(() => detener_Script()));
-            manejador_script.Set_Global("delay_funcion", new Action<int>((ms) => manejar_acciones.enqueue_Accion(new DelayAccion(ms), true)));
+            manejador_script.Set_Global("delay", new Action<int>((ms) => manejar_acciones.enqueue_Accion(new DelayAccion(ms), true)));
 
-            manejador_script.Set_Global("esta_recolectando", (Func<bool>)cuenta.esta_recolectando);
-            manejador_script.Set_Global("esta_dialogando", (Func<bool>)cuenta.esta_dialogando);
+            manejador_script.Set_Global("recolectando", (Func<bool>)cuenta.esta_recolectando);
+            manejador_script.Set_Global("dialogando", (Func<bool>)cuenta.esta_dialogando);
+
+            manejador_script.script.DoString(Properties.Resources.api_ayuda);
         }
 
         public void activar_Script()
         {
-            if (activado || cuenta.esta_ocupado)
+            if (activado || cuenta.esta_ocupado())
                 return;
 
             activado = true;
@@ -154,6 +158,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!corriendo)
                 return;
 
+            await get_Verificar_Regeneracion();
+
+            if (!corriendo)
+                return;
+
             await get_Verificar_Sacos();
 
             if (!corriendo)
@@ -190,7 +199,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             return cuenta.juego.personaje.inventario.porcentaje_pods >= maxPods;
         }
 
-        private void procesar_Entradas(Table entry)
+        private void procesar_Entradas(Table valor)
         {
             banderas.Clear();
             bandera_id = 0;
@@ -198,23 +207,27 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
             if (estado_script == EstadoScript.MOVIMIENTO)
             {
-                bandera = entry.Get("recolectar");
+                bandera = valor.Get("recolectar");
                 if (!bandera.IsNil() && bandera.Type == DataType.Boolean && bandera.Boolean)
                     banderas.Add(new RecoleccionBandera());
 
-                bandera = entry.Get("pelea");
+                bandera = valor.Get("pelea");
                 if (!bandera.IsNil() && bandera.Type == DataType.Boolean && bandera.Boolean)
                     banderas.Add(new PeleaBandera());
             }
 
             if (estado_script == EstadoScript.BANCO)
             {
-                bandera = entry.Get("npc_banco");
+                bandera = valor.Get("npc_banco");
                 if (!bandera.IsNil() && bandera.Type == DataType.Boolean && bandera.Boolean)
                     banderas.Add(new NPCBancoBandera());
             }
 
-            bandera = entry.Get("celda");
+            bandera = valor.Get("personalizado");
+            if (!bandera.IsNil() && bandera.Type == DataType.Function)
+                banderas.Add(new FuncionPersonalizada(bandera));
+
+            bandera = valor.Get("celda");
             if (!bandera.IsNil() && bandera.Type == DataType.String)
                 banderas.Add(new CambiarMapa(bandera.String));
 
@@ -233,25 +246,29 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             {
                 case RecoleccionBandera _:
                     manejar_Recoleccion_Bandera(tiene_accion_disponible as RecoleccionAccion);
-                break;
+                    break;
 
                 case PeleaBandera _:
                     manejar_Pelea_mapa(tiene_accion_disponible as PeleasAccion);
-                break;
+                    break;
 
                 case NPCBancoBandera _:
                     manejar_Npc_Banco_Bandera();
-                break;
+                    break;
+
+                case FuncionPersonalizada fp:
+                    manejar_acciones.get_Funcion_Personalizada(fp.funcion);
+                    break;
 
                 case CambiarMapa mapa:
                     manejar_Cambio_Mapa(mapa);
-                break;
+                    break;
             }
         }
 
         private void manejar_Recoleccion_Bandera(RecoleccionAccion accion_recoleccion)
         {
-            RecoleccionAccion accion = accion_recoleccion ?? crar_Accion_Recoleccion();
+            RecoleccionAccion accion = accion_recoleccion ?? crear_Accion_Recoleccion();
 
             if (accion == null)
                 return;
@@ -262,7 +279,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 procesar_Actual_Bandera(true);
         }
 
-        private RecoleccionAccion crar_Accion_Recoleccion()
+        private RecoleccionAccion crear_Accion_Recoleccion()
         {
             Table elementos_para_recolectar = manejador_script.get_Global_Or<Table>("ELEMENTOS_RECOLECTABLES", DataType.Table, null);
             List<short> recursos_id = new List<short>();
@@ -293,11 +310,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void manejar_Npc_Banco_Bandera()
         {
-            manejar_acciones.enqueue_Accion(new NpcBancoAccion(-1, 0));
+            manejar_acciones.enqueue_Accion(new NpcBancoAccion(-1));
             manejar_acciones.enqueue_Accion(new AlmacenarTodosLosObjetosAccion());
 
             //recuperar objetos almacenados
-            Table recuperar_objetos = manejador_script.get_Global_Or<Table>("BANK_RECUPERAR_OBJETOS", DataType.Table, null);
+            Table recuperar_objetos = manejador_script.get_Global_Or<Table>("BANCO_RECUPERAR_OBJETOS", DataType.Table, null);
 
             if (recuperar_objetos != null)
             {
@@ -424,7 +441,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 switch (banderas[bandera_id])
                 {
                     case RecoleccionBandera _:
-                        RecoleccionAccion accion_recoleccion = crar_Accion_Recoleccion();
+                        RecoleccionAccion accion_recoleccion = crear_Accion_Recoleccion();
 
                         if (cuenta.juego.manejador.recoleccion.get_Puede_Recolectar(accion_recoleccion.elementos))
                         {
@@ -441,7 +458,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                             procesar_Actual_Entrada(accion_pelea);
                             return;
                         }
-                    break;
+                        break;
                 }
             }
 
@@ -501,7 +518,17 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         #region Zona Eventos
         private void get_Accion_Finalizada(bool mapa_cambiado)
         {
+            if (verificar_Acciones_Especiales())
+                return;
 
+            if (mapa_cambiado)
+                iniciar_Script();
+            else
+                procesar_Actual_Bandera();
+        }
+
+        private void get_Accion_Personalizada_Finalizada(bool mapa_cambiado)
+        {
             if (verificar_Acciones_Especiales())
                 return;
 
@@ -534,13 +561,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             {
                 if (disposing)
                 {
-                    manejador_script?.Dispose();
-                    manejar_acciones?.Dispose();
+                    manejador_script.Dispose();
+                    api.Dispose();
+                    manejar_acciones.Dispose();
                 }
 
                 manejar_acciones = null;
                 manejador_script = null;
+                api = null;
                 activado = false;
+                pausado = false;
                 cuenta = null;
                 disposed = true;
             }
