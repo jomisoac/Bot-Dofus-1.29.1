@@ -38,17 +38,18 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
 
         /** Estados **/
         public bool esta_utilizando_dragopavo { get; set; } = false;
-
+        public sbyte hablando_npc_id { get; set; }
 
         public int porcentaje_experiencia => (int)((caracteristicas.experiencia_actual - caracteristicas.experiencia_minima_nivel) / (caracteristicas.experiencia_siguiente_nivel - caracteristicas.experiencia_minima_nivel) * 100);
 
         /** Eventos **/
+        public event Action servidor_seleccionado;
         public event Action personaje_seleccionado;
         public event Action caracteristicas_actualizadas;
         public event Action pods_actualizados;
         public event Action hechizos_actualizados;
         public event Action oficios_actualizados;
-        public event Action<string> pregunta_npc_recibida;
+        public event Action pregunta_npc_recibida;
         public event Action<List<Celda>> movimiento_pathfinding_minimapa;
         
         public Personaje(Cuenta cuenta)
@@ -88,10 +89,11 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
 
         #region Eventos
         public void evento_Pods_Actualizados() => pods_actualizados?.Invoke();
+        public void evento_Servidor_Seleccionado() => servidor_seleccionado?.Invoke();
         public void evento_Personaje_Seleccionado() => personaje_seleccionado?.Invoke();
         public void evento_Personaje_Pathfinding_Minimapa(List<Celda> lista) => movimiento_pathfinding_minimapa?.Invoke(lista);
         public void evento_Oficios_Actualizados() => oficios_actualizados?.Invoke();
-        public void evento_Pregunta_Npc(string lista_preguntas) => pregunta_npc_recibida?.Invoke(lista_preguntas);
+        public void evento_Pregunta_Npc() => pregunta_npc_recibida?.Invoke();
         #endregion
 
         public void actualizar_Caracteristicas(string paquete)

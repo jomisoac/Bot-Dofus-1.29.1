@@ -24,6 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public PeleaConf configuracion { get; set; }
         private Cuenta cuenta;
         private ManejadorHechizos manejador_hechizos;
+
         private int hechizo_lanzado_index;
         private bool esperando_sequencia_fin;
         private bool disposed;
@@ -38,10 +39,10 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private void get_Eventos()
         {
-            cuenta.pelea.pelea_creada += get_Pelea_Creada;
-            cuenta.pelea.turno_iniciado += get_Pelea_Turno_iniciado;
-            cuenta.pelea.hechizo_lanzado += get_Procesar_Despues_Accion;
-            cuenta.pelea.movimiento_exito += get_Procesar_Despues_Accion;
+            cuenta.juego.pelea.pelea_creada += get_Pelea_Creada;
+            cuenta.juego.pelea.turno_iniciado += get_Pelea_Turno_iniciado;
+            cuenta.juego.pelea.hechizo_lanzado += get_Procesar_Despues_Accion;
+            cuenta.juego.pelea.movimiento_exito += get_Procesar_Despues_Accion;
         }
 
         private void get_Pelea_Creada()
@@ -55,7 +56,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_lanzado_index = 0;
             esperando_sequencia_fin = true;
 
-            if (configuracion.hechizos.Count == 0 || !cuenta.pelea.get_Enemigos.Any())
+            if (configuracion.hechizos.Count == 0 || !cuenta.juego.pelea.get_Enemigos.Any())
             {
                 await get_Fin_Turno();
                 return;
@@ -110,7 +111,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public async void get_Procesar_Despues_Accion()
         {
-            if (cuenta.pelea.total_enemigos_vivos == 0)
+            if (cuenta.juego.pelea.total_enemigos_vivos == 0)
                 return;
 
             if (!esperando_sequencia_fin)
@@ -134,12 +135,14 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private async Task get_Fin_Turno()
         {
-            if (!cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
-                await get_Mover(true, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano());
-            else if (cuenta.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
-                await get_Mover(false, cuenta.pelea.get_Obtener_Enemigo_Mas_Cercano());
+            Pelea pelea = cuenta.juego.pelea;
 
-            cuenta.pelea.get_Turno_Acabado();
+            if (!pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
+                await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());
+            else if (pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
+                await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
+
+            pelea.get_Turno_Acabado();
             cuenta.conexion.enviar_Paquete("Gt");
         }
 
@@ -147,29 +150,29 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             KeyValuePair<short, MovimientoNodo>? nodo = null;
             Mapa mapa = cuenta.juego.mapa;
-            int distancia_total = -1;
+            Pelea pelea = cuenta.juego.pelea;
             int distancia = -1;
 
-            distancia_total = Get_Total_Distancia_Enemigo(cuenta.pelea.jugador_luchador.celda);
+            int distancia_total = Get_Total_Distancia_Enemigo(pelea.jugador_luchador.celda);
 
-            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(cuenta.pelea, mapa, cuenta.pelea.jugador_luchador.celda))
+            foreach (KeyValuePair<short, MovimientoNodo> kvp in PeleasPathfinder.get_Celdas_Accesibles(pelea, mapa, pelea.jugador_luchador.celda))
             {
                 if (!kvp.Value.alcanzable)
                     continue;
 
-                int tempTotalDistances = Get_Total_Distancia_Enemigo(mapa.get_Celda_Id(kvp.Key));
+                int temporal_distancia = Get_Total_Distancia_Enemigo(mapa.get_Celda_Id(kvp.Key));
 
-                if ((cercano && tempTotalDistances <= distancia_total) || (!cercano && tempTotalDistances >= distancia_total))
+                if ((cercano && temporal_distancia <= distancia_total) || (!cercano && temporal_distancia >= distancia_total))
                 {
                     if (cercano)
                     {
                         nodo = kvp;
-                        distancia_total = tempTotalDistances;
+                        distancia_total = temporal_distancia;
                     }
                     else if (kvp.Value.camino.celdas_accesibles.Count >= distancia)
                     {
                         nodo = kvp;
-                        distancia_total = tempTotalDistances;
+                        distancia_total = temporal_distancia;
                         distancia = kvp.Value.camino.celdas_accesibles.Count;
                     }
                 }
@@ -179,7 +182,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await cuenta.juego.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
         }
 
-        public int Get_Total_Distancia_Enemigo(Celda celda) => cuenta.pelea.get_Enemigos.Sum(e => e.celda.get_Distancia_Entre_Dos_Casillas(celda) - 1);
+        public int Get_Total_Distancia_Enemigo(Celda celda) => cuenta.juego.pelea.get_Enemigos.Sum(e => e.celda.get_Distancia_Entre_Dos_Casillas(celda) - 1);
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);

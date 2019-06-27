@@ -2,18 +2,17 @@
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
+using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
 using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
-using Bot_Dofus_1._29._1.Utilidades.Extensiones;
-using System.Linq;
 using System.Threading.Tasks;
 
 /*
@@ -44,6 +43,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     if (_loc6[0].Equals('+'))
                     {
                         Celda celda = cuenta.juego.mapa.get_Celda_Id(short.Parse(informaciones[0]));
+                        Pelea pelea = cuenta.juego.pelea;
                         int id = int.Parse(informaciones[3]);
                         nombre_template = informaciones[4];
                         tipo = informaciones[5];
@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     byte pm = byte.Parse(informaciones[14]);
                                     byte equipo = byte.Parse(informaciones[15]);
 
-                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda, vida, equipo));
+                                    pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda, vida, equipo));
                                 }
                             break;
 
@@ -79,7 +79,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             break;
 
                             case -4://NPC
-                                cuenta.juego.mapa.entidades.TryAdd(id, new Npcs(id, int.Parse(nombre_template), celda));
+                                cuenta.juego.mapa.entidades.TryAdd(id, new Npc(id, int.Parse(nombre_template), celda));
                             break;
 
                             case -5:
@@ -105,14 +105,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                     byte pm = byte.Parse(informaciones[16]);
                                     byte equipo = byte.Parse(informaciones[24]);
 
-                                    cuenta.pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda, vida, equipo));
+                                    pelea.get_Agregar_Luchador(new Luchadores(id, true, vida, pa, pm, celda, vida, equipo));
 
                                     if (cuenta.juego.personaje.id == id && cuenta.pelea_extension.configuracion.posicionamiento != PosicionamientoInicioPelea.INMOVIL)
                                     {
                                         await Task.Delay(300);
 
                                         /** la posicion es aleatoria pero el paquete GP siempre aparecera primero el team donde esta el pj **/
-                                        short celda_posicion = cuenta.pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, cuenta.pelea.celdas_preparacion);
+                                        short celda_posicion = pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, pelea.celdas_preparacion);
 
                                         if (celda_posicion != celda.id)
                                             cuenta.conexion.enviar_Paquete("Gp" + celda_posicion);
@@ -164,6 +164,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 int id_entidad = int.Parse(separador[2]);
                 Luchadores luchador = null;
                 Mapa mapa = cuenta.juego.mapa;
+                Pelea pelea = cuenta.juego.pelea;
 
                 switch (id_accion)
                 {
@@ -190,7 +191,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         }
                         else
                         {
-                            luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
+                            luchador = pelea.get_Luchador_Por_Id(id_entidad);
                             if (luchador != null)
                             {
                                 luchador.celda = celda_destino;
@@ -213,7 +214,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     case 102:
                         if (cuenta.esta_luchando())
                         {
-                            luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
+                            luchador = pelea.get_Luchador_Por_Id(id_entidad);
                             byte pa_utilizados = byte.Parse(separador[3].Split(',')[1].Substring(1));
 
                             if (luchador != null)
@@ -226,7 +227,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         {
                             int id_muerto = int.Parse(separador[3]);
 
-                            luchador = cuenta.pelea.get_Luchador_Por_Id(id_muerto);
+                            luchador = pelea.get_Luchador_Por_Id(id_muerto);
                             if (luchador != null)
                                 luchador.esta_vivo = false;
                         }
@@ -235,14 +236,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     case 129: //movimiento en pelea con exito
                         if (cuenta.esta_luchando())
                         {
-                            luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
+                            luchador = pelea.get_Luchador_Por_Id(id_entidad);
                             byte pm_utilizados = byte.Parse(separador[3].Split(',')[1].Substring(1));
 
                             if (luchador != null)
                                 luchador.pm -= pm_utilizados;
 
                             if (id_entidad == personaje.id)
-                                cuenta.pelea.get_Movimiento_Exito();
+                                pelea.get_Movimiento_Exito();
                         }
                     break;
 
@@ -254,13 +255,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         byte pm = byte.Parse(separador[17]);
                         byte equipo = byte.Parse(separador[25]);
 
-                        cuenta.pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, mapa.get_Celda_Id(celda), vida, equipo, id_entidad));
+                        pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, mapa.get_Celda_Id(celda), vida, equipo, id_entidad));
                     break;
 
                     case 302:
                     case 300: //hechizo lanzado con exito
                         if (id_entidad == cuenta.juego.personaje.id)
-                            cuenta.pelea.get_Hechizo_Lanzado();
+                            pelea.get_Hechizo_Lanzado();
                         break;
 
                     case 501:
@@ -280,7 +281,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             else
             {
                 if(!cuenta.esta_luchando())
-                await cuenta.juego.manejador.movimientos.evento_Movimiento_Finalizado(null, 0, false);
+                    await cuenta.juego.manejador.movimientos.evento_Movimiento_Finalizado(null, 0, false);
             }
         }
 

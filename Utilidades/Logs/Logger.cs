@@ -16,7 +16,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Logs
             }
             catch (Exception e)
             {
-                log_Final("Logger", "Se produjo una excepción al activar el evento registrado.", LogTipos.ERROR, e);
+                log_Final("LOGGER", "Se produjo una excepción al activar el evento registrado.", LogTipos.ERROR, e);
             }
         }
 

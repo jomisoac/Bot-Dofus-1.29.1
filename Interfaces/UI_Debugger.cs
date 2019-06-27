@@ -56,8 +56,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     objeto_lista.SubItems.Add(paquete);
                 }));
             }
-            catch {}
-                
+            catch { }
+
         }
 
         private void listView_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,10 +66,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 return;
 
             string paquete = lista_paquetes[listView.FocusedItem.Index];
-
             treeView.Nodes.Clear();
 
-            foreach (PaqueteDatos metodo in Program.paquete_recibido.metodos)
+            if (PaqueteRecibido.metodos.Count == 0)
+                return;
+
+            foreach (PaqueteDatos metodo in PaqueteRecibido.metodos)
             {
                 if (paquete.StartsWith(metodo.nombre_paquete))
                 {

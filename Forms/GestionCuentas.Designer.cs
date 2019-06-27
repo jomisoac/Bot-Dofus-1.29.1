@@ -181,6 +181,7 @@
             this.listViewCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewCuentas.FullRowSelect = true;
             this.listViewCuentas.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewCuentas.HideSelection = false;
             this.listViewCuentas.Location = new System.Drawing.Point(3, 4);
             this.listViewCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewCuentas.Name = "listViewCuentas";

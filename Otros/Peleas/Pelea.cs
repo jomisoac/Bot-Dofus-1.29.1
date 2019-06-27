@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
-    public class Pelea : IDisposable
+    public class Pelea : IEliminable, IDisposable
     {
         public Cuenta cuenta { get; private set; }
         private ConcurrentDictionary<int, Luchadores> luchadores;
@@ -41,7 +41,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public List<short> get_Celdas_Ocupadas => get_Luchadores.Select(f => f.celda.id).ToList();
 
         public event Action pelea_creada;
-        public event Action pelea_iniciada;
         public event Action pelea_acabada;
         public event Action turno_iniciado;
 
@@ -520,7 +519,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             cuenta.logger.log_informacion("PELEA", "Nueva pelea iniciada");
         }
 
-        public void get_Combate_Finalizado()
+        public void limpiar()
         {
             enemigos.Clear();
             aliados.Clear();
@@ -530,13 +529,10 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             total_hechizos_lanzados_en_celda.Clear();
             celdas_preparacion.Clear();
             jugador_luchador = null;
-
-            pelea_acabada?.Invoke();
-            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-            cuenta.logger.log_informacion("PELEA", "Pelea acabada");
         }
 
         public void get_Turno_Iniciado() => turno_iniciado?.Invoke();
+        public void get_Pelea_Acabada() => pelea_acabada?.Invoke();
         public void get_Hechizo_Lanzado() => hechizo_lanzado?.Invoke();
         public void get_Movimiento_Exito() => movimiento_exito?.Invoke();
 

@@ -22,6 +22,7 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
         public IEnumerable<ObjetosInventario> equipamiento => objetos.Where(o => o.tipo_inventario == TipoObjetosInventario.EQUIPAMIENTO);
         public IEnumerable<ObjetosInventario> varios => objetos.Where(o => o.tipo_inventario == TipoObjetosInventario.VARIOS);
         public IEnumerable<ObjetosInventario> recursos => objetos.Where(o => o.tipo_inventario == TipoObjetosInventario.RECURSOS);
+        public IEnumerable<ObjetosInventario> mision => objetos.Where(o => o.tipo_inventario == TipoObjetosInventario.OBJETOS_MISION);
         public int porcentaje_pods => (int)((double)pods_actuales / pods_maximos * 100);
 
         public event Action<bool> inventario_actualizado;

@@ -1,7 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Otros.Entidades.Npcs;
+using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -21,7 +20,7 @@ using System.Xml.Linq;
 
 namespace Bot_Dofus_1._29._1.Otros.Mapas
 {
-    public class Mapa : IDisposable
+    public class Mapa : IEliminable, IDisposable
     {
         public int id { get; set; }
         public byte anchura { get; set; }
@@ -68,24 +67,24 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             mapa_archivo = null;
         }
 
-        public string mapa_coordenadas => $"[{x},{y}]";
+        public string coordenadas => $"[{x},{y}]";
         public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
-        public bool esta_En_Mapa(string coordenadas) => coordenadas == id.ToString() || coordenadas == mapa_coordenadas;
+        public bool esta_En_Mapa(string _coordenadas) => _coordenadas == id.ToString() || _coordenadas == coordenadas;
         public Celda get_Celda_Por_Coordenadas(int x, int y) => celdas.FirstOrDefault(celda => celda.x == x && celda.y == y);
         public bool get_Puede_Luchar_Contra_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios) => get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios).Count > 0;
 
         // si el destino es una celda teleport, aunque haya un monstruo encima de la celda no causara agresion
-        public List<Celda> celdas_ocupadas => entidades.Values.Where(e => e.celda.tipo != TipoCelda.CELDA_TELEPORT).Select(c => c.celda).ToList();
-        
+        public List<Celda> celdas_ocupadas() => entidades.Values.Where(e => e.celda.tipo != TipoCelda.CELDA_TELEPORT).Select(c => c.celda).ToList();
+        public List<Npc> lista_npcs() => entidades.Values.Where(n => n is Npc).Select(n => n as Npc).ToList();
+        public List<Monstruo> lista_monstruos() => entidades.Values.Where(n => n is Monstruo).Select(n => n as Monstruo).ToList();
+        public List<Monstruo> lista_personajes() => entidades.Values.Where(n => n is Monstruo).Select(n => n as Monstruo).ToList();
+
         public List<Monstruo> get_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios)
         {
             List<Monstruo> grupos_monstruos_disponibles = new List<Monstruo>();
 
-            foreach (Monstruo grupo_monstruo in entidades.Values)
+            foreach (Monstruo grupo_monstruo in lista_monstruos())
             {
-                if (!(grupo_monstruo is Monstruo))
-                    continue;
-
                 if (grupo_monstruo.get_Total_Monstruos < monstruos_minimos || grupo_monstruo.get_Total_Monstruos > monstruos_maximos)
                     continue;
 
@@ -166,6 +165,16 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         #region Zona Dispose
         public void Dispose() => Dispose(true);
         ~Mapa() => Dispose(false);
+
+        public void limpiar()
+        {
+            id = 0;
+            x = 0;
+            y = 0;
+            entidades.Clear();
+            interactivos.Clear();
+            celdas = null;
+        }
 
         protected virtual void Dispose(bool disposing)
         {

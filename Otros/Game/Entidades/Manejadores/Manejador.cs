@@ -5,7 +5,7 @@ using System;
 
 namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores
 {
-    public class Manejador : IDisposable
+    public class Manejador : IEliminable, IDisposable
     {
         public Movimiento movimientos { get; private set; }
         public Recoleccion recoleccion { get; private set; }
@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores
             recoleccion = new Recoleccion(cuenta, movimientos, mapa);
         }
 
-        public void limoiar()
+        public void limpiar()
         {
             movimientos.limpiar();
             recoleccion.limpiar();

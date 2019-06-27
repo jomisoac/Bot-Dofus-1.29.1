@@ -1,7 +1,9 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -27,7 +29,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             string[] _loc3 = paquete.Substring(2).Split('|');
 
             for (int a = 0; a < _loc3[0].Length; a += 2)
-                cuenta.pelea.celdas_preparacion.Add(mapa.get_Celda_Id((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1]))));
+                cuenta.juego.pelea.celdas_preparacion.Add(mapa.get_Celda_Id((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1]))));
                 
             if (cuenta.pelea_extension.configuracion.desactivar_espectador)
                cuenta.conexion.enviar_Paquete("fS");
@@ -73,7 +75,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     cuenta.conexion.enviar_Paquete("GR1");//boton listo
                 }
 
-                luchador = cuenta.pelea.get_Luchador_Por_Id(id_entidad);
+                luchador = cuenta.juego.pelea.get_Luchador_Por_Id(id_entidad);
 
                 if (luchador != null)
                     luchador.celda = mapa.get_Celda_Id(celda);
@@ -90,7 +92,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             {
                 string[] _loc6_ = separador[i].Split(';');
                 int id = int.Parse(_loc6_[0]);
-                Luchadores luchador = cliente.cuenta.pelea.get_Luchador_Por_Id(id);
+                Luchadores luchador = cliente.cuenta.juego.pelea.get_Luchador_Por_Id(id);
 
                 if (_loc6_.Length != 0)
                 {
@@ -143,7 +145,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 case 2:
                 case 3:
                 case 4:
-                    cuenta.pelea.get_Combate_Creado();
+                    cuenta.juego.pelea.get_Combate_Creado();
                 break;
             }
         }
@@ -153,16 +155,20 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             Cuenta cuenta = cliente.cuenta;
 
-            if (int.Parse(paquete.Substring(3).Split('|')[0]) == cuenta.juego.personaje.id && cliente.cuenta.pelea.total_enemigos_vivos > 0)
-                cuenta.pelea.get_Turno_Iniciado();
+            if (int.Parse(paquete.Substring(3).Split('|')[0]) == cuenta.juego.personaje.id && cuenta.juego.pelea.total_enemigos_vivos > 0)
+                cuenta.juego.pelea.get_Turno_Iniciado();
         }
 
         [PaqueteAtributo("GE")]
         public void get_Combate_Finalizado(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
+            Pelea pelea = cuenta.juego.pelea;
 
-            cuenta.pelea.get_Combate_Finalizado();
+            pelea.limpiar();
+            pelea.get_Pelea_Acabada();
+            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            cuenta.logger.log_informacion("PELEA", "Pelea acabada");
             cuenta.conexion.enviar_Paquete("GC1");
         }
     }

@@ -1,5 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Controles.TabControl;
 using Bot_Dofus_1._29._1.Interfaces;
+using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Grupos;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
 using System.Collections.Generic;
@@ -18,18 +20,15 @@ namespace Bot_Dofus_1._29._1.Forms
 {
     public partial class Principal : Form
     {
-        public static Dictionary<string, Pagina> paginas_cuentas_cargadas;
+        public static Dictionary<string, Pagina> cuentas_cargadas;
 
         public Principal()
         {
             InitializeComponent();
-            paginas_cuentas_cargadas = new Dictionary<string, Pagina>();
+            cuentas_cargadas = new Dictionary<string, Pagina>();
 
-            if (!Directory.Exists("mapas"))
-                Directory.CreateDirectory("mapas");
-
-            if (!Directory.Exists("items"))
-                Directory.CreateDirectory("items");
+            Directory.CreateDirectory("mapas");
+            Directory.CreateDirectory("items");
         }
 
         private void gestionDeCuentasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -38,25 +37,38 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 if (gestion_cuentas.ShowDialog() == DialogResult.OK)
                 {
-                   foreach (CuentaConf cuenta in gestion_cuentas.get_Cuentas_Cargadas())
-                        paginas_cuentas_cargadas.Add(cuenta.nombre_cuenta, agregar_Nueva_Tab_Pagina(cuenta.nombre_cuenta, new UI_Principal(cuenta)));
+                    List<CuentaConf> cuentas_para_cargar = gestion_cuentas.get_Cuentas_Cargadas();
+                    
+                    if (cuentas_para_cargar.Count < 2)
+                    {
+                        CuentaConf cuenta_conf = cuentas_para_cargar[0];
+                        cuentas_cargadas.Add(cuenta_conf.nombre_cuenta, agregar_Nueva_Tab_Pagina(cuenta_conf.nombre_cuenta, new UI_Principal(new Cuenta(cuenta_conf)), "Ninguno"));
+                    }
+                    else
+                    {
+                        Grupo grupo = new Grupo(new Cuenta(cuentas_para_cargar[0]));
+
+                        foreach (CuentaConf cuenta_conf in cuentas_para_cargar)
+                        {
+                            Cuenta cuenta = new Cuenta(cuenta_conf);
+
+                            grupo.agregar_Miembro(cuenta);
+                            cuentas_cargadas.Add(cuenta_conf.nombre_cuenta, agregar_Nueva_Tab_Pagina(cuenta_conf.nombre_cuenta, new UI_Principal(cuenta), grupo.lider.configuracion.nombre_cuenta));
+                        }
+                    }
                 }
             }
         }
 
-        private Pagina agregar_Nueva_Tab_Pagina(string titulo, UserControl control)
+        private Pagina agregar_Nueva_Tab_Pagina(string titulo, UserControl control, string nombre_grupo)
         {
             Pagina nueva_pagina = tabControlCuentas.agregar_Nueva_Pagina(titulo);
             nueva_pagina.cabezera.propiedad_Imagen = Properties.Resources.circulo_rojo;
             nueva_pagina.cabezera.propiedad_Estado = "Desconectado";
+            nueva_pagina.cabezera.propiedad_Grupo = nombre_grupo;
             nueva_pagina.contenido.Controls.Add(control);
             control.Dock = DockStyle.Fill;
             return nueva_pagina;
-        }
-
-        public static Dictionary<string, Pagina> get_Paginas_Cuentas_Cargadas()
-        {
-            return paginas_cuentas_cargadas;
         }
 
         private void opcionesToolStripMenuItem_Click(object sender, EventArgs e)

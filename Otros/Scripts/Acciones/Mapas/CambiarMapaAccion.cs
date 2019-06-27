@@ -50,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         public static bool TryParse(string texto, out CambiarMapaAccion accion)
         {
             string[] partes = texto.Split('|');
-            string total_partes = partes[Randomize.get_Random_Int(0, partes.Length)];
+            string total_partes = partes[Randomize.get_Random(0, partes.Length)];
 
             Match match = Regex.Match(total_partes, @"(?<direccion>arriba|derecha|abajo|izquierda)\((?<celda>\d{1,3})\)");
             if (match.Success)

@@ -22,8 +22,6 @@ namespace Bot_Dofus_1._29._1
 {
     internal static class Program
     {
-        public static PaqueteRecibido paquete_recibido;
-
         [STAThread]
         private static void Main()
         {
@@ -35,9 +33,7 @@ namespace Bot_Dofus_1._29._1
                 GlobalConf.cargar_Todas_Cuentas();
                 LuaManejadorScript.inicializar_Funciones();
                 XElement.Parse(Properties.Resources.interactivos).Descendants("SKILL").ToList().ForEach(i => new ObjetoInteractivoModelo(i.Element("nombre").Value, i.Element("gfx").Value, bool.Parse(i.Element("caminable").Value), i.Element("habilidades").Value, bool.Parse(i.Element("recolectable").Value)));
-
-                paquete_recibido = new PaqueteRecibido();
-                paquete_recibido.Inicializar();
+                PaqueteRecibido.Inicializar();
             }).ContinueWith(t =>
             {
                 XElement.Parse(Properties.Resources.hechizos).Descendants("HECHIZO").ToList().ForEach(mapa =>
@@ -61,11 +57,7 @@ namespace Bot_Dofus_1._29._1
                         hechizo_stats.lanzamientos_por_objetivo = byte.Parse(stats.Attribute("MAX_LANZ_POR_OBJETIVO").Value);
                         hechizo_stats.intervalo = byte.Parse(stats.Attribute("COOLDOWN").Value);
 
-                        stats.Descendants("EFECTO").ToList().ForEach(efecto =>
-                        {
-                            hechizo_stats.agregar_efecto(new HechizoEfecto(int.Parse(efecto.Attribute("TIPO").Value), Zonas.Parse(efecto.Attribute("ZONA").Value)), bool.Parse(efecto.Attribute("ES_CRITICO").Value));
-                        });
-
+                        stats.Descendants("EFECTO").ToList().ForEach(efecto => hechizo_stats.agregar_efecto(new HechizoEfecto(int.Parse(efecto.Attribute("TIPO").Value), Zonas.Parse(efecto.Attribute("ZONA").Value)), bool.Parse(efecto.Attribute("ES_CRITICO").Value)));
                         hechizo.get_Agregar_Hechizo_Stats(byte.Parse(stats.Attribute("NIVEL").Value), hechizo_stats);
                     });
                 });
