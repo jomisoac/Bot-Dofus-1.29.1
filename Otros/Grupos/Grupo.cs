@@ -57,8 +57,8 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
         {
             if (accion is PeleasAccion)
             {
-                for (int i = 0; i < miembros.Count; i++)
-                    cuentas_acabadas[miembros[i]].Set();
+                foreach (Cuenta miembro in miembros)
+                    cuentas_acabadas[miembro].Set();
                 return;
             }
 

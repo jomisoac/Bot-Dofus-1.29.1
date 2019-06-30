@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
 {
-    public class InventarioGeneral : IDisposable
+    public class InventarioGeneral : IDisposable, IEliminable
     {
         private Cuenta cuenta;
         private ConcurrentDictionary<uint, ObjetosInventario> _objetos;
@@ -171,6 +171,14 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
         #region Zona Dispose
         public void Dispose() => Dispose(true);
         ~InventarioGeneral() => Dispose(false);
+
+        public void limpiar()
+        {
+            kamas = 0;
+            pods_actuales = 0;
+            pods_maximos = 0;
+            _objetos.Clear();
+        }
 
         public virtual void Dispose(bool disposing)
         {

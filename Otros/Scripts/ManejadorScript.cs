@@ -1,4 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento;
@@ -154,6 +155,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         private async Task aplicar_Comprobaciones()
         {
             await verificar_Muerte();
+
+            if (!corriendo)
+                return;
+
+            await get_Verificar_Script_Regeneracion();
 
             if (!corriendo)
                 return;
@@ -379,6 +385,48 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         }
 
         private async Task get_Verificar_Regeneracion()
+        {
+            if (cuenta.pelea_extension.configuracion.iniciar_regeneracion == 0)
+                return;
+
+            if (cuenta.pelea_extension.configuracion.detener_regeneracion <= cuenta.pelea_extension.configuracion.iniciar_regeneracion)
+                return;
+
+            if (cuenta.juego.personaje.caracteristicas.porcentaje_vida <= cuenta.pelea_extension.configuracion.iniciar_regeneracion)
+            {
+                int vida_final = cuenta.pelea_extension.configuracion.detener_regeneracion * cuenta.juego.personaje.caracteristicas.vitalidad_maxima / 100;
+                int vida_para_regenerar = vida_final - cuenta.juego.personaje.caracteristicas.vitalidad_actual;
+
+                if (vida_para_regenerar > 0)
+                {
+                    int tiempo_estimado = vida_para_regenerar / 2;
+
+                    if (cuenta.Estado_Cuenta != EstadoCuenta.REGENERANDO)
+                    {
+                        if (cuenta.esta_ocupado())
+                            return;
+
+                        cuenta.conexion.enviar_Paquete("eU1");
+                    }
+
+                    cuenta.logger.log_informacion("SCRIPTS", $"Regeneración comenzada, puntos de vida a recuperar: {vida_para_regenerar}, tiempo estimado: {tiempo_estimado} segundos.");
+
+                    for (int i = 0; i < tiempo_estimado && cuenta.juego.personaje.caracteristicas.porcentaje_vida <= cuenta.pelea_extension.configuracion.detener_regeneracion && corriendo; i++)
+                        await Task.Delay(1000);
+
+                    if (corriendo)
+                    {
+                        //si no se levanta no podra hacer nada.
+                        if (cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
+                            cuenta.conexion.enviar_Paquete("eU1");
+
+                        cuenta.logger.log_informacion("SCRIPTS", "Regeneración finalizada.");
+                    }
+                }
+            }
+        }
+
+        private async Task get_Verificar_Script_Regeneracion()
         {
             Table auto_regeneracion = manejador_script.get_Global_Or<Table>("AUTO_REGENERACION", DataType.Table, null);
 

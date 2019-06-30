@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios;
@@ -17,19 +18,21 @@ using Bot_Dofus_1._29._1.Otros.Mapas;
 
 namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
 {
-    public class Personaje : Entidad
+    public class Personaje : Entidad, IEliminable
     {
         public int id { get; set; } = 0;
         public string nombre { get; set; } = string.Empty;
         public byte nivel { get; set; } = 0;
         public byte sexo { get; set; } = 0;
         public byte raza_id { get; set; } = 0;
+        private Cuenta cuenta;
         public InventarioGeneral inventario { get; private set; }
         public int puntos_caracteristicas { get; set; } = 0;
         public int kamas { get; private set; } = 0;
-        public CaracteristicasInformacion caracteristicas { get; set; }
+        public Caracteristicas caracteristicas { get; set; }
         public Dictionary<short, Hechizo> hechizos { get; set; }//id_hechizo, hechizo
         public List<Oficio> oficios { get; private set; }
+        public Timer timer_regeneracion { get; private set; }
         public string canales { get; set; } = string.Empty;
         public Celda celda { get; set; }
         
@@ -53,10 +56,13 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
         public event Action dialogo_npc_acabado;
         public event Action<List<Celda>> movimiento_pathfinding_minimapa;
         
-        public Personaje(Cuenta cuenta)
+        public Personaje(Cuenta _cuenta)
         {
+            cuenta = _cuenta;
+            timer_regeneracion = new Timer(regeneracion_TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
+
             inventario = new InventarioGeneral(cuenta);
-            caracteristicas = new CaracteristicasInformacion();
+            caracteristicas = new Caracteristicas();
             hechizos = new Dictionary<short, Hechizo>();
             oficios = new List<Oficio>();
         }
@@ -138,73 +144,43 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
                 switch (i)
                 {
                     case 9:
-                        if (caracteristicas.puntos_accion != null)
-                            caracteristicas.puntos_accion.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.puntos_accion = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.puntos_accion.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
 
                     case 10:
-                        if (caracteristicas.puntos_movimiento != null)
-                            caracteristicas.puntos_movimiento.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.puntos_movimiento = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
-                    break;
+                        caracteristicas.puntos_movimiento.actualizar_Stats(base_personaje, equipamiento, dones, boost);
+                   break;
 
                     case 11:
-                        if (caracteristicas.fuerza != null)
-                            caracteristicas.fuerza.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.fuerza = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.fuerza.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
 
                     case 12:
-                        if (caracteristicas.vitalidad != null)
-                            caracteristicas.vitalidad.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.vitalidad = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.vitalidad.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
 
                     case 13:
-                        if (caracteristicas.sabiduria != null)
-                            caracteristicas.sabiduria.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.sabiduria = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.sabiduria.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
 
                     case 14:
-                        if (caracteristicas.suerte != null)
-                            caracteristicas.suerte.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.suerte = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.suerte.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
 
                     case 15:
-                        if (caracteristicas.agilidad != null)
-                            caracteristicas.agilidad.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.agilidad = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.agilidad.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
 
                     case 16:
-                        if (caracteristicas.inteligencia != null)
-                            caracteristicas.inteligencia.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.inteligencia = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.inteligencia.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
 
                     case 17:
-                        if (caracteristicas.alcanze != null)
-                            caracteristicas.alcanze.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.alcanze = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.alcanze.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
 
                     case 18:
-                        if (caracteristicas.criaturas_invocables != null)
-                            caracteristicas.criaturas_invocables.actualizar_Stats(base_personaje, equipamiento, dones, boost);
-                        else
-                            caracteristicas.criaturas_invocables = new CaracteristicasBase(base_personaje, equipamiento, dones, boost);
+                        caracteristicas.criaturas_invocables.actualizar_Stats(base_personaje, equipamiento, dones, boost);
                     break;
                 }
             }
@@ -232,6 +208,24 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
             hechizos_actualizados.Invoke();
         }
 
+        private void regeneracion_TimerCallback(object state)
+        {
+            try
+            {
+                if (caracteristicas?.vitalidad_actual >= caracteristicas?.vitalidad_maxima)
+                {
+                    timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
+                    return;
+                }
+
+                caracteristicas.vitalidad_actual++;
+            }
+            catch (Exception e)
+            {
+                cuenta.logger.log_Error("TIMER-REGENERANDO", $"ERROR: {e}");
+            }
+        }
+
         public Hechizo get_Hechizo(short id) => hechizos[id];
         public bool get_Tiene_Skill_Id(int id) => oficios.FirstOrDefault(j => j.skills.FirstOrDefault(s => s.id == id) != null) != null;
         public IEnumerable<SkillsOficio> get_Skills_Disponibles() => oficios.SelectMany(oficio => oficio.skills.Select(skill => skill));
@@ -240,6 +234,15 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
         #region Zona Dispose
         public void Dispose() => Dispose(true);
         ~Personaje() => Dispose(false);
+
+        public void limpiar()
+        {
+            id = 0;
+            hechizos.Clear();
+            oficios.Clear();
+            inventario.limpiar();
+            caracteristicas.limpiar();
+        }
 
         public virtual void Dispose(bool disposing)
         {

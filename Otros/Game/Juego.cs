@@ -27,6 +27,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game
             mapa.limpiar();
             manejador.limpiar();
             pelea.limpiar();
+            personaje.limpiar();
         }
 
         #region Zona Dispose

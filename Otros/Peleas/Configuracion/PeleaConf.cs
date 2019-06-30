@@ -13,10 +13,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 
         private string archivo_configuracion => Path.Combine(carpeta_configuracion, $"{cuenta.juego.personaje.nombre}.config");
         public List<HechizoPelea> hechizos { get; private set; }
-        public byte celdas_maximas { get; set; }
         public bool desactivar_espectador { get; set; }
         public bool utilizar_dragopavo { get; set; }
         public Tactica tactica { get; set; }
+        public byte iniciar_regeneracion { get; set; }
+        public byte detener_regeneracion { get; set; }
         public PosicionamientoInicioPelea posicionamiento { get; set; }
 
         public PeleaConf(Cuenta _cuenta)
@@ -33,9 +34,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
             {
                 bw.Write((byte)tactica);
                 bw.Write((byte)posicionamiento);
-                bw.Write(celdas_maximas);
                 bw.Write(desactivar_espectador);
                 bw.Write(utilizar_dragopavo);
+                bw.Write(iniciar_regeneracion);
+                bw.Write(detener_regeneracion);
+
                 bw.Write((byte)hechizos.Count);
                 for (int i = 0; i < hechizos.Count; i++)
                     hechizos[i].guardar(bw);
@@ -54,10 +57,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
             {
                 tactica = (Tactica)br.ReadByte();
                 posicionamiento = (PosicionamientoInicioPelea)br.ReadByte();
-                celdas_maximas = br.ReadByte();
                 desactivar_espectador = br.ReadBoolean();
                 utilizar_dragopavo = br.ReadBoolean();
-                
+                iniciar_regeneracion = br.ReadByte();
+                detener_regeneracion = br.ReadByte();
+
                 hechizos.Clear();
                 byte c = br.ReadByte();
                 for (int i = 0; i < c; i++)
@@ -67,11 +71,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
 
         private void get_Perfil_Defecto()
         {
-            celdas_maximas = 12;
             desactivar_espectador = false;
             utilizar_dragopavo = false;
             tactica = Tactica.AGRESIVA;
             posicionamiento = PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS;
+            iniciar_regeneracion = 50;
+            detener_regeneracion = 100;
         }
 
         #region Zona Dispose

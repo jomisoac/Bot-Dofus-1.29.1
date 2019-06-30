@@ -86,7 +86,7 @@ namespace Bot_Dofus_1._29._1.Otros
             }
         }
 
-        public bool esta_ocupado() => Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO && Estado_Cuenta != EstadoCuenta.REGENERANDO_VIDA;
+        public bool esta_ocupado() => Estado_Cuenta != EstadoCuenta.CONECTADO_INACTIVO && Estado_Cuenta != EstadoCuenta.REGENERANDO;
         public bool esta_dialogando() => Estado_Cuenta == EstadoCuenta.ALMACENAMIENTO || Estado_Cuenta == EstadoCuenta.DIALOGANDO || Estado_Cuenta == EstadoCuenta.INTERCAMBIO || Estado_Cuenta == EstadoCuenta.COMPRANDO || Estado_Cuenta == EstadoCuenta.VENDIENDO;
         public bool esta_luchando() => Estado_Cuenta == EstadoCuenta.LUCHANDO;
         public bool esta_recolectando() => Estado_Cuenta == EstadoCuenta.RECOLECTANDO;

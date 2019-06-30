@@ -31,7 +31,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
                     return "Comprando";
                 case EstadoCuenta.VENDIENDO:
                     return "Vendiendo";
-                case EstadoCuenta.REGENERANDO_VIDA:
+                case EstadoCuenta.REGENERANDO:
                     return "Regenerando Vida";
                 default:
                     return "-";
