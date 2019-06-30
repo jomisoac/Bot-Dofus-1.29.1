@@ -1,13 +1,12 @@
 # TOTALMENTE GRATUITO
-## NO PAGUES POR NETFU/TOBOOT SON BOTS BASURA.
-## NE PAYEZ PAS POUR NETFU/TOBOOT ARE TRASH BOTS.
+## By Aidemu
 
 ![Grid](https://i.imgur.com/Sc69RlL.png)
 ![Grid](https://i.imgur.com/GUtCEAV.png)
 
-# Gestor de cuentas
+### Gestor de cuentas
 ![Grid](https://i.imgur.com/xyjMjWj.png)
 ![Grid](https://i.imgur.com/eJj6qQ0.png)
 
-# Ajustes
+### Ajustes
 ![Grid](https://i.imgur.com/rr2FE4h.png)
