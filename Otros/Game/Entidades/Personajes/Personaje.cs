@@ -219,6 +219,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
                 }
 
                 caracteristicas.vitalidad_actual++;
+                caracteristicas_actualizadas?.Invoke();
             }
             catch (Exception e)
             {

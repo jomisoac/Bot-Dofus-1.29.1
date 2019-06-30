@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI_Pelea));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_general_pelea = new System.Windows.Forms.TabPage();
@@ -39,6 +39,14 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox_lista_posicionamiento = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label_informacion_regeneracion = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.label_mensaje_regeneracion = new System.Windows.Forms.Label();
+            this.numericUp_regeneracion1 = new System.Windows.Forms.NumericUpDown();
+            this.label_mensaje_regeneracion_1 = new System.Windows.Forms.Label();
+            this.numericUp_regeneracion2 = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -56,7 +64,6 @@
             this.checkBox_AOE = new System.Windows.Forms.CheckBox();
             this.checkBox_cuidado_aoe = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox_lanzar_cuerpo_cuerpo = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -70,7 +77,7 @@
             this.nombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.focus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.n_lanzamientos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CAC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lanzamiento = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AOE = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.button_subir_hechizo = new System.Windows.Forms.Button();
@@ -78,20 +85,19 @@
             this.button_eliminar_hechizo = new System.Windows.Forms.Button();
             this.button_informacion_hechizo = new System.Windows.Forms.Button();
             this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
-            this.label_mensaje_regeneracion = new System.Windows.Forms.Label();
-            this.numericUp_regeneracion1 = new System.Windows.Forms.NumericUpDown();
-            this.label_mensaje_regeneracion_1 = new System.Windows.Forms.Label();
-            this.numericUp_regeneracion2 = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label_informacion_regeneracion = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox_modo_lanzamiento = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_general_pelea.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox_preparacion.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tableLayoutPanel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUp_regeneracion1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUp_regeneracion2)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -103,11 +109,6 @@
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_lanzamientos_turno)).BeginInit();
             this.tableLayoutPanel8.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUp_regeneracion1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUp_regeneracion2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -221,6 +222,108 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Posicionamiento al comenzar el combate:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label_informacion_regeneracion);
+            this.groupBox2.Controls.Add(this.pictureBox1);
+            this.groupBox2.Controls.Add(this.tableLayoutPanel12);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 180);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(718, 94);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Regeneración (sentado)";
+            // 
+            // label_informacion_regeneracion
+            // 
+            this.label_informacion_regeneracion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_informacion_regeneracion.Location = new System.Drawing.Point(28, 51);
+            this.label_informacion_regeneracion.Name = "label_informacion_regeneracion";
+            this.label_informacion_regeneracion.Size = new System.Drawing.Size(687, 40);
+            this.label_informacion_regeneracion.TabIndex = 9;
+            this.label_informacion_regeneracion.Text = "Pon 0 si quieres deshabilitar la regeneración.";
+            this.label_informacion_regeneracion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBox1.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 51);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(25, 40);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.ColumnCount = 4;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 131F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 145F));
+            this.tableLayoutPanel12.Controls.Add(this.label_mensaje_regeneracion, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.numericUp_regeneracion1, 1, 0);
+            this.tableLayoutPanel12.Controls.Add(this.label_mensaje_regeneracion_1, 2, 0);
+            this.tableLayoutPanel12.Controls.Add(this.numericUp_regeneracion2, 3, 0);
+            this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 21);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 1;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(712, 30);
+            this.tableLayoutPanel12.TabIndex = 0;
+            // 
+            // label_mensaje_regeneracion
+            // 
+            this.label_mensaje_regeneracion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_mensaje_regeneracion.Location = new System.Drawing.Point(3, 0);
+            this.label_mensaje_regeneracion.Name = "label_mensaje_regeneracion";
+            this.label_mensaje_regeneracion.Size = new System.Drawing.Size(343, 30);
+            this.label_mensaje_regeneracion.TabIndex = 0;
+            this.label_mensaje_regeneracion.Text = "Regenerar si los puntos de vida son menores o iguales a";
+            this.label_mensaje_regeneracion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numericUp_regeneracion1
+            // 
+            this.numericUp_regeneracion1.AutoSize = true;
+            this.numericUp_regeneracion1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUp_regeneracion1.Location = new System.Drawing.Point(352, 3);
+            this.numericUp_regeneracion1.Name = "numericUp_regeneracion1";
+            this.numericUp_regeneracion1.Size = new System.Drawing.Size(81, 25);
+            this.numericUp_regeneracion1.TabIndex = 1;
+            this.numericUp_regeneracion1.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numericUp_regeneracion1.ValueChanged += new System.EventHandler(this.NumericUp_regeneracion1_ValueChanged);
+            // 
+            // label_mensaje_regeneracion_1
+            // 
+            this.label_mensaje_regeneracion_1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_mensaje_regeneracion_1.Location = new System.Drawing.Point(439, 0);
+            this.label_mensaje_regeneracion_1.Name = "label_mensaje_regeneracion_1";
+            this.label_mensaje_regeneracion_1.Size = new System.Drawing.Size(125, 30);
+            this.label_mensaje_regeneracion_1.TabIndex = 2;
+            this.label_mensaje_regeneracion_1.Text = "regenerar hasta";
+            this.label_mensaje_regeneracion_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // numericUp_regeneracion2
+            // 
+            this.numericUp_regeneracion2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUp_regeneracion2.Location = new System.Drawing.Point(570, 3);
+            this.numericUp_regeneracion2.Name = "numericUp_regeneracion2";
+            this.numericUp_regeneracion2.Size = new System.Drawing.Size(139, 25);
+            this.numericUp_regeneracion2.TabIndex = 3;
+            this.numericUp_regeneracion2.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUp_regeneracion2.ValueChanged += new System.EventHandler(this.NumericUp_regeneracion2_ValueChanged);
             // 
             // groupBox1
             // 
@@ -412,9 +515,8 @@
             this.tableLayoutPanel11.Controls.Add(this.checkBox_AOE, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.checkBox_cuidado_aoe, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.checkBox3, 0, 1);
-            this.tableLayoutPanel11.Controls.Add(this.checkBox_lanzar_cuerpo_cuerpo, 1, 1);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 129);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 144);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 2;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -458,23 +560,13 @@
             this.checkBox3.Text = "No dañar aliados";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // checkBox_lanzar_cuerpo_cuerpo
-            // 
-            this.checkBox_lanzar_cuerpo_cuerpo.AutoSize = true;
-            this.checkBox_lanzar_cuerpo_cuerpo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox_lanzar_cuerpo_cuerpo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.checkBox_lanzar_cuerpo_cuerpo.Location = new System.Drawing.Point(386, 34);
-            this.checkBox_lanzar_cuerpo_cuerpo.Name = "checkBox_lanzar_cuerpo_cuerpo";
-            this.checkBox_lanzar_cuerpo_cuerpo.Size = new System.Drawing.Size(274, 26);
-            this.checkBox_lanzar_cuerpo_cuerpo.TabIndex = 7;
-            this.checkBox_lanzar_cuerpo_cuerpo.Text = "Lanzar cuerpo a cuerpo";
-            this.checkBox_lanzar_cuerpo_cuerpo.UseVisualStyleBackColor = true;
-            // 
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.ColumnCount = 2;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.25727F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.74273F));
+            this.tableLayoutPanel9.Controls.Add(this.comboBox_modo_lanzamiento, 1, 3);
+            this.tableLayoutPanel9.Controls.Add(this.label3, 0, 3);
             this.tableLayoutPanel9.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel9.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.comboBox_lista_hechizos, 1, 0);
@@ -484,11 +576,12 @@
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 21);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 3;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.35088F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.91228F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(663, 108);
+            this.tableLayoutPanel9.RowCount = 4;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(663, 123);
             this.tableLayoutPanel9.TabIndex = 2;
             // 
             // label6
@@ -496,9 +589,9 @@
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label6.Location = new System.Drawing.Point(3, 38);
+            this.label6.Location = new System.Drawing.Point(3, 30);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(287, 35);
+            this.label6.Size = new System.Drawing.Size(287, 30);
             this.label6.TabIndex = 3;
             this.label6.Text = "Focus:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -510,7 +603,7 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(287, 38);
+            this.label5.Size = new System.Drawing.Size(287, 30);
             this.label5.TabIndex = 0;
             this.label5.Text = "Hechizo:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -535,7 +628,7 @@
             "Aliado",
             "Encima",
             "Celda vacía"});
-            this.comboBox_focus_hechizo.Location = new System.Drawing.Point(296, 41);
+            this.comboBox_focus_hechizo.Location = new System.Drawing.Point(296, 33);
             this.comboBox_focus_hechizo.Name = "comboBox_focus_hechizo";
             this.comboBox_focus_hechizo.Size = new System.Drawing.Size(364, 25);
             this.comboBox_focus_hechizo.TabIndex = 4;
@@ -546,9 +639,9 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label7.Location = new System.Drawing.Point(3, 73);
+            this.label7.Location = new System.Drawing.Point(3, 60);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(287, 35);
+            this.label7.Size = new System.Drawing.Size(287, 30);
             this.label7.TabIndex = 5;
             this.label7.Text = "Número de lanzamientos por turno:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -556,7 +649,7 @@
             // numeric_lanzamientos_turno
             // 
             this.numeric_lanzamientos_turno.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numeric_lanzamientos_turno.Location = new System.Drawing.Point(296, 76);
+            this.numeric_lanzamientos_turno.Location = new System.Drawing.Point(296, 63);
             this.numeric_lanzamientos_turno.Maximum = new decimal(new int[] {
             10,
             0,
@@ -590,13 +683,13 @@
             this.nombre,
             this.focus,
             this.n_lanzamientos,
-            this.CAC,
+            this.lanzamiento,
             this.AOE});
             this.listView_hechizos_pelea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_hechizos_pelea.FullRowSelect = true;
             this.listView_hechizos_pelea.HideSelection = false;
             this.listView_hechizos_pelea.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem8});
+            listViewItem1});
             this.listView_hechizos_pelea.Location = new System.Drawing.Point(3, 3);
             this.listView_hechizos_pelea.Name = "listView_hechizos_pelea";
             this.listView_hechizos_pelea.Size = new System.Drawing.Size(669, 232);
@@ -607,12 +700,12 @@
             // id
             // 
             this.id.Text = "ID";
-            this.id.Width = 64;
+            this.id.Width = 58;
             // 
             // nombre
             // 
             this.nombre.Text = "Nombre";
-            this.nombre.Width = 178;
+            this.nombre.Width = 179;
             // 
             // focus
             // 
@@ -624,10 +717,10 @@
             this.n_lanzamientos.Text = "Lanzamientos x turno";
             this.n_lanzamientos.Width = 136;
             // 
-            // CAC
+            // lanzamiento
             // 
-            this.CAC.Text = "Lanzar CAC";
-            this.CAC.Width = 79;
+            this.lanzamiento.Text = "Lanzamiento";
+            this.lanzamiento.Width = 86;
             // 
             // AOE
             // 
@@ -702,107 +795,32 @@
             this.lista_imagenes.Images.SetKeyName(0, "1 - Home24.png");
             this.lista_imagenes.Images.SetKeyName(1, "magic32.png");
             // 
-            // groupBox2
+            // label3
             // 
-            this.groupBox2.Controls.Add(this.label_informacion_regeneracion);
-            this.groupBox2.Controls.Add(this.pictureBox1);
-            this.groupBox2.Controls.Add(this.tableLayoutPanel12);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 180);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(718, 94);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Regeneración (sentado)";
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.Location = new System.Drawing.Point(3, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(287, 33);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Método de lanzamiento";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tableLayoutPanel12
+            // comboBox_modo_lanzamiento
             // 
-            this.tableLayoutPanel12.ColumnCount = 4;
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 131F));
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 145F));
-            this.tableLayoutPanel12.Controls.Add(this.label_mensaje_regeneracion, 0, 0);
-            this.tableLayoutPanel12.Controls.Add(this.numericUp_regeneracion1, 1, 0);
-            this.tableLayoutPanel12.Controls.Add(this.label_mensaje_regeneracion_1, 2, 0);
-            this.tableLayoutPanel12.Controls.Add(this.numericUp_regeneracion2, 3, 0);
-            this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 21);
-            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
-            this.tableLayoutPanel12.RowCount = 1;
-            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(712, 30);
-            this.tableLayoutPanel12.TabIndex = 0;
-            // 
-            // label_mensaje_regeneracion
-            // 
-            this.label_mensaje_regeneracion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_mensaje_regeneracion.Location = new System.Drawing.Point(3, 0);
-            this.label_mensaje_regeneracion.Name = "label_mensaje_regeneracion";
-            this.label_mensaje_regeneracion.Size = new System.Drawing.Size(343, 30);
-            this.label_mensaje_regeneracion.TabIndex = 0;
-            this.label_mensaje_regeneracion.Text = "Regenerar si los puntos de vida son menores o iguales a";
-            this.label_mensaje_regeneracion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // numericUp_regeneracion1
-            // 
-            this.numericUp_regeneracion1.AutoSize = true;
-            this.numericUp_regeneracion1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUp_regeneracion1.Location = new System.Drawing.Point(352, 3);
-            this.numericUp_regeneracion1.Name = "numericUp_regeneracion1";
-            this.numericUp_regeneracion1.Size = new System.Drawing.Size(81, 25);
-            this.numericUp_regeneracion1.TabIndex = 1;
-            this.numericUp_regeneracion1.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numericUp_regeneracion1.ValueChanged += new System.EventHandler(this.NumericUp_regeneracion1_ValueChanged);
-            // 
-            // label_mensaje_regeneracion_1
-            // 
-            this.label_mensaje_regeneracion_1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_mensaje_regeneracion_1.Location = new System.Drawing.Point(439, 0);
-            this.label_mensaje_regeneracion_1.Name = "label_mensaje_regeneracion_1";
-            this.label_mensaje_regeneracion_1.Size = new System.Drawing.Size(125, 30);
-            this.label_mensaje_regeneracion_1.TabIndex = 2;
-            this.label_mensaje_regeneracion_1.Text = "regenerar hasta";
-            this.label_mensaje_regeneracion_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // numericUp_regeneracion2
-            // 
-            this.numericUp_regeneracion2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUp_regeneracion2.Location = new System.Drawing.Point(570, 3);
-            this.numericUp_regeneracion2.Name = "numericUp_regeneracion2";
-            this.numericUp_regeneracion2.Size = new System.Drawing.Size(139, 25);
-            this.numericUp_regeneracion2.TabIndex = 3;
-            this.numericUp_regeneracion2.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUp_regeneracion2.ValueChanged += new System.EventHandler(this.NumericUp_regeneracion2_ValueChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox1.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 51);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(25, 40);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label_informacion_regeneracion
-            // 
-            this.label_informacion_regeneracion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_informacion_regeneracion.Location = new System.Drawing.Point(28, 51);
-            this.label_informacion_regeneracion.Name = "label_informacion_regeneracion";
-            this.label_informacion_regeneracion.Size = new System.Drawing.Size(687, 40);
-            this.label_informacion_regeneracion.TabIndex = 9;
-            this.label_informacion_regeneracion.Text = "Pon 0 si quieres deshabilitar la regeneración.";
-            this.label_informacion_regeneracion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.comboBox_modo_lanzamiento.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_modo_lanzamiento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_modo_lanzamiento.FormattingEnabled = true;
+            this.comboBox_modo_lanzamiento.Items.AddRange(new object[] {
+            "CAC",
+            "ALEJADO",
+            "AMBOS"});
+            this.comboBox_modo_lanzamiento.Location = new System.Drawing.Point(296, 93);
+            this.comboBox_modo_lanzamiento.Name = "comboBox_modo_lanzamiento";
+            this.comboBox_modo_lanzamiento.Size = new System.Drawing.Size(364, 25);
+            this.comboBox_modo_lanzamiento.TabIndex = 8;
             // 
             // UI_Pelea
             // 
@@ -821,6 +839,12 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUp_regeneracion1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUp_regeneracion2)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
@@ -837,12 +861,6 @@
             this.tableLayoutPanel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_lanzamientos_turno)).EndInit();
             this.tableLayoutPanel8.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.tableLayoutPanel12.ResumeLayout(false);
-            this.tableLayoutPanel12.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUp_regeneracion1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUp_regeneracion2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -887,9 +905,8 @@
         private System.Windows.Forms.CheckBox checkBox_AOE;
         private System.Windows.Forms.CheckBox checkBox_cuidado_aoe;
         private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox_lanzar_cuerpo_cuerpo;
         private System.Windows.Forms.CheckBox checkBox_utilizar_dragopavo;
-        private System.Windows.Forms.ColumnHeader CAC;
+        private System.Windows.Forms.ColumnHeader lanzamiento;
         private System.Windows.Forms.ColumnHeader AOE;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.Button button_subir_hechizo;
@@ -904,5 +921,7 @@
         private System.Windows.Forms.Label label_mensaje_regeneracion_1;
         private System.Windows.Forms.NumericUpDown numericUp_regeneracion2;
         private System.Windows.Forms.Label label_informacion_regeneracion;
+        private System.Windows.Forms.ComboBox comboBox_modo_lanzamiento;
+        private System.Windows.Forms.Label label3;
     }
 }

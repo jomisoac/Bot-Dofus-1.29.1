@@ -50,7 +50,13 @@ inventario =
 	podsPorcentaje = api.inventario.podsPorcentaje,
 	tieneObjeto = api.inventario.tieneObjeto,
 
-	equiparObjeto = function(modelo_id)
+	utilizar = function(modelo_id)
+		if api.inventario.utilizar(modelo_id) then
+			coroutine.yield()
+		end
+	end,
+
+	equipar = function(modelo_id)
 		if api.inventario.equipar(modelo_id) then
 			coroutine.yield()
 		end
