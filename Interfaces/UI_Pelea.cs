@@ -28,8 +28,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void UI_Pelea_Load(object sender, EventArgs e)
         {
             comboBox_focus_hechizo.SelectedIndex = 0;
-
-            acercarse_casillas_distancia.Value = cuenta.pelea_extension.configuracion.celdas_maximas;
             checkbox_espectadores.Checked = cuenta.pelea_extension.configuracion.desactivar_espectador;
 
             if (cuenta.puede_utilizar_dragopavo)
@@ -39,6 +37,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             comboBox_lista_tactica.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.tactica;
             comboBox_lista_posicionamiento.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.posicionamiento;
+            numericUp_regeneracion1.Value = cuenta.pelea_extension.configuracion.iniciar_regeneracion;
+            numericUp_regeneracion2.Value = cuenta.pelea_extension.configuracion.detener_regeneracion;
         }
 
         private void actualizar_Agregar_Lista_Hechizos()
@@ -143,12 +143,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             cuenta.pelea_extension.configuracion.guardar();
         }
 
-        private void acercarse_casillas_distancia_ValueChanged(object sender, EventArgs e)
-        {
-            cuenta.pelea_extension.configuracion.celdas_maximas = Convert.ToByte(acercarse_casillas_distancia.Value);
-            cuenta.pelea_extension.configuracion.guardar();
-        }
-
         private void comboBox_lista_tactica_SelectedIndexChanged(object sender, EventArgs e)
         {
             cuenta.pelea_extension.configuracion.tactica = (Tactica)comboBox_lista_tactica.SelectedIndex;
@@ -168,6 +162,18 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void comboBox_lista_posicionamiento_SelectedIndexChanged(object sender, EventArgs e)
         {
             cuenta.pelea_extension.configuracion.posicionamiento = (PosicionamientoInicioPelea)comboBox_lista_posicionamiento.SelectedIndex;
+            cuenta.pelea_extension.configuracion.guardar();
+        }
+
+        private void NumericUp_regeneracion1_ValueChanged(object sender, EventArgs e)
+        {
+            cuenta.pelea_extension.configuracion.iniciar_regeneracion = (byte)numericUp_regeneracion1.Value;
+            cuenta.pelea_extension.configuracion.guardar();
+        }
+
+        private void NumericUp_regeneracion2_ValueChanged(object sender, EventArgs e)
+        {
+            cuenta.pelea_extension.configuracion.detener_regeneracion = (byte)numericUp_regeneracion2.Value;
             cuenta.pelea_extension.configuracion.guardar();
         }
     }

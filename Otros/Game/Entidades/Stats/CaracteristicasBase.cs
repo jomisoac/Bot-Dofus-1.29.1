@@ -8,7 +8,7 @@
 
 namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Stats
 {
-    public class CaracteristicasBase
+    public class CaracteristicasBase : IEliminable
     {
         public int base_personaje { get; set; } = 0;
         public int equipamiento { get; set; } = 0;
@@ -25,6 +25,14 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Stats
             equipamiento = _equipamiento;
             dones = _dones;
             boost = _boost;
+        }
+
+        public void limpiar()
+        {
+            base_personaje = 0;
+            equipamiento = 0;
+            dones = 0;
+            boost = 0;
         }
     }
 }

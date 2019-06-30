@@ -13,6 +13,6 @@
         INTERCAMBIO,
         COMPRANDO,
         VENDIENDO,
-        REGENERANDO_VIDA
+        REGENERANDO
     }
 }

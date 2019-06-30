@@ -243,7 +243,7 @@
     <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\Hechizo.cs" />
     <Compile Include="Otros\Game\Entidades\Personajes\Personaje.cs" />
     <Compile Include="Otros\Game\Entidades\Stats\CaracteristicasBase.cs" />
-    <Compile Include="Otros\Game\Entidades\Stats\CaracteristicasInformacion.cs" />
+    <Compile Include="Otros\Game\Entidades\Stats\Caracteristicas.cs" />
     <Compile Include="Otros\Scripts\Acciones\AccionesScript.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\AlmacenarTodosLosObjetosAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\RecuperarObjetoBanco.cs" />

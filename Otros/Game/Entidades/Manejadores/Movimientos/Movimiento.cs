@@ -162,6 +162,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         private void enviar_Paquete_Movimiento()
         {
+            if (cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
+                cuenta.conexion.enviar_Paquete("eU1");
+
             string path_string = PathFinderUtil.get_Pathfinding_Limpio(actual_path);
             cuenta.conexion.enviar_Paquete("GA001" + path_string);
             cuenta.juego.personaje.evento_Personaje_Pathfinding_Minimapa(actual_path);

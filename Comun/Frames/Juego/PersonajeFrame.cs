@@ -7,6 +7,7 @@ using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -176,6 +177,39 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Invitación de intercambio recibida, rechazando");
             cliente.enviar_Paquete("EV");
+        }
+
+        [PaqueteAtributo("ILS")]
+        public void get_Tiempo_Regenerado(ClienteTcp cliente, string paquete)
+        {
+            paquete = paquete.Substring(3);
+            int tiempo = int.Parse(paquete);
+            Cuenta cuenta = cliente.cuenta;
+            Personaje personaje = cuenta.juego.personaje;
+
+            personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
+            personaje.timer_regeneracion.Change(tiempo * 100, tiempo * 100);
+
+            if (!cuenta.esta_luchando())
+                cuenta.logger.log_informacion("DOFUS", $"Tú personaje recupera 1 pdv cada {tiempo / 1000} segundos");
+            else
+                cuenta.logger.log_informacion("DOFUS", $"Tú personaje no recupera pdv");
+        }
+
+        [PaqueteAtributo("eUK")]
+        public void get_Emote_Recibido(ClienteTcp cliente, string paquete)
+        {
+            string[] separador = paquete.Substring(3).Split('|');
+            int id = int.Parse(separador[0]), emote_id = int.Parse(separador[1]);
+            Cuenta cuenta = cliente.cuenta;
+
+            if (cuenta.juego.personaje.id != id)
+                return;
+
+            if (emote_id == 1 && cuenta.Estado_Cuenta != EstadoCuenta.REGENERANDO)
+                cuenta.Estado_Cuenta = EstadoCuenta.REGENERANDO;
+            else if (emote_id == 0 && cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
+                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
         }
     }
 }

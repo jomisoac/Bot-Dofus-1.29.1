@@ -26,6 +26,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
 
         public List<Celda> get_Path(Celda celda_inicio, Celda celda_final, List<Celda> celdas_no_permitidas, bool detener_delante, byte distancia_detener)
         {
+            if (celda_inicio == null || celda_final == null)
+                return null;
+
             List<Celda> celdas_permitidas = new List<Celda>() { celda_inicio };
 
             if (celdas_no_permitidas.Contains(celda_final))
