@@ -24,7 +24,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             Cuenta cuenta = cliente.cuenta;
 
-            cuenta.Estado_Cuenta = EstadoCuenta.HABLANDO;
+            cuenta.Estado_Cuenta = EstadoCuenta.DIALOGANDO;
             cuenta.juego.personaje.hablando_npc_id = sbyte.Parse(paquete.Substring(3));
         }
 
@@ -50,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 foreach (string respuesta in respuestas_disponibles)
                     npc.respuestas.Add(short.Parse(respuesta));
 
-                cuenta.juego.personaje.evento_Pregunta_Npc();
+                cuenta.juego.personaje.evento_Dialogo_Recibido();
             }
         }
     }

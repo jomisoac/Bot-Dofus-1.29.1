@@ -6,6 +6,7 @@ using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs;
 using Bot_Dofus_1._29._1.Utilidades;
+using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using MoonSharp.Interpreter;
 using System;
 using System.Collections.Concurrent;
@@ -42,7 +43,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             cuenta.juego.mapa.mapa_actualizado += evento_Mapa_Cambiado;
             cuenta.juego.pelea.pelea_creada += get_Pelea_Creada;
             cuenta.juego.manejador.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
-            personaje.pregunta_npc_recibida += npcs_Preguntas_Recibida;
+            personaje.dialogo_npc_recibido += npcs_Dialogo_Recibido;
+            personaje.dialogo_npc_acabado += npcs_Dialogo_Acabado;
             personaje.inventario.almacenamiento_abierto += iniciar_Almacenamiento;
             personaje.inventario.almacenamiento_cerrado += cerrar_Almacenamiento;
             cuenta.juego.manejador.recoleccion.recoleccion_iniciada += get_Recoleccion_Iniciada;
@@ -150,14 +152,23 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             }
         }
 
-        private void npcs_Preguntas_Recibida()
+        private void npcs_Dialogo_Acabado()
+        {
+            if (!cuenta.script.corriendo)
+                return;
+
+            if (accion_actual is RespuestaAccion || accion_actual is CerrarVentanaAccion)
+                acciones_Salida(200);
+        }
+
+        private void npcs_Dialogo_Recibido()
         {
             if (!cuenta.script.corriendo)
                 return;
 
             if (accion_actual is NpcBancoAccion nba)
             {
-                if (cuenta.Estado_Cuenta != EstadoCuenta.HABLANDO)
+                if (cuenta.Estado_Cuenta != EstadoCuenta.DIALOGANDO)
                     return;
 
                 IEnumerable<Npc> npcs = cuenta.juego.mapa.lista_npcs();
@@ -166,9 +177,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 cuenta.conexion.enviar_Paquete("DR" + npc.pregunta + "|" + npc.respuestas[0]);
             }
             else if (accion_actual is NpcAccion || accion_actual is RespuestaAccion)
-            {
                 acciones_Salida(400);
-            }
         }
 
         public void enqueue_Accion(AccionesScript accion, bool iniciar_dequeue_acciones = false)
@@ -302,8 +311,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (delay > 0)
                 await Task.Delay(delay);
 
-
-            cuenta.logger.log_Peligro(caller, $"esperando {delay} milisegundos.");
+            if (GlobalConf.mostrar_mensajes_debug)
+                cuenta.logger.log_Peligro(caller, $"esperando {delay} milisegundos.");
 
             if (fila_acciones.Count > 0)
             {

@@ -109,12 +109,18 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
             }
 
             if (objeto.posicion != InventarioPosiciones.NO_EQUIPADO)//objeto ya esta equipado
+            {
+                cuenta.logger.log_Error("INVENTARIO", $"El objeto {objeto.nombre} ya esta equipado");
                 return false;
+            }
 
             List<InventarioPosiciones> possibles_posiciones = InventarioUtiles.get_Posibles_Posiciones(objeto.tipo);
 
-            if (possibles_posiciones?.Count == 0)//objeto no equipable
+            if (possibles_posiciones == null || possibles_posiciones.Count == 0)//objeto no equipable
+            {
+                cuenta.logger.log_Error("INVENTARIO", $"El objeto {objeto.nombre} no es equipable.");
                 return false;
+            }
 
             foreach (InventarioPosiciones posicion in possibles_posiciones)
             {

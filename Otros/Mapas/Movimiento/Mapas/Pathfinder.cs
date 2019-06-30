@@ -28,6 +28,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
         {
             List<Celda> celdas_permitidas = new List<Celda>() { celda_inicio };
 
+            if (celdas_no_permitidas.Contains(celda_final))
+                celdas_no_permitidas.Remove(celda_final);
+
             while (celdas_permitidas.Count > 0)
             {
                 int index = 0;

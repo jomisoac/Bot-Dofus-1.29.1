@@ -8,7 +8,7 @@
         MOVIMIENTO,
         LUCHANDO,
         RECOLECTANDO,
-        HABLANDO,
+        DIALOGANDO,
         ALMACENAMIENTO,
         INTERCAMBIO,
         COMPRANDO,
