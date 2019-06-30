@@ -7,10 +7,11 @@ using System;
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 {
     [MoonSharpUserData]
-    public class MapaApi
+    public class MapaApi : IDisposable
     {
         private Cuenta cuenta;
         private ManejadorAcciones manejador_acciones;
+        private bool disposed = false;
 
         public MapaApi(Cuenta _cuenta, ManejadorAcciones _manejador_acciones)
         {
@@ -49,5 +50,20 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
         public bool enMapa(string coordenadas) => cuenta.juego.mapa.esta_En_Mapa(coordenadas);
         public string actualMapa() => cuenta.juego.mapa.id.ToString();
         public string actualPosicion() => cuenta.juego.mapa.coordenadas;
+
+        #region Zona Dispose
+        ~MapaApi() => Dispose(false);
+        public void Dispose() => Dispose(true);
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                cuenta = null;
+                manejador_acciones = null;
+                disposed = true;
+            }
+        }
+        #endregion
     }
 }

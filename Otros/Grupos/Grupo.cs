@@ -1,10 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net;
 using System.Threading;
 
 namespace Bot_Dofus_1._29._1.Otros.Grupos
@@ -38,14 +36,20 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
             cuentas_acabadas.Add(miembro, new ManualResetEvent(false));
         }
 
+        public void eliminar_Miembro(Cuenta miembro) => miembros.Remove(miembro);
+
         public void conectar_Cuentas()
         {
-            lider.conexion.conexion_Servidor(IPAddress.Parse(GlobalConf.ip_conexion), GlobalConf.puerto_conexion);
+            lider.conectar();
 
-            for (int i = 0; i < miembros.Count; i++)
-            {
-                miembros[i].conexion.conexion_Servidor(IPAddress.Parse(GlobalConf.ip_conexion), GlobalConf.puerto_conexion);
-            }
+            foreach (Cuenta miembro in miembros)
+                miembro.conectar();
+        }
+
+        public void desconectar_Cuentas()
+        {
+            foreach (Cuenta miembro in miembros)
+                miembro.desconectar();
         }
 
         #region Acciones
@@ -58,8 +62,8 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
                 return;
             }
 
-            for (int i = 0; i < miembros.Count; i++)
-                miembros[i].script.manejar_acciones.enqueue_Accion(accion, iniciar_dequeue);
+            foreach (Cuenta miembro in miembros)
+                miembro.script.manejar_acciones.enqueue_Accion(accion, iniciar_dequeue);
 
             if (iniciar_dequeue)
             {
