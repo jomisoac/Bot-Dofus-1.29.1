@@ -354,14 +354,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!manejador_script.get_Global_Or("ABRIR_SACOS", DataType.Boolean, false))
                 return;
 
-            List<ObjetosInventario> sacos = cuenta.juego.personaje.inventario.objetos.Where(o => o.tipo == 100).ToList();
+            Personaje personaje = cuenta.juego.personaje;
+            List<ObjetosInventario> sacos = personaje.inventario.objetos.Where(o => o.tipo == 100).ToList();
 
             if (sacos.Count > 0)
             {
                 foreach (ObjetosInventario saco in sacos)
                 {
-                    cuenta.conexion.enviar_Paquete("OU" + saco.id_inventario + "|");
-                    cuenta.juego.personaje.inventario.eliminar_Objetos(saco, 1, false);
+                    personaje.inventario.utilizar_Objeto(saco);
                     await Task.Delay(500);
                 }
 
@@ -463,8 +463,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                 for (int j = 0; j < cantidad_correcta; j++)
                 {
-                    cuenta.conexion.enviar_Paquete("OU" + objeto.id_inventario + "|");
-                    cuenta.juego.personaje.inventario.eliminar_Objetos(objeto, 1, false);
+                    personaje.inventario.utilizar_Objeto(objeto);
                     await Task.Delay(800);
                 }
 

@@ -164,6 +164,16 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
             return true;
         }
 
+        public void utilizar_Objeto(ObjetosInventario objeto, int _cantidad = 1)
+        {
+            if (objeto == null)
+                return;
+
+            cuenta.conexion.enviar_Paquete("OU" + objeto.id_inventario + "|");
+            eliminar_Objetos(objeto, 1, false);
+            cuenta.logger.log_informacion("INVENTARIO", $"{objeto.nombre} utilizado.");
+        }
+
         public void evento_Actualizar_Inventario() => inventario_actualizado?.Invoke(true);
         public void evento_Almacenamiento_Abierto() => almacenamiento_abierto?.Invoke();
         public void evento_Almacenamiento_Cerrado() => almacenamiento_cerrado?.Invoke();

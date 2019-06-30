@@ -33,6 +33,17 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
         public int podsPorcentaje() => cuenta.juego.personaje.inventario.porcentaje_pods;
         public bool tieneObjeto(int modelo_id) => cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id) != null;
 
+        public bool utilizar(int modelo_id)
+        {
+            ObjetosInventario objeto = cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
+
+            if (objeto == null)
+                return false;
+
+            manejar_acciones.enqueue_Accion(new UtilizarObjetoAccion(modelo_id), true);
+            return true;
+        }
+
         public bool equipar(int modelo_id)
         {
             ObjetosInventario objeto = cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
@@ -40,7 +51,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
             if (objeto == null || objeto.posicion != InventarioPosiciones.NO_EQUIPADO)
                 return false;
 
-            manejar_acciones.enqueue_Accion(new EquiparItem(modelo_id), true);
+            manejar_acciones.enqueue_Accion(new EquiparItemAccion(modelo_id), true);
             return true;
         }
 

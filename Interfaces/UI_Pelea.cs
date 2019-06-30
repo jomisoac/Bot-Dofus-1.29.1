@@ -37,6 +37,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             comboBox_lista_tactica.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.tactica;
             comboBox_lista_posicionamiento.SelectedIndex = (byte)cuenta.pelea_extension.configuracion.posicionamiento;
+            comboBox_modo_lanzamiento.SelectedIndex = 0;
             numericUp_regeneracion1.Value = cuenta.pelea_extension.configuracion.iniciar_regeneracion;
             numericUp_regeneracion2.Value = cuenta.pelea_extension.configuracion.detener_regeneracion;
         }
@@ -53,7 +54,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void button_agregar_hechizo_Click(object sender, EventArgs e)
         {
             Hechizo hechizo = comboBox_lista_hechizos.SelectedItem as Hechizo;
-            cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, checkBox_lanzar_cuerpo_cuerpo.Checked, Convert.ToByte(numeric_lanzamientos_turno.Value), checkBox_AOE.Checked, checkBox_cuidado_aoe.Checked));
+            cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, (MetodoLanzamiento)comboBox_modo_lanzamiento.SelectedIndex, Convert.ToByte(numeric_lanzamientos_turno.Value), checkBox_AOE.Checked, checkBox_cuidado_aoe.Checked));
             cuenta.pelea_extension.configuracion.guardar();
             refrescar_Lista_Hechizos();
         }
@@ -66,7 +67,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 listView_hechizos_pelea.Items.Add(hechizo.id.ToString()).SubItems.AddRange(new string[]
                 {
-                    hechizo.nombre, hechizo.focus.ToString(), hechizo.lanzamientos_x_turno.ToString(), hechizo.lanzar_cuerpo_cuerpo ? "Si" : "No", hechizo.es_aoe ? "Si" : "No"
+                    hechizo.nombre, hechizo.focus.ToString(), hechizo.lanzamientos_x_turno.ToString(), hechizo.metodo_lanzamiento.ToString(), hechizo.es_aoe ? "Si" : "No"
                 });
             }
         }

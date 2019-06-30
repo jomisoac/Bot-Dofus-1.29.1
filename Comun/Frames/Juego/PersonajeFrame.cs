@@ -188,7 +188,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             Personaje personaje = cuenta.juego.personaje;
 
             personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
-            personaje.timer_regeneracion.Change(tiempo * 100, tiempo * 100);
+            personaje.timer_regeneracion.Change(tiempo, tiempo);
 
             if (!cuenta.esta_luchando())
                 cuenta.logger.log_informacion("DOFUS", $"Tú personaje recupera 1 pdv cada {tiempo / 1000} segundos");

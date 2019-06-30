@@ -232,6 +232,7 @@
     <Compile Include="Otros\Peleas\Configuracion\PeleaConf.cs" />
     <Compile Include="Otros\Peleas\Enums\FallosLanzandoHechizo.cs" />
     <Compile Include="Otros\Peleas\Enums\HechizoFocus.cs" />
+    <Compile Include="Otros\Peleas\Enums\MetodoLanzamiento.cs" />
     <Compile Include="Otros\Peleas\Enums\PosicionamientoInicioPelea.cs" />
     <Compile Include="Otros\Peleas\Enums\ResultadoLanzandoHechizo.cs" />
     <Compile Include="Otros\Peleas\Enums\Tactica.cs" />
@@ -247,10 +248,11 @@
     <Compile Include="Otros\Scripts\Acciones\AccionesScript.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\AlmacenarTodosLosObjetosAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\RecuperarObjetoBanco.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Inventario\UtilizarObjetoAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Mapas\CambiarMapaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\CerrarVentanaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Global\DelayAccion.cs" />
-    <Compile Include="Otros\Scripts\Acciones\Inventario\EquiparItem.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Inventario\EquiparItemAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Mapas\MoverCeldaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Npcs\NpcAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Npcs\NpcBancoAccion.cs" />
