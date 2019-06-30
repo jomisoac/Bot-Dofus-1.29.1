@@ -56,6 +56,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             if (Principal.cuentas_cargadas.ContainsKey(nombre_cuenta))
             {
+                if (cuenta.tiene_grupo && cuenta.es_lider_grupo)
+                    cuenta.grupo.desconectar_Cuentas();
+                else if (cuenta.tiene_grupo)
+                    cuenta.grupo.eliminar_Miembro(cuenta);
+                    
                 cuenta.Dispose();
                 Principal.cuentas_cargadas[nombre_cuenta].contenido.Dispose();
                 Principal.cuentas_cargadas.Remove(nombre_cuenta);
@@ -195,36 +200,37 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     {
                         case "/MAPID":
                             escribir_mensaje(cuenta.juego.mapa.id.ToString(), "0040FF");
-                            break;
+                        break;
 
                         case "/CELLID":
                             escribir_mensaje(cuenta.juego.personaje.celda.id.ToString(), "0040FF");
-                            break;
+                        break;
 
                         default:
                             switch (comboBox_lista_canales.SelectedIndex)
                             {
                                 case 0://General
                                     cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
-                                    break;
+                                break;
 
                                 case 1://Reclutamiento
                                     cuenta.conexion.enviar_Paquete("BM?|" + textBox_enviar_consola.Text + "|");
-                                    break;
+                                break;
 
                                 case 2://Comercio
                                     cuenta.conexion.enviar_Paquete("BM:|" + textBox_enviar_consola.Text + "|");
-                                    break;
+                                break;
 
                                 case 3://Mensaje privado
                                     cuenta.conexion.enviar_Paquete("BM" + textBox_nombre_privado.Text + "|" + textBox_enviar_consola.Text + "|");
-                                    break;
+                                break;
                             }
                             break;
                     }
 
                     e.Handled = true;
                     e.SuppressKeyPress = true;
+                    textBox_nombre_privado.Clear();
                     textBox_enviar_consola.Clear();
                 }
             }

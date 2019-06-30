@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Otros
 
         public void desconectar()
         {
-            conexion.Dispose();
+            conexion?.Dispose();
             conexion = null;
 
             script.detener_Script();

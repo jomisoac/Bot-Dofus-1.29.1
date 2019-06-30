@@ -6,6 +6,7 @@ using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 /*
@@ -38,7 +39,7 @@ namespace Bot_Dofus_1._29._1.Forms
                 if (gestion_cuentas.ShowDialog() == DialogResult.OK)
                 {
                     List<CuentaConf> cuentas_para_cargar = gestion_cuentas.get_Cuentas_Cargadas();
-                    
+
                     if (cuentas_para_cargar.Count < 2)
                     {
                         CuentaConf cuenta_conf = cuentas_para_cargar[0];
@@ -46,7 +47,11 @@ namespace Bot_Dofus_1._29._1.Forms
                     }
                     else
                     {
-                        Grupo grupo = new Grupo(new Cuenta(cuentas_para_cargar[0]));
+                        CuentaConf configuracion_lider = cuentas_para_cargar.First();
+                        Cuenta lider = new Cuenta(configuracion_lider);
+                        Grupo grupo = new Grupo(lider);
+                        cuentas_cargadas.Add(configuracion_lider.nombre_cuenta, agregar_Nueva_Tab_Pagina(configuracion_lider.nombre_cuenta, new UI_Principal(lider), configuracion_lider.nombre_cuenta));
+                        cuentas_para_cargar.Remove(configuracion_lider);
 
                         foreach (CuentaConf cuenta_conf in cuentas_para_cargar)
                         {
