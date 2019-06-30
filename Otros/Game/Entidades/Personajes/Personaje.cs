@@ -49,7 +49,8 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
         public event Action pods_actualizados;
         public event Action hechizos_actualizados;
         public event Action oficios_actualizados;
-        public event Action pregunta_npc_recibida;
+        public event Action dialogo_npc_recibido;
+        public event Action dialogo_npc_acabado;
         public event Action<List<Celda>> movimiento_pathfinding_minimapa;
         
         public Personaje(Cuenta cuenta)
@@ -93,7 +94,8 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
         public void evento_Personaje_Seleccionado() => personaje_seleccionado?.Invoke();
         public void evento_Personaje_Pathfinding_Minimapa(List<Celda> lista) => movimiento_pathfinding_minimapa?.Invoke(lista);
         public void evento_Oficios_Actualizados() => oficios_actualizados?.Invoke();
-        public void evento_Pregunta_Npc() => pregunta_npc_recibida?.Invoke();
+        public void evento_Dialogo_Recibido() => dialogo_npc_recibido?.Invoke();
+        public void evento_Dialogo_Acabado() => dialogo_npc_acabado?.Invoke();
         #endregion
 
         public void actualizar_Caracteristicas(string paquete)

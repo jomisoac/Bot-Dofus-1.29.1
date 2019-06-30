@@ -1,6 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
 using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades;
+using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -61,10 +62,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 y = sbyte.Parse(archivo_mapa.Element("Y").Value);
 
                 descomprimir_mapa(archivo_mapa.Element("MAPA_DATA").Value);
-                archivo_mapa = null;//limpia la memoria
             }
-
-            mapa_archivo = null;
         }
 
         public string coordenadas => $"[{x},{y}]";
@@ -74,10 +72,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public bool get_Puede_Luchar_Contra_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios) => get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios).Count > 0;
 
         // si el destino es una celda teleport, aunque haya un monstruo encima de la celda no causara agresion
-        public List<Celda> celdas_ocupadas() => entidades.Values.Where(e => e.celda.tipo != TipoCelda.CELDA_TELEPORT).Select(c => c.celda).ToList();
+        public List<Celda> celdas_ocupadas() => entidades.Values.Select(c => c.celda).ToList();
         public List<Npc> lista_npcs() => entidades.Values.Where(n => n is Npc).Select(n => n as Npc).ToList();
         public List<Monstruo> lista_monstruos() => entidades.Values.Where(n => n is Monstruo).Select(n => n as Monstruo).ToList();
-        public List<Monstruo> lista_personajes() => entidades.Values.Where(n => n is Monstruo).Select(n => n as Monstruo).ToList();
+        public List<Personaje> lista_personajes() => entidades.Values.Where(n => n is Personaje).Select(n => n as Personaje).ToList();
 
         public List<Monstruo> get_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios)
         {

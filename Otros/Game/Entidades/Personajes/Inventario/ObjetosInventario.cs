@@ -65,8 +65,6 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
 
                 archivo_objeto = null;
             }
-
-            archivo_item = null;
         }
 
         public bool objeto_esta_equipado() => posicion > InventarioPosiciones.NO_EQUIPADO;

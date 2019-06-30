@@ -82,8 +82,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             manejador_script.Set_Global("detener_script", new Action(() => detener_Script()));
             manejador_script.Set_Global("delay", new Action<int>((ms) => manejar_acciones.enqueue_Accion(new DelayAccion(ms), true)));
 
-            manejador_script.Set_Global("recolectando", (Func<bool>)cuenta.esta_recolectando);
-            manejador_script.Set_Global("dialogando", (Func<bool>)cuenta.esta_dialogando);
+            manejador_script.Set_Global("estaRecolectando", (Func<bool>)cuenta.esta_recolectando);
+            manejador_script.Set_Global("estaDialogando", (Func<bool>)cuenta.esta_dialogando);
 
             manejador_script.script.DoString(Properties.Resources.api_ayuda);
         }
@@ -203,7 +203,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             banderas.Clear();
             bandera_id = 0;
-            DynValue bandera = null;
+
+            DynValue bandera = valor.Get("personalizado");
+            if (!bandera.IsNil() && bandera.Type == DataType.Function)
+                banderas.Add(new FuncionPersonalizada(bandera));
 
             if (estado_script == EstadoScript.MOVIMIENTO)
             {
@@ -222,10 +225,6 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 if (!bandera.IsNil() && bandera.Type == DataType.Boolean && bandera.Boolean)
                     banderas.Add(new NPCBancoBandera());
             }
-
-            bandera = valor.Get("personalizado");
-            if (!bandera.IsNil() && bandera.Type == DataType.Function)
-                banderas.Add(new FuncionPersonalizada(bandera));
 
             bandera = valor.Get("celda");
             if (!bandera.IsNil() && bandera.Type == DataType.String)
@@ -387,8 +386,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 return;
 
             Personaje personaje = cuenta.juego.personaje;
-            int vida_minima = auto_regeneracion.get_Or("vida_minima", DataType.Number, 0);
-            int vida_maxima = auto_regeneracion.get_Or("vida_maxima", DataType.Number, 100);
+            int vida_minima = auto_regeneracion.get_Or("VIDA_MINIMA", DataType.Number, 0);
+            int vida_maxima = auto_regeneracion.get_Or("VIDA_MAXIMA", DataType.Number, 100);
 
             if (vida_minima == 0 || personaje.caracteristicas.porcentaje_vida > vida_minima)
                 return;
@@ -396,7 +395,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             int fin_vida = vida_maxima * personaje.caracteristicas.vitalidad_maxima / 100;
             int vida_para_regenerar = fin_vida - personaje.caracteristicas.vitalidad_actual;
 
-            List<int> objetos = auto_regeneracion.Get("objetos").ToObject<List<int>>();
+            List<int> objetos = auto_regeneracion.Get("OBJETOS").ToObject<List<int>>();
 
             foreach (int id_objeto in objetos)
             {
@@ -412,7 +411,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     continue;
 
                 int cantidad_necesaria = (int)Math.Floor(vida_para_regenerar / (double)objeto.vida_regenerada);
-                int cantidad_correcta = Math.Min(cantidad_necesaria, (int)objeto.cantidad);
+                int cantidad_correcta = Math.Min(cantidad_necesaria, objeto.cantidad);
 
                 for (int j = 0; j < cantidad_correcta; j++)
                 {

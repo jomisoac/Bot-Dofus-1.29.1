@@ -53,7 +53,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void button_agregar_hechizo_Click(object sender, EventArgs e)
         {
             Hechizo hechizo = comboBox_lista_hechizos.SelectedItem as Hechizo;
-            Console.WriteLine(checkBox_lanzar_cuerpo_cuerpo.Checked);
             cuenta.pelea_extension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, checkBox_lanzar_cuerpo_cuerpo.Checked, Convert.ToByte(numeric_lanzamientos_turno.Value), checkBox_AOE.Checked, checkBox_cuidado_aoe.Checked));
             cuenta.pelea_extension.configuracion.guardar();
             refrescar_Lista_Hechizos();
@@ -104,7 +103,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             Mapa mapa = cuenta.juego.mapa;
 
-            List<Monstruo> monstruos = cuenta.juego.mapa.entidades.Values.Select(n => n as Monstruo).ToList();
+            List<Monstruo> monstruos = cuenta.juego.mapa.lista_monstruos();
 
             if (monstruos.Count > 0)
             {

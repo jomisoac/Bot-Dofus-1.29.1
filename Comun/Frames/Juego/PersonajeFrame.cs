@@ -1,9 +1,12 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
+using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
 using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios;
+using System.Collections.Generic;
+using System.Linq;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -51,8 +54,25 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("DV")]
         public void get_Cerrar_Dialogo(ClienteTcp cliente, string paquete)
         {
-            if (cliente.cuenta.Estado_Cuenta == EstadoCuenta.ALMACENAMIENTO)//Banco
-                cliente.cuenta.juego.personaje.inventario.evento_Almacenamiento_Abierto();
+            Cuenta cuenta = cliente.cuenta;
+
+            switch(cuenta.Estado_Cuenta)
+            {
+                case EstadoCuenta.ALMACENAMIENTO:
+                    cuenta.juego.personaje.inventario.evento_Almacenamiento_Abierto();
+                break;
+
+                case EstadoCuenta.DIALOGANDO:
+                    IEnumerable<Npc> npcs = cuenta.juego.mapa.lista_npcs();
+                    Npc npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
+                    npc.respuestas.Clear();
+                    npc.respuestas = null;
+
+                    cuenta.juego.personaje.evento_Dialogo_Acabado();
+                    cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                break;
+            }
+
         }
 
         [PaqueteAtributo("EV")]

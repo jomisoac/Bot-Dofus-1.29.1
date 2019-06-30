@@ -16,7 +16,7 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
                 case EstadoCuenta.INTERCAMBIO:
                     return "Intercambiando";
                 case EstadoCuenta.LUCHANDO:
-                    return "En combate";
+                    return "Combate";
                 case EstadoCuenta.RECOLECTANDO:
                     return "Recolectando";
                 case EstadoCuenta.MOVIMIENTO:
@@ -24,9 +24,9 @@ namespace Bot_Dofus_1._29._1.Utilidades.Extensiones
                 case EstadoCuenta.CONECTADO_INACTIVO:
                     return "Inactivo";
                 case EstadoCuenta.ALMACENAMIENTO:
-                    return "En almacenamiento";
-                case EstadoCuenta.HABLANDO:
-                    return "En dialogo";
+                    return "Almacenamiento";
+                case EstadoCuenta.DIALOGANDO:
+                    return "Dialogando";
                 case EstadoCuenta.COMPRANDO:
                     return "Comprando";
                 case EstadoCuenta.VENDIENDO:

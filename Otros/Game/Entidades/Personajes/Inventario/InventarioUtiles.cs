@@ -57,7 +57,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario
 
             { 21, new List<InventarioPosiciones>()//pico
             { InventarioPosiciones.ARMA } },
-            
+
+            { 22, new List<InventarioPosiciones>()//Guadaña
+            { InventarioPosiciones.ARMA } },
+
             { 23, new List<InventarioPosiciones>()
             { InventarioPosiciones.DOFUS1, InventarioPosiciones.DOFUS2, InventarioPosiciones.DOFUS3, InventarioPosiciones.DOFUS4, InventarioPosiciones.DOFUS5, InventarioPosiciones.DOFUS6 } },
 
@@ -92,6 +95,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario
                 case 20:
                 case 21:
                 case 22:
+                case 83:
                     return TipoObjetosInventario.EQUIPAMIENTO;
 
                 case 12:
@@ -99,11 +103,12 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario
                     return TipoObjetosInventario.VARIOS;
 
                 case 15:
-                case 41:
+                case 33:
                 case 34:
                 case 35:
                 case 36:
                 case 38:
+                case 41:
                 case 46:
                 case 47:
                 case 48:

@@ -14,11 +14,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
 
         internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
-            Console.WriteLine("caca1"); 
             if (!cuenta.esta_dialogando())
                 return resultado_fallado;
-
-            Console.WriteLine("caca");
 
             IEnumerable<Npc> npcs = cuenta.juego.mapa.lista_npcs();
             Npc npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);

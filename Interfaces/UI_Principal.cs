@@ -33,7 +33,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void UI_Principal_Load(object sender, EventArgs e)
         {
             desconectarOconectarToolStripMenuItem.Text = "Conectar";
-            escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] -> [INFORMACIÓN] Bot creado por Alvaro totalmente gratuito, http://www.salesprendes.com versión: " + Application.ProductVersion, LogTipos.ERROR.ToString("X"));
+            escribir_mensaje($"[{DateTime.Now.ToString("HH:mm:ss")}] -> [INFORMACIÓN] Bot creado por Alvaro, http://www.salesprendes.com versión: {Application.ProductVersion} alpha", LogTipos.ERROR.ToString("X"));
 
             cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
             cuenta.cuenta_desconectada += desconectar_Cuenta;
