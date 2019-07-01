@@ -252,12 +252,14 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes
                 if (disposing)
                 {
                     inventario.Dispose();
+                    timer_regeneracion.Dispose();
                 }
                 
                 hechizos = null;
                 caracteristicas = null;
                 nombre = null;
                 inventario = null;
+                timer_regeneracion = null;
                 disposed = true;
             }
         }

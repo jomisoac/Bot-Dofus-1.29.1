@@ -99,8 +99,11 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
 
         public bool equipar_Objeto(ObjetosInventario objeto)
         {
-            if (objeto == null)
+            if (objeto == null || objeto.cantidad == 0)
+            {
+                cuenta.logger.log_Error("INVENTARIO", $"El objeto {objeto.nombre} no se puede equipar");
                 return false;
+            }
 
             if (objeto.nivel > cuenta.juego.personaje.nivel)
             {
@@ -164,10 +167,16 @@ namespace Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario
             return true;
         }
 
-        public void utilizar_Objeto(ObjetosInventario objeto, int _cantidad = 1)
+        public void utilizar_Objeto(ObjetosInventario objeto)
         {
             if (objeto == null)
                 return;
+
+            if(objeto.cantidad == 0)
+            {
+                cuenta.logger.log_Error("INVENTARIO", $"El objeto {objeto.nombre} no se puede utilizar, cantidad insuficiente");
+                return;
+            }
 
             cuenta.conexion.enviar_Paquete("OU" + objeto.id_inventario + "|");
             eliminar_Objetos(objeto, 1, false);

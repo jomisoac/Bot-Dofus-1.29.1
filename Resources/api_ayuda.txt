@@ -1,5 +1,5 @@
 function delay(ms)
-	delay(ms)
+	delayFuncion(ms)
 	coroutine.yield()
 end
 
