@@ -79,9 +79,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             manejador_script.Set_Global("personaje", api.personaje);
 
             manejador_script.Set_Global("mensaje", new Action<string>((mensaje) => cuenta.logger.log_informacion("SCRIPT", mensaje)));
-            manejador_script.Set_Global("error", new Action<string>((mensaje) => cuenta.logger.log_Error("SCRIPT", mensaje)));
-            manejador_script.Set_Global("detener_script", new Action(() => detener_Script()));
-            manejador_script.Set_Global("delay", new Action<int>((ms) => manejar_acciones.enqueue_Accion(new DelayAccion(ms), true)));
+            manejador_script.Set_Global("mensajeError", new Action<string>((mensaje) => cuenta.logger.log_Error("SCRIPT", mensaje)));
+            manejador_script.Set_Global("detenerScript", new Action(() => detener_Script()));
+            manejador_script.Set_Global("delayFuncion", new Action<int>((ms) => manejar_acciones.enqueue_Accion(new DelayAccion(ms), true)));
 
             manejador_script.Set_Global("estaRecolectando", (Func<bool>)cuenta.esta_recolectando);
             manejador_script.Set_Global("estaDialogando", (Func<bool>)cuenta.esta_dialogando);

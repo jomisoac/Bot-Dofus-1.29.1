@@ -16,7 +16,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Inventario
             if (objeto != null)
             {
                 cuenta.juego.personaje.inventario.utilizar_Objeto(objeto);
-                await Task.Delay(500);
+                await Task.Delay(800);
             }
 
             return ResultadosAcciones.HECHO;

@@ -198,6 +198,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
         }
 
         private void evento_Mapa_Actualizado() => pathfinder.set_Mapa(cuenta.juego.mapa);
+        public void movimiento_Actualizado(bool estado) => movimiento_finalizado?.Invoke(estado);
 
         #region Zona Dispose
         ~Movimiento() => Dispose(false);
