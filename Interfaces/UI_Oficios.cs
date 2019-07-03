@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Reflection;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje.Oficios;
 
 namespace Bot_Dofus_1._29._1.Interfaces
 {

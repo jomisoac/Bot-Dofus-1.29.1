@@ -1,4 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
 using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Inventario

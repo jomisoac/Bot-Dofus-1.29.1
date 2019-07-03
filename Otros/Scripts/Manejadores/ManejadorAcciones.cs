@@ -1,7 +1,7 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
-using Bot_Dofus_1._29._1.Otros.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs;
@@ -38,7 +38,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             manejador_script = _manejador_script;
             fila_acciones = new ConcurrentQueue<AccionesScript>();
             timeout_timer = new TimerWrapper(60000, time_Out_Callback);
-            Personaje personaje = cuenta.juego.personaje;
+            PersonajeJuego personaje = cuenta.juego.personaje;
             
             cuenta.juego.mapa.mapa_actualizado += evento_Mapa_Cambiado;
             cuenta.juego.pelea.pelea_creada += get_Pelea_Creada;
@@ -171,8 +171,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 if (cuenta.Estado_Cuenta != EstadoCuenta.DIALOGANDO)
                     return;
 
-                IEnumerable<Npc> npcs = cuenta.juego.mapa.lista_npcs();
-                Npc npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
+                IEnumerable<Npcs> npcs = cuenta.juego.mapa.lista_npcs();
+                Npcs npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
 
                 cuenta.conexion.enviar_Paquete("DR" + npc.pregunta + "|" + npc.respuestas[0]);
             }

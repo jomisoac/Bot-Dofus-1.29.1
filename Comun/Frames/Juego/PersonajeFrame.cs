@@ -1,10 +1,10 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
 using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Oficios;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje.Oficios;
+using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -45,7 +45,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             string[] pods = paquete.Substring(2).Split('|');
             short pods_actuales = short.Parse(pods[0]);
             short pods_maximos = short.Parse(pods[1]);
-            Personaje personaje = cliente.cuenta.juego.personaje;
+            PersonajeJuego personaje = cliente.cuenta.juego.personaje;
 
             personaje.inventario.pods_actuales = pods_actuales;
             personaje.inventario.pods_maximos = pods_maximos;
@@ -64,8 +64,8 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 break;
 
                 case EstadoCuenta.DIALOGANDO:
-                    IEnumerable<Npc> npcs = cuenta.juego.mapa.lista_npcs();
-                    Npc npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
+                    IEnumerable<Npcs> npcs = cuenta.juego.mapa.lista_npcs();
+                    Npcs npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
                     npc.respuestas.Clear();
                     npc.respuestas = null;
 
@@ -92,7 +92,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Skills_Oficio(ClienteTcp cliente, string paquete)
         {
             string[] separador_skill;
-            Personaje personaje = cliente.cuenta.juego.personaje;
+            PersonajeJuego personaje = cliente.cuenta.juego.personaje;
             Oficio oficio;
             SkillsOficio skill = null;
             short id_oficio, id_skill;
@@ -132,7 +132,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Experiencia_Oficio(ClienteTcp cliente, string paquete)
         {
             string[] separador_oficio_experiencia = paquete.Substring(3).Split('|');
-            Personaje personaje = cliente.cuenta.juego.personaje;
+            PersonajeJuego personaje = cliente.cuenta.juego.personaje;
             uint experiencia_actual, experiencia_base, experiencia_siguiente_nivel;
             short id;
             byte nivel;
@@ -185,7 +185,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             paquete = paquete.Substring(3);
             int tiempo = int.Parse(paquete);
             Cuenta cuenta = cliente.cuenta;
-            Personaje personaje = cuenta.juego.personaje;
+            PersonajeJuego personaje = cuenta.juego.personaje;
 
             personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
             personaje.timer_regeneracion.Change(tiempo, tiempo);

@@ -1,7 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Forms;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Hechizos;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;

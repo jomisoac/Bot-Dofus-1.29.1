@@ -1,5 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
@@ -37,9 +37,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 dataGridView_hechizos.Rows.Clear();
 
                 foreach (Hechizo spell in cuenta.juego.personaje.hechizos.Values)
-                {
                     dataGridView_hechizos.Rows.Add(new object[] { spell.id, spell.nombre, spell.nivel, (spell.nivel == 7 || spell.id == 0 ? "-" : "Subir hechizo") });
-                }
             }));
         }
 

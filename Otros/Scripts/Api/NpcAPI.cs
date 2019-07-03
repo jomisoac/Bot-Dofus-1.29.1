@@ -1,5 +1,4 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs;
-using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
 using MoonSharp.Interpreter;
 using System.Linq;

@@ -1,7 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje;
 using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using Bot_Dofus_1._29._1.Utilidades.Logs;
 using System;
@@ -268,7 +268,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             BeginInvoke((Action)(() =>
             {
-                Personaje personaje = cuenta.juego.personaje;
+                PersonajeJuego personaje = cuenta.juego.personaje;
 
                 progresBar_vitalidad.valor_Maximo = personaje.caracteristicas.vitalidad_maxima;
                 progresBar_vitalidad.Valor = personaje.caracteristicas.vitalidad_actual;

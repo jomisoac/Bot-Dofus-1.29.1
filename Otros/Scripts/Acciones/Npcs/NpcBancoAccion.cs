@@ -1,4 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
+﻿using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,8 +24,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
             if (cuenta.esta_ocupado())
                 return resultado_fallado;
 
-            Npc npc = null;
-            IEnumerable<Npc> npcs = cuenta.juego.mapa.lista_npcs();
+            Otros.Mapas.Entidades.Npcs npc = null;
+            IEnumerable<Otros.Mapas.Entidades.Npcs> npcs = cuenta.juego.mapa.lista_npcs();
 
             if (npc_id < 0)
             {

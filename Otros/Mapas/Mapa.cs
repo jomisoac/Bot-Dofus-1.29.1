@@ -1,7 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
+﻿using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
 using System;
@@ -73,15 +70,15 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
         // si el destino es una celda teleport, aunque haya un monstruo encima de la celda no causara agresion
         public List<Celda> celdas_ocupadas() => entidades.Values.Select(c => c.celda).ToList();
-        public List<Npc> lista_npcs() => entidades.Values.Where(n => n is Npc).Select(n => n as Npc).ToList();
-        public List<Monstruo> lista_monstruos() => entidades.Values.Where(n => n is Monstruo).Select(n => n as Monstruo).ToList();
-        public List<Personaje> lista_personajes() => entidades.Values.Where(n => n is Personaje).Select(n => n as Personaje).ToList();
+        public List<Npcs> lista_npcs() => entidades.Values.Where(n => n is Npcs).Select(n => n as Npcs).ToList();
+        public List<Monstruos> lista_monstruos() => entidades.Values.Where(n => n is Monstruos).Select(n => n as Monstruos).ToList();
+        public List<Personajes> lista_personajes() => entidades.Values.Where(n => n is Personajes).Select(n => n as Personajes).ToList();
 
-        public List<Monstruo> get_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios)
+        public List<Monstruos> get_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios)
         {
-            List<Monstruo> grupos_monstruos_disponibles = new List<Monstruo>();
+            List<Monstruos> grupos_monstruos_disponibles = new List<Monstruos>();
 
-            foreach (Monstruo grupo_monstruo in lista_monstruos())
+            foreach (Monstruos grupo_monstruo in lista_monstruos())
             {
                 if (grupo_monstruo.get_Total_Monstruos < monstruos_minimos || grupo_monstruo.get_Total_Monstruos > monstruos_maximos)
                     continue;

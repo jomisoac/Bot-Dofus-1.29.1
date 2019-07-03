@@ -1,10 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Controles.ControlMapa.Animaciones;
 using Bot_Dofus_1._29._1.Controles.ControlMapa.Celdas;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -40,7 +38,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         private bool mostrar_animaciones;
         private bool mostrar_celdas;
 
-        public delegate void CellClickedHandler(CeldaMapa celda, MouseButtons botones);
+        public delegate void CellClickedHandler(CeldaMapa celda, MouseButtons botones, bool abajo);
         public event CellClickedHandler clic_celda;
         public event Action<CeldaMapa, CeldaMapa> clic_celda_terminado;
 
@@ -65,7 +63,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             InitializeComponent();
         }
 
-        protected void OnCellClicked(CeldaMapa cell, MouseButtons buttons) => clic_celda?.Invoke(cell, buttons);
+        protected void OnCellClicked(CeldaMapa cell, MouseButtons buttons, bool abajo) => clic_celda?.Invoke(cell, buttons, abajo);
         protected void OnCellOver(CeldaMapa cell, CeldaMapa last) => clic_celda_terminado?.Invoke(cell, last);
 
         public bool Mostrar_Animaciones
@@ -258,11 +256,11 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                     {
                         if (celda.id == cuenta.juego.personaje.celda.id && !animaciones.ContainsKey(cuenta.juego.personaje.id))
                             celda.dibujar_FillPie(g, Color.Blue, RealCellHeight / 2);
-                        else if (cuenta.juego.mapa.entidades.Values.Where(m => m is Monstruo).FirstOrDefault(m => m.celda.id == celda.id && !animaciones.ContainsKey(m.id)) != null)
+                        else if (cuenta.juego.mapa.entidades.Values.Where(m => m is Monstruos).FirstOrDefault(m => m.celda.id == celda.id && !animaciones.ContainsKey(m.id)) != null)
                             celda.dibujar_FillPie(g, Color.DarkRed, RealCellHeight / 2);
-                        else if (cuenta.juego.mapa.entidades.Values.Where(n => n is Npc).FirstOrDefault(n => n.celda.id == celda.id && !animaciones.ContainsKey(n.id)) != null)
+                        else if (cuenta.juego.mapa.entidades.Values.Where(n => n is Npcs).FirstOrDefault(n => n.celda.id == celda.id && !animaciones.ContainsKey(n.id)) != null)
                             celda.dibujar_FillPie(g, Color.FromArgb(179, 120, 211), RealCellHeight / 2);
-                        else if (cuenta.juego.mapa.entidades.Values.Where(p => p is Personaje).FirstOrDefault(p => p.celda.id == celda.id && !animaciones.ContainsKey(p.id)) != null)
+                        else if (cuenta.juego.mapa.entidades.Values.Where(p => p is Personajes).FirstOrDefault(p => p.celda.id == celda.id && !animaciones.ContainsKey(p.id)) != null)
                             celda.dibujar_FillPie(g, Color.FromArgb(81, 113, 202), RealCellHeight / 2);
                     }
                 }
@@ -385,11 +383,11 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
                 CeldaMapa celda = get_Celda(e.Location);
                 if (celda_retenida != null && celda_retenida != celda)
                 {
-                    OnCellClicked(celda_retenida, e.Button);
+                    OnCellClicked(celda_retenida, e.Button, true);
                     celda_retenida = celda;
                 }
                 if (celda != null)
-                    OnCellClicked(celda, e.Button);
+                    OnCellClicked(celda, e.Button, true);
             }
 
             if (TraceOnOver)
@@ -442,7 +440,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
             if (celda_retenida != null)
             {
-                OnCellClicked(celda_retenida, e.Button);
+                OnCellClicked(celda_retenida, e.Button, cell != celda_abajo);
                 celda_retenida = null;
             }
             base.OnMouseUp(e);
