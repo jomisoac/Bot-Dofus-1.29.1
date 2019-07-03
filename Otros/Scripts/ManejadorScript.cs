@@ -1,6 +1,6 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
-using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
+﻿using Bot_Dofus_1._29._1.Otros.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Global;
@@ -354,7 +354,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!manejador_script.get_Global_Or("ABRIR_SACOS", DataType.Boolean, false))
                 return;
 
-            Personaje personaje = cuenta.juego.personaje;
+            PersonajeJuego personaje = cuenta.juego.personaje;
             List<ObjetosInventario> sacos = personaje.inventario.objetos.Where(o => o.tipo == 100).ToList();
 
             if (sacos.Count > 0)
@@ -433,7 +433,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (auto_regeneracion == null)
                 return;
 
-            Personaje personaje = cuenta.juego.personaje;
+            PersonajeJuego personaje = cuenta.juego.personaje;
             int vida_minima = auto_regeneracion.get_Or("VIDA_MINIMA", DataType.Number, 0);
             int vida_maxima = auto_regeneracion.get_Or("VIDA_MAXIMA", DataType.Number, 100);
 

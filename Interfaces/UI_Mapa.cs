@@ -68,12 +68,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
             control_mapa.refrescar_Mapa();
         }
 
-        private void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones)
+        private void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones, bool abajo)
         {
             Mapa mapa = cuenta.juego.mapa;
             Celda celda_actual = cuenta.juego.personaje.celda, celda_destino = mapa.get_Celda_Id(celda.id);
 
-            if (botones == MouseButtons.Left && celda_actual.id != 0 && celda_destino.id != 0)
+            if (botones == MouseButtons.Left && celda_actual.id != 0 && celda_destino.id != 0 && !abajo)
             {
                 ResultadoMovimientos resultado = cuenta.juego.manejador.movimientos.get_Mover_A_Celda(celda_destino, mapa.celdas_ocupadas());
 
@@ -91,10 +91,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         cuenta.logger.log_Error("UI_MAPA", "Error desplazando el personaje a la casilla: " + celda_destino.id + " resultado: " + resultado);
                     break;
                 }
-            }
-            else
-            {
-                cuenta.logger.log_Error("UI_MAPA", "Error al intentar mover el personaje a la casilla: " + celda_actual.id);
             }
         }
 

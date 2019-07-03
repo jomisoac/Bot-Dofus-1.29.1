@@ -1,6 +1,6 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,11 +28,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
         {
             Mapa mapa = cuenta.juego.mapa;
-            List<Monstruo> grupos_disponibles = mapa.get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
+            List<Monstruos> grupos_disponibles = mapa.get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
 
             if (grupos_disponibles.Count > 0)
             {
-                foreach (Monstruo grupo_monstruo in grupos_disponibles)
+                foreach (Monstruos grupo_monstruo in grupos_disponibles)
                 {
                     switch (cuenta.juego.manejador.movimientos.get_Mover_A_Celda(grupo_monstruo.celda, new List<Celda>()))
                     {

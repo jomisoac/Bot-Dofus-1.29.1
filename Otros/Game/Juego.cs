@@ -1,5 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas;
 using System;
@@ -9,7 +9,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game
     public class Juego : IEliminable, IDisposable
     {
         public Mapa mapa { get; private set; }
-        public Personaje personaje { get; private set; }
+        public PersonajeJuego personaje { get; private set; }
         public Manejador manejador { get; private set; }
         public Pelea pelea{ get; private set; }
         private bool disposed = false;
@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game
         internal Juego(Cuenta cuenta)
         {
             mapa = new Mapa();
-            personaje = new Personaje(cuenta);
+            personaje = new PersonajeJuego(cuenta);
             manejador = new Manejador(cuenta, mapa);
             pelea = new Pelea(cuenta);
         }
@@ -50,6 +50,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game
                 personaje = null;
                 manejador = null;
                 pelea = null;
+                disposed = true;
             }
         }
         #endregion

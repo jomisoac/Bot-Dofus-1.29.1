@@ -1,19 +1,16 @@
 ﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
 using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
-using System;
 using System.Threading.Tasks;
 
 /*
@@ -70,17 +67,17 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 string[] templates = nombre_template.Split(',');
                                 string[] niveles = informaciones[7].Split(',');
                                 
-                                Monstruo monstruo = new Monstruo(id, int.Parse(templates[0]), celda, int.Parse(niveles[0]));
+                                Monstruos monstruo = new Monstruos(id, int.Parse(templates[0]), celda, int.Parse(niveles[0]));
                                 monstruo.lider_grupo = monstruo;
 
                                 for (int m = 1; m < templates.Length; ++m)
-                                    monstruo.moobs_dentro_grupo.Add(new Monstruo(id, int.Parse(templates[m]), celda, int.Parse(niveles[m])));
+                                    monstruo.moobs_dentro_grupo.Add(new Monstruos(id, int.Parse(templates[m]), celda, int.Parse(niveles[m])));
 
                                 cuenta.juego.mapa.entidades.TryAdd(id, monstruo);
                             break;
 
                             case -4://NPC
-                                cuenta.juego.mapa.entidades.TryAdd(id, new Npc(id, int.Parse(nombre_template), celda));
+                                cuenta.juego.mapa.entidades.TryAdd(id, new Npcs(id, int.Parse(nombre_template), celda));
                             break;
 
                             case -5:
@@ -95,7 +92,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                                 {
                                     if (cuenta.juego.personaje.id != id)
-                                        cuenta.juego.mapa.entidades.TryAdd(id, new Personaje(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda));
+                                        cuenta.juego.mapa.entidades.TryAdd(id, new Personajes(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda));
                                     else
                                         cuenta.juego.personaje.celda = celda;
                                 }
@@ -161,7 +158,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
             if (id_accion > 0)//Error: GA;0
             {
-                Personaje personaje = cuenta.juego.personaje;
+                PersonajeJuego personaje = cuenta.juego.personaje;
                 int id_entidad = int.Parse(separador[2]);
                 byte tipo_gkk_movimiento;
                 Celda celda;

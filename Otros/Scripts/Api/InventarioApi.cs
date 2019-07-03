@@ -1,5 +1,5 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Inventario;
-using Bot_Dofus_1._29._1.Otros.Game.Entidades.Personajes.Inventario.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario.Enums;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Inventario;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
 using MoonSharp.Interpreter;

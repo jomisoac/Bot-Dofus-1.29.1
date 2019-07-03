@@ -186,34 +186,35 @@
       <DependentUpon>UI_Debugger.cs</DependentUpon>
     </Compile>
     <Compile Include="Otros\Cuenta.cs" />
-    <Compile Include="Otros\Game\Entidades\Entidad.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Interactivos\Interactivo.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Manejador.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Movimientos\Movimiento.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Recolecciones\Recoleccion.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Recolecciones\RecoleccionResultado.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Teleports\Teleport.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Teleports\TipoTeleport.cs" />
-    <Compile Include="Otros\Game\Entidades\Monstruos\Monstruo.cs" />
-    <Compile Include="Otros\Game\Entidades\Npcs\Npc.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoEfecto.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoShape.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoStats.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\HechizoZona.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\Shaper.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\ShaperEntry.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\Zonas.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\InventarioGeneral.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\Enums\InventarioPosiciones.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\InventarioUtiles.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\ObjetosInventario.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Oficios\Oficio.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Oficios\SkillsOficio.cs" />
+    <Compile Include="Otros\Mapas\Entidades\Entidad.cs" />
+    <Compile Include="Otros\Game\Manejadores\Interactivos\Interactivo.cs" />
+    <Compile Include="Otros\Game\Manejadores\Manejador.cs" />
+    <Compile Include="Otros\Game\Manejadores\Movimientos\Movimiento.cs" />
+    <Compile Include="Otros\Game\Manejadores\Recolecciones\Recoleccion.cs" />
+    <Compile Include="Otros\Game\Manejadores\Recolecciones\RecoleccionResultado.cs" />
+    <Compile Include="Otros\Game\Manejadores\Teleports\Teleport.cs" />
+    <Compile Include="Otros\Game\Manejadores\Teleports\TipoTeleport.cs" />
+    <Compile Include="Otros\Mapas\Entidades\Monstruos.cs" />
+    <Compile Include="Otros\Mapas\Entidades\Npcs.cs" />
+    <Compile Include="Otros\Game\Personaje\Hechizos\HechizoEfecto.cs" />
+    <Compile Include="Otros\Game\Personaje\Hechizos\HechizoShape.cs" />
+    <Compile Include="Otros\Game\Personaje\Hechizos\HechizoStats.cs" />
+    <Compile Include="Otros\Game\Personaje\Hechizos\HechizoZona.cs" />
+    <Compile Include="Otros\Game\Personaje\Hechizos\Shaper.cs" />
+    <Compile Include="Otros\Game\Personaje\Hechizos\ShaperEntry.cs" />
+    <Compile Include="Otros\Game\Personaje\Hechizos\Zonas.cs" />
+    <Compile Include="Otros\Game\Personaje\Inventario\InventarioGeneral.cs" />
+    <Compile Include="Otros\Game\Personaje\Inventario\Enums\InventarioPosiciones.cs" />
+    <Compile Include="Otros\Game\Personaje\Inventario\InventarioUtiles.cs" />
+    <Compile Include="Otros\Game\Personaje\Inventario\ObjetosInventario.cs" />
+    <Compile Include="Otros\Game\Personaje\Oficios\Oficio.cs" />
+    <Compile Include="Otros\Game\Personaje\Oficios\SkillsOficio.cs" />
     <Compile Include="Otros\Game\Juego.cs" />
     <Compile Include="Otros\Grupos\Agrupamiento.cs" />
     <Compile Include="Otros\Grupos\Grupo.cs" />
     <Compile Include="Otros\IEliminable.cs" />
     <Compile Include="Otros\Mapas\Celda.cs" />
+    <Compile Include="Otros\Mapas\Entidades\Personajes.cs" />
     <Compile Include="Otros\Mapas\Interactivo\ObjetoInteractivo.cs" />
     <Compile Include="Otros\Mapas\Interactivo\ObjetoInteractivoModelo.cs" />
     <Compile Include="Otros\Mapas\Mapa.cs" />
@@ -224,8 +225,8 @@
     <Compile Include="Otros\Mapas\Movimiento\Peleas\NodoPelea.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Peleas\PeleaCamino.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Peleas\PeleasPathfinder.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Movimientos\MapaTeleportCeldas.cs" />
-    <Compile Include="Otros\Game\Entidades\Manejadores\Movimientos\ResultadoMovimientos.cs" />
+    <Compile Include="Otros\Game\Manejadores\Movimientos\MapaTeleportCeldas.cs" />
+    <Compile Include="Otros\Game\Manejadores\Movimientos\ResultadoMovimientos.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Mapas\TipoAnimacion.cs" />
     <Compile Include="Otros\Mapas\TipoCelda.cs" />
     <Compile Include="Otros\Peleas\Configuracion\HechizoPelea.cs" />
@@ -241,10 +242,10 @@
     <Compile Include="Otros\Peleas\Pelea.cs" />
     <Compile Include="Otros\Peleas\Peleadores\LuchadorPersonaje.cs" />
     <Compile Include="Otros\Peleas\PeleaExtensiones.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Hechizos\Hechizo.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Personaje.cs" />
-    <Compile Include="Otros\Game\Entidades\Stats\CaracteristicasBase.cs" />
-    <Compile Include="Otros\Game\Entidades\Stats\Caracteristicas.cs" />
+    <Compile Include="Otros\Game\Personaje\Hechizos\Hechizo.cs" />
+    <Compile Include="Otros\Game\Personaje\PersonajeJuego.cs" />
+    <Compile Include="Otros\Game\Personaje\PersonajeStatsBase.cs" />
+    <Compile Include="Otros\Game\Personaje\PersonajeStats.cs" />
     <Compile Include="Otros\Scripts\Acciones\AccionesScript.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\AlmacenarTodosLosObjetosAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\RecuperarObjetoBanco.cs" />
@@ -278,7 +279,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comun\Network\ClienteTcp.cs" />
     <Compile Include="Otros\Enums\EstadoCuenta.cs" />
-    <Compile Include="Otros\Game\Entidades\Personajes\Inventario\Enums\TipoObjetosInventario.cs" />
+    <Compile Include="Otros\Game\Personaje\Inventario\Enums\TipoObjetosInventario.cs" />
     <Compile Include="Otros\Enums\EstadosServidor.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -565,5 +566,6 @@
   <ItemGroup>
     <None Include="Resources\api_ayuda.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

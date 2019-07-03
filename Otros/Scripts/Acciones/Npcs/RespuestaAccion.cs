@@ -1,5 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Entidades.Npc;
-using System;
+﻿using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,8 +16,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
             if (!cuenta.esta_dialogando())
                 return resultado_fallado;
 
-            IEnumerable<Npc> npcs = cuenta.juego.mapa.lista_npcs();
-            Npc npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
+            IEnumerable<Otros.Mapas.Entidades.Npcs> npcs = cuenta.juego.mapa.lista_npcs();
+            Otros.Mapas.Entidades.Npcs npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
 
             if(npc == null)
                 return resultado_fallado;

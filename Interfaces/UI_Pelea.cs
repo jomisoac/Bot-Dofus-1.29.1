@@ -1,8 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Entidades.Monstruos;
-using Bot_Dofus_1._29._1.Otros.Entidades.Personajes.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
+using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using System;
@@ -104,7 +104,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             Mapa mapa = cuenta.juego.mapa;
 
-            List<Monstruo> monstruos = cuenta.juego.mapa.lista_monstruos();
+            List<Monstruos> monstruos = cuenta.juego.mapa.lista_monstruos();
 
             if (monstruos.Count > 0)
             {
