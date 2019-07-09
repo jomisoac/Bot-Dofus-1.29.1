@@ -6,13 +6,11 @@ using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs;
 using Bot_Dofus_1._29._1.Utilidades;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using MoonSharp.Interpreter;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
@@ -24,8 +22,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         private ConcurrentQueue<AccionesScript> fila_acciones;
         private AccionesScript accion_actual;
         private DynValue coroutine_actual;
-        private TimerWrapper timeout_timer;
-        private int contador_pelea, contador_recoleccion, contador_peleas_mapa;
+        private TimerWrapper timer_out;
+        public int contador_pelea, contador_recoleccion, contador_peleas_mapa;
         private bool mapa_cambiado;
         private bool disposed;
 
@@ -37,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             cuenta = _cuenta;
             manejador_script = _manejador_script;
             fila_acciones = new ConcurrentQueue<AccionesScript>();
-            timeout_timer = new TimerWrapper(60000, time_Out_Callback);
+            timer_out = new TimerWrapper(60000, time_Out_Callback);
             PersonajeJuego personaje = cuenta.juego.personaje;
             
             cuenta.juego.mapa.mapa_actualizado += evento_Mapa_Cambiado;
@@ -62,12 +60,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (!(accion_actual is PeleasAccion))
                 contador_peleas_mapa = 0;
 
-            //si el bot se mete en una pelea
-            if (!(accion_actual is CambiarMapaAccion) && !(accion_actual is PeleasAccion) && !(accion_actual is RecoleccionAccion) && coroutine_actual == null)
-                return;
-
-            limpiar_Acciones();
-            acciones_Salida(1500);
+            if (accion_actual is CambiarMapaAccion || accion_actual is PeleasAccion || accion_actual is RecoleccionAccion || coroutine_actual != null)
+            {
+                limpiar_Acciones();
+                acciones_Salida(1500);
+            }
         }
 
         private async void evento_Movimiento_Celda(bool es_correcto)
@@ -85,21 +82,19 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                     if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                     {
                         cuenta.logger.log_Peligro("SCRIPT", "Error al lanzar la pelea, los monstruos pudieron haberse movido o sido robados!");
-                        acciones_Salida(100);
+                        acciones_Salida(0);
                     }
                 }
             }
-            else if (accion_actual is CambiarMapaAccion && !es_correcto)
-            {
-                cuenta.script.detener_Script("error al cambiar de mapa");
-            }
-            else if (accion_actual is MoverCeldaAccion mtca)
+            else if (accion_actual is MoverCeldaAccion celda)
             {
                 if (es_correcto)
                     acciones_Salida(0);
                 else
-                    cuenta.script.detener_Script("error al mover a la celda");
+                    cuenta.script.detener_Script("error al mover a la celda" + celda.celda_id);
             }
+            else if (accion_actual is CambiarMapaAccion && !es_correcto)
+                cuenta.script.detener_Script("error al cambiar de mapa");
         }
 
         private void get_Recoleccion_Iniciada()
@@ -143,22 +138,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             if (accion_actual is PeleasAccion)
             {
-                timeout_timer.Stop();
+                timer_out.Stop();
                 contador_peleas_mapa++;
                 contador_pelea++;
 
                 if (manejador_script.get_Global_Or("MOSTRAR_CONTADOR_PELEAS", DataType.Boolean, false))
                     cuenta.logger.log_informacion("SCRIPT", $"Combate #{contador_pelea}");
             }
-        }
-
-        private void npcs_Dialogo_Acabado()
-        {
-            if (!cuenta.script.corriendo)
-                return;
-
-            if (accion_actual is RespuestaAccion || accion_actual is CerrarVentanaAccion)
-                acciones_Salida(200);
         }
 
         private void npcs_Dialogo_Recibido()
@@ -178,6 +164,15 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             }
             else if (accion_actual is NpcAccion || accion_actual is RespuestaAccion)
                 acciones_Salida(400);
+        }
+
+        private void npcs_Dialogo_Acabado()
+        {
+            if (!cuenta.script.corriendo)
+                return;
+
+            if (accion_actual is RespuestaAccion || accion_actual is CerrarVentanaAccion)
+                acciones_Salida(200); 
         }
 
         public void enqueue_Accion(AccionesScript accion, bool iniciar_dequeue_acciones = false)
@@ -244,7 +239,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (!cuenta.script.corriendo)
                 return;
 
-            string type = accion_actual.GetType().Name;
+            string tipo = accion_actual.GetType().Name;
 
             switch (await accion_actual.proceso(cuenta))
             {
@@ -253,11 +248,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 break;
 
                 case ResultadosAcciones.FALLO:
-                    cuenta.logger.log_Peligro("SCRIPT", $"{type} fallo al procesar.");
+                    cuenta.logger.log_Peligro("SCRIPT", $"{tipo} fallo al procesar.");
                 break;
 
                 case ResultadosAcciones.PROCESANDO:
-                    timeout_timer.Start();
+                    timer_out.Start();
                 break;
             }
         }
@@ -280,9 +275,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 evento_accion_normal?.Invoke(true);
             }
             else
-            {
                 evento_accion_normal?.Invoke(false);
-            }
         }
 
         private void acciones_Funciones_Finalizadas()
@@ -295,24 +288,19 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 evento_accion_personalizada?.Invoke(true);
             }
             else
-            {
                 evento_accion_personalizada?.Invoke(false);
-            }
         }
 
-        private void acciones_Salida(int delay, [CallerMemberName]string caller = "") => Task.Factory.StartNew(async () =>
+        private void acciones_Salida(int delay) => Task.Factory.StartNew(async () =>
         {
             if (cuenta?.script.corriendo == false)
                 return;
 
-            if (timeout_timer.habilitado)
-                timeout_timer.Stop();
+            if (timer_out.habilitado)
+                timer_out.Stop();
 
             if (delay > 0)
                 await Task.Delay(delay);
-
-            if (GlobalConf.mostrar_mensajes_debug)
-                cuenta.logger.log_Peligro(caller, $"esperando {delay} milisegundos.");
 
             if (fila_acciones.Count > 0)
             {
@@ -337,9 +325,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             limpiar_Acciones();
             accion_actual = null;
             coroutine_actual = null;
-            timeout_timer.Stop();
+            timer_out.Stop();
 
             contador_pelea = 0;
+            contador_peleas_mapa = 0;
             contador_recoleccion = 0;
         }
 
@@ -353,13 +342,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             {
                 if (disposing)
                 {
-                    timeout_timer.Dispose();
+                    timer_out.Dispose();
                 }
                 accion_actual = null;
                 fila_acciones = null;
                 cuenta = null;
                 manejador_script = null;
-                timeout_timer = null;
+                timer_out = null;
                 disposed = true;
             }
         }

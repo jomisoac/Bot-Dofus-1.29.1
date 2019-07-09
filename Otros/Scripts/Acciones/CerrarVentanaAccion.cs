@@ -19,6 +19,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                 cuenta.conexion.enviar_Paquete("EV");
                 return resultado_procesado;
             }
+
             return resultado_hecho;
         }
     }

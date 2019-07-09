@@ -14,12 +14,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento
                 if(!objeto.objeto_esta_equipado())
                 {
                     cuenta.conexion.enviar_Paquete($"EMO+{objeto.id_inventario}|{objeto.cantidad}");
-                    inventario.eliminar_Objetos(objeto, 0, false);
+                    inventario.eliminar_Objeto(objeto, 0, false);
                     await Task.Delay(300);
                 }
             }
-
-            inventario.evento_Actualizar_Inventario();
             return ResultadosAcciones.HECHO;
         }
     }

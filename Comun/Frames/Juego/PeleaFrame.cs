@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             if(cliente.cuenta.esta_luchando())
             {
-                await Task.Delay(300);
+                await Task.Delay(150);
                 cliente.cuenta.conexion.enviar_Paquete("GR1");//boton listo
             }
         }
@@ -62,7 +62,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             int id_entidad;
             short celda;
             Mapa mapa = cuenta.juego.mapa;
-            Luchadores luchador = null;
 
             foreach (string posicion in separador_posiciones)
             {
@@ -71,12 +70,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                 if (id_entidad == cuenta.juego.personaje.id)
                 {
-                    await Task.Delay(300);
+                    await Task.Delay(150);
                     cuenta.conexion.enviar_Paquete("GR1");//boton listo
                 }
 
-                luchador = cuenta.juego.pelea.get_Luchador_Por_Id(id_entidad);
-
+                Luchadores luchador = cuenta.juego.pelea.get_Luchador_Por_Id(id_entidad);
                 if (luchador != null)
                     luchador.celda = mapa.get_Celda_Id(celda);
             }
@@ -124,9 +122,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             int id = int.Parse(paquete.Substring(3));
 
             if(cuenta.juego.personaje.id == id)
-                cliente.cuenta.conexion.enviar_Paquete("BD");
+                cuenta.conexion.enviar_Paquete("BD");
 
-            cliente.cuenta.conexion.enviar_Paquete("GT");
+            cuenta.conexion.enviar_Paquete("GT");
         }
 
         [PaqueteAtributo("GJK")]
@@ -155,8 +153,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             Cuenta cuenta = cliente.cuenta;
 
-            if (int.Parse(paquete.Substring(3).Split('|')[0]) == cuenta.juego.personaje.id && cuenta.juego.pelea.total_enemigos_vivos > 0)
-                cuenta.juego.pelea.get_Turno_Iniciado();
+            if (int.Parse(paquete.Substring(3).Split('|')[0]) != cuenta.juego.personaje.id || cuenta.juego.pelea.total_enemigos_vivos <= 0)
+                return;
+
+
+            cuenta.juego.pelea.get_Turno_Iniciado();
         }
 
         [PaqueteAtributo("GE")]
@@ -165,10 +166,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             Cuenta cuenta = cliente.cuenta;
             Pelea pelea = cuenta.juego.pelea;
 
-            pelea.limpiar();
-            pelea.get_Pelea_Acabada();
-            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
-            cuenta.logger.log_informacion("PELEA", "Pelea acabada");
+            pelea.get_Combate_Acabado();
             cuenta.conexion.enviar_Paquete("GC1");
         }
     }

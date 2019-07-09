@@ -22,6 +22,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game
             pelea = new Pelea(cuenta);
         }
 
+        #region Zona Dispose
+        ~Juego() => Dispose(false);
+        public void Dispose() => Dispose(true);
+
         public void limpiar()
         {
             mapa.limpiar();
@@ -29,10 +33,6 @@ namespace Bot_Dofus_1._29._1.Otros.Game
             pelea.limpiar();
             personaje.limpiar();
         }
-
-        #region Zona Dispose
-        ~Juego() => Dispose(false);
-        public void Dispose() => Dispose(true);
 
         protected virtual void Dispose(bool disposing)
         {

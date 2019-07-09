@@ -7,6 +7,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 /*
@@ -45,8 +46,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public event Action turno_iniciado;
 
         //acciones pelea
-        public event Action hechizo_lanzado;
-        public event Action movimiento_exito;
+        public event Action<short, bool> hechizo_lanzado;
+        public event Action<bool> movimiento;
 
         public Pelea(Cuenta _cuenta)
         {
@@ -66,6 +67,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                 return;
 
+            await cuenta.conexion.enviar_Paquete_Async("GA300" + hechizo_id + ';' + celda_id);
+        }
+
+        public void actualizar_Hechizo_Exito(short hechizo_id, short celda_id)
+        {
             Hechizo hechizo = cuenta.juego.personaje.get_Hechizo(hechizo_id);
             HechizoStats datos_hechizo = hechizo.get_Stats();
 
@@ -91,8 +97,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                     { celda_id, 1 }
                 });
             }
-
-            await cuenta.conexion.enviar_Paquete_Async("GA300" + hechizo.id + ';' + celda_id);
         }
 
         public void get_Final_Turno(int id_personaje)
@@ -298,9 +302,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return FallosLanzandoHechizo.NINGUNO;
         }
 
-        public List<int> get_Rango_hechizo(Celda celda_personaje, HechizoStats datos_hechizo, Mapa mapa)
+        public List<short> get_Rango_hechizo(Celda celda_personaje, HechizoStats datos_hechizo, Mapa mapa)
         {
-            List<int> rango = new List<int>();
+            List<short> rango = new List<short>();
             
             foreach (Celda celda in HechizoShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, datos_hechizo, cuenta.juego.mapa, cuenta.juego.personaje.caracteristicas.alcanze.total_stats))
             {
@@ -514,9 +518,18 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         #region Zona Eventos
         public void get_Combate_Creado()
         {
+            cuenta.juego.personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
             cuenta.Estado_Cuenta = EstadoCuenta.LUCHANDO;
             pelea_creada?.Invoke();
             cuenta.logger.log_informacion("PELEA", "Nueva pelea iniciada");
+        }
+
+        public void get_Combate_Acabado()
+        {
+            limpiar();
+            pelea_acabada?.Invoke();
+            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            cuenta.logger.log_informacion("PELEA", "Pelea acabada");
         }
 
         public void limpiar()
@@ -532,9 +545,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         }
 
         public void get_Turno_Iniciado() => turno_iniciado?.Invoke();
-        public void get_Pelea_Acabada() => pelea_acabada?.Invoke();
-        public void get_Hechizo_Lanzado() => hechizo_lanzado?.Invoke();
-        public void get_Movimiento_Exito() => movimiento_exito?.Invoke();
+        public void get_Hechizo_Lanzado(short celda_id, bool exito) => hechizo_lanzado?.Invoke(celda_id, exito);
+        public void get_Movimiento_Exito(bool exito) => movimiento?.Invoke(exito);
 
         public void get_Turno_Acabado()
         {

@@ -34,7 +34,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             {
                 foreach (Monstruos grupo_monstruo in grupos_disponibles)
                 {
-                    switch (cuenta.juego.manejador.movimientos.get_Mover_A_Celda(grupo_monstruo.celda, new List<Celda>()))
+                    var test = cuenta.juego.manejador.movimientos.get_Mover_A_Celda(grupo_monstruo.celda, new List<Celda>());
+                    switch (test)
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("SCRIPT", $"Movimiento hacia un grupo de monstruos celda: {grupo_monstruo.celda.id}, total de monstruos: {grupo_monstruo.get_Total_Monstruos}, nivel total del grupo: {grupo_monstruo.get_Total_Nivel_Grupo}");
@@ -43,10 +44,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                         case ResultadoMovimientos.PATHFINDING_ERROR:
                         case ResultadoMovimientos.MISMA_CELDA:
                             cuenta.logger.log_Peligro("SCRIPT", "El camino hacia el grupo de monstruos está bloqueado");
-                            continue;
+                        continue;
 
                         default:
-                            cuenta.script.detener_Script("Movimiento hacia el grupo de monstruos erróneo");
+                            cuenta.script.detener_Script("Movimiento hacia el grupo de monstruos erróneo" + test);
                         return resultado_fallado;
                     }
                 }

@@ -98,7 +98,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
             if (cuenta.esta_ocupado() || actual_path != null)
                 return ResultadoMovimientos.FALLO;
-            
+
             if (celda_destino.id == cuenta.juego.personaje.celda.id)
                 return ResultadoMovimientos.MISMA_CELDA;
 
@@ -109,10 +109,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
                 return ResultadoMovimientos.FALLO;
 
             List<Celda> path_temporal = pathfinder.get_Path(cuenta.juego.personaje.celda, celda_destino, celdas_no_permitidas, detener_delante, distancia_detener);
-            
+
             if (path_temporal == null || path_temporal.Count == 0)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
-            
+
             if (!detener_delante && path_temporal.Last().id != celda_destino.id)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
 
@@ -147,7 +147,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         private bool get_Mover_Para_Cambiar_mapa(Celda celda)
         {
-            var resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas());
+            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas());
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:
@@ -192,17 +192,17 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             movimiento_finalizado?.Invoke(correcto);
         }
 
-        public void limpiar()
-        {
-            actual_path = null;
-        }
-
         private void evento_Mapa_Actualizado() => pathfinder.set_Mapa(cuenta.juego.mapa);
         public void movimiento_Actualizado(bool estado) => movimiento_finalizado?.Invoke(estado);
 
         #region Zona Dispose
         ~Movimiento() => Dispose(false);
         public void Dispose() => Dispose(true);
+
+        public void limpiar()
+        {
+            actual_path = null;
+        }
 
         protected virtual void Dispose(bool disposing)
         {

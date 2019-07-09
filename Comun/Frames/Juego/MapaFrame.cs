@@ -11,6 +11,7 @@ using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using System;
 using System.Threading.Tasks;
 
 /*
@@ -156,7 +157,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             int id_accion = int.Parse(separador[1]);
             Cuenta cuenta = cliente.cuenta;
 
-            if (id_accion > 0)//Error: GA;0
+            if (id_accion > 0)
             {
                 PersonajeJuego personaje = cuenta.juego.personaje;
                 int id_entidad = int.Parse(separador[2]);
@@ -170,13 +171,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 {
                     case 1:
                         celda = mapa.get_Celda_Id(Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2)));
-   
+
                         if (!cuenta.esta_luchando())
                         {
                             if (id_entidad == personaje.id && celda.id > 0 && personaje.celda.id != celda.id)
                             {
                                 tipo_gkk_movimiento = byte.Parse(separador[0]);
-                                
+
                                 await cuenta.juego.manejador.movimientos.evento_Movimiento_Finalizado(celda, tipo_gkk_movimiento, true);
                             }
                             else if (mapa.entidades.TryGetValue(id_entidad, out Entidad entidad))
@@ -204,11 +205,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 }
                             }
                         }
-                    break;
+                        break;
 
                     case 2: //Cargando el mapa
                         await Task.Delay(200);
-                    break;
+                        break;
 
                     case 4:
                         separador = separador[3].Split(',');
@@ -223,7 +224,18 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             mapa.evento_Entidad_Actualizada();
                             cuenta.juego.manejador.movimientos.movimiento_Actualizado(true);
                         }
-                    break;
+                        break;
+
+                    case 5:
+                        if (cuenta.esta_luchando())
+                        {
+                            separador = separador[3].Split(',');
+                            luchador = pelea.get_Luchador_Por_Id(int.Parse(separador[0]));
+
+                            if (luchador != null)
+                                luchador.celda = mapa.get_Celda_Id(short.Parse(separador[1]));
+                        }
+                        break;
 
                     case 102:
                         if (cuenta.esta_luchando())
@@ -234,7 +246,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             if (luchador != null)
                                 luchador.pa -= pa_utilizados;
                         }
-                    break;
+                        break;
 
                     case 103:
                         if (cuenta.esta_luchando())
@@ -245,7 +257,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             if (luchador != null)
                                 luchador.esta_vivo = false;
                         }
-                    break;
+                        break;
 
                     case 129: //movimiento en pelea con exito
                         if (cuenta.esta_luchando())
@@ -256,8 +268,21 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             if (luchador != null)
                                 luchador.pm -= pm_utilizados;
 
-                            if (id_entidad == personaje.id)
-                                pelea.get_Movimiento_Exito();
+                            if (luchador.id == personaje.id)
+                                pelea.get_Movimiento_Exito(true);
+                        }
+                        break;
+
+                    case 151://obstaculos invisibles
+                        if (cuenta.esta_luchando())
+                        {
+                            luchador = pelea.get_Luchador_Por_Id(id_entidad);
+
+                            if (luchador != null && luchador.id == personaje.id)
+                            {
+                                cuenta.logger.log_Error("INFORMACIÓN", "No es posible realizar esta acción por culpa de un obstáculo invisible.");
+                                pelea.get_Hechizo_Lanzado(short.Parse(separador[3]), false);
+                            }
                         }
                     break;
 
@@ -272,11 +297,18 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, celda, vida, equipo, id_entidad));
                     break;
 
-                    case 302:
+                    case 302://fallo critico
+                        if (cuenta.esta_luchando() && id_entidad == cuenta.juego.personaje.id)
+                            pelea.get_Hechizo_Lanzado(0, false);
+                   break;
+
                     case 300: //hechizo lanzado con exito
-                        if (id_entidad == cuenta.juego.personaje.id)
-                            pelea.get_Hechizo_Lanzado();
-                        break;
+                        if (cuenta.esta_luchando() && id_entidad == cuenta.juego.personaje.id)
+                        {
+                            short celda_id_lanzado = short.Parse(separador[3].Split(',')[1]);
+                            pelea.get_Hechizo_Lanzado(celda_id_lanzado, true);
+                        }
+                    break;
 
                     case 501:
                         int tiempo_recoleccion = int.Parse(separador[3].Split(',')[1]);
@@ -332,23 +364,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GDM")]
-        public void get_Nuevo_Mapa(ClienteTcp cliente, string paquete) => Task.Run(() =>
-        {
-            cliente.cuenta.juego.mapa.get_Actualizar_Mapa(paquete.Substring(4));
-        }).Wait();
+        public void get_Nuevo_Mapa(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.mapa.get_Actualizar_Mapa(paquete.Substring(4));
 
         [PaqueteAtributo("GDK")]
-        public void get_Mapa_Cambiado(ClienteTcp cliente, string paquete)
-        {
-            Cuenta cuenta = cliente.cuenta;
-            cuenta.juego.mapa.get_Evento_Mapa_Cambiado();
-        }
+        public void get_Mapa_Cambiado(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.mapa.get_Evento_Mapa_Cambiado();
 
         [PaqueteAtributo("GV")]
-        public void get_Reiniciar_Pantalla(ClienteTcp cliente, string paquete)
-        {
-            Cuenta cuenta = cliente.cuenta;
-            cuenta.conexion.enviar_Paquete("GC1");
-        }
+        public void get_Reiniciar_Pantalla(ClienteTcp cliente, string paquete) => cliente.cuenta.conexion.enviar_Paquete("GC1");
     }
 }

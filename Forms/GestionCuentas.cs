@@ -63,7 +63,7 @@ namespace Bot_Dofus_1._29._1.Forms
                 });
             });
 
-            if(!tiene_errores)
+            if (!tiene_errores)
             {
                 GlobalConf.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_nombre_personaje.Text);
                 cargar_Cuentas_Lista();
@@ -125,23 +125,21 @@ namespace Bot_Dofus_1._29._1.Forms
                     case "Cuenta":
                         string nueva_cuenta = Interaction.InputBox($"Ingresa la nueva cuenta", "Modificar cuenta", cuenta.nombre_cuenta);
 
-                        if (!string.IsNullOrEmpty(nueva_cuenta))
+                        if (!string.IsNullOrEmpty(nueva_cuenta) || nueva_cuenta.Split(new char[0]).Length == 0)
                             cuenta.nombre_cuenta = nueva_cuenta;
-                        break;
+                    break;
 
                     case "Contraseña":
                         string nueva_password = Interaction.InputBox($"Ingresa la nueva contraseña", "Modificar contraseña", cuenta.password);
 
-                        if (!string.IsNullOrEmpty(nueva_password))
+                        if (!string.IsNullOrEmpty(nueva_password) || nueva_password.Split(new char[0]).Length == 0)
                             cuenta.password = nueva_password;
-                        break;
+                    break;
 
-                    default://nombre del personaje
+                    default:
                         string nuevo_personaje = Interaction.InputBox($"Ingresa el nombre del nuevo personaje", "Modificar nombre de personaje", cuenta.nombre_personaje);
-
-                        if (!string.IsNullOrEmpty(nuevo_personaje))
-                            cuenta.nombre_personaje = nuevo_personaje;
-                        break;
+                        cuenta.nombre_personaje = nuevo_personaje;
+                    break;
                 }
 
                 GlobalConf.guardar_Configuracion();

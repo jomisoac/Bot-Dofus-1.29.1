@@ -27,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("PIK")]
         public void get_Peticion_Grupo(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_informacion("Grupo", "Nueva invitación de grupo del personaje: " + paquete.Substring(3).Split('|')[0]);
+            cliente.cuenta.logger.log_informacion("Grupo", $"Nueva invitación de grupo del personaje: {paquete.Substring(3).Split('|')[0]}");
             cliente.enviar_Paquete("PR");
             cliente.cuenta.logger.log_informacion("Grupo", "Petición rechazada");
         }
@@ -69,8 +69,8 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     npc.respuestas.Clear();
                     npc.respuestas = null;
 
-                    cuenta.juego.personaje.evento_Dialogo_Acabado();
                     cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                    cuenta.juego.personaje.evento_Dialogo_Acabado();
                 break;
             }
 
@@ -160,6 +160,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("OAKO")]
         public void get_Aparecer_Objeto(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.inventario.agregar_Objetos(paquete.Substring(4));
 
+        [PaqueteAtributo("OR")]
+        public void get_Eliminar_Objeto(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.inventario.eliminar_Objeto(uint.Parse(paquete.Substring(2)), 1, false);
+
         [PaqueteAtributo("OQ")]
         public void get_Modificar_Cantidad_Objeto(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.inventario.modificar_Objetos(paquete.Substring(2));
 
@@ -190,10 +193,19 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
             personaje.timer_regeneracion.Change(tiempo, tiempo);
 
-            if (!cuenta.esta_luchando())
-                cuenta.logger.log_informacion("DOFUS", $"Tú personaje recupera 1 pdv cada {tiempo / 1000} segundos");
-            else
-                cuenta.logger.log_informacion("DOFUS", $"Tú personaje no recupera pdv");
+            cuenta.logger.log_informacion("DOFUS", $"Tú personaje recupera 1 pdv cada {tiempo / 1000} segundos");
+        }
+
+        [PaqueteAtributo("ILF")]
+        public void get_Cantidad_Vida_Regenerada(ClienteTcp cliente, string paquete)
+        {
+            paquete = paquete.Substring(3);
+            int vida = int.Parse(paquete);
+            Cuenta cuenta = cliente.cuenta;
+            PersonajeJuego personaje = cuenta.juego.personaje;
+
+            personaje.caracteristicas.vitalidad_actual += vida;
+            cuenta.logger.log_informacion("DOFUS", $"Has recuperado {vida} puntos de vida");
         }
 
         [PaqueteAtributo("eUK")]

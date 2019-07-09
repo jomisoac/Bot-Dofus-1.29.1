@@ -30,11 +30,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
     {
         private Cuenta cuenta;
         private LuaManejadorScript manejador_script;
-        public ManejadorAcciones manejar_acciones{ get; private set; }
+        public ManejadorAcciones manejar_acciones { get; private set; }
         private EstadoScript estado_script;
         private List<Bandera> banderas;
         private int bandera_id;
         private API api;
+        private bool es_dung = false;
         private bool disposed;
 
         public bool activado { get; set; }
@@ -117,8 +118,19 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             if (!corriendo)
                 return;
+
             try
             {
+                Table mapas_dung = manejador_script.get_Global_Or<Table>("MAPAS_DUNG", DataType.Table, null);
+                
+                if (mapas_dung != null)
+                {
+                    IEnumerable<int> test = mapas_dung.Values.Where(m => m.Type == DataType.Number).Select(n => (int)n.Number);
+
+                    if (test.Contains(cuenta.juego.mapa.id))
+                        es_dung = true;
+                }
+
                 await aplicar_Comprobaciones();
 
                 if (!corriendo)
@@ -149,6 +161,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             catch (Exception ex)
             {
                 cuenta.logger.log_Error("SCRIPT", ex.ToString());
+                detener_Script();
             }
         });
 
@@ -189,7 +202,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void verificar_Maximos_Pods()
         {
-            if (get_Maximos_Pods() && estado_script != EstadoScript.BANCO)
+            if (!get_Maximos_Pods())//si no tiene el limite de pods no verificada por cada mapa
+                return;
+
+            if (!es_dung && estado_script != EstadoScript.BANCO)
             {
                 if (!corriendo)
                     return;
@@ -255,11 +271,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                 case PeleaBandera _:
                     manejar_Pelea_mapa(tiene_accion_disponible as PeleasAccion);
-                    break;
+                break;
 
                 case NPCBancoBandera _:
                     manejar_Npc_Banco_Bandera();
-                    break;
+                break;
 
                 case FuncionPersonalizada fp:
                     manejar_acciones.get_Funcion_Personalizada(fp.funcion);
@@ -281,7 +297,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (cuenta.juego.manejador.recoleccion.get_Puede_Recolectar(accion.elementos))
                 manejar_acciones.enqueue_Accion(accion, true);
             else
-                procesar_Actual_Bandera(true);
+                procesar_Actual_Bandera();
         }
 
         private RecoleccionAccion crear_Accion_Recoleccion()
@@ -346,7 +362,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (CambiarMapaAccion.TryParse(mapa.celda_id, out CambiarMapaAccion accion))
                 manejar_acciones.enqueue_Accion(accion, true);
             else
-                detener_Script("La celda es invalida");
+                detener_Script("La celda es invalida para cambiar el mapa");
         }
 
         private async Task get_Verificar_Sacos()
@@ -373,15 +389,25 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             PeleasAccion accion = pelea_accion ?? get_Crear_Pelea_Accion();
 
-            if (cuenta.juego.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion.monstruos_minimos, accion.monstruos_maximos, accion.monstruo_nivel_minimo, accion.monstruo_nivel_maximo, accion.monstruos_prohibidos, accion.monstruos_obligatorios))
+            int maximas_peleas_mapa = manejador_script.get_Global_Or("PELEAS_POR_MAPA", DataType.Number, -1);
+            if (maximas_peleas_mapa != -1 && manejar_acciones.contador_peleas_mapa >= maximas_peleas_mapa)
             {
-                manejar_acciones.enqueue_Accion(accion, true);
+                cuenta.logger.log_informacion("SCRIPT", "Alcanzado el limite de peleas en este mapa");
+                procesar_Actual_Bandera();
+                return;
             }
-            else
+
+            if (!es_dung && !cuenta.juego.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion.monstruos_minimos, accion.monstruos_maximos, accion.monstruo_nivel_minimo, accion.monstruo_nivel_maximo, accion.monstruos_prohibidos, accion.monstruos_obligatorios))
             {
                 cuenta.logger.log_informacion("SCRIPT", "Ningún grupo de monstruos disponibles en este mapa");
-                procesar_Actual_Bandera(true);
+                procesar_Actual_Bandera();
+                return;
             }
+
+            while (es_dung && !cuenta.juego.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion.monstruos_minimos, accion.monstruos_maximos, accion.monstruo_nivel_minimo, accion.monstruo_nivel_maximo, accion.monstruos_prohibidos, accion.monstruos_obligatorios))
+                accion = get_Crear_Pelea_Accion();
+
+            manejar_acciones.enqueue_Accion(accion, true);
         }
 
         private async Task get_Verificar_Regeneracion()
@@ -409,14 +435,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                         cuenta.conexion.enviar_Paquete("eU1");
                     }
 
-                    cuenta.logger.log_informacion("SCRIPTS", $"Regeneración comenzada, puntos de vida a recuperar: {vida_para_regenerar}, tiempo estimado: {tiempo_estimado} segundos.");
+                    cuenta.logger.log_informacion("SCRIPTS", $"Regeneración comenzada, puntos de vida a recuperar: {vida_para_regenerar}, tiempo: {tiempo_estimado} segundos.");
 
                     for (int i = 0; i < tiempo_estimado && cuenta.juego.personaje.caracteristicas.porcentaje_vida <= cuenta.pelea_extension.configuracion.detener_regeneracion && corriendo; i++)
                         await Task.Delay(1000);
 
                     if (corriendo)
                     {
-                        //si no se levanta no podra hacer nada.
                         if (cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
                             cuenta.conexion.enviar_Paquete("eU1");
 
@@ -471,46 +496,43 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
         }
 
-        private void procesar_Actual_Bandera(bool evitar_comprobaciones = false)
+        private void procesar_Actual_Bandera()
         {
             if (!corriendo)
                 return;
 
-            if (get_Maximos_Pods())
+            if (!es_dung && get_Maximos_Pods())
             {
                 iniciar_Script();
                 return;
             }
 
-            if (!evitar_comprobaciones)
+            switch (banderas[bandera_id])
             {
-                switch (banderas[bandera_id])
-                {
-                    case RecoleccionBandera _:
-                        RecoleccionAccion accion_recoleccion = crear_Accion_Recoleccion();
+                case RecoleccionBandera _:
+                    RecoleccionAccion accion_recoleccion = crear_Accion_Recoleccion();
 
-                        if (cuenta.juego.manejador.recoleccion.get_Puede_Recolectar(accion_recoleccion.elementos))
-                        {
-                            procesar_Actual_Entrada(accion_recoleccion);
-                            return;
-                        }
-                        break;
+                    if (cuenta.juego.manejador.recoleccion.get_Puede_Recolectar(accion_recoleccion.elementos))
+                    {
+                        procesar_Actual_Entrada(accion_recoleccion);
+                        return;
+                    }
+                    break;
 
-                    case PeleaBandera _:
-                        PeleasAccion accion_pelea = get_Crear_Pelea_Accion();
+                case PeleaBandera _:
+                    PeleasAccion accion_pelea = get_Crear_Pelea_Accion();
 
-                        if (cuenta.juego.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion_pelea.monstruos_minimos, accion_pelea.monstruos_maximos, accion_pelea.monstruo_nivel_minimo, accion_pelea.monstruo_nivel_maximo, accion_pelea.monstruos_prohibidos, accion_pelea.monstruos_obligatorios))
-                        {
-                            procesar_Actual_Entrada(accion_pelea);
-                            return;
-                        }
-                        break;
-                }
+                    if (cuenta.juego.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(accion_pelea.monstruos_minimos, accion_pelea.monstruos_maximos, accion_pelea.monstruo_nivel_minimo, accion_pelea.monstruo_nivel_maximo, accion_pelea.monstruos_prohibidos, accion_pelea.monstruos_obligatorios))
+                    {
+                        procesar_Actual_Entrada(accion_pelea);
+                        return;
+                    }
+               break;
             }
 
             bandera_id++;
             if (bandera_id == banderas.Count)
-                detener_Script("No se ha encontrado ninguna acción en este mapa");
+                detener_Script("No se encontro ninguna acción en este mapa");
             else
                 procesar_Actual_Entrada();
         }
@@ -586,14 +608,19 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void get_Pelea_Creada()
         {
-            if (activado)
-                pausado = true;
+            if (!activado)
+                return;
+
+            pausado = true;
+            cuenta.juego.manejador.recoleccion.get_Cancelar_Interactivo();
         }
 
         private void get_Pelea_Acabada()
         {
-            if (activado)
-                pausado = false;
+            if (!activado)
+                return;
+
+            pausado = false;
         }
         #endregion
 

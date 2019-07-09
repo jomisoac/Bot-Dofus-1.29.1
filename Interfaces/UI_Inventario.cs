@@ -78,7 +78,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                 case "Eliminar":
                     if (MessageBox.Show("Realmente deseas eliminar " + objeto.nombre + "?", "Eliminar un objeto", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        cuenta.juego.personaje.inventario.eliminar_Objetos(objeto, 1, true);
+                        cuenta.juego.personaje.inventario.eliminar_Objeto(objeto, 1, true);
                 break;
             }
         }
@@ -97,7 +97,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             switch (accion)
             {
                 case "Eliminar":
-                    cuenta.juego.personaje.inventario.eliminar_Objetos(objeto, cantidad, true);
+                    cuenta.juego.personaje.inventario.eliminar_Objeto(objeto, cantidad, true);
                 break;
             }
         }

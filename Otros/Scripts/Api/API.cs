@@ -19,6 +19,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
         public PersonajeApi personaje { get; private set; }
         public MapaApi mapa { get; private set; }
         public NpcAPI npc { get; private set; }
+        public PeleaApi pelea { get; private set; }
         private bool disposed;
 
         public API(Cuenta cuenta, ManejadorAcciones manejar_acciones)
@@ -27,6 +28,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
             personaje = new PersonajeApi(cuenta);
             mapa = new MapaApi(cuenta, manejar_acciones);
             npc = new NpcAPI(cuenta, manejar_acciones);
+            pelea = new PeleaApi(cuenta, manejar_acciones);
         }
 
         #region Zona Dispose
@@ -43,12 +45,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
                     personaje.Dispose();
                     mapa.Dispose();
                     npc.Dispose();
+                    pelea.Dispose();
                 }
 
                 inventario = null;
                 personaje = null;
                 mapa = null;
                 npc = null;
+                pelea = null;
                 disposed = true;
             }
         }

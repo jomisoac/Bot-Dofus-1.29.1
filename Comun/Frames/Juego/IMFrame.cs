@@ -43,8 +43,5 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
         [PaqueteAtributo("Im037")]
         public void get_Mensaje_Modo_Away_Dofus(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "Desde ahora serás considerado como ausente.");
-
-        [PaqueteAtributo("Im0188")]
-        public void get_Mensaje_Reto_Fallido(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "Y como de costumbre, esta hazaña se la debemos a " + paquete.Split(';')[1]);
     }
 }
