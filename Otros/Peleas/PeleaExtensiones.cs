@@ -24,6 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public PeleaConf configuracion { get; set; }
         private Cuenta cuenta;
         private ManejadorHechizos manejador_hechizos;
+        private Pelea pelea;
 
         private int hechizo_lanzado_index;
         private bool esperando_sequencia_fin;
@@ -34,15 +35,17 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             cuenta = _cuenta;
             configuracion = new PeleaConf(cuenta);
             manejador_hechizos = new ManejadorHechizos(cuenta);
+            pelea = cuenta.juego.pelea;
+
             get_Eventos();
         }
 
         private void get_Eventos()
         {
-            cuenta.juego.pelea.pelea_creada += get_Pelea_Creada;
-            cuenta.juego.pelea.turno_iniciado += get_Pelea_Turno_iniciado;
-            cuenta.juego.pelea.hechizo_lanzado += get_Procesar_Despues_Accion;
-            cuenta.juego.pelea.movimiento_exito += get_Procesar_Despues_Accion;
+            pelea.pelea_creada += get_Pelea_Creada;
+            pelea.turno_iniciado += get_Pelea_Turno_iniciado;
+            pelea.hechizo_lanzado += get_Procesar_Hechizo_Lanzado;
+            pelea.movimiento += get_Procesar_Movimiento;
         }
 
         private void get_Pelea_Creada()
@@ -56,12 +59,14 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_lanzado_index = 0;
             esperando_sequencia_fin = true;
 
+            await Task.Delay(300);
+
             if (configuracion.hechizos.Count == 0 || !cuenta.juego.pelea.get_Enemigos.Any())
             {
                 await get_Fin_Turno();
                 return;
             }
-            
+
             await get_Procesar_hechizo();
         }
 
@@ -95,23 +100,17 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 case ResultadoLanzandoHechizo.LANZADO:
                     hechizo_actual.lanzamientos_restantes--;
                     esperando_sequencia_fin = true;
-
-                    if (GlobalConf.mostrar_mensajes_debug)
-                        cuenta.logger.log_informacion("DEBUG", $"Hechizo {hechizo_actual.nombre} lanzado");
                 break;
 
                 case ResultadoLanzandoHechizo.MOVIDO:
                     esperando_sequencia_fin = true;
-
-                    if (GlobalConf.mostrar_mensajes_debug)
-                        cuenta.logger.log_informacion("DEBUG", $"El bot se ha desplazado porque no ha podido lanzar {hechizo_actual.nombre} ");
                 break;
             }
         }
 
-        public async void get_Procesar_Despues_Accion()
+        public async void get_Procesar_Hechizo_Lanzado(short celda_id, bool exito)
         {
-            if (cuenta.juego.pelea.total_enemigos_vivos == 0)
+            if (pelea.total_enemigos_vivos == 0)
                 return;
 
             if (!esperando_sequencia_fin)
@@ -119,6 +118,34 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             esperando_sequencia_fin = false;
             await Task.Delay(400);
+
+            if (!exito)
+            {
+                await get_Procesar_Siguiente_Hechizo(configuracion.hechizos[hechizo_lanzado_index]);
+                return;
+            }
+
+            pelea.actualizar_Hechizo_Exito(configuracion.hechizos[hechizo_lanzado_index].id, celda_id);
+            await get_Procesar_hechizo();
+        }
+
+        public async void get_Procesar_Movimiento(bool exito)
+        {
+            if (pelea.total_enemigos_vivos == 0)
+                return;
+
+            if (!esperando_sequencia_fin)
+                return;
+
+            esperando_sequencia_fin = false;
+            await Task.Delay(400);
+
+            if (!exito)
+            {
+                await get_Procesar_Siguiente_Hechizo(configuracion.hechizos[hechizo_lanzado_index]);
+                return;
+            }
+
             await get_Procesar_hechizo();
         }
 
@@ -130,13 +157,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_actual.lanzamientos_restantes = hechizo_actual.lanzamientos_x_turno;
             hechizo_lanzado_index++;
 
+            await Task.Delay(400);
             await get_Procesar_hechizo();
         }
 
         private async Task get_Fin_Turno()
         {
-            Pelea pelea = cuenta.juego.pelea;
-
             if (!pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
                 await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());
             else if (pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
@@ -150,7 +176,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             KeyValuePair<short, MovimientoNodo>? nodo = null;
             Mapa mapa = cuenta.juego.mapa;
-            Pelea pelea = cuenta.juego.pelea;
             int distancia = -1;
 
             int distancia_total = Get_Total_Distancia_Enemigo(pelea.jugador_luchador.celda);

@@ -43,6 +43,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     canal = "GRUPO";
                 break;
 
+                case "%":
+                    canal = "GREMIO";
+                break;
+
                 case "F":
                     cliente.cuenta.logger.log_privado("RECIBIDO-PRIVADO", separador[2] + ": " + separador[3]);
                 break;

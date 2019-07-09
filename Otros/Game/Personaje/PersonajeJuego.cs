@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
 using Bot_Dofus_1._29._1.Otros.Game.Personaje.Oficios;
@@ -33,6 +34,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
         public Dictionary<short, Hechizo> hechizos { get; set; }//id_hechizo, hechizo
         public List<Oficio> oficios { get; private set; }
         public Timer timer_regeneracion { get; private set; }
+        public Timer timer_afk { get; private set; }
         public string canales { get; set; } = string.Empty;
         public Celda celda { get; set; }
         
@@ -60,6 +62,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
         {
             cuenta = _cuenta;
             timer_regeneracion = new Timer(regeneracion_TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
+            timer_afk = new Timer(anti_Afk, null, Timeout.Infinite, Timeout.Infinite);//1200000
 
             inventario = new InventarioGeneral(cuenta);
             caracteristicas = new Caracteristicas();
@@ -219,6 +222,19 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
             }
         }
 
+        private void anti_Afk(object state)
+        {
+            try
+            {
+                if(cuenta.Estado_Cuenta != EstadoCuenta.DESCONECTADO)
+                    cuenta.conexion.enviar_Paquete("QL");
+            }
+            catch (Exception e)
+            {
+                cuenta.logger.log_Error("TIMER-ANTIAFK", $"ERROR: {e}");
+            }
+        }
+
         public Hechizo get_Hechizo(short id) => hechizos[id];
         public bool get_Tiene_Skill_Id(int id) => oficios.FirstOrDefault(j => j.skills.FirstOrDefault(s => s.id == id) != null) != null;
         public IEnumerable<SkillsOficio> get_Skills_Disponibles() => oficios.SelectMany(oficio => oficio.skills.Select(skill => skill));
@@ -235,6 +251,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
             oficios.Clear();
             inventario.limpiar();
             caracteristicas.limpiar();
+
+            timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
+            timer_afk.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
         public virtual void Dispose(bool disposing)
@@ -245,6 +264,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
                 {
                     inventario.Dispose();
                     timer_regeneracion.Dispose();
+                    timer_afk.Dispose();
                 }
                 
                 hechizos = null;
@@ -252,6 +272,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
                 nombre = null;
                 inventario = null;
                 timer_regeneracion = null;
+                timer_afk = null;
                 disposed = true;
             }
         }

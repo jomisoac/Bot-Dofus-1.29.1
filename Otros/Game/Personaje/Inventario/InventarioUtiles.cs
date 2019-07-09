@@ -100,6 +100,8 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
 
                 case 12:
                 case 13:
+                case 85:
+                case 86:
                     return TipoObjetosInventario.VARIOS;
 
                 case 15:

@@ -201,7 +201,6 @@
     <Compile Include="Otros\Game\Personaje\Hechizos\HechizoStats.cs" />
     <Compile Include="Otros\Game\Personaje\Hechizos\HechizoZona.cs" />
     <Compile Include="Otros\Game\Personaje\Hechizos\Shaper.cs" />
-    <Compile Include="Otros\Game\Personaje\Hechizos\ShaperEntry.cs" />
     <Compile Include="Otros\Game\Personaje\Hechizos\Zonas.cs" />
     <Compile Include="Otros\Game\Personaje\Inventario\InventarioGeneral.cs" />
     <Compile Include="Otros\Game\Personaje\Inventario\Enums\InventarioPosiciones.cs" />
@@ -264,6 +263,7 @@
     <Compile Include="Otros\Scripts\Api\InventarioApi.cs" />
     <Compile Include="Otros\Scripts\Api\MapaApi.cs" />
     <Compile Include="Otros\Scripts\Api\NpcAPI.cs" />
+    <Compile Include="Otros\Scripts\Api\PeleaApi.cs" />
     <Compile Include="Otros\Scripts\Api\PersonajeApi.cs" />
     <Compile Include="Otros\Scripts\Banderas\Bandera.cs" />
     <Compile Include="Otros\Scripts\Banderas\CambiarMapa.cs" />

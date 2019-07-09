@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 /*
@@ -58,12 +59,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 x = sbyte.Parse(archivo_mapa.Element("X").Value);
                 y = sbyte.Parse(archivo_mapa.Element("Y").Value);
 
-                descomprimir_mapa(archivo_mapa.Element("MAPA_DATA").Value);
+                Task.Run(() => descomprimir_mapa(archivo_mapa.Element("MAPA_DATA").Value)).Wait();
             }
         }
 
         public string coordenadas => $"[{x},{y}]";
-        public Celda get_Celda_Id(int celda_id) => celdas[celda_id];
+        public Celda get_Celda_Id(short celda_id) => celdas[celda_id];
         public bool esta_En_Mapa(string _coordenadas) => _coordenadas == id.ToString() || _coordenadas == coordenadas;
         public Celda get_Celda_Por_Coordenadas(int x, int y) => celdas.FirstOrDefault(celda => celda.x == x && celda.y == y);
         public bool get_Puede_Luchar_Contra_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios) => get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios).Count > 0;

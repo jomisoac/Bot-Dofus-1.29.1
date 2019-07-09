@@ -53,6 +53,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     cliente.enviar_Paquete("AS" + id);
                     encontrado = true;
                 }
+                else if(string.IsNullOrEmpty(cuenta.configuracion.nombre_personaje))
+                {
+                    cliente.enviar_Paquete("AS" + id);
+                    encontrado = true;
+                }
 
                 contador++;
             }
@@ -74,13 +79,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             byte sexo = byte.Parse(_loc4[4]);
 
             cuenta.juego.personaje.set_Datos_Personaje(id, nombre, nivel, sexo, raza_id);
-
-            Task.Run(() => cuenta.juego.personaje.inventario.agregar_Objetos(_loc4[9])).Wait();
+            cuenta.juego.personaje.inventario.agregar_Objetos(_loc4[9]);
 
             cliente.enviar_Paquete("GC1");
             cliente.enviar_Paquete("BYA");
 
             cuenta.juego.personaje.evento_Personaje_Seleccionado();
+            cuenta.juego.personaje.timer_afk.Change(1200000, 1200000);
             cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
         }
     }

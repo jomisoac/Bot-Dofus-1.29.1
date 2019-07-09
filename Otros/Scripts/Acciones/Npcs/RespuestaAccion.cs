@@ -32,13 +32,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
                 respuesta_id = npc.respuestas[index];
             }
 
-            if (npc.respuestas.Contains(respuesta_id))
-            {
-                cuenta.conexion.enviar_Paquete("DR" + npc.pregunta + "|" + respuesta_id);
-                return resultado_procesado;
-            }
+            if (!npc.respuestas.Contains(respuesta_id))
+                return resultado_fallado;
 
-            return resultado_fallado;
+            cuenta.conexion.enviar_Paquete("DR" + npc.pregunta + "|" + respuesta_id);
+            return resultado_procesado;
         }
     }
 }

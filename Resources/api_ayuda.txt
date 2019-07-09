@@ -62,3 +62,14 @@ inventario =
 		end
 	end
 }
+
+pelea =
+{
+	puedePelear = api.pelea.puedePelear,
+	
+	pelear = function(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios)
+		if api.pelea.pelear(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios) then
+			coroutine.yield()
+		end
+	end
+}
