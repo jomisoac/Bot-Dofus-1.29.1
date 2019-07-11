@@ -23,6 +23,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
     public class Movimiento : IDisposable
     {
         private Cuenta cuenta;
+        private PersonajeJuego personaje;
         private Mapa mapa;
         private Pathfinder pathfinder;
         public List<Celda> actual_path;
@@ -30,9 +31,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
         public event Action<bool> movimiento_finalizado;
         private bool disposed;
 
-        public Movimiento(Cuenta _cuenta, Mapa _mapa)
+        public Movimiento(Cuenta _cuenta, Mapa _mapa, PersonajeJuego _personaje)
         {
             cuenta = _cuenta;
+            personaje = _personaje;
             mapa = _mapa;
 
             pathfinder = new Pathfinder();
@@ -61,7 +63,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, Celda celda)
         {
-            if (cuenta.esta_ocupado())
+            if (cuenta.esta_ocupado() || personaje.inventario.porcentaje_pods >= 100)
                 return false;
 
             if (!get_Puede_Cambiar_Mapa(direccion, celda))
@@ -96,10 +98,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (celda_destino.id < 0 || celda_destino.id > mapa.celdas.Length)
                 return ResultadoMovimientos.FALLO;
 
-            if (cuenta.esta_ocupado() || actual_path != null)
+            if (cuenta.esta_ocupado() || actual_path != null || personaje.inventario.porcentaje_pods >= 100)
                 return ResultadoMovimientos.FALLO;
 
-            if (celda_destino.id == cuenta.juego.personaje.celda.id)
+            if (celda_destino.id == personaje.celda.id)
                 return ResultadoMovimientos.MISMA_CELDA;
 
             if (celda_destino.tipo == TipoCelda.NO_CAMINABLE && celda_destino.objeto_interactivo == null)
@@ -108,7 +110,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (celda_destino.tipo == TipoCelda.OBJETO_INTERACTIVO && celda_destino.objeto_interactivo == null)
                 return ResultadoMovimientos.FALLO;
 
-            List<Celda> path_temporal = pathfinder.get_Path(cuenta.juego.personaje.celda, celda_destino, celdas_no_permitidas, detener_delante, distancia_detener);
+            List<Celda> path_temporal = pathfinder.get_Path(personaje.celda, celda_destino, celdas_no_permitidas, detener_delante, distancia_detener);
 
             if (path_temporal == null || path_temporal.Count == 0)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
@@ -116,10 +118,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (!detener_delante && path_temporal.Last().id != celda_destino.id)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
 
-            if (detener_delante && path_temporal.Count == 1 && path_temporal[0].id == cuenta.juego.personaje.celda.id)
+            if (detener_delante && path_temporal.Count == 1 && path_temporal[0].id == personaje.celda.id)
                 return ResultadoMovimientos.MISMA_CELDA;
             
-            if (detener_delante && path_temporal.Count == 2 && path_temporal[0].id == cuenta.juego.personaje.celda.id && path_temporal[1].id == celda_destino.id)
+            if (detener_delante && path_temporal.Count == 2 && path_temporal[0].id == personaje.celda.id && path_temporal[1].id == celda_destino.id)
                 return ResultadoMovimientos.MISMA_CELDA;
 
             actual_path = path_temporal;
@@ -141,8 +143,8 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.juego.pelea.jugador_luchador.celda.id);
             List<Celda> lista_celdas = nodo.Value.Value.camino.celdas_accesibles.Select(c => mapa.get_Celda_Id(c)).ToList();
 
-            await cuenta.conexion.enviar_Paquete_Async("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas));
-            cuenta.juego.personaje.evento_Personaje_Pathfinding_Minimapa(lista_celdas);
+            await cuenta.conexion.enviar_Paquete_Async("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas), false);
+            personaje.evento_Personaje_Pathfinding_Minimapa(lista_celdas);
         }
 
         private bool get_Mover_Para_Cambiar_mapa(Celda celda)
@@ -163,16 +165,15 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
         private void enviar_Paquete_Movimiento()
         {
             if (cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
-                cuenta.conexion.enviar_Paquete("eU1");
+                cuenta.conexion.enviar_Paquete("eU1", true);
 
             string path_string = PathFinderUtil.get_Pathfinding_Limpio(actual_path);
-            cuenta.conexion.enviar_Paquete("GA001" + path_string);
-            cuenta.juego.personaje.evento_Personaje_Pathfinding_Minimapa(actual_path);
+            cuenta.conexion.enviar_Paquete("GA001" + path_string, true);
+            personaje.evento_Personaje_Pathfinding_Minimapa(actual_path);
         }
 
         public async Task evento_Movimiento_Finalizado(Celda celda_destino, byte tipo_gkk, bool correcto)
         {
-            PersonajeJuego personaje = cuenta.juego.personaje;
             cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
 
             if (correcto)
@@ -217,7 +218,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
                 actual_path = null;
                 pathfinder = null;
                 cuenta = null;
-
+                personaje = null;
                 disposed = true;
             }
         }

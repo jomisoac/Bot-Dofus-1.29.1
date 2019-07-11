@@ -5,6 +5,7 @@ using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Personaje;
 using Bot_Dofus_1._29._1.Otros.Game.Personaje.Oficios;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -57,11 +58,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             Cuenta cuenta = cliente.cuenta;
 
-            switch(cuenta.Estado_Cuenta)
+            switch (cuenta.Estado_Cuenta)
             {
                 case EstadoCuenta.ALMACENAMIENTO:
                     cuenta.juego.personaje.inventario.evento_Almacenamiento_Abierto();
-                break;
+                    break;
 
                 case EstadoCuenta.DIALOGANDO:
                     IEnumerable<Npcs> npcs = cuenta.juego.mapa.lista_npcs();
@@ -73,7 +74,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     cuenta.juego.personaje.evento_Dialogo_Acabado();
                 break;
             }
-
         }
 
         [PaqueteAtributo("EV")]
@@ -110,7 +110,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     personaje.oficios.Add(oficio);
                 }
 
-                foreach(string datos_skill in datos_oficio.Split(';')[1].Split(','))
+                foreach (string datos_skill in datos_oficio.Split(';')[1].Split(','))
                 {
                     separador_skill = datos_skill.Split('~');
                     id_skill = short.Parse(separador_skill[0]);
@@ -125,6 +125,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         oficio.skills.Add(new SkillsOficio(id_skill, cantidad_minima, cantidad_maxima, tiempo));
                 }
             }
+
             personaje.evento_Oficios_Actualizados();
         }
 
@@ -179,7 +180,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Peticion_Intercambio(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Invitación de intercambio recibida, rechazando");
-            cliente.enviar_Paquete("EV");
+            cliente.enviar_Paquete("EV", true);
         }
 
         [PaqueteAtributo("ILS")]
@@ -223,5 +224,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             else if (emote_id == 0 && cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
                 cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
         }
+
+        [PaqueteAtributo("Bp")]
+        public void get_Ping_Promedio(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete($"Bp{cliente.get_Promedio_Pings()}|{cliente.get_Total_Pings()}|50");
+
+        [PaqueteAtributo("pong")]
+        public void get_Ping_Pong(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", $"Ping: {cliente.get_Actual_Ping()} ms");
     }
 }

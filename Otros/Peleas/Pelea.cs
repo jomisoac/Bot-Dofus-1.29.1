@@ -67,10 +67,10 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                 return;
 
-            await cuenta.conexion.enviar_Paquete_Async("GA300" + hechizo_id + ';' + celda_id);
+            await cuenta.conexion.enviar_Paquete_Async("GA300" + hechizo_id + ';' + celda_id, false);
         }
 
-        public void actualizar_Hechizo_Exito(short hechizo_id, short celda_id)
+        public void actualizar_Hechizo_Exito(short celda_id, short hechizo_id)
         {
             Hechizo hechizo = cuenta.juego.personaje.get_Hechizo(hechizo_id);
             HechizoStats datos_hechizo = hechizo.get_Stats();
@@ -337,12 +337,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             double objetivo_y = celda_destino.y + 0.5;
             double anterior_x = celda_inicial.x;
             double anterior_y = celda_inicial.y;
-
-            double pad_x = 0;
-            double pad_y = 0;
-            double pasos = 0;
             int tipo = 0;
 
+            double pasos;
+            double pad_y;
+
+            double pad_x;
             if (Math.Abs(x - objetivo_x) == Math.Abs(y - objetivo_y))
             {
                 pasos = Math.Abs(x - objetivo_x);

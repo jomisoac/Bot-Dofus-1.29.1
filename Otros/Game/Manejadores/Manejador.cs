@@ -1,5 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
+using Bot_Dofus_1._29._1.Otros.Game.Personaje;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using System;
 
@@ -11,9 +12,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores
         public Recoleccion recoleccion { get; private set; }
         private bool disposed;
 
-        public Manejador(Cuenta cuenta, Mapa mapa)
+        public Manejador(Cuenta cuenta, Mapa mapa, PersonajeJuego personaje)
         {
-            movimientos = new Movimiento(cuenta, mapa);
+            movimientos = new Movimiento(cuenta, mapa, personaje);
             recoleccion = new Recoleccion(cuenta, movimientos, mapa);
         }
 

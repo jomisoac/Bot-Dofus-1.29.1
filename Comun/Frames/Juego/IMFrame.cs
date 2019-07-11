@@ -43,5 +43,8 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
         [PaqueteAtributo("Im037")]
         public void get_Mensaje_Modo_Away_Dofus(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", "Desde ahora serás considerado como ausente.");
+
+        [PaqueteAtributo("Im112")]
+        public void get_Mensaje_Pods_Llenos(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_Error("DOFUS", "Estás demasiado cargado. Tira algunos objetos para poder moverte.");
     }
 }

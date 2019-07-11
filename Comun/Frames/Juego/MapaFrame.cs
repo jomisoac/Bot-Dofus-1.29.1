@@ -11,7 +11,6 @@ using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
 using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
-using System;
 using System.Threading.Tasks;
 
 /*
@@ -114,7 +113,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                         short celda_posicion = pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.pelea_extension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, pelea.celdas_preparacion);
 
                                         if (celda_posicion != celda.id)
-                                            cuenta.conexion.enviar_Paquete("Gp" + celda_posicion);
+                                            cuenta.conexion.enviar_Paquete("Gp" + celda_posicion, true);
                                         else
                                             cuenta.conexion.enviar_Paquete("GR1");
                                     }
@@ -156,10 +155,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             string[] separador = paquete.Substring(2).Split(';');
             int id_accion = int.Parse(separador[1]);
             Cuenta cuenta = cliente.cuenta;
+            PersonajeJuego personaje = cuenta.juego.personaje;
 
             if (id_accion > 0)
             {
-                PersonajeJuego personaje = cuenta.juego.personaje;
                 int id_entidad = int.Parse(separador[2]);
                 byte tipo_gkk_movimiento;
                 Celda celda;
@@ -200,20 +199,15 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 {
                                     tipo_gkk_movimiento = byte.Parse(separador[0]);
 
-                                    await Task.Delay(300 * personaje.celda.get_Distancia_Entre_Dos_Casillas(celda));
+                                    await Task.Delay(400 + (100 * personaje.celda.get_Distancia_Entre_Dos_Casillas(celda)));
                                     cuenta.conexion.enviar_Paquete("GKK" + tipo_gkk_movimiento);
                                 }
                             }
                         }
-                        break;
-
-                    case 2: //Cargando el mapa
-                        await Task.Delay(200);
-                        break;
+                    break;
 
                     case 4:
                         separador = separador[3].Split(',');
-                        int id = int.Parse(separador[0]);
                         celda = mapa.get_Celda_Id(short.Parse(separador[1]));
 
                         if (!cuenta.esta_luchando() && id_entidad == personaje.id && celda.id > 0 && personaje.celda.id != celda.id)
@@ -224,7 +218,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             mapa.evento_Entidad_Actualizada();
                             cuenta.juego.manejador.movimientos.movimiento_Actualizado(true);
                         }
-                        break;
+                   break;
 
                     case 5:
                         if (cuenta.esta_luchando())
@@ -319,15 +313,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     break;
 
                     case 900:
-                        cuenta.conexion.enviar_Paquete("GA902" + id_entidad);
+                        cuenta.conexion.enviar_Paquete("GA902" + id_entidad, true);
                         cuenta.logger.log_informacion("INFORMACIÓN", "Desafio del personaje id: " + id_entidad + " cancelado");
                     break;
                 }
-            }
-            else
-            {
-                if(!cuenta.esta_luchando())
-                    await cuenta.juego.manejador.movimientos.evento_Movimiento_Finalizado(null, 0, false);
             }
         }
 

@@ -2,7 +2,9 @@
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Servidor;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using System.Threading.Tasks;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -39,34 +41,37 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         public void get_Servidor_Estado(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
-            string[] _loc5_ = paquete.Substring(2).Split('|');
-            int _loc6_ = 0;
-            bool accesible = true;
+            string[] separado_servidores = paquete.Substring(2).Split('|');
+            ServidorJuego servidor = cuenta.juego.servidor;
+            bool primera_vez = true;
 
-            while (_loc6_ < _loc5_.Length && accesible)
+            foreach(string sv in separado_servidores)
             {
-                string[] _loc7_ = _loc5_[_loc6_].ToString().Split(';');
-                int id = int.Parse(_loc7_[0]);
-                byte estado = byte.Parse(_loc7_[1]);
-                byte poblacion = byte.Parse(_loc7_[2]);
-                bool registro = _loc7_[3] == "1";
+                string[] separador = sv.Split(';');
 
-                if (id == cuenta.get_Id_Servidor())
+                int id = int.Parse(separador[0]);
+                EstadosServidor estado = (EstadosServidor)byte.Parse(separador[1]);
+                string nombre = id == 601 ? "Eratz" : "Henual";
+
+                if (id == cuenta.configuracion.get_Servidor_Id())
                 {
-                    cliente.cuenta.logger.log_informacion("LOGIN", "El servidor " + (id == 601 ? "Eratz" : "Henual") + " esta " + (EstadosServidor)estado);
+                    servidor.actualizar_Datos(id, nombre, estado);
+                    cuenta.logger.log_informacion("LOGIN", $"El servidor {nombre} esta {estado}");
 
-                    if (estado != 1)
-                    {
-                        cliente.cuenta.logger.log_Error("LOGIN", "Servidor no accesible cuando este accesible se re-conectara");
-                        accesible = false;
-                    }
+                    if (estado != EstadosServidor.CONECTADO)
+                        primera_vez = false;
                 }
-
-                _loc6_++;
             }
 
-            if (accesible)
+            if(!primera_vez  && servidor.estado == EstadosServidor.CONECTADO)
                 cliente.enviar_Paquete("Ax");
+        }
+
+        [PaqueteAtributo("AQ")]
+        public void get_Pregunta_Secreta(ClienteTcp cliente, string paquete)
+        {
+            if (cliente.cuenta.juego.servidor.estado == EstadosServidor.CONECTADO)
+                cliente.enviar_Paquete("Ax", true);
         }
 
         [PaqueteAtributo("AxK")]
@@ -82,15 +87,21 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                 string[] _loc10_ = loc5[contador].Split(',');
                 int servidor_id = int.Parse(_loc10_[0]);
 
-                if (cuenta.get_Id_Servidor() == servidor_id)
+                if (servidor_id == cuenta.juego.servidor.id)
                 {
-                    cliente.enviar_Paquete("AX" + cuenta.get_Id_Servidor());
-                    seleccionado = true;
-                    cuenta.juego.personaje.evento_Servidor_Seleccionado();
+                    if(cuenta.juego.servidor.estado == EstadosServidor.CONECTADO)
+                    {
+                        seleccionado = true;
+                        cuenta.juego.personaje.evento_Servidor_Seleccionado();
+                    }
+                    else
+                        cuenta.logger.log_Error("LOGIN", "Servidor no accesible cuando este accesible se re-conectara");
                 }
-
                 contador++;
             }
+
+            if(seleccionado)
+                cliente.enviar_Paquete($"AX{cuenta.juego.servidor.id}", true);
         }
 
         [PaqueteAtributo("AXK")]

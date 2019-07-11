@@ -432,7 +432,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                         if (cuenta.esta_ocupado())
                             return;
 
-                        cuenta.conexion.enviar_Paquete("eU1");
+                        cuenta.conexion.enviar_Paquete("eU1", true);
                     }
 
                     cuenta.logger.log_informacion("SCRIPTS", $"Regeneración comenzada, puntos de vida a recuperar: {vida_para_regenerar}, tiempo: {tiempo_estimado} segundos.");
@@ -443,7 +443,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     if (corriendo)
                     {
                         if (cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
-                            cuenta.conexion.enviar_Paquete("eU1");
+                            cuenta.conexion.enviar_Paquete("eU1", true);
 
                         cuenta.logger.log_informacion("SCRIPTS", "Regeneración finalizada.");
                     }

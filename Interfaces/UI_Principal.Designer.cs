@@ -32,11 +32,24 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.ScriptTituloStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tableLayoutPanel_principal = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl_principal = new System.Windows.Forms.TabControl();
             this.tabPage_consola = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayout_Canales = new System.Windows.Forms.TableLayoutPanel();
+            this.textbox_logs = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox_nombre_privado = new System.Windows.Forms.TextBox();
+            this.comboBox_lista_canales = new System.Windows.Forms.ComboBox();
+            this.button_limpiar_consola = new System.Windows.Forms.Button();
+            this.textBox_enviar_consola = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.label_kamas_principal = new System.Windows.Forms.Label();
             this.canal_incarnam = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.canal_informaciones = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.canal_comercio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
@@ -45,31 +58,14 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.canal_gremio = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.canal_privado = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
             this.canal_general = new Bot_Dofus_1._29._1.Controles.ColorCheckBox.ColorCheckBox();
-            this.textbox_logs = new System.Windows.Forms.RichTextBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox_nombre_privado = new System.Windows.Forms.TextBox();
-            this.comboBox_lista_canales = new System.Windows.Forms.ComboBox();
-            this.button_limpiar_consola = new System.Windows.Forms.Button();
-            this.textBox_enviar_consola = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.debugger = new Bot_Dofus_1._29._1.Interfaces.UI_Debugger();
-            this.lista_imagenes = new System.Windows.Forms.ImageList(this.components);
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.progresBar_vitalidad = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_energia = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_experiencia = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
             this.progresBar_pods = new Bot_Dofus_1._29._1.Controles.ProgresBar.ProgresBar();
-            this.label_kamas_principal = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
-            this.tableLayoutPanel_principal.SuspendLayout();
             this.tabControl_principal.SuspendLayout();
             this.tabPage_consola.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayout_Canales.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -135,19 +131,6 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.iniciarScriptToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
             this.iniciarScriptToolStripMenuItem.Click += new System.EventHandler(this.iniciarScriptToolStripMenuItem_Click);
             // 
-            // tableLayoutPanel_principal
-            // 
-            this.tableLayoutPanel_principal.ColumnCount = 1;
-            this.tableLayoutPanel_principal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel_principal.Controls.Add(this.tabControl_principal, 0, 0);
-            this.tableLayoutPanel_principal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel_principal.Location = new System.Drawing.Point(0, 26);
-            this.tableLayoutPanel_principal.Name = "tableLayoutPanel_principal";
-            this.tableLayoutPanel_principal.RowCount = 1;
-            this.tableLayoutPanel_principal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.tableLayoutPanel_principal.Size = new System.Drawing.Size(804, 545);
-            this.tableLayoutPanel_principal.TabIndex = 1;
-            // 
             // tabControl_principal
             // 
             this.tabControl_principal.Controls.Add(this.tabPage_consola);
@@ -155,40 +138,25 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.tabControl_principal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl_principal.ImageList = this.lista_imagenes;
             this.tabControl_principal.ItemSize = new System.Drawing.Size(67, 26);
-            this.tabControl_principal.Location = new System.Drawing.Point(3, 3);
+            this.tabControl_principal.Location = new System.Drawing.Point(0, 26);
             this.tabControl_principal.Name = "tabControl_principal";
             this.tabControl_principal.SelectedIndex = 0;
-            this.tabControl_principal.Size = new System.Drawing.Size(798, 539);
+            this.tabControl_principal.Size = new System.Drawing.Size(804, 545);
             this.tabControl_principal.TabIndex = 0;
             // 
             // tabPage_consola
             // 
-            this.tabPage_consola.Controls.Add(this.tableLayoutPanel2);
+            this.tabPage_consola.Controls.Add(this.tableLayout_Canales);
+            this.tabPage_consola.Controls.Add(this.textbox_logs);
             this.tabPage_consola.Controls.Add(this.tableLayoutPanel1);
             this.tabPage_consola.ImageIndex = 0;
             this.tabPage_consola.Location = new System.Drawing.Point(4, 30);
             this.tabPage_consola.Name = "tabPage_consola";
             this.tabPage_consola.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_consola.Size = new System.Drawing.Size(790, 505);
+            this.tabPage_consola.Size = new System.Drawing.Size(796, 511);
             this.tabPage_consola.TabIndex = 0;
             this.tabPage_consola.Text = "Consola";
             this.tabPage_consola.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel2.Controls.Add(this.tableLayout_Canales, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textbox_logs, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.64935F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(784, 468);
-            this.tableLayoutPanel2.TabIndex = 4;
             // 
             // tableLayout_Canales
             // 
@@ -202,9 +170,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.tableLayout_Canales.Controls.Add(this.canal_gremio, 0, 3);
             this.tableLayout_Canales.Controls.Add(this.canal_privado, 0, 2);
             this.tableLayout_Canales.Controls.Add(this.canal_general, 0, 1);
-            this.tableLayout_Canales.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayout_Canales.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayout_Canales.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayout_Canales.Location = new System.Drawing.Point(760, 3);
+            this.tableLayout_Canales.Location = new System.Drawing.Point(772, 3);
             this.tableLayout_Canales.Name = "tableLayout_Canales";
             this.tableLayout_Canales.RowCount = 8;
             this.tableLayout_Canales.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
@@ -215,120 +183,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.tableLayout_Canales.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayout_Canales.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayout_Canales.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayout_Canales.Size = new System.Drawing.Size(21, 462);
+            this.tableLayout_Canales.Size = new System.Drawing.Size(21, 474);
             this.tableLayout_Canales.TabIndex = 0;
-            // 
-            // canal_incarnam
-            // 
-            this.canal_incarnam.AutoSize = true;
-            this.canal_incarnam.BackColor = System.Drawing.Color.Blue;
-            this.canal_incarnam.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.canal_incarnam.Enabled = false;
-            this.canal_incarnam.ForeColor = System.Drawing.Color.Black;
-            this.canal_incarnam.Location = new System.Drawing.Point(3, 445);
-            this.canal_incarnam.Name = "canal_incarnam";
-            this.canal_incarnam.Size = new System.Drawing.Size(15, 14);
-            this.canal_incarnam.TabIndex = 7;
-            this.canal_incarnam.UseVisualStyleBackColor = false;
-            this.canal_incarnam.Click += new System.EventHandler(this.canal_Chat_Click);
-            // 
-            // canal_informaciones
-            // 
-            this.canal_informaciones.AutoSize = true;
-            this.canal_informaciones.BackColor = System.Drawing.Color.Green;
-            this.canal_informaciones.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.canal_informaciones.Enabled = false;
-            this.canal_informaciones.ForeColor = System.Drawing.Color.Black;
-            this.canal_informaciones.Location = new System.Drawing.Point(3, 40);
-            this.canal_informaciones.Name = "canal_informaciones";
-            this.canal_informaciones.Size = new System.Drawing.Size(15, 14);
-            this.canal_informaciones.TabIndex = 0;
-            this.canal_informaciones.UseVisualStyleBackColor = false;
-            this.canal_informaciones.Click += new System.EventHandler(this.canal_Chat_Click);
-            // 
-            // canal_comercio
-            // 
-            this.canal_comercio.AutoSize = true;
-            this.canal_comercio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(62)))), ((int)(((byte)(28)))));
-            this.canal_comercio.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.canal_comercio.Enabled = false;
-            this.canal_comercio.ForeColor = System.Drawing.Color.Black;
-            this.canal_comercio.Location = new System.Drawing.Point(3, 382);
-            this.canal_comercio.Name = "canal_comercio";
-            this.canal_comercio.Size = new System.Drawing.Size(15, 14);
-            this.canal_comercio.TabIndex = 6;
-            this.canal_comercio.UseVisualStyleBackColor = false;
-            this.canal_comercio.Click += new System.EventHandler(this.canal_Chat_Click);
-            // 
-            // canal_alineamiento
-            // 
-            this.canal_alineamiento.AutoSize = true;
-            this.canal_alineamiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(146)))), ((int)(((byte)(69)))));
-            this.canal_alineamiento.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.canal_alineamiento.Enabled = false;
-            this.canal_alineamiento.ForeColor = System.Drawing.Color.Black;
-            this.canal_alineamiento.Location = new System.Drawing.Point(3, 268);
-            this.canal_alineamiento.Name = "canal_alineamiento";
-            this.canal_alineamiento.Size = new System.Drawing.Size(15, 14);
-            this.canal_alineamiento.TabIndex = 4;
-            this.canal_alineamiento.UseVisualStyleBackColor = false;
-            this.canal_alineamiento.Click += new System.EventHandler(this.canal_Chat_Click);
-            // 
-            // canal_reclutamiento
-            // 
-            this.canal_reclutamiento.AutoSize = true;
-            this.canal_reclutamiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(133)))), ((int)(((byte)(135)))));
-            this.canal_reclutamiento.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.canal_reclutamiento.Enabled = false;
-            this.canal_reclutamiento.ForeColor = System.Drawing.Color.Black;
-            this.canal_reclutamiento.Location = new System.Drawing.Point(3, 325);
-            this.canal_reclutamiento.Name = "canal_reclutamiento";
-            this.canal_reclutamiento.Size = new System.Drawing.Size(15, 14);
-            this.canal_reclutamiento.TabIndex = 5;
-            this.canal_reclutamiento.UseVisualStyleBackColor = false;
-            this.canal_reclutamiento.Click += new System.EventHandler(this.canal_Chat_Click);
-            // 
-            // canal_gremio
-            // 
-            this.canal_gremio.AutoSize = true;
-            this.canal_gremio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(48)))), ((int)(((byte)(160)))));
-            this.canal_gremio.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.canal_gremio.Enabled = false;
-            this.canal_gremio.ForeColor = System.Drawing.Color.Black;
-            this.canal_gremio.Location = new System.Drawing.Point(3, 211);
-            this.canal_gremio.Name = "canal_gremio";
-            this.canal_gremio.Size = new System.Drawing.Size(15, 14);
-            this.canal_gremio.TabIndex = 3;
-            this.canal_gremio.UseVisualStyleBackColor = false;
-            this.canal_gremio.Click += new System.EventHandler(this.canal_Chat_Click);
-            // 
-            // canal_privado
-            // 
-            this.canal_privado.AutoSize = true;
-            this.canal_privado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(112)))), ((int)(((byte)(196)))));
-            this.canal_privado.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.canal_privado.Enabled = false;
-            this.canal_privado.ForeColor = System.Drawing.Color.Black;
-            this.canal_privado.Location = new System.Drawing.Point(3, 154);
-            this.canal_privado.Name = "canal_privado";
-            this.canal_privado.Size = new System.Drawing.Size(15, 14);
-            this.canal_privado.TabIndex = 2;
-            this.canal_privado.UseVisualStyleBackColor = false;
-            this.canal_privado.Click += new System.EventHandler(this.canal_Chat_Click);
-            // 
-            // canal_general
-            // 
-            this.canal_general.AutoSize = true;
-            this.canal_general.BackColor = System.Drawing.Color.Black;
-            this.canal_general.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.canal_general.Enabled = false;
-            this.canal_general.ForeColor = System.Drawing.Color.Black;
-            this.canal_general.Location = new System.Drawing.Point(3, 97);
-            this.canal_general.Name = "canal_general";
-            this.canal_general.Size = new System.Drawing.Size(15, 14);
-            this.canal_general.TabIndex = 1;
-            this.canal_general.UseVisualStyleBackColor = false;
-            this.canal_general.Click += new System.EventHandler(this.canal_Chat_Click);
             // 
             // textbox_logs
             // 
@@ -337,7 +193,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.textbox_logs.Location = new System.Drawing.Point(3, 3);
             this.textbox_logs.MaxLength = 200;
             this.textbox_logs.Name = "textbox_logs";
-            this.textbox_logs.Size = new System.Drawing.Size(751, 462);
+            this.textbox_logs.Size = new System.Drawing.Size(790, 474);
             this.textbox_logs.TabIndex = 5;
             this.textbox_logs.Text = "";
             // 
@@ -347,17 +203,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.76676F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.31367F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.91957F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel1.Controls.Add(this.textBox_nombre_privado, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.comboBox_lista_canales, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button_limpiar_consola, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox_enviar_consola, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 471);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 477);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 31);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(790, 31);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // textBox_nombre_privado
@@ -365,10 +221,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.textBox_nombre_privado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_nombre_privado.Enabled = false;
             this.textBox_nombre_privado.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.textBox_nombre_privado.Location = new System.Drawing.Point(141, 3);
+            this.textBox_nombre_privado.Location = new System.Drawing.Point(140, 3);
             this.textBox_nombre_privado.MaxLength = 80;
             this.textBox_nombre_privado.Name = "textBox_nombre_privado";
-            this.textBox_nombre_privado.Size = new System.Drawing.Size(151, 25);
+            this.textBox_nombre_privado.Size = new System.Drawing.Size(150, 25);
             this.textBox_nombre_privado.TabIndex = 3;
             // 
             // comboBox_lista_canales
@@ -384,7 +240,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             "Mensaje Privado"});
             this.comboBox_lista_canales.Location = new System.Drawing.Point(3, 3);
             this.comboBox_lista_canales.Name = "comboBox_lista_canales";
-            this.comboBox_lista_canales.Size = new System.Drawing.Size(132, 25);
+            this.comboBox_lista_canales.Size = new System.Drawing.Size(131, 25);
             this.comboBox_lista_canales.TabIndex = 2;
             this.comboBox_lista_canales.SelectedIndexChanged += new System.EventHandler(this.comboBox_lista_canales_Valor_Cambiado);
             // 
@@ -393,9 +249,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.button_limpiar_consola.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_limpiar_consola.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_limpiar_consola.Image = ((System.Drawing.Image)(resources.GetObject("button_limpiar_consola.Image")));
-            this.button_limpiar_consola.Location = new System.Drawing.Point(740, 3);
+            this.button_limpiar_consola.Location = new System.Drawing.Point(734, 3);
             this.button_limpiar_consola.Name = "button_limpiar_consola";
-            this.button_limpiar_consola.Size = new System.Drawing.Size(41, 25);
+            this.button_limpiar_consola.Size = new System.Drawing.Size(53, 25);
             this.button_limpiar_consola.TabIndex = 1;
             this.button_limpiar_consola.UseVisualStyleBackColor = true;
             this.button_limpiar_consola.Click += new System.EventHandler(this.button_limpiar_consola_Click);
@@ -405,10 +261,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.textBox_enviar_consola.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_enviar_consola.Enabled = false;
             this.textBox_enviar_consola.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.textBox_enviar_consola.Location = new System.Drawing.Point(298, 3);
+            this.textBox_enviar_consola.Location = new System.Drawing.Point(296, 3);
             this.textBox_enviar_consola.MaxLength = 80;
             this.textBox_enviar_consola.Name = "textBox_enviar_consola";
-            this.textBox_enviar_consola.Size = new System.Drawing.Size(436, 25);
+            this.textBox_enviar_consola.Size = new System.Drawing.Size(432, 25);
             this.textBox_enviar_consola.TabIndex = 0;
             this.textBox_enviar_consola.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_enviar_consola_KeyDown);
             // 
@@ -419,22 +275,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(790, 505);
+            this.tabPage2.Size = new System.Drawing.Size(685, 320);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Debugger";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // debugger
-            // 
-            this.debugger.Cursor = System.Windows.Forms.Cursors.Default;
-            this.debugger.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.debugger.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.debugger.Location = new System.Drawing.Point(3, 3);
-            this.debugger.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.debugger.MinimumSize = new System.Drawing.Size(790, 500);
-            this.debugger.Name = "debugger";
-            this.debugger.Size = new System.Drawing.Size(790, 500);
-            this.debugger.TabIndex = 0;
             // 
             // lista_imagenes
             // 
@@ -535,6 +379,141 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.pictureBox5.TabIndex = 4;
             this.pictureBox5.TabStop = false;
             // 
+            // label_kamas_principal
+            // 
+            this.label_kamas_principal.AutoSize = true;
+            this.label_kamas_principal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_kamas_principal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_kamas_principal.Location = new System.Drawing.Point(684, 0);
+            this.label_kamas_principal.Name = "label_kamas_principal";
+            this.label_kamas_principal.Size = new System.Drawing.Size(117, 33);
+            this.label_kamas_principal.TabIndex = 9;
+            this.label_kamas_principal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // canal_incarnam
+            // 
+            this.canal_incarnam.AutoSize = true;
+            this.canal_incarnam.BackColor = System.Drawing.Color.Blue;
+            this.canal_incarnam.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_incarnam.Enabled = false;
+            this.canal_incarnam.ForeColor = System.Drawing.Color.Black;
+            this.canal_incarnam.Location = new System.Drawing.Point(3, 457);
+            this.canal_incarnam.Name = "canal_incarnam";
+            this.canal_incarnam.Size = new System.Drawing.Size(15, 14);
+            this.canal_incarnam.TabIndex = 7;
+            this.canal_incarnam.UseVisualStyleBackColor = false;
+            this.canal_incarnam.Click += new System.EventHandler(this.canal_Chat_Click);
+            // 
+            // canal_informaciones
+            // 
+            this.canal_informaciones.AutoSize = true;
+            this.canal_informaciones.BackColor = System.Drawing.Color.Green;
+            this.canal_informaciones.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_informaciones.Enabled = false;
+            this.canal_informaciones.ForeColor = System.Drawing.Color.Black;
+            this.canal_informaciones.Location = new System.Drawing.Point(3, 42);
+            this.canal_informaciones.Name = "canal_informaciones";
+            this.canal_informaciones.Size = new System.Drawing.Size(15, 14);
+            this.canal_informaciones.TabIndex = 0;
+            this.canal_informaciones.UseVisualStyleBackColor = false;
+            this.canal_informaciones.Click += new System.EventHandler(this.canal_Chat_Click);
+            // 
+            // canal_comercio
+            // 
+            this.canal_comercio.AutoSize = true;
+            this.canal_comercio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(62)))), ((int)(((byte)(28)))));
+            this.canal_comercio.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_comercio.Enabled = false;
+            this.canal_comercio.ForeColor = System.Drawing.Color.Black;
+            this.canal_comercio.Location = new System.Drawing.Point(3, 396);
+            this.canal_comercio.Name = "canal_comercio";
+            this.canal_comercio.Size = new System.Drawing.Size(15, 14);
+            this.canal_comercio.TabIndex = 6;
+            this.canal_comercio.UseVisualStyleBackColor = false;
+            this.canal_comercio.Click += new System.EventHandler(this.canal_Chat_Click);
+            // 
+            // canal_alineamiento
+            // 
+            this.canal_alineamiento.AutoSize = true;
+            this.canal_alineamiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(146)))), ((int)(((byte)(69)))));
+            this.canal_alineamiento.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_alineamiento.Enabled = false;
+            this.canal_alineamiento.ForeColor = System.Drawing.Color.Black;
+            this.canal_alineamiento.Location = new System.Drawing.Point(3, 278);
+            this.canal_alineamiento.Name = "canal_alineamiento";
+            this.canal_alineamiento.Size = new System.Drawing.Size(15, 14);
+            this.canal_alineamiento.TabIndex = 4;
+            this.canal_alineamiento.UseVisualStyleBackColor = false;
+            this.canal_alineamiento.Click += new System.EventHandler(this.canal_Chat_Click);
+            // 
+            // canal_reclutamiento
+            // 
+            this.canal_reclutamiento.AutoSize = true;
+            this.canal_reclutamiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(133)))), ((int)(((byte)(135)))));
+            this.canal_reclutamiento.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_reclutamiento.Enabled = false;
+            this.canal_reclutamiento.ForeColor = System.Drawing.Color.Black;
+            this.canal_reclutamiento.Location = new System.Drawing.Point(3, 337);
+            this.canal_reclutamiento.Name = "canal_reclutamiento";
+            this.canal_reclutamiento.Size = new System.Drawing.Size(15, 14);
+            this.canal_reclutamiento.TabIndex = 5;
+            this.canal_reclutamiento.UseVisualStyleBackColor = false;
+            this.canal_reclutamiento.Click += new System.EventHandler(this.canal_Chat_Click);
+            // 
+            // canal_gremio
+            // 
+            this.canal_gremio.AutoSize = true;
+            this.canal_gremio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(48)))), ((int)(((byte)(160)))));
+            this.canal_gremio.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_gremio.Enabled = false;
+            this.canal_gremio.ForeColor = System.Drawing.Color.Black;
+            this.canal_gremio.Location = new System.Drawing.Point(3, 219);
+            this.canal_gremio.Name = "canal_gremio";
+            this.canal_gremio.Size = new System.Drawing.Size(15, 14);
+            this.canal_gremio.TabIndex = 3;
+            this.canal_gremio.UseVisualStyleBackColor = false;
+            this.canal_gremio.Click += new System.EventHandler(this.canal_Chat_Click);
+            // 
+            // canal_privado
+            // 
+            this.canal_privado.AutoSize = true;
+            this.canal_privado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(112)))), ((int)(((byte)(196)))));
+            this.canal_privado.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_privado.Enabled = false;
+            this.canal_privado.ForeColor = System.Drawing.Color.Black;
+            this.canal_privado.Location = new System.Drawing.Point(3, 160);
+            this.canal_privado.Name = "canal_privado";
+            this.canal_privado.Size = new System.Drawing.Size(15, 14);
+            this.canal_privado.TabIndex = 2;
+            this.canal_privado.UseVisualStyleBackColor = false;
+            this.canal_privado.Click += new System.EventHandler(this.canal_Chat_Click);
+            // 
+            // canal_general
+            // 
+            this.canal_general.AutoSize = true;
+            this.canal_general.BackColor = System.Drawing.Color.Black;
+            this.canal_general.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.canal_general.Enabled = false;
+            this.canal_general.ForeColor = System.Drawing.Color.Black;
+            this.canal_general.Location = new System.Drawing.Point(3, 101);
+            this.canal_general.Name = "canal_general";
+            this.canal_general.Size = new System.Drawing.Size(15, 14);
+            this.canal_general.TabIndex = 1;
+            this.canal_general.UseVisualStyleBackColor = false;
+            this.canal_general.Click += new System.EventHandler(this.canal_Chat_Click);
+            // 
+            // debugger
+            // 
+            this.debugger.Cursor = System.Windows.Forms.Cursors.Default;
+            this.debugger.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.debugger.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.debugger.Location = new System.Drawing.Point(3, 3);
+            this.debugger.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.debugger.MinimumSize = new System.Drawing.Size(790, 500);
+            this.debugger.Name = "debugger";
+            this.debugger.Size = new System.Drawing.Size(790, 500);
+            this.debugger.TabIndex = 0;
+            // 
             // progresBar_vitalidad
             // 
             this.progresBar_vitalidad.color_Barra = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(150)))), ((int)(((byte)(232)))));
@@ -584,22 +563,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.progresBar_pods.Valor = 0;
             this.progresBar_pods.valor_Maximo = 100;
             // 
-            // label_kamas_principal
-            // 
-            this.label_kamas_principal.AutoSize = true;
-            this.label_kamas_principal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_kamas_principal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_kamas_principal.Location = new System.Drawing.Point(684, 0);
-            this.label_kamas_principal.Name = "label_kamas_principal";
-            this.label_kamas_principal.Size = new System.Drawing.Size(117, 33);
-            this.label_kamas_principal.TabIndex = 9;
-            this.label_kamas_principal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // UI_Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel_principal);
+            this.Controls.Add(this.tabControl_principal);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -609,10 +577,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.Load += new System.EventHandler(this.UI_Principal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tableLayoutPanel_principal.ResumeLayout(false);
             this.tabControl_principal.ResumeLayout(false);
             this.tabPage_consola.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayout_Canales.ResumeLayout(false);
             this.tableLayout_Canales.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -634,11 +600,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private System.Windows.Forms.ToolStripMenuItem desconectarOconectarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ScriptTituloStripMenuItem;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_principal;
         private System.Windows.Forms.TabControl tabControl_principal;
         private System.Windows.Forms.TabPage tabPage_consola;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayout_Canales;
         private ColorCheckBox canal_informaciones;
         private ColorCheckBox canal_comercio;

@@ -227,7 +227,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
             try
             {
                 if(cuenta.Estado_Cuenta != EstadoCuenta.DESCONECTADO)
-                    cuenta.conexion.enviar_Paquete("QL");
+                    cuenta.conexion.enviar_Paquete("ping");
             }
             catch (Exception e)
             {
