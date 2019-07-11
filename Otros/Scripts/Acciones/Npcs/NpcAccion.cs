@@ -45,7 +45,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
             if (npc == null)
                 return resultado_fallado;
 
-            cuenta.conexion.enviar_Paquete("DC" + npc.id);
+            cuenta.conexion.enviar_Paquete("DC" + npc.id, true);
             return resultado_procesado;
         }
     }

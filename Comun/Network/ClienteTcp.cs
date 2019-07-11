@@ -1,10 +1,7 @@
-﻿using Bot_Dofus_1._29._1.Comun.Frames;
-using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
+﻿using Bot_Dofus_1._29._1.Comun.Frames.Transporte;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -34,6 +31,11 @@ namespace Bot_Dofus_1._29._1.Comun.Network
         public event Action<string> paquete_enviado;
         public event Action<string> socket_informacion;
 
+        /** ping **/
+        private bool esta_esperando_paquete = false;
+        private int ticks;
+        private List<int> pings;
+
         public ClienteTcp(Cuenta _cuenta) => cuenta = _cuenta;
 
         public void conexion_Servidor(IPAddress ip, int puerto)
@@ -43,6 +45,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 buffer = new byte[socket.ReceiveBufferSize];
                 semaforo = new SemaphoreSlim(1);
+                pings = new List<int>(50);
                 socket.BeginConnect(ip, puerto, new AsyncCallback(conectar_CallBack), socket);
             }
             catch (Exception ex)
@@ -93,8 +96,19 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
                 foreach (string paquete in datos.Replace("\x0a", string.Empty).Split('\0').Where(x => x != string.Empty))
                 {
-                    PaqueteRecibido.Recibir(this, paquete);
                     paquete_recibido?.Invoke(paquete);
+
+                    if (esta_esperando_paquete)
+                    {
+                        pings.Add(Environment.TickCount - ticks);
+
+                        if (pings.Count > 48)
+                            pings.RemoveAt(1);
+
+                        esta_esperando_paquete = false;
+                    }
+
+                    PaqueteRecibido.Recibir(this, paquete);
                 }
 
                 if (esta_Conectado())
@@ -104,7 +118,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 cuenta.desconectar();
         }
 
-        public async Task enviar_Paquete_Async(string paquete)
+        public async Task enviar_Paquete_Async(string paquete, bool necesita_respuesta)
         {
             try
             {
@@ -116,9 +130,15 @@ namespace Bot_Dofus_1._29._1.Comun.Network
 
                 await semaforo.WaitAsync().ConfigureAwait(false);
 
-                socket.Send(byte_paquete);
-                paquete_enviado?.Invoke(paquete);
+                if (necesita_respuesta)
+                    esta_esperando_paquete = true;
 
+                socket.Send(byte_paquete);
+
+                if (necesita_respuesta)
+                    ticks = Environment.TickCount;
+
+                paquete_enviado?.Invoke(paquete);
                 semaforo.Release();
             }
             catch (Exception ex)
@@ -128,7 +148,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
             };
         }
 
-        public void enviar_Paquete(string paquete) => enviar_Paquete_Async(paquete).Wait();
+        public void enviar_Paquete(string paquete, bool necesita_respuesta = false) => enviar_Paquete_Async(paquete, necesita_respuesta).Wait();
 
         public void get_Desconectar_Socket()
         {
@@ -160,6 +180,10 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                 return false;
             }
         }
+
+        public int get_Total_Pings() => pings.Count();
+        public int get_Promedio_Pings() => (int)pings.Average();
+        public int get_Actual_Ping() => Environment.TickCount - ticks;
 
         #region Zona Dispose
         ~ClienteTcp() => Dispose(false);

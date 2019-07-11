@@ -32,13 +32,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 cuenta.juego.pelea.celdas_preparacion.Add(mapa.get_Celda_Id((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1]))));
                 
             if (cuenta.pelea_extension.configuracion.desactivar_espectador)
-               cuenta.conexion.enviar_Paquete("fS");
+                cliente.enviar_Paquete("fS");
 
             if (cuenta.puede_utilizar_dragopavo)
             {
                 if (cuenta.pelea_extension.configuracion.utilizar_dragopavo && !cuenta.juego.personaje.esta_utilizando_dragopavo)
                 {
-                    cuenta.conexion.enviar_Paquete("Rr");
+                    cliente.enviar_Paquete("Rr");
                     cuenta.juego.personaje.esta_utilizando_dragopavo = true;
                 }
             }
@@ -50,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             if(cliente.cuenta.esta_luchando())
             {
                 await Task.Delay(150);
-                cliente.cuenta.conexion.enviar_Paquete("GR1");//boton listo
+                cliente.enviar_Paquete("GR1");//boton listo
             }
         }
 
@@ -71,7 +71,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 if (id_entidad == cuenta.juego.personaje.id)
                 {
                     await Task.Delay(150);
-                    cuenta.conexion.enviar_Paquete("GR1");//boton listo
+                    cliente.enviar_Paquete("GR1");//boton listo
                 }
 
                 Luchadores luchador = cuenta.juego.pelea.get_Luchador_Por_Id(id_entidad);
@@ -136,7 +136,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             string[] separador = paquete.Substring(3).Split('|');
             byte estado_pelea = byte.Parse(separador[0]);
 
-            switch(estado_pelea)
+            switch (estado_pelea)
             {
                 case 0:
                 case 1:
@@ -144,7 +144,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 case 3:
                 case 4:
                     cuenta.juego.pelea.get_Combate_Creado();
-                break;
+               break;
             }
         }
 
@@ -164,10 +164,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Combate_Finalizado(ClienteTcp cliente, string paquete)
         {
             Cuenta cuenta = cliente.cuenta;
-            Pelea pelea = cuenta.juego.pelea;
 
-            pelea.get_Combate_Acabado();
-            cuenta.conexion.enviar_Paquete("GC1");
+            cuenta.juego.pelea.get_Combate_Acabado();
+            cliente.enviar_Paquete("GC1");
         }
     }
 }

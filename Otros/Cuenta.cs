@@ -50,9 +50,6 @@ namespace Bot_Dofus_1._29._1.Otros
             script = new ManejadorScript(this);
         }
 
-        public int get_Id_Servidor() => configuracion.get_Servidor_Id();
-        public string get_Nombre_Servidor() => configuracion.get_Servidor_Id() == 601 ? "Eratz" : "Henual";
-
         public void conectar()
         {
             conexion = new ClienteTcp(this);

@@ -3,7 +3,6 @@ using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,14 +58,13 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_lanzado_index = 0;
             esperando_sequencia_fin = true;
 
-            await Task.Delay(300);
+            await Task.Delay(400);
 
             if (configuracion.hechizos.Count == 0 || !cuenta.juego.pelea.get_Enemigos.Any())
             {
                 await get_Fin_Turno();
                 return;
             }
-
             await get_Procesar_hechizo();
         }
 
@@ -90,7 +88,6 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             }
 
             ResultadoLanzandoHechizo resultado = await manejador_hechizos.manejador_Hechizos(hechizo_actual);
-
             switch (resultado)
             {
                 case ResultadoLanzandoHechizo.NO_LANZADO:
@@ -125,7 +122,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 return;
             }
 
-            pelea.actualizar_Hechizo_Exito(configuracion.hechizos[hechizo_lanzado_index].id, celda_id);
+            pelea.actualizar_Hechizo_Exito(celda_id, configuracion.hechizos[hechizo_lanzado_index].id);
             await get_Procesar_hechizo();
         }
 
@@ -157,7 +154,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_actual.lanzamientos_restantes = hechizo_actual.lanzamientos_x_turno;
             hechizo_lanzado_index++;
 
-            await Task.Delay(400);
+            await Task.Delay(350 + cuenta.conexion.get_Actual_Ping());
             await get_Procesar_hechizo();
         }
 

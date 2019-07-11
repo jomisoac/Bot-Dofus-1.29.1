@@ -39,6 +39,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
         }
 
         public void responder(short respuesta_id) => manejador_acciones.enqueue_Accion(new RespuestaAccion(respuesta_id), true);
+        public void cerrar(short respuesta_id) => manejador_acciones.enqueue_Accion(new CerrarDialogoAccion(), true);
 
         #region Zona Dispose
         ~NpcAPI() => Dispose(false);

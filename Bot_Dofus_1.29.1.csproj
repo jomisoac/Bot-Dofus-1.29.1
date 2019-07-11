@@ -186,6 +186,7 @@
       <DependentUpon>UI_Debugger.cs</DependentUpon>
     </Compile>
     <Compile Include="Otros\Cuenta.cs" />
+    <Compile Include="Otros\Game\Servidor\ServidorJuego.cs" />
     <Compile Include="Otros\Mapas\Entidades\Entidad.cs" />
     <Compile Include="Otros\Game\Manejadores\Interactivos\Interactivo.cs" />
     <Compile Include="Otros\Game\Manejadores\Manejador.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Otros\Scripts\Acciones\Global\DelayAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Inventario\EquiparItemAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Mapas\MoverCeldaAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Npcs\CerrarDialogoAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Npcs\NpcAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Npcs\NpcBancoAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Npcs\RespuestaAccion.cs" />

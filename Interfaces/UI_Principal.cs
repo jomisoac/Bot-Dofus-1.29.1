@@ -60,7 +60,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     cuenta.grupo.desconectar_Cuentas();
                 else if (cuenta.tiene_grupo)
                     cuenta.grupo.eliminar_Miembro(cuenta);
-                    
+
                 cuenta.Dispose();
                 Principal.cuentas_cargadas[nombre_cuenta].contenido.Dispose();
                 Principal.cuentas_cargadas.Remove(nombre_cuenta);
@@ -134,15 +134,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 case EstadoCuenta.DESCONECTADO:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_rojo);
-                break;
+                    break;
 
                 case EstadoCuenta.CONECTANDO:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_naranja);
-                break;
+                    break;
 
                 default:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_verde);
-                break;
+                    break;
             }
 
             if (cuenta != null && Principal.cuentas_cargadas.ContainsKey(nombre_cuenta))
@@ -194,45 +194,49 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             if (e.KeyCode == Keys.Enter && textBox_enviar_consola.TextLength > 0 && textBox_enviar_consola.TextLength < 255)
             {
-                if (cuenta.juego.personaje != null && cuenta.Estado_Cuenta != EstadoCuenta.CONECTANDO)
+                switch (textBox_enviar_consola.Text.ToUpper())
                 {
-                    switch (textBox_enviar_consola.Text.ToUpper())
-                    {
-                        case "/MAPID":
-                            escribir_mensaje(cuenta.juego.mapa.id.ToString(), "0040FF");
-                        break;
+                    case "/MAPID":
+                        escribir_mensaje(cuenta.juego.mapa.id.ToString(), "0040FF");
+                    break;
 
-                        case "/CELLID":
-                            escribir_mensaje(cuenta.juego.personaje.celda.id.ToString(), "0040FF");
-                        break;
+                    case "/CELLID":
+                        escribir_mensaje(cuenta.juego.personaje.celda.id.ToString(), "0040FF");
+                    break;
 
-                        default:
-                            switch (comboBox_lista_canales.SelectedIndex)
-                            {
-                                case 0://General
-                                    cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|");
+                    case "/PING":
+                        if (cuenta.conexion != null)
+                            cuenta.conexion.enviar_Paquete("ping", true);
+                        else
+                            escribir_mensaje("No estas conectado a dofus", "0040FF");
+                    break;
+
+                    default:
+                        switch (comboBox_lista_canales.SelectedIndex)
+                        {
+                            case 0://General
+                                cuenta.conexion.enviar_Paquete("BM*|" + textBox_enviar_consola.Text + "|", true);
                                 break;
 
-                                case 1://Reclutamiento
-                                    cuenta.conexion.enviar_Paquete("BM?|" + textBox_enviar_consola.Text + "|");
+                            case 1://Reclutamiento
+                                cuenta.conexion.enviar_Paquete("BM?|" + textBox_enviar_consola.Text + "|", true);
                                 break;
 
-                                case 2://Comercio
-                                    cuenta.conexion.enviar_Paquete("BM:|" + textBox_enviar_consola.Text + "|");
+                            case 2://Comercio
+                                cuenta.conexion.enviar_Paquete("BM:|" + textBox_enviar_consola.Text + "|", true);
                                 break;
 
-                                case 3://Mensaje privado
-                                    cuenta.conexion.enviar_Paquete("BM" + textBox_nombre_privado.Text + "|" + textBox_enviar_consola.Text + "|");
+                            case 3://Mensaje privado
+                                cuenta.conexion.enviar_Paquete("BM" + textBox_nombre_privado.Text + "|" + textBox_enviar_consola.Text + "|", true);
                                 break;
-                            }
-                            break;
-                    }
-
-                    e.Handled = true;
-                    e.SuppressKeyPress = true;
-                    textBox_nombre_privado.Clear();
-                    textBox_enviar_consola.Clear();
+                        }
+                    break;
                 }
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                textBox_nombre_privado.Clear();
+                textBox_enviar_consola.Clear();
             }
         }
 
