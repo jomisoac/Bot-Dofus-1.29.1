@@ -1,5 +1,5 @@
-# TOTALMENTE GRATUITO
-## By Aidemu
+# TOTALEMENT GRATUIT
+## By Aidemu 
 
 ![Grid](https://i.imgur.com/Sc69RlL.png)
 ![Grid](https://i.imgur.com/GUtCEAV.png)
