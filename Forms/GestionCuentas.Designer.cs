@@ -101,7 +101,7 @@
             this.tabControlPrincipalCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControlPrincipalCuentas.Name = "tabControlPrincipalCuentas";
             this.tabControlPrincipalCuentas.SelectedIndex = 0;
-            this.tabControlPrincipalCuentas.Size = new System.Drawing.Size(463, 398);
+            this.tabControlPrincipalCuentas.Size = new System.Drawing.Size(461, 390);
             this.tabControlPrincipalCuentas.TabIndex = 0;
             // 
             // ListaCuentas
@@ -112,9 +112,9 @@
             this.ListaCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ListaCuentas.Name = "ListaCuentas";
             this.ListaCuentas.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ListaCuentas.Size = new System.Drawing.Size(455, 362);
+            this.ListaCuentas.Size = new System.Drawing.Size(453, 354);
             this.ListaCuentas.TabIndex = 0;
-            this.ListaCuentas.Text = "Lista de cuentas";
+            this.ListaCuentas.Text = "Liste des comptes";
             this.ListaCuentas.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
@@ -129,7 +129,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 87.00565F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.99435F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(449, 354);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(447, 346);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -140,12 +140,12 @@
             this.tableLayoutPanel2.Controls.Add(this.pictureBox_informacion, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label_informacionClickCuentas, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 311);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 304);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(443, 40);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(441, 39);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // pictureBox_informacion
@@ -154,7 +154,7 @@
             this.pictureBox_informacion.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
             this.pictureBox_informacion.Location = new System.Drawing.Point(3, 3);
             this.pictureBox_informacion.Name = "pictureBox_informacion";
-            this.pictureBox_informacion.Size = new System.Drawing.Size(38, 34);
+            this.pictureBox_informacion.Size = new System.Drawing.Size(38, 33);
             this.pictureBox_informacion.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_informacion.TabIndex = 0;
             this.pictureBox_informacion.TabStop = false;
@@ -165,10 +165,10 @@
             this.label_informacionClickCuentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_informacionClickCuentas.Location = new System.Drawing.Point(47, 0);
             this.label_informacionClickCuentas.Name = "label_informacionClickCuentas";
-            this.label_informacionClickCuentas.Size = new System.Drawing.Size(393, 40);
+            this.label_informacionClickCuentas.Size = new System.Drawing.Size(391, 39);
             this.label_informacionClickCuentas.TabIndex = 1;
-            this.label_informacionClickCuentas.Text = "Haz clic derecho para conectar/modificar/eliminar una cuenta\r\nDoble clic encima d" +
-    "e una cuenta para conectarla";
+            this.label_informacionClickCuentas.Text = "Clic droit pour connecter/modifier/supprimer un compte\\r\\r\\double clic sur un com" +
+    "pte pour le connecter";
             this.label_informacionClickCuentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // listViewCuentas
@@ -185,7 +185,7 @@
             this.listViewCuentas.Location = new System.Drawing.Point(3, 4);
             this.listViewCuentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewCuentas.Name = "listViewCuentas";
-            this.listViewCuentas.Size = new System.Drawing.Size(443, 300);
+            this.listViewCuentas.Size = new System.Drawing.Size(441, 293);
             this.listViewCuentas.TabIndex = 1;
             this.listViewCuentas.UseCompatibleStateImageBehavior = false;
             this.listViewCuentas.View = System.Windows.Forms.View.Details;
@@ -194,34 +194,35 @@
             // 
             // ColumnaNombreCuenta
             // 
-            this.ColumnaNombreCuenta.Text = "Nombre de Cuenta";
+            this.ColumnaNombreCuenta.Text = "Nom de compte";
             this.ColumnaNombreCuenta.Width = 148;
             // 
             // ColumnaNombreServidor
             // 
-            this.ColumnaNombreServidor.Text = "Servidor";
+            this.ColumnaNombreServidor.Text = "Serveur";
             this.ColumnaNombreServidor.Width = 107;
             // 
             // ColumnaNombrePersonaje
             // 
-            this.ColumnaNombrePersonaje.Text = "Nombre del personaje";
+            this.ColumnaNombrePersonaje.Text = "Nom du personnage";
             this.ColumnaNombrePersonaje.Width = 184;
             // 
             // contextMenuStripFormCuentas
             // 
+            this.contextMenuStripFormCuentas.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStripFormCuentas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.conectarToolStripMenuItem,
             this.modificarToolStripMenuItem,
             this.eliminarToolStripMenuItem});
             this.contextMenuStripFormCuentas.Name = "contextMenuStripFormCuentas";
-            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(126, 70);
+            this.contextMenuStripFormCuentas.Size = new System.Drawing.Size(168, 82);
             // 
             // conectarToolStripMenuItem
             // 
             this.conectarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.flecha_direccion_izquierda;
             this.conectarToolStripMenuItem.Name = "conectarToolStripMenuItem";
-            this.conectarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.conectarToolStripMenuItem.Text = "Conectar";
+            this.conectarToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.conectarToolStripMenuItem.Text = "Connexion";
             this.conectarToolStripMenuItem.Click += new System.EventHandler(this.conectarToolStripMenuItem_Click);
             // 
             // modificarToolStripMenuItem
@@ -232,36 +233,36 @@
             this.nombreDelPersonajeToolStripMenuItem});
             this.modificarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_ajustes;
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.modificarToolStripMenuItem.Text = "Modificar";
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.modificarToolStripMenuItem.Text = "Modification";
             // 
             // cuentaToolStripMenuItem
             // 
             this.cuentaToolStripMenuItem.Name = "cuentaToolStripMenuItem";
-            this.cuentaToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.cuentaToolStripMenuItem.Text = "Cuenta";
+            this.cuentaToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
+            this.cuentaToolStripMenuItem.Text = "Compte";
             this.cuentaToolStripMenuItem.Click += new System.EventHandler(this.modificar_Cuenta);
             // 
             // contraseñaToolStripMenuItem
             // 
             this.contraseñaToolStripMenuItem.Name = "contraseñaToolStripMenuItem";
-            this.contraseñaToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.contraseñaToolStripMenuItem.Text = "Contraseña";
+            this.contraseñaToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
+            this.contraseñaToolStripMenuItem.Text = "Mot de passe";
             this.contraseñaToolStripMenuItem.Click += new System.EventHandler(this.modificar_Cuenta);
             // 
             // nombreDelPersonajeToolStripMenuItem
             // 
             this.nombreDelPersonajeToolStripMenuItem.Name = "nombreDelPersonajeToolStripMenuItem";
-            this.nombreDelPersonajeToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.nombreDelPersonajeToolStripMenuItem.Text = "Nombre del personaje";
+            this.nombreDelPersonajeToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
+            this.nombreDelPersonajeToolStripMenuItem.Text = "Nom du personnage";
             this.nombreDelPersonajeToolStripMenuItem.Click += new System.EventHandler(this.modificar_Cuenta);
             // 
             // eliminarToolStripMenuItem
             // 
             this.eliminarToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.cruz_roja;
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.eliminarToolStripMenuItem.Text = "Retiré";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // AgregarCuenta
@@ -272,9 +273,9 @@
             this.AgregarCuenta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AgregarCuenta.Name = "AgregarCuenta";
             this.AgregarCuenta.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.AgregarCuenta.Size = new System.Drawing.Size(455, 362);
+            this.AgregarCuenta.Size = new System.Drawing.Size(453, 354);
             this.AgregarCuenta.TabIndex = 1;
-            this.AgregarCuenta.Text = "Agregar una cuenta";
+            this.AgregarCuenta.Text = "Ajouter un compte";
             this.AgregarCuenta.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel3
@@ -292,7 +293,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.28571F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.714286F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(449, 354);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(447, 346);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -308,7 +309,7 @@
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(443, 35);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(441, 34);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // pictureBox_informacion_agregar_cuenta
@@ -317,7 +318,7 @@
             this.pictureBox_informacion_agregar_cuenta.Image = global::Bot_Dofus_1._29._1.Properties.Resources.informacion;
             this.pictureBox_informacion_agregar_cuenta.Location = new System.Drawing.Point(3, 3);
             this.pictureBox_informacion_agregar_cuenta.Name = "pictureBox_informacion_agregar_cuenta";
-            this.pictureBox_informacion_agregar_cuenta.Size = new System.Drawing.Size(31, 29);
+            this.pictureBox_informacion_agregar_cuenta.Size = new System.Drawing.Size(30, 28);
             this.pictureBox_informacion_agregar_cuenta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_informacion_agregar_cuenta.TabIndex = 1;
             this.pictureBox_informacion_agregar_cuenta.TabStop = false;
@@ -326,13 +327,13 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(40, 0);
+            this.label1.Location = new System.Drawing.Point(39, 0);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(400, 35);
+            this.label1.Size = new System.Drawing.Size(399, 34);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Deja el campo \"personaje\" en blanco si quieres que el bot conecte el primer perso" +
-    "naje de la cuenta";
+            this.label1.Text = "Laissez le champ \"Personnage\" vide si vous voulez que le robot connecte la premiè" +
+    "re personne sur le compte.";
             // 
             // checkBox_Agregar_Retroceder
             // 
@@ -340,11 +341,11 @@
             this.checkBox_Agregar_Retroceder.Checked = true;
             this.checkBox_Agregar_Retroceder.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_Agregar_Retroceder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox_Agregar_Retroceder.Location = new System.Drawing.Point(3, 329);
+            this.checkBox_Agregar_Retroceder.Location = new System.Drawing.Point(3, 321);
             this.checkBox_Agregar_Retroceder.Name = "checkBox_Agregar_Retroceder";
-            this.checkBox_Agregar_Retroceder.Size = new System.Drawing.Size(443, 22);
+            this.checkBox_Agregar_Retroceder.Size = new System.Drawing.Size(441, 22);
             this.checkBox_Agregar_Retroceder.TabIndex = 51;
-            this.checkBox_Agregar_Retroceder.Text = "Regresar a la pestaña \"Lista de cuentas\" despues de agregar la cuenta";
+            this.checkBox_Agregar_Retroceder.Text = "Retour à l\'onglet \"Liste des comptes\" après l\'ajout du compte";
             this.checkBox_Agregar_Retroceder.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel5
@@ -354,12 +355,12 @@
             this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel6, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.boton_Agregar_Cuenta, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 44);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 43);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 87.63636F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.36364F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(443, 279);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(441, 272);
             this.tableLayoutPanel5.TabIndex = 5;
             // 
             // tableLayoutPanel6
@@ -383,7 +384,7 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(437, 238);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(435, 232);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // label_Nombre_Cuenta
@@ -393,9 +394,9 @@
             this.label_Nombre_Cuenta.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Nombre_Cuenta.Location = new System.Drawing.Point(3, 0);
             this.label_Nombre_Cuenta.Name = "label_Nombre_Cuenta";
-            this.label_Nombre_Cuenta.Size = new System.Drawing.Size(120, 59);
+            this.label_Nombre_Cuenta.Size = new System.Drawing.Size(120, 58);
             this.label_Nombre_Cuenta.TabIndex = 1;
-            this.label_Nombre_Cuenta.Text = "Cuenta:";
+            this.label_Nombre_Cuenta.Text = "Compte:";
             this.label_Nombre_Cuenta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_Password
@@ -403,11 +404,11 @@
             this.label_Password.AutoSize = true;
             this.label_Password.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_Password.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.label_Password.Location = new System.Drawing.Point(3, 59);
+            this.label_Password.Location = new System.Drawing.Point(3, 58);
             this.label_Password.Name = "label_Password";
-            this.label_Password.Size = new System.Drawing.Size(120, 59);
+            this.label_Password.Size = new System.Drawing.Size(120, 58);
             this.label_Password.TabIndex = 3;
-            this.label_Password.Text = "Contraseña:";
+            this.label_Password.Text = "Mot de passe:";
             this.label_Password.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_Eleccion_Servidor
@@ -415,11 +416,11 @@
             this.label_Eleccion_Servidor.AutoSize = true;
             this.label_Eleccion_Servidor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_Eleccion_Servidor.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.label_Eleccion_Servidor.Location = new System.Drawing.Point(3, 118);
+            this.label_Eleccion_Servidor.Location = new System.Drawing.Point(3, 116);
             this.label_Eleccion_Servidor.Name = "label_Eleccion_Servidor";
-            this.label_Eleccion_Servidor.Size = new System.Drawing.Size(120, 59);
+            this.label_Eleccion_Servidor.Size = new System.Drawing.Size(120, 58);
             this.label_Eleccion_Servidor.TabIndex = 5;
-            this.label_Eleccion_Servidor.Text = "Servidor:";
+            this.label_Eleccion_Servidor.Text = "Serveur:";
             this.label_Eleccion_Servidor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_Nombre_Personaje
@@ -427,11 +428,11 @@
             this.label_Nombre_Personaje.AutoSize = true;
             this.label_Nombre_Personaje.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_Nombre_Personaje.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.label_Nombre_Personaje.Location = new System.Drawing.Point(3, 177);
+            this.label_Nombre_Personaje.Location = new System.Drawing.Point(3, 174);
             this.label_Nombre_Personaje.Name = "label_Nombre_Personaje";
-            this.label_Nombre_Personaje.Size = new System.Drawing.Size(120, 61);
+            this.label_Nombre_Personaje.Size = new System.Drawing.Size(120, 58);
             this.label_Nombre_Personaje.TabIndex = 7;
-            this.label_Nombre_Personaje.Text = "Personaje:";
+            this.label_Nombre_Personaje.Text = "Personnage:";
             this.label_Nombre_Personaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel7
@@ -440,22 +441,22 @@
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.Controls.Add(this.textBox_nombre_personaje, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(129, 180);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(129, 177);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 3;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(305, 55);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(303, 52);
             this.tableLayoutPanel7.TabIndex = 4;
             // 
             // textBox_nombre_personaje
             // 
             this.textBox_nombre_personaje.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_nombre_personaje.Location = new System.Drawing.Point(3, 21);
+            this.textBox_nombre_personaje.Location = new System.Drawing.Point(3, 20);
             this.textBox_nombre_personaje.MaxLength = 25;
             this.textBox_nombre_personaje.Name = "textBox_nombre_personaje";
-            this.textBox_nombre_personaje.Size = new System.Drawing.Size(299, 25);
+            this.textBox_nombre_personaje.Size = new System.Drawing.Size(297, 29);
             this.textBox_nombre_personaje.TabIndex = 5;
             // 
             // tableLayoutPanel8
@@ -464,13 +465,13 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.Controls.Add(this.comboBox_Servidor, 0, 1);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(129, 121);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(129, 119);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 3;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.39F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.61F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(305, 53);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(303, 52);
             this.tableLayoutPanel8.TabIndex = 3;
             // 
             // comboBox_Servidor
@@ -480,10 +481,18 @@
             this.comboBox_Servidor.FormattingEnabled = true;
             this.comboBox_Servidor.Items.AddRange(new object[] {
             "Eratz",
-            "Henual"});
+            "Henual",
+            "Clustus",
+            "Nabur",
+            "Arty",
+            "Agathe",
+            "Hogmeiser",
+            "Droupik",
+            "Bilby",
+            "Ayuto"});
             this.comboBox_Servidor.Location = new System.Drawing.Point(3, 16);
             this.comboBox_Servidor.Name = "comboBox_Servidor";
-            this.comboBox_Servidor.Size = new System.Drawing.Size(299, 25);
+            this.comboBox_Servidor.Size = new System.Drawing.Size(297, 29);
             this.comboBox_Servidor.TabIndex = 6;
             // 
             // tableLayoutPanel9
@@ -492,13 +501,13 @@
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.Controls.Add(this.textBox_Password, 0, 1);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(129, 62);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(129, 61);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 3;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(305, 53);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(303, 52);
             this.tableLayoutPanel9.TabIndex = 2;
             // 
             // textBox_Password
@@ -507,7 +516,7 @@
             this.textBox_Password.Location = new System.Drawing.Point(3, 20);
             this.textBox_Password.MaxLength = 25;
             this.textBox_Password.Name = "textBox_Password";
-            this.textBox_Password.Size = new System.Drawing.Size(299, 25);
+            this.textBox_Password.Size = new System.Drawing.Size(297, 29);
             this.textBox_Password.TabIndex = 4;
             // 
             // tableLayoutPanel10
@@ -522,7 +531,7 @@
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(305, 53);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(303, 52);
             this.tableLayoutPanel10.TabIndex = 1;
             // 
             // textBox_Nombre_Cuenta
@@ -531,17 +540,17 @@
             this.textBox_Nombre_Cuenta.Location = new System.Drawing.Point(3, 20);
             this.textBox_Nombre_Cuenta.MaxLength = 25;
             this.textBox_Nombre_Cuenta.Name = "textBox_Nombre_Cuenta";
-            this.textBox_Nombre_Cuenta.Size = new System.Drawing.Size(299, 25);
+            this.textBox_Nombre_Cuenta.Size = new System.Drawing.Size(297, 29);
             this.textBox_Nombre_Cuenta.TabIndex = 2;
             // 
             // boton_Agregar_Cuenta
             // 
             this.boton_Agregar_Cuenta.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.boton_Agregar_Cuenta.Location = new System.Drawing.Point(3, 247);
+            this.boton_Agregar_Cuenta.Location = new System.Drawing.Point(3, 241);
             this.boton_Agregar_Cuenta.Name = "boton_Agregar_Cuenta";
-            this.boton_Agregar_Cuenta.Size = new System.Drawing.Size(437, 29);
+            this.boton_Agregar_Cuenta.Size = new System.Drawing.Size(435, 28);
             this.boton_Agregar_Cuenta.TabIndex = 9;
-            this.boton_Agregar_Cuenta.Text = "Agregar cuenta";
+            this.boton_Agregar_Cuenta.Text = "Ajoutez le compte";
             this.boton_Agregar_Cuenta.UseVisualStyleBackColor = true;
             this.boton_Agregar_Cuenta.Click += new System.EventHandler(this.boton_Agregar_Cuenta_Click);
             // 
@@ -553,7 +562,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(455, 362);
             this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Agregar varias cuentas";
+            this.tabPage1.Text = "Ajouter plusieurs comptes";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // imagenesFormCuentas
@@ -565,9 +574,9 @@
             // 
             // GestionCuentas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 398);
+            this.ClientSize = new System.Drawing.Size(461, 390);
             this.Controls.Add(this.tabControlPrincipalCuentas);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -579,7 +588,7 @@
             this.Name = "GestionCuentas";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Gestor cuentas";
+            this.Text = "Gestionnaire de compte";
             this.tabControlPrincipalCuentas.ResumeLayout(false);
             this.ListaCuentas.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
