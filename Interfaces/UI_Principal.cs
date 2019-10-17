@@ -32,8 +32,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void UI_Principal_Load(object sender, EventArgs e)
         {
-            desconectarOconectarToolStripMenuItem.Text = "Conectar";
-            escribir_mensaje($"[{DateTime.Now.ToString("HH:mm:ss")}] -> [INFORMACIÓN] Bot creado por Alvaro, http://www.salesprendes.com versión: {Application.ProductVersion} alpha", LogTipos.ERROR.ToString("X"));
+            desconectarOconectarToolStripMenuItem.Text = "Connecté";
+            escribir_mensaje($"[{DateTime.Now.ToString("HH:mm:ss")}] -> [INFORMATION] Bot crée par Alvaro revue par Dyshay, http://www.salesprendes.com version: 1.0.0", LogTipos.ERROR.ToString("X"));
 
             cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
             cuenta.cuenta_desconectada += desconectar_Cuenta;
@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             cuenta.juego.personaje.personaje_seleccionado += personaje_Seleccionado;
 
             if (cuenta.tiene_grupo)
-                escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] -> El líder del grupo es: " + cuenta.grupo.lider.configuracion.nombre_cuenta, LogTipos.ERROR.ToString("X"));
+                escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] -> Le chef de groupe est: " + cuenta.grupo.lider.configuracion.nombre_cuenta, LogTipos.ERROR.ToString("X"));
         }
 
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -77,7 +77,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void desconectarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (desconectarOconectarToolStripMenuItem.Text.Equals("Conectar"))
+            if (desconectarOconectarToolStripMenuItem.Text.Equals("Connecté"))
             {
                 while (tabControl_principal.TabPages.Count > 2)
                     tabControl_principal.TabPages.RemoveAt(2);
@@ -88,9 +88,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 cuenta.conexion.paquete_enviado += debugger.paquete_Enviado;
                 cuenta.conexion.socket_informacion += get_Mensajes_Socket_Informacion;
 
-                desconectarOconectarToolStripMenuItem.Text = "Desconectar";
+                desconectarOconectarToolStripMenuItem.Text = "Déconnecté";
             }
-            else if (desconectarOconectarToolStripMenuItem.Text.Equals("Desconectar"))
+            else if (desconectarOconectarToolStripMenuItem.Text.Equals("Connecté"))
                 cuenta.desconectar();
         }
 
@@ -106,7 +106,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 for (int i = 2; i < tabControl_principal.TabPages.Count; ++i)
                     tabControl_principal.TabPages[i].Enabled = false;
 
-                desconectarOconectarToolStripMenuItem.Text = "Conectar";
+                desconectarOconectarToolStripMenuItem.Text = "Connecté";
             }));
         }
 
@@ -252,7 +252,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             {
                 using (OpenFileDialog ofd = new OpenFileDialog())
                 {
-                    ofd.Title = "Selecciona el script para el bot";
+                    ofd.Title = "Sélectionnez le script pour le bot";
                     ofd.Filter = "Extension (.lua) | *.lua";
 
                     if (ofd.ShowDialog() == DialogResult.OK)
@@ -295,15 +295,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void servidor_Seleccionado()
         {
-            agregar_Tab_Pagina("Personaje", new UI_Personaje(cuenta), 2);
-            agregar_Tab_Pagina("Inventario", new UI_Inventario(cuenta), 3);
+            agregar_Tab_Pagina("Personnage", new UI_Personaje(cuenta), 2);
+            agregar_Tab_Pagina("Inventaire", new UI_Inventario(cuenta), 3);
         }
 
         private void personaje_Seleccionado()
         {
             cuenta.pelea_extension.configuracion.cargar();
-            agregar_Tab_Pagina("Mapa", new UI_Mapa(cuenta), 4);
-            agregar_Tab_Pagina("Combates", new UI_Pelea(cuenta), 5);
+            agregar_Tab_Pagina("Map", new UI_Mapa(cuenta), 4);
+            agregar_Tab_Pagina("Combat", new UI_Pelea(cuenta), 5);
 
             cambiar_Todos_Controles_Chat(true);
             cargar_Canales_Chat();
@@ -311,7 +311,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         #endregion
 
         #region Mensajes
-        private void get_Mensajes_Socket_Informacion(object error) => escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] [Conexión] " + error, LogTipos.PELIGRO.ToString("X"));
+        private void get_Mensajes_Socket_Informacion(object error) => escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] [Connexion] " + error, LogTipos.PELIGRO.ToString("X"));
 
         private void escribir_mensaje(string mensaje, string color)
         {
@@ -339,7 +339,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void evento_Scripts_Cargado(string nombre)
         {
-            cuenta.logger.log_informacion("SCRIPT", $"'{nombre}' cargado.");
+            cuenta.logger.log_informacion("SCRIPT", $"'{nombre}' chargée.");
             BeginInvoke((Action)(() =>
             {
                 ScriptTituloStripMenuItem.Text = $"{(nombre.Length > 16 ? nombre.Substring(0, 16) : nombre)}";
@@ -349,7 +349,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void evento_Scripts_Iniciado()
         {
-            cuenta.logger.log_informacion("SCRIPT", "Iniciado");
+            cuenta.logger.log_informacion("SCRIPT", "Initié");
             BeginInvoke((Action)(() =>
             {
                 cargarScriptToolStripMenuItem.Enabled = false;
@@ -360,9 +360,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void evento_Scripts_Detenido(string motivo)
         {
             if (string.IsNullOrEmpty(motivo))
-                cuenta.logger.log_informacion("SCRIPT", "Detenido");
+                cuenta.logger.log_informacion("SCRIPT", "Arrêté");
             else
-                cuenta.logger.log_informacion("SCRIPT", $"Detenido {motivo}");
+                cuenta.logger.log_informacion("SCRIPT", $"Arrêté à cause de {motivo}");
 
             BeginInvoke((Action)(() =>
             {

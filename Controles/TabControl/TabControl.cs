@@ -34,10 +34,10 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
         public Pagina agregar_Nueva_Pagina(string titulo)
         {
             if (string.IsNullOrEmpty(titulo))
-                throw new ArgumentNullException("Nombre de la cuenta vacía");
+                throw new ArgumentNullException("Nom de compte vide");
 
             if (paginas.ContainsKey(titulo))
-                throw new InvalidOperationException("Ya existe una cuenta cargada con este nombre");
+                throw new InvalidOperationException("Il y a déjà un compte chargé avec ce nom");
 
             if (panelCabezeraCuentas.Controls.Count > 0)
             {
@@ -135,7 +135,7 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
                 }
                 else
                 {
-                    throw new InvalidOperationException("No se puede seleccionar una página que no existe.");
+                    throw new InvalidOperationException("Vous ne pouvez pas sélectionner une page qui n'existe pas.");
                 }
             }
             else

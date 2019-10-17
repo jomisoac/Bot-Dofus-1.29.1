@@ -17,35 +17,35 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
         [PaqueteAtributo("AlEf")]
         public void get_Error_Datos(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "Conexión rechazada. Nombre de cuenta o contraseña incorrectos.");
+            cliente.cuenta.logger.log_Error("LOGIN", "Connexion rejetée. Nom de compte ou mot de passe incorrect.");
             cliente.cuenta.desconectar();
         }
 
         [PaqueteAtributo("AlEa")]
         public void get_Error_Ya_Conectado(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "Ya conectado. Inténtalo de nuevo.");
+            cliente.cuenta.logger.log_Error("LOGIN", "Déjà connecté. Essayez encore une fois.");
             cliente.cuenta.desconectar();
         }
 
         [PaqueteAtributo("AlEv")]
         public void get_Error_Version(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "La versión %1 de Dofus que tienes instalada no es compatible con este servidor. Para poder jugar, instala la versión %2. El cliente DOFUS se va a cerrar.");
+            cliente.cuenta.logger.log_Error("LOGIN", "La version %1 de Dofus que vous avez installée n'est pas compatible avec ce serveur. Pour jouer, installez la version %2. Le client DOFUS sera fermé.");
             cliente.cuenta.desconectar();
         }
 
         [PaqueteAtributo("AlEb")]
         public void get_Error_Baneado(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "Conexión rechazada. Tu cuenta ha sido baneada.");
+            cliente.cuenta.logger.log_Error("LOGIN", "Connexion rejetée. Votre compte a été banni.");
             cliente.cuenta.desconectar();
         }
 
         [PaqueteAtributo("AlEd")]
         public void get_Error_Conectado(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "Esta cuenta ya está conectada a un servidor de juego. Por favor, inténtalo de nuevo.");
+            cliente.cuenta.logger.log_Error("LOGIN", "Ce compte est déjà connecté à un serveur de jeu. Veuillez réessayer.");
             cliente.cuenta.desconectar();
         }
 
@@ -54,14 +54,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
         {
             string[] informacion_ban = paquete.Substring(3).Split('|');
             int dias = int.Parse(informacion_ban[0].Substring(1)), horas = int.Parse(informacion_ban[1]), minutos = int.Parse(informacion_ban[2]);
-            StringBuilder mensaje = new StringBuilder().Append("Tu cuenta estará inválida durante ");
+            StringBuilder mensaje = new StringBuilder().Append("Votre compte sera invalide pendant ");
 
             if (dias > 0)
-                mensaje.Append(dias + " días");
+                mensaje.Append(dias + " jour(s)");
             if (horas > 0)
-                mensaje.Append(horas + " con horas");
+                mensaje.Append(horas + " heures");
             if (minutos > 0)
-                mensaje.Append(minutos + " y minutos");
+                mensaje.Append(minutos + " minutes");
 
             cliente.cuenta.logger.log_Error("LOGIN", mensaje.ToString());
             cliente.cuenta.desconectar();

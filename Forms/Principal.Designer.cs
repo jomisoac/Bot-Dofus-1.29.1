@@ -52,7 +52,7 @@
             this.gestionDeCuentasToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.gestion_cuentas;
             this.gestionDeCuentasToolStripMenuItem.Name = "gestionDeCuentasToolStripMenuItem";
             this.gestionDeCuentasToolStripMenuItem.Size = new System.Drawing.Size(135, 20);
-            this.gestionDeCuentasToolStripMenuItem.Text = "Gestión de cuentas";
+            this.gestionDeCuentasToolStripMenuItem.Text = "Gestion des comptes";
             this.gestionDeCuentasToolStripMenuItem.Click += new System.EventHandler(this.gestionDeCuentasToolStripMenuItem_Click);
             // 
             // opcionesToolStripMenuItem
@@ -60,7 +60,7 @@
             this.opcionesToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_ajustes;
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
-            this.opcionesToolStripMenuItem.Text = "Ajustes";
+            this.opcionesToolStripMenuItem.Text = "Paramètres";
             this.opcionesToolStripMenuItem.Click += new System.EventHandler(this.opcionesToolStripMenuItem_Click);
             // 
             // statusStripInferiorPrincipal
@@ -93,7 +93,7 @@
             this.MinimumSize = new System.Drawing.Size(996, 700);
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BotDofus 1.29.1 - Alvaro Prendes";
+            this.Text = "Bot Retro - Alvaro Prendes & Dyshay";
             this.menuSuperiorPrincipal.ResumeLayout(false);
             this.menuSuperiorPrincipal.PerformLayout();
             this.ResumeLayout(false);
