@@ -81,7 +81,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
                     if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
                     {
-                        cuenta.logger.log_Peligro("SCRIPT", "Error al lanzar la pelea, los monstruos pudieron haberse movido o sido robados!");
+                        cuenta.logger.log_Peligro("SCRIPT", "Erreur en lançant le combat, les monstres ont pu se déplacer ou être volés !");
                         acciones_Salida(0);
                     }
                 }
@@ -91,10 +91,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 if (es_correcto)
                     acciones_Salida(0);
                 else
-                    cuenta.script.detener_Script("error al mover a la celda" + celda.celda_id);
+                    cuenta.script.detener_Script("erreur lors du déplacement vers la cellule" + celda.celda_id);
             }
             else if (accion_actual is CambiarMapaAccion && !es_correcto)
-                cuenta.script.detener_Script("error al cambiar de mapa");
+                cuenta.script.detener_Script("erreur lors du changement de carte");
         }
 
         private void get_Recoleccion_Iniciada()
@@ -106,8 +106,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             {
                 contador_recoleccion++;
 
-                if (manejador_script.get_Global_Or("MOSTRAR_CONTADOR_RECOLECCION", DataType.Boolean, false))
-                    cuenta.logger.log_informacion("SCRIPT", $"Recolección #{contador_recoleccion}");
+                if (manejador_script.get_Global_Or("COMPTEUR_RECOLTE", DataType.Boolean, false))
+                    cuenta.logger.log_informacion("SCRIPT", $"RECOLTE #{contador_recoleccion}");
             }
         }
 
@@ -121,7 +121,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 switch (resultado)
                 {
                     case RecoleccionResultado.FALLO:
-                        cuenta.script.detener_Script("Error recolectando");
+                        cuenta.script.detener_Script("Erreur de récolte");
                     break;
 
                     default:
@@ -142,8 +142,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 contador_peleas_mapa++;
                 contador_pelea++;
 
-                if (manejador_script.get_Global_Or("MOSTRAR_CONTADOR_PELEAS", DataType.Boolean, false))
-                    cuenta.logger.log_informacion("SCRIPT", $"Combate #{contador_pelea}");
+                if (manejador_script.get_Global_Or("COMPTEUR_COMBAT", DataType.Boolean, false))
+                    cuenta.logger.log_informacion("SCRIPT", $"Combat #{contador_pelea}");
             }
         }
 
@@ -248,7 +248,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 break;
 
                 case ResultadosAcciones.FALLO:
-                    cuenta.logger.log_Peligro("SCRIPT", $"{tipo} fallo al procesar.");
+                    cuenta.logger.log_Peligro("SCRIPT", $"{tipo} défaut de traitement");
                 break;
 
                 case ResultadosAcciones.PROCESANDO:
@@ -262,7 +262,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (!cuenta.script.corriendo)
                 return;
 
-            cuenta.logger.log_Peligro("SCRIPT", "Tiempo acabado");
+            cuenta.logger.log_Peligro("SCRIPT", "Temps de finition");
             cuenta.script.detener_Script();
             cuenta.script.activar_Script();
         }

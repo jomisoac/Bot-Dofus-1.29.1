@@ -45,16 +45,16 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
         {
             switch (direccion)
             {
-                case MapaTeleportCeldas.IZQUIERDA:
+                case MapaTeleportCeldas.LEFT:
                     return (celda.x - 1) == celda.y;
 
-                case MapaTeleportCeldas.DERECHA:
+                case MapaTeleportCeldas.RIGHT:
                     return (celda.x - 27) == celda.y;
 
-                case MapaTeleportCeldas.ABAJO:
+                case MapaTeleportCeldas.BOTTOM:
                     return (celda.x + celda.y) == 31;
 
-                case MapaTeleportCeldas.ARRIBA:
+                case MapaTeleportCeldas.TOP:
                     return celda.y < 0 && (celda.x - Math.Abs(celda.y)) == 1;
             }
 

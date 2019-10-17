@@ -108,7 +108,7 @@
             this.checkbox_debugger.Name = "checkbox_debugger";
             this.checkbox_debugger.Size = new System.Drawing.Size(80, 34);
             this.checkbox_debugger.TabIndex = 0;
-            this.checkbox_debugger.Text = "Activado";
+            this.checkbox_debugger.Text = "Activé";
             this.checkbox_debugger.UseVisualStyleBackColor = true;
             // 
             // button_limpiar_logs_debugger
@@ -119,7 +119,7 @@
             this.button_limpiar_logs_debugger.Name = "button_limpiar_logs_debugger";
             this.button_limpiar_logs_debugger.Size = new System.Drawing.Size(244, 34);
             this.button_limpiar_logs_debugger.TabIndex = 1;
-            this.button_limpiar_logs_debugger.Text = "Limpiar";
+            this.button_limpiar_logs_debugger.Text = "Nettoyé";
             this.button_limpiar_logs_debugger.UseVisualStyleBackColor = true;
             this.button_limpiar_logs_debugger.Click += new System.EventHandler(this.button_limpiar_logs_debugger_Click);
             // 
@@ -150,12 +150,12 @@
             // 
             // fecha
             // 
-            this.fecha.Text = "Fecha";
+            this.fecha.Text = "Date";
             this.fecha.Width = 70;
             // 
             // paquete
             // 
-            this.paquete.Text = "Paquete";
+            this.paquete.Text = "Paquet";
             this.paquete.Width = 260;
             // 
             // UI_Debugger

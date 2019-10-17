@@ -98,7 +98,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.desconectarOconectarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("desconectarOconectarToolStripMenuItem.Image")));
             this.desconectarOconectarToolStripMenuItem.Name = "desconectarOconectarToolStripMenuItem";
             this.desconectarOconectarToolStripMenuItem.Size = new System.Drawing.Size(123, 24);
-            this.desconectarOconectarToolStripMenuItem.Text = "Desconectar";
+            this.desconectarOconectarToolStripMenuItem.Text = "Deconnecté";
             this.desconectarOconectarToolStripMenuItem.Click += new System.EventHandler(this.desconectarToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
@@ -106,7 +106,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.eliminarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarToolStripMenuItem.Image")));
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(95, 24);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Text = "Retiré";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // ScriptTituloStripMenuItem
@@ -121,7 +121,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.cargarScriptToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.documento_azul;
             this.cargarScriptToolStripMenuItem.Name = "cargarScriptToolStripMenuItem";
             this.cargarScriptToolStripMenuItem.Size = new System.Drawing.Size(125, 24);
-            this.cargarScriptToolStripMenuItem.Text = "Cargar script";
+            this.cargarScriptToolStripMenuItem.Text = "Charger un script";
             this.cargarScriptToolStripMenuItem.Click += new System.EventHandler(this.cargarScriptToolStripMenuItem_Click);
             // 
             // iniciarScriptToolStripMenuItem
@@ -156,7 +156,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.tabPage_consola.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_consola.Size = new System.Drawing.Size(796, 507);
             this.tabPage_consola.TabIndex = 0;
-            this.tabPage_consola.Text = "Consola";
+            this.tabPage_consola.Text = "Console";
             this.tabPage_consola.UseVisualStyleBackColor = true;
             // 
             // tableLayout_Canales
@@ -348,9 +348,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.comboBox_lista_canales.FormattingEnabled = true;
             this.comboBox_lista_canales.Items.AddRange(new object[] {
             "General",
-            "Reclutamiento",
-            "Comercio",
-            "Mensaje Privado"});
+            "Recrutement",
+            "Commerce",
+            "Message Privé"});
             this.comboBox_lista_canales.Location = new System.Drawing.Point(3, 3);
             this.comboBox_lista_canales.Name = "comboBox_lista_canales";
             this.comboBox_lista_canales.Size = new System.Drawing.Size(131, 29);
