@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Threading;
 
-namespace Bot_Dofus_1._29._1.Utilidades.Criptografia
+namespace Bot_Dofus_1._29._1.Utilities.Crypto
 {
     internal class Randomize
     {
         private static int seed = Environment.TickCount;
         private static readonly ThreadLocal<Random> random = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
-        private static readonly object bloqueo = new object();
+        private static readonly object sema = new object();
 
-        public static int get_Random(int minimo, int maximo)
+        public static int get_Random(int min, int max)
         {
-            lock (bloqueo)
+            lock (sema)
             {
-                return minimo <= maximo ? random.Value.Next(minimo, maximo) : random.Value.Next(maximo, minimo);
+                return min <= max ? random.Value.Next(min, max) : random.Value.Next(max, min);
             }
         }
 
         public static double get_Random_Numero()
         {
-            lock (bloqueo)
+            lock (sema)
             {
                 return random.Value.NextDouble();
             }

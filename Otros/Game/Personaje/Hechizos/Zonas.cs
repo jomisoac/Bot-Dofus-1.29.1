@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using Bot_Dofus_1._29._1.Utilities.Crypto;
 
 namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos
 {

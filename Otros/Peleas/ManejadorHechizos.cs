@@ -4,7 +4,7 @@ using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+using Bot_Dofus_1._29._1.Utilities.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;

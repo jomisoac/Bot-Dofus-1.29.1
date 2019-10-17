@@ -1,5 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using Bot_Dofus_1._29._1.Utilities.Crypto;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,7 +69,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
             Celda celda_destino = camino.Last();
 
             if (camino.Count <= 2)
-                return celda_destino.get_Direccion_Char(camino.First()) + Hash.get_Celda_Char(celda_destino.id);
+                return celda_destino.get_Direccion_Char(camino.First()) + Hash.Get_Cell_Char(celda_destino.id);
 
             StringBuilder pathfinder = new StringBuilder();
             char direccion_anterior = camino[1].get_Direccion_Char(camino.First()), direccion_actual;
@@ -83,14 +83,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento
                 if (direccion_anterior != direccion_actual)
                 {
                     pathfinder.Append(direccion_anterior);
-                    pathfinder.Append(Hash.get_Celda_Char(celda_anterior.id));
+                    pathfinder.Append(Hash.Get_Cell_Char(celda_anterior.id));
 
                     direccion_anterior = direccion_actual;
                 }
             }
 
             pathfinder.Append(direccion_anterior);
-            pathfinder.Append(Hash.get_Celda_Char(celda_destino.id));
+            pathfinder.Append(Hash.Get_Cell_Char(celda_destino.id));
             return pathfinder.ToString();
         }
     }

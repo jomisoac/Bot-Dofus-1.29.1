@@ -166,7 +166,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
             }
             else
             {
-                cuenta.Estado_Cuenta = EstadoCuenta.RECOLECTANDO;
+                cuenta.Estado_Cuenta = AccountStates.GATHERING;
                 recoleccion_iniciada?.Invoke();
                 await Task.Delay(tiempo_delay);
                 cuenta.conexion.enviar_Paquete("GKK" + tipo_gkk);
@@ -180,7 +180,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
 
             robado = false;
             interactivo_recolectando = null;
-            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            cuenta.Estado_Cuenta = AccountStates.CONNECTED_INACTIVE;
             recoleccion_acabada?.Invoke(resultado);
         }
 

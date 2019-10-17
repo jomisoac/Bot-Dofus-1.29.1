@@ -2,7 +2,7 @@
 using Bot_Dofus_1._29._1.Interfaces;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Grupos;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+using Bot_Dofus_1._29._1.Utilities.Config;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,27 +38,27 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 if (gestion_cuentas.ShowDialog() == DialogResult.OK)
                 {
-                    List<CuentaConf> cuentas_para_cargar = gestion_cuentas.get_Cuentas_Cargadas();
+                    List<AccountConfig> cuentas_para_cargar = gestion_cuentas.get_Cuentas_Cargadas();
 
                     if (cuentas_para_cargar.Count < 2)
                     {
-                        CuentaConf cuenta_conf = cuentas_para_cargar[0];
-                        cuentas_cargadas.Add(cuenta_conf.nombre_cuenta, agregar_Nueva_Tab_Pagina(cuenta_conf.nombre_cuenta, new UI_Principal(new Cuenta(cuenta_conf)), "Ninguno"));
+                        AccountConfig cuenta_conf = cuentas_para_cargar[0];
+                        cuentas_cargadas.Add(cuenta_conf.accountUsername, agregar_Nueva_Tab_Pagina(cuenta_conf.accountUsername, new UI_Principal(new Cuenta(cuenta_conf)), "Ninguno"));
                     }
                     else
                     {
-                        CuentaConf configuracion_lider = cuentas_para_cargar.First();
+                        AccountConfig configuracion_lider = cuentas_para_cargar.First();
                         Cuenta lider = new Cuenta(configuracion_lider);
                         Grupo grupo = new Grupo(lider);
-                        cuentas_cargadas.Add(configuracion_lider.nombre_cuenta, agregar_Nueva_Tab_Pagina(configuracion_lider.nombre_cuenta, new UI_Principal(lider), configuracion_lider.nombre_cuenta));
+                        cuentas_cargadas.Add(configuracion_lider.accountUsername, agregar_Nueva_Tab_Pagina(configuracion_lider.accountUsername, new UI_Principal(lider), configuracion_lider.accountUsername));
                         cuentas_para_cargar.Remove(configuracion_lider);
 
-                        foreach (CuentaConf cuenta_conf in cuentas_para_cargar)
+                        foreach (AccountConfig cuenta_conf in cuentas_para_cargar)
                         {
                             Cuenta cuenta = new Cuenta(cuenta_conf);
 
                             grupo.agregar_Miembro(cuenta);
-                            cuentas_cargadas.Add(cuenta_conf.nombre_cuenta, agregar_Nueva_Tab_Pagina(cuenta_conf.nombre_cuenta, new UI_Principal(cuenta), grupo.lider.configuracion.nombre_cuenta));
+                            cuentas_cargadas.Add(cuenta_conf.accountUsername, agregar_Nueva_Tab_Pagina(cuenta_conf.accountUsername, new UI_Principal(cuenta), grupo.lider.configuracion.accountUsername));
                         }
                     }
                 }

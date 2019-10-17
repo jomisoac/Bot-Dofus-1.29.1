@@ -1,4 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+﻿using Bot_Dofus_1._29._1.Utilities.Config;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -18,12 +18,12 @@ namespace Bot_Dofus_1._29._1.Forms
 {
     public partial class GestionCuentas : Form
     {
-        private List<CuentaConf> cuentas_cargadas;
+        private List<AccountConfig> cuentas_cargadas;
 
         public GestionCuentas()
         {
             InitializeComponent();
-            cuentas_cargadas = new List<CuentaConf>();
+            cuentas_cargadas = new List<AccountConfig>();
 
             comboBox_Servidor.SelectedIndex = 0;
             cargar_Cuentas_Lista();
@@ -33,16 +33,16 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             listViewCuentas.Items.Clear();
 
-            GlobalConf.get_Lista_Cuentas().ForEach(x =>
+            GlobalConfig.Get_Accounts_List().ForEach(x =>
             {
-                if (!Principal.cuentas_cargadas.ContainsKey(x.nombre_cuenta))
-                    listViewCuentas.Items.Add(x.nombre_cuenta).SubItems.AddRange(new string[2] { x.servidor, x.nombre_personaje });
+                if (!Principal.cuentas_cargadas.ContainsKey(x.accountUsername))
+                    listViewCuentas.Items.Add(x.accountUsername).SubItems.AddRange(new string[2] { x.server, x.characterName });
             });
         }
 
         private void boton_Agregar_Cuenta_Click(object sender, EventArgs e)
         {
-            if (GlobalConf.get_Cuenta(textBox_Nombre_Cuenta.Text) != null && GlobalConf.mostrar_mensajes_debug)
+            if (GlobalConfig.Get_Account(textBox_Nombre_Cuenta.Text) != null && GlobalConfig.show_debug_messages)
             {
                 MessageBox.Show("Un compte existe déjà avec le nom du compte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -65,7 +65,7 @@ namespace Bot_Dofus_1._29._1.Forms
 
             if (!tiene_errores)
             {
-                GlobalConf.agregar_Cuenta(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_nombre_personaje.Text);
+                GlobalConfig.AddAccount(textBox_Nombre_Cuenta.Text, textBox_Password.Text, comboBox_Servidor.SelectedItem.ToString(), textBox_nombre_personaje.Text);
                 cargar_Cuentas_Lista();
 
                 textBox_Nombre_Cuenta.Clear();
@@ -75,7 +75,7 @@ namespace Bot_Dofus_1._29._1.Forms
                 if (checkBox_Agregar_Retroceder.Checked)
                     tabControlPrincipalCuentas.SelectedIndex = 0;
 
-                GlobalConf.guardar_Configuracion();
+                GlobalConfig.SaveConfig();
             }
         }
 
@@ -91,10 +91,10 @@ namespace Bot_Dofus_1._29._1.Forms
             {
                 foreach (ListViewItem cuenta in listViewCuentas.SelectedItems)
                 {
-                    GlobalConf.eliminar_Cuenta(cuenta.Index);
+                    GlobalConfig.DeleteAccount(cuenta.Index);
                     cuenta.Remove();
                 }
-                GlobalConf.guardar_Configuracion();
+                GlobalConfig.SaveConfig();
                 cargar_Cuentas_Lista();
             }
         }
@@ -104,45 +104,45 @@ namespace Bot_Dofus_1._29._1.Forms
             if (listViewCuentas.SelectedItems.Count > 0 && listViewCuentas.FocusedItem != null)
             {
                 foreach (ListViewItem cuenta in listViewCuentas.SelectedItems)
-                    cuentas_cargadas.Add(GlobalConf.get_Lista_Cuentas().FirstOrDefault(f => f.nombre_cuenta == cuenta.Text));
+                    cuentas_cargadas.Add(GlobalConfig.Get_Accounts_List().FirstOrDefault(f => f.accountUsername == cuenta.Text));
 
                 DialogResult = DialogResult.OK;
                 Close();
             }
         }
 
-        public List<CuentaConf> get_Cuentas_Cargadas() => cuentas_cargadas;
+        public List<AccountConfig> get_Cuentas_Cargadas() => cuentas_cargadas;
         private void listViewCuentas_MouseDoubleClick(object sender, MouseEventArgs e) => conectarToolStripMenuItem.PerformClick();
 
         private void modificar_Cuenta(object sender, EventArgs e)
         {
             if (listViewCuentas.SelectedItems.Count == 1 && listViewCuentas.FocusedItem != null)
             {
-                CuentaConf cuenta = GlobalConf.get_Cuenta(listViewCuentas.SelectedItems[0].Index);
+                AccountConfig cuenta = GlobalConfig.Get_Account(listViewCuentas.SelectedItems[0].Index);
 
                 switch (sender.ToString())
                 {
                     case "Cuenta":
-                        string nueva_cuenta = Interaction.InputBox($"Entrez le nouveau compte", "Modifier le compte", cuenta.nombre_cuenta);
+                        string nueva_cuenta = Interaction.InputBox($"Entrez le nouveau compte", "Modifier le compte", cuenta.accountUsername);
 
                         if (!string.IsNullOrEmpty(nueva_cuenta) || nueva_cuenta.Split(new char[0]).Length == 0)
-                            cuenta.nombre_cuenta = nueva_cuenta;
+                            cuenta.accountUsername = nueva_cuenta;
                     break;
 
                     case "Contraseña":
-                        string nueva_password = Interaction.InputBox($"Entrez le nouveau mot de passe", "Changer le mot de passe", cuenta.password);
+                        string nueva_password = Interaction.InputBox($"Entrez le nouveau mot de passe", "Changer le mot de passe", cuenta.accountPassword);
 
                         if (!string.IsNullOrEmpty(nueva_password) || nueva_password.Split(new char[0]).Length == 0)
-                            cuenta.password = nueva_password;
+                            cuenta.accountPassword = nueva_password;
                     break;
 
                     default:
-                        string nuevo_personaje = Interaction.InputBox($"Entrez le nouveau nom du personnage", "Modifier le nom du personnage", cuenta.nombre_personaje);
-                        cuenta.nombre_personaje = nuevo_personaje;
+                        string nuevo_personaje = Interaction.InputBox($"Entrez le nouveau nom du personnage", "Modifier le nom du personnage", cuenta.characterName);
+                        cuenta.characterName = nuevo_personaje;
                     break;
                 }
 
-                GlobalConf.guardar_Configuracion();
+                GlobalConfig.SaveConfig();
                 cargar_Cuentas_Lista();
             }
         }

@@ -3,7 +3,7 @@ using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Servidor;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using Bot_Dofus_1._29._1.Utilities.Crypto;
 using System.Threading.Tasks;
 
 /*
@@ -23,11 +23,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         {
             Cuenta cuenta = cliente.cuenta;
 
-            cuenta.Estado_Cuenta = EstadoCuenta.CONECTANDO;
+            cuenta.Estado_Cuenta = AccountStates.CONNECTED;
             cuenta.key_bienvenida = paquete.Substring(2);
 
             cliente.enviar_Paquete("1.30");
-            cliente.enviar_Paquete(cliente.cuenta.configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.configuracion.password, cliente.cuenta.key_bienvenida));
+            cliente.enviar_Paquete(cliente.cuenta.configuracion.accountUsername + "\n" + Hash.Crypt_Password(cliente.cuenta.configuracion.accountPassword, cliente.cuenta.key_bienvenida));
             cliente.enviar_Paquete("Af");
         }
 
@@ -55,7 +55,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
 
                 // Add Method to take name with Id
 
-                if (id == cuenta.configuracion.get_Servidor_Id())
+                if (id == cuenta.configuracion.Get_Server_ID())
                 {
                     servidor.actualizar_Datos(id, nombre, estado);
                     cuenta.logger.log_informacion("LOGIN", $"Le serveur {nombre} est {estado}");
@@ -110,7 +110,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         public void get_Seleccion_Servidor(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.tiquet_game = paquete.Substring(14);
-            cliente.cuenta.cambiando_Al_Servidor_Juego(Hash.desencriptar_Ip(paquete.Substring(3, 8)), Hash.desencriptar_Puerto(paquete.Substring(11, 3).ToCharArray()));
+            cliente.cuenta.cambiando_Al_Servidor_Juego(Hash.Decrypt_IP(paquete.Substring(3, 8)), Hash.Decrypt_Port(paquete.Substring(11, 3).ToCharArray()));
         }
     }
 }

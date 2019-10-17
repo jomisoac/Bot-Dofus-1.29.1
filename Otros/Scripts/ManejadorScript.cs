@@ -8,7 +8,7 @@ using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs;
 using Bot_Dofus_1._29._1.Otros.Scripts.Api;
 using Bot_Dofus_1._29._1.Otros.Scripts.Banderas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
-using Bot_Dofus_1._29._1.Utilidades.Extensiones;
+using Bot_Dofus_1._29._1.Utilities.Extensions;
 using MoonSharp.Interpreter;
 using System;
 using System.Collections.Generic;
@@ -427,7 +427,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 {
                     int tiempo_estimado = vida_para_regenerar / 2;
 
-                    if (cuenta.Estado_Cuenta != EstadoCuenta.REGENERANDO)
+                    if (cuenta.Estado_Cuenta != AccountStates.REGENERATION)
                     {
                         if (cuenta.esta_ocupado())
                             return;
@@ -442,7 +442,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                     if (corriendo)
                     {
-                        if (cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
+                        if (cuenta.Estado_Cuenta == AccountStates.REGENERATION)
                             cuenta.conexion.enviar_Paquete("eU1", true);
 
                         cuenta.logger.log_informacion("SCRIPTS", "Régénération terminée.");

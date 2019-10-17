@@ -60,17 +60,17 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
             switch (cuenta.Estado_Cuenta)
             {
-                case EstadoCuenta.ALMACENAMIENTO:
+                case AccountStates.STORAGE:
                     cuenta.juego.personaje.inventario.evento_Almacenamiento_Abierto();
                     break;
 
-                case EstadoCuenta.DIALOGANDO:
+                case AccountStates.DIALOG:
                     IEnumerable<Npcs> npcs = cuenta.juego.mapa.lista_npcs();
                     Npcs npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
                     npc.respuestas.Clear();
                     npc.respuestas = null;
 
-                    cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                    cuenta.Estado_Cuenta = AccountStates.CONNECTED_INACTIVE;
                     cuenta.juego.personaje.evento_Dialogo_Acabado();
                 break;
             }
@@ -81,9 +81,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             Cuenta cuenta = cliente.cuenta;
 
-            if (cuenta.Estado_Cuenta == EstadoCuenta.ALMACENAMIENTO)
+            if (cuenta.Estado_Cuenta == AccountStates.STORAGE)
             {
-                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+                cuenta.Estado_Cuenta = AccountStates.CONNECTED_INACTIVE;
                 cuenta.juego.personaje.inventario.evento_Almacenamiento_Cerrado();
             }
         }
@@ -168,7 +168,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Modificar_Cantidad_Objeto(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.inventario.modificar_Objetos(paquete.Substring(2));
 
         [PaqueteAtributo("ECK")]
-        public void get_Intercambio_Ventana_Abierta(ClienteTcp cliente, string paquete) => cliente.cuenta.Estado_Cuenta = EstadoCuenta.ALMACENAMIENTO;
+        public void get_Intercambio_Ventana_Abierta(ClienteTcp cliente, string paquete) => cliente.cuenta.Estado_Cuenta = AccountStates.STORAGE;
 
         [PaqueteAtributo("PCK")]
         public void get_Grupo_Aceptado(ClienteTcp cliente, string paquete) => cliente.cuenta.juego.personaje.en_grupo = true;
@@ -219,10 +219,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             if (cuenta.juego.personaje.id != id)
                 return;
 
-            if (emote_id == 1 && cuenta.Estado_Cuenta != EstadoCuenta.REGENERANDO)
-                cuenta.Estado_Cuenta = EstadoCuenta.REGENERANDO;
-            else if (emote_id == 0 && cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
-                cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            if (emote_id == 1 && cuenta.Estado_Cuenta != AccountStates.REGENERATION)
+                cuenta.Estado_Cuenta = AccountStates.REGENERATION;
+            else if (emote_id == 0 && cuenta.Estado_Cuenta == AccountStates.REGENERATION)
+                cuenta.Estado_Cuenta = AccountStates.CONNECTED_INACTIVE;
         }
 
         [PaqueteAtributo("Bp")]

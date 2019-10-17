@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 int id = int.Parse(_loc11_[0]);
                 string nombre = _loc11_[1];
 
-                if (nombre.ToLower().Equals(cuenta.configuracion.nombre_personaje.ToLower()) || string.IsNullOrEmpty(cuenta.configuracion.nombre_personaje))
+                if (nombre.ToLower().Equals(cuenta.configuracion.accountUsername.ToLower()) || string.IsNullOrEmpty(cuenta.configuracion.characterName))
                 {
                     cliente.enviar_Paquete("AS" + id, true);
                     encontrado = true;
@@ -81,7 +81,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
             cuenta.juego.personaje.evento_Personaje_Seleccionado();
             cuenta.juego.personaje.timer_afk.Change(1200000, 1200000);
-            cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            cliente.cuenta.Estado_Cuenta = AccountStates.CONNECTED_INACTIVE;
         }
     }
 }
