@@ -65,12 +65,12 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                     socket.EndConnect(ar);
 
                     socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
-                    socket_informacion?.Invoke("Socket conectado correctamente");
+                    socket_informacion?.Invoke("Socket connectée correctement");
                 }
                 else
                 {
                     get_Desconectar_Socket();
-                    socket_informacion?.Invoke("Impossible enviar el socket con el host");
+                    socket_informacion?.Invoke("Impossible de joindre le serveur hôte");
                 }
             }
             catch (Exception ex)
@@ -161,7 +161,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                     socket.Close();
                 }
 
-                socket_informacion?.Invoke("Socket desconectado del host");
+                socket_informacion?.Invoke("Socket deconnecté de l'hôte");
             }
         }
 

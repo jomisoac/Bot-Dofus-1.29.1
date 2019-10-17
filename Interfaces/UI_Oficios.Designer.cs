@@ -80,7 +80,7 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.FillWeight = 180F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Nombre";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Nom";
             this.dataGridViewTextBoxColumn2.MinimumWidth = 180;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -88,7 +88,7 @@
             // 
             // cantidad_minima
             // 
-            this.cantidad_minima.HeaderText = "Cantidad Mínima";
+            this.cantidad_minima.HeaderText = "Quantité minimal";
             this.cantidad_minima.MinimumWidth = 130;
             this.cantidad_minima.Name = "cantidad_minima";
             this.cantidad_minima.ReadOnly = true;
@@ -96,7 +96,7 @@
             // 
             // cantidad_maxima
             // 
-            this.cantidad_maxima.HeaderText = "Cantidad máxima";
+            this.cantidad_maxima.HeaderText = "Quantité maximal";
             this.cantidad_maxima.MinimumWidth = 135;
             this.cantidad_maxima.Name = "cantidad_maxima";
             this.cantidad_maxima.ReadOnly = true;
@@ -104,7 +104,7 @@
             // 
             // tiempo
             // 
-            this.tiempo.HeaderText = "Tiempo/Porcentaje";
+            this.tiempo.HeaderText = "Temps/Pourcentage";
             this.tiempo.MinimumWidth = 130;
             this.tiempo.Name = "tiempo";
             this.tiempo.ReadOnly = true;
@@ -144,7 +144,7 @@
             // Nombre
             // 
             this.Nombre.FillWeight = 200F;
-            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.HeaderText = "Nom";
             this.Nombre.MinimumWidth = 200;
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
@@ -159,7 +159,7 @@
             // Experiencia
             // 
             this.Experiencia.FillWeight = 200F;
-            this.Experiencia.HeaderText = "Experiencia";
+            this.Experiencia.HeaderText = "Expérience";
             this.Experiencia.MinimumWidth = 200;
             this.Experiencia.Name = "Experiencia";
             this.Experiencia.ReadOnly = true;
@@ -167,7 +167,7 @@
             // 
             // porcentaje
             // 
-            this.porcentaje.HeaderText = "Porcentaje";
+            this.porcentaje.HeaderText = "Pourcentage";
             this.porcentaje.Name = "porcentaje";
             this.porcentaje.ReadOnly = true;
             // 

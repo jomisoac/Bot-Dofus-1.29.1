@@ -147,7 +147,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Size = new System.Drawing.Size(796, 570);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Características";
+            this.tabPage1.Text = "Caractéristiques";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
@@ -188,7 +188,7 @@
             this.groupBox_imagen_personaje.Size = new System.Drawing.Size(389, 516);
             this.groupBox_imagen_personaje.TabIndex = 0;
             this.groupBox_imagen_personaje.TabStop = false;
-            this.groupBox_imagen_personaje.Text = "Personaje";
+            this.groupBox_imagen_personaje.Text = "Personnage";
             // 
             // label_nivel_personaje
             // 
@@ -254,7 +254,7 @@
             this.label_texto_capital_stats.Name = "label_texto_capital_stats";
             this.label_texto_capital_stats.Size = new System.Drawing.Size(100, 17);
             this.label_texto_capital_stats.TabIndex = 0;
-            this.label_texto_capital_stats.Text = "Puntos de stats:";
+            this.label_texto_capital_stats.Text = "Points de stats:";
             this.label_texto_capital_stats.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox_caracteristicas
@@ -266,7 +266,7 @@
             this.groupBox_caracteristicas.Size = new System.Drawing.Size(389, 556);
             this.groupBox_caracteristicas.TabIndex = 0;
             this.groupBox_caracteristicas.TabStop = false;
-            this.groupBox_caracteristicas.Text = "Características";
+            this.groupBox_caracteristicas.Text = "Caractéristiques";
             // 
             // tableLayoutPanel5
             // 
@@ -496,7 +496,7 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(149, 52);
             this.label13.TabIndex = 11;
-            this.label13.Text = "Agilidad";
+            this.label13.Text = "Agilité";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // stats_fuerza
@@ -540,7 +540,7 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(149, 40);
             this.label12.TabIndex = 10;
-            this.label12.Text = "Suerte";
+            this.label12.Text = "Chance";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label11
@@ -551,7 +551,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(149, 40);
             this.label11.TabIndex = 9;
-            this.label11.Text = "Inteligencia";
+            this.label11.Text = "Intelligence";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label10
@@ -562,7 +562,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(149, 40);
             this.label10.TabIndex = 8;
-            this.label10.Text = "Fuerza";
+            this.label10.Text = "Force";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label9
@@ -573,7 +573,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(149, 40);
             this.label9.TabIndex = 7;
-            this.label9.Text = "Sabiduría";
+            this.label9.Text = "Sagesse";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
@@ -584,7 +584,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 40);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Vitalidad";
+            this.label2.Text = "Vitalité";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBox13
@@ -694,7 +694,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 40);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Puntos de acción";
+            this.label3.Text = "PA";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
@@ -705,7 +705,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(149, 40);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Puntos de movimiento";
+            this.label4.Text = "PM";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
@@ -716,7 +716,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(149, 40);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Iniciativa";
+            this.label5.Text = "Initiative";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
@@ -727,7 +727,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(149, 40);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Prospección";
+            this.label6.Text = "Prospection";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label7
@@ -738,7 +738,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(149, 40);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Alcanze";
+            this.label7.Text = "Portée";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBox7
@@ -760,7 +760,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(149, 40);
             this.label8.TabIndex = 14;
-            this.label8.Text = "Invocaciones";
+            this.label8.Text = "Invocation";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_puntos_accion
@@ -841,7 +841,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage2.Size = new System.Drawing.Size(796, 570);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Hechizos";
+            this.tabPage2.Text = "Sorts";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -862,7 +862,7 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(66, 17);
             this.label14.TabIndex = 0;
-            this.label14.Text = "Puntos: 0";
+            this.label14.Text = "Points: 0";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabPage3
@@ -874,7 +874,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(796, 570);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Oficios";
+            this.tabPage3.Text = "Métiers";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // imageList1
