@@ -85,7 +85,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.label_mapa_id.Name = "label_mapa_id";
             this.label_mapa_id.Size = new System.Drawing.Size(195, 36);
             this.label_mapa_id.TabIndex = 0;
-            this.label_mapa_id.Text = "MAPA ID: ";
+            this.label_mapa_id.Text = "MAP ID: ";
             this.label_mapa_id.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // checkBox_mostrar_celdas
@@ -96,7 +96,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.checkBox_mostrar_celdas.Name = "checkBox_mostrar_celdas";
             this.checkBox_mostrar_celdas.Size = new System.Drawing.Size(195, 30);
             this.checkBox_mostrar_celdas.TabIndex = 1;
-            this.checkBox_mostrar_celdas.Text = "Mostrar id de las celdas";
+            this.checkBox_mostrar_celdas.Text = "Montré les cellules";
             this.checkBox_mostrar_celdas.UseVisualStyleBackColor = true;
             this.checkBox_mostrar_celdas.CheckedChanged += new System.EventHandler(this.checkBox_mostrar_celdas_CheckedChanged);
             // 
@@ -110,7 +110,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.checkBox_animaciones.Name = "checkBox_animaciones";
             this.checkBox_animaciones.Size = new System.Drawing.Size(195, 30);
             this.checkBox_animaciones.TabIndex = 2;
-            this.checkBox_animaciones.Text = "Mostrar las animaciónes";
+            this.checkBox_animaciones.Text = "Montré les animations";
             this.checkBox_animaciones.UseVisualStyleBackColor = true;
             this.checkBox_animaciones.CheckedChanged += new System.EventHandler(this.checkBox_animaciones_CheckedChanged);
             // 
@@ -121,9 +121,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.comboBox_calidad_minimapa.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.comboBox_calidad_minimapa.FormattingEnabled = true;
             this.comboBox_calidad_minimapa.Items.AddRange(new object[] {
-            "Calidad baja",
-            "Calidad media",
-            "Calidad alta"});
+            "Qualité basse",
+            "Qualité moyenne",
+            "Qualité haute"});
             this.comboBox_calidad_minimapa.Location = new System.Drawing.Point(606, 3);
             this.comboBox_calidad_minimapa.Name = "comboBox_calidad_minimapa";
             this.comboBox_calidad_minimapa.Size = new System.Drawing.Size(196, 25);

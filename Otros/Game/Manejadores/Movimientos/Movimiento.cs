@@ -45,16 +45,16 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
         {
             switch (direccion)
             {
-                case MapaTeleportCeldas.IZQUIERDA:
+                case MapaTeleportCeldas.LEFT:
                     return (celda.x - 1) == celda.y;
 
-                case MapaTeleportCeldas.DERECHA:
+                case MapaTeleportCeldas.RIGHT:
                     return (celda.x - 27) == celda.y;
 
-                case MapaTeleportCeldas.ABAJO:
+                case MapaTeleportCeldas.BOTTOM:
                     return (celda.x + celda.y) == 31;
 
-                case MapaTeleportCeldas.ARRIBA:
+                case MapaTeleportCeldas.TOP:
                     return celda.y < 0 && (celda.x - Math.Abs(celda.y)) == 1;
             }
 
@@ -89,7 +89,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
                 celdas_teleport.Remove(celda);
             }
 
-            cuenta.logger.log_Peligro("MOVIMIENTOS", "No se ha encontrado celda de destino, usa el metodo por id");
+            cuenta.logger.log_Peligro("MOUVEMENT", "Aucune cellule de destination trouvée, utiliser la méthode : TOP|BOTTOM|RIGHT|LEFT");
             return false;
         }
 
@@ -153,11 +153,11 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:
-                        cuenta.logger.log_informacion("MOVIMIENTOS", $"Mapa actual: {mapa.id} desplazando para cambiar el mapa a la casilla: {celda.id}");
+                        cuenta.logger.log_informacion("MOUVEMENT", $"Map Actuel: {mapa.id} changement de map via la cellule {celda.id} ");
                 return true;
 
                 default:
-                        cuenta.logger.log_Error("MOVIMIENTOS", $"camino hacia {celda.id} fallado o bloqueado resultado: {resultado}");
+                        cuenta.logger.log_Error("MOUVEMENT", $"Chemin vers {celda.id} résultat échoué ou bloqué : {resultado}");
                 return false;
             }
         }

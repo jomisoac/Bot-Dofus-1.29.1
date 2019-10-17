@@ -341,6 +341,9 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             animaciones_timer.Stop();
 
             Celda[] celdas_mapa = cuenta.juego.mapa.celdas;
+
+            if (celdas_mapa == null)
+                return;
             
             foreach (Celda celda in celdas_mapa)
             {

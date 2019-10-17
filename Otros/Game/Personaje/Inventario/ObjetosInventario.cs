@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
     {
         public uint id_inventario { get; private set; }
         public int id_modelo { get; private set; }
-        public string nombre { get; private set; } = "Desconocido";
+        public string nombre { get; private set; } = "Inconnu";
         public int cantidad { get; set; }
         public InventarioPosiciones posicion { get; set; } = InventarioPosiciones.NO_EQUIPADO;
         public short pods { get; private set; }
