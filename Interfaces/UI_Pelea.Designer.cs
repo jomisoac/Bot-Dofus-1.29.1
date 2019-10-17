@@ -159,7 +159,7 @@
             this.groupBox3.Size = new System.Drawing.Size(730, 160);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Durante el combate";
+            this.groupBox3.Text = "Pendant le combat";
             // 
             // tableLayoutPanel3
             // 
@@ -185,7 +185,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 89);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Táctica:";
+            this.label2.Text = "Tactique:";
             // 
             // comboBox_lista_tactica
             // 
@@ -193,9 +193,9 @@
             this.comboBox_lista_tactica.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_lista_tactica.FormattingEnabled = true;
             this.comboBox_lista_tactica.Items.AddRange(new object[] {
-            "Agresiva",
-            "Pasiva",
-            "Fugitiva"});
+            "Agressif",
+            "Passif",
+            "Fugitif"});
             this.comboBox_lista_tactica.Location = new System.Drawing.Point(79, 3);
             this.comboBox_lista_tactica.Name = "comboBox_lista_tactica";
             this.comboBox_lista_tactica.Size = new System.Drawing.Size(642, 25);
@@ -230,7 +230,7 @@
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(235, 41);
             this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Bloquear el combate";
+            this.checkBox1.Text = "Bloqué le combat";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -245,7 +245,7 @@
             this.checkBox_utilizar_dragopavo.Name = "checkBox_utilizar_dragopavo";
             this.checkBox_utilizar_dragopavo.Size = new System.Drawing.Size(236, 41);
             this.checkBox_utilizar_dragopavo.TabIndex = 1;
-            this.checkBox_utilizar_dragopavo.Text = "Utilizar Dragopavo";
+            this.checkBox_utilizar_dragopavo.Text = "Utilisé la monture";
             this.checkBox_utilizar_dragopavo.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBox_utilizar_dragopavo.UseVisualStyleBackColor = true;
             this.checkBox_utilizar_dragopavo.CheckedChanged += new System.EventHandler(this.checkBox_utilizar_dragopavo_CheckedChanged);
@@ -261,7 +261,7 @@
             this.checkbox_espectadores.Name = "checkbox_espectadores";
             this.checkbox_espectadores.Size = new System.Drawing.Size(235, 41);
             this.checkbox_espectadores.TabIndex = 0;
-            this.checkbox_espectadores.Text = "Desactivar espectador";
+            this.checkbox_espectadores.Text = "Désactivé le mode spéctateur";
             this.checkbox_espectadores.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkbox_espectadores.UseVisualStyleBackColor = true;
             this.checkbox_espectadores.CheckedChanged += new System.EventHandler(this.checkbox_espectadores_CheckedChanged);
@@ -298,9 +298,9 @@
             this.comboBox_lista_posicionamiento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_lista_posicionamiento.FormattingEnabled = true;
             this.comboBox_lista_posicionamiento.Items.AddRange(new object[] {
-            "Lejos de los enemigos",
-            "Cerca de los enemigos",
-            "No moverse"});
+            "Loin des ennemis",
+            "Proche des ennemis",
+            "Pas de déplacement"});
             this.comboBox_lista_posicionamiento.Location = new System.Drawing.Point(341, 3);
             this.comboBox_lista_posicionamiento.Name = "comboBox_lista_posicionamiento";
             this.comboBox_lista_posicionamiento.Size = new System.Drawing.Size(380, 25);
@@ -316,7 +316,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(332, 136);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Posicionamiento al comenzar el combate:";
+            this.label1.Text = "Positionnement en début de combat:";
             // 
             // groupBox2
             // 
@@ -328,7 +328,7 @@
             this.groupBox2.Size = new System.Drawing.Size(730, 162);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Regeneración (sentado)";
+            this.groupBox2.Text = "Régénération (assis)";
             // 
             // tableLayoutPanel4
             // 
@@ -370,7 +370,7 @@
             this.label_mensaje_regeneracion.Name = "label_mensaje_regeneracion";
             this.label_mensaje_regeneracion.Size = new System.Drawing.Size(353, 63);
             this.label_mensaje_regeneracion.TabIndex = 0;
-            this.label_mensaje_regeneracion.Text = "Regenerar si los puntos de vida son menores o iguales a";
+            this.label_mensaje_regeneracion.Text = "Régénérer si les points de vie sont inférieurs ou égaux à";
             // 
             // label_mensaje_regeneracion_1
             // 
@@ -379,7 +379,7 @@
             this.label_mensaje_regeneracion_1.Name = "label_mensaje_regeneracion_1";
             this.label_mensaje_regeneracion_1.Size = new System.Drawing.Size(41, 63);
             this.label_mensaje_regeneracion_1.TabIndex = 2;
-            this.label_mensaje_regeneracion_1.Text = "hasta";
+            this.label_mensaje_regeneracion_1.Text = "jusqu'à";
             // 
             // numericUp_regeneracion1
             // 
@@ -418,7 +418,7 @@
             this.label_informacion_regeneracion.Name = "label_informacion_regeneracion";
             this.label_informacion_regeneracion.Size = new System.Drawing.Size(699, 75);
             this.label_informacion_regeneracion.TabIndex = 9;
-            this.label_informacion_regeneracion.Text = "Establecer en 0 el primer valor para deshabilitar la regeneración";
+            this.label_informacion_regeneracion.Text = "Mettre à 0 la première valeur pour désactiver la régénération";
             this.label_informacion_regeneracion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
@@ -439,7 +439,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(736, 38);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Comenzar 1 combate";
+            this.button1.Text = "Commencé 1 combat";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -501,7 +501,7 @@
             // 
             // nombre
             // 
-            this.nombre.Text = "Nombre";
+            this.nombre.Text = "Name";
             this.nombre.Width = 179;
             // 
             // focus
@@ -511,12 +511,12 @@
             // 
             // n_lanzamientos
             // 
-            this.n_lanzamientos.Text = "Lanzamientos x turno";
+            this.n_lanzamientos.Text = "Nombre x par tours";
             this.n_lanzamientos.Width = 136;
             // 
             // lanzamiento
             // 
-            this.lanzamiento.Text = "Lanzamiento";
+            this.lanzamiento.Text = "Lancement";
             this.lanzamiento.Width = 136;
             // 
             // tableLayoutPanel8
@@ -590,7 +590,7 @@
             this.groupBox_agregar_hechizo.Size = new System.Drawing.Size(736, 152);
             this.groupBox_agregar_hechizo.TabIndex = 1;
             this.groupBox_agregar_hechizo.TabStop = false;
-            this.groupBox_agregar_hechizo.Text = "Agregar hechizo";
+            this.groupBox_agregar_hechizo.Text = "Ajouter un sort";
             // 
             // tableLayoutPanel9
             // 
@@ -623,8 +623,8 @@
             this.comboBox_modo_lanzamiento.FormattingEnabled = true;
             this.comboBox_modo_lanzamiento.Items.AddRange(new object[] {
             "CAC",
-            "ALEJADO",
-            "AMBOS"});
+            "DISTANCE",
+            "LES DEUX"});
             this.comboBox_modo_lanzamiento.Location = new System.Drawing.Point(326, 99);
             this.comboBox_modo_lanzamiento.Name = "comboBox_modo_lanzamiento";
             this.comboBox_modo_lanzamiento.Size = new System.Drawing.Size(401, 25);
@@ -640,7 +640,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(317, 32);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Método de lanzamiento";
+            this.label3.Text = "Méthode de lancement";
             // 
             // label6
             // 
@@ -662,7 +662,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(317, 32);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Hechizo:";
+            this.label5.Text = "Envoûtement:";
             // 
             // comboBox_lista_hechizos
             // 
@@ -680,10 +680,10 @@
             this.comboBox_focus_hechizo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_focus_hechizo.FormattingEnabled = true;
             this.comboBox_focus_hechizo.Items.AddRange(new object[] {
-            "Enemigo",
-            "Aliado",
-            "Encima",
-            "Celda vacía"});
+            "Ennemie",
+            "Allié",
+            "Moi",
+            "Cellule vide"});
             this.comboBox_focus_hechizo.Location = new System.Drawing.Point(326, 35);
             this.comboBox_focus_hechizo.Name = "comboBox_focus_hechizo";
             this.comboBox_focus_hechizo.Size = new System.Drawing.Size(401, 25);
@@ -699,7 +699,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(317, 32);
             this.label7.TabIndex = 5;
-            this.label7.Text = "Número de lanzamientos por turno:";
+            this.label7.Text = "Nombre de lancement par tours";
             // 
             // numeric_lanzamientos_turno
             // 
@@ -727,7 +727,7 @@
             this.groupBox1.Size = new System.Drawing.Size(736, 90);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Opciones";
+            this.groupBox1.Text = "Options";
             // 
             // button_agregar_hechizo
             // 
@@ -737,7 +737,7 @@
             this.button_agregar_hechizo.Name = "button_agregar_hechizo";
             this.button_agregar_hechizo.Size = new System.Drawing.Size(736, 31);
             this.button_agregar_hechizo.TabIndex = 1;
-            this.button_agregar_hechizo.Text = "Agregar hechizo";
+            this.button_agregar_hechizo.Text = "Ajouter un sort";
             this.button_agregar_hechizo.UseVisualStyleBackColor = true;
             this.button_agregar_hechizo.Click += new System.EventHandler(this.button_agregar_hechizo_Click);
             // 

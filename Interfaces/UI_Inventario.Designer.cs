@@ -100,7 +100,7 @@
             this.tabPage_equipamiento.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_equipamiento.Size = new System.Drawing.Size(782, 466);
             this.tabPage_equipamiento.TabIndex = 0;
-            this.tabPage_equipamiento.Text = "Equipamiento";
+            this.tabPage_equipamiento.Text = "Equipement";
             this.tabPage_equipamiento.UseVisualStyleBackColor = true;
             // 
             // dataGridView_equipamientos
@@ -134,7 +134,7 @@
             // id_Inventario_equipamiento
             // 
             this.id_Inventario_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.id_Inventario_equipamiento.HeaderText = "ID Inventario";
+            this.id_Inventario_equipamiento.HeaderText = "ID Inventaire";
             this.id_Inventario_equipamiento.MinimumWidth = 110;
             this.id_Inventario_equipamiento.Name = "id_Inventario_equipamiento";
             this.id_Inventario_equipamiento.ReadOnly = true;
@@ -144,7 +144,7 @@
             // 
             this.id_modelo_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.id_modelo_equipamiento.FillWeight = 90F;
-            this.id_modelo_equipamiento.HeaderText = "ID Modelo";
+            this.id_modelo_equipamiento.HeaderText = "ID Model";
             this.id_modelo_equipamiento.MinimumWidth = 90;
             this.id_modelo_equipamiento.Name = "id_modelo_equipamiento";
             this.id_modelo_equipamiento.ReadOnly = true;
@@ -153,7 +153,7 @@
             // nombre_equipamiento
             // 
             this.nombre_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.nombre_equipamiento.HeaderText = "Nombre";
+            this.nombre_equipamiento.HeaderText = "Nom";
             this.nombre_equipamiento.MinimumWidth = 120;
             this.nombre_equipamiento.Name = "nombre_equipamiento";
             this.nombre_equipamiento.ReadOnly = true;
@@ -163,7 +163,7 @@
             // 
             this.cantidad_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.cantidad_equipamiento.FillWeight = 80F;
-            this.cantidad_equipamiento.HeaderText = "Cantidad";
+            this.cantidad_equipamiento.HeaderText = "Quantité";
             this.cantidad_equipamiento.MinimumWidth = 80;
             this.cantidad_equipamiento.Name = "cantidad_equipamiento";
             this.cantidad_equipamiento.ReadOnly = true;
@@ -172,7 +172,7 @@
             // posicion_equipamiento
             // 
             this.posicion_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.posicion_equipamiento.HeaderText = "Posición";
+            this.posicion_equipamiento.HeaderText = "Position";
             this.posicion_equipamiento.MinimumWidth = 100;
             this.posicion_equipamiento.Name = "posicion_equipamiento";
             this.posicion_equipamiento.ReadOnly = true;
@@ -180,7 +180,7 @@
             // accion_equipamiento
             // 
             this.accion_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.accion_equipamiento.HeaderText = "Acción";
+            this.accion_equipamiento.HeaderText = "Action";
             this.accion_equipamiento.MaxInputLength = 50;
             this.accion_equipamiento.MinimumWidth = 100;
             this.accion_equipamiento.Name = "accion_equipamiento";
@@ -189,7 +189,7 @@
             // eliminar_equipamiento
             // 
             this.eliminar_equipamiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.eliminar_equipamiento.HeaderText = "Eliminar";
+            this.eliminar_equipamiento.HeaderText = "Supprimé";
             this.eliminar_equipamiento.MinimumWidth = 100;
             this.eliminar_equipamiento.Name = "eliminar_equipamiento";
             this.eliminar_equipamiento.ReadOnly = true;
@@ -203,7 +203,7 @@
             this.tabPage_varios.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_varios.Size = new System.Drawing.Size(782, 466);
             this.tabPage_varios.TabIndex = 1;
-            this.tabPage_varios.Text = "Varios";
+            this.tabPage_varios.Text = "Divers";
             this.tabPage_varios.UseVisualStyleBackColor = true;
             // 
             // dataGridView_varios
@@ -235,7 +235,7 @@
             // id_inventario_varios
             // 
             this.id_inventario_varios.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.id_inventario_varios.HeaderText = "ID Inventario";
+            this.id_inventario_varios.HeaderText = "ID Inventaire";
             this.id_inventario_varios.MinimumWidth = 110;
             this.id_inventario_varios.Name = "id_inventario_varios";
             this.id_inventario_varios.ReadOnly = true;
@@ -252,7 +252,7 @@
             // nombre_varios
             // 
             this.nombre_varios.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.nombre_varios.HeaderText = "Nombre";
+            this.nombre_varios.HeaderText = "Nom";
             this.nombre_varios.MinimumWidth = 100;
             this.nombre_varios.Name = "nombre_varios";
             this.nombre_varios.ReadOnly = true;
@@ -260,7 +260,7 @@
             // cantidad_varios
             // 
             this.cantidad_varios.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cantidad_varios.HeaderText = "Cantidad";
+            this.cantidad_varios.HeaderText = "Quantité";
             this.cantidad_varios.MinimumWidth = 100;
             this.cantidad_varios.Name = "cantidad_varios";
             this.cantidad_varios.ReadOnly = true;
@@ -274,7 +274,7 @@
             // eliminar_varios
             // 
             this.eliminar_varios.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.eliminar_varios.HeaderText = "Eliminar";
+            this.eliminar_varios.HeaderText = "Supprimé";
             this.eliminar_varios.MinimumWidth = 100;
             this.eliminar_varios.Name = "eliminar_varios";
             this.eliminar_varios.ReadOnly = true;
@@ -321,7 +321,7 @@
             // id_inventario_recursos
             // 
             this.id_inventario_recursos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.id_inventario_recursos.HeaderText = "ID Inventario";
+            this.id_inventario_recursos.HeaderText = "ID Inventaire";
             this.id_inventario_recursos.MinimumWidth = 110;
             this.id_inventario_recursos.Name = "id_inventario_recursos";
             this.id_inventario_recursos.ReadOnly = true;
@@ -330,7 +330,7 @@
             // id_modelo_recursos
             // 
             this.id_modelo_recursos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.id_modelo_recursos.HeaderText = "ID Modelo";
+            this.id_modelo_recursos.HeaderText = "ID Model";
             this.id_modelo_recursos.MinimumWidth = 100;
             this.id_modelo_recursos.Name = "id_modelo_recursos";
             this.id_modelo_recursos.ReadOnly = true;
@@ -338,7 +338,7 @@
             // nombre_recursos
             // 
             this.nombre_recursos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.nombre_recursos.HeaderText = "Nombre";
+            this.nombre_recursos.HeaderText = "Nom";
             this.nombre_recursos.MinimumWidth = 100;
             this.nombre_recursos.Name = "nombre_recursos";
             this.nombre_recursos.ReadOnly = true;
@@ -346,7 +346,7 @@
             // cantidad_recursos
             // 
             this.cantidad_recursos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cantidad_recursos.HeaderText = "Cantidad";
+            this.cantidad_recursos.HeaderText = "Quantité";
             this.cantidad_recursos.MinimumWidth = 100;
             this.cantidad_recursos.Name = "cantidad_recursos";
             this.cantidad_recursos.ReadOnly = true;
@@ -360,7 +360,7 @@
             // eliminar_recursos
             // 
             this.eliminar_recursos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.eliminar_recursos.HeaderText = "Eliminar";
+            this.eliminar_recursos.HeaderText = "Supprimé";
             this.eliminar_recursos.MinimumWidth = 100;
             this.eliminar_recursos.Name = "eliminar_recursos";
             this.eliminar_recursos.ReadOnly = true;
@@ -430,7 +430,7 @@
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Nombre";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Nom";
             this.dataGridViewTextBoxColumn3.MinimumWidth = 100;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
@@ -438,7 +438,7 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Cantidad";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Quantité";
             this.dataGridViewTextBoxColumn4.MaxInputLength = 200;
             this.dataGridViewTextBoxColumn4.MinimumWidth = 100;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";

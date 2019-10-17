@@ -218,7 +218,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
             }
             catch (Exception e)
             {
-                cuenta.logger.log_Error("TIMER-REGENERANDO", $"ERROR: {e}");
+                cuenta.logger.log_Error("TIMER-REGEN", $"ERROR: {e}");
             }
         }
 

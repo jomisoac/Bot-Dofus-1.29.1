@@ -26,7 +26,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
             cuenta.Estado_Cuenta = EstadoCuenta.CONECTANDO;
             cuenta.key_bienvenida = paquete.Substring(2);
 
-            cliente.enviar_Paquete("1.29.1");
+            cliente.enviar_Paquete("1.30");
             cliente.enviar_Paquete(cliente.cuenta.configuracion.nombre_cuenta + "\n" + Hash.encriptar_Password(cliente.cuenta.configuracion.password, cliente.cuenta.key_bienvenida));
             cliente.enviar_Paquete("Af");
         }
@@ -35,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         public void get_Apodo(ClienteTcp cliente, string paquete) => cliente.cuenta.apodo = paquete.Substring(2);
 
         [PaqueteAtributo("Af")]
-        public void get_Fila_Espera_Login(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("FILA DE ESPERA", "Posición " + paquete[2] + "/" + paquete[4]);
+        public void get_Fila_Espera_Login(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("File d'attente", "Position " + paquete[2] + "/" + paquete[4]);
 
         [PaqueteAtributo("AH")]
         public void get_Servidor_Estado(ClienteTcp cliente, string paquete)
@@ -53,10 +53,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                 EstadosServidor estado = (EstadosServidor)byte.Parse(separador[1]);
                 string nombre = id == 601 ? "Eratz" : "Henual";
 
+                // Add Method to take name with Id
+
                 if (id == cuenta.configuracion.get_Servidor_Id())
                 {
                     servidor.actualizar_Datos(id, nombre, estado);
-                    cuenta.logger.log_informacion("LOGIN", $"El servidor {nombre} esta {estado}");
+                    cuenta.logger.log_informacion("LOGIN", $"Le serveur {nombre} est {estado}");
 
                     if (estado != EstadosServidor.CONECTADO)
                         primera_vez = false;
@@ -95,7 +97,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                         cuenta.juego.personaje.evento_Servidor_Seleccionado();
                     }
                     else
-                        cuenta.logger.log_Error("LOGIN", "Servidor no accesible cuando este accesible se re-conectara");
+                        cuenta.logger.log_Error("LOGIN", "Serveur non accessible lorsque celui-ci se reconnectera");
                 }
                 contador++;
             }

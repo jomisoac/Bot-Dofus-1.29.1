@@ -26,7 +26,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 
             if (!CambiarMapaAccion.TryParse(posicion, out CambiarMapaAccion accion))
             {
-                cuenta.logger.log_Error("MapaApi", $"Verifica el cambio de mapa {posicion}");
+                cuenta.logger.log_Error("MapApi", $"Vérifier le changement de carte {posicion}");
                 return false;
             }
 

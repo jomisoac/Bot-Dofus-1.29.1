@@ -3,9 +3,9 @@
     public enum MapaTeleportCeldas
     {
         NINGUNO,
-        ARRIBA,
-        DERECHA,
-        ABAJO,
-        IZQUIERDA,
+        TOP,
+        BOTTOM,
+        LEFT,
+        RIGHT,
     }
 }
