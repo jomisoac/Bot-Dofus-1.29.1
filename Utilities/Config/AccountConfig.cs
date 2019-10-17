@@ -9,36 +9,36 @@ using System.IO;
     web: http://www.salesprendes.com
 */
 
-namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
+namespace Bot_Dofus_1._29._1.Utilities.Config
 {
-    public class CuentaConf
+    public class AccountConfig
     {
-        public string nombre_cuenta { get; set; } = string.Empty;
-        public string password { get; set; } = string.Empty;
-        public string servidor { get; set; } = string.Empty;
-        public string nombre_personaje { get; set; } = string.Empty;
+        public string accountUsername { get; set; } = string.Empty;
+        public string accountPassword { get; set; } = string.Empty;
+        public string server { get; set; } = string.Empty;
+        public string characterName { get; set; } = string.Empty;
 
-        public CuentaConf(string _nombre_cuenta, string _password, string _servidor, string _nombre_personaje)
+        public AccountConfig(string _accountUsername, string _accountPassword, string _server, string _characterName)
         {
-            nombre_cuenta = _nombre_cuenta;
-            password = _password;
-            servidor = _servidor;
-            nombre_personaje = _nombre_personaje;
+            accountUsername = _accountUsername;
+            accountPassword = _accountPassword;
+            server = _server;
+            characterName = _characterName;
         }
 
-        public void guardar_Cuenta(BinaryWriter bw)
+        public void SaveAccount(BinaryWriter bw)
         {
-            bw.Write(nombre_cuenta);
-            bw.Write(password);
-            bw.Write(servidor);
-            bw.Write(nombre_personaje);
+            bw.Write(accountUsername);
+            bw.Write(accountPassword);
+            bw.Write(server);
+            bw.Write(characterName);
         }
 
-        public static CuentaConf cargar_Una_Cuenta(BinaryReader br)
+        public static AccountConfig LoadAcccount(BinaryReader br)
         {
             try
             {
-                return new CuentaConf(br.ReadString(), br.ReadString(), br.ReadString(), br.ReadString());
+                return new AccountConfig(br.ReadString(), br.ReadString(), br.ReadString(), br.ReadString());
             }
             catch
             {
@@ -46,9 +46,9 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
             }
         }
 
-        public int get_Servidor_Id()
+        public int Get_Server_ID()
         {
-            switch (servidor)
+            switch (server)
             {
                 case "Eratz":
                     return 601;
@@ -72,7 +72,6 @@ namespace Bot_Dofus_1._29._1.Utilidades.Configuracion
                     return 610;
                 default:
                     return 601;
-                    break;
             }
         }
     }

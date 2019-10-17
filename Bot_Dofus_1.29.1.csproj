@@ -280,7 +280,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comun\Network\ClienteTcp.cs" />
-    <Compile Include="Otros\Enums\EstadoCuenta.cs" />
+    <Compile Include="Otros\Enums\AccountStates.cs" />
     <Compile Include="Otros\Game\Personaje\Inventario\Enums\TipoObjetosInventario.cs" />
     <Compile Include="Otros\Enums\EstadosServidor.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -288,15 +288,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utilidades\Configuracion\GlobalConf.cs" />
-    <Compile Include="Utilidades\Configuracion\CuentaConf.cs" />
-    <Compile Include="Utilidades\Criptografia\Hash.cs" />
-    <Compile Include="Utilidades\Criptografia\Randomize.cs" />
-    <Compile Include="Utilidades\Extensiones\Extensiones.cs" />
-    <Compile Include="Utilidades\Logs\Logger.cs" />
-    <Compile Include="Utilidades\Logs\LogMensajes.cs" />
-    <Compile Include="Utilidades\Logs\LogTipos.cs" />
-    <Compile Include="Utilidades\TimerWrapper.cs" />
+    <Compile Include="Utilities\Config\GlobalConfig.cs" />
+    <Compile Include="Utilities\Config\AccountConfig.cs" />
+    <Compile Include="Utilities\Crypto\Hash.cs" />
+    <Compile Include="Utilities\Crypto\Randomize.cs" />
+    <Compile Include="Utilities\Extensions\Extensions.cs" />
+    <Compile Include="Utilities\Logs\Logger.cs" />
+    <Compile Include="Utilities\Logs\LogMessage.cs" />
+    <Compile Include="Utilities\Logs\LogTypes.cs" />
+    <Compile Include="Utilities\TimerWrapper.cs" />
     <EmbeddedResource Include="Controles\ControlMapa\ControlMapa.resx">
       <DependentUpon>ControlMapa.cs</DependentUpon>
       <SubType>Designer</SubType>

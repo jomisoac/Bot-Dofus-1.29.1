@@ -1,35 +1,35 @@
 ﻿using System;
 using System.Threading;
 
-namespace Bot_Dofus_1._29._1.Utilidades
+namespace Bot_Dofus_1._29._1.Utilities
 {
     class TimerWrapper : IDisposable
     {
         private Timer timer;
-        public bool habilitado { get; private set; }
-        public int intervalo { get; set; }
+        public bool isEnabled { get; private set; }
+        public int interval { get; set; }
 
-        public TimerWrapper(int _intervalo, TimerCallback callback)
+        public TimerWrapper(int _interval, TimerCallback callback)
         {
-            intervalo = _intervalo;
+            interval = _interval;
             timer = new Timer(callback, null, Timeout.Infinite, Timeout.Infinite);
         }
 
-        public void Start(bool inmediatamente = false)
+        public void Start(bool immediately = false)
         {
-            if (habilitado)
+            if (isEnabled)
                 return;
 
-            habilitado = true;
-            timer.Change(inmediatamente ? 0 : intervalo, intervalo);
+            isEnabled = true;
+            timer.Change(immediately ? 0 : interval, interval);
         }
 
         public void Stop()
         {
-            if (!habilitado)
+            if (!isEnabled)
                 return;
 
-            habilitado = false;
+            isEnabled = false;
             timer?.Change(Timeout.Infinite, Timeout.Infinite);
         }
 

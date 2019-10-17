@@ -23,7 +23,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             Cuenta cuenta = cliente.cuenta;
 
-            cuenta.Estado_Cuenta = EstadoCuenta.DIALOGANDO;
+            cuenta.Estado_Cuenta = AccountStates.DIALOG;
             cuenta.juego.personaje.hablando_npc_id = sbyte.Parse(paquete.Substring(3));
         }
 

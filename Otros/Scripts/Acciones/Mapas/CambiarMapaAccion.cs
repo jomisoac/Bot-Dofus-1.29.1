@@ -1,6 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using Bot_Dofus_1._29._1.Utilities.Crypto;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;

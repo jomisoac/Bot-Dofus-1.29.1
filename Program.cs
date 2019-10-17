@@ -3,7 +3,7 @@ using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+using Bot_Dofus_1._29._1.Utilities.Config;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +29,7 @@ namespace Bot_Dofus_1._29._1
 
             Task.Run(() =>
             {
-                GlobalConf.cargar_Todas_Cuentas();
+                GlobalConfig.Load_All_Accounts();
                 LuaManejadorScript.inicializar_Funciones();
                 XElement.Parse(Properties.Resources.interactivos).Descendants("SKILL").ToList().ForEach(i => new ObjetoInteractivoModelo(i.Element("nombre").Value, i.Element("gfx").Value, bool.Parse(i.Element("caminable").Value), i.Element("habilidades").Value, bool.Parse(i.Element("recolectable").Value)));
                 PaqueteRecibido.Inicializar();

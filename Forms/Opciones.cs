@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
+using Bot_Dofus_1._29._1.Utilities.Config;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -20,9 +20,9 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             InitializeComponent();
 
-            checkBox_mensajes_debug.Checked = GlobalConf.mostrar_mensajes_debug;
-            textBox_ip_servidor.Text = GlobalConf.ip_conexion;
-            textBox_puerto_servidor.Text = Convert.ToString(GlobalConf.puerto_conexion);
+            checkBox_mensajes_debug.Checked = GlobalConfig.show_debug_messages;
+            textBox_ip_servidor.Text = GlobalConfig.loginIP;
+            textBox_puerto_servidor.Text = Convert.ToString(GlobalConfig.loginPort);
         }
 
         private void boton_opciones_guardar_Click(object sender, EventArgs e)
@@ -39,10 +39,10 @@ namespace Bot_Dofus_1._29._1.Forms
                 return;
             }
 
-            GlobalConf.mostrar_mensajes_debug = checkBox_mensajes_debug.Checked;
-            GlobalConf.ip_conexion = textBox_ip_servidor.Text;
-            GlobalConf.puerto_conexion = short.Parse(textBox_puerto_servidor.Text);
-            GlobalConf.guardar_Configuracion();
+            GlobalConfig.show_debug_messages = checkBox_mensajes_debug.Checked;
+            GlobalConfig.loginIP = textBox_ip_servidor.Text;
+            GlobalConfig.loginPort = short.Parse(textBox_puerto_servidor.Text);
+            GlobalConfig.SaveConfig();
             Close();
         }
     }

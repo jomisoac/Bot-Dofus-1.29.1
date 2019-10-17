@@ -5,7 +5,7 @@ using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs;
-using Bot_Dofus_1._29._1.Utilidades;
+using Bot_Dofus_1._29._1.Utilities;
 using MoonSharp.Interpreter;
 using System;
 using System.Collections.Concurrent;
@@ -76,10 +76,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             {
                 if (es_correcto)
                 {
-                    for (int delay = 0; delay < 10000 && cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO; delay += 500)
+                    for (int delay = 0; delay < 10000 && cuenta.Estado_Cuenta != AccountStates.FIGHTING; delay += 500)
                         await Task.Delay(500);
 
-                    if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
+                    if (cuenta.Estado_Cuenta != AccountStates.FIGHTING)
                     {
                         cuenta.logger.log_Peligro("SCRIPT", "Erreur en lançant le combat, les monstres ont pu se déplacer ou être volés !");
                         acciones_Salida(0);
@@ -154,7 +154,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             if (accion_actual is NpcBancoAccion nba)
             {
-                if (cuenta.Estado_Cuenta != EstadoCuenta.DIALOGANDO)
+                if (cuenta.Estado_Cuenta != AccountStates.DIALOG)
                     return;
 
                 IEnumerable<Npcs> npcs = cuenta.juego.mapa.lista_npcs();
@@ -296,7 +296,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (cuenta?.script.corriendo == false)
                 return;
 
-            if (timer_out.habilitado)
+            if (timer_out.isEnabled)
                 timer_out.Stop();
 
             if (delay > 0)

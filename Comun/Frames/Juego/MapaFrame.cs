@@ -9,8 +9,8 @@ using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
-using Bot_Dofus_1._29._1.Utilidades.Configuracion;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using Bot_Dofus_1._29._1.Utilities.Config;
+using Bot_Dofus_1._29._1.Utilities.Crypto;
 using System.Threading.Tasks;
 
 /*
@@ -52,7 +52,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         {
                             case -1:
                             case -2:
-                                if (cuenta.Estado_Cuenta == EstadoCuenta.LUCHANDO)
+                                if (cuenta.Estado_Cuenta == AccountStates.FIGHTING)
                                 {
                                     int vida = int.Parse(informaciones[12]);
                                     byte pa = byte.Parse(informaciones[13]);
@@ -89,7 +89,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 break;
 
                             default:// jugador
-                                if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
+                                if (cuenta.Estado_Cuenta != AccountStates.FIGHTING)
                                 {
                                     if (cuenta.juego.personaje.id != id)
                                         cuenta.juego.mapa.entidades.TryAdd(id, new Personajes(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda));
@@ -128,7 +128,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     }
                     else if (_loc6[0].Equals('-'))
                     {
-                        if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
+                        if (cuenta.Estado_Cuenta != AccountStates.FIGHTING)
                         {
                             int id = int.Parse(_loc6.Substring(1));
                             cuenta.juego.mapa.entidades.TryRemove(id, out Entidad entidad);
@@ -169,7 +169,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 switch (id_accion)
                 {
                     case 1:
-                        celda = mapa.get_Celda_Id(Hash.get_Celda_Id_Desde_hash(separador[3].Substring(separador[3].Length - 2)));
+                        celda = mapa.get_Celda_Id(Hash.Get_Cell_From_Hash(separador[3].Substring(separador[3].Length - 2)));
 
                         if (!cuenta.esta_luchando())
                         {
@@ -183,7 +183,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                             {
                                 entidad.celda = celda;
 
-                                if (GlobalConf.mostrar_mensajes_debug)
+                                if (GlobalConfig.show_debug_messages)
                                     cuenta.logger.log_informacion("DEBUG", "Mouvement détecté d'une entité vers la cellule : " + celda.id);
                             }
                             mapa.evento_Entidad_Actualizada();

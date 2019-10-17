@@ -2,8 +2,8 @@
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Personaje;
-using Bot_Dofus_1._29._1.Utilidades.Extensiones;
-using Bot_Dofus_1._29._1.Utilidades.Logs;
+using Bot_Dofus_1._29._1.Utilities.Extensions;
+using Bot_Dofus_1._29._1.Utilities.Logs;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -27,17 +27,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             InitializeComponent();
             cuenta = _cuenta;
-            nombre_cuenta = cuenta.configuracion.nombre_cuenta; ;
+            nombre_cuenta = cuenta.configuracion.accountUsername; ;
         }
 
         private void UI_Principal_Load(object sender, EventArgs e)
         {
             desconectarOconectarToolStripMenuItem.Text = "Connecté";
-            escribir_mensaje($"[{DateTime.Now.ToString("HH:mm:ss")}] -> [INFORMATION] Bot crée par Alvaro revue par Dyshay, http://www.salesprendes.com version: 1.0.0", LogTipos.ERROR.ToString("X"));
+            escribir_mensaje($"[{DateTime.Now.ToString("HH:mm:ss")}] -> [INFORMATION] Bot crée par Alvaro revue par Dyshay, http://www.salesprendes.com version: 1.0.0", LogTypes.ERROR.ToString("X"));
 
             cuenta.evento_estado_cuenta += eventos_Estados_Cuenta;
             cuenta.cuenta_desconectada += desconectar_Cuenta;
-            cuenta.logger.log_evento += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
+            cuenta.logger.log_event += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
 
             cuenta.script.evento_script_cargado += evento_Scripts_Cargado;
             cuenta.script.evento_script_iniciado += evento_Scripts_Iniciado;
@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             cuenta.juego.personaje.personaje_seleccionado += personaje_Seleccionado;
 
             if (cuenta.tiene_grupo)
-                escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] -> Le chef de groupe est: " + cuenta.grupo.lider.configuracion.nombre_cuenta, LogTipos.ERROR.ToString("X"));
+                escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] -> Le chef de groupe est: " + cuenta.grupo.lider.configuracion.accountUsername, LogTypes.ERROR.ToString("X"));
         }
 
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,11 +132,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             switch (cuenta.Estado_Cuenta)
             {
-                case EstadoCuenta.DESCONECTADO:
+                case AccountStates.DISCONNECTED:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_rojo);
                     break;
 
-                case EstadoCuenta.CONECTANDO:
+                case AccountStates.CONNECTED:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_naranja);
                     break;
 
@@ -181,7 +181,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void canal_Chat_Click(object sender, EventArgs e)
         {
-            if (cuenta?.Estado_Cuenta != EstadoCuenta.DESCONECTADO && cuenta?.Estado_Cuenta != EstadoCuenta.CONECTANDO)
+            if (cuenta?.Estado_Cuenta != AccountStates.DISCONNECTED && cuenta?.Estado_Cuenta != AccountStates.CONNECTED)
             {
                 string[] canales = { "i", "*", "#$p", "%", "!", "?", ":", "^" };
                 CheckBox control = sender as CheckBox;
@@ -311,7 +311,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         #endregion
 
         #region Mensajes
-        private void get_Mensajes_Socket_Informacion(object error) => escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] [Connexion] " + error, LogTipos.PELIGRO.ToString("X"));
+        private void get_Mensajes_Socket_Informacion(object error) => escribir_mensaje("[" + DateTime.Now.ToString("HH:mm:ss") + "] [Connexion] " + error, LogTypes.WARNING.ToString("X"));
 
         private void escribir_mensaje(string mensaje, string color)
         {

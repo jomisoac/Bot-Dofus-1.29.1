@@ -64,7 +64,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public async Task get_Lanzar_Hechizo(short hechizo_id, short celda_id)
         {
-            if (cuenta.Estado_Cuenta != EstadoCuenta.LUCHANDO)
+            if (cuenta.Estado_Cuenta != AccountStates.FIGHTING)
                 return;
 
             await cuenta.conexion.enviar_Paquete_Async("GA300" + hechizo_id + ';' + celda_id, false);
@@ -519,7 +519,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public void get_Combate_Creado()
         {
             cuenta.juego.personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
-            cuenta.Estado_Cuenta = EstadoCuenta.LUCHANDO;
+            cuenta.Estado_Cuenta = AccountStates.FIGHTING;
             pelea_creada?.Invoke();
             cuenta.logger.log_informacion("COMBAT", "Un nouveau combat commencé");
         }
@@ -528,7 +528,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             limpiar();
             pelea_acabada?.Invoke();
-            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            cuenta.Estado_Cuenta = AccountStates.CONNECTED_INACTIVE;
             cuenta.logger.log_informacion("COMBAT", "Combat terminé");
         }
 
