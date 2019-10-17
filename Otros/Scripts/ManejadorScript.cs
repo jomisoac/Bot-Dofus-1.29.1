@@ -97,7 +97,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
             activado = true;
             evento_script_iniciado?.Invoke();
-            estado_script = EstadoScript.MOVIMIENTO;
+            estado_script = EstadoScript.MOUVEMENT;
             iniciar_Script();
         }
 
@@ -195,7 +195,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (cuenta.juego.personaje.caracteristicas.energia_actual == 0)
             {
                 cuenta.logger.log_informacion("SCRIPT", "Le personnage est mort, passage en mode fenix.");
-                estado_script = EstadoScript.FENIX;
+                estado_script = EstadoScript.PHENIX;
             }
             await Task.Delay(50);
         }
@@ -205,13 +205,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!get_Maximos_Pods())//si no tiene el limite de pods no verificada por cada mapa
                 return;
 
-            if (!es_dung && estado_script != EstadoScript.BANCO)
+            if (!es_dung && estado_script != EstadoScript.BANQUE)
             {
                 if (!corriendo)
                     return;
 
                 cuenta.logger.log_informacion("SCRIPT", "Inventaire complet, passage en mode banque");
-                estado_script = EstadoScript.BANCO;
+                estado_script = EstadoScript.BANQUE;
             }
         }
 
@@ -230,7 +230,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!bandera.IsNil() && bandera.Type == DataType.Function)
                 banderas.Add(new FuncionPersonalizada(bandera));
 
-            if (estado_script == EstadoScript.MOVIMIENTO)
+            if (estado_script == EstadoScript.MOUVEMENT)
             {
                 bandera = valor.Get("recolte");
                 if (!bandera.IsNil() && bandera.Type == DataType.Boolean && bandera.Boolean)
@@ -241,7 +241,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     banderas.Add(new PeleaBandera());
             }
 
-            if (estado_script == EstadoScript.BANCO)
+            if (estado_script == EstadoScript.BANQUE)
             {
                 bandera = valor.Get("npc_banque");
                 if (!bandera.IsNil() && bandera.Type == DataType.Boolean && bandera.Boolean)
@@ -574,9 +574,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private bool verificar_Acciones_Especiales()
         {
-            if (estado_script == EstadoScript.BANCO && !get_Maximos_Pods())
+            if (estado_script == EstadoScript.BANQUE && !get_Maximos_Pods())
             {
-                estado_script = EstadoScript.MOVIMIENTO;
+                estado_script = EstadoScript.MOUVEMENT;
                 iniciar_Script();
                 return true;
             }
