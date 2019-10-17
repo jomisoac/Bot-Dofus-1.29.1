@@ -28,9 +28,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("PIK")]
         public void get_Peticion_Grupo(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_informacion("Grupo", $"Nueva invitación de grupo del personaje: {paquete.Substring(3).Split('|')[0]}");
+            cliente.cuenta.logger.log_informacion("Groupe", $"Nouvelle invitation de groupe du personnage: {paquete.Substring(3).Split('|')[0]}");
             cliente.enviar_Paquete("PR");
-            cliente.cuenta.logger.log_informacion("Grupo", "Petición rechazada");
+            cliente.cuenta.logger.log_informacion("Groupe", "Rejêt de l'invitation");
         }
 
         [PaqueteAtributo("SL")]
@@ -179,7 +179,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("ERK")]
         public void get_Peticion_Intercambio(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_informacion("INFORMACIÓN", "Invitación de intercambio recibida, rechazando");
+            cliente.cuenta.logger.log_informacion("INFORMATION", "L'invitation à l'échange est rejetée");
             cliente.enviar_Paquete("EV", true);
         }
 
@@ -194,7 +194,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
             personaje.timer_regeneracion.Change(tiempo, tiempo);
 
-            cuenta.logger.log_informacion("DOFUS", $"Tú personaje recupera 1 pdv cada {tiempo / 1000} segundos");
+            cuenta.logger.log_informacion("DOFUS", $"Votre personnage récupère 1 pdv chaque {tiempo / 1000} secondes");
         }
 
         [PaqueteAtributo("ILF")]
@@ -206,7 +206,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             PersonajeJuego personaje = cuenta.juego.personaje;
 
             personaje.caracteristicas.vitalidad_actual += vida;
-            cuenta.logger.log_informacion("DOFUS", $"Has recuperado {vida} puntos de vida");
+            cuenta.logger.log_informacion("DOFUS", $"Vous avez récupéré {vida} points de vie");
         }
 
         [PaqueteAtributo("eUK")]
@@ -229,6 +229,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Ping_Promedio(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete($"Bp{cliente.get_Promedio_Pings()}|{cliente.get_Total_Pings()}|50");
 
         [PaqueteAtributo("pong")]
-        public void get_Ping_Pong(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", $"Ping: {cliente.get_Actual_Ping()} ms");
+        public void get_Ping_Pong(ClienteTcp cliente, string paquete) => cliente.cuenta.logger.log_informacion("DOFUS", $"Ping: {paquete} ms");
     }
 }

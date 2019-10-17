@@ -44,7 +44,7 @@ namespace Bot_Dofus_1._29._1.Forms
         {
             if (GlobalConf.get_Cuenta(textBox_Nombre_Cuenta.Text) != null && GlobalConf.mostrar_mensajes_debug)
             {
-                MessageBox.Show("Ya existe una cuenta con el nombre de cuenta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Un compte existe déjà avec le nom du compte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -123,21 +123,21 @@ namespace Bot_Dofus_1._29._1.Forms
                 switch (sender.ToString())
                 {
                     case "Cuenta":
-                        string nueva_cuenta = Interaction.InputBox($"Ingresa la nueva cuenta", "Modificar cuenta", cuenta.nombre_cuenta);
+                        string nueva_cuenta = Interaction.InputBox($"Entrez le nouveau compte", "Modifier le compte", cuenta.nombre_cuenta);
 
                         if (!string.IsNullOrEmpty(nueva_cuenta) || nueva_cuenta.Split(new char[0]).Length == 0)
                             cuenta.nombre_cuenta = nueva_cuenta;
                     break;
 
                     case "Contraseña":
-                        string nueva_password = Interaction.InputBox($"Ingresa la nueva contraseña", "Modificar contraseña", cuenta.password);
+                        string nueva_password = Interaction.InputBox($"Entrez le nouveau mot de passe", "Changer le mot de passe", cuenta.password);
 
                         if (!string.IsNullOrEmpty(nueva_password) || nueva_password.Split(new char[0]).Length == 0)
                             cuenta.password = nueva_password;
                     break;
 
                     default:
-                        string nuevo_personaje = Interaction.InputBox($"Ingresa el nombre del nuevo personaje", "Modificar nombre de personaje", cuenta.nombre_personaje);
+                        string nuevo_personaje = Interaction.InputBox($"Entrez le nouveau nom du personnage", "Modifier le nom du personnage", cuenta.nombre_personaje);
                         cuenta.nombre_personaje = nuevo_personaje;
                     break;
                 }

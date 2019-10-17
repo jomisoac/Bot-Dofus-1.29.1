@@ -76,7 +76,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             else if (x < celda.x)
                 return y < celda.y ? (char)(6 + 'a') : (char)(4 + 'a');
 
-            throw new Exception("Error direccion no encontrada");
+            throw new Exception("Error direct non trouvée");
         }
 
         public bool es_Teleport() => texturas_teleport.Contains(layer_object_1_num) || texturas_teleport.Contains(layer_object_2_num);

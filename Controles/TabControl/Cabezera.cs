@@ -99,8 +99,8 @@ namespace Bot_Dofus_1._29._1.Controles.TabControl
                 SizeF estado_grupo = g.MeasureString(grupo, fuente);
 
                 g.DrawString(char.ToUpper(cuenta[0]) + cuenta.Substring(1), fuente, Brushes.Black, limites.X, 25 - ((titulo_tamano.Height + estado_tamano.Height + estado_grupo.Height) / 2));
-                g.DrawString($"Estado: {estado}", fuente, Brushes.Black, limites.X, 20 - ((titulo_tamano.Height + estado_tamano.Height + estado_grupo.Height) / 2) + titulo_tamano.Height);
-                g.DrawString($"Grupo: {grupo}", fuente, Brushes.Black, limites.X, 15 - ((titulo_tamano.Height + estado_tamano.Height + estado_grupo.Height) / 2) + titulo_tamano.Height + estado_tamano.Height);
+                g.DrawString($"Status : {estado}", fuente, Brushes.Black, limites.X, 20 - ((titulo_tamano.Height + estado_tamano.Height + estado_grupo.Height) / 2) + titulo_tamano.Height);
+                g.DrawString($"Groupe: {grupo}", fuente, Brushes.Black, limites.X, 15 - ((titulo_tamano.Height + estado_tamano.Height + estado_grupo.Height) / 2) + titulo_tamano.Height + estado_tamano.Height);
             }
             else if (!string.IsNullOrEmpty(cuenta))
             {

@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos
         public static Zonas Parse(string str)
         {
             if (str.Length != 2)
-                throw new ArgumentException("zona invalida");
+                throw new ArgumentException("Zone invalide");
 
             HechizoZona tipo;
 
