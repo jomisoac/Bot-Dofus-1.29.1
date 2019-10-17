@@ -61,7 +61,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(384, 272);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(382, 264);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -70,7 +70,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(378, 130);
+            this.groupBox1.Size = new System.Drawing.Size(376, 126);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
@@ -82,14 +82,14 @@
             this.tableLayoutPanel2.Controls.Add(this.checkBox_mensajes_debug, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 21);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 25);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(372, 106);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(370, 98);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkBox_mensajes_debug
@@ -100,9 +100,9 @@
             this.checkBox_mensajes_debug.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox_mensajes_debug.Location = new System.Drawing.Point(3, 3);
             this.checkBox_mensajes_debug.Name = "checkBox_mensajes_debug";
-            this.checkBox_mensajes_debug.Size = new System.Drawing.Size(366, 20);
+            this.checkBox_mensajes_debug.Size = new System.Drawing.Size(364, 18);
             this.checkBox_mensajes_debug.TabIndex = 0;
-            this.checkBox_mensajes_debug.Text = "Mostrar los mensajes debug";
+            this.checkBox_mensajes_debug.Text = "Afficher les messages de débogage";
             this.checkBox_mensajes_debug.UseVisualStyleBackColor = true;
             // 
             // groupBox2
@@ -110,20 +110,20 @@
             this.groupBox2.Controls.Add(this.panel1);
             this.groupBox2.Controls.Add(this.tableLayoutPanel3);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 139);
+            this.groupBox2.Location = new System.Drawing.Point(3, 135);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(378, 130);
+            this.groupBox2.Size = new System.Drawing.Size(376, 126);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Otros";
+            this.groupBox2.Text = "Serveur";
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.boton_opciones_guardar);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 92);
+            this.panel1.Location = new System.Drawing.Point(3, 96);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(372, 35);
+            this.panel1.Size = new System.Drawing.Size(370, 27);
             this.panel1.TabIndex = 1;
             // 
             // boton_opciones_guardar
@@ -132,9 +132,9 @@
             this.boton_opciones_guardar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boton_opciones_guardar.Location = new System.Drawing.Point(0, 0);
             this.boton_opciones_guardar.Name = "boton_opciones_guardar";
-            this.boton_opciones_guardar.Size = new System.Drawing.Size(372, 35);
+            this.boton_opciones_guardar.Size = new System.Drawing.Size(370, 27);
             this.boton_opciones_guardar.TabIndex = 0;
-            this.boton_opciones_guardar.Text = "Guardar";
+            this.boton_opciones_guardar.Text = "Sauvegarder";
             this.boton_opciones_guardar.UseVisualStyleBackColor = true;
             this.boton_opciones_guardar.Click += new System.EventHandler(this.boton_opciones_guardar_Click);
             // 
@@ -148,22 +148,22 @@
             this.tableLayoutPanel3.Controls.Add(this.textBox_ip_servidor, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label_ip_conexion, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 21);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 25);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.6129F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.3871F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(372, 71);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(370, 71);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // textBox_puerto_servidor
             // 
             this.textBox_puerto_servidor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_puerto_servidor.Location = new System.Drawing.Point(169, 35);
+            this.textBox_puerto_servidor.Location = new System.Drawing.Point(168, 35);
             this.textBox_puerto_servidor.MaxLength = 5;
             this.textBox_puerto_servidor.Name = "textBox_puerto_servidor";
-            this.textBox_puerto_servidor.Size = new System.Drawing.Size(200, 25);
+            this.textBox_puerto_servidor.Size = new System.Drawing.Size(199, 29);
             this.textBox_puerto_servidor.TabIndex = 3;
             // 
             // label_puerto_servidor
@@ -173,18 +173,18 @@
             this.label_puerto_servidor.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.label_puerto_servidor.Location = new System.Drawing.Point(3, 32);
             this.label_puerto_servidor.Name = "label_puerto_servidor";
-            this.label_puerto_servidor.Size = new System.Drawing.Size(160, 30);
+            this.label_puerto_servidor.Size = new System.Drawing.Size(159, 30);
             this.label_puerto_servidor.TabIndex = 2;
-            this.label_puerto_servidor.Text = "Puerto servidor conexión:";
+            this.label_puerto_servidor.Text = "Port:";
             this.label_puerto_servidor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBox_ip_servidor
             // 
             this.textBox_ip_servidor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_ip_servidor.Location = new System.Drawing.Point(169, 3);
+            this.textBox_ip_servidor.Location = new System.Drawing.Point(168, 3);
             this.textBox_ip_servidor.MaxLength = 35;
             this.textBox_ip_servidor.Name = "textBox_ip_servidor";
-            this.textBox_ip_servidor.Size = new System.Drawing.Size(200, 25);
+            this.textBox_ip_servidor.Size = new System.Drawing.Size(199, 29);
             this.textBox_ip_servidor.TabIndex = 1;
             // 
             // label_ip_conexion
@@ -193,16 +193,16 @@
             this.label_ip_conexion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_ip_conexion.Location = new System.Drawing.Point(3, 0);
             this.label_ip_conexion.Name = "label_ip_conexion";
-            this.label_ip_conexion.Size = new System.Drawing.Size(160, 32);
+            this.label_ip_conexion.Size = new System.Drawing.Size(159, 32);
             this.label_ip_conexion.TabIndex = 0;
-            this.label_ip_conexion.Text = "IP servidor conexión:";
+            this.label_ip_conexion.Text = "IP Serveur:";
             this.label_ip_conexion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Opciones
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 272);
+            this.ClientSize = new System.Drawing.Size(382, 264);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -214,7 +214,7 @@
             this.Name = "Opciones";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ajustes";
+            this.Text = "Paramètres";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

@@ -144,7 +144,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(441, 39);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
@@ -308,7 +308,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(441, 34);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
@@ -560,7 +560,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(455, 362);
+            this.tabPage1.Size = new System.Drawing.Size(453, 354);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Ajouter plusieurs comptes";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -588,7 +588,7 @@
             this.Name = "GestionCuentas";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Gestionnaire de compte";
+            this.Text = "Gestion de comptes";
             this.tabControlPrincipalCuentas.ResumeLayout(false);
             this.ListaCuentas.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
