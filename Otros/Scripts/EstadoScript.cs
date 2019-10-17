@@ -2,8 +2,8 @@
 {
     public enum EstadoScript
     {
-        MOVIMIENTO,
-        BANCO,
-        FENIX
+        MOUVEMENT,
+        BANQUE,
+        PHENIX
     }
 }
