@@ -20,11 +20,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             switch (separador[0])
             {
                 case "?":
-                    canal = "RECLUTAMIENTO";
+                    canal = "RECRUTEMENT";
                 break;
 
                 case ":":
-                    canal = "COMERCIO";
+                    canal = "COMMERCE";
                 break;
 
                 case "^":
@@ -32,27 +32,27 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 break;
 
                 case "i":
-                    canal = "INFORMACIÓN";
+                    canal = "INFORMATION";
                 break;
 
                 case "#":
-                    canal = "EQUIPO";
+                    canal = "EQUIPE";
                 break;
 
                 case "$":
-                    canal = "GRUPO";
+                    canal = "GROUPE";
                 break;
 
                 case "%":
-                    canal = "GREMIO";
+                    canal = "GUILDE";
                 break;
 
                 case "F":
-                    cliente.cuenta.logger.log_privado("RECIBIDO-PRIVADO", separador[2] + ": " + separador[3]);
+                    cliente.cuenta.logger.log_privado("Message Reçu", separador[2] + ": " + separador[3]);
                 break;
 
                 case "T":
-                    cliente.cuenta.logger.log_privado("ENVIADO-PRIVADO", separador[2] + ": " + separador[3]);
+                    cliente.cuenta.logger.log_privado("Message Envoyé", separador[2] + ": " + separador[3]);
                 break;
 
                 default:
