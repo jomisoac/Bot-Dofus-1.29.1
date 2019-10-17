@@ -16,7 +16,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("M030")]
         public void get_Error_Streaming(ClienteTcp cliente, string paquete)
         {
-            cliente.cuenta.logger.log_Error("Login", "Conexión rechazada. No se te ha podido autentificar para este servidor porque tu conexión ha caducado. Asegúrate de cortar las descargas, así como la música o los vídeos en difusión continua (streaming), para mejorar la calidad y la velocidad de tu conexión.");
+            cliente.cuenta.logger.log_Error("Login", "Connexion rejetée. Vous n'avez pas pu vous authentifier pour ce serveur car votre connexion a expiré. Assurez-vous de couper les téléchargements, la musique ou les vidéos en continu pour améliorer la qualité et la vitesse de votre connexion.");
             cliente.cuenta.desconectar();
         }
 
