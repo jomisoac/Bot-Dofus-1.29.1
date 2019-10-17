@@ -96,7 +96,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
             if (paquete_eliminar)
             {
                 cuenta.conexion.enviar_Paquete($"Od{obj.id_inventario}|{cantidad}");
-                cuenta.logger.log_informacion("Inventario", $"{cantidad} {obj.nombre} eliminados(s).");
+                cuenta.logger.log_informacion("INVENTAIRE", $"{cantidad} {obj.nombre} éliminée(s).");
             }
 
             inventario_actualizado?.Invoke(true);
@@ -114,19 +114,19 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
         {
             if (objeto == null || objeto.cantidad == 0 || cuenta.esta_ocupado())
             {
-                cuenta.logger.log_Error("INVENTARIO", $"El objeto {objeto.nombre} no se puede equipar");
+                cuenta.logger.log_Error("INVENTAIRE", $"L'objet {objeto.nombre} ne peux être équipé");
                 return false;
             }
 
             if (objeto.nivel > cuenta.juego.personaje.nivel)
             {
-                cuenta.logger.log_Error("INVENTARIO", $"El nivel del objeto {objeto.nombre} es superior al nivel actual.");
+                cuenta.logger.log_Error("INVENTAIRE", $"Le niveau de l'objet {objeto.nombre} est supérieur à ton niveau");
                 return false;
             }
 
             if (objeto.posicion != InventarioPosiciones.NO_EQUIPADO)//objeto ya esta equipado
             {
-                cuenta.logger.log_Error("INVENTARIO", $"El objeto {objeto.nombre} ya esta equipado");
+                cuenta.logger.log_Error("INVENTAIRE", $"l'objet {objeto.nombre} est équipé");
                 return false;
             }
 
@@ -134,7 +134,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
 
             if (possibles_posiciones == null || possibles_posiciones.Count == 0)//objeto no equipable
             {
-                cuenta.logger.log_Error("INVENTARIO", $"El objeto {objeto.nombre} no es equipable.");
+                cuenta.logger.log_Error("INVENTARIO", $"L'objet {objeto.nombre} n'est pas équipable");
                 return false;
             }
 
@@ -143,7 +143,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
                 if (get_Objeto_en_Posicion(posicion) == null)
                 {
                     cuenta.conexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)posicion, true);
-                    cuenta.logger.log_informacion("INVENTARIO", $"{objeto.nombre} equipado.");
+                    cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} équipé.");
                     objeto.posicion = posicion;
                     inventario_actualizado?.Invoke(true);
                     return true;
@@ -162,7 +162,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
             if (objeto.cantidad == 1)
                 objeto.posicion = possibles_posiciones[0];
 
-            cuenta.logger.log_informacion("INVENTARIO", $"{objeto.nombre} equipado.");
+            cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} équipé.");
             inventario_actualizado?.Invoke(true);
             return true;
         }
@@ -177,7 +177,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
 
             cuenta.conexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)InventarioPosiciones.NO_EQUIPADO);
             objeto.posicion = InventarioPosiciones.NO_EQUIPADO;
-            cuenta.logger.log_informacion("INVENTARIO", $"{objeto.nombre} desequipado.");
+            cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} déséquipé.");
             inventario_actualizado?.Invoke(true);
             return true;
         }
@@ -189,13 +189,13 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
 
             if(objeto.cantidad == 0)
             {
-                cuenta.logger.log_Error("INVENTARIO", $"El objeto {objeto.nombre} no se puede utilizar, cantidad insuficiente");
+                cuenta.logger.log_Error("INVENTAIRE", $"L'objet {objeto.nombre} ne peut être mis à cause de tes caractéristiques");
                 return;
             }
 
             cuenta.conexion.enviar_Paquete("OU" + objeto.id_inventario + "|");
             eliminar_Objeto(objeto, 1, false);
-            cuenta.logger.log_informacion("INVENTARIO", $"{objeto.nombre} utilizado.");
+            cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} utilisée.");
         }
 
         public void evento_Almacenamiento_Abierto() => almacenamiento_abierto?.Invoke();
