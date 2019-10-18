@@ -1,6 +1,8 @@
-﻿using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
+using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using Bot_Dofus_1._29._1.Utilidades.Extensiones;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -27,6 +29,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public sbyte x { get; set; }
         public sbyte y { get; set; }
         public Celda[] celdas;
+        public Dictionary<MapaTeleportCeldas, List<short>> CellsTeleport;
 
         /** Concurrent para forzar thread-safety **/
         public ConcurrentDictionary<int, Entidad> entidades;
@@ -40,12 +43,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         {
             entidades = new ConcurrentDictionary<int, Entidad>();
             interactivos = new ConcurrentDictionary<int, ObjetoInteractivo>();
+            CellsTeleport = new Dictionary<MapaTeleportCeldas, List<short>>();
         }
 
         public void get_Actualizar_Mapa(string paquete)
         {
             entidades.Clear();
             interactivos.Clear();
+            CellsTeleport.Clear();
 
             string[] _loc3 = paquete.Split('|');
             id = int.Parse(_loc3[0]);
@@ -154,6 +159,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             byte nivel = Convert.ToByte(informacion_celda[1] & 15);
             byte slope = Convert.ToByte((informacion_celda[4] & 60) >> 2);
 
+            if (tipo == TipoCelda.CELDA_TELEPORT)
+                CellsTeleport.Add(id_celda);
+
             return new Celda(id_celda, activa, tipo, es_linea_vision, nivel, slope, tiene_objeto_interactivo ? layer_objeto_2_num : Convert.ToInt16(-1), layer_objeto_1_num, layer_objeto_2_num, this);
         }
         #endregion
@@ -169,6 +177,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             y = 0;
             entidades.Clear();
             interactivos.Clear();
+            CellsTeleport.Clear();
             celdas = null;
         }
 
@@ -182,6 +191,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             
             celdas = null;
             entidades = null;
+            CellsTeleport = null;
             disposed = true;
         }
         #endregion

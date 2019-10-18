@@ -256,7 +256,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
             bandera = valor.Get("direction");
             if (!bandera.IsNil() && bandera.Type == DataType.String)
-                banderas.Add(new CambiarMapa(bandera.String));
+            {
+                string cellId = cuenta.juego.mapa.CellsTeleport.FirstOrDefault(c => c.Key.ToString() == bandera.String).Value.First().ToString();
+                banderas.Add(new CambiarMapa(cellId));
+            }
 
             if (banderas.Count == 0)
                 detener_Script("aucune action trouvée sur cette carte");
