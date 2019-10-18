@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 int id = int.Parse(_loc11_[0]);
                 string nombre = _loc11_[1];
 
-                if (nombre.ToLower().Equals(cuenta.configuracion.accountUsername.ToLower()) || string.IsNullOrEmpty(cuenta.configuracion.characterName))
+                if (nombre.ToLower().Equals(cuenta.configuracion.characterName.ToLower()) || string.IsNullOrEmpty(cuenta.configuracion.characterName))
                 {
                     cliente.enviar_Paquete("AS" + id, true);
                     encontrado = true;
