@@ -51,14 +51,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
 
                 int id = int.Parse(separador[0]);
                 EstadosServidor estado = (EstadosServidor)byte.Parse(separador[1]);
-                string nombre = id == 601 ? "Eratz" : "Henual";
+                string nombre = cuenta.configuracion.servidor;
 
                 // Add Method to take name with Id
 
                 if (id == cuenta.configuracion.get_Servidor_Id())
                 {
                     servidor.actualizar_Datos(id, nombre, estado);
-                    cuenta.logger.log_informacion("LOGIN", $"Le serveur {nombre} est {estado}");
+                    cuenta.logger.log_informacion("LOGIN", $"Le serveur {nombre} est {cuenta.juego.servidor.GetState(estado)}");
 
                     if (estado != EstadosServidor.CONECTADO)
                         primera_vez = false;
