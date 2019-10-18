@@ -159,7 +159,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             byte nivel = Convert.ToByte(informacion_celda[1] & 15);
             byte slope = Convert.ToByte((informacion_celda[4] & 60) >> 2);
 
-            if (tipo == TipoCelda.CELDA_TELEPORT)
+            if (tipo == TipoCelda.CELDA_TELEPORT || tipo == TipoCelda.CAMINO_1)
                 CellsTeleport.Add(id_celda);
 
             return new Celda(id_celda, activa, tipo, es_linea_vision, nivel, slope, tiene_objeto_interactivo ? layer_objeto_2_num : Convert.ToInt16(-1), layer_objeto_1_num, layer_objeto_2_num, this);
