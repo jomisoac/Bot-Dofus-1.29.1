@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 /*
@@ -249,6 +250,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
 
             bandera = valor.Get("cell");
+            if (!bandera.IsNil() && bandera.Type == DataType.String)
+                banderas.Add(new CambiarMapa(bandera.String));
+
+            bandera = valor.Get("direction");
             if (!bandera.IsNil() && bandera.Type == DataType.String)
                 banderas.Add(new CambiarMapa(bandera.String));
 
