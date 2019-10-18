@@ -149,7 +149,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         private bool get_Mover_Para_Cambiar_mapa(Celda celda)
         {
-            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas());
+            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas().Where(c => c.tipo != TipoCelda.CELDA_TELEPORT).ToList());
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:

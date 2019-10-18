@@ -88,9 +88,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 cuenta.conexion.paquete_enviado += debugger.paquete_Enviado;
                 cuenta.conexion.socket_informacion += get_Mensajes_Socket_Informacion;
 
-                desconectarOconectarToolStripMenuItem.Text = "Déconnecté";
+                desconectarOconectarToolStripMenuItem.Text = "Deconnecté";
             }
-            else if (desconectarOconectarToolStripMenuItem.Text.Equals("Connecté"))
+            else if (desconectarOconectarToolStripMenuItem.Text.Equals("Deconnecté"))
                 cuenta.desconectar();
         }
 

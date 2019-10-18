@@ -85,7 +85,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.label_mapa_id.Name = "label_mapa_id";
             this.label_mapa_id.Size = new System.Drawing.Size(195, 36);
             this.label_mapa_id.TabIndex = 0;
-            this.label_mapa_id.Text = "MAP ID: ";
+            this.label_mapa_id.Text = "Position : ";
             this.label_mapa_id.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // checkBox_mostrar_celdas
