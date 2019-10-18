@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             BeginInvoke((Action)(() =>
             {
-                label_mapa_id.Text = "MAPA ID: " + mapa.id;
+                label_mapa_id.Text = "Position: " + mapa.coordenadas;
             }));
 
             control_mapa.refrescar_Mapa();
