@@ -63,23 +63,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             }
         }
 
-        public string GetActualCoordinate(int id)
-        {
-            FileInfo mapa_archivo = new FileInfo("mapas/" + id + ".xml");
-            if (mapa_archivo.Exists)
-            {
-                XElement archivo_mapa = XElement.Load(mapa_archivo.FullName);
-                x = sbyte.Parse(archivo_mapa.Element("X").Value);
-                y = sbyte.Parse(archivo_mapa.Element("Y").Value);
-                return $"[{x},{y}";
-            }
-            return "[0,0]";
-        }
-
         public string coordenadas => $"[{x},{y}]";
         public Celda get_Celda_Id(short celda_id) => celdas[celda_id];
         public bool esta_En_Mapa(string _coordenadas) => _coordenadas == id.ToString() || _coordenadas == coordenadas;
-        public bool esta_En_Mapa(int x, int y) => $"[{x},{y}]" == GetActualCoordinate(id);
         public Celda get_Celda_Por_Coordenadas(int x, int y) => celdas.FirstOrDefault(celda => celda.x == x && celda.y == y);
         public bool get_Puede_Luchar_Contra_Grupo_Monstruos(int monstruos_minimos, int monstruos_maximos, int nivel_minimo, int nivel_maximo, List<int> monstruos_prohibidos, List<int> monstruos_obligatorios) => get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios).Count > 0;
 

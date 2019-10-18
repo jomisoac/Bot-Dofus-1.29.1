@@ -155,7 +155,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                     bool isCoordinates = XY.Count == 2;
 
-                    if (!isCoordinates && !cuenta.juego.mapa.esta_En_Mapa(entrada["map"].ToString()) && !cuenta.juego.mapa.esta_En_Mapa(int.Parse(XY[0].Value), int.Parse(XY[1].Value)))
+                    if (!cuenta.juego.mapa.esta_En_Mapa(entrada["map"].ToString()))
                         continue;
 
                     procesar_Entradas(entrada);
