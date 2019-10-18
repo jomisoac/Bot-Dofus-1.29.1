@@ -149,12 +149,6 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     if (entrada["map"] == null)
                         continue;
 
-                    Regex CoordinatePattern = new Regex(@"(\d{1,2})");
-
-                    MatchCollection XY = CoordinatePattern.Matches(entrada["map"].ToString());
-
-                    bool isCoordinates = XY.Count == 2;
-
                     if (!cuenta.juego.mapa.esta_En_Mapa(entrada["map"].ToString()))
                         continue;
 
