@@ -51,7 +51,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
 
                 int id = int.Parse(separador[0]);
                 EstadosServidor estado = (EstadosServidor)byte.Parse(separador[1]);
-                string nombre = cuenta.configuracion.servidor;
+                string nombre = cuenta.configuracion.server;
 
                 // Add Method to take name with Id
 
