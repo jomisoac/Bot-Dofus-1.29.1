@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 /*
@@ -148,7 +149,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     if (entrada["map"] == null)
                         continue;
 
-                    if (!cuenta.juego.mapa.esta_En_Mapa(entrada["map"].ToString()))
+                    Regex CoordinatePattern = new Regex(@"(\d{1,2})");
+
+                    MatchCollection XY = CoordinatePattern.Matches(entrada["map"].ToString());
+
+                    bool isCoordinates = XY.Count == 2;
+
+                    if (!isCoordinates && !cuenta.juego.mapa.esta_En_Mapa(entrada["map"].ToString()) && !cuenta.juego.mapa.esta_En_Mapa(int.Parse(XY[0].Value), int.Parse(XY[1].Value)))
                         continue;
 
                     procesar_Entradas(entrada);
@@ -249,6 +256,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
 
             bandera = valor.Get("cell");
+            if (!bandera.IsNil() && bandera.Type == DataType.String)
+                banderas.Add(new CambiarMapa(bandera.String));
+
+            bandera = valor.Get("direction");
             if (!bandera.IsNil() && bandera.Type == DataType.String)
                 banderas.Add(new CambiarMapa(bandera.String));
 
