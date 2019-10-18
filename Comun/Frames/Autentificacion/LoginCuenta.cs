@@ -49,6 +49,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
             {
                 string[] separador = sv.Split(';');
 
+
                 int id = int.Parse(separador[0]);
                 EstadosServidor estado = (EstadosServidor)byte.Parse(separador[1]);
                 string nombre = cuenta.configuracion.servidor;
