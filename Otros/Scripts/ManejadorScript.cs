@@ -149,6 +149,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     if (entrada["map"] == null)
                         continue;
 
+
                     if (!cuenta.juego.mapa.esta_En_Mapa(entrada["map"].ToString()))
                         continue;
 
