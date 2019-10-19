@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -123,7 +124,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             try
             {
                 Table mapas_dung = manejador_script.get_Global_Or<Table>("MAPS_DONJON", DataType.Table, null);
-                
+
                 if (mapas_dung != null)
                 {
                     IEnumerable<int> test = mapas_dung.Values.Where(m => m.Type == DataType.Number).Select(n => (int)n.Number);
@@ -257,8 +258,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             bandera = valor.Get("direction");
             if (!bandera.IsNil() && bandera.Type == DataType.String)
             {
-                string cellId = cuenta.juego.mapa.CellsTeleport.FirstOrDefault(c => c.Key.ToString() == bandera.String).Value.First().ToString();
-                banderas.Add(new CambiarMapa(cellId));
+                string cellsDirection = "";
+                var elementsDirection = bandera.String.Split('|');
+                if (cuenta.juego.mapa.haveTeleport() && elementsDirection.Length > 1)
+                    cellsDirection = cuenta.juego.mapa.TransformToCellId(elementsDirection);
+                else
+                    cellsDirection = cuenta.juego.mapa.TransformToCellId(bandera.String);
+
+                banderas.Add(new CambiarMapa(cellsDirection));
             }
 
             if (banderas.Count == 0)
@@ -280,11 +287,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                 case PeleaBandera _:
                     manejar_Pelea_mapa(tiene_accion_disponible as PeleasAccion);
-                break;
+                    break;
 
                 case NPCBancoBandera _:
                     manejar_Npc_Banco_Bandera();
-                break;
+                    break;
 
                 case FuncionPersonalizada fp:
                     manejar_acciones.get_Funcion_Personalizada(fp.funcion);
@@ -536,7 +543,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                         procesar_Actual_Entrada(accion_pelea);
                         return;
                     }
-               break;
+                    break;
             }
 
             bandera_id++;

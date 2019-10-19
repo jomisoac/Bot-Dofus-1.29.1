@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -65,6 +66,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
                 y = sbyte.Parse(archivo_mapa.Element("Y").Value);
 
                 Task.Run(() => descomprimir_mapa(archivo_mapa.Element("MAPA_DATA").Value)).Wait();
+                Task.Run(() => getTeleportCell(celdas)).Wait();
             }
         }
 
@@ -159,11 +161,75 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             byte nivel = Convert.ToByte(informacion_celda[1] & 15);
             byte slope = Convert.ToByte((informacion_celda[4] & 60) >> 2);
 
-            if (tipo == TipoCelda.CELDA_TELEPORT || tipo == TipoCelda.CAMINO_1)
-                CellsTeleport.Add(id_celda);
 
             return new Celda(id_celda, activa, tipo, es_linea_vision, nivel, slope, tiene_objeto_interactivo ? layer_objeto_2_num : Convert.ToInt16(-1), layer_objeto_1_num, layer_objeto_2_num, this);
         }
+
+
+        public void getTeleportCell(Celda[] cells)
+        {
+            List<Celda> cellsToManipulate = cells.ToList().Where(c => c.es_Teleport()).ToList();
+            cellsToManipulate.ForEach(cell =>
+            {
+                CellsTeleport.Add(cell.id);
+            });
+        }
+
+        public bool haveTeleport()
+        {
+            return CellsTeleport.Count > 0;
+        }
+
+        public string TransformToCellId(string[] cellsDirection)
+        {
+            StringBuilder st = new StringBuilder();
+            for (int i = 0; i < cellsDirection.Length; i++)
+            {
+                switch (cellsDirection[i])
+                {
+                    case "RIGHT":
+                        st.Append(CellsTeleport[MapaTeleportCeldas.RIGHT].First());
+                        break;
+                    case "LEFT":
+                        st.Append(CellsTeleport[MapaTeleportCeldas.LEFT].First());
+                        break;
+                    case "TOP":
+                        st.Append(CellsTeleport[MapaTeleportCeldas.TOP].First());
+                        break;
+                    case "BOTTOM":
+                        st.Append(CellsTeleport[MapaTeleportCeldas.BOTTOM].First());
+                        break;
+                    default:
+                        break;
+                }
+                if (i < cellsDirection.Length - 1)
+                    st.Append('|');
+            }
+            return st.ToString();
+        }
+        public string TransformToCellId(string cellDirection)
+        {
+            StringBuilder st = new StringBuilder();
+            switch (cellDirection)
+            {
+                case "RIGHT":
+                    st.Append(CellsTeleport[MapaTeleportCeldas.RIGHT].First());
+                    break;
+                case "LEFT":
+                    st.Append(CellsTeleport[MapaTeleportCeldas.LEFT].First());
+                    break;
+                case "TOP":
+                    st.Append(CellsTeleport[MapaTeleportCeldas.TOP].First());
+                    break;
+                case "BOTTOM":
+                    st.Append(CellsTeleport[MapaTeleportCeldas.BOTTOM].First());
+                    break;
+                default:
+                    break;
+            }
+            return st.ToString();
+        }
+
         #endregion
 
         #region Zona Dispose
@@ -188,7 +254,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
 
             entidades.Clear();
             interactivos.Clear();
-            
+
             celdas = null;
             entidades = null;
             CellsTeleport = null;

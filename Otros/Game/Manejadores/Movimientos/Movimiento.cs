@@ -153,7 +153,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:
-                        cuenta.logger.log_informacion("MOUVEMENT", $"Map Actuel: {mapa.id} changement de map via la cellule {celda.id} ");
+                        cuenta.logger.log_informacion("MOUVEMENT", $"{mapa.coordenadas} changement de map via la cellule {celda.id} ");
                 return true;
 
                 default:
