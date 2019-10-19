@@ -22,7 +22,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
     public class Pelea : IEliminable, IDisposable
     {
-        public Cuenta cuenta { get; private set; }
+        public Account cuenta { get; private set; }
         private ConcurrentDictionary<int, Luchadores> luchadores;
         private ConcurrentDictionary<int, Luchadores> enemigos;
         private ConcurrentDictionary<int, Luchadores> aliados;
@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public event Action<short, bool> hechizo_lanzado;
         public event Action<bool> movimiento;
 
-        public Pelea(Cuenta _cuenta)
+        public Pelea(Account _cuenta)
         {
             cuenta = _cuenta;
             luchadores = new ConcurrentDictionary<int, Luchadores>();
@@ -67,12 +67,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (cuenta.Estado_Cuenta != AccountStates.FIGHTING)
                 return;
 
-            await cuenta.conexion.enviar_Paquete_Async("GA300" + hechizo_id + ';' + celda_id, false);
+            await cuenta.connexion.enviar_Paquete_Async("GA300" + hechizo_id + ';' + celda_id, false);
         }
 
         public void actualizar_Hechizo_Exito(short celda_id, short hechizo_id)
         {
-            Hechizo hechizo = cuenta.juego.personaje.get_Hechizo(hechizo_id);
+            Hechizo hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
             HechizoStats datos_hechizo = hechizo.get_Stats();
 
             if (datos_hechizo.intervalo > 0 && !hechizos_intervalo.ContainsKey(hechizo.id))
@@ -193,8 +193,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public void get_Agregar_Luchador(Luchadores luchador)
         {
-            if (luchador.id == cuenta.juego.personaje.id)
-                jugador_luchador = new LuchadorPersonaje(cuenta.juego.personaje.nombre, cuenta.juego.personaje.nivel, luchador);
+            if (luchador.id == cuenta.game.personaje.id)
+                jugador_luchador = new LuchadorPersonaje(cuenta.game.personaje.nombre, cuenta.game.personaje.nivel, luchador);
 
             else if (!luchadores.TryAdd(luchador.id, luchador))
                 luchador.get_Actualizar_Luchador(luchador.id, luchador.esta_vivo, luchador.vida_actual, luchador.pa, luchador.pm, luchador.celda, luchador.vida_maxima, luchador.equipo, luchador.id_invocador);
@@ -256,7 +256,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(short hechizo_id)
         {
-            Hechizo hechizo = cuenta.juego.personaje.get_Hechizo(hechizo_id);
+            Hechizo hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
 
             if (hechizo == null)
                 return FallosLanzandoHechizo.DESONOCIDO;
@@ -272,7 +272,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizos_intervalo.ContainsKey(hechizo_id))
                 return FallosLanzandoHechizo.COOLDOWN;
 
-            if (datos_hechizo.efectos_normales.Count > 0 && datos_hechizo.efectos_normales[0].id == 181 && contador_invocaciones >= cuenta.juego.personaje.caracteristicas.criaturas_invocables.total_stats)
+            if (datos_hechizo.efectos_normales.Count > 0 && datos_hechizo.efectos_normales[0].id == 181 && contador_invocaciones >= cuenta.game.personaje.caracteristicas.criaturas_invocables.total_stats)
                 return FallosLanzandoHechizo.DEMASIADAS_INVOCACIONES;
 
             return FallosLanzandoHechizo.NINGUNO;
@@ -280,7 +280,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(short hechizo_id, Celda celda_actual, Celda celda_objetivo, Mapa mapa)
         {
-            Hechizo hechizo = cuenta.juego.personaje.get_Hechizo(hechizo_id);
+            Hechizo hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
 
             if (hechizo == null)
                 return FallosLanzandoHechizo.DESONOCIDO;
@@ -306,7 +306,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             List<short> rango = new List<short>();
             
-            foreach (Celda celda in HechizoShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, datos_hechizo, cuenta.juego.mapa, cuenta.juego.personaje.caracteristicas.alcanze.total_stats))
+            foreach (Celda celda in HechizoShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, datos_hechizo, cuenta.game.mapa, cuenta.game.personaje.caracteristicas.alcanze.total_stats))
             {
                 if (celda == null || rango.Contains(celda.id))
                     continue;
@@ -518,7 +518,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         #region Zona Eventos
         public void get_Combate_Creado()
         {
-            cuenta.juego.personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
+            cuenta.game.personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
             cuenta.Estado_Cuenta = AccountStates.FIGHTING;
             pelea_creada?.Invoke();
             cuenta.logger.log_informacion("COMBAT", "Un nouveau combat commencé");
@@ -526,13 +526,13 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public void get_Combate_Acabado()
         {
-            limpiar();
+            Clear();
             pelea_acabada?.Invoke();
             cuenta.Estado_Cuenta = AccountStates.CONNECTED_INACTIVE;
             cuenta.logger.log_informacion("COMBAT", "Combat terminé");
         }
 
-        public void limpiar()
+        public void Clear()
         {
             enemigos.Clear();
             aliados.Clear();

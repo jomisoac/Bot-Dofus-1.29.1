@@ -21,7 +21,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
     public class PeleaExtensiones : IDisposable
     {
         public PeleaConf configuracion { get; set; }
-        private Cuenta cuenta;
+        private Account cuenta;
         private ManejadorHechizos manejador_hechizos;
         private Pelea pelea;
 
@@ -29,12 +29,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         private bool esperando_sequencia_fin;
         private bool disposed;
 
-        public PeleaExtensiones(Cuenta _cuenta)
+        public PeleaExtensiones(Account _cuenta)
         {
             cuenta = _cuenta;
             configuracion = new PeleaConf(cuenta);
             manejador_hechizos = new ManejadorHechizos(cuenta);
-            pelea = cuenta.juego.pelea;
+            pelea = cuenta.game.pelea;
 
             get_Eventos();
         }
@@ -60,7 +60,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             await Task.Delay(400);
 
-            if (configuracion.hechizos.Count == 0 || !cuenta.juego.pelea.get_Enemigos.Any())
+            if (configuracion.hechizos.Count == 0 || !cuenta.game.pelea.get_Enemigos.Any())
             {
                 await get_Fin_Turno();
                 return;
@@ -154,7 +154,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_actual.lanzamientos_restantes = hechizo_actual.lanzamientos_x_turno;
             hechizo_lanzado_index++;
 
-            await Task.Delay(350 + cuenta.conexion.get_Actual_Ping());
+            await Task.Delay(350 + cuenta.connexion.get_Actual_Ping());
             await get_Procesar_hechizo();
         }
 
@@ -166,13 +166,13 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
 
             pelea.get_Turno_Acabado();
-            cuenta.conexion.enviar_Paquete("Gt");
+            cuenta.connexion.enviar_Paquete("Gt");
         }
 
         public async Task get_Mover(bool cercano, Luchadores enemigo)
         {
             KeyValuePair<short, MovimientoNodo>? nodo = null;
-            Mapa mapa = cuenta.juego.mapa;
+            Mapa mapa = cuenta.game.mapa;
             int distancia = -1;
 
             int distancia_total = Get_Total_Distancia_Enemigo(pelea.jugador_luchador.celda);
@@ -201,10 +201,10 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             }
 
             if (nodo != null)
-                await cuenta.juego.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
+                await cuenta.game.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
         }
 
-        public int Get_Total_Distancia_Enemigo(Celda celda) => cuenta.juego.pelea.get_Enemigos.Sum(e => e.celda.get_Distancia_Entre_Dos_Casillas(celda) - 1);
+        public int Get_Total_Distancia_Enemigo(Celda celda) => cuenta.game.pelea.get_Enemigos.Sum(e => e.celda.get_Distancia_Entre_Dos_Casillas(celda) - 1);
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);

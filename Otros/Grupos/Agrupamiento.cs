@@ -6,7 +6,7 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
     public class Agrupamiento : IDisposable
     {
         private Grupo grupo;
-        private List<Cuenta> miembros_perdidos;
+        private List<Account> miembros_perdidos;
         private bool disposed;
 
         public Agrupamiento(Grupo _grupo) => grupo = _grupo;

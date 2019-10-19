@@ -9,11 +9,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
     [MoonSharpUserData]
     public class MapaApi : IDisposable
     {
-        private Cuenta cuenta;
+        private Account cuenta;
         private ManejadorAcciones manejador_acciones;
         private bool disposed = false;
 
-        public MapaApi(Cuenta _cuenta, ManejadorAcciones _manejador_acciones)
+        public MapaApi(Account _cuenta, ManejadorAcciones _manejador_acciones)
         {
             cuenta = _cuenta;
             manejador_acciones = _manejador_acciones;
@@ -36,20 +36,20 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 
         public bool moverCelda(short celda_id)
         {
-            if (celda_id < 0 || celda_id > cuenta.juego.mapa.celdas.Length)
+            if (celda_id < 0 || celda_id > cuenta.game.mapa.celdas.Length)
                 return false;
 
-            if (!cuenta.juego.mapa.get_Celda_Id(celda_id).es_Caminable() || cuenta.juego.mapa.get_Celda_Id(celda_id).es_linea_vision)
+            if (!cuenta.game.mapa.get_Celda_Id(celda_id).es_Caminable() || cuenta.game.mapa.get_Celda_Id(celda_id).es_linea_vision)
                 return false;
 
             manejador_acciones.enqueue_Accion(new MoverCeldaAccion(celda_id), true);
             return true;
         }
 
-        public bool enCelda(short celda_id) => cuenta.juego.personaje.celda.id == celda_id;
-        public bool enMapa(string coordenadas) => cuenta.juego.mapa.esta_En_Mapa(coordenadas);
-        public string actualMapa() => cuenta.juego.mapa.id.ToString();
-        public string actualPosicion() => cuenta.juego.mapa.coordenadas;
+        public bool enCelda(short celda_id) => cuenta.game.personaje.celda.id == celda_id;
+        public bool enMapa(string coordenadas) => cuenta.game.mapa.esta_En_Mapa(coordenadas);
+        public string actualMapa() => cuenta.game.mapa.id.ToString();
+        public string actualPosicion() => cuenta.game.mapa.coordenadas;
 
         #region Zona Dispose
         ~MapaApi() => Dispose(false);

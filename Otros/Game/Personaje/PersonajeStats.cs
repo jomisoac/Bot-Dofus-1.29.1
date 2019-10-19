@@ -47,7 +47,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
             criaturas_invocables = new PersonajeStats(0, 0, 0, 0);
         }
 
-        public void limpiar()
+        public void Clear()
         {
             experiencia_actual = 0;
             experiencia_minima_nivel = 0;
@@ -57,18 +57,18 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
             vitalidad_actual = 0;
             vitalidad_maxima = 0;
 
-            iniciativa.limpiar();
-            prospeccion.limpiar();
-            puntos_accion.limpiar();
-            puntos_movimiento.limpiar();
-            vitalidad.limpiar();
-            sabiduria.limpiar();
-            fuerza.limpiar();
-            inteligencia.limpiar();
-            suerte.limpiar();
-            agilidad.limpiar();
-            alcanze.limpiar();
-            criaturas_invocables.limpiar();
+            iniciativa.Clear();
+            prospeccion.Clear();
+            puntos_accion.Clear();
+            puntos_movimiento.Clear();
+            vitalidad.Clear();
+            sabiduria.Clear();
+            fuerza.Clear();
+            inteligencia.Clear();
+            suerte.Clear();
+            agilidad.Clear();
+            alcanze.Clear();
+            criaturas_invocables.Clear();
         }
     }
 }
