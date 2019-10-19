@@ -11,13 +11,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
 
         public RespuestaAccion(short _respuesta_id) => respuesta_id = _respuesta_id;
 
-        internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
+        internal override Task<ResultadosAcciones> proceso(Account cuenta)
         {
             if (!cuenta.esta_dialogando())
                 return resultado_fallado;
 
-            IEnumerable<Otros.Mapas.Entidades.Npcs> npcs = cuenta.juego.mapa.lista_npcs();
-            Otros.Mapas.Entidades.Npcs npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
+            IEnumerable<Otros.Mapas.Entidades.Npcs> npcs = cuenta.game.mapa.lista_npcs();
+            Otros.Mapas.Entidades.Npcs npc = npcs.ElementAt((cuenta.game.personaje.hablando_npc_id * -1) - 1);
 
             if(npc == null)
                 return resultado_fallado;
@@ -35,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
             if (!npc.respuestas.Contains(respuesta_id))
                 return resultado_fallado;
 
-            cuenta.conexion.enviar_Paquete("DR" + npc.pregunta + "|" + respuesta_id, true);
+            cuenta.connexion.enviar_Paquete("DR" + npc.pregunta + "|" + respuesta_id, true);
             return resultado_procesado;
         }
     }

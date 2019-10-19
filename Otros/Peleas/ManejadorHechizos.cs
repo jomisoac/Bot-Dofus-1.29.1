@@ -22,16 +22,16 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
     public class ManejadorHechizos : IDisposable
     {
-        private Cuenta cuenta;
+        private Account cuenta;
         private Mapa mapa;
         private Pelea pelea;
         private bool disposed;
 
-        public ManejadorHechizos(Cuenta _cuenta)
+        public ManejadorHechizos(Account _cuenta)
         {
             cuenta = _cuenta;
-            mapa = cuenta.juego.mapa;
-            pelea = cuenta.juego.pelea;
+            mapa = cuenta.game.mapa;
+            pelea = cuenta.game.pelea;
         }
 
         public async Task<ResultadoLanzandoHechizo> manejador_Hechizos(HechizoPelea hechizo)
@@ -42,13 +42,13 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if(hechizo.metodo_lanzamiento == MetodoLanzamiento.AMBOS)
                 return await get_Lanzar_Hechizo_Simple(hechizo);
 
-            if (hechizo.metodo_lanzamiento == MetodoLanzamiento.ALEJADO && !cuenta.juego.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
+            if (hechizo.metodo_lanzamiento == MetodoLanzamiento.ALEJADO && !cuenta.game.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
                 return await get_Lanzar_Hechizo_Simple(hechizo);
 
-            if (hechizo.metodo_lanzamiento == MetodoLanzamiento.CAC && cuenta.juego.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
+            if (hechizo.metodo_lanzamiento == MetodoLanzamiento.CAC && cuenta.game.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
                 return await get_Lanzar_Hechizo_Simple(hechizo);
 
-            if (hechizo.metodo_lanzamiento == MetodoLanzamiento.CAC && !cuenta.juego.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
+            if (hechizo.metodo_lanzamiento == MetodoLanzamiento.CAC && !cuenta.game.pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
                 return await get_Mover_Lanzar_hechizo_Simple(hechizo, get_Objetivo_Mas_Cercano(hechizo));
 
             return ResultadoLanzandoHechizo.NO_LANZADO;
@@ -105,7 +105,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             if (nodo != null)
             {
-                await cuenta.juego.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
+                await cuenta.game.manejador.movimientos.get_Mover_Celda_Pelea(nodo);
                 return ResultadoLanzandoHechizo.MOVIDO;
             }
 
@@ -120,7 +120,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizo_pelea.focus == HechizoFocus.CELDA_VACIA && pelea.get_Cuerpo_A_Cuerpo_Enemigo().Count() == 4)
                 return ResultadoLanzandoHechizo.NO_LANZADO;
 
-            Hechizo hechizo = cuenta.juego.personaje.get_Hechizo(hechizo_pelea.id);
+            Hechizo hechizo = cuenta.game.personaje.get_Hechizo(hechizo_pelea.id);
             HechizoStats datos_hechizo = hechizo.get_Stats();
 
             List<short> rangos_disponibles = pelea.get_Rango_hechizo(pelea.jugador_luchador.celda, datos_hechizo, mapa);
