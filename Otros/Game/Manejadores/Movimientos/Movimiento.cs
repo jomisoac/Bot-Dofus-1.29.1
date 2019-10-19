@@ -149,11 +149,11 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         private bool get_Mover_Para_Cambiar_mapa(Celda celda)
         {
-            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas());
+            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas().Where(c => c.tipo != TipoCelda.CELDA_TELEPORT).ToList());
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:
-                        cuenta.logger.log_informacion("MOUVEMENT", $"Map Actuel: {mapa.id} changement de map via la cellule {celda.id} ");
+                        cuenta.logger.log_informacion("MOUVEMENT", $"{mapa.coordenadas} changement de map via la cellule {celda.id} ");
                 return true;
 
                 default:
