@@ -10,11 +10,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
     [MoonSharpUserData]
     public class NpcAPI : IDisposable
     {
-        private Cuenta cuenta;
+        private Account cuenta;
         private ManejadorAcciones manejador_acciones;
         private bool disposed;
 
-        public NpcAPI(Cuenta _cuenta, ManejadorAcciones _manejador_acciones)
+        public NpcAPI(Account _cuenta, ManejadorAcciones _manejador_acciones)
         {
             cuenta = _cuenta;
             manejador_acciones = _manejador_acciones;
@@ -22,7 +22,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 
         public bool npcBanco(int npc_id)
         {
-            if (npc_id > 0 && cuenta.juego.mapa.lista_npcs().FirstOrDefault(n => n.npc_modelo_id == npc_id) == null)
+            if (npc_id > 0 && cuenta.game.mapa.lista_npcs().FirstOrDefault(n => n.npc_modelo_id == npc_id) == null)
                 return false;
 
             manejador_acciones.enqueue_Accion(new NpcBancoAccion(npc_id), true);
@@ -31,7 +31,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 
         public bool hablarNpc(int npc_id)
         {
-            if (npc_id > 0 && cuenta.juego.mapa.lista_npcs().FirstOrDefault(n => n.npc_modelo_id == npc_id) == null)
+            if (npc_id > 0 && cuenta.game.mapa.lista_npcs().FirstOrDefault(n => n.npc_modelo_id == npc_id) == null)
                 return false;
 
             manejador_acciones.enqueue_Accion(new NpcAccion(npc_id), true);

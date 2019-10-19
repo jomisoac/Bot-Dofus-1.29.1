@@ -38,7 +38,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Servidor
         public void Dispose() => Dispose(true);
         ~ServidorJuego() => Dispose(false);
 
-        public void limpiar()
+        public void Clear()
         {
             id = 0;
             nombre = null;

@@ -236,7 +236,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
         public void Dispose() => Dispose(true);
         ~Mapa() => Dispose(false);
 
-        public void limpiar()
+        public void Clear()
         {
             id = 0;
             x = 0;

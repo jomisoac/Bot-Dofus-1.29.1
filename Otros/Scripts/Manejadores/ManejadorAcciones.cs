@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 {
     public class ManejadorAcciones : IDisposable
     {
-        private Cuenta cuenta;
+        private Account cuenta;
         public LuaManejadorScript manejador_script;
         private ConcurrentQueue<AccionesScript> fila_acciones;
         private AccionesScript accion_actual;
@@ -30,23 +30,23 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         public event Action<bool> evento_accion_normal;
         public event Action<bool> evento_accion_personalizada;
 
-        public ManejadorAcciones(Cuenta _cuenta, LuaManejadorScript _manejador_script)
+        public ManejadorAcciones(Account _cuenta, LuaManejadorScript _manejador_script)
         {
             cuenta = _cuenta;
             manejador_script = _manejador_script;
             fila_acciones = new ConcurrentQueue<AccionesScript>();
             timer_out = new TimerWrapper(60000, time_Out_Callback);
-            PersonajeJuego personaje = cuenta.juego.personaje;
+            PersonajeJuego personaje = cuenta.game.personaje;
             
-            cuenta.juego.mapa.mapa_actualizado += evento_Mapa_Cambiado;
-            cuenta.juego.pelea.pelea_creada += get_Pelea_Creada;
-            cuenta.juego.manejador.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
+            cuenta.game.mapa.mapa_actualizado += evento_Mapa_Cambiado;
+            cuenta.game.pelea.pelea_creada += get_Pelea_Creada;
+            cuenta.game.manejador.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
             personaje.dialogo_npc_recibido += npcs_Dialogo_Recibido;
             personaje.dialogo_npc_acabado += npcs_Dialogo_Acabado;
             personaje.inventario.almacenamiento_abierto += iniciar_Almacenamiento;
             personaje.inventario.almacenamiento_cerrado += cerrar_Almacenamiento;
-            cuenta.juego.manejador.recoleccion.recoleccion_iniciada += get_Recoleccion_Iniciada;
-            cuenta.juego.manejador.recoleccion.recoleccion_acabada += get_Recoleccion_Acabada;
+            cuenta.game.manejador.recoleccion.recoleccion_iniciada += get_Recoleccion_Iniciada;
+            cuenta.game.manejador.recoleccion.recoleccion_acabada += get_Recoleccion_Acabada;
         }
 
         private void evento_Mapa_Cambiado()
@@ -157,10 +157,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 if (cuenta.Estado_Cuenta != AccountStates.DIALOG)
                     return;
 
-                IEnumerable<Npcs> npcs = cuenta.juego.mapa.lista_npcs();
-                Npcs npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
+                IEnumerable<Npcs> npcs = cuenta.game.mapa.lista_npcs();
+                Npcs npc = npcs.ElementAt((cuenta.game.personaje.hablando_npc_id * -1) - 1);
 
-                cuenta.conexion.enviar_Paquete("DR" + npc.pregunta + "|" + npc.respuestas[0], true);
+                cuenta.connexion.enviar_Paquete("DR" + npc.pregunta + "|" + npc.respuestas[0], true);
             }
             else if (accion_actual is NpcAccion || accion_actual is RespuestaAccion)
                 acciones_Salida(400);

@@ -8,7 +8,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 {
     public partial class UI_Oficios : UserControl
     {
-        private Cuenta cuenta;
+        private Account cuenta;
 
         public UI_Oficios()
         {
@@ -17,10 +17,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
             set_DoubleBuffered(dataGridView_skills);
         }
 
-        public void set_Cuenta(Cuenta _cuenta)
+        public void set_Cuenta(Account _cuenta)
         {
             cuenta = _cuenta;
-            cuenta.juego.personaje.oficios_actualizados += personaje_Oficios_Actualizados;
+            cuenta.game.personaje.oficios_actualizados += personaje_Oficios_Actualizados;
         }
 
         private void personaje_Oficios_Actualizados()
@@ -28,11 +28,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
             BeginInvoke((Action)(() =>
             {
                 dataGridView_oficios.Rows.Clear();
-                foreach (Oficio oficio in cuenta.juego.personaje.oficios)
+                foreach (Oficio oficio in cuenta.game.personaje.oficios)
                     dataGridView_oficios.Rows.Add(new object[] { oficio.id, oficio.nombre, oficio.nivel, oficio.experiencia_actual + "/" + oficio.experiencia_siguiente_nivel, oficio.get_Experiencia_Porcentaje + "%" });
 
                 dataGridView_skills.Rows.Clear();
-                foreach (SkillsOficio skill in cuenta.juego.personaje.get_Skills_Disponibles())
+                foreach (SkillsOficio skill in cuenta.game.personaje.get_Skills_Disponibles())
                     dataGridView_skills.Rows.Add(new object[] { skill.id, skill.interactivo_modelo.nombre, skill.cantidad_minima, skill.cantidad_maxima, skill.es_craft ? skill.tiempo + "%" : skill.tiempo.ToString() });
             }));
         }

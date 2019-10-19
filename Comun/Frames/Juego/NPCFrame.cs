@@ -21,22 +21,22 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("DCK")]
         public void get_Dialogo_Creado(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
 
             cuenta.Estado_Cuenta = AccountStates.DIALOG;
-            cuenta.juego.personaje.hablando_npc_id = sbyte.Parse(paquete.Substring(3));
+            cuenta.game.personaje.hablando_npc_id = sbyte.Parse(paquete.Substring(3));
         }
 
         [PaqueteAtributo("DQ")]
         public void get_Lista_Respuestas(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
 
             if (!cuenta.esta_dialogando())
                 return;
 
-            IEnumerable<Npcs> npcs = cuenta.juego.mapa.lista_npcs();
-            Npcs npc = npcs.ElementAt((cuenta.juego.personaje.hablando_npc_id * -1) - 1);
+            IEnumerable<Npcs> npcs = cuenta.game.mapa.lista_npcs();
+            Npcs npc = npcs.ElementAt((cuenta.game.personaje.hablando_npc_id * -1) - 1);
 
             if (npc != null)
             {
@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 foreach (string respuesta in respuestas_disponibles)
                     npc.respuestas.Add(short.Parse(respuesta));
 
-                cuenta.juego.personaje.evento_Dialogo_Recibido();
+                cuenta.game.personaje.evento_Dialogo_Recibido();
             }
         }
     }

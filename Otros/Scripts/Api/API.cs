@@ -22,7 +22,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
         public PeleaApi pelea { get; private set; }
         private bool disposed;
 
-        public API(Cuenta cuenta, ManejadorAcciones manejar_acciones)
+        public API(Account cuenta, ManejadorAcciones manejar_acciones)
         {
             inventario = new InventarioApi(cuenta, manejar_acciones);
             personaje = new PersonajeApi(cuenta);

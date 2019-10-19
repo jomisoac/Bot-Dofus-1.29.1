@@ -27,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
             boost = _boost;
         }
 
-        public void limpiar()
+        public void Clear()
         {
             base_personaje = 0;
             equipamiento = 0;

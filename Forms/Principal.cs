@@ -43,22 +43,22 @@ namespace Bot_Dofus_1._29._1.Forms
                     if (cuentas_para_cargar.Count < 2)
                     {
                         AccountConfig cuenta_conf = cuentas_para_cargar[0];
-                        cuentas_cargadas.Add(cuenta_conf.accountUsername, agregar_Nueva_Tab_Pagina(cuenta_conf.accountUsername, new UI_Principal(new Cuenta(cuenta_conf)), "Ninguno"));
+                        cuentas_cargadas.Add(cuenta_conf.accountUsername, agregar_Nueva_Tab_Pagina(cuenta_conf.accountUsername, new UI_Principal(new Account(cuenta_conf)), "Ninguno"));
                     }
                     else
                     {
                         AccountConfig configuracion_lider = cuentas_para_cargar.First();
-                        Cuenta lider = new Cuenta(configuracion_lider);
+                        Account lider = new Account(configuracion_lider);
                         Grupo grupo = new Grupo(lider);
                         cuentas_cargadas.Add(configuracion_lider.accountUsername, agregar_Nueva_Tab_Pagina(configuracion_lider.accountUsername, new UI_Principal(lider), configuracion_lider.accountUsername));
                         cuentas_para_cargar.Remove(configuracion_lider);
 
                         foreach (AccountConfig cuenta_conf in cuentas_para_cargar)
                         {
-                            Cuenta cuenta = new Cuenta(cuenta_conf);
+                            Account cuenta = new Account(cuenta_conf);
 
                             grupo.agregar_Miembro(cuenta);
-                            cuentas_cargadas.Add(cuenta_conf.accountUsername, agregar_Nueva_Tab_Pagina(cuenta_conf.accountUsername, new UI_Principal(cuenta), grupo.lider.configuracion.accountUsername));
+                            cuentas_cargadas.Add(cuenta_conf.accountUsername, agregar_Nueva_Tab_Pagina(cuenta_conf.accountUsername, new UI_Principal(cuenta), grupo.lider.accountConfig.accountUsername));
                         }
                     }
                 }

@@ -22,7 +22,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 {
     public class Movimiento : IDisposable
     {
-        private Cuenta cuenta;
+        private Account cuenta;
         private PersonajeJuego personaje;
         private Mapa mapa;
         private Pathfinder pathfinder;
@@ -31,7 +31,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
         public event Action<bool> movimiento_finalizado;
         private bool disposed;
 
-        public Movimiento(Cuenta _cuenta, Mapa _mapa, PersonajeJuego _personaje)
+        public Movimiento(Account _cuenta, Mapa _mapa, PersonajeJuego _personaje)
         {
             cuenta = _cuenta;
             personaje = _personaje;
@@ -77,7 +77,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (cuenta.esta_ocupado())
                 return false;
 
-            List<Celda> celdas_teleport = cuenta.juego.mapa.celdas.Where(celda => celda.tipo == TipoCelda.CELDA_TELEPORT).Select(celda => celda).ToList();
+            List<Celda> celdas_teleport = cuenta.game.mapa.celdas.Where(celda => celda.tipo == TipoCelda.CELDA_TELEPORT).Select(celda => celda).ToList();
 
             while (celdas_teleport.Count > 0)
             {
@@ -137,13 +137,13 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (nodo == null || nodo.Value.Value.camino.celdas_accesibles.Count == 0)
                 return;
 
-            if (nodo.Value.Key == cuenta.juego.pelea.jugador_luchador.celda.id)
+            if (nodo.Value.Key == cuenta.game.pelea.jugador_luchador.celda.id)
                 return;
 
-            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.juego.pelea.jugador_luchador.celda.id);
+            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.game.pelea.jugador_luchador.celda.id);
             List<Celda> lista_celdas = nodo.Value.Value.camino.celdas_accesibles.Select(c => mapa.get_Celda_Id(c)).ToList();
 
-            await cuenta.conexion.enviar_Paquete_Async("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas), false);
+            await cuenta.connexion.enviar_Paquete_Async("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas), false);
             personaje.evento_Personaje_Pathfinding_Minimapa(lista_celdas);
         }
 
@@ -165,10 +165,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
         private void enviar_Paquete_Movimiento()
         {
             if (cuenta.Estado_Cuenta == AccountStates.REGENERATION)
-                cuenta.conexion.enviar_Paquete("eU1", true);
+                cuenta.connexion.enviar_Paquete("eU1", true);
 
             string path_string = PathFinderUtil.get_Pathfinding_Limpio(actual_path);
-            cuenta.conexion.enviar_Paquete("GA001" + path_string, true);
+            cuenta.connexion.enviar_Paquete("GA001" + path_string, true);
             personaje.evento_Personaje_Pathfinding_Minimapa(actual_path);
         }
 
@@ -184,7 +184,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
                 if (cuenta == null || cuenta.Estado_Cuenta == AccountStates.DISCONNECTED)
                     return;
 
-                cuenta.conexion.enviar_Paquete("GKK" + tipo_gkk);
+                cuenta.connexion.enviar_Paquete("GKK" + tipo_gkk);
                 personaje.celda = celda_destino;
             }
 
@@ -193,14 +193,14 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             movimiento_finalizado?.Invoke(correcto);
         }
 
-        private void evento_Mapa_Actualizado() => pathfinder.set_Mapa(cuenta.juego.mapa);
+        private void evento_Mapa_Actualizado() => pathfinder.set_Mapa(cuenta.game.mapa);
         public void movimiento_Actualizado(bool estado) => movimiento_finalizado?.Invoke(estado);
 
         #region Zona Dispose
         ~Movimiento() => Dispose(false);
         public void Dispose() => Dispose(true);
 
-        public void limpiar()
+        public void Clear()
         {
             actual_path = null;
         }

@@ -24,22 +24,22 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("GP")]
         public void get_Combate_Celdas_Posicion(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
-            Mapa mapa = cuenta.juego.mapa;
+            Account cuenta = cliente.cuenta;
+            Mapa mapa = cuenta.game.mapa;
             string[] _loc3 = paquete.Substring(2).Split('|');
 
             for (int a = 0; a < _loc3[0].Length; a += 2)
-                cuenta.juego.pelea.celdas_preparacion.Add(mapa.get_Celda_Id((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1]))));
+                cuenta.game.pelea.celdas_preparacion.Add(mapa.get_Celda_Id((short)((Hash.get_Hash(_loc3[0][a]) << 6) + Hash.get_Hash(_loc3[0][a + 1]))));
                 
-            if (cuenta.pelea_extension.configuracion.desactivar_espectador)
+            if (cuenta.fightExtension.configuracion.desactivar_espectador)
                 cliente.enviar_Paquete("fS");
 
-            if (cuenta.puede_utilizar_dragopavo)
+            if (cuenta.canUseMount)
             {
-                if (cuenta.pelea_extension.configuracion.utilizar_dragopavo && !cuenta.juego.personaje.esta_utilizando_dragopavo)
+                if (cuenta.fightExtension.configuracion.utilizar_dragopavo && !cuenta.game.personaje.esta_utilizando_dragopavo)
                 {
                     cliente.enviar_Paquete("Rr");
-                    cuenta.juego.personaje.esta_utilizando_dragopavo = true;
+                    cuenta.game.personaje.esta_utilizando_dragopavo = true;
                 }
             }
         }
@@ -57,24 +57,24 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("GIC")]
         public async Task get_Cambiar_Pos_Pelea(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
             string[] separador_posiciones = paquete.Substring(4).Split('|');
             int id_entidad;
             short celda;
-            Mapa mapa = cuenta.juego.mapa;
+            Mapa mapa = cuenta.game.mapa;
 
             foreach (string posicion in separador_posiciones)
             {
                 id_entidad = int.Parse(posicion.Split(';')[0]);
                 celda = short.Parse(posicion.Split(';')[1]);
 
-                if (id_entidad == cuenta.juego.personaje.id)
+                if (id_entidad == cuenta.game.personaje.id)
                 {
                     await Task.Delay(150);
                     cliente.enviar_Paquete("GR1");//boton listo
                 }
 
-                Luchadores luchador = cuenta.juego.pelea.get_Luchador_Por_Id(id_entidad);
+                Luchadores luchador = cuenta.game.pelea.get_Luchador_Por_Id(id_entidad);
                 if (luchador != null)
                     luchador.celda = mapa.get_Celda_Id(celda);
             }
@@ -84,13 +84,13 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Combate_Info_Stats(ClienteTcp cliente, string paquete)
         {
             string[] separador = paquete.Substring(4).Split('|');
-            Mapa mapa = cliente.cuenta.juego.mapa;
+            Mapa mapa = cliente.cuenta.game.mapa;
 
             for (int i = 0; i < separador.Length; ++i)
             {
                 string[] _loc6_ = separador[i].Split(';');
                 int id = int.Parse(_loc6_[0]);
-                Luchadores luchador = cliente.cuenta.juego.pelea.get_Luchador_Por_Id(id);
+                Luchadores luchador = cliente.cuenta.game.pelea.get_Luchador_Por_Id(id);
 
                 if (_loc6_.Length != 0)
                 {
@@ -118,19 +118,19 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("GTR")]
         public void get_Combate_Turno_Listo(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
             int id = int.Parse(paquete.Substring(3));
 
-            if(cuenta.juego.personaje.id == id)
-                cuenta.conexion.enviar_Paquete("BD");
+            if(cuenta.game.personaje.id == id)
+                cuenta.connexion.enviar_Paquete("BD");
 
-            cuenta.conexion.enviar_Paquete("GT");
+            cuenta.connexion.enviar_Paquete("GT");
         }
 
         [PaqueteAtributo("GJK")]
         public void get_Combate_Unirse_Pelea(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
 
             //GJK - estado|boton_cancelar|mostrat_botones|espectador|tiempo|tipo_pelea
             string[] separador = paquete.Substring(3).Split('|');
@@ -143,7 +143,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 case 2:
                 case 3:
                 case 4:
-                    cuenta.juego.pelea.get_Combate_Creado();
+                    cuenta.game.pelea.get_Combate_Creado();
                break;
             }
         }
@@ -151,21 +151,21 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("GTS")]
         public void get_Combate_Inicio_Turno(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
 
-            if (int.Parse(paquete.Substring(3).Split('|')[0]) != cuenta.juego.personaje.id || cuenta.juego.pelea.total_enemigos_vivos <= 0)
+            if (int.Parse(paquete.Substring(3).Split('|')[0]) != cuenta.game.personaje.id || cuenta.game.pelea.total_enemigos_vivos <= 0)
                 return;
 
 
-            cuenta.juego.pelea.get_Turno_Iniciado();
+            cuenta.game.pelea.get_Turno_Iniciado();
         }
 
         [PaqueteAtributo("GE")]
         public void get_Combate_Finalizado(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
 
-            cuenta.juego.pelea.get_Combate_Acabado();
+            cuenta.game.pelea.get_Combate_Acabado();
             cliente.enviar_Paquete("GC1");
         }
     }

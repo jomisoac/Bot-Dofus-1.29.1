@@ -26,7 +26,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
         public byte nivel { get; set; } = 0;
         public byte sexo { get; set; } = 0;
         public byte raza_id { get; set; } = 0;
-        private Cuenta cuenta;
+        private Account cuenta;
         public InventarioGeneral inventario { get; private set; }
         public int puntos_caracteristicas { get; set; } = 0;
         public int kamas { get; private set; } = 0;
@@ -58,7 +58,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
         public event Action dialogo_npc_acabado;
         public event Action<List<Celda>> movimiento_pathfinding_minimapa;
         
-        public PersonajeJuego(Cuenta _cuenta)
+        public PersonajeJuego(Account _cuenta)
         {
             cuenta = _cuenta;
             timer_regeneracion = new Timer(regeneracion_TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
@@ -227,7 +227,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
             try
             {
                 if(cuenta.Estado_Cuenta != AccountStates.DISCONNECTED)
-                    cuenta.conexion.enviar_Paquete("ping");
+                    cuenta.connexion.enviar_Paquete("ping");
             }
             catch (Exception e)
             {
@@ -244,13 +244,13 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje
         public void Dispose() => Dispose(true);
         ~PersonajeJuego() => Dispose(false);
 
-        public void limpiar()
+        public void Clear()
         {
             id = 0;
             hechizos.Clear();
             oficios.Clear();
-            inventario.limpiar();
-            caracteristicas.limpiar();
+            inventario.Clear();
+            caracteristicas.Clear();
 
             timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
             timer_afk.Change(Timeout.Infinite, Timeout.Infinite);
