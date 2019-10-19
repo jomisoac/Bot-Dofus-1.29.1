@@ -8,10 +8,10 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
     public class PeleaConf : IDisposable
     {
         private const string carpeta_configuracion = @"peleas/";
-        private Cuenta cuenta;
+        private Account cuenta;
         private bool disposed;
 
-        private string archivo_configuracion => Path.Combine(carpeta_configuracion, $"{cuenta.juego.personaje.nombre}.config");
+        private string archivo_configuracion => Path.Combine(carpeta_configuracion, $"{cuenta.game.personaje.nombre}.config");
         public List<HechizoPelea> hechizos { get; private set; }
         public bool desactivar_espectador { get; set; }
         public bool utilizar_dragopavo { get; set; }
@@ -20,7 +20,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Configuracion
         public byte detener_regeneracion { get; set; }
         public PosicionamientoInicioPelea posicionamiento { get; set; }
 
-        public PeleaConf(Cuenta _cuenta)
+        public PeleaConf(Account _cuenta)
         {
             cuenta = _cuenta;
             hechizos = new List<HechizoPelea>();

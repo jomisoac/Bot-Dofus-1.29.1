@@ -29,18 +29,18 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             celda_id = _celda_id;
         }
 
-        internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
+        internal override Task<ResultadosAcciones> proceso(Account cuenta)
         {
             if (celda_especifica)
             {
-                Celda celda = cuenta.juego.mapa.get_Celda_Id(celda_id);
+                Celda celda = cuenta.game.mapa.get_Celda_Id(celda_id);
 
-                if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion, celda))
+                if (!cuenta.game.manejador.movimientos.get_Cambiar_Mapa(direccion, celda))
                     return resultado_fallado;
             }
             else if (direccion_especifica)
             {
-                if (!cuenta.juego.manejador.movimientos.get_Cambiar_Mapa(direccion))
+                if (!cuenta.game.manejador.movimientos.get_Cambiar_Mapa(direccion))
                     return resultado_fallado;
             }
 

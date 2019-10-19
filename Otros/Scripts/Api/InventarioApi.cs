@@ -18,24 +18,24 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
     [MoonSharpUserData]
     public class InventarioApi : IDisposable
     {
-        private Cuenta cuenta;
+        private Account cuenta;
         private ManejadorAcciones manejar_acciones;
         private bool disposed = false;
 
-        public InventarioApi(Cuenta _cuenta, ManejadorAcciones _manejar_acciones)
+        public InventarioApi(Account _cuenta, ManejadorAcciones _manejar_acciones)
         {
             cuenta = _cuenta;
             manejar_acciones = _manejar_acciones;
         }
 
-        public int pods() => cuenta.juego.personaje.inventario.pods_actuales;
-        public int podsMaximos() => cuenta.juego.personaje.inventario.pods_maximos;
-        public int podsPorcentaje() => cuenta.juego.personaje.inventario.porcentaje_pods;
-        public bool tieneObjeto(int modelo_id) => cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id) != null;
+        public int pods() => cuenta.game.personaje.inventario.pods_actuales;
+        public int podsMaximos() => cuenta.game.personaje.inventario.pods_maximos;
+        public int podsPorcentaje() => cuenta.game.personaje.inventario.porcentaje_pods;
+        public bool tieneObjeto(int modelo_id) => cuenta.game.personaje.inventario.get_Objeto_Modelo_Id(modelo_id) != null;
 
         public bool utilizar(int modelo_id)
         {
-            ObjetosInventario objeto = cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
+            ObjetosInventario objeto = cuenta.game.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
 
             if (objeto == null)
                 return false;
@@ -46,7 +46,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 
         public bool equipar(int modelo_id)
         {
-            ObjetosInventario objeto = cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
+            ObjetosInventario objeto = cuenta.game.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
 
             if (objeto == null || objeto.posicion != InventarioPosiciones.NO_EQUIPADO)
                 return false;

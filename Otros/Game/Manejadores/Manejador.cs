@@ -12,16 +12,16 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores
         public Recoleccion recoleccion { get; private set; }
         private bool disposed;
 
-        public Manejador(Cuenta cuenta, Mapa mapa, PersonajeJuego personaje)
+        public Manejador(Account cuenta, Mapa mapa, PersonajeJuego personaje)
         {
             movimientos = new Movimiento(cuenta, mapa, personaje);
             recoleccion = new Recoleccion(cuenta, movimientos, mapa);
         }
 
-        public void limpiar()
+        public void Clear()
         {
-            movimientos.limpiar();
-            recoleccion.limpiar();
+            movimientos.Clear();
+            recoleccion.Clear();
         }
 
         #region Zona Dispose

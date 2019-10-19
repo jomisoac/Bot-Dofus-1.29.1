@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
     internal class ServidorSeleccionFrame : Frame
     {
         [PaqueteAtributo("HG")]
-        public void bienvenida_Juego(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete("AT" + cliente.cuenta.tiquet_game);
+        public void bienvenida_Juego(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete("AT" + cliente.cuenta.gameTicket);
 
         [PaqueteAtributo("ATK0")]
         public void resultado_Servidor_Seleccion(ClienteTcp cliente, string paquete)
@@ -37,7 +37,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("ALK")]
         public void seleccionar_Personaje(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
             string[] _loc6_ = paquete.Substring(3).Split('|');
             int contador = 2;
             bool encontrado = false;
@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 int id = int.Parse(_loc11_[0]);
                 string nombre = _loc11_[1];
 
-                if (nombre.ToLower().Equals(cuenta.configuracion.accountUsername.ToLower()) || string.IsNullOrEmpty(cuenta.configuracion.characterName))
+                if (nombre.ToLower().Equals(cuenta.accountConfig.accountUsername.ToLower()) || string.IsNullOrEmpty(cuenta.accountConfig.characterName))
                 {
                     cliente.enviar_Paquete("AS" + id, true);
                     encontrado = true;
@@ -64,7 +64,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("ASK")]
         public void personaje_Seleccionado(ClienteTcp cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.cuenta;
             string[] _loc4 = paquete.Substring(4).Split('|');
 
             int id = int.Parse(_loc4[0]);
@@ -73,14 +73,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             byte raza_id = byte.Parse(_loc4[3]);
             byte sexo = byte.Parse(_loc4[4]);
 
-            cuenta.juego.personaje.set_Datos_Personaje(id, nombre, nivel, sexo, raza_id);
-            cuenta.juego.personaje.inventario.agregar_Objetos(_loc4[9]);
+            cuenta.game.personaje.set_Datos_Personaje(id, nombre, nivel, sexo, raza_id);
+            cuenta.game.personaje.inventario.agregar_Objetos(_loc4[9]);
 
             cliente.enviar_Paquete("GC1");
             cliente.enviar_Paquete("BYA");
 
-            cuenta.juego.personaje.evento_Personaje_Seleccionado();
-            cuenta.juego.personaje.timer_afk.Change(1200000, 1200000);
+            cuenta.game.personaje.evento_Personaje_Seleccionado();
+            cuenta.game.personaje.timer_afk.Change(1200000, 1200000);
             cliente.cuenta.Estado_Cuenta = AccountStates.CONNECTED_INACTIVE;
         }
     }

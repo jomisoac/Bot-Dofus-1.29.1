@@ -9,7 +9,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
 {
     public class InventarioGeneral : IDisposable, IEliminable
     {
-        private Cuenta cuenta;
+        private Account cuenta;
         private ConcurrentDictionary<uint, ObjetosInventario> _objetos;
         private bool disposed;
 
@@ -30,7 +30,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
         public event Action almacenamiento_cerrado;
 
         // Constructor
-        internal InventarioGeneral(Cuenta _cuenta)
+        internal InventarioGeneral(Account _cuenta)
         {
             cuenta = _cuenta;
             _objetos = new ConcurrentDictionary<uint, ObjetosInventario>();
@@ -95,7 +95,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
 
             if (paquete_eliminar)
             {
-                cuenta.conexion.enviar_Paquete($"Od{obj.id_inventario}|{cantidad}");
+                cuenta.connexion.enviar_Paquete($"Od{obj.id_inventario}|{cantidad}");
                 cuenta.logger.log_informacion("INVENTAIRE", $"{cantidad} {obj.nombre} éliminée(s).");
             }
 
@@ -118,7 +118,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
                 return false;
             }
 
-            if (objeto.nivel > cuenta.juego.personaje.nivel)
+            if (objeto.nivel > cuenta.game.personaje.nivel)
             {
                 cuenta.logger.log_Error("INVENTAIRE", $"Le niveau de l'objet {objeto.nombre} est supérieur à ton niveau");
                 return false;
@@ -142,7 +142,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
             {
                 if (get_Objeto_en_Posicion(posicion) == null)
                 {
-                    cuenta.conexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)posicion, true);
+                    cuenta.connexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)posicion, true);
                     cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} équipé.");
                     objeto.posicion = posicion;
                     inventario_actualizado?.Invoke(true);
@@ -154,10 +154,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
             if (_objetos.TryGetValue(get_Objeto_en_Posicion(possibles_posiciones[0]).id_inventario, out ObjetosInventario objeto_equipado))
             {
                 objeto_equipado.posicion = InventarioPosiciones.NO_EQUIPADO;
-                cuenta.conexion.enviar_Paquete("OM" + objeto_equipado.id_inventario + "|" + (sbyte)InventarioPosiciones.NO_EQUIPADO);
+                cuenta.connexion.enviar_Paquete("OM" + objeto_equipado.id_inventario + "|" + (sbyte)InventarioPosiciones.NO_EQUIPADO);
             }
 
-            cuenta.conexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)possibles_posiciones[0]);
+            cuenta.connexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)possibles_posiciones[0]);
 
             if (objeto.cantidad == 1)
                 objeto.posicion = possibles_posiciones[0];
@@ -175,7 +175,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
             if (objeto.posicion == InventarioPosiciones.NO_EQUIPADO)
                 return false;
 
-            cuenta.conexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)InventarioPosiciones.NO_EQUIPADO);
+            cuenta.connexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)InventarioPosiciones.NO_EQUIPADO);
             objeto.posicion = InventarioPosiciones.NO_EQUIPADO;
             cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} déséquipé.");
             inventario_actualizado?.Invoke(true);
@@ -193,7 +193,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
                 return;
             }
 
-            cuenta.conexion.enviar_Paquete("OU" + objeto.id_inventario + "|");
+            cuenta.connexion.enviar_Paquete("OU" + objeto.id_inventario + "|");
             eliminar_Objeto(objeto, 1, false);
             cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} utilisée.");
         }
@@ -205,7 +205,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario
         public void Dispose() => Dispose(true);
         ~InventarioGeneral() => Dispose(false);
 
-        public void limpiar()
+        public void Clear()
         {
             kamas = 0;
             pods_actuales = 0;
