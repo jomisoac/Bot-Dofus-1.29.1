@@ -1,8 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
-using Bot_Dofus_1._29._1.Utilidades.Extensiones;
+using Bot_Dofus_1._29._1.Utilities.Crypto;
+using Bot_Dofus_1._29._1.Utilities.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
