@@ -19,6 +19,21 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Servidor
             estado = _estado;
         }
 
+        public string GetState(EstadosServidor state)
+        {
+            switch (state)
+            {
+                case EstadosServidor.CONECTADO:
+                    return "en ligne";
+                case EstadosServidor.GUARDANDO:
+                    return "en sauvegarde";
+                case EstadosServidor.APAGADO:
+                    return "hors ligne";
+                default:
+                    return "";
+            }
+        }
+
         #region Zona Dispose
         public void Dispose() => Dispose(true);
         ~ServidorJuego() => Dispose(false);
