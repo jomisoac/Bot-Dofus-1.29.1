@@ -230,7 +230,7 @@
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(235, 41);
             this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Bloqué le combat";
+            this.checkBox1.Text = "Bloquer le combat";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -261,7 +261,7 @@
             this.checkbox_espectadores.Name = "checkbox_espectadores";
             this.checkbox_espectadores.Size = new System.Drawing.Size(235, 41);
             this.checkbox_espectadores.TabIndex = 0;
-            this.checkbox_espectadores.Text = "Désactivé le mode spéctateur";
+            this.checkbox_espectadores.Text = "Désactiver le mode spéctateur";
             this.checkbox_espectadores.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkbox_espectadores.UseVisualStyleBackColor = true;
             this.checkbox_espectadores.CheckedChanged += new System.EventHandler(this.checkbox_espectadores_CheckedChanged);
