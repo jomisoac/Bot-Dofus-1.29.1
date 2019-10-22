@@ -485,11 +485,12 @@
             "Clustus",
             "Nabur",
             "Arty",
-            "Agathe",
+            "Algathe",
             "Hogmeiser",
             "Droupik",
             "Bilby",
-            "Ayuto"});
+            "Ayuto",
+            "Issering"});
             this.comboBox_Servidor.Location = new System.Drawing.Point(3, 16);
             this.comboBox_Servidor.Name = "comboBox_Servidor";
             this.comboBox_Servidor.Size = new System.Drawing.Size(297, 29);
