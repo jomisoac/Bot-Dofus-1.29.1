@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         public Timer timer_regeneracion { get; private set; }
         public Timer timer_afk { get; private set; }
         public string canales { get; set; } = string.Empty;
-        public Celda celda { get; set; }
+        public Cell celda { get; set; }
         
         public bool en_grupo { get; set; } = false;
         private bool disposed;
@@ -56,7 +56,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         public event Action oficios_actualizados;
         public event Action dialogo_npc_recibido;
         public event Action dialogo_npc_acabado;
-        public event Action<List<Celda>> movimiento_pathfinding_minimapa;
+        public event Action<List<Cell>> movimiento_pathfinding_minimapa;
         
         public CharacterClass(Account _cuenta)
         {
@@ -93,7 +93,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         public void evento_Pods_Actualizados() => pods_actualizados?.Invoke();
         public void evento_Servidor_Seleccionado() => servidor_seleccionado?.Invoke();
         public void evento_Personaje_Seleccionado() => personaje_seleccionado?.Invoke();
-        public void evento_Personaje_Pathfinding_Minimapa(List<Celda> lista) => movimiento_pathfinding_minimapa?.Invoke(lista);
+        public void evento_Personaje_Pathfinding_Minimapa(List<Cell> lista) => movimiento_pathfinding_minimapa?.Invoke(lista);
         public void evento_Oficios_Actualizados() => oficios_actualizados?.Invoke();
         public void evento_Dialogo_Recibido() => dialogo_npc_recibido?.Invoke();
         public void evento_Dialogo_Acabado() => dialogo_npc_acabado?.Invoke();
@@ -226,8 +226,8 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         {
             try
             {
-                if(cuenta.Estado_Cuenta != AccountStates.DISCONNECTED)
-                    cuenta.connexion.enviar_Paquete("ping");
+                if(cuenta.accountState != AccountStates.DISCONNECTED)
+                    cuenta.connexion.SendPacket("ping");
             }
             catch (Exception e)
             {

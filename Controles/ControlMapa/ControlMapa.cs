@@ -254,13 +254,13 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
                     if(cuenta != null)
                     {
-                        if (celda.id == cuenta.game.personaje.celda.id && !animaciones.ContainsKey(cuenta.game.personaje.id))
+                        if (celda.id == cuenta.game.character.celda.cellId && !animaciones.ContainsKey(cuenta.game.character.id))
                             celda.dibujar_FillPie(g, Color.Blue, RealCellHeight / 2);
-                        else if (cuenta.game.mapa.entidades.Values.Where(m => m is Monstruos).FirstOrDefault(m => m.celda.id == celda.id && !animaciones.ContainsKey(m.id)) != null)
+                        else if (cuenta.game.map.entities.Values.Where(m => m is Monstruos).FirstOrDefault(m => m.celda.cellId == celda.id && !animaciones.ContainsKey(m.id)) != null)
                             celda.dibujar_FillPie(g, Color.DarkRed, RealCellHeight / 2);
-                        else if (cuenta.game.mapa.entidades.Values.Where(n => n is Npcs).FirstOrDefault(n => n.celda.id == celda.id && !animaciones.ContainsKey(n.id)) != null)
+                        else if (cuenta.game.map.entities.Values.Where(n => n is Npcs).FirstOrDefault(n => n.celda.cellId == celda.id && !animaciones.ContainsKey(n.id)) != null)
                             celda.dibujar_FillPie(g, Color.FromArgb(179, 120, 211), RealCellHeight / 2);
-                        else if (cuenta.game.mapa.entidades.Values.Where(p => p is Personajes).FirstOrDefault(p => p.celda.id == celda.id && !animaciones.ContainsKey(p.id)) != null)
+                        else if (cuenta.game.map.entities.Values.Where(p => p is Personajes).FirstOrDefault(p => p.celda.cellId == celda.id && !animaciones.ContainsKey(p.id)) != null)
                             celda.dibujar_FillPie(g, Color.FromArgb(81, 113, 202), RealCellHeight / 2);
                     }
                 }
@@ -270,7 +270,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
         }
 
         #region Animaciones
-        public void agregar_Animacion(int id, List<Celda> path, int duracion, TipoAnimaciones actor)
+        public void agregar_Animacion(int id, List<Cell> path, int duracion, TipoAnimaciones actor)
         {
             if (path.Count < 2 || !mostrar_animaciones)
                 return;
@@ -278,7 +278,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
             if (animaciones.ContainsKey(id))
                 animacion_Finalizada(animaciones[id]);
             
-            MovimientoAnimacion nueva_animacion = new MovimientoAnimacion(id, path.Select(f => celdas[f.id]), duracion, actor);
+            MovimientoAnimacion nueva_animacion = new MovimientoAnimacion(id, path.Select(f => celdas[f.cellId]), duracion, actor);
             nueva_animacion.finalizado += animacion_Finalizada;
             animaciones.TryAdd(id, nueva_animacion);
             nueva_animacion.iniciar();
@@ -334,32 +334,32 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
         public void refrescar_Mapa()
         {
-            if (cuenta.game.mapa == null)
+            if (cuenta.game.map == null)
                 return;
 
             animaciones.Clear();
             animaciones_timer.Stop();
 
-            Celda[] celdas_mapa = cuenta.game.mapa.celdas;
+            Cell[] celdas_mapa = cuenta.game.map.mapCells;
 
             if (celdas_mapa == null)
                 return;
             
-            foreach (Celda celda in celdas_mapa)
+            foreach (Cell celda in celdas_mapa)
             {
-                celdas[celda.id].estado = CeldaEstado.NO_CAMINABLE;
+                celdas[celda.cellId].estado = CeldaEstado.NO_CAMINABLE;
 
-                if (celda.es_Caminable())
-                    celdas[celda.id].estado = CeldaEstado.CAMINABLE;
+                if (celda.IsWalkable())
+                    celdas[celda.cellId].estado = CeldaEstado.CAMINABLE;
 
-                if (celda.es_linea_vision)
-                    celdas[celda.id].estado = CeldaEstado.OBSTACULO;
+                if (celda.isInLineOfSight)
+                    celdas[celda.cellId].estado = CeldaEstado.OBSTACULO;
 
-                 if (celda.es_Teleport())
-                    celdas[celda.id].estado = CeldaEstado.CELDA_TELEPORT;
+                 if (celda.IsTeleportCell())
+                    celdas[celda.cellId].estado = CeldaEstado.CELDA_TELEPORT;
 
-                 if(celda.es_Interactivo())
-                    celdas[celda.id].estado = CeldaEstado.OBJETO_INTERACTIVO;
+                 if(celda.IsInteractiveCell())
+                    celdas[celda.cellId].estado = CeldaEstado.OBJETO_INTERACTIVO;
             }
 
             animaciones_timer.Start();

@@ -95,7 +95,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
 
             if (paquete_eliminar)
             {
-                cuenta.connexion.enviar_Paquete($"Od{obj.id_inventario}|{cantidad}");
+                cuenta.connexion.SendPacket($"Od{obj.id_inventario}|{cantidad}");
                 cuenta.logger.log_informacion("INVENTAIRE", $"{cantidad} {obj.nombre} éliminée(s).");
             }
 
@@ -112,13 +112,13 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
 
         public bool equipar_Objeto(InventoryObject objeto)
         {
-            if (objeto == null || objeto.cantidad == 0 || cuenta.esta_ocupado())
+            if (objeto == null || objeto.cantidad == 0 || cuenta.Is_Busy())
             {
                 cuenta.logger.log_Error("INVENTAIRE", $"L'objet {objeto.nombre} ne peux être équipé");
                 return false;
             }
 
-            if (objeto.nivel > cuenta.game.personaje.nivel)
+            if (objeto.nivel > cuenta.game.character.nivel)
             {
                 cuenta.logger.log_Error("INVENTAIRE", $"Le niveau de l'objet {objeto.nombre} est supérieur à ton niveau");
                 return false;
@@ -142,7 +142,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
             {
                 if (get_Objeto_en_Posicion(posicion) == null)
                 {
-                    cuenta.connexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)posicion, true);
+                    cuenta.connexion.SendPacket("OM" + objeto.id_inventario + "|" + (sbyte)posicion, true);
                     cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} équipé.");
                     objeto.posicion = posicion;
                     inventario_actualizado?.Invoke(true);
@@ -154,10 +154,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
             if (_objetos.TryGetValue(get_Objeto_en_Posicion(possibles_posiciones[0]).id_inventario, out InventoryObject objeto_equipado))
             {
                 objeto_equipado.posicion = InventorySlots.NOT_EQUIPPED;
-                cuenta.connexion.enviar_Paquete("OM" + objeto_equipado.id_inventario + "|" + (sbyte)InventorySlots.NOT_EQUIPPED);
+                cuenta.connexion.SendPacket("OM" + objeto_equipado.id_inventario + "|" + (sbyte)InventorySlots.NOT_EQUIPPED);
             }
 
-            cuenta.connexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)possibles_posiciones[0]);
+            cuenta.connexion.SendPacket("OM" + objeto.id_inventario + "|" + (sbyte)possibles_posiciones[0]);
 
             if (objeto.cantidad == 1)
                 objeto.posicion = possibles_posiciones[0];
@@ -175,7 +175,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
             if (objeto.posicion == InventorySlots.NOT_EQUIPPED)
                 return false;
 
-            cuenta.connexion.enviar_Paquete("OM" + objeto.id_inventario + "|" + (sbyte)InventorySlots.NOT_EQUIPPED);
+            cuenta.connexion.SendPacket("OM" + objeto.id_inventario + "|" + (sbyte)InventorySlots.NOT_EQUIPPED);
             objeto.posicion = InventorySlots.NOT_EQUIPPED;
             cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} déséquipé.");
             inventario_actualizado?.Invoke(true);
@@ -193,7 +193,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
                 return;
             }
 
-            cuenta.connexion.enviar_Paquete("OU" + objeto.id_inventario + "|");
+            cuenta.connexion.SendPacket("OU" + objeto.id_inventario + "|");
             eliminar_Objeto(objeto, 1, false);
             cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} utilisée.");
         }

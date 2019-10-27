@@ -5,18 +5,18 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Server
 {
     public class GameServer : IEliminable, IDisposable
     {
-        public int id;
-        public string nombre;
-        public ServerStates estado;
-        private bool disposed = false;
+        public int serverId;
+        public string serverName;
+        public ServerStates serverState;
+        private bool _disposed = false;
 
-        public GameServer() => actualizar_Datos(0, "UNDEFINED", ServerStates.OFFLINE);
+        public GameServer() => RefreshData(0, "UNDEFINED", ServerStates.OFFLINE);
 
-        public void actualizar_Datos(int _id, string _nombre, ServerStates _estado)
+        public void RefreshData(int prmId, string prmServerName, ServerStates prmServerState)
         {
-            id = _id;
-            nombre = _nombre;
-            estado = _estado;
+            serverId = prmId;
+            serverName = prmServerName;
+            serverState = prmServerState;
         }
 
         public string GetState(ServerStates state)
@@ -40,20 +40,20 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Server
 
         public void Clear()
         {
-            id = 0;
-            nombre = null;
-            estado = ServerStates.OFFLINE;
+            serverId = 0;
+            serverName = null;
+            serverState = ServerStates.OFFLINE;
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposed)
+            if (_disposed)
                 return;
 
-            id = 0;
-            nombre = null;
-            estado = ServerStates.OFFLINE;
-            disposed = true;
+            serverId = 0;
+            serverName = null;
+            serverState = ServerStates.OFFLINE;
+            _disposed = true;
         }
         #endregion
     }

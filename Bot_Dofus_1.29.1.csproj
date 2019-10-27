@@ -135,7 +135,7 @@
     <Compile Include="Forms\Principal.Designer.cs">
       <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comun\Frames\Autentificacion\LoginCuenta.cs" />
+    <Compile Include="Comun\Frames\Autentificacion\AccountLogin.cs" />
     <Compile Include="Comun\Frames\Frame.cs" />
     <Compile Include="Interfaces\UI_Hechizos.cs">
       <SubType>UserControl</SubType>
@@ -213,11 +213,11 @@
     <Compile Include="Otros\Grupos\Agrupamiento.cs" />
     <Compile Include="Otros\Grupos\Grupo.cs" />
     <Compile Include="Otros\IEliminable.cs" />
-    <Compile Include="Otros\Mapas\Celda.cs" />
+    <Compile Include="Otros\Mapas\Cell.cs" />
     <Compile Include="Otros\Mapas\Entidades\Personajes.cs" />
     <Compile Include="Otros\Mapas\Interactivo\ObjetoInteractivo.cs" />
     <Compile Include="Otros\Mapas\Interactivo\ObjetoInteractivoModelo.cs" />
-    <Compile Include="Otros\Mapas\Mapa.cs" />
+    <Compile Include="Otros\Mapas\Map.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Mapas\DuracionAnimacion.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Mapas\Pathfinder.cs" />
     <Compile Include="Otros\Mapas\Movimiento\PathFinderUtil.cs" />
@@ -228,7 +228,7 @@
     <Compile Include="Otros\Game\Manejadores\Movimientos\MapaTeleportCeldas.cs" />
     <Compile Include="Otros\Game\Manejadores\Movimientos\ResultadoMovimientos.cs" />
     <Compile Include="Otros\Mapas\Movimiento\Mapas\TipoAnimacion.cs" />
-    <Compile Include="Otros\Mapas\TipoCelda.cs" />
+    <Compile Include="Otros\Mapas\CellTypes.cs" />
     <Compile Include="Otros\Peleas\Configuracion\HechizoPelea.cs" />
     <Compile Include="Otros\Peleas\Configuracion\PeleaConf.cs" />
     <Compile Include="Otros\Peleas\Enums\FallosLanzandoHechizo.cs" />
@@ -279,7 +279,7 @@
     <Compile Include="Otros\Scripts\ManejadorScript.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Comun\Network\ClienteTcp.cs" />
+    <Compile Include="Comun\Network\TcpClient.cs" />
     <Compile Include="Otros\Enums\AccountStates.cs" />
     <Compile Include="Otros\Game\Character\Inventory\Enums\InventoryObjectsTypes.cs" />
     <Compile Include="Otros\Enums\ServerStates.cs" />

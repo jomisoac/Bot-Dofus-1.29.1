@@ -6,7 +6,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Spells
     public class SpellShape
     {
 
-        public static IEnumerable<Celda> Get_Lista_Celdas_Rango_Hechizo(Celda celda, SpellStats spellLevel, Mapa mapa, int rango_adicional = 0)
+        public static IEnumerable<Cell> Get_Lista_Celdas_Rango_Hechizo(Cell celda, SpellStats spellLevel, Map mapa, int rango_adicional = 0)
         {
             int rango_maximo = spellLevel.alcanze_maximo + (spellLevel.es_alcanze_modificable ? rango_adicional : 0);
             
