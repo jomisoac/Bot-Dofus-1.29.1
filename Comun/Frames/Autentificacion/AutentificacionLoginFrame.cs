@@ -18,35 +18,35 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
         public void get_Error_Datos(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("LOGIN", "Connexion rejetée. Nom de compte ou mot de passe incorrect.");
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
 
         [PaqueteAtributo("AlEa")]
         public void get_Error_Ya_Conectado(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("LOGIN", "Déjà connecté. Essayez encore une fois.");
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
 
         [PaqueteAtributo("AlEv")]
         public void get_Error_Version(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("LOGIN", "La version %1 de Dofus que vous avez installée n'est pas compatible avec ce serveur. Pour jouer, installez la version %2. Le client DOFUS sera fermé.");
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
 
         [PaqueteAtributo("AlEb")]
         public void get_Error_Baneado(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("LOGIN", "Connexion rejetée. Votre compte a été banni.");
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
 
         [PaqueteAtributo("AlEd")]
         public void get_Error_Conectado(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("LOGIN", "Ce compte est déjà connecté à un serveur de jeu. Veuillez réessayer.");
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
 
         [PaqueteAtributo("AlEk")]
@@ -64,7 +64,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
                 mensaje.Append(minutos + " minutes");
 
             cliente.cuenta.logger.log_Error("LOGIN", mensaje.ToString());
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
     }
 }

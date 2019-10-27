@@ -2,8 +2,8 @@
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Oficios;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Jobs;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using System;
 using System.Collections.Generic;
@@ -46,7 +46,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             string[] pods = paquete.Substring(2).Split('|');
             short pods_actuales = short.Parse(pods[0]);
             short pods_maximos = short.Parse(pods[1]);
-            PersonajeJuego personaje = cliente.cuenta.game.personaje;
+            CharacterClass personaje = cliente.cuenta.game.personaje;
 
             personaje.inventario.pods_actuales = pods_actuales;
             personaje.inventario.pods_maximos = pods_maximos;
@@ -92,9 +92,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Skills_Oficio(ClienteTcp cliente, string paquete)
         {
             string[] separador_skill;
-            PersonajeJuego personaje = cliente.cuenta.game.personaje;
-            Oficio oficio;
-            SkillsOficio skill = null;
+            CharacterClass personaje = cliente.cuenta.game.personaje;
+            Job oficio;
+            JobSkills skill = null;
             short id_oficio, id_skill;
             byte cantidad_minima, cantidad_maxima;
             float tiempo;
@@ -106,7 +106,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                 if (oficio == null)
                 {
-                    oficio = new Oficio(id_oficio);
+                    oficio = new Job(id_oficio);
                     personaje.oficios.Add(oficio);
                 }
 
@@ -122,7 +122,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     if (skill != null)
                         skill.set_Actualizar(id_skill, cantidad_minima, cantidad_maxima, tiempo);
                     else
-                        oficio.skills.Add(new SkillsOficio(id_skill, cantidad_minima, cantidad_maxima, tiempo));
+                        oficio.skills.Add(new JobSkills(id_skill, cantidad_minima, cantidad_maxima, tiempo));
                 }
             }
 
@@ -133,7 +133,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Experiencia_Oficio(ClienteTcp cliente, string paquete)
         {
             string[] separador_oficio_experiencia = paquete.Substring(3).Split('|');
-            PersonajeJuego personaje = cliente.cuenta.game.personaje;
+            CharacterClass personaje = cliente.cuenta.game.personaje;
             uint experiencia_actual, experiencia_base, experiencia_siguiente_nivel;
             short id;
             byte nivel;
@@ -189,7 +189,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             paquete = paquete.Substring(3);
             int tiempo = int.Parse(paquete);
             Account cuenta = cliente.cuenta;
-            PersonajeJuego personaje = cuenta.game.personaje;
+            CharacterClass personaje = cuenta.game.personaje;
 
             personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
             personaje.timer_regeneracion.Change(tiempo, tiempo);
@@ -203,7 +203,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             paquete = paquete.Substring(3);
             int vida = int.Parse(paquete);
             Account cuenta = cliente.cuenta;
-            PersonajeJuego personaje = cuenta.game.personaje;
+            CharacterClass personaje = cuenta.game.personaje;
 
             personaje.caracteristicas.vitalidad_actual += vida;
             cuenta.logger.log_informacion("DOFUS", $"Vous avez récupéré {vida} points de vie");

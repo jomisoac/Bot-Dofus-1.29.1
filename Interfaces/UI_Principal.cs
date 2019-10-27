@@ -1,7 +1,7 @@
 ﻿using Bot_Dofus_1._29._1.Forms;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
 using Bot_Dofus_1._29._1.Utilities.Extensions;
 using Bot_Dofus_1._29._1.Utilities.Logs;
 using System;
@@ -82,7 +82,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 while (tabControl_principal.TabPages.Count > 2)
                     tabControl_principal.TabPages.RemoveAt(2);
 
-                cuenta.conectar();
+                cuenta.Connect();
 
                 cuenta.connexion.paquete_recibido += debugger.paquete_Recibido;
                 cuenta.connexion.paquete_enviado += debugger.paquete_Enviado;
@@ -91,7 +91,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 desconectarOconectarToolStripMenuItem.Text = "Deconnecté";
             }
             else if (desconectarOconectarToolStripMenuItem.Text.Equals("Deconnecté"))
-                cuenta.desconectar();
+                cuenta.Disconnect();
         }
 
         private void desconectar_Cuenta()
@@ -272,7 +272,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             BeginInvoke((Action)(() =>
             {
-                PersonajeJuego personaje = cuenta.game.personaje;
+                CharacterClass personaje = cuenta.game.personaje;
 
                 progresBar_vitalidad.valor_Maximo = personaje.caracteristicas.vitalidad_maxima;
                 progresBar_vitalidad.Valor = personaje.caracteristicas.vitalidad_actual;

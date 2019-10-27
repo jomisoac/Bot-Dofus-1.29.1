@@ -185,8 +185,8 @@
     <Compile Include="Interfaces\UI_Debugger.Designer.cs">
       <DependentUpon>UI_Debugger.cs</DependentUpon>
     </Compile>
-    <Compile Include="Otros\Cuenta.cs" />
-    <Compile Include="Otros\Game\Servidor\ServidorJuego.cs" />
+    <Compile Include="Otros\Account.cs" />
+    <Compile Include="Otros\Game\Server\GameServer.cs" />
     <Compile Include="Otros\Mapas\Entidades\Entidad.cs" />
     <Compile Include="Otros\Game\Manejadores\Interactivos\Interactivo.cs" />
     <Compile Include="Otros\Game\Manejadores\Manejador.cs" />
@@ -197,19 +197,19 @@
     <Compile Include="Otros\Game\Manejadores\Teleports\TipoTeleport.cs" />
     <Compile Include="Otros\Mapas\Entidades\Monstruos.cs" />
     <Compile Include="Otros\Mapas\Entidades\Npcs.cs" />
-    <Compile Include="Otros\Game\Personaje\Hechizos\HechizoEfecto.cs" />
-    <Compile Include="Otros\Game\Personaje\Hechizos\HechizoShape.cs" />
-    <Compile Include="Otros\Game\Personaje\Hechizos\HechizoStats.cs" />
-    <Compile Include="Otros\Game\Personaje\Hechizos\HechizoZona.cs" />
-    <Compile Include="Otros\Game\Personaje\Hechizos\Shaper.cs" />
-    <Compile Include="Otros\Game\Personaje\Hechizos\Zonas.cs" />
-    <Compile Include="Otros\Game\Personaje\Inventario\InventarioGeneral.cs" />
-    <Compile Include="Otros\Game\Personaje\Inventario\Enums\InventarioPosiciones.cs" />
-    <Compile Include="Otros\Game\Personaje\Inventario\InventarioUtiles.cs" />
-    <Compile Include="Otros\Game\Personaje\Inventario\ObjetosInventario.cs" />
-    <Compile Include="Otros\Game\Personaje\Oficios\Oficio.cs" />
-    <Compile Include="Otros\Game\Personaje\Oficios\SkillsOficio.cs" />
-    <Compile Include="Otros\Game\Juego.cs" />
+    <Compile Include="Otros\Game\Character\Spells\SpellEffect.cs" />
+    <Compile Include="Otros\Game\Character\Spells\SpellShape.cs" />
+    <Compile Include="Otros\Game\Character\Spells\SpellStats.cs" />
+    <Compile Include="Otros\Game\Character\Spells\SpellActionZone.cs" />
+    <Compile Include="Otros\Game\Character\Spells\Shaper.cs" />
+    <Compile Include="Otros\Game\Character\Spells\Zones.cs" />
+    <Compile Include="Otros\Game\Character\Inventory\InventoryClass.cs" />
+    <Compile Include="Otros\Game\Character\Inventory\Enums\InventorySlots.cs" />
+    <Compile Include="Otros\Game\Character\Inventory\InventoryUtilities.cs" />
+    <Compile Include="Otros\Game\Character\Inventory\InventoryObject.cs" />
+    <Compile Include="Otros\Game\Character\Jobs\Job.cs" />
+    <Compile Include="Otros\Game\Character\Jobs\JobSkills.cs" />
+    <Compile Include="Otros\Game\GameClass.cs" />
     <Compile Include="Otros\Grupos\Agrupamiento.cs" />
     <Compile Include="Otros\Grupos\Grupo.cs" />
     <Compile Include="Otros\IEliminable.cs" />
@@ -242,10 +242,10 @@
     <Compile Include="Otros\Peleas\Pelea.cs" />
     <Compile Include="Otros\Peleas\Peleadores\LuchadorPersonaje.cs" />
     <Compile Include="Otros\Peleas\PeleaExtensiones.cs" />
-    <Compile Include="Otros\Game\Personaje\Hechizos\Hechizo.cs" />
-    <Compile Include="Otros\Game\Personaje\PersonajeJuego.cs" />
-    <Compile Include="Otros\Game\Personaje\PersonajeStatsBase.cs" />
-    <Compile Include="Otros\Game\Personaje\PersonajeStats.cs" />
+    <Compile Include="Otros\Game\Character\Spells\Spell.cs" />
+    <Compile Include="Otros\Game\Character\CharacterClass.cs" />
+    <Compile Include="Otros\Game\Character\CharacterBaseStats.cs" />
+    <Compile Include="Otros\Game\Character\CharacterCharacteristics.cs" />
     <Compile Include="Otros\Scripts\Acciones\AccionesScript.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\AlmacenarTodosLosObjetosAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\RecuperarObjetoBanco.cs" />
@@ -281,8 +281,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comun\Network\ClienteTcp.cs" />
     <Compile Include="Otros\Enums\AccountStates.cs" />
-    <Compile Include="Otros\Game\Personaje\Inventario\Enums\TipoObjetosInventario.cs" />
-    <Compile Include="Otros\Enums\EstadosServidor.cs" />
+    <Compile Include="Otros\Game\Character\Inventory\Enums\InventoryObjectsTypes.cs" />
+    <Compile Include="Otros\Enums\ServerStates.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

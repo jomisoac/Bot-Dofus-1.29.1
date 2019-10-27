@@ -1,6 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory.Enums;
 using Microsoft.VisualBasic;
 using System;
 using System.Linq;
@@ -38,19 +38,19 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 BeginInvoke((Action)(() =>
                 {
                     dataGridView_equipamientos.Rows.Clear();
-                    foreach (ObjetosInventario obj in cuenta.game.personaje.inventario.equipamiento)
-                        dataGridView_equipamientos.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.posicion, obj.posicion == InventarioPosiciones.NO_EQUIPADO ? "Equipar" : "Desequipar", "Eliminar" });
+                    foreach (InventoryObject obj in cuenta.game.personaje.inventario.equipamiento)
+                        dataGridView_equipamientos.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.posicion, obj.posicion == InventorySlots.NOT_EQUIPPED ? "Equipar" : "Desequipar", "Eliminar" });
 
                     dataGridView_varios.Rows.Clear();
-                    foreach (ObjetosInventario obj in cuenta.game.personaje.inventario.varios)
+                    foreach (InventoryObject obj in cuenta.game.personaje.inventario.varios)
                         dataGridView_varios.Rows.Add(new object[] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.pods, "Eliminar" });
 
                     dataGridView_recursos.Rows.Clear();
-                    foreach (ObjetosInventario obj in cuenta.game.personaje.inventario.recursos)
+                    foreach (InventoryObject obj in cuenta.game.personaje.inventario.recursos)
                         dataGridView_recursos.Rows.Add(new object[6] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad, obj.pods, "Eliminar" });
 
                     dataGridView_mision.Rows.Clear();
-                    foreach (ObjetosInventario obj in cuenta.game.personaje.inventario.mision)
+                    foreach (InventoryObject obj in cuenta.game.personaje.inventario.mision)
                         dataGridView_mision.Rows.Add(new object[4] { obj.id_inventario, obj.id_modelo, obj.nombre, obj.cantidad });
 
                 }));
@@ -62,7 +62,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             if (e.ColumnIndex < 5)
                 return;
 
-            ObjetosInventario objeto = cuenta.game.personaje.inventario.equipamiento.ElementAt(e.RowIndex);
+            InventoryObject objeto = cuenta.game.personaje.inventario.equipamiento.ElementAt(e.RowIndex);
             
             string accion = dataGridView_equipamientos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
@@ -88,7 +88,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             if (e.ColumnIndex < 5)
                 return;
 
-            ObjetosInventario objeto = cuenta.game.personaje.inventario.recursos.ElementAt(e.RowIndex);
+            InventoryObject objeto = cuenta.game.personaje.inventario.recursos.ElementAt(e.RowIndex);
             string accion = dataGridView_recursos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
             if (!int.TryParse(Interaction.InputBox($"Ingresa la cantidad para {accion.ToLower()} el objeto {objeto.nombre} (0 = todos):", accion, "1"), out int cantidad))

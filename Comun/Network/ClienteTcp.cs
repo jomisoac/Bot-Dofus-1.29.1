@@ -115,7 +115,7 @@ namespace Bot_Dofus_1._29._1.Comun.Network
                     socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(recibir_CallBack), socket);
             }
             else
-                cuenta.desconectar();
+                cuenta.Disconnect();
         }
 
         public async Task enviar_Paquete_Async(string paquete, bool necesita_respuesta)

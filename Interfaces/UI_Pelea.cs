@@ -1,6 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Spells;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
@@ -53,7 +53,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void button_agregar_hechizo_Click(object sender, EventArgs e)
         {
-            Hechizo hechizo = comboBox_lista_hechizos.SelectedItem as Hechizo;
+            Spell hechizo = comboBox_lista_hechizos.SelectedItem as Spell;
             cuenta.fightExtension.configuracion.hechizos.Add(new HechizoPelea(hechizo.id, hechizo.nombre, (HechizoFocus)comboBox_focus_hechizo.SelectedIndex, (MetodoLanzamiento)comboBox_modo_lanzamiento.SelectedIndex, Convert.ToByte(numeric_lanzamientos_turno.Value)));
             cuenta.fightExtension.configuracion.guardar();
             refrescar_Lista_Hechizos();

@@ -1,4 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Character.Spells;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Configuracion;
@@ -120,8 +120,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizo_pelea.focus == HechizoFocus.CELDA_VACIA && pelea.get_Cuerpo_A_Cuerpo_Enemigo().Count() == 4)
                 return ResultadoLanzandoHechizo.NO_LANZADO;
 
-            Hechizo hechizo = cuenta.game.personaje.get_Hechizo(hechizo_pelea.id);
-            HechizoStats datos_hechizo = hechizo.get_Stats();
+            Spell hechizo = cuenta.game.personaje.get_Hechizo(hechizo_pelea.id);
+            SpellStats datos_hechizo = hechizo.get_Stats();
 
             List<short> rangos_disponibles = pelea.get_Rango_hechizo(pelea.jugador_luchador.celda, datos_hechizo, mapa);
             foreach (short rango in rangos_disponibles)

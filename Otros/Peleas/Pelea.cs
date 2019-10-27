@@ -1,5 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Hechizos;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Spells;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Peleas.Enums;
 using Bot_Dofus_1._29._1.Otros.Peleas.Peleadores;
@@ -72,8 +72,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public void actualizar_Hechizo_Exito(short celda_id, short hechizo_id)
         {
-            Hechizo hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
-            HechizoStats datos_hechizo = hechizo.get_Stats();
+            Spell hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
+            SpellStats datos_hechizo = hechizo.get_Stats();
 
             if (datos_hechizo.intervalo > 0 && !hechizos_intervalo.ContainsKey(hechizo.id))
                 hechizos_intervalo.Add(hechizo.id, datos_hechizo.intervalo);
@@ -256,12 +256,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(short hechizo_id)
         {
-            Hechizo hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
+            Spell hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
 
             if (hechizo == null)
                 return FallosLanzandoHechizo.DESONOCIDO;
 
-            HechizoStats datos_hechizo = hechizo.get_Stats();
+            SpellStats datos_hechizo = hechizo.get_Stats();
 
             if (jugador_luchador.pa < datos_hechizo.coste_pa)
                 return FallosLanzandoHechizo.PUNTOS_ACCION;
@@ -280,12 +280,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(short hechizo_id, Celda celda_actual, Celda celda_objetivo, Mapa mapa)
         {
-            Hechizo hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
+            Spell hechizo = cuenta.game.personaje.get_Hechizo(hechizo_id);
 
             if (hechizo == null)
                 return FallosLanzandoHechizo.DESONOCIDO;
             
-            HechizoStats datos_hechizo = hechizo.get_Stats();
+            SpellStats datos_hechizo = hechizo.get_Stats();
 
             if (datos_hechizo.lanzamientos_por_objetivo > 0 && total_hechizos_lanzados_en_celda.ContainsKey(hechizo_id) && total_hechizos_lanzados_en_celda[hechizo_id].ContainsKey(celda_objetivo.id) && total_hechizos_lanzados_en_celda[hechizo_id][celda_objetivo.id] >= datos_hechizo.lanzamientos_por_objetivo)
                 return FallosLanzandoHechizo.DEMASIADOS_LANZAMIENTOS_POR_OBJETIVO;
@@ -302,11 +302,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return FallosLanzandoHechizo.NINGUNO;
         }
 
-        public List<short> get_Rango_hechizo(Celda celda_personaje, HechizoStats datos_hechizo, Mapa mapa)
+        public List<short> get_Rango_hechizo(Celda celda_personaje, SpellStats datos_hechizo, Mapa mapa)
         {
             List<short> rango = new List<short>();
             
-            foreach (Celda celda in HechizoShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, datos_hechizo, cuenta.game.mapa, cuenta.game.personaje.caracteristicas.alcanze.total_stats))
+            foreach (Celda celda in SpellShape.Get_Lista_Celdas_Rango_Hechizo(celda_personaje, datos_hechizo, cuenta.game.mapa, cuenta.game.personaje.caracteristicas.alcanze.total_stats))
             {
                 if (celda == null || rango.Contains(celda.id))
                     continue;

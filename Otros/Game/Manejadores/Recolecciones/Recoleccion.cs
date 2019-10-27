@@ -1,8 +1,8 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario.Enums;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory.Enums;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Interactivo;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas;
@@ -68,9 +68,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
         private Dictionary<short, ObjetoInteractivo> get_Interactivos_Utilizables(List<short> elementos_ids)
         {
             Dictionary<short, ObjetoInteractivo> elementos_utilizables = new Dictionary<short, ObjetoInteractivo>();
-            PersonajeJuego personaje = cuenta.game.personaje;
+            CharacterClass personaje = cuenta.game.personaje;
 
-            ObjetosInventario arma = personaje.inventario.get_Objeto_en_Posicion(InventarioPosiciones.ARMA);
+            InventoryObject arma = personaje.inventario.get_Objeto_en_Posicion(InventorySlots.WEAPON);
             byte distancia_arma = 1;
             bool es_herramienta_pescar = false;
 
@@ -112,7 +112,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
         {
             interactivo_recolectando = interactivo.Value;
             byte distancia_detener = 1;
-            ObjetosInventario arma = cuenta.game.personaje.inventario.get_Objeto_en_Posicion(InventarioPosiciones.ARMA);
+            InventoryObject arma = cuenta.game.personaje.inventario.get_Objeto_en_Posicion(InventorySlots.WEAPON);
 
             if(arma != null)
                 distancia_detener = get_Distancia_herramienta(arma.id_modelo);

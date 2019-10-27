@@ -3,7 +3,7 @@ using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Peleas;
@@ -155,7 +155,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             string[] separador = paquete.Substring(2).Split(';');
             int id_accion = int.Parse(separador[1]);
             Account cuenta = cliente.cuenta;
-            PersonajeJuego personaje = cuenta.game.personaje;
+            CharacterClass personaje = cuenta.game.personaje;
 
             if (id_accion > 0)
             {

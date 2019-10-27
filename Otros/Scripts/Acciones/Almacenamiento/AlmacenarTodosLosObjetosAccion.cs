@@ -1,4 +1,4 @@
-﻿using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory;
 using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento
@@ -7,9 +7,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento
     {
         internal override async Task<ResultadosAcciones> proceso(Account cuenta)
         {
-            InventarioGeneral inventario = cuenta.game.personaje.inventario;
+            InventoryClass inventario = cuenta.game.personaje.inventario;
             
-            foreach (ObjetosInventario objeto in inventario.objetos)
+            foreach (InventoryObject objeto in inventario.objetos)
             {
                 if(!objeto.objeto_esta_equipado())
                 {
