@@ -1,6 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             manejador_script = _manejador_script;
             fila_acciones = new ConcurrentQueue<AccionesScript>();
             timer_out = new TimerWrapper(60000, time_Out_Callback);
-            PersonajeJuego personaje = cuenta.game.personaje;
+            CharacterClass personaje = cuenta.game.personaje;
             
             cuenta.game.mapa.mapa_actualizado += evento_Mapa_Cambiado;
             cuenta.game.pelea.pelea_creada += get_Pelea_Creada;

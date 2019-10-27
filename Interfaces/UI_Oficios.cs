@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Reflection;
 using Bot_Dofus_1._29._1.Otros;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Oficios;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Jobs;
 
 namespace Bot_Dofus_1._29._1.Interfaces
 {
@@ -28,11 +28,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
             BeginInvoke((Action)(() =>
             {
                 dataGridView_oficios.Rows.Clear();
-                foreach (Oficio oficio in cuenta.game.personaje.oficios)
+                foreach (Job oficio in cuenta.game.personaje.oficios)
                     dataGridView_oficios.Rows.Add(new object[] { oficio.id, oficio.nombre, oficio.nivel, oficio.experiencia_actual + "/" + oficio.experiencia_siguiente_nivel, oficio.get_Experiencia_Porcentaje + "%" });
 
                 dataGridView_skills.Rows.Clear();
-                foreach (SkillsOficio skill in cuenta.game.personaje.get_Skills_Disponibles())
+                foreach (JobSkills skill in cuenta.game.personaje.get_Skills_Disponibles())
                     dataGridView_skills.Rows.Add(new object[] { skill.id, skill.interactivo_modelo.nombre, skill.cantidad_minima, skill.cantidad_maxima, skill.es_craft ? skill.tiempo + "%" : skill.tiempo.ToString() });
             }));
         }

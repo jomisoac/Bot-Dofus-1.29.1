@@ -17,21 +17,21 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Error_Streaming(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "Connexion rejetée. Vous n'avez pas pu vous authentifier pour ce serveur car votre connexion a expiré. Assurez-vous de couper les téléchargements, la musique ou les vidéos en continu pour améliorer la qualité et la vitesse de votre connexion.");
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
 
         [PaqueteAtributo("M031")]
         public void get_Error_Red(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "Connexion rejetée. Le serveur de jeu n'a pas reçu les informations d'authentification nécessaires après votre identification. Veuillez réessayer et, si le problème persiste, contactez votre administrateur réseau ou votre serveur d'accès Internet. C'est un problème de redirection dû à une mauvaise configuration DNS.");
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
 
         [PaqueteAtributo("M032")]
         public void get_Error_Flood_Conexion(ClienteTcp cliente, string paquete)
         {
             cliente.cuenta.logger.log_Error("Login", "Pour éviter de déranger les autres joueurs, attendez %1 secondes avant de vous reconnecter.");
-            cliente.cuenta.desconectar();
+            cliente.cuenta.Disconnect();
         }
     }
 }

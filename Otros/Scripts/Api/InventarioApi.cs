@@ -1,5 +1,5 @@
-﻿using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory.Enums;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Inventario;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
 using MoonSharp.Interpreter;
@@ -35,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 
         public bool utilizar(int modelo_id)
         {
-            ObjetosInventario objeto = cuenta.game.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
+            InventoryObject objeto = cuenta.game.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
 
             if (objeto == null)
                 return false;
@@ -46,9 +46,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 
         public bool equipar(int modelo_id)
         {
-            ObjetosInventario objeto = cuenta.game.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
+            InventoryObject objeto = cuenta.game.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
 
-            if (objeto == null || objeto.posicion != InventarioPosiciones.NO_EQUIPADO)
+            if (objeto == null || objeto.posicion != InventorySlots.NOT_EQUIPPED)
                 return false;
 
             manejar_acciones.enqueue_Accion(new EquiparItemAccion(modelo_id), true);

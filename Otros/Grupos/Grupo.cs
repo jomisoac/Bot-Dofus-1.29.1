@@ -40,16 +40,16 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
 
         public void conectar_Cuentas()
         {
-            lider.conectar();
+            lider.Connect();
 
             foreach (Account miembro in miembros)
-                miembro.conectar();
+                miembro.Connect();
         }
 
         public void desconectar_Cuentas()
         {
             foreach (Account miembro in miembros)
-                miembro.desconectar();
+                miembro.Disconnect();
         }
 
         #region Acciones

@@ -1,6 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Global;
@@ -386,12 +386,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!manejador_script.get_Global_Or("OUVRIR_SAC", DataType.Boolean, false))
                 return;
 
-            PersonajeJuego personaje = cuenta.game.personaje;
-            List<ObjetosInventario> sacos = personaje.inventario.objetos.Where(o => o.tipo == 100).ToList();
+            CharacterClass personaje = cuenta.game.personaje;
+            List<InventoryObject> sacos = personaje.inventario.objetos.Where(o => o.tipo == 100).ToList();
 
             if (sacos.Count > 0)
             {
-                foreach (ObjetosInventario saco in sacos)
+                foreach (InventoryObject saco in sacos)
                 {
                     personaje.inventario.utilizar_Objeto(saco);
                     await Task.Delay(500);
@@ -474,7 +474,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (auto_regeneracion == null)
                 return;
 
-            PersonajeJuego personaje = cuenta.game.personaje;
+            CharacterClass personaje = cuenta.game.personaje;
             int vida_minima = auto_regeneracion.get_Or("VITA_MIN", DataType.Number, 0);
             int vida_maxima = auto_regeneracion.get_Or("VITA_MAX", DataType.Number, 100);
 
@@ -491,7 +491,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 if (vida_para_regenerar < 20)
                     break;
 
-                ObjetosInventario objeto = personaje.inventario.get_Objeto_Modelo_Id(id_objeto);
+                InventoryObject objeto = personaje.inventario.get_Objeto_Modelo_Id(id_objeto);
 
                 if (objeto == null)
                     continue;

@@ -1,5 +1,5 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas;
@@ -23,7 +23,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
     public class Movimiento : IDisposable
     {
         private Account cuenta;
-        private PersonajeJuego personaje;
+        private CharacterClass personaje;
         private Mapa mapa;
         private Pathfinder pathfinder;
         public List<Celda> actual_path;
@@ -31,7 +31,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
         public event Action<bool> movimiento_finalizado;
         private bool disposed;
 
-        public Movimiento(Account _cuenta, Mapa _mapa, PersonajeJuego _personaje)
+        public Movimiento(Account _cuenta, Mapa _mapa, CharacterClass _personaje)
         {
             cuenta = _cuenta;
             personaje = _personaje;

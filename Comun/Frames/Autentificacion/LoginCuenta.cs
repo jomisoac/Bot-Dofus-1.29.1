@@ -2,7 +2,7 @@
 using Bot_Dofus_1._29._1.Comun.Network;
 using Bot_Dofus_1._29._1.Otros;
 using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Servidor;
+using Bot_Dofus_1._29._1.Otros.Game.Server;
 using Bot_Dofus_1._29._1.Utilities.Crypto;
 using System.Threading.Tasks;
 
@@ -42,7 +42,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         {
             Account cuenta = cliente.cuenta;
             string[] separado_servidores = paquete.Substring(2).Split('|');
-            ServidorJuego servidor = cuenta.game.servidor;
+            GameServer servidor = cuenta.game.servidor;
             bool primera_vez = true;
 
             foreach(string sv in separado_servidores)
@@ -50,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                 string[] separador = sv.Split(';');
 
                 int id = int.Parse(separador[0]);
-                EstadosServidor estado = (EstadosServidor)byte.Parse(separador[1]);
+                ServerStates estado = (ServerStates)byte.Parse(separador[1]);
                 string nombre = cuenta.accountConfig.server;
 
                 // Add Method to take name with Id
@@ -60,19 +60,19 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                     servidor.actualizar_Datos(id, nombre, estado);
                     cuenta.logger.log_informacion("LOGIN", $"Le serveur {nombre} est {cuenta.game.servidor.GetState(estado)}");
 
-                    if (estado != EstadosServidor.CONECTADO)
+                    if (estado != ServerStates.ONLINE)
                         primera_vez = false;
                 }
             }
 
-            if(!primera_vez  && servidor.estado == EstadosServidor.CONECTADO)
+            if(!primera_vez  && servidor.estado == ServerStates.ONLINE)
                 cliente.enviar_Paquete("Ax");
         }
 
         [PaqueteAtributo("AQ")]
         public void get_Pregunta_Secreta(ClienteTcp cliente, string paquete)
         {
-            if (cliente.cuenta.game.servidor.estado == EstadosServidor.CONECTADO)
+            if (cliente.cuenta.game.servidor.estado == ServerStates.ONLINE)
                 cliente.enviar_Paquete("Ax", true);
         }
 
@@ -91,7 +91,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
 
                 if (servidor_id == cuenta.game.servidor.id)
                 {
-                    if(cuenta.game.servidor.estado == EstadosServidor.CONECTADO)
+                    if(cuenta.game.servidor.estado == ServerStates.ONLINE)
                     {
                         seleccionado = true;
                         cuenta.game.personaje.evento_Servidor_Seleccionado();
