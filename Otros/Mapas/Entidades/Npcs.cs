@@ -6,13 +6,13 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Entidades
     {
         public int id { get; set; }
         public int npc_modelo_id { get; private set; }
-        public Celda celda { get; set; }
+        public Cell celda { get; set; }
 
         public short pregunta { get; set; }
         public List<short> respuestas { get; set; }
         private bool disposed;
 
-        public Npcs(int _id, int _npc_modelo_id, Celda _celda)
+        public Npcs(int _id, int _npc_modelo_id, Cell _celda)
         {
             id = _id;
             npc_modelo_id = _npc_modelo_id;

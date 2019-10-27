@@ -22,7 +22,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             cuenta = _cuenta;
 
             refrescar_Lista_Hechizos();
-            cuenta.game.personaje.hechizos_actualizados += actualizar_Agregar_Lista_Hechizos;
+            cuenta.game.character.hechizos_actualizados += actualizar_Agregar_Lista_Hechizos;
         }
 
         private void UI_Pelea_Load(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             comboBox_lista_hechizos.DisplayMember = "nombre";
             comboBox_lista_hechizos.ValueMember = "id";
-            comboBox_lista_hechizos.DataSource = cuenta.game.personaje.hechizos.Values.ToList();
+            comboBox_lista_hechizos.DataSource = cuenta.game.character.hechizos.Values.ToList();
 
             comboBox_lista_hechizos.SelectedIndex = 0;
         }
@@ -102,19 +102,19 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Mapa mapa = cuenta.game.mapa;
+            Map mapa = cuenta.game.map;
 
-            List<Monstruos> monstruos = cuenta.game.mapa.lista_monstruos();
+            List<Monstruos> monstruos = cuenta.game.map.lista_monstruos();
 
             if (monstruos.Count > 0)
             {
-                Celda celda_actual = cuenta.game.personaje.celda, celda_monstruo_destino = monstruos[0].celda;
+                Cell celda_actual = cuenta.game.character.celda, celda_monstruo_destino = monstruos[0].celda;
 
-                if (celda_actual.id != celda_monstruo_destino.id & celda_monstruo_destino.id > 0)
+                if (celda_actual.cellId != celda_monstruo_destino.cellId & celda_monstruo_destino.cellId > 0)
                 {
-                    cuenta.logger.log_informacion("UI_PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino.id);
+                    cuenta.logger.log_informacion("UI_PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino.cellId);
 
-                    switch (cuenta.game.manejador.movimientos.get_Mover_A_Celda(celda_monstruo_destino, new List<Celda>()))
+                    switch (cuenta.game.manager.movimientos.get_Mover_A_Celda(celda_monstruo_destino, new List<Cell>()))
                     {
                         case ResultadoMovimientos.EXITO:
                             cuenta.logger.log_informacion("UI_PELEAS", "Desplazando para comenzar el combate");

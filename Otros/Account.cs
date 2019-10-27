@@ -25,25 +25,25 @@ namespace Bot_Dofus_1._29._1.Otros
         public string welcomeKey { get; set; } = string.Empty;
         public string gameTicket { get; set; } = string.Empty;
         public Logger logger { get; private set; }
-        public ClienteTcp connexion { get; set; }
+        public TcpClient connexion { get; set; }
         public GameClass game { get; private set; }
         public ManejadorScript script { get; set; }
         public PeleaExtensiones fightExtension { get; set; }
         public AccountConfig accountConfig { get; private set; }
-        private AccountStates accountState = AccountStates.DISCONNECTED;
+        private AccountStates _accountState = AccountStates.DISCONNECTED;
         public bool canUseMount = false;
 
         public Grupo group { get; set; }
         public bool hasGroup => group != null;
         public bool isGroupLeader => !hasGroup || group.lider == this;
 
-        private bool disposed;
+        private bool _disposed;
         public event Action accountStateEvent;
         public event Action accountDisconnectEvent;
 
-        public Account(AccountConfig _accountConfig)
+        public Account(AccountConfig prmAccountConfig)
         {
-            accountConfig = _accountConfig;
+            accountConfig = prmAccountConfig;
             logger = new Logger();
             game = new GameClass(this);
             fightExtension = new PeleaExtensiones(this);
@@ -52,8 +52,8 @@ namespace Bot_Dofus_1._29._1.Otros
 
         public void Connect()
         {
-            connexion = new ClienteTcp(this);
-            connexion.conexion_Servidor(IPAddress.Parse(GlobalConfig.loginIP), GlobalConfig.loginPort);
+            connexion = new TcpClient(this);
+            connexion.ConnectToServer(IPAddress.Parse(GlobalConfig.loginIP), GlobalConfig.loginPort);
         }
 
         public void Disconnect()
@@ -63,31 +63,31 @@ namespace Bot_Dofus_1._29._1.Otros
 
             script.detener_Script();
             game.Clear();
-            Estado_Cuenta = AccountStates.DISCONNECTED;
+            accountState = AccountStates.DISCONNECTED;
             accountDisconnectEvent?.Invoke();
         }
 
-        public void cambiando_Al_Servidor_Juego(string ip, int puerto)
+        public void SwitchToGameServer(string ip, int port)
         {
-            connexion.get_Desconectar_Socket();
-            connexion.conexion_Servidor(IPAddress.Parse(ip), puerto);
+            connexion.DisconnectSocket();
+            connexion.ConnectToServer(IPAddress.Parse(ip), port);
         }
 
-        public AccountStates Estado_Cuenta
+        public AccountStates accountState
         {
-            get => accountState;
+            get => _accountState;
             set
             {
-                accountState = value;
+                _accountState = value;
                 accountStateEvent?.Invoke();
             }
         }
 
-        public bool esta_ocupado() => Estado_Cuenta != AccountStates.CONNECTED_INACTIVE && Estado_Cuenta != AccountStates.REGENERATION;
-        public bool esta_dialogando() => Estado_Cuenta == AccountStates.STORAGE || Estado_Cuenta == AccountStates.DIALOG || Estado_Cuenta == AccountStates.EXCHANGE || Estado_Cuenta == AccountStates.BUYING || Estado_Cuenta == AccountStates.SELLING;
-        public bool esta_luchando() => Estado_Cuenta == AccountStates.FIGHTING;
-        public bool esta_recolectando() => Estado_Cuenta == AccountStates.GATHERING;
-        public bool esta_desplazando() => Estado_Cuenta == AccountStates.MOVING;
+        public bool Is_Busy() => accountState != AccountStates.CONNECTED_INACTIVE && accountState != AccountStates.REGENERATION;
+        public bool Is_In_Dialog() => accountState == AccountStates.STORAGE || accountState == AccountStates.DIALOG || accountState == AccountStates.EXCHANGE || accountState == AccountStates.BUYING || accountState == AccountStates.SELLING;
+        public bool IsFighting() => accountState == AccountStates.FIGHTING;
+        public bool IsGathering() => accountState == AccountStates.GATHERING;
+        public bool IsMoving() => accountState == AccountStates.MOVING;
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
@@ -95,7 +95,7 @@ namespace Bot_Dofus_1._29._1.Otros
 
         public virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
@@ -103,7 +103,7 @@ namespace Bot_Dofus_1._29._1.Otros
                     connexion?.Dispose();
                     game.Dispose();
                 }
-                Estado_Cuenta = AccountStates.DISCONNECTED;
+                accountState = AccountStates.DISCONNECTED;
                 script = null;
                 welcomeKey = null;
                 connexion = null;
@@ -111,7 +111,7 @@ namespace Bot_Dofus_1._29._1.Otros
                 game = null;
                 nickname = null;
                 accountConfig = null;
-                disposed = true;
+                _disposed = true;
             }
         }
         #endregion

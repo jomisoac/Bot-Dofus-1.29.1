@@ -12,7 +12,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores
         public Recoleccion recoleccion { get; private set; }
         private bool disposed;
 
-        public Manejador(Account cuenta, Mapa mapa, CharacterClass personaje)
+        public Manejador(Account cuenta, Map mapa, CharacterClass personaje)
         {
             movimientos = new Movimiento(cuenta, mapa, personaje);
             recoleccion = new Recoleccion(cuenta, movimientos, mapa);

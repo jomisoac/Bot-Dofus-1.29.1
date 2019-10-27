@@ -19,7 +19,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
             manejador_acciones = _manejador_acciones;
         }
 
-        public bool puedePelear(int monstruos_minimos = 1, int monstruos_maximos = 8, int nivel_minimo = 1, int nivel_maximo = 1000, List<int> monstruos_prohibidos = null, List<int> monstruos_obligatorios = null) => cuenta.game.mapa.get_Puede_Luchar_Contra_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
+        public bool puedePelear(int monstruos_minimos = 1, int monstruos_maximos = 8, int nivel_minimo = 1, int nivel_maximo = 1000, List<int> monstruos_prohibidos = null, List<int> monstruos_obligatorios = null) => cuenta.game.map.get_Puede_Luchar_Contra_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, nivel_minimo, nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
 
         public bool pelear(int monstruos_minimos = 1, int monstruos_maximos = 8, int nivel_minimo = 1, int nivel_maximo = 1000, List<int> monstruos_prohibidos = null, List<int> monstruos_obligatorios = null)
         {

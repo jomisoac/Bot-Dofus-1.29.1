@@ -3,11 +3,11 @@
     public class ObjetoInteractivo
     {
         public short gfx { get; private set; }
-        public Celda celda { get; private set; }
+        public Cell celda { get; private set; }
         public ObjetoInteractivoModelo modelo { get; private set; }
         public bool es_utilizable { get; set; } = false;
 
-        public ObjetoInteractivo(short _gfx, Celda _celda)
+        public ObjetoInteractivo(short _gfx, Cell _celda)
         {
             gfx = _gfx;
             celda = _celda;

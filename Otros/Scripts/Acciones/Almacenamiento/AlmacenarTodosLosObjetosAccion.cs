@@ -7,13 +7,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento
     {
         internal override async Task<ResultadosAcciones> proceso(Account cuenta)
         {
-            InventoryClass inventario = cuenta.game.personaje.inventario;
+            InventoryClass inventario = cuenta.game.character.inventario;
             
             foreach (InventoryObject objeto in inventario.objetos)
             {
                 if(!objeto.objeto_esta_equipado())
                 {
-                    cuenta.connexion.enviar_Paquete($"EMO+{objeto.id_inventario}|{objeto.cantidad}");
+                    cuenta.connexion.SendPacket($"EMO+{objeto.id_inventario}|{objeto.cantidad}");
                     inventario.eliminar_Objeto(objeto, 0, false);
                     await Task.Delay(300);
                 }
