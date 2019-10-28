@@ -11,9 +11,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 
         internal override Task<ResultadosAcciones> proceso(Account cuenta)
         {
-            if (cuenta.game.manejador.recoleccion.get_Puede_Recolectar(elementos))
+            if (cuenta.game.manager.recoleccion.get_Puede_Recolectar(elementos))
             {
-                if (!cuenta.game.manejador.recoleccion.get_Recolectar(elementos))
+                if (!cuenta.game.manager.recoleccion.get_Recolectar(elementos))
                     return resultado_fallado;
 
                 return resultado_procesado;

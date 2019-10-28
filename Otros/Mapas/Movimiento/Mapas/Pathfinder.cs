@@ -14,22 +14,22 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
 {
     public class Pathfinder : IDisposable
     {
-        private Celda[] celdas { get; set; }
-        private Mapa mapa { get; set; }
+        private Cell[] celdas { get; set; }
+        private Map mapa { get; set; }
         private bool disposed;
 
-        public void set_Mapa(Mapa _mapa)
+        public void set_Mapa(Map _mapa)
         {
             mapa = _mapa;
-            celdas = mapa.celdas;
+            celdas = mapa.mapCells;
         }
 
-        public List<Celda> get_Path(Celda celda_inicio, Celda celda_final, List<Celda> celdas_no_permitidas, bool detener_delante, byte distancia_detener)
+        public List<Cell> get_Path(Cell celda_inicio, Cell celda_final, List<Cell> celdas_no_permitidas, bool detener_delante, byte distancia_detener)
         {
             if (celda_inicio == null || celda_final == null)
                 return null;
 
-            List<Celda> celdas_permitidas = new List<Celda>() { celda_inicio };
+            List<Cell> celdas_permitidas = new List<Cell>() { celda_inicio };
 
             if (celdas_no_permitidas.Contains(celda_final))
                 celdas_no_permitidas.Remove(celda_final);
@@ -53,9 +53,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
                         index = i;
                 }
 
-                Celda actual = celdas_permitidas[index];
+                Cell actual = celdas_permitidas[index];
 
-                if (detener_delante && get_Distancia_Nodos(actual, celda_final) <= distancia_detener && !celda_final.es_Caminable())
+                if (detener_delante && get_Distancia_Nodos(actual, celda_final) <= distancia_detener && !celda_final.IsWalkable())
                     return get_Camino_Retroceso(celda_inicio, actual);
 
                 if (actual == celda_final)
@@ -64,12 +64,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
                 celdas_permitidas.Remove(actual);
                 celdas_no_permitidas.Add(actual);
 
-                foreach (Celda celda_siguiente in get_Celdas_Adyecentes(actual))
+                foreach (Cell celda_siguiente in get_Celdas_Adyecentes(actual))
                 {
-                    if (celdas_no_permitidas.Contains(celda_siguiente) || !celda_siguiente.es_Caminable())
+                    if (celdas_no_permitidas.Contains(celda_siguiente) || !celda_siguiente.IsWalkable())
                         continue;
 
-                    if (celda_siguiente.es_Teleport() && celda_siguiente != celda_final)
+                    if (celda_siguiente.IsTeleportCell() && celda_siguiente != celda_final)
                        continue;
 
                     int temporal_g = actual.coste_g + get_Distancia_Nodos(celda_siguiente, actual);
@@ -82,22 +82,22 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
                     celda_siguiente.coste_g = temporal_g;
                     celda_siguiente.coste_h = get_Distancia_Nodos(celda_siguiente, celda_final);
                     celda_siguiente.coste_f = celda_siguiente.coste_g + celda_siguiente.coste_h;
-                    celda_siguiente.nodo_padre = actual;
+                    celda_siguiente.parentNode = actual;
                 }
             }
 
             return null;
         }
 
-        private List<Celda> get_Camino_Retroceso(Celda nodo_inicial, Celda nodo_final)
+        private List<Cell> get_Camino_Retroceso(Cell nodo_inicial, Cell nodo_final)
         {
-            Celda nodo_actual = nodo_final;
-            List<Celda> celdas_camino = new List<Celda>();
+            Cell nodo_actual = nodo_final;
+            List<Cell> celdas_camino = new List<Cell>();
 
             while (nodo_actual != nodo_inicial)
             {
                 celdas_camino.Add(nodo_actual);
-                nodo_actual = nodo_actual.nodo_padre;
+                nodo_actual = nodo_actual.parentNode;
             }
 
             celdas_camino.Add(nodo_inicial);
@@ -106,14 +106,14 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
             return celdas_camino;
         }
         
-        public List<Celda> get_Celdas_Adyecentes(Celda nodo)
+        public List<Cell> get_Celdas_Adyecentes(Cell nodo)
         {
-            List<Celda> celdas_adyecentes = new List<Celda>();
+            List<Cell> celdas_adyecentes = new List<Cell>();
 
-            Celda celda_derecha = celdas.FirstOrDefault(nodec => nodec.x == nodo.x + 1 && nodec.y == nodo.y);
-            Celda celda_izquierda = celdas.FirstOrDefault(nodec => nodec.x == nodo.x - 1 && nodec.y == nodo.y);
-            Celda celda_inferior = celdas.FirstOrDefault(nodec => nodec.x == nodo.x && nodec.y == nodo.y + 1);
-            Celda celda_superior = celdas.FirstOrDefault(nodec => nodec.x == nodo.x && nodec.y == nodo.y - 1);
+            Cell celda_derecha = celdas.FirstOrDefault(nodec => nodec.x == nodo.x + 1 && nodec.y == nodo.y);
+            Cell celda_izquierda = celdas.FirstOrDefault(nodec => nodec.x == nodo.x - 1 && nodec.y == nodo.y);
+            Cell celda_inferior = celdas.FirstOrDefault(nodec => nodec.x == nodo.x && nodec.y == nodo.y + 1);
+            Cell celda_superior = celdas.FirstOrDefault(nodec => nodec.x == nodo.x && nodec.y == nodo.y - 1);
 
             if (celda_derecha != null)
                 celdas_adyecentes.Add(celda_derecha);
@@ -124,10 +124,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
             if (celda_superior != null)
                 celdas_adyecentes.Add(celda_superior);
 
-            Celda superior_izquierda = celdas.FirstOrDefault(nodec => nodec.x == nodo.x - 1 && nodec.y == nodo.y - 1);
-            Celda inferior_derecha = celdas.FirstOrDefault(nodec => nodec.x == nodo.x + 1 && nodec.y == nodo.y + 1);
-            Celda inferior_izquierda = celdas.FirstOrDefault(nodec => nodec.x == nodo.x - 1 && nodec.y == nodo.y + 1);
-            Celda superior_derecha = celdas.FirstOrDefault(nodec => nodec.x == nodo.x + 1 && nodec.y == nodo.y - 1);
+            Cell superior_izquierda = celdas.FirstOrDefault(nodec => nodec.x == nodo.x - 1 && nodec.y == nodo.y - 1);
+            Cell inferior_derecha = celdas.FirstOrDefault(nodec => nodec.x == nodo.x + 1 && nodec.y == nodo.y + 1);
+            Cell inferior_izquierda = celdas.FirstOrDefault(nodec => nodec.x == nodo.x - 1 && nodec.y == nodo.y + 1);
+            Cell superior_derecha = celdas.FirstOrDefault(nodec => nodec.x == nodo.x + 1 && nodec.y == nodo.y - 1);
 
             if (superior_izquierda != null)
                 celdas_adyecentes.Add(superior_izquierda);
@@ -141,7 +141,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas
             return celdas_adyecentes;
         }
 
-        private int get_Distancia_Nodos(Celda a, Celda b) => ((a.x - b.x) * (a.x - b.x)) + ((a.y - b.y) * (a.y - b.y));
+        private int get_Distancia_Nodos(Cell a, Cell b) => ((a.x - b.x) * (a.x - b.x)) + ((a.y - b.y) * (a.y - b.y));
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);

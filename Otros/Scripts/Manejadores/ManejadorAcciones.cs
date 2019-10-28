@@ -1,6 +1,6 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas;
@@ -36,17 +36,17 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             manejador_script = _manejador_script;
             fila_acciones = new ConcurrentQueue<AccionesScript>();
             timer_out = new TimerWrapper(60000, time_Out_Callback);
-            PersonajeJuego personaje = cuenta.game.personaje;
+            CharacterClass personaje = cuenta.game.character;
             
-            cuenta.game.mapa.mapa_actualizado += evento_Mapa_Cambiado;
-            cuenta.game.pelea.pelea_creada += get_Pelea_Creada;
-            cuenta.game.manejador.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
+            cuenta.game.map.mapRefreshEvent += evento_Mapa_Cambiado;
+            cuenta.game.fight.pelea_creada += get_Pelea_Creada;
+            cuenta.game.manager.movimientos.movimiento_finalizado += evento_Movimiento_Celda;
             personaje.dialogo_npc_recibido += npcs_Dialogo_Recibido;
             personaje.dialogo_npc_acabado += npcs_Dialogo_Acabado;
             personaje.inventario.almacenamiento_abierto += iniciar_Almacenamiento;
             personaje.inventario.almacenamiento_cerrado += cerrar_Almacenamiento;
-            cuenta.game.manejador.recoleccion.recoleccion_iniciada += get_Recoleccion_Iniciada;
-            cuenta.game.manejador.recoleccion.recoleccion_acabada += get_Recoleccion_Acabada;
+            cuenta.game.manager.recoleccion.recoleccion_iniciada += get_Recoleccion_Iniciada;
+            cuenta.game.manager.recoleccion.recoleccion_acabada += get_Recoleccion_Acabada;
         }
 
         private void evento_Mapa_Cambiado()
@@ -76,10 +76,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             {
                 if (es_correcto)
                 {
-                    for (int delay = 0; delay < 10000 && cuenta.Estado_Cuenta != AccountStates.FIGHTING; delay += 500)
+                    for (int delay = 0; delay < 10000 && cuenta.accountState != AccountStates.FIGHTING; delay += 500)
                         await Task.Delay(500);
 
-                    if (cuenta.Estado_Cuenta != AccountStates.FIGHTING)
+                    if (cuenta.accountState != AccountStates.FIGHTING)
                     {
                         cuenta.logger.log_Peligro("SCRIPT", "Erreur en lançant le combat, les monstres ont pu se déplacer ou être volés !");
                         acciones_Salida(0);
@@ -154,13 +154,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             if (accion_actual is NpcBancoAccion nba)
             {
-                if (cuenta.Estado_Cuenta != AccountStates.DIALOG)
+                if (cuenta.accountState != AccountStates.DIALOG)
                     return;
 
-                IEnumerable<Npcs> npcs = cuenta.game.mapa.lista_npcs();
-                Npcs npc = npcs.ElementAt((cuenta.game.personaje.hablando_npc_id * -1) - 1);
+                IEnumerable<Npcs> npcs = cuenta.game.map.lista_npcs();
+                Npcs npc = npcs.ElementAt((cuenta.game.character.hablando_npc_id * -1) - 1);
 
-                cuenta.connexion.enviar_Paquete("DR" + npc.pregunta + "|" + npc.respuestas[0], true);
+                cuenta.connexion.SendPacket("DR" + npc.pregunta + "|" + npc.respuestas[0], true);
             }
             else if (accion_actual is NpcAccion || accion_actual is RespuestaAccion)
                 acciones_Salida(400);

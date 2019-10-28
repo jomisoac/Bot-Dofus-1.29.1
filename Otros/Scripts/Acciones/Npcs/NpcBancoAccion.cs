@@ -21,11 +21,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
 
         internal override Task<ResultadosAcciones> proceso(Account cuenta)
         {
-            if (cuenta.esta_ocupado())
+            if (cuenta.Is_Busy())
                 return resultado_fallado;
 
             Otros.Mapas.Entidades.Npcs npc = null;
-            IEnumerable<Otros.Mapas.Entidades.Npcs> npcs = cuenta.game.mapa.lista_npcs();
+            IEnumerable<Otros.Mapas.Entidades.Npcs> npcs = cuenta.game.map.lista_npcs();
 
             if (npc_id < 0)
             {
@@ -42,7 +42,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
             if (npc == null)
                 return resultado_fallado;
 
-            cuenta.connexion.enviar_Paquete("DC" + npc.id, true);
+            cuenta.connexion.SendPacket("DC" + npc.id, true);
             return resultado_procesado;
         }
     }
