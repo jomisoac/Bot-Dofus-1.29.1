@@ -111,6 +111,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                                         /** la posicion es aleatoria pero el paquete GP siempre aparecera primero el team donde esta el pj **/
                                         short celda_posicion = pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.fightExtension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, pelea.celdas_preparacion);
+                                        await Task.Delay(300);
 
                                         if (celda_posicion != celda.cellId)
                                             cuenta.connexion.SendPacket("Gp" + celda_posicion, true);
