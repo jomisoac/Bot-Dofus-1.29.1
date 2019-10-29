@@ -61,6 +61,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("BT")]
         public void get_Tiempo_Servidor(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete("GI");
 
+
         [PaqueteAtributo("ASK")]
         public void personaje_Seleccionado(ClienteTcp cliente, string paquete)
         {
@@ -76,7 +77,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             cuenta.juego.personaje.set_Datos_Personaje(id, nombre, nivel, sexo, raza_id);
             cuenta.juego.personaje.inventario.agregar_Objetos(_loc4[9]);
 
-            cliente.enviar_Paquete("GC1");
             cliente.enviar_Paquete("BYA");
 
             cuenta.juego.personaje.evento_Personaje_Seleccionado();
