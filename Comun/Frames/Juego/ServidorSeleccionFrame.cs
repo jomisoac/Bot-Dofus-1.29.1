@@ -77,7 +77,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             cuenta.game.character.inventario.agregar_Objetos(_loc4[9]);
 
             cliente.SendPacket("GC1");
-            cliente.SendPacket("BYA");
 
             cuenta.game.character.evento_Personaje_Seleccionado();
             cuenta.game.character.timer_afk.Change(1200000, 1200000);
