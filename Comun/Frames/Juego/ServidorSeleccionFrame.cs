@@ -17,27 +17,27 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
     internal class ServidorSeleccionFrame : Frame
     {
         [PaqueteAtributo("HG")]
-        public void bienvenida_Juego(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete("AT" + cliente.cuenta.tiquet_game);
+        public void bienvenida_Juego(TcpClient cliente, string paquete) => cliente.SendPacket("AT" + cliente.account.gameTicket);
 
         [PaqueteAtributo("ATK0")]
-        public void resultado_Servidor_Seleccion(ClienteTcp cliente, string paquete)
+        public void resultado_Servidor_Seleccion(TcpClient cliente, string paquete)
         {
-            cliente.enviar_Paquete("Ak0");
-            cliente.enviar_Paquete("AV");
+            cliente.SendPacket("Ak0");
+            cliente.SendPacket("AV");
         }
 
         [PaqueteAtributo("AV0")]
-        public void lista_Personajes(ClienteTcp cliente, string paquete)
+        public void lista_Personajes(TcpClient cliente, string paquete)
         {
-            cliente.enviar_Paquete("Ages");
-            cliente.enviar_Paquete("AL");
-            cliente.enviar_Paquete("Af");
+            cliente.SendPacket("Ages");
+            cliente.SendPacket("AL");
+            cliente.SendPacket("Af");
         }
 
         [PaqueteAtributo("ALK")]
-        public void seleccionar_Personaje(ClienteTcp cliente, string paquete)
+        public void seleccionar_Personaje(TcpClient cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.account;
             string[] _loc6_ = paquete.Substring(3).Split('|');
             int contador = 2;
             bool encontrado = false;
@@ -48,9 +48,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 int id = int.Parse(_loc11_[0]);
                 string nombre = _loc11_[1];
 
-                if (nombre.ToLower().Equals(cuenta.configuracion.nombre_personaje.ToLower()) || string.IsNullOrEmpty(cuenta.configuracion.nombre_personaje))
+                if (nombre.ToLower().Equals(cuenta.accountConfig.characterName.ToLower()) || string.IsNullOrEmpty(cuenta.accountConfig.characterName))
                 {
-                    cliente.enviar_Paquete("AS" + id, true);
+                    cliente.SendPacket("AS" + id, true);
                     encontrado = true;
                 }
 
@@ -59,13 +59,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("BT")]
-        public void get_Tiempo_Servidor(ClienteTcp cliente, string paquete) => cliente.enviar_Paquete("GI");
-
+        public void get_Tiempo_Servidor(TcpClient cliente, string paquete) => cliente.SendPacket("GI");
 
         [PaqueteAtributo("ASK")]
-        public void personaje_Seleccionado(ClienteTcp cliente, string paquete)
+        public void personaje_Seleccionado(TcpClient cliente, string paquete)
         {
-            Cuenta cuenta = cliente.cuenta;
+            Account cuenta = cliente.account;
             string[] _loc4 = paquete.Substring(4).Split('|');
 
             int id = int.Parse(_loc4[0]);
@@ -74,14 +73,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             byte raza_id = byte.Parse(_loc4[3]);
             byte sexo = byte.Parse(_loc4[4]);
 
-            cuenta.juego.personaje.set_Datos_Personaje(id, nombre, nivel, sexo, raza_id);
-            cuenta.juego.personaje.inventario.agregar_Objetos(_loc4[9]);
+            cuenta.game.character.set_Datos_Personaje(id, nombre, nivel, sexo, raza_id);
+            cuenta.game.character.inventario.agregar_Objetos(_loc4[9]);
 
-            cliente.enviar_Paquete("BYA");
+            cliente.SendPacket("GC1");
 
-            cuenta.juego.personaje.evento_Personaje_Seleccionado();
-            cuenta.juego.personaje.timer_afk.Change(1200000, 1200000);
-            cliente.cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            cuenta.game.character.evento_Personaje_Seleccionado();
+            cuenta.game.character.timer_afk.Change(1200000, 1200000);
+            cliente.account.accountState = AccountStates.CONNECTED_INACTIVE;
         }
     }
 }
