@@ -1,10 +1,10 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje;
+using Bot_Dofus_1._29._1.Otros.Game.Character;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas;
-using Bot_Dofus_1._29._1.Utilidades.Criptografia;
+using Bot_Dofus_1._29._1.Utilities.Crypto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,26 +22,26 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 {
     public class Movimiento : IDisposable
     {
-        private Cuenta cuenta;
-        private PersonajeJuego personaje;
-        private Mapa mapa;
+        private Account cuenta;
+        private CharacterClass personaje;
+        private Map mapa;
         private Pathfinder pathfinder;
-        public List<Celda> actual_path;
+        public List<Cell> actual_path;
 
         public event Action<bool> movimiento_finalizado;
         private bool disposed;
 
-        public Movimiento(Cuenta _cuenta, Mapa _mapa, PersonajeJuego _personaje)
+        public Movimiento(Account _cuenta, Map _mapa, CharacterClass _personaje)
         {
             cuenta = _cuenta;
             personaje = _personaje;
             mapa = _mapa;
 
             pathfinder = new Pathfinder();
-            mapa.mapa_actualizado += evento_Mapa_Actualizado;
+            mapa.mapRefreshEvent += evento_Mapa_Actualizado;
         }
 
-        public bool get_Puede_Cambiar_Mapa(MapaTeleportCeldas direccion, Celda celda)
+        public bool get_Puede_Cambiar_Mapa(MapaTeleportCeldas direccion, Cell celda)
         {
             switch (direccion)
             {
@@ -61,9 +61,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             return true; // direccion NINGUNA
         }
 
-        public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, Celda celda)
+        public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, Cell celda)
         {
-            if (cuenta.esta_ocupado() || personaje.inventario.porcentaje_pods >= 100)
+            if (cuenta.Is_Busy() || personaje.inventario.porcentaje_pods >= 100)
                 return false;
 
             if (!get_Puede_Cambiar_Mapa(direccion, celda))
@@ -74,14 +74,14 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion)
         {
-            if (cuenta.esta_ocupado())
+            if (cuenta.Is_Busy())
                 return false;
 
-            List<Celda> celdas_teleport = cuenta.juego.mapa.celdas.Where(celda => celda.tipo == TipoCelda.CELDA_TELEPORT).Select(celda => celda).ToList();
+            List<Cell> celdas_teleport = cuenta.game.map.mapCells.Where(celda => celda.cellType == CellTypes.TELEPORT_CELL).Select(celda => celda).ToList();
 
             while (celdas_teleport.Count > 0)
             {
-                Celda celda = celdas_teleport[Randomize.get_Random(0, celdas_teleport.Count)];
+                Cell celda = celdas_teleport[Randomize.get_Random(0, celdas_teleport.Count)];
 
                 if (get_Cambiar_Mapa(direccion, celda))
                     return true;
@@ -93,35 +93,35 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             return false;
         }
 
-        public ResultadoMovimientos get_Mover_A_Celda(Celda celda_destino, List<Celda> celdas_no_permitidas, bool detener_delante = false, byte distancia_detener = 0)
+        public ResultadoMovimientos get_Mover_A_Celda(Cell celda_destino, List<Cell> celdas_no_permitidas, bool detener_delante = false, byte distancia_detener = 0)
         {
-            if (celda_destino.id < 0 || celda_destino.id > mapa.celdas.Length)
+            if (celda_destino.cellId < 0 || celda_destino.cellId > mapa.mapCells.Length)
                 return ResultadoMovimientos.FALLO;
 
-            if (cuenta.esta_ocupado() || actual_path != null || personaje.inventario.porcentaje_pods >= 100)
+            if (cuenta.Is_Busy() || actual_path != null || personaje.inventario.porcentaje_pods >= 100)
                 return ResultadoMovimientos.FALLO;
 
-            if (celda_destino.id == personaje.celda.id)
+            if (celda_destino.cellId == personaje.celda.cellId)
                 return ResultadoMovimientos.MISMA_CELDA;
 
-            if (celda_destino.tipo == TipoCelda.NO_CAMINABLE && celda_destino.objeto_interactivo == null)
+            if (celda_destino.cellType == CellTypes.NOT_WALKABLE && celda_destino.interactiveObject == null)
                 return ResultadoMovimientos.FALLO;
 
-            if (celda_destino.tipo == TipoCelda.OBJETO_INTERACTIVO && celda_destino.objeto_interactivo == null)
+            if (celda_destino.cellType == CellTypes.INTERACTIVE_OBJECT && celda_destino.interactiveObject == null)
                 return ResultadoMovimientos.FALLO;
 
-            List<Celda> path_temporal = pathfinder.get_Path(personaje.celda, celda_destino, celdas_no_permitidas, detener_delante, distancia_detener);
+            List<Cell> path_temporal = pathfinder.get_Path(personaje.celda, celda_destino, celdas_no_permitidas, detener_delante, distancia_detener);
 
             if (path_temporal == null || path_temporal.Count == 0)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
 
-            if (!detener_delante && path_temporal.Last().id != celda_destino.id)
+            if (!detener_delante && path_temporal.Last().cellId != celda_destino.cellId)
                 return ResultadoMovimientos.PATHFINDING_ERROR;
 
-            if (detener_delante && path_temporal.Count == 1 && path_temporal[0].id == personaje.celda.id)
+            if (detener_delante && path_temporal.Count == 1 && path_temporal[0].cellId == personaje.celda.cellId)
                 return ResultadoMovimientos.MISMA_CELDA;
             
-            if (detener_delante && path_temporal.Count == 2 && path_temporal[0].id == personaje.celda.id && path_temporal[1].id == celda_destino.id)
+            if (detener_delante && path_temporal.Count == 2 && path_temporal[0].cellId == personaje.celda.cellId && path_temporal[1].cellId == celda_destino.cellId)
                 return ResultadoMovimientos.MISMA_CELDA;
 
             actual_path = path_temporal;
@@ -131,76 +131,76 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         public async Task get_Mover_Celda_Pelea(KeyValuePair<short, MovimientoNodo>? nodo)
         {
-            if (!cuenta.esta_luchando())
+            if (!cuenta.IsFighting())
                 return;
 
             if (nodo == null || nodo.Value.Value.camino.celdas_accesibles.Count == 0)
                 return;
 
-            if (nodo.Value.Key == cuenta.juego.pelea.jugador_luchador.celda.id)
+            if (nodo.Value.Key == cuenta.game.fight.jugador_luchador.celda.cellId)
                 return;
 
-            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.juego.pelea.jugador_luchador.celda.id);
-            List<Celda> lista_celdas = nodo.Value.Value.camino.celdas_accesibles.Select(c => mapa.get_Celda_Id(c)).ToList();
+            nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.game.fight.jugador_luchador.celda.cellId);
+            List<Cell> lista_celdas = nodo.Value.Value.camino.celdas_accesibles.Select(c => mapa.GetCellFromId(c)).ToList();
 
-            await cuenta.conexion.enviar_Paquete_Async("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas), false);
+            await cuenta.connexion.SendPacketAsync("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas), false);
             personaje.evento_Personaje_Pathfinding_Minimapa(lista_celdas);
         }
 
-        private bool get_Mover_Para_Cambiar_mapa(Celda celda)
+        private bool get_Mover_Para_Cambiar_mapa(Cell celda)
         {
-            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas().Where(c => c.tipo != TipoCelda.CELDA_TELEPORT).ToList());
+            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas().Where(c => c.cellType != CellTypes.TELEPORT_CELL).ToList());
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:
-                        cuenta.logger.log_informacion("MOUVEMENT", $"{mapa.coordenadas} changement de map via la cellule {celda.id} ");
+                        cuenta.logger.log_informacion("MOUVEMENT", $"{mapa.GetCoordinates} changement de map via la cellule {celda.cellId} ");
                 return true;
 
                 default:
-                        cuenta.logger.log_Error("MOUVEMENT", $"Chemin vers {celda.id} résultat échoué ou bloqué : {resultado}");
+                        cuenta.logger.log_Error("MOUVEMENT", $"Chemin vers {celda.cellId} résultat échoué ou bloqué : {resultado}");
                 return false;
             }
         }
 
         private void enviar_Paquete_Movimiento()
         {
-            if (cuenta.Estado_Cuenta == EstadoCuenta.REGENERANDO)
-                cuenta.conexion.enviar_Paquete("eU1", true);
+            if (cuenta.accountState == AccountStates.REGENERATION)
+                cuenta.connexion.SendPacket("eU1", true);
 
             string path_string = PathFinderUtil.get_Pathfinding_Limpio(actual_path);
-            cuenta.conexion.enviar_Paquete("GA001" + path_string, true);
+            cuenta.connexion.SendPacket("GA001" + path_string, true);
             personaje.evento_Personaje_Pathfinding_Minimapa(actual_path);
         }
 
-        public async Task evento_Movimiento_Finalizado(Celda celda_destino, byte tipo_gkk, bool correcto)
+        public async Task evento_Movimiento_Finalizado(Cell celda_destino, byte tipo_gkk, bool correcto)
         {
-            cuenta.Estado_Cuenta = EstadoCuenta.MOVIMIENTO;
+            cuenta.accountState = AccountStates.MOVING;
 
             if (correcto)
             {
                 await Task.Delay(PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(personaje.celda, actual_path, personaje.esta_utilizando_dragopavo));
 
                 //por si en el delay el bot esta desconectado
-                if (cuenta == null || cuenta.Estado_Cuenta == EstadoCuenta.DESCONECTADO)
+                if (cuenta == null || cuenta.accountState == AccountStates.DISCONNECTED)
                     return;
 
-                cuenta.conexion.enviar_Paquete("GKK" + tipo_gkk);
+                cuenta.connexion.SendPacket("GKK" + tipo_gkk);
                 personaje.celda = celda_destino;
             }
 
             actual_path = null;
-            cuenta.Estado_Cuenta = EstadoCuenta.CONECTADO_INACTIVO;
+            cuenta.accountState = AccountStates.CONNECTED_INACTIVE;
             movimiento_finalizado?.Invoke(correcto);
         }
 
-        private void evento_Mapa_Actualizado() => pathfinder.set_Mapa(cuenta.juego.mapa);
+        private void evento_Mapa_Actualizado() => pathfinder.set_Mapa(cuenta.game.map);
         public void movimiento_Actualizado(bool estado) => movimiento_finalizado?.Invoke(estado);
 
         #region Zona Dispose
         ~Movimiento() => Dispose(false);
         public void Dispose() => Dispose(true);
 
-        public void limpiar()
+        public void Clear()
         {
             actual_path = null;
         }

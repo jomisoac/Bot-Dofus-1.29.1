@@ -15,7 +15,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Entidades
     {
         public int id { get; set; } = 0;
         public int template_id { get; set; } = 0;
-        public Celda celda { get; set; }
+        public Cell celda { get; set; }
         public int nivel { get; set; }
 
         public List<Monstruos> moobs_dentro_grupo { get; set; }
@@ -25,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Entidades
         public int get_Total_Monstruos => moobs_dentro_grupo.Count + 1;
         public int get_Total_Nivel_Grupo => lider_grupo.nivel + moobs_dentro_grupo.Sum(f => f.nivel);
 
-        public Monstruos(int _id, int _template, Celda _celda, int _nivel)
+        public Monstruos(int _id, int _template, Cell _celda, int _nivel)
         {
             id = _id;
             template_id = _template;

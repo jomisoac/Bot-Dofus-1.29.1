@@ -54,7 +54,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
             };
         }
 
-        public static Dictionary<short, MovimientoNodo> get_Celdas_Accesibles(Pelea pelea, Mapa mapa, Celda celda_actual)
+        public static Dictionary<short, MovimientoNodo> get_Celdas_Accesibles(Pelea pelea, Map mapa, Cell celda_actual)
         {
             Dictionary<short, MovimientoNodo> celdas = new Dictionary<short, MovimientoNodo>();
 
@@ -68,19 +68,19 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
             
             NodoPelea nodo = new NodoPelea(celda_actual, maximos_pm, pelea.jugador_luchador.pa, 1);
             celdas_permitidas.Add(nodo);
-            celdas_prohibidas[celda_actual.id] = nodo;
+            celdas_prohibidas[celda_actual.cellId] = nodo;
             
             while (celdas_permitidas.Count > 0)
             {
                 NodoPelea actual = celdas_permitidas.Last();
                 celdas_permitidas.Remove(actual);
-                Celda nodo_celda = actual.celda;
-                List<Celda> adyecentes = get_Celdas_Adyecentes(nodo_celda, mapa.celdas);
+                Cell nodo_celda = actual.celda;
+                List<Cell> adyecentes = get_Celdas_Adyecentes(nodo_celda, mapa.mapCells);
                 
                 int i = 0;
                 while (i < adyecentes.Count)
                 {
-                    Luchadores enemigo = pelea.get_Luchadores.FirstOrDefault(f => f.celda.id == adyecentes[i]?.id);
+                    Luchadores enemigo = pelea.get_Luchadores.FirstOrDefault(f => f.celda.cellId == adyecentes[i]?.cellId);
 
                     if (adyecentes[i] != null && enemigo == null)
                     {
@@ -97,9 +97,9 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
 
                 for (i = 0; i < adyecentes.Count; i++)
                 {
-                    if (celdas_prohibidas.ContainsKey(adyecentes[i].id))
+                    if (celdas_prohibidas.ContainsKey(adyecentes[i].cellId))
                     {
-                        NodoPelea anterior = celdas_prohibidas[adyecentes[i].id];
+                        NodoPelea anterior = celdas_prohibidas[adyecentes[i].cellId];
                         if (anterior.pm_disponible > pm_disponibles)
                             continue;
 
@@ -107,12 +107,12 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
                             continue;
                     }
 
-                    if (!adyecentes[i].es_Caminable())
+                    if (!adyecentes[i].IsWalkable())
                         continue;
 
-                    celdas[adyecentes[i].id] = new MovimientoNodo(nodo_celda.id, accesible);
+                    celdas[adyecentes[i].cellId] = new MovimientoNodo(nodo_celda.cellId, accesible);
                     nodo = new NodoPelea(adyecentes[i], pm_disponibles, pa_disponibles, distancia);
-                    celdas_prohibidas[adyecentes[i].id] = nodo;
+                    celdas_prohibidas[adyecentes[i].cellId] = nodo;
 
                     if (actual.distancia < maximos_pm)
                         celdas_permitidas.Add(nodo);
@@ -120,20 +120,20 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
             }
 
             foreach (short celda in celdas.Keys)
-                celdas[celda].camino = get_Path_Pelea(celda_actual.id, celda, celdas);
+                celdas[celda].camino = get_Path_Pelea(celda_actual.cellId, celda, celdas);
 
             return celdas;
         }
 
         //pelea no utiliza diagonales
-        public static List<Celda> get_Celdas_Adyecentes(Celda nodo, Celda[] mapa_celdas)
+        public static List<Cell> get_Celdas_Adyecentes(Cell nodo, Cell[] mapa_celdas)
         {
-            List<Celda> celdas_adyecentes = new List<Celda>();
+            List<Cell> celdas_adyecentes = new List<Cell>();
 
-            Celda celda_derecha = mapa_celdas.FirstOrDefault(nodec => nodec.x == nodo.x + 1 && nodec.y == nodo.y);
-            Celda celda_izquierda = mapa_celdas.FirstOrDefault(nodec => nodec.x == nodo.x - 1 && nodec.y == nodo.y);
-            Celda celda_inferior = mapa_celdas.FirstOrDefault(nodec => nodec.x == nodo.x && nodec.y == nodo.y + 1);
-            Celda celda_superior = mapa_celdas.FirstOrDefault(nodec => nodec.x == nodo.x && nodec.y == nodo.y - 1);
+            Cell celda_derecha = mapa_celdas.FirstOrDefault(nodec => nodec.x == nodo.x + 1 && nodec.y == nodo.y);
+            Cell celda_izquierda = mapa_celdas.FirstOrDefault(nodec => nodec.x == nodo.x - 1 && nodec.y == nodo.y);
+            Cell celda_inferior = mapa_celdas.FirstOrDefault(nodec => nodec.x == nodo.x && nodec.y == nodo.y + 1);
+            Cell celda_superior = mapa_celdas.FirstOrDefault(nodec => nodec.x == nodo.x && nodec.y == nodo.y - 1);
 
             if (celda_derecha != null)
                 celdas_adyecentes.Add(celda_derecha);

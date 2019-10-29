@@ -1,5 +1,5 @@
-﻿using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario;
-using Bot_Dofus_1._29._1.Otros.Game.Personaje.Inventario.Enums;
+﻿using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory;
+using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory.Enums;
 using Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Inventario;
 using Bot_Dofus_1._29._1.Otros.Scripts.Manejadores;
 using MoonSharp.Interpreter;
@@ -18,24 +18,24 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
     [MoonSharpUserData]
     public class InventarioApi : IDisposable
     {
-        private Cuenta cuenta;
+        private Account cuenta;
         private ManejadorAcciones manejar_acciones;
         private bool disposed = false;
 
-        public InventarioApi(Cuenta _cuenta, ManejadorAcciones _manejar_acciones)
+        public InventarioApi(Account _cuenta, ManejadorAcciones _manejar_acciones)
         {
             cuenta = _cuenta;
             manejar_acciones = _manejar_acciones;
         }
 
-        public int pods() => cuenta.juego.personaje.inventario.pods_actuales;
-        public int podsMaximos() => cuenta.juego.personaje.inventario.pods_maximos;
-        public int podsPorcentaje() => cuenta.juego.personaje.inventario.porcentaje_pods;
-        public bool tieneObjeto(int modelo_id) => cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id) != null;
+        public int pods() => cuenta.game.character.inventario.pods_actuales;
+        public int podsMaximos() => cuenta.game.character.inventario.pods_maximos;
+        public int podsPorcentaje() => cuenta.game.character.inventario.porcentaje_pods;
+        public bool tieneObjeto(int modelo_id) => cuenta.game.character.inventario.get_Objeto_Modelo_Id(modelo_id) != null;
 
         public bool utilizar(int modelo_id)
         {
-            ObjetosInventario objeto = cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
+            InventoryObject objeto = cuenta.game.character.inventario.get_Objeto_Modelo_Id(modelo_id);
 
             if (objeto == null)
                 return false;
@@ -46,9 +46,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
 
         public bool equipar(int modelo_id)
         {
-            ObjetosInventario objeto = cuenta.juego.personaje.inventario.get_Objeto_Modelo_Id(modelo_id);
+            InventoryObject objeto = cuenta.game.character.inventario.get_Objeto_Modelo_Id(modelo_id);
 
-            if (objeto == null || objeto.posicion != InventarioPosiciones.NO_EQUIPADO)
+            if (objeto == null || objeto.posicion != InventorySlots.NOT_EQUIPPED)
                 return false;
 
             manejar_acciones.enqueue_Accion(new EquiparItemAccion(modelo_id), true);
