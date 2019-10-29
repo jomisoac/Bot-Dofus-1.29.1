@@ -97,7 +97,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             // 
             this.desconectarOconectarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("desconectarOconectarToolStripMenuItem.Image")));
             this.desconectarOconectarToolStripMenuItem.Name = "desconectarOconectarToolStripMenuItem";
-            this.desconectarOconectarToolStripMenuItem.Size = new System.Drawing.Size(120, 24);
+            this.desconectarOconectarToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
             this.desconectarOconectarToolStripMenuItem.Text = "Deconnecté";
             this.desconectarOconectarToolStripMenuItem.Click += new System.EventHandler(this.desconectarToolStripMenuItem_Click);
             // 
@@ -105,14 +105,14 @@ namespace Bot_Dofus_1._29._1.Interfaces
             // 
             this.eliminarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarToolStripMenuItem.Image")));
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
             this.eliminarToolStripMenuItem.Text = "Retiré";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // ScriptTituloStripMenuItem
             // 
             this.ScriptTituloStripMenuItem.Name = "ScriptTituloStripMenuItem";
-            this.ScriptTituloStripMenuItem.Size = new System.Drawing.Size(27, 24);
+            this.ScriptTituloStripMenuItem.Size = new System.Drawing.Size(29, 24);
             this.ScriptTituloStripMenuItem.Text = "-";
             // 
             // cargarScriptToolStripMenuItem
@@ -120,7 +120,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.cargarScriptToolStripMenuItem.Enabled = false;
             this.cargarScriptToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.documento_azul;
             this.cargarScriptToolStripMenuItem.Name = "cargarScriptToolStripMenuItem";
-            this.cargarScriptToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.cargarScriptToolStripMenuItem.Size = new System.Drawing.Size(155, 24);
             this.cargarScriptToolStripMenuItem.Text = "Charger un script";
             this.cargarScriptToolStripMenuItem.Click += new System.EventHandler(this.cargarScriptToolStripMenuItem_Click);
             // 
@@ -129,7 +129,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.iniciarScriptToolStripMenuItem.Enabled = false;
             this.iniciarScriptToolStripMenuItem.Image = global::Bot_Dofus_1._29._1.Properties.Resources.boton_play;
             this.iniciarScriptToolStripMenuItem.Name = "iniciarScriptToolStripMenuItem";
-            this.iniciarScriptToolStripMenuItem.Size = new System.Drawing.Size(32, 24);
+            this.iniciarScriptToolStripMenuItem.Size = new System.Drawing.Size(34, 24);
             this.iniciarScriptToolStripMenuItem.Click += new System.EventHandler(this.iniciarScriptToolStripMenuItem_Click);
             // 
             // tabControl_principal
@@ -316,7 +316,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.76676F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.31367F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.91957F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 62F));
             this.tableLayoutPanel1.Controls.Add(this.textBox_nombre_privado, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.comboBox_lista_canales, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button_limpiar_consola, 3, 0);
@@ -362,9 +362,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.button_limpiar_consola.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_limpiar_consola.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_limpiar_consola.Image = ((System.Drawing.Image)(resources.GetObject("button_limpiar_consola.Image")));
-            this.button_limpiar_consola.Location = new System.Drawing.Point(731, 3);
+            this.button_limpiar_consola.Location = new System.Drawing.Point(730, 3);
             this.button_limpiar_consola.Name = "button_limpiar_consola";
-            this.button_limpiar_consola.Size = new System.Drawing.Size(56, 25);
+            this.button_limpiar_consola.Size = new System.Drawing.Size(57, 25);
             this.button_limpiar_consola.TabIndex = 1;
             this.button_limpiar_consola.UseVisualStyleBackColor = true;
             this.button_limpiar_consola.Click += new System.EventHandler(this.button_limpiar_consola_Click);
@@ -377,7 +377,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             this.textBox_enviar_consola.Location = new System.Drawing.Point(294, 3);
             this.textBox_enviar_consola.MaxLength = 80;
             this.textBox_enviar_consola.Name = "textBox_enviar_consola";
-            this.textBox_enviar_consola.Size = new System.Drawing.Size(431, 29);
+            this.textBox_enviar_consola.Size = new System.Drawing.Size(430, 29);
             this.textBox_enviar_consola.TabIndex = 0;
             this.textBox_enviar_consola.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_enviar_consola_KeyDown);
             // 
