@@ -185,7 +185,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 89);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Tactique:";
+            this.label2.Text = "Style:";
             // 
             // comboBox_lista_tactica
             // 
@@ -230,7 +230,7 @@
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(235, 41);
             this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Bloqué le combat";
+            this.checkBox1.Text = "Bloquer le combat";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -245,7 +245,7 @@
             this.checkBox_utilizar_dragopavo.Name = "checkBox_utilizar_dragopavo";
             this.checkBox_utilizar_dragopavo.Size = new System.Drawing.Size(236, 41);
             this.checkBox_utilizar_dragopavo.TabIndex = 1;
-            this.checkBox_utilizar_dragopavo.Text = "Utilisé la monture";
+            this.checkBox_utilizar_dragopavo.Text = "Utiliser la monture";
             this.checkBox_utilizar_dragopavo.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBox_utilizar_dragopavo.UseVisualStyleBackColor = true;
             this.checkBox_utilizar_dragopavo.CheckedChanged += new System.EventHandler(this.checkBox_utilizar_dragopavo_CheckedChanged);
@@ -261,7 +261,7 @@
             this.checkbox_espectadores.Name = "checkbox_espectadores";
             this.checkbox_espectadores.Size = new System.Drawing.Size(235, 41);
             this.checkbox_espectadores.TabIndex = 0;
-            this.checkbox_espectadores.Text = "Désactivé le mode spéctateur";
+            this.checkbox_espectadores.Text = "Désactiver le mode spectateur";
             this.checkbox_espectadores.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkbox_espectadores.UseVisualStyleBackColor = true;
             this.checkbox_espectadores.CheckedChanged += new System.EventHandler(this.checkbox_espectadores_CheckedChanged);
@@ -275,7 +275,7 @@
             this.groupBox_preparacion.Size = new System.Drawing.Size(730, 160);
             this.groupBox_preparacion.TabIndex = 0;
             this.groupBox_preparacion.TabStop = false;
-            this.groupBox_preparacion.Text = "Preparación";
+            this.groupBox_preparacion.Text = "Préparation";
             // 
             // tableLayoutPanel2
             // 
@@ -439,7 +439,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(736, 38);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Commencé 1 combat";
+            this.button1.Text = "Commencer 1 combat";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -680,7 +680,7 @@
             this.comboBox_focus_hechizo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_focus_hechizo.FormattingEnabled = true;
             this.comboBox_focus_hechizo.Items.AddRange(new object[] {
-            "Ennemie",
+            "Ennemi",
             "Allié",
             "Moi",
             "Cellule vide"});
@@ -699,7 +699,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(317, 32);
             this.label7.TabIndex = 5;
-            this.label7.Text = "Nombre de lancement par tours";
+            this.label7.Text = "Nombre de lancer par tour";
             // 
             // numeric_lanzamientos_turno
             // 

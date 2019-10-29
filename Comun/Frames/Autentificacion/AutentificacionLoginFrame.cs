@@ -15,56 +15,56 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
     class AutentificacionLogin : Frame
     {
         [PaqueteAtributo("AlEf")]
-        public void get_Error_Datos(ClienteTcp cliente, string paquete)
+        public void WrongCredentialsError(TcpClient prmClient, string prmPacket)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "Connexion rejetée. Nom de compte ou mot de passe incorrect.");
-            cliente.cuenta.desconectar();
+            prmClient.account.logger.log_Error("LOGIN", "Connexion rejetée. Nom de compte ou mot de passe incorrect.");
+            prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEa")]
-        public void get_Error_Ya_Conectado(ClienteTcp cliente, string paquete)
+        public void AlreadyConnectedError(TcpClient prmClient, string prmPacket)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "Déjà connecté. Essayez encore une fois.");
-            cliente.cuenta.desconectar();
+            prmClient.account.logger.log_Error("LOGIN", "Déjà connecté. Essayez encore une fois.");
+            prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEv")]
-        public void get_Error_Version(ClienteTcp cliente, string paquete)
+        public void WrongVersionError(TcpClient prmClient, string prmPacket)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "La version %1 de Dofus que vous avez installée n'est pas compatible avec ce serveur. Pour jouer, installez la version %2. Le client DOFUS sera fermé.");
-            cliente.cuenta.desconectar();
+            prmClient.account.logger.log_Error("LOGIN", "La version %1 de Dofus que vous avez installée n'est pas compatible avec ce serveur. Pour jouer, installez la version %2. Le client DOFUS sera fermé.");
+            prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEb")]
-        public void get_Error_Baneado(ClienteTcp cliente, string paquete)
+        public void AccountBannedError(TcpClient prmClient, string prmPacket)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "Connexion rejetée. Votre compte a été banni.");
-            cliente.cuenta.desconectar();
+            prmClient.account.logger.log_Error("LOGIN", "Connexion rejetée. Votre compte a été banni.");
+            prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEd")]
-        public void get_Error_Conectado(ClienteTcp cliente, string paquete)
+        public void AlreadyConnectingError(TcpClient prmClient, string prmPacket)
         {
-            cliente.cuenta.logger.log_Error("LOGIN", "Ce compte est déjà connecté à un serveur de jeu. Veuillez réessayer.");
-            cliente.cuenta.desconectar();
+            prmClient.account.logger.log_Error("LOGIN", "Ce compte est déjà connecté à un serveur de jeu. Veuillez réessayer.");
+            prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEk")]
-        public void get_Error_Baneado_Tiempo(ClienteTcp cliente, string paquete)
+        public void AccountTempBannedError(TcpClient prmClient, string prmPacket)
         {
-            string[] informacion_ban = paquete.Substring(3).Split('|');
-            int dias = int.Parse(informacion_ban[0].Substring(1)), horas = int.Parse(informacion_ban[1]), minutos = int.Parse(informacion_ban[2]);
-            StringBuilder mensaje = new StringBuilder().Append("Votre compte sera invalide pendant ");
+            string[] ban_Informations = prmPacket.Substring(3).Split('|');
+            int days = int.Parse(ban_Informations[0].Substring(1)), hours = int.Parse(ban_Informations[1]), minutes = int.Parse(ban_Informations[2]);
+            StringBuilder banInformationsMessage = new StringBuilder().Append("Votre compte sera invalide pendant ");
 
-            if (dias > 0)
-                mensaje.Append(dias + " jour(s)");
-            if (horas > 0)
-                mensaje.Append(horas + " heures");
-            if (minutos > 0)
-                mensaje.Append(minutos + " minutes");
+            if (days > 0)
+                banInformationsMessage.Append(days + " jour(s)");
+            if (hours > 0)
+                banInformationsMessage.Append(hours + " heures");
+            if (minutes > 0)
+                banInformationsMessage.Append(minutes + " minutes");
 
-            cliente.cuenta.logger.log_Error("LOGIN", mensaje.ToString());
-            cliente.cuenta.desconectar();
+            prmClient.account.logger.log_Error("LOGIN", banInformationsMessage.ToString());
+            prmClient.account.Disconnect();
         }
     }
 }

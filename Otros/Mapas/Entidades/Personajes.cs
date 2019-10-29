@@ -13,10 +13,10 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Entidades
         public int id { get; set; } = 0;
         public string nombre { get; set; }
         public byte sexo { get; set; } = 0;
-        public Celda celda { get; set; }
+        public Cell celda { get; set; }
         private bool disposed;
 
-        public Personajes(int _id, string _nombre_personaje, byte _sexo, Celda _celda)
+        public Personajes(int _id, string _nombre_personaje, byte _sexo, Cell _celda)
         {
             id = _id;
             nombre = _nombre_personaje;

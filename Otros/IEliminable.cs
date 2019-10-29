@@ -2,6 +2,6 @@
 {
     public interface IEliminable
     {
-        void limpiar();
+        void Clear();
     }
 }
