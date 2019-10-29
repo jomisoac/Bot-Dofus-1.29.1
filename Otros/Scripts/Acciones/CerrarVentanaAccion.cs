@@ -12,11 +12,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 {
     class CerrarVentanaAccion : AccionesScript
     {
-        internal override Task<ResultadosAcciones> proceso(Cuenta cuenta)
+        internal override Task<ResultadosAcciones> proceso(Account cuenta)
         {
-            if (cuenta.esta_dialogando())
+            if (cuenta.Is_In_Dialog())
             {
-                cuenta.conexion.enviar_Paquete("EV");
+                cuenta.connexion.SendPacket("EV");
                 return resultado_procesado;
             }
 

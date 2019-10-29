@@ -6,3 +6,6 @@
 /bin/Debug
 /obj/Debug
 /bin
+/obj/Release
+/.vs
+/mapas

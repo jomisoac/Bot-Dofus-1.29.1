@@ -31,7 +31,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Transporte
             }
         }
 
-        public static void Recibir(ClienteTcp cliente, string paquete)
+        public static void Recibir(TcpClient cliente, string paquete)
         {
             PaqueteDatos metodo = metodos.Find(m => paquete.StartsWith(m.nombre_paquete));
 

@@ -23,9 +23,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
 {
     public partial class UI_Mapa : UserControl
     {
-        private Cuenta cuenta = null;
+        private Account cuenta = null;
 
-        public UI_Mapa(Cuenta _cuenta)
+        public UI_Mapa(Account _cuenta)
         {
             InitializeComponent();
 
@@ -38,17 +38,17 @@ namespace Bot_Dofus_1._29._1.Interfaces
             comboBox_calidad_minimapa.SelectedIndex = (byte)control_mapa.TipoCalidad;
 
             control_mapa.clic_celda += mapa_Control_Celda_Clic;
-            cuenta.juego.mapa.mapa_actualizado += get_Eventos_Mapa_Cambiado;
-            cuenta.juego.mapa.entidades_actualizadas += () => control_mapa.Invalidate();
-            cuenta.juego.personaje.movimiento_pathfinding_minimapa += get_Dibujar_Pathfinding;
+            cuenta.game.map.mapRefreshEvent += get_Eventos_Mapa_Cambiado;
+            cuenta.game.map.entitiesRefreshEvent += () => control_mapa.Invalidate();
+            cuenta.game.character.movimiento_pathfinding_minimapa += get_Dibujar_Pathfinding;
         }
 
         private void get_Eventos_Mapa_Cambiado()
         {
-            Mapa mapa = cuenta.juego.mapa;
+            Map mapa = cuenta.game.map;
 
             byte anchura_actual = control_mapa.mapa_anchura, altura_actual = control_mapa.mapa_altura;
-            byte anchura_nueva = mapa.anchura, altura_nueva = mapa.altura;
+            byte anchura_nueva = mapa.mapWidth, altura_nueva = mapa.mapHeight;
 
             if (anchura_actual != anchura_nueva || altura_actual != altura_nueva)
             {
@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             BeginInvoke((Action)(() =>
             {
-                label_mapa_id.Text = "Position: " + mapa.coordenadas;
+                label_mapa_id.Text = "Position: " + mapa.GetCoordinates;
             }));
 
             control_mapa.refrescar_Mapa();
@@ -69,15 +69,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void mapa_Control_Celda_Clic(CeldaMapa celda, MouseButtons botones, bool abajo)
         {
-            Mapa mapa = cuenta.juego.mapa;
-            Celda celda_actual = cuenta.juego.personaje.celda, celda_destino = mapa.get_Celda_Id(celda.id);
+            Map mapa = cuenta.game.map;
+            Cell celda_actual = cuenta.game.character.celda, celda_destino = mapa.GetCellFromId(celda.id);
 
-            if (botones == MouseButtons.Left && celda_actual.id != 0 && celda_destino.id != 0 && !abajo)
+            if (botones == MouseButtons.Left && celda_actual.cellId != 0 && celda_destino.cellId != 0 && !abajo)
             {
-                switch (cuenta.juego.manejador.movimientos.get_Mover_A_Celda(celda_destino, mapa.celdas_ocupadas()))
+                switch (cuenta.game.manager.movimientos.get_Mover_A_Celda(celda_destino, mapa.celdas_ocupadas()))
                 {
                     case ResultadoMovimientos.EXITO:
-                        cuenta.logger.log_informacion("UI_MAPA", $"Personaje desplazado a la casilla: {celda_destino.id}");
+                        cuenta.logger.log_informacion("UI_MAPA", $"Personaje desplazado a la casilla: {celda_destino.cellId}");
                     break;
 
                     case ResultadoMovimientos.MISMA_CELDA:
@@ -85,13 +85,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     break;
 
                     default:
-                        cuenta.logger.log_Error("UI_MAPA", $"Error desplazando el personaje a la casilla: {celda_destino.id}");
+                        cuenta.logger.log_Error("UI_MAPA", $"Error desplazando el personaje a la casilla: {celda_destino.cellId}");
                     break;
                 }
             }
         }
 
-        private void get_Dibujar_Pathfinding(List<Celda> lista_celdas) => Task.Run(() => control_mapa.agregar_Animacion(cuenta.juego.personaje.id, lista_celdas, PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(lista_celdas.First(), lista_celdas), TipoAnimaciones.PERSONAJE));
+        private void get_Dibujar_Pathfinding(List<Cell> lista_celdas) => Task.Run(() => control_mapa.agregar_Animacion(cuenta.game.character.id, lista_celdas, PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(lista_celdas.First(), lista_celdas), TipoAnimaciones.PERSONAJE));
         private void comboBox_calidad_minimapa_SelectedIndexChanged(object sender, EventArgs e) => control_mapa.TipoCalidad = (CalidadMapa)comboBox_calidad_minimapa.SelectedIndex;
         private void checkBox_animaciones_CheckedChanged(object sender, EventArgs e) => control_mapa.Mostrar_Animaciones = checkBox_animaciones.Checked;
         private void checkBox_mostrar_celdas_CheckedChanged(object sender, EventArgs e) => control_mapa.Mostrar_Celdas_Id = checkBox_mostrar_celdas.Checked;

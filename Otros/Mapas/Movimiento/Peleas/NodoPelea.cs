@@ -2,12 +2,12 @@
 {
     public class NodoPelea
     {
-        public Celda celda { get; private set; }
+        public Cell celda { get; private set; }
         public int pm_disponible { get; private set; }
         public int pa_disponible { get; private set; }
         public int distancia { get; private set; }
 
-        public NodoPelea(Celda _celda, int _pm_disponible, int _pa_disponible, int _distancia)
+        public NodoPelea(Cell _celda, int _pm_disponible, int _pa_disponible, int _distancia)
         {
             celda = _celda;
             pm_disponible = _pm_disponible;
