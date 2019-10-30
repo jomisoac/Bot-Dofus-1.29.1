@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
 {
-    public class NpcBancoAccion : AccionesScript
+    public class NpcBancoAccion : ScriptAction
     {
         public int npc_id { get; private set; }
 
         public NpcBancoAccion(int _npc_id) => npc_id = _npc_id;
 
-        internal override Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account cuenta)
         {
             if (cuenta.Is_Busy())
                 return resultado_fallado;

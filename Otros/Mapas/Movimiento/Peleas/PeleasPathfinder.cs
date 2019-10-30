@@ -54,7 +54,7 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Movimiento.Peleas
             };
         }
 
-        public static Dictionary<short, MovimientoNodo> get_Celdas_Accesibles(Pelea pelea, Map mapa, Cell celda_actual)
+        public static Dictionary<short, MovimientoNodo> get_Celdas_Accesibles(Fight pelea, Map mapa, Cell celda_actual)
         {
             Dictionary<short, MovimientoNodo> celdas = new Dictionary<short, MovimientoNodo>();
 

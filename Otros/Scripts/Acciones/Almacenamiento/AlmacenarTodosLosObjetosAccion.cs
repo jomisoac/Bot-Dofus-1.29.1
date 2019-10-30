@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento
 {
-    class AlmacenarTodosLosObjetosAccion : AccionesScript
+    class AlmacenarTodosLosObjetosAccion : ScriptAction
     {
-        internal override async Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override async Task<ResultadosAcciones> process(Account cuenta)
         {
             InventoryClass inventario = cuenta.game.character.inventario;
             

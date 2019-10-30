@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
 {
-    public class RespuestaAccion : AccionesScript
+    public class RespuestaAccion : ScriptAction
     {
         public short respuesta_id { get; private set; }
 
         public RespuestaAccion(short _respuesta_id) => respuesta_id = _respuesta_id;
 
-        internal override Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account cuenta)
         {
             if (!cuenta.Is_In_Dialog())
                 return resultado_fallado;

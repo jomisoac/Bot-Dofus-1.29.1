@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 {
-    internal class MapaFrame : Frame
+    internal class MapFrame : Frame
     {
         [PaqueteAtributo("GM")]
         public async Task get_Movimientos_Personajes(TcpClient cliente, string paquete)
@@ -41,7 +41,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     if (_loc6[0].Equals('+'))
                     {
                         Cell celda = cuenta.game.map.GetCellFromId(short.Parse(informaciones[0]));
-                        Pelea pelea = cuenta.game.fight;
+                        Fight pelea = cuenta.game.fight;
                         int id = int.Parse(informaciones[3]);
                         nombre_template = informaciones[4];
                         tipo = informaciones[5];
@@ -165,7 +165,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 Cell celda;
                 Luchadores luchador;
                 Map mapa = cuenta.game.map;
-                Pelea pelea = cuenta.game.fight;
+                Fight pelea = cuenta.game.fight;
 
                 switch (id_accion)
                 {

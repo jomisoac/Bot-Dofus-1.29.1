@@ -53,7 +53,7 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
         }
 
         #region Acciones
-        public void enqueue_Acciones_Miembros(AccionesScript accion, bool iniciar_dequeue = false)
+        public void enqueue_Acciones_Miembros(ScriptAction accion, bool iniciar_dequeue = false)
         {
             if (accion is PeleasAccion)
             {
@@ -63,7 +63,7 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
             }
 
             foreach (Account miembro in miembros)
-                miembro.script.manejar_acciones.enqueue_Accion(accion, iniciar_dequeue);
+                miembro.script.actions_manager.enqueue_Accion(accion, iniciar_dequeue);
 
             if (iniciar_dequeue)
             {

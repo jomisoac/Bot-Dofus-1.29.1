@@ -10,9 +10,9 @@
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 {
-    class CerrarVentanaAccion : AccionesScript
+    class CerrarVentanaAccion : ScriptAction
     {
-        internal override Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account cuenta)
         {
             if (cuenta.Is_In_Dialog())
             {

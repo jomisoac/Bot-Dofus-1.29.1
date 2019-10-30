@@ -13,7 +13,7 @@ using MoonSharp.Interpreter;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 {
-    public class LuaManejadorScript : IDisposable
+    public class LuaScriptManager : IDisposable
     {
         public Script script { get; private set; }
         private bool disposed = false;
@@ -63,7 +63,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         public static void inicializar_Funciones() => UserData.RegisterAssembly();
 
         #region Zona Dispose
-        ~LuaManejadorScript() => Dispose(false);
+        ~LuaScriptManager() => Dispose(false);
         public void Dispose() => Dispose(true);
 
         protected virtual void Dispose(bool disposing)

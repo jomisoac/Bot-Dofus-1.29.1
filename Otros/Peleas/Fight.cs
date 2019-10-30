@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
-    public class Pelea : IEliminable, IDisposable
+    public class Fight : IEliminable, IDisposable
     {
         public Account cuenta { get; private set; }
         private ConcurrentDictionary<int, Luchadores> luchadores;
@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public event Action<short, bool> hechizo_lanzado;
         public event Action<bool> movimiento;
 
-        public Pelea(Account _cuenta)
+        public Fight(Account _cuenta)
         {
             cuenta = _cuenta;
             luchadores = new ConcurrentDictionary<int, Luchadores>();
@@ -565,7 +565,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
-        ~Pelea() => Dispose(false);
+        ~Fight() => Dispose(false);
         
         public virtual void Dispose(bool disposing)
         {

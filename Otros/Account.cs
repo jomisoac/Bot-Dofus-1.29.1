@@ -27,8 +27,8 @@ namespace Bot_Dofus_1._29._1.Otros
         public Logger logger { get; private set; }
         public TcpClient connexion { get; set; }
         public GameClass game { get; private set; }
-        public ManejadorScript script { get; set; }
-        public PeleaExtensiones fightExtension { get; set; }
+        public ScriptManager script { get; set; }
+        public FightExtensions fightExtension { get; set; }
         public AccountConfig accountConfig { get; private set; }
         private AccountStates _accountState = AccountStates.DISCONNECTED;
         public bool canUseMount = false;
@@ -46,8 +46,8 @@ namespace Bot_Dofus_1._29._1.Otros
             accountConfig = prmAccountConfig;
             logger = new Logger();
             game = new GameClass(this);
-            fightExtension = new PeleaExtensiones(this);
-            script = new ManejadorScript(this);
+            fightExtension = new FightExtensions(this);
+            script = new ScriptManager(this);
         }
 
         public void Connect()

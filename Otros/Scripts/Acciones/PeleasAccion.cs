@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 {
-    public class PeleasAccion : AccionesScript
+    public class PeleasAccion : ScriptAction
     {
         public int monstruos_minimos { get; private set; }
         public int monstruos_maximos { get; private set; }
@@ -25,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             monstruos_obligatorios = _monstruos_obligatorios;
         }
 
-        internal override Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account cuenta)
         {
             Map mapa = cuenta.game.map;
             List<Monstruos> grupos_disponibles = mapa.get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);

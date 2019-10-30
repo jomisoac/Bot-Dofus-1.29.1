@@ -10,13 +10,13 @@
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 {
-    public abstract class AccionesScript
+    public abstract class ScriptAction
     {
         protected static Task<ResultadosAcciones> resultado_hecho => Task.FromResult(ResultadosAcciones.HECHO);
         protected static Task<ResultadosAcciones> resultado_procesado => Task.FromResult(ResultadosAcciones.PROCESANDO);
         protected static Task<ResultadosAcciones> resultado_fallado => Task.FromResult(ResultadosAcciones.FALLO);
 
-        abstract internal Task<ResultadosAcciones> proceso(Account cuenta);
+        abstract internal Task<ResultadosAcciones> process(Account cuenta);
     }
 
     public enum ResultadosAcciones

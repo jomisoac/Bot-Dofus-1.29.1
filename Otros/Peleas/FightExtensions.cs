@@ -18,22 +18,22 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
-    public class PeleaExtensiones : IDisposable
+    public class FightExtensions : IDisposable
     {
         public PeleaConf configuracion { get; set; }
         private Account cuenta;
-        private ManejadorHechizos manejador_hechizos;
-        private Pelea pelea;
+        private SpellsManager manejador_hechizos;
+        private Fight pelea;
 
         private int hechizo_lanzado_index;
         private bool esperando_sequencia_fin;
         private bool disposed;
 
-        public PeleaExtensiones(Account _cuenta)
+        public FightExtensions(Account _cuenta)
         {
             cuenta = _cuenta;
             configuracion = new PeleaConf(cuenta);
-            manejador_hechizos = new ManejadorHechizos(cuenta);
+            manejador_hechizos = new SpellsManager(cuenta);
             pelea = cuenta.game.fight;
 
             get_Eventos();
@@ -217,7 +217,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
-        ~PeleaExtensiones() => Dispose(false);
+        ~FightExtensions() => Dispose(false);
         
         public virtual void Dispose(bool disposing)
         {
