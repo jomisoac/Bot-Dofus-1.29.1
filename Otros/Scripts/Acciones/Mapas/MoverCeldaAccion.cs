@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas
 {
-    public class MoverCeldaAccion : AccionesScript
+    public class MoverCeldaAccion : ScriptAction
     {
         public short celda_id { get; private set; }
         public MoverCeldaAccion(short _celda_id) => celda_id = _celda_id;
 
-        internal override Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account cuenta)
         {
             Map mapa = cuenta.game.map;
             Cell celda = mapa.GetCellFromId(celda_id);

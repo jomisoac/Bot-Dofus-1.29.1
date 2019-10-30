@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 {
-    public class ManejadorAcciones : IDisposable
+    public class ActionsManager : IDisposable
     {
         private Account cuenta;
-        public LuaManejadorScript manejador_script;
-        private ConcurrentQueue<AccionesScript> fila_acciones;
-        private AccionesScript accion_actual;
+        public LuaScriptManager manejador_script;
+        private ConcurrentQueue<ScriptAction> fila_acciones;
+        private ScriptAction accion_actual;
         private DynValue coroutine_actual;
         private TimerWrapper timer_out;
         public int contador_pelea, contador_recoleccion, contador_peleas_mapa;
@@ -30,11 +30,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         public event Action<bool> evento_accion_normal;
         public event Action<bool> evento_accion_personalizada;
 
-        public ManejadorAcciones(Account _cuenta, LuaManejadorScript _manejador_script)
+        public ActionsManager(Account _cuenta, LuaScriptManager _manejador_script)
         {
             cuenta = _cuenta;
             manejador_script = _manejador_script;
-            fila_acciones = new ConcurrentQueue<AccionesScript>();
+            fila_acciones = new ConcurrentQueue<ScriptAction>();
             timer_out = new TimerWrapper(60000, time_Out_Callback);
             CharacterClass personaje = cuenta.game.character;
             
@@ -60,7 +60,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (!(accion_actual is PeleasAccion))
                 contador_peleas_mapa = 0;
 
-            if (accion_actual is CambiarMapaAccion || accion_actual is PeleasAccion || accion_actual is RecoleccionAccion || coroutine_actual != null)
+            if (accion_actual is ChangeMapAction || accion_actual is PeleasAccion || accion_actual is RecoleccionAccion || coroutine_actual != null)
             {
                 limpiar_Acciones();
                 acciones_Salida(1500);
@@ -93,7 +93,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 else
                     cuenta.script.detener_Script("erreur lors du déplacement vers la cellule" + celda.celda_id);
             }
-            else if (accion_actual is CambiarMapaAccion && !es_correcto)
+            else if (accion_actual is ChangeMapAction && !es_correcto)
                 cuenta.script.detener_Script("erreur lors du changement de carte");
         }
 
@@ -175,7 +175,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 acciones_Salida(200); 
         }
 
-        public void enqueue_Accion(AccionesScript accion, bool iniciar_dequeue_acciones = false)
+        public void enqueue_Accion(ScriptAction accion, bool iniciar_dequeue_acciones = false)
         {
             fila_acciones.Enqueue(accion);
 
@@ -194,7 +194,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void limpiar_Acciones()
         {
-            while (fila_acciones.TryDequeue(out AccionesScript temporal)) { };
+            while (fila_acciones.TryDequeue(out ScriptAction temporal)) { };
             accion_actual = null;
         }
 
@@ -241,7 +241,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             string tipo = accion_actual.GetType().Name;
 
-            switch (await accion_actual.proceso(cuenta))
+            switch (await accion_actual.process(cuenta))
             {
                 case ResultadosAcciones.HECHO:
                     acciones_Salida(100);
@@ -311,7 +311,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
             if (fila_acciones.Count > 0)
             {
-                if (fila_acciones.TryDequeue(out AccionesScript accion))
+                if (fila_acciones.TryDequeue(out ScriptAction accion))
                 {
                     accion_actual = accion;
                     await procesar_Accion_Actual();
@@ -341,7 +341,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
-        ~ManejadorAcciones() => Dispose(false);
+        ~ActionsManager() => Dispose(false);
 
         protected virtual void Dispose(bool disposing)
         {

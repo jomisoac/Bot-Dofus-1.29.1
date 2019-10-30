@@ -13,7 +13,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game
         public Map map { get; private set; }
         public CharacterClass character { get; private set; }
         public Manejador manager { get; private set; }
-        public Pelea fight { get; private set; }
+        public Fight fight { get; private set; }
         private bool _disposed = false;
 
         internal GameClass(Account prmAccount)
@@ -22,7 +22,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game
             map = new Map();
             character = new CharacterClass(prmAccount);
             manager = new Manejador(prmAccount, map, character);
-            fight = new Pelea(prmAccount);
+            fight = new Fight(prmAccount);
         }
 
         #region Zona Dispose

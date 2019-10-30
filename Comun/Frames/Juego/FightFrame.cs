@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 {
-    internal class PeleaFrame : Frame
+    internal class FightFrame : Frame
     {
         [PaqueteAtributo("GP")]
         public void get_Combate_Celdas_Posicion(TcpClient cliente, string paquete)
@@ -149,7 +149,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GTS")]
-        public void get_Combate_Inicio_Turno(TcpClient cliente, string paquete)
+        public void get_Fight_Start_Turn(TcpClient cliente, string paquete)
         {
             Account cuenta = cliente.account;
 
@@ -161,12 +161,23 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GE")]
-        public void get_Combate_Finalizado(TcpClient cliente, string paquete)
+        public void get_End_Fight(TcpClient cliente, string paquete)
         {
             Account cuenta = cliente.account;
 
             cuenta.game.fight.get_Combate_Acabado();
             cliente.SendPacket("GC1");
+        }
+
+        [PaqueteAtributo("Gt")]
+        public void get_Fight_Start(TcpClient client, string packet)
+        {
+            int id = int.Parse(packet.Substring(2).Split('|')[0]);
+            if (client.account.hasGroup && id == client.account.group.lider.game.character.id)
+            {
+                // send join leader fight
+                client.SendPacket("GA903" + id + ";" + id);
+            }
         }
     }
 }

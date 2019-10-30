@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 {
-    public class CambiarMapaAccion : AccionesScript
+    public class ChangeMapAction : ScriptAction
     {
         public MapaTeleportCeldas direccion { get; private set; }
         public short celda_id { get; private set; }
@@ -23,31 +23,44 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
         public bool celda_especifica => direccion == MapaTeleportCeldas.NINGUNO && celda_id != -1;
         public bool direccion_especifica => direccion != MapaTeleportCeldas.NINGUNO && celda_id == -1;
 
-        public CambiarMapaAccion(MapaTeleportCeldas _direccion, short _celda_id)
+        public ChangeMapAction(MapaTeleportCeldas _direccion, short _celda_id)
         {
             direccion = _direccion;
             celda_id = _celda_id;
         }
 
-        internal override Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account account)
         {
             if (celda_especifica)
             {
-                Cell celda = cuenta.game.map.GetCellFromId(celda_id);
+                Cell celda = account.game.map.GetCellFromId(celda_id);
+                bool result = account.game.manager.movimientos.get_Cambiar_Mapa(direccion, celda);
 
-                if (!cuenta.game.manager.movimientos.get_Cambiar_Mapa(direccion, celda))
-                    return resultado_fallado;
+                if (account.isGroupLeader)
+                {
+                    foreach (var groupMember in account.group.miembros)
+                    {
+                        celda = groupMember.game.map.GetCellFromId(celda_id);
+                        groupMember.game.manager.movimientos.get_Cambiar_Mapa(direccion, celda);
+                    }
+                }
             }
             else if (direccion_especifica)
             {
-                if (!cuenta.game.manager.movimientos.get_Cambiar_Mapa(direccion))
-                    return resultado_fallado;
+                bool result = account.game.manager.movimientos.get_Cambiar_Mapa(direccion);
+                if (account.isGroupLeader)
+                {
+                    foreach (var groupMember in account.group.miembros)
+                    {
+                        groupMember.game.manager.movimientos.get_Cambiar_Mapa(direccion);
+                    }
+                }
             }
 
             return resultado_procesado;
         }
 
-        public static bool TryParse(string texto, out CambiarMapaAccion accion)
+        public static bool TryParse(string texto, out ChangeMapAction accion)
         {
             string[] partes = texto.Split('|');
             string total_partes = partes[Randomize.get_Random(0, partes.Length)];
@@ -55,7 +68,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             Match match = Regex.Match(total_partes, @"(?<direction>TOP|RIGHT|BOTTOM|LEFT)\((?<cell>\d{1,3})\)");
             if (match.Success)
             {
-                accion = new CambiarMapaAccion((MapaTeleportCeldas)Enum.Parse(typeof(MapaTeleportCeldas), match.Groups["direction"].Value, true), short.Parse(match.Groups["cell"].Value));
+                accion = new ChangeMapAction((MapaTeleportCeldas)Enum.Parse(typeof(MapaTeleportCeldas), match.Groups["direction"].Value, true), short.Parse(match.Groups["cell"].Value));
                 return true;
             }
             else
@@ -63,7 +76,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                 match = Regex.Match(total_partes, @"(?<direction>TOP|RIGHT|BOTTOM|LEFT)");
                 if (match.Success)
                 {
-                    accion = new CambiarMapaAccion((MapaTeleportCeldas)Enum.Parse(typeof(MapaTeleportCeldas), match.Groups["direction"].Value, true), -1);
+                    accion = new ChangeMapAction((MapaTeleportCeldas)Enum.Parse(typeof(MapaTeleportCeldas), match.Groups["direction"].Value, true), -1);
                     return true;
                 }
                 else
@@ -71,7 +84,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                     match = Regex.Match(total_partes, @"(?<cell>\d{1,3})");
                     if (match.Success)
                     {
-                        accion = new CambiarMapaAccion(MapaTeleportCeldas.NINGUNO, short.Parse(match.Groups["cell"].Value));
+                        accion = new ChangeMapAction(MapaTeleportCeldas.NINGUNO, short.Parse(match.Groups["cell"].Value));
                         return true;
                     }
                 }

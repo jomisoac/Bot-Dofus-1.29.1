@@ -20,7 +20,7 @@ using System.Threading;
 
 namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 {
-    class PersonajeFrame : Frame
+    class CharacterFrame : Frame
     {
         [PaqueteAtributo("As")]
         public void get_Stats_Actualizados(TcpClient cliente, string paquete) => cliente.account.game.character.actualizar_Caracteristicas(paquete);

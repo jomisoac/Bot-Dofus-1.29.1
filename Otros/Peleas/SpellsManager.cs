@@ -20,14 +20,14 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
-    public class ManejadorHechizos : IDisposable
+    public class SpellsManager : IDisposable
     {
         private Account cuenta;
         private Map mapa;
-        private Pelea pelea;
+        private Fight pelea;
         private bool disposed;
 
-        public ManejadorHechizos(Account _cuenta)
+        public SpellsManager(Account _cuenta)
         {
             cuenta = _cuenta;
             mapa = cuenta.game.map;
@@ -153,7 +153,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
-        ~ManejadorHechizos() => Dispose(false);
+        ~SpellsManager() => Dispose(false);
         
         public virtual void Dispose(bool disposing)
         {

@@ -10,10 +10,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
     public class PeleaApi : IDisposable
     {
         private Account cuenta;
-        private ManejadorAcciones manejador_acciones;
+        private ActionsManager manejador_acciones;
         private bool disposed = false;
 
-        public PeleaApi(Account _cuenta, ManejadorAcciones _manejador_acciones)
+        public PeleaApi(Account _cuenta, ActionsManager _manejador_acciones)
         {
             cuenta = _cuenta;
             manejador_acciones = _manejador_acciones;
