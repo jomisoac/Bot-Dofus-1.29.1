@@ -202,7 +202,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             while (!followerInactiv)
             {
                 bool inactiv = true;
-                foreach (var follower in account.group.miembros)
+                foreach (var follower in account.group.members)
                 {
                     if (follower.accountState != AccountStates.CONNECTED_INACTIVE || follower.game.map.mapId != account.game.map.mapId)
                         inactiv = false;
@@ -244,7 +244,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             bool isMaxPods = account.game.character.inventario.porcentaje_pods >= maxPods;
             if (account.isGroupLeader)
             {
-                foreach (var follower in account.group.miembros)
+                foreach (var follower in account.group.members)
                     isMaxPods = isMaxPods || follower.game.character.inventario.porcentaje_pods >= maxPods;
             }
 
@@ -374,8 +374,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void manejar_Npc_Banco_Bandera()
         {
-            actions_manager.enqueue_Accion(new NpcBancoAccion(-1));
-            actions_manager.enqueue_Accion(new AlmacenarTodosLosObjetosAccion());
+            actions_manager.enqueue_Accion(new NpcBankAction(-1));
+            actions_manager.enqueue_Accion(new StoreAllObjectsAction());
 
             //recuperar objetos almacenados
             Table recuperar_objetos = script_manager.get_Global_Or<Table>("PREND_OBJET_BANQUE", DataType.Table, null);

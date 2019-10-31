@@ -25,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
             if (npc_id > 0 && cuenta.game.map.lista_npcs().FirstOrDefault(n => n.npc_modelo_id == npc_id) == null)
                 return false;
 
-            manejador_acciones.enqueue_Accion(new NpcBancoAccion(npc_id), true);
+            manejador_acciones.enqueue_Accion(new NpcBankAction(npc_id), true);
             return true;
         }
 
@@ -34,7 +34,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
             if (npc_id > 0 && cuenta.game.map.lista_npcs().FirstOrDefault(n => n.npc_modelo_id == npc_id) == null)
                 return false;
 
-            manejador_acciones.enqueue_Accion(new NpcAccion(npc_id), true);
+            manejador_acciones.enqueue_Accion(new NpcAction(npc_id), true);
             return true;
         }
 

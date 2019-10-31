@@ -152,7 +152,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (!cuenta.script.corriendo)
                 return;
 
-            if (accion_actual is NpcBancoAccion nba)
+            if (accion_actual is NpcBankAction nba)
             {
                 if (cuenta.accountState != AccountStates.DIALOG)
                     return;
@@ -162,7 +162,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
                 cuenta.connexion.SendPacket("DR" + npc.pregunta + "|" + npc.respuestas[0], true);
             }
-            else if (accion_actual is NpcAccion || accion_actual is RespuestaAccion)
+            else if (accion_actual is NpcAction || accion_actual is RespuestaAccion)
                 acciones_Salida(400);
         }
 
@@ -203,7 +203,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (!cuenta.script.corriendo)
                 return;
 
-            if (accion_actual is NpcBancoAccion)
+            if (accion_actual is NpcBankAction)
                 acciones_Salida(400);
         }
 

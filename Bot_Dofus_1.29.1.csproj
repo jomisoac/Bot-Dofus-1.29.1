@@ -247,7 +247,7 @@
     <Compile Include="Otros\Game\Character\CharacterBaseStats.cs" />
     <Compile Include="Otros\Game\Character\CharacterCharacteristics.cs" />
     <Compile Include="Otros\Scripts\Acciones\ScriptAction.cs" />
-    <Compile Include="Otros\Scripts\Acciones\Almacenamiento\AlmacenarTodosLosObjetosAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Almacenamiento\StoreAllObjectsAction.cs" />
     <Compile Include="Otros\Scripts\Acciones\Almacenamiento\RecuperarObjetoBanco.cs" />
     <Compile Include="Otros\Scripts\Acciones\Inventario\UtilizarObjetoAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Mapas\ChangeMapAction.cs" />
@@ -256,8 +256,8 @@
     <Compile Include="Otros\Scripts\Acciones\Inventario\EquiparItemAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Mapas\MoverCeldaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\Npcs\CerrarDialogoAccion.cs" />
-    <Compile Include="Otros\Scripts\Acciones\Npcs\NpcAccion.cs" />
-    <Compile Include="Otros\Scripts\Acciones\Npcs\NpcBancoAccion.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Npcs\NpcAction.cs" />
+    <Compile Include="Otros\Scripts\Acciones\Npcs\NpcBankAction.cs" />
     <Compile Include="Otros\Scripts\Acciones\Npcs\RespuestaAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\PeleasAccion.cs" />
     <Compile Include="Otros\Scripts\Acciones\RecoleccionAccion.cs" />
