@@ -274,7 +274,7 @@
     <Compile Include="Otros\Scripts\Banderas\PeleaBandera.cs" />
     <Compile Include="Otros\Scripts\Banderas\RecoleccionBandera.cs" />
     <Compile Include="Otros\Scripts\ScriptState.cs" />
-    <Compile Include="Otros\Scripts\Manejadores\LuaManejadorScript.cs" />
+    <Compile Include="Otros\Scripts\Manejadores\LuaScriptManager.cs" />
     <Compile Include="Otros\Scripts\Manejadores\ManejadorAcciones.cs" />
     <Compile Include="Otros\Scripts\ScriptManager.cs" />
     <Compile Include="Program.cs" />

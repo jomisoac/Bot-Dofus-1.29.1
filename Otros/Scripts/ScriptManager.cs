@@ -170,33 +170,33 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private async Task applyChecks()
         {
-            await verificar_Muerte();
+            await verifyDeath();
 
             if (!corriendo)
                 return;
 
-            await get_Verificar_Script_Regeneracion();
+            await verifyScriptRegen();
 
             if (!corriendo)
                 return;
 
-            await get_Verificar_Regeneracion();
+            await verifyRegen();
 
             if (!corriendo)
                 return;
 
-            await get_Verificar_Sacos();
+            await verifyBags();
 
             if (!corriendo)
                 return;
 
-            verificar_Maximos_Pods();
+            verifyMaxPods();
 
             if (account.isGroupLeader)
-                await check_Followers_Inactiv();
+                await verifyFollowers();
         }
 
-        private async Task check_Followers_Inactiv()
+        private async Task verifyFollowers()
         {
             bool followerInactiv = false;
             while (!followerInactiv)
@@ -213,7 +213,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
         }
 
-        private async Task verificar_Muerte()
+        private async Task verifyDeath()
         {
             if (account.game.character.caracteristicas.energia_actual == 0)
             {
@@ -223,9 +223,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             await Task.Delay(50);
         }
 
-        private void verificar_Maximos_Pods()
+        private void verifyMaxPods()
         {
-            if (!get_Maximos_Pods())//si no tiene el limite de pods no verificada por cada mapa
+            if (!getMaxPods())//if you do not have the limit of unchecked pods for each map
                 return;
 
             if (!es_dung && script_state != ScriptState.BANQUE)
@@ -238,10 +238,17 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
         }
 
-        private bool get_Maximos_Pods()
+        private bool getMaxPods()
         {
             int maxPods = script_manager.get_Global_Or("MAX_PODS", DataType.Number, 90);
-            return account.game.character.inventario.porcentaje_pods >= maxPods;
+            bool isMaxPods = account.game.character.inventario.porcentaje_pods >= maxPods;
+            if (account.isGroupLeader)
+            {
+                foreach (var follower in account.group.miembros)
+                    isMaxPods = isMaxPods || follower.game.character.inventario.porcentaje_pods >= maxPods;
+            }
+
+            return isMaxPods;
         }
 
         private void procesar_Entradas(Table valor)
@@ -401,7 +408,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 detener_Script("La cellule n'est pas valide pour changer de map");
         }
 
-        private async Task get_Verificar_Sacos()
+        private async Task verifyBags()
         {
             if (!script_manager.get_Global_Or("OUVRIR_SAC", DataType.Boolean, false))
                 return;
@@ -446,7 +453,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             actions_manager.enqueue_Accion(accion, true);
         }
 
-        private async Task get_Verificar_Regeneracion()
+        private async Task verifyRegen()
         {
             if (account.fightExtension.configuracion.iniciar_regeneracion == 0)
                 return;
@@ -487,7 +494,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
         }
 
-        private async Task get_Verificar_Script_Regeneracion()
+        private async Task verifyScriptRegen()
         {
             Table auto_regeneracion = script_manager.get_Global_Or<Table>("AUTO_REGENERATION", DataType.Table, null);
 
@@ -537,7 +544,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!corriendo)
                 return;
 
-            if (!es_dung && get_Maximos_Pods())
+            if (!es_dung && getMaxPods())
             {
                 iniciar_Script();
                 return;
@@ -610,7 +617,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private bool verificar_Acciones_Especiales()
         {
-            if (script_state == ScriptState.BANQUE && !get_Maximos_Pods())
+            if (script_state == ScriptState.BANQUE && !getMaxPods())
             {
                 script_state = ScriptState.MOUVEMENT;
                 iniciar_Script();
