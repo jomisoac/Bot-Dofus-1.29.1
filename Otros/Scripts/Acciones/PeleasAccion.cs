@@ -25,29 +25,29 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             monstruos_obligatorios = _monstruos_obligatorios;
         }
 
-        internal override Task<ResultadosAcciones> process(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account account)
         {
-            Map mapa = cuenta.game.map;
-            List<Monstruos> grupos_disponibles = mapa.get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
+            Map mapa = account.game.map;
+            List<Monstruos> availableGroups = mapa.get_Grupo_Monstruos(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
 
-            if (grupos_disponibles.Count > 0)
+            if (availableGroups.Count > 0)
             {
-                foreach (Monstruos grupo_monstruo in grupos_disponibles)
+                foreach (Monstruos monsterGroup in availableGroups)
                 {
-                    var test = cuenta.game.manager.movimientos.get_Mover_A_Celda(grupo_monstruo.celda, new List<Cell>());
-                    switch (test)
+                    var moveResult = account.game.manager.movimientos.get_Mover_A_Celda(monsterGroup.celda, new List<Cell>());
+                    switch (moveResult)
                     {
                         case ResultadoMovimientos.EXITO:
-                            cuenta.logger.log_informacion("SCRIPT", $"Mouvent vers un groupes à la cellule : {grupo_monstruo.celda.cellId}, monstres total: {grupo_monstruo.get_Total_Monstruos}, niveaux du groupe: {grupo_monstruo.get_Total_Nivel_Grupo}");
+                            account.logger.log_informacion("SCRIPT", $"Mouvent vers un groupes à la cellule : {monsterGroup.celda.cellId}, monstres total: {monsterGroup.get_Total_Monstruos}, niveaux du groupe: {monsterGroup.get_Total_Nivel_Grupo}");
                         return resultado_procesado;
                             
                         case ResultadoMovimientos.PathfindingError:
                         case ResultadoMovimientos.SameCell:
-                            cuenta.logger.log_Peligro("SCRIPT", "Le chemin vers le groupe de monstres est bloqué.");
+                            account.logger.log_Peligro("SCRIPT", $"Le chemin vers le groupe de monstres est bloqué. Raison : {moveResult}");
                         continue;
 
                         default:
-                            cuenta.script.detener_Script("C'est trompé de groupes" + test);
+                            account.script.detener_Script($"Erreur lors de la tentative de déplacement vers un groupe à la cellule : {monsterGroup.celda.cellId}. Raison : {moveResult}");
                         return resultado_fallado;
                     }
                 }
