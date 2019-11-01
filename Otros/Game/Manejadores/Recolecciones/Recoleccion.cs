@@ -120,7 +120,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
             switch (cuenta.game.manager.movimientos.get_Mover_A_Celda(interactivo_recolectando.celda, mapa.celdas_ocupadas(), true, distancia_detener))
             {
                 case ResultadoMovimientos.EXITO:
-                case ResultadoMovimientos.MISMA_CELDA:
+                case ResultadoMovimientos.SameCell:
                     get_Intentar_Recolectar_Interactivo();
                 return true;
 

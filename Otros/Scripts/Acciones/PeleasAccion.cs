@@ -41,8 +41,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                             cuenta.logger.log_informacion("SCRIPT", $"Mouvent vers un groupes à la cellule : {grupo_monstruo.celda.cellId}, monstres total: {grupo_monstruo.get_Total_Monstruos}, niveaux du groupe: {grupo_monstruo.get_Total_Nivel_Grupo}");
                         return resultado_procesado;
                             
-                        case ResultadoMovimientos.PATHFINDING_ERROR:
-                        case ResultadoMovimientos.MISMA_CELDA:
+                        case ResultadoMovimientos.PathfindingError:
+                        case ResultadoMovimientos.SameCell:
                             cuenta.logger.log_Peligro("SCRIPT", "Le chemin vers le groupe de monstres est bloqué.");
                         continue;
 

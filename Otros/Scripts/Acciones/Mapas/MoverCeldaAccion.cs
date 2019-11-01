@@ -22,7 +22,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Mapas
                 case ResultadoMovimientos.EXITO:
                     return resultado_procesado;
 
-                case ResultadoMovimientos.MISMA_CELDA:
+                case ResultadoMovimientos.SameCell:
                     return resultado_hecho;
 
                 default:

@@ -120,9 +120,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
                             cuenta.logger.log_informacion("UI_PELEAS", "Desplazando para comenzar el combate");
                         break;
 
-                        case ResultadoMovimientos.MISMA_CELDA:
+                        case ResultadoMovimientos.SameCell:
                         case ResultadoMovimientos.FALLO:
-                        case ResultadoMovimientos.PATHFINDING_ERROR:
+                        case ResultadoMovimientos.PathfindingError:
                             cuenta.logger.log_Error("UI_PELEAS", "El monstruo no esta en la casilla selecciona");
                         break;
                     }

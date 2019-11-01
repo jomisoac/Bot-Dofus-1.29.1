@@ -248,13 +248,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
                 case ResultadosAcciones.FALLO:
                     cuenta.logger.log_Peligro("SCRIPT", $"{tipo} failed to process.");
-                    cuenta.logger.log_Peligro("SCRIPT", $"{tipo} Stopping script..");
-                    cuenta.script.detener_Script();
-                    await Task.Delay(5000);
-                    cuenta.logger.log_Peligro("SCRIPT", $"{tipo} Starting script in 5000 ms...");
-                    cuenta.script.activar_Script();
-                    cuenta.logger.log_Peligro("SCRIPT", $"{tipo} Script started...");
-                    
+                                       
                break;
 
                 case ResultadosAcciones.PROCESANDO:

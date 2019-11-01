@@ -80,7 +80,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         cuenta.logger.log_informacion("UI_MAPA", $"Personaje desplazado a la casilla: {celda_destino.cellId}");
                     break;
 
-                    case ResultadoMovimientos.MISMA_CELDA:
+                    case ResultadoMovimientos.SameCell:
                         cuenta.logger.log_Error("UI_MAPA", "El jugador está en la misma a la seleccionada");
                     break;
 
