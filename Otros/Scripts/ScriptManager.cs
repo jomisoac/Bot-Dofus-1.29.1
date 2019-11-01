@@ -39,10 +39,38 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         private API api;
         private bool es_dung = false;
         private bool disposed;
-
-        public bool activado { get; set; }
-        public bool pausado { get; private set; }
-        public bool corriendo => activado && !pausado;
+        private bool _activated;
+        private bool _stopped;
+        public bool Activated
+        {
+            get => _activated;
+            set 
+            {
+                _activated = value;
+                if(account.hasGroup && account.isGroupLeader)
+                {
+                    foreach (var member in account.group.members)
+                    {
+                        member.script.Activated = value;
+                    }
+                }
+            } 
+        }
+        public bool Stopped {
+            get => _stopped;
+            set
+            {
+                _stopped = value;
+                if (account.hasGroup && account.isGroupLeader)
+                {
+                    foreach (var member in account.group.members)
+                    {
+                        member.script.Stopped = value;
+                    }
+                }
+            }
+        }
+        public bool InExecution => Activated && !Stopped;
 
         public event Action<string> evento_script_cargado;
         public event Action evento_script_iniciado;
@@ -64,7 +92,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         public void get_Desde_Archivo(string ruta_archivo)
         {
-            if (activado)
+            if (Activated)
                 throw new Exception("Un script est déjà en cours d'exécution.");
 
             if (!File.Exists(ruta_archivo) || !ruta_archivo.EndsWith(".lua"))
@@ -94,10 +122,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         public void activar_Script()
         {
-            if (activado || account.Is_Busy())
+            if (Activated || account.Is_Busy())
                 return;
 
-            activado = true;
+            Activated = true;
             evento_script_iniciado?.Invoke();
             script_state = ScriptState.MOUVEMENT;
             iniciar_Script();
@@ -105,11 +133,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         public void detener_Script(string mensaje = "script pause")
         {
-            if (!activado)
+            if (!Activated)
                 return;
 
-            activado = false;
-            pausado = false;
+            Activated = false;
+            Stopped = false;
             banderas.Clear();
             bandera_id = 0;
             actions_manager.get_Borrar_Todo();
@@ -118,7 +146,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void iniciar_Script() => Task.Run(async () =>
         {
-            if (!corriendo)
+            if (!InExecution)
                 return;
 
             try
@@ -135,7 +163,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                 await applyChecks();
 
-                if (!corriendo)
+                if (!InExecution)
                     return;
 
                 IEnumerable<Table> entradas = script_manager.get_Entradas_Funciones(script_state.ToString().ToLower());
@@ -172,22 +200,22 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             await verifyDeath();
 
-            if (!corriendo)
+            if (!InExecution)
                 return;
 
             await verifyScriptRegen();
 
-            if (!corriendo)
+            if (!InExecution)
                 return;
 
             await verifyRegen();
 
-            if (!corriendo)
+            if (!InExecution)
                 return;
 
             await verifyBags();
 
-            if (!corriendo)
+            if (!InExecution)
                 return;
 
             verifyMaxPods();
@@ -230,7 +258,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
             if (!es_dung && script_state != ScriptState.BANQUE)
             {
-                if (!corriendo)
+                if (!InExecution)
                     return;
 
                 account.logger.log_informacion("SCRIPT", "Inventaire complet, passage en mode banque");
@@ -301,7 +329,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void procesar_Actual_Entrada(ScriptAction tiene_accion_disponible = null)
         {
-            if (!corriendo)
+            if (!InExecution)
                 return;
 
             Bandera bandera_actual = banderas[bandera_id];
@@ -480,10 +508,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                     account.logger.log_informacion("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar}, temps: {tiempo_estimado} secondes.");
 
-                    for (int i = 0; i < tiempo_estimado && account.game.character.caracteristicas.porcentaje_vida <= account.fightExtension.configuracion.detener_regeneracion && corriendo; i++)
+                    for (int i = 0; i < tiempo_estimado && account.game.character.caracteristicas.porcentaje_vida <= account.fightExtension.configuracion.detener_regeneracion && InExecution; i++)
                         await Task.Delay(1000);
 
-                    if (corriendo)
+                    if (InExecution)
                     {
                         if (account.accountState == AccountStates.REGENERATION)
                             account.connexion.SendPacket("eU1", true);
@@ -541,7 +569,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void procesar_Actual_Bandera()
         {
-            if (!corriendo)
+            if (!InExecution)
                 return;
 
             if (!es_dung && getMaxPods())
@@ -651,19 +679,19 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
         private void get_Pelea_Creada()
         {
-            if (!activado)
+            if (!Activated)
                 return;
 
-            pausado = true;
+            Stopped = true;
             account.game.manager.recoleccion.get_Cancelar_Interactivo();
         }
 
         private void get_Pelea_Acabada()
         {
-            if (!activado)
+            if (!Activated)
                 return;
 
-            pausado = false;
+            Stopped = false;
         }
         #endregion
 
@@ -685,8 +713,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 actions_manager = null;
                 script_manager = null;
                 api = null;
-                activado = false;
-                pausado = false;
+                Activated = false;
+                Stopped = false;
                 account = null;
                 disposed = true;
             }

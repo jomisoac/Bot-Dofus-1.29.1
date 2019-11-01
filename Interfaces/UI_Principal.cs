@@ -331,7 +331,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
         #region Scripts
         private void iniciarScriptToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!cuenta.script.activado)
+            if (!cuenta.script.Activated)
                 cuenta.script.activar_Script();
             else
                 cuenta.script.detener_Script();

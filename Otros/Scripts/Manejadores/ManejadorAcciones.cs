@@ -20,7 +20,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         private Account cuenta;
         public LuaScriptManager manejador_script;
         private ConcurrentQueue<ScriptAction> fila_acciones;
-        private ScriptAction accion_actual;
+        public ScriptAction accion_actual;
         private DynValue coroutine_actual;
         private TimerWrapper timer_out;
         public int contador_pelea, contador_recoleccion, contador_peleas_mapa;
@@ -51,7 +51,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void evento_Mapa_Cambiado()
         {
-            if (!cuenta.script.corriendo || accion_actual == null)
+            if (!cuenta.script.InExecution || accion_actual == null)
                 return;
 
             mapa_cambiado = true;
@@ -69,7 +69,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private async void evento_Movimiento_Celda(bool es_correcto)
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             if (accion_actual is PeleasAccion)
@@ -99,7 +99,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void get_Recoleccion_Iniciada()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             if (accion_actual is RecoleccionAccion)
@@ -113,7 +113,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void get_Recoleccion_Acabada(RecoleccionResultado resultado)
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             if (accion_actual is RecoleccionAccion)
@@ -133,7 +133,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void get_Pelea_Creada()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             if (accion_actual is PeleasAccion)
@@ -149,17 +149,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void npcs_Dialogo_Recibido()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
-            if (accion_actual is NpcBankAction nba)
+            if (accion_actual is NpcBankAction nba || (cuenta.hasGroup && cuenta.group.lider.script.actions_manager.accion_actual is NpcBankAction))
             {
                 if (cuenta.accountState != AccountStates.DIALOG)
                     return;
 
                 IEnumerable<Npcs> npcs = cuenta.game.map.lista_npcs();
                 Npcs npc = npcs.ElementAt((cuenta.game.character.hablando_npc_id * -1) - 1);
-
                 cuenta.connexion.SendPacket("DR" + npc.pregunta + "|" + npc.respuestas[0], true);
             }
             else if (accion_actual is NpcAction || accion_actual is RespuestaAccion)
@@ -168,7 +167,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void npcs_Dialogo_Acabado()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             if (accion_actual is RespuestaAccion || accion_actual is CerrarVentanaAccion)
@@ -185,7 +184,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         public void get_Funcion_Personalizada(DynValue coroutine)
         {
-            if (!cuenta.script.corriendo || coroutine_actual != null)
+            if (!cuenta.script.InExecution || coroutine_actual != null)
                 return;
 
             coroutine_actual = manejador_script.script.CreateCoroutine(coroutine);
@@ -200,7 +199,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void iniciar_Almacenamiento()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             if (accion_actual is NpcBankAction)
@@ -209,7 +208,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void cerrar_Almacenamiento()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             if (accion_actual is CerrarVentanaAccion)
@@ -218,7 +217,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void procesar_Coroutine()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             try
@@ -236,7 +235,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private async Task procesar_Accion_Actual()
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             string tipo = accion_actual.GetType().Name;
@@ -266,7 +265,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void time_Out_Callback(object state)
         {
-            if (!cuenta.script.corriendo)
+            if (!cuenta.script.InExecution)
                 return;
 
             cuenta.logger.log_Peligro("SCRIPT", "Temps de finition");
@@ -300,7 +299,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
         private void acciones_Salida(int delay) => Task.Factory.StartNew(async () =>
         {
-            if (cuenta?.script.corriendo == false)
+            if (cuenta?.script.InExecution == false)
                 return;
 
             if (timer_out.isEnabled)
