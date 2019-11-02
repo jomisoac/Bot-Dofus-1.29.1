@@ -136,7 +136,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             esperando_sequencia_fin = false;
             var t = new Random().Next(500, 900);
-            cuenta.logger.log_informacion($"Fight", $"Waiting for : {t} ms to move in fight");
+            cuenta.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to move in fight");
 
             await Task.Delay(t);
 
@@ -159,7 +159,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_lanzado_index++;
 
             var t = new Random().Next(500, 900);
-            cuenta.logger.log_informacion($"Fight", $"Waiting for : {t} ms to cast the spell");
+            cuenta.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to cast the spell");
             await Task.Delay(t);
             await get_Procesar_hechizo();
         }
@@ -167,7 +167,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         private async Task get_Fin_Turno()
         {
             var t = new Random().Next(500, 900);
-            cuenta.logger.log_informacion($"Fight", $"Waiting for : {t} ms to end turn ");
+            cuenta.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to end turn ");
             await Task.Delay(t);
             if (!pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
                 await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());

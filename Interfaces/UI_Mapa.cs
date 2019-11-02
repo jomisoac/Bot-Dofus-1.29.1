@@ -77,15 +77,15 @@ namespace Bot_Dofus_1._29._1.Interfaces
                 switch (cuenta.game.manager.movimientos.get_Mover_A_Celda(celda_destino, mapa.celdas_ocupadas()))
                 {
                     case ResultadoMovimientos.EXITO:
-                        cuenta.logger.log_informacion("UI_MAPA", $"Personaje desplazado a la casilla: {celda_destino.cellId}");
+                        cuenta.Logger.LogInfo("UI_MAPA", $"Personaje desplazado a la casilla: {celda_destino.cellId}");
                     break;
 
                     case ResultadoMovimientos.SameCell:
-                        cuenta.logger.log_Error("UI_MAPA", "El jugador está en la misma a la seleccionada");
+                        cuenta.Logger.log_Error("UI_MAPA", "El jugador está en la misma a la seleccionada");
                     break;
 
                     default:
-                        cuenta.logger.log_Error("UI_MAPA", $"Error desplazando el personaje a la casilla: {celda_destino.cellId}");
+                        cuenta.Logger.log_Error("UI_MAPA", $"Error desplazando el personaje a la casilla: {celda_destino.cellId}");
                     break;
                 }
             }

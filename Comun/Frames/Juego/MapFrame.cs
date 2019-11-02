@@ -185,7 +185,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 entidad.celda = celda;
 
                                 if (GlobalConfig.show_debug_messages)
-                                    cuenta.logger.log_informacion("DEBUG", "Mouvement détecté d'une entité vers la cellule : " + celda.cellId);
+                                    cuenta.Logger.LogInfo("DEBUG", "Mouvement détecté d'une entité vers la cellule : " + celda.cellId);
                             }
                             mapa.GetEntitiesRefreshEvent();
                         }
@@ -275,7 +275,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                             if (luchador != null && luchador.id == personaje.id)
                             {
-                                cuenta.logger.log_Error("INFORMATION", "Il n'est pas possible d'effectuer cette action à cause d'un obstacle invisible.");
+                                cuenta.Logger.log_Error("INFORMATION", "Il n'est pas possible d'effectuer cette action à cause d'un obstacle invisible.");
                                 pelea.get_Hechizo_Lanzado(short.Parse(separador[3]), false);
                             }
                         }
@@ -315,7 +315,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                     case 900:
                         cuenta.connexion.SendPacket("GA902" + id_entidad, true);
-                        cuenta.logger.log_informacion("INFORMATION", "Le défi avec le personnage ID : " + id_entidad + " est annulée");
+                        cuenta.Logger.LogInfo("INFORMATION", "Le défi avec le personnage ID : " + id_entidad + " est annulée");
                         break;
                 }
             }

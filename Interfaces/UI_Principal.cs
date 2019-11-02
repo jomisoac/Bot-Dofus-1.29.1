@@ -37,7 +37,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             cuenta.accountStateEvent += eventos_Estados_Cuenta;
             cuenta.accountDisconnectEvent += desconectar_Cuenta;
-            cuenta.logger.log_event += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
+            cuenta.Logger.log_event += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
 
             cuenta.script.evento_script_cargado += evento_Scripts_Cargado;
             cuenta.script.evento_script_iniciado += evento_Scripts_Iniciado;
@@ -263,7 +263,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             catch (Exception ex)
             {
-                cuenta.logger.log_Error("SCRIPT", ex.Message);
+                cuenta.Logger.log_Error("SCRIPT", ex.Message);
             }
         }
 
@@ -339,7 +339,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void evento_Scripts_Cargado(string nombre)
         {
-            cuenta.logger.log_informacion("SCRIPT", $"'{nombre}' chargée.");
+            cuenta.Logger.LogInfo("SCRIPT", $"'{nombre}' chargée.");
             BeginInvoke((Action)(() =>
             {
                 ScriptTituloStripMenuItem.Text = $"{(nombre.Length > 16 ? nombre.Substring(0, 16) : nombre)}";
@@ -349,7 +349,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void evento_Scripts_Iniciado()
         {
-            cuenta.logger.log_informacion("SCRIPT", "Initié");
+            cuenta.Logger.LogInfo("SCRIPT", "Initié");
             BeginInvoke((Action)(() =>
             {
                 cargarScriptToolStripMenuItem.Enabled = false;
@@ -360,9 +360,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void evento_Scripts_Detenido(string motivo)
         {
             if (string.IsNullOrEmpty(motivo))
-                cuenta.logger.log_informacion("SCRIPT", "Arrêté");
+                cuenta.Logger.LogInfo("SCRIPT", "Arrêté");
             else
-                cuenta.logger.log_informacion("SCRIPT", $"Arrêté à cause de {motivo}");
+                cuenta.Logger.LogInfo("SCRIPT", $"Arrêté à cause de {motivo}");
 
             BeginInvoke((Action)(() =>
             {

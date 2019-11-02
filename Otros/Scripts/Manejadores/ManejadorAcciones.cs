@@ -81,7 +81,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
 
                     if (cuenta.accountState != AccountStates.FIGHTING)
                     {
-                        cuenta.logger.log_Peligro("SCRIPT", "Erreur en lançant le combat, les monstres ont pu se déplacer ou être volés !");
+                        cuenta.Logger.log_Peligro("SCRIPT", "Erreur en lançant le combat, les monstres ont pu se déplacer ou être volés !");
                         acciones_Salida(0);
                     }
                 }
@@ -107,7 +107,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 contador_recoleccion++;
 
                 if (manejador_script.get_Global_Or("COMPTEUR_RECOLTE", DataType.Boolean, false))
-                    cuenta.logger.log_informacion("SCRIPT", $"RECOLTE #{contador_recoleccion}");
+                    cuenta.Logger.LogInfo("SCRIPT", $"RECOLTE #{contador_recoleccion}");
             }
         }
 
@@ -143,7 +143,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 contador_pelea++;
 
                 if (manejador_script.get_Global_Or("COMPTEUR_COMBAT", DataType.Boolean, false))
-                    cuenta.logger.log_informacion("SCRIPT", $"Combat #{contador_pelea}");
+                    cuenta.Logger.LogInfo("SCRIPT", $"Combat #{contador_pelea}");
             }
         }
 
@@ -247,7 +247,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 break;
 
                 case ResultadosAcciones.FALLO:
-                    cuenta.logger.log_Peligro("SCRIPT", $"{tipo} failed to process.");
+                    cuenta.Logger.log_Peligro("SCRIPT", $"{tipo} failed to process.");
                                        
                break;
 
@@ -262,7 +262,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
             if (!cuenta.script.InExecution)
                 return;
 
-            cuenta.logger.log_Peligro("SCRIPT", "Temps de finition");
+            cuenta.Logger.log_Peligro("SCRIPT", "Temps de finition");
             cuenta.script.detener_Script();
             cuenta.script.activar_Script();
         }

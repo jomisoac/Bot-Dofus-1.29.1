@@ -26,7 +26,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         public byte nivel { get; set; } = 0;
         public byte sexo { get; set; } = 0;
         public byte raza_id { get; set; } = 0;
-        private Account cuenta;
+        private Account _account;
         public InventoryClass inventario { get; private set; }
         public int puntos_caracteristicas { get; set; } = 0;
         public int kamas { get; private set; } = 0;
@@ -60,11 +60,11 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         
         public CharacterClass(Account _cuenta)
         {
-            cuenta = _cuenta;
+            _account = _cuenta;
             timer_regeneracion = new Timer(regeneracion_TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
             timer_afk = new Timer(anti_Afk, null, Timeout.Infinite, Timeout.Infinite);//1200000
 
-            inventario = new InventoryClass(cuenta);
+            inventario = new InventoryClass(_account);
             caracteristicas = new CharacterCharacteristics();
             hechizos = new Dictionary<short, Spell>();
             oficios = new List<Job>();
@@ -188,17 +188,22 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
 
             string[] limitador = paquete.Split(';'), separador;
             Spell hechizo;
-            short hechizo_id;
+            short spellId;
 
             for (int i = 0; i < limitador.Length - 1; ++i)
             {
                 separador = limitador[i].Split('~');
-                hechizo_id = short.Parse(separador[0]);
+                spellId = short.Parse(separador[0]);
 
-                hechizo = Spell.get_Hechizo(hechizo_id);
+                hechizo = Spell.get_Hechizo(spellId);
+                if(hechizo == null)
+                {
+                    _account.Logger.log_Error("SPELL", $"Le sort avec l'idée {spellId} n'existe pas dans les ressources !");
+                    continue;
+                }
                 hechizo.nivel = byte.Parse(separador[1]);
 
-                hechizos.Add(hechizo_id, hechizo);
+                hechizos.Add(spellId, hechizo);
             }
             hechizos_actualizados.Invoke();
         }
@@ -218,7 +223,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
             }
             catch (Exception e)
             {
-                cuenta.logger.log_Error("TIMER-REGEN", $"ERROR: {e}");
+                _account.Logger.log_Error("TIMER-REGEN", $"ERROR: {e}");
             }
         }
 
@@ -226,12 +231,12 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         {
             try
             {
-                if(cuenta.accountState != AccountStates.DISCONNECTED)
-                    cuenta.connexion.SendPacket("ping");
+                if(_account.accountState != AccountStates.DISCONNECTED)
+                    _account.connexion.SendPacket("ping");
             }
             catch (Exception e)
             {
-                cuenta.logger.log_Error("TIMER-ANTIAFK", $"ERROR: {e}");
+                _account.Logger.log_Error("TIMER-ANTIAFK", $"ERROR: {e}");
             }
         }
 

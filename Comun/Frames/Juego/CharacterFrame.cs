@@ -28,9 +28,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("PIK")]
         public void get_Peticion_Grupo(TcpClient cliente, string paquete)
         {
-            cliente.account.logger.log_informacion("Groupe", $"Nouvelle invitation de groupe du personnage: {paquete.Substring(3).Split('|')[0]}");
+            cliente.account.Logger.LogInfo("Groupe", $"Nouvelle invitation de groupe du personnage: {paquete.Substring(3).Split('|')[0]}");
             cliente.SendPacket("PR");
-            cliente.account.logger.log_informacion("Groupe", "Rejêt de l'invitation");
+            cliente.account.Logger.LogInfo("Groupe", "Rejêt de l'invitation");
         }
 
         [PaqueteAtributo("SL")]
@@ -179,7 +179,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("ERK")]
         public void get_Peticion_Intercambio(TcpClient cliente, string paquete)
         {
-            cliente.account.logger.log_informacion("INFORMATION", "L'invitation à l'échange est rejetée");
+            cliente.account.Logger.LogInfo("INFORMATION", "L'invitation à l'échange est rejetée");
             cliente.SendPacket("EV", true);
         }
 
@@ -194,7 +194,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             personaje.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
             personaje.timer_regeneracion.Change(tiempo, tiempo);
 
-            cuenta.logger.log_informacion("DOFUS", $"Votre personnage récupère 1 pdv chaque {tiempo / 1000} secondes");
+            cuenta.Logger.LogInfo("DOFUS", $"Votre personnage récupère 1 pdv chaque {tiempo / 1000} secondes");
         }
 
         [PaqueteAtributo("ILF")]
@@ -206,7 +206,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             CharacterClass personaje = cuenta.game.character;
 
             personaje.caracteristicas.vitalidad_actual += vida;
-            cuenta.logger.log_informacion("DOFUS", $"Vous avez récupéré {vida} points de vie");
+            cuenta.Logger.LogInfo("DOFUS", $"Vous avez récupéré {vida} points de vie");
         }
 
         [PaqueteAtributo("eUK")]
@@ -229,6 +229,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Ping_Promedio(TcpClient cliente, string paquete) => cliente.SendPacket($"Bp{cliente.GetPingAverage()}|{cliente.GetTotalPings()}|50");
 
         [PaqueteAtributo("pong")]
-        public void get_Ping_Pong(TcpClient cliente, string paquete) => cliente.account.logger.log_informacion("DOFUS", $"Ping: {cliente.GetPing()} ms");
+        public void get_Ping_Pong(TcpClient cliente, string paquete) => cliente.account.Logger.LogInfo("DOFUS", $"Ping: {cliente.GetPing()} ms");
     }
 }

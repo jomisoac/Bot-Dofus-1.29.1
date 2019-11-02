@@ -143,7 +143,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 case 2:
                 case 3:
                 case 4:
-                    cuenta.game.fight.get_Combate_Creado();
+                    cuenta.game.fight.FightCreatedAsync();
                break;
             }
         }
@@ -161,23 +161,29 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GE")]
-        public void get_End_Fight(TcpClient cliente, string paquete)
+        public async Task get_End_FightAsync(TcpClient cliente, string paquete)
         {
-            Account cuenta = cliente.account;
+            Account account = cliente.account;
 
-            cuenta.game.fight.get_Combate_Acabado();
+            account.game.fight.Fightfinished();
             cliente.SendPacket("GC1");
-        }
 
-        [PaqueteAtributo("Gt")]
-        public void get_Fight_Start(TcpClient client, string packet)
-        {
-            int id = int.Parse(packet.Substring(2).Split('|')[0]);
-            if (client.account.hasGroup && id == client.account.group.lider.game.character.id)
+            if(account.isGroupLeader)
             {
-                // send join leader fight
-                client.SendPacket("GA903" + id + ";" + id);
+                account.Logger.LogInfo("Fight", "Attente de 1500 ms");
+                await Task.Delay(1500);
             }
         }
+
+        //[PaqueteAtributo("Gt")]
+        //public void get_Fight_Start(TcpClient client, string packet)
+        //{
+        //    int id = int.Parse(packet.Substring(2).Split('|')[0]);
+        //    if (client.account.hasGroup && id == client.account.group.lider.game.character.id)
+        //    {
+        //        // send join leader fight
+        //        client.SendPacket("GA903" + id + ";" + id);
+        //    }
+        //}
     }
 }

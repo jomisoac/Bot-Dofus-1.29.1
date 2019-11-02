@@ -35,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         public void GetNickname(TcpClient prmClient, string prmPacket) => prmClient.account.nickname = prmPacket.Substring(2);
 
         [PaqueteAtributo("Af")]
-        public void GetLoginQueue(TcpClient prmClient, string prmPacket) => prmClient.account.logger.log_informacion("File d'attente", "Position " + prmPacket[2] + "/" + prmPacket[4]);
+        public void GetLoginQueue(TcpClient prmClient, string prmPacket) => prmClient.account.Logger.LogInfo("File d'attente", "Position " + prmPacket[2] + "/" + prmPacket[4]);
 
         [PaqueteAtributo("AH")]
         public void GetServerState(TcpClient prmClient, string prmPacket)
@@ -58,7 +58,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                 if (id == account.accountConfig.Get_Server_ID())
                 {
                     server.RefreshData(id, serverName, serverState);
-                    account.logger.log_informacion("LOGIN", $"Le serveur {serverName} est {account.game.server.GetState(serverState)}");
+                    account.Logger.LogInfo("LOGIN", $"Le serveur {serverName} est {account.game.server.GetState(serverState)}");
 
                     if (serverState != ServerStates.ONLINE)
                         firstTime = false;
@@ -97,7 +97,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                         account.game.character.evento_Servidor_Seleccionado();
                     }
                     else
-                        account.logger.log_Error("LOGIN", "Serveur non accessible lorsque celui-ci se reconnectera");
+                        account.Logger.log_Error("LOGIN", "Serveur non accessible lorsque celui-ci se reconnectera");
                 }
                 counter++;
             }

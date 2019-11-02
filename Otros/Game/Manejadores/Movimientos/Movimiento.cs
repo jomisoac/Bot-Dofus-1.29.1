@@ -89,7 +89,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
                 celdas_teleport.Remove(celda);
             }
 
-            cuenta.logger.log_Peligro("MOUVEMENT", "Aucune cellule de destination trouvée, utiliser la méthode : TOP|BOTTOM|RIGHT|LEFT");
+            cuenta.Logger.log_Peligro("MOUVEMENT", "Aucune cellule de destination trouvée, utiliser la méthode : TOP|BOTTOM|RIGHT|LEFT");
             return false;
         }
 
@@ -153,11 +153,11 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:
-                        cuenta.logger.log_informacion("MOUVEMENT", $"{mapa.GetCoordinates} changement de map via la cellule {celda.cellId} ");
+                        cuenta.Logger.LogInfo("MOUVEMENT", $"{mapa.GetCoordinates} changement de map via la cellule {celda.cellId} ");
                 return true;
 
                 default:
-                        cuenta.logger.log_Error("MOUVEMENT", $"Chemin vers {celda.cellId} résultat échoué ou bloqué : {resultado}");
+                        cuenta.Logger.log_Error("MOUVEMENT", $"Chemin vers {celda.cellId} résultat échoué ou bloqué : {resultado}");
                 return false;
             }
         }

@@ -87,7 +87,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             actions_manager.evento_accion_normal += get_Accion_Finalizada;
             actions_manager.evento_accion_personalizada += get_Accion_Personalizada_Finalizada;
             account.game.fight.pelea_creada += get_Pelea_Creada;
-            account.game.fight.pelea_acabada += get_Pelea_Acabada;
+            account.game.fight.fightFinished += get_Pelea_Acabada;
         }
 
         public void get_Desde_Archivo(string ruta_archivo)
@@ -109,8 +109,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             //no necesita coroutines
             script_manager.Set_Global("personnage", api.personaje);
 
-            script_manager.Set_Global("message", new Action<string>((mensaje) => account.logger.log_informacion("SCRIPT", mensaje)));
-            script_manager.Set_Global("messageErreur", new Action<string>((mensaje) => account.logger.log_Error("SCRIPT", mensaje)));
+            script_manager.Set_Global("message", new Action<string>((mensaje) => account.Logger.LogInfo("SCRIPT", mensaje)));
+            script_manager.Set_Global("messageErreur", new Action<string>((mensaje) => account.Logger.log_Error("SCRIPT", mensaje)));
             script_manager.Set_Global("stopScript", new Action(() => detener_Script()));
             script_manager.Set_Global("delayFFonction", new Action<int>((ms) => actions_manager.enqueue_Accion(new DelayAccion(ms), true)));
 
@@ -191,7 +191,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
             catch (Exception ex)
             {
-                account.logger.log_Error("SCRIPT", ex.ToString());
+                account.Logger.log_Error("SCRIPT", ex.ToString());
                 detener_Script();
             }
         });
@@ -245,7 +245,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             if (account.game.character.caracteristicas.energia_actual == 0)
             {
-                account.logger.log_informacion("SCRIPT", "Le personnage est mort, passage en mode fenix.");
+                account.Logger.LogInfo("SCRIPT", "Le personnage est mort, passage en mode fenix.");
                 script_state = ScriptState.PHENIX;
             }
             await Task.Delay(50);
@@ -261,7 +261,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 if (!InExecution)
                     return;
 
-                account.logger.log_informacion("SCRIPT", "Inventaire complet, passage en mode banque");
+                account.Logger.LogInfo("SCRIPT", "Inventaire complet, passage en mode banque");
                 script_state = ScriptState.BANQUE;
             }
         }
@@ -452,7 +452,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     await Task.Delay(500);
                 }
 
-                account.logger.log_informacion("SCRIPT", $"{sacos.Count} sac(s) ouvert(s).");
+                account.Logger.LogInfo("SCRIPT", $"{sacos.Count} sac(s) ouvert(s).");
             }
         }
 
@@ -463,14 +463,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             int maximas_peleas_mapa = script_manager.get_Global_Or("COMBAT_PAR_MAP", DataType.Number, -1);
             if (maximas_peleas_mapa != -1 && actions_manager.contador_peleas_mapa >= maximas_peleas_mapa)
             {
-                account.logger.log_informacion("SCRIPT", "Limite des combats atteints sur cette map");
+                account.Logger.LogInfo("SCRIPT", "Limite des combats atteints sur cette map");
                 procesar_Actual_Bandera();
                 return;
             }
 
             if (!es_dung && !account.game.map.get_Puede_Luchar_Contra_Grupo_Monstruos(accion.monstruos_minimos, accion.monstruos_maximos, accion.monstruo_nivel_minimo, accion.monstruo_nivel_maximo, accion.monstruos_prohibidos, accion.monstruos_obligatorios))
             {
-                account.logger.log_informacion("SCRIPT", "Aucun groupe de monstres disponible sur cette map");
+                account.Logger.LogInfo("SCRIPT", "Aucun groupe de monstres disponible sur cette map");
                 procesar_Actual_Bandera();
                 return;
             }
@@ -506,7 +506,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                         account.connexion.SendPacket("eU1", true);
                     }
 
-                    account.logger.log_informacion("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar}, temps: {tiempo_estimado} secondes.");
+                    account.Logger.LogInfo("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar}, temps: {tiempo_estimado} secondes.");
 
                     for (int i = 0; i < tiempo_estimado && account.game.character.caracteristicas.porcentaje_vida <= account.fightExtension.configuracion.detener_regeneracion && InExecution; i++)
                         await Task.Delay(1000);
@@ -516,7 +516,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                         if (account.accountState == AccountStates.REGENERATION)
                             account.connexion.SendPacket("eU1", true);
 
-                        account.logger.log_informacion("SCRIPTS", "Régénération terminée.");
+                        account.Logger.LogInfo("SCRIPTS", "Régénération terminée.");
                     }
                 }
             }

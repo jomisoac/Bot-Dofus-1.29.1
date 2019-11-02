@@ -24,7 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public string nickname { get; set; } = string.Empty;
         public string welcomeKey { get; set; } = string.Empty;
         public string gameTicket { get; set; } = string.Empty;
-        public Logger logger { get; private set; }
+        public Logger Logger { get; private set; }
         public TcpClient connexion { get; set; }
         public GameClass game { get; private set; }
         public ScriptManager script { get; set; }
@@ -44,7 +44,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public Account(AccountConfig prmAccountConfig)
         {
             accountConfig = prmAccountConfig;
-            logger = new Logger();
+            Logger = new Logger();
             game = new GameClass(this);
             fightExtension = new FightExtensions(this);
             script = new ScriptManager(this);
@@ -107,7 +107,7 @@ namespace Bot_Dofus_1._29._1.Otros
                 script = null;
                 welcomeKey = null;
                 connexion = null;
-                logger = null;
+                Logger = null;
                 game = null;
                 nickname = null;
                 accountConfig = null;
