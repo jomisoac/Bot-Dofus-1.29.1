@@ -140,12 +140,15 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
             foreach (string oficio in separador_oficio_experiencia)
             {
-                id = short.Parse(oficio.Split(';')[0]);
-                nivel = byte.Parse(oficio.Split(';')[1]);
-                experiencia_base = uint.Parse(oficio.Split(';')[2]);
-                experiencia_actual = uint.Parse(oficio.Split(';')[3]);
+                var payload = oficio.Split(';');
+                if (payload.Length < 4)
+                    continue;
+                id = short.Parse(payload[0]);
+                nivel = byte.Parse(payload[1]);
+                experiencia_base = uint.Parse(payload[2]);
+                experiencia_actual = uint.Parse(payload[3]);
 
-                if (nivel < 100)
+                if (nivel < 100 && payload.Length >= 4)
                     experiencia_siguiente_nivel = uint.Parse(oficio.Split(';')[4]);
                 else
                     experiencia_siguiente_nivel = 0;

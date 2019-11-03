@@ -110,6 +110,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (celda_destino.cellType == CellTypes.INTERACTIVE_OBJECT && celda_destino.interactiveObject == null)
                 return ResultadoMovimientos.CellIsTypeOfInteractiveObject;
 
+            if (celdas_no_permitidas.Contains(celda_destino))
+                return ResultadoMovimientos.MonsterOnSun;
+
             List<Cell> path_temporal = pathfinder.get_Path(personaje.celda, celda_destino, celdas_no_permitidas, detener_delante, distancia_detener);
 
             if (path_temporal == null || path_temporal.Count == 0)
