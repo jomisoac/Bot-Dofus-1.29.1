@@ -1,8 +1,10 @@
 ﻿using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos;
 using MoonSharp.Interpreter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Bot_Dofus_1._29._1.Utilities.Extensions
 {
@@ -39,6 +41,22 @@ namespace Bot_Dofus_1._29._1.Utilities.Extensions
                 default:
                     return "-";
             }
+        }
+
+        public static string FullMessageException(this Exception ex)
+        {
+            Exception e = ex;
+            StringBuilder s = new StringBuilder();
+            while (e != null)
+            {
+                s.AppendLine("Exception type: " + e.GetType().FullName);
+                s.AppendLine("Message       : " + e.Message);
+                s.AppendLine("Stacktrace:");
+                s.AppendLine(e.StackTrace);
+                s.AppendLine();
+                e = e.InnerException;
+            }
+            return s.ToString();
         }
 
         public static T get_Or<T>(this Table table, string key, DataType type, T orValue)
