@@ -220,7 +220,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
             verifyMaxPods();
 
-            if (account.isGroupLeader)
+            if (account.hasGroup && account.isGroupLeader)
                 await verifyFollowers();
         }
 
@@ -270,7 +270,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         {
             int maxPods = script_manager.get_Global_Or("MAX_PODS", DataType.Number, 90);
             bool isMaxPods = account.game.character.inventario.porcentaje_pods >= maxPods;
-            if (account.isGroupLeader)
+            if (account.hasGroup && account.isGroupLeader)
             {
                 foreach (var follower in account.group.members)
                     isMaxPods = isMaxPods || follower.game.character.inventario.porcentaje_pods >= maxPods;

@@ -43,7 +43,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
                 return resultado_fallado;
 
             account.connexion.SendPacket("DC" + npc.id, true);
-            if (account.isGroupLeader)
+            if (account.hasGroup && account.isGroupLeader)
             {
                 foreach (var follower in account.group.members)
                     follower.connexion.SendPacket("DC" + npc.id, true);

@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             if (account.Is_In_Dialog())
             {
                 account.connexion.SendPacket("EV");
-                if (account.isGroupLeader)
+                if (account.hasGroup && account.isGroupLeader)
                 {
                     foreach (var member in account.group.members)
                     {

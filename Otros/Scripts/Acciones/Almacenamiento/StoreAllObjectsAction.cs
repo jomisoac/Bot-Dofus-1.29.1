@@ -7,10 +7,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento
     {
         internal override async Task<ResultadosAcciones> process(Account account)
         {
-            Task[] tasks = new Task[account.group.members.Count + 1];
+            Task[] tasks = new Task[account.hasGroup ? account.group.members.Count + 1 : 1];
             tasks[0] = cleanInventory(account);
 
-            if (account.isGroupLeader)
+            if (account.hasGroup && account.isGroupLeader)
             {
                 foreach (var follower in account.group.members)
                 {

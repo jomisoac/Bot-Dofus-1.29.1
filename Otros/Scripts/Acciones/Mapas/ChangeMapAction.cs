@@ -36,7 +36,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                 Cell celda = account.game.map.GetCellFromId(celda_id);
                 bool result = account.game.manager.movimientos.get_Cambiar_Mapa(direccion, celda);
 
-                if (account.isGroupLeader)
+                if (account.hasGroup && account.isGroupLeader)
                 {
                     foreach (var groupMember in account.group.members)
                     {
@@ -48,7 +48,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             else if (direccion_especifica)
             {
                 bool result = account.game.manager.movimientos.get_Cambiar_Mapa(direccion);
-                if (account.isGroupLeader)
+                if (account.hasGroup && account.isGroupLeader)
                 {
                     foreach (var groupMember in account.group.members)
                     {
