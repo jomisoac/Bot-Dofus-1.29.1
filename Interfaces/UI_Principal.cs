@@ -130,7 +130,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void eventos_Estados_Cuenta()
         {
-            switch (cuenta.accountState)
+            switch (cuenta.AccountState)
             {
                 case AccountStates.DISCONNECTED:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_rojo);
@@ -146,7 +146,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
 
             if (cuenta != null && Principal.cuentas_cargadas.ContainsKey(nombre_cuenta))
-                Principal.cuentas_cargadas[nombre_cuenta].cabezera.propiedad_Estado = cuenta.accountState.cadena_Amigable();
+                Principal.cuentas_cargadas[nombre_cuenta].cabezera.propiedad_Estado = cuenta.AccountState.cadena_Amigable();
         }
 
         private void agregar_Tab_Pagina(string nombre, UserControl control, int imagen_index)
@@ -181,7 +181,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void canal_Chat_Click(object sender, EventArgs e)
         {
-            if (cuenta?.accountState != AccountStates.DISCONNECTED && cuenta?.accountState != AccountStates.CONNECTED)
+            if (cuenta?.AccountState != AccountStates.DISCONNECTED && cuenta?.AccountState != AccountStates.CONNECTED)
             {
                 string[] canales = { "i", "*", "#$p", "%", "!", "?", ":", "^" };
                 CheckBox control = sender as CheckBox;
@@ -263,7 +263,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             catch (Exception ex)
             {
-                cuenta.Logger.log_Error("SCRIPT", ex.Message);
+                cuenta.Logger.LogError("SCRIPT", ex.Message);
             }
         }
 

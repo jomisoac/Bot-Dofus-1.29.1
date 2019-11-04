@@ -114,19 +114,19 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
         {
             if (objeto == null || objeto.cantidad == 0 || cuenta.Is_Busy())
             {
-                cuenta.Logger.log_Error("INVENTAIRE", $"L'objet {objeto.nombre} ne peux être équipé");
+                cuenta.Logger.LogError("INVENTAIRE", $"L'objet {objeto.nombre} ne peux être équipé");
                 return false;
             }
 
             if (objeto.nivel > cuenta.game.character.nivel)
             {
-                cuenta.Logger.log_Error("INVENTAIRE", $"Le niveau de l'objet {objeto.nombre} est supérieur à ton niveau");
+                cuenta.Logger.LogError("INVENTAIRE", $"Le niveau de l'objet {objeto.nombre} est supérieur à ton niveau");
                 return false;
             }
 
             if (objeto.posicion != InventorySlots.NOT_EQUIPPED)//objeto ya esta equipado
             {
-                cuenta.Logger.log_Error("INVENTAIRE", $"l'objet {objeto.nombre} est équipé");
+                cuenta.Logger.LogError("INVENTAIRE", $"l'objet {objeto.nombre} est équipé");
                 return false;
             }
 
@@ -134,7 +134,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
 
             if (possibles_posiciones == null || possibles_posiciones.Count == 0)//objeto no equipable
             {
-                cuenta.Logger.log_Error("INVENTARIO", $"L'objet {objeto.nombre} n'est pas équipable");
+                cuenta.Logger.LogError("INVENTARIO", $"L'objet {objeto.nombre} n'est pas équipable");
                 return false;
             }
 
@@ -189,7 +189,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
 
             if(objeto.cantidad == 0)
             {
-                cuenta.Logger.log_Error("INVENTAIRE", $"L'objet {objeto.nombre} ne peut être mis à cause de tes caractéristiques");
+                cuenta.Logger.LogError("INVENTAIRE", $"L'objet {objeto.nombre} ne peut être mis à cause de tes caractéristiques");
                 return;
             }
 

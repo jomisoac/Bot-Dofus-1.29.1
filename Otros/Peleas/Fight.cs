@@ -64,7 +64,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public async Task get_Lanzar_Hechizo(short hechizo_id, short celda_id)
         {
-            if (account.accountState != AccountStates.FIGHTING)
+            if (account.AccountState != AccountStates.FIGHTING)
                 return;
 
             await account.connexion.SendPacketAsync("GA300" + hechizo_id + ';' + celda_id, false);
@@ -519,26 +519,33 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public async Task FightCreatedAsync()
         {
             account.game.character.timer_regeneracion.Change(Timeout.Infinite, Timeout.Infinite);
-            account.accountState = AccountStates.FIGHTING;
+            account.AccountState = AccountStates.FIGHTING;
             if (account.hasGroup && account.isGroupLeader)
             {
                 var id = account.group.lider.game.character.id;
                 foreach (var groupMember in account.group.members)
                 {
-                    groupMember.Logger.LogInfo("Fight", "Je rejoins le combat du leader");
-                    await Task.Delay(500);
-                    groupMember.connexion.SendPacket("GA903" + id + ";" + id);
+                    if(groupMember.game.map.mapId == account.game.map.mapId)
+                    {
+                        groupMember.Logger.LogInfo("Fight", "Je rejoins le combat du leader");
+                        await Task.Delay(500);
+                        groupMember.connexion.SendPacket("GA903" + id + ";" + id);
+                    }
+                    else
+                    {
+                        groupMember.Logger.LogError("Fight", "Je ne peux pas rejoindre le combat du leader qui se trouve dans une autre map !");
+                    }
                 }
             }
             pelea_creada?.Invoke();
-            account.Logger.LogInfo("COMBAT", "Un nouveau combat commencé");
+            account.Logger.LogInfo("COMBAT", "Un nouveau combat a commencé");
         }
 
         public void Fightfinished()
         {
             Clear();
             fightFinished?.Invoke();
-            account.accountState = AccountStates.CONNECTED_INACTIVE;
+            account.AccountState = AccountStates.CONNECTED_INACTIVE;
             account.Logger.LogInfo("COMBAT", "Combat terminé");
         }
 

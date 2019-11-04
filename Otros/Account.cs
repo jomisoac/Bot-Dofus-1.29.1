@@ -63,7 +63,7 @@ namespace Bot_Dofus_1._29._1.Otros
 
             script.detener_Script();
             game.Clear();
-            accountState = AccountStates.DISCONNECTED;
+            AccountState = AccountStates.DISCONNECTED;
             accountDisconnectEvent?.Invoke();
         }
 
@@ -73,7 +73,7 @@ namespace Bot_Dofus_1._29._1.Otros
             connexion.ConnectToServer(IPAddress.Parse(ip), port);
         }
 
-        public AccountStates accountState
+        public AccountStates AccountState
         {
             get => _accountState;
             set
@@ -83,11 +83,11 @@ namespace Bot_Dofus_1._29._1.Otros
             }
         }
 
-        public bool Is_Busy() => accountState != AccountStates.CONNECTED_INACTIVE && accountState != AccountStates.REGENERATION;
-        public bool Is_In_Dialog() => accountState == AccountStates.STORAGE || accountState == AccountStates.DIALOG || accountState == AccountStates.EXCHANGE || accountState == AccountStates.BUYING || accountState == AccountStates.SELLING;
-        public bool IsFighting() => accountState == AccountStates.FIGHTING;
-        public bool IsGathering() => accountState == AccountStates.GATHERING;
-        public bool IsMoving() => accountState == AccountStates.MOVING;
+        public bool Is_Busy() => AccountState != AccountStates.CONNECTED_INACTIVE && AccountState != AccountStates.REGENERATION;
+        public bool Is_In_Dialog() => AccountState == AccountStates.STORAGE || AccountState == AccountStates.DIALOG || AccountState == AccountStates.EXCHANGE || AccountState == AccountStates.BUYING || AccountState == AccountStates.SELLING;
+        public bool IsFighting() => AccountState == AccountStates.FIGHTING;
+        public bool IsGathering() => AccountState == AccountStates.GATHERING;
+        public bool IsMoving() => AccountState == AccountStates.MOVING;
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
@@ -103,7 +103,7 @@ namespace Bot_Dofus_1._29._1.Otros
                     connexion?.Dispose();
                     game.Dispose();
                 }
-                accountState = AccountStates.DISCONNECTED;
+                AccountState = AccountStates.DISCONNECTED;
                 script = null;
                 welcomeKey = null;
                 connexion = null;

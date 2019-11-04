@@ -14,7 +14,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
     class IMFrame : Frame
     {
         [PaqueteAtributo("Im189")]
-        public void get_Mensaje_Bienvenida_Dofus(TcpClient cliente, string paquete) => cliente.account.Logger.log_Error("DOFUS", "Bienvenue à DOFUS, le Monde des Douze ! Attention Il est interdit de communiquer le nom d'utilisateur et le mot de passe de votre compte.");
+        public void get_Mensaje_Bienvenida_Dofus(TcpClient cliente, string paquete) => cliente.account.Logger.LogError("DOFUS", "Bienvenue à DOFUS, le Monde des Douze ! Attention Il est interdit de communiquer le nom d'utilisateur et le mot de passe de votre compte.");
 
         [PaqueteAtributo("Im039")]
         public void get_Pelea_Espectador_Desactivado(TcpClient cliente, string paquete) => cliente.account.Logger.LogInfo("COMBAT", "Le mode Spectator est désactivé.");
@@ -45,6 +45,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Mensaje_Modo_Away_Dofus(TcpClient cliente, string paquete) => cliente.account.Logger.LogInfo("DOFUS", "Désormais, tu seras considéré comme absent.");
 
         [PaqueteAtributo("Im112")]
-        public void get_Mensaje_Pods_Llenos(TcpClient cliente, string paquete) => cliente.account.Logger.log_Error("DOFUS", "Tu es trop chargé. Jetez quelques objets pour pouvoir bouger.");
+        public void get_Mensaje_Pods_Llenos(TcpClient cliente, string paquete) => cliente.account.Logger.LogError("DOFUS", "Tu es trop chargé. Jetez quelques objets pour pouvoir bouger.");
     }
 }

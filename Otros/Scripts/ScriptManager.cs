@@ -110,7 +110,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             script_manager.Set_Global("personnage", api.personaje);
 
             script_manager.Set_Global("message", new Action<string>((mensaje) => account.Logger.LogInfo("SCRIPT", mensaje)));
-            script_manager.Set_Global("messageErreur", new Action<string>((mensaje) => account.Logger.log_Error("SCRIPT", mensaje)));
+            script_manager.Set_Global("messageErreur", new Action<string>((mensaje) => account.Logger.LogError("SCRIPT", mensaje)));
             script_manager.Set_Global("stopScript", new Action(() => detener_Script()));
             script_manager.Set_Global("delayFFonction", new Action<int>((ms) => actions_manager.enqueue_Accion(new DelayAccion(ms), true)));
 
@@ -191,7 +191,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             }
             catch (Exception ex)
             {
-                account.Logger.log_Error("SCRIPT", ex.ToString());
+                account.Logger.LogError("SCRIPT", ex.ToString());
                 detener_Script();
             }
         });
@@ -232,7 +232,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 bool inactiv = true;
                 foreach (var follower in account.group.members)
                 {
-                    if (follower.accountState != AccountStates.CONNECTED_INACTIVE || follower.game.map.mapId != account.game.map.mapId)
+                    if (follower.AccountState != AccountStates.CONNECTED_INACTIVE || follower.game.map.mapId != account.game.map.mapId)
                         inactiv = false;
                 }
                 if (inactiv)
@@ -498,7 +498,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 {
                     int tiempo_estimado = vida_para_regenerar / 2;
 
-                    if (account.accountState != AccountStates.REGENERATION)
+                    if (account.AccountState != AccountStates.REGENERATION)
                     {
                         if (account.Is_Busy())
                             return;
@@ -513,7 +513,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                     if (InExecution)
                     {
-                        if (account.accountState == AccountStates.REGENERATION)
+                        if (account.AccountState == AccountStates.REGENERATION)
                             account.connexion.SendPacket("eU1", true);
 
                         account.Logger.LogInfo("SCRIPTS", "Régénération terminée.");

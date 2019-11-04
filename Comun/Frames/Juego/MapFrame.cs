@@ -52,7 +52,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         {
                             case -1:
                             case -2:
-                                if (cuenta.accountState == AccountStates.FIGHTING)
+                                if (cuenta.AccountState == AccountStates.FIGHTING)
                                 {
                                     int vida = int.Parse(informaciones[12]);
                                     byte pa = byte.Parse(informaciones[13]);
@@ -89,7 +89,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 break;
 
                             default:// jugador
-                                if (cuenta.accountState != AccountStates.FIGHTING)
+                                if (cuenta.AccountState != AccountStates.FIGHTING)
                                 {
                                     if (cuenta.game.character.id != id)
                                         cuenta.game.map.entities.TryAdd(id, new Personajes(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda));
@@ -129,7 +129,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     }
                     else if (_loc6[0].Equals('-'))
                     {
-                        if (cuenta.accountState != AccountStates.FIGHTING)
+                        if (cuenta.AccountState != AccountStates.FIGHTING)
                         {
                             int id = int.Parse(_loc6.Substring(1));
                             cuenta.game.map.entities.TryRemove(id, out Entidad entidad);
@@ -275,7 +275,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                             if (luchador != null && luchador.id == personaje.id)
                             {
-                                cuenta.Logger.log_Error("INFORMATION", "Il n'est pas possible d'effectuer cette action à cause d'un obstacle invisible.");
+                                cuenta.Logger.LogError("INFORMATION", "Il n'est pas possible d'effectuer cette action à cause d'un obstacle invisible.");
                                 pelea.get_Hechizo_Lanzado(short.Parse(separador[3]), false);
                             }
                         }

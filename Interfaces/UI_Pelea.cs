@@ -124,13 +124,13 @@ namespace Bot_Dofus_1._29._1.Interfaces
                         case ResultadoMovimientos.SameCell:
                         case ResultadoMovimientos.FALLO:
                         case ResultadoMovimientos.PathfindingError:
-                            cuenta.Logger.log_Error("UI_PELEAS", "El monstruo no esta en la casilla selecciona");
+                            cuenta.Logger.LogError("UI_PELEAS", "El monstruo no esta en la casilla selecciona");
                         break;
                     }
                 }
             }
             else
-                cuenta.Logger.log_Error("PELEAS", "No hay monstruos disponibles en el mapa");
+                cuenta.Logger.LogError("PELEAS", "No hay monstruos disponibles en el mapa");
         }
 
         private void checkbox_espectadores_CheckedChanged(object sender, EventArgs e)

@@ -198,7 +198,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
                 hechizo = Spell.get_Hechizo(spellId);
                 if(hechizo == null)
                 {
-                    _account.Logger.log_Error("SPELL", $"Le sort avec l'idée {spellId} n'existe pas dans les ressources !");
+                    _account.Logger.LogError("SPELL", $"Le sort avec l'idée {spellId} n'existe pas dans les ressources !");
                     continue;
                 }
                 hechizo.nivel = byte.Parse(separador[1]);
@@ -223,7 +223,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
             }
             catch (Exception e)
             {
-                _account.Logger.log_Error("TIMER-REGEN", $"ERROR: {e}");
+                _account.Logger.LogError("TIMER-REGEN", $"ERROR: {e}");
             }
         }
 
@@ -231,12 +231,12 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         {
             try
             {
-                if(_account.accountState != AccountStates.DISCONNECTED)
+                if(_account.AccountState != AccountStates.DISCONNECTED)
                     _account.connexion.SendPacket("ping");
             }
             catch (Exception e)
             {
-                _account.Logger.log_Error("TIMER-ANTIAFK", $"ERROR: {e}");
+                _account.Logger.LogError("TIMER-ANTIAFK", $"ERROR: {e}");
             }
         }
 

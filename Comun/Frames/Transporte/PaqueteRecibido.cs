@@ -32,18 +32,18 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Transporte
             }
         }
 
-        public static void Recibir(TcpClient cliente, string paquete)
+        public static void Recibir(TcpClient client, string packet)
         {
-            PaqueteDatos metodo = metodos.Find(m => paquete.StartsWith(m.nombre_paquete));
+            PaqueteDatos method = metodos.Find(m => packet.StartsWith(m.nombre_paquete));
 
             try
             {
-                if (metodo != null)
-                    metodo.informacion.Invoke(metodo.instancia, new object[2] { cliente, paquete });
+                if (method != null)
+                    method.information.Invoke(method.instance, new object[2] { client, packet });
             }
             catch(Exception ex)
             {
-                cliente.account.Logger.LogInfo("Network", ex.FullMessageException());
+                client.account.Logger.LogInfo("Network", ex.FullMessageException());
             }
         }
     }

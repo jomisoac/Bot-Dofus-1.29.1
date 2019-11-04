@@ -81,11 +81,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
                     break;
 
                     case ResultadoMovimientos.SameCell:
-                        cuenta.Logger.log_Error("UI_MAPA", "El jugador está en la misma a la seleccionada");
+                        cuenta.Logger.LogError("UI_MAPA", "El jugador está en la misma a la seleccionada");
                     break;
 
                     default:
-                        cuenta.Logger.log_Error("UI_MAPA", $"Error desplazando el personaje a la casilla: {celda_destino.cellId}");
+                        cuenta.Logger.LogError("UI_MAPA", $"Error desplazando el personaje a la casilla: {celda_destino.cellId}");
                     break;
                 }
             }

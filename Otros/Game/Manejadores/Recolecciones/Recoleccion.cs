@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
                     return true;
             }
 
-            cuenta.Logger.log_Peligro("RECOLTE", "Aucun objet de collectable trouvé");
+            cuenta.Logger.LogDanger("RECOLTE", "Aucun objet de collectable trouvé");
             return false;
         }
 
@@ -166,7 +166,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
             }
             else
             {
-                cuenta.accountState = AccountStates.GATHERING;
+                cuenta.AccountState = AccountStates.GATHERING;
                 recoleccion_iniciada?.Invoke();
                 await Task.Delay(tiempo_delay);
                 cuenta.connexion.SendPacket("GKK" + tipo_gkk);
@@ -180,7 +180,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
 
             robado = false;
             interactivo_recolectando = null;
-            cuenta.accountState = AccountStates.CONNECTED_INACTIVE;
+            cuenta.AccountState = AccountStates.CONNECTED_INACTIVE;
             recoleccion_acabada?.Invoke(resultado);
         }
 

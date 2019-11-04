@@ -80,7 +80,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
             cuenta.game.character.evento_Personaje_Seleccionado();
             cuenta.game.character.timer_afk.Change(1200000, 1200000);
-            cliente.account.accountState = AccountStates.CONNECTED_INACTIVE;
+            cliente.account.AccountState = AccountStates.CONNECTED_INACTIVE;
         }
     }
 }

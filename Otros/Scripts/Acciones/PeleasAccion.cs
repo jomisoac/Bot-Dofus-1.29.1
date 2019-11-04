@@ -43,7 +43,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                             
                         case ResultadoMovimientos.PathfindingError:
                         case ResultadoMovimientos.SameCell:
-                            account.Logger.log_Peligro("SCRIPT", $"Le chemin vers le groupe de monstres est bloqué. Raison : {moveResult}");
+                            account.Logger.LogDanger("SCRIPT", $"Le chemin vers le groupe de monstres est bloqué. Raison : {moveResult}");
                         continue;
 
                         default:

@@ -23,7 +23,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         {
             Account account = prmClient.account;
 
-            account.accountState = AccountStates.CONNECTED;
+            account.AccountState = AccountStates.CONNECTED;
             account.welcomeKey = prmPacket.Substring(2);
 
             prmClient.SendPacket("1.30");
@@ -97,7 +97,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
                         account.game.character.evento_Servidor_Seleccionado();
                     }
                     else
-                        account.Logger.log_Error("LOGIN", "Serveur non accessible lorsque celui-ci se reconnectera");
+                        account.Logger.LogError("LOGIN", "Serveur non accessible lorsque celui-ci se reconnectera");
                 }
                 counter++;
             }

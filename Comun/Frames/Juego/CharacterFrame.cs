@@ -58,7 +58,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             Account cuenta = cliente.account;
 
-            switch (cuenta.accountState)
+            switch (cuenta.AccountState)
             {
                 case AccountStates.STORAGE:
                     cuenta.game.character.inventario.evento_Almacenamiento_Abierto();
@@ -70,7 +70,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     npc.respuestas.Clear();
                     npc.respuestas = null;
 
-                    cuenta.accountState = AccountStates.CONNECTED_INACTIVE;
+                    cuenta.AccountState = AccountStates.CONNECTED_INACTIVE;
                     cuenta.game.character.evento_Dialogo_Acabado();
                 break;
             }
@@ -81,9 +81,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             Account cuenta = cliente.account;
 
-            if (cuenta.accountState == AccountStates.STORAGE)
+            if (cuenta.AccountState == AccountStates.STORAGE)
             {
-                cuenta.accountState = AccountStates.CONNECTED_INACTIVE;
+                cuenta.AccountState = AccountStates.CONNECTED_INACTIVE;
                 cuenta.game.character.inventario.evento_Almacenamiento_Cerrado();
             }
         }
@@ -171,7 +171,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Modificar_Cantidad_Objeto(TcpClient cliente, string paquete) => cliente.account.game.character.inventario.modificar_Objetos(paquete.Substring(2));
 
         [PaqueteAtributo("ECK")]
-        public void get_Intercambio_Ventana_Abierta(TcpClient cliente, string paquete) => cliente.account.accountState = AccountStates.STORAGE;
+        public void get_Intercambio_Ventana_Abierta(TcpClient cliente, string paquete) => cliente.account.AccountState = AccountStates.STORAGE;
 
         [PaqueteAtributo("PCK")]
         public void get_Grupo_Aceptado(TcpClient cliente, string paquete) => cliente.account.game.character.en_grupo = true;
@@ -222,10 +222,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             if (cuenta.game.character.id != id)
                 return;
 
-            if (emote_id == 1 && cuenta.accountState != AccountStates.REGENERATION)
-                cuenta.accountState = AccountStates.REGENERATION;
-            else if (emote_id == 0 && cuenta.accountState == AccountStates.REGENERATION)
-                cuenta.accountState = AccountStates.CONNECTED_INACTIVE;
+            if (emote_id == 1 && cuenta.AccountState != AccountStates.REGENERATION)
+                cuenta.AccountState = AccountStates.REGENERATION;
+            else if (emote_id == 0 && cuenta.AccountState == AccountStates.REGENERATION)
+                cuenta.AccountState = AccountStates.CONNECTED_INACTIVE;
         }
 
         [PaqueteAtributo("Bp")]

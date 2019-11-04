@@ -89,7 +89,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
                 celdas_teleport.Remove(celda);
             }
 
-            cuenta.Logger.log_Peligro("MOUVEMENT", "Aucune cellule de destination trouvée, utiliser la méthode : TOP|BOTTOM|RIGHT|LEFT");
+            cuenta.Logger.LogDanger("MOUVEMENT", "Aucune cellule de destination trouvée, utiliser la méthode : TOP|BOTTOM|RIGHT|LEFT");
             return false;
         }
 
@@ -160,14 +160,14 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
                 return true;
 
                 default:
-                        cuenta.Logger.log_Error("MOUVEMENT", $"Chemin vers {celda.cellId} résultat échoué ou bloqué : {resultado}");
+                        cuenta.Logger.LogError("MOUVEMENT", $"Chemin vers {celda.cellId} résultat échoué ou bloqué : {resultado}");
                 return false;
             }
         }
 
         private void enviar_Paquete_Movimiento()
         {
-            if (cuenta.accountState == AccountStates.REGENERATION)
+            if (cuenta.AccountState == AccountStates.REGENERATION)
                 cuenta.connexion.SendPacket("eU1", true);
 
             string path_string = PathFinderUtil.get_Pathfinding_Limpio(actual_path);
@@ -177,14 +177,14 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
         public async Task evento_Movimiento_Finalizado(Cell celda_destino, byte tipo_gkk, bool correcto)
         {
-            cuenta.accountState = AccountStates.MOVING;
+            cuenta.AccountState = AccountStates.MOVING;
 
             if (correcto)
             {
                 await Task.Delay(PathFinderUtil.get_Tiempo_Desplazamiento_Mapa(personaje.celda, actual_path, personaje.esta_utilizando_dragopavo));
 
                 //por si en el delay el bot esta desconectado
-                if (cuenta == null || cuenta.accountState == AccountStates.DISCONNECTED)
+                if (cuenta == null || cuenta.AccountState == AccountStates.DISCONNECTED)
                     return;
 
                 cuenta.connexion.SendPacket("GKK" + tipo_gkk);
@@ -192,7 +192,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             }
 
             actual_path = null;
-            cuenta.accountState = AccountStates.CONNECTED_INACTIVE;
+            cuenta.AccountState = AccountStates.CONNECTED_INACTIVE;
             movimiento_finalizado?.Invoke(correcto);
         }
 
