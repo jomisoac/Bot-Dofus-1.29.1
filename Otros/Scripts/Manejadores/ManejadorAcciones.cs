@@ -103,16 +103,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                             {
                                                 if (member.game.map.y >= 0 || account.game.map.y >= 0)
                                                 {
-                                                    var cellDirection = account.game.map.TransformToCellId("BOTTOM");
+                                                    var cellDirection = member.game.map.TransformToCellId("BOTTOM");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
-                                                    member.Logger.LogDanger("SCRIPT", "Je rejoins le leader du groupe en passant par le bas");
+                                                    member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par le bas {cell.cellId}");
                                                     member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.BOTTOM, cell);
                                                 }
                                                 else
                                                 {
-                                                    var cellDirection = account.game.map.TransformToCellId("TOP");
+                                                    var cellDirection = member.game.map.TransformToCellId("TOP");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
-                                                    member.Logger.LogDanger("SCRIPT", "Je rejoins le leader du groupe en passant par le haut");
+                                                    member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par le haut {cell.cellId}");
                                                     member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.TOP, cell);
                                                 }
                                             }
@@ -120,16 +120,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                             {
                                                 if (member.game.map.y >= 0 || account.game.map.y >= 0)
                                                 {
-                                                    var cellDirection = account.game.map.TransformToCellId("TOP");
+                                                    var cellDirection = member.game.map.TransformToCellId("TOP");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
-                                                    member.Logger.LogDanger("SCRIPT", "Je rejoins le leader du groupe en passant par le haut");
+                                                    member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par le haut {cell.cellId}");
                                                     member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.TOP, cell);
                                                 }
                                                 else
                                                 {
-                                                    var cellDirection = account.game.map.TransformToCellId("BOTTOM");
+                                                    var cellDirection = member.game.map.TransformToCellId("BOTTOM");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
-                                                    member.Logger.LogDanger("SCRIPT", "Je rejoins le leader du groupe en passant par le bas");
+                                                    member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par le bas {cell.cellId}");
                                                     member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.BOTTOM, cell);
                                                 }
                                             }
@@ -140,16 +140,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                             {
                                                 if (member.game.map.x >= 0 || account.game.map.x >= 0)
                                                 {
-                                                    var cellDirection = account.game.map.TransformToCellId("RIGHT");
+                                                    var cellDirection = member.game.map.TransformToCellId("RIGHT");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
-                                                    member.Logger.LogDanger("SCRIPT", "Je rejoins le leader du groupe en passant par la droite");
+                                                    member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par la droite {cell.cellId}");
                                                     member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.RIGHT, cell);
                                                 }
                                                 else
                                                 {
-                                                    var cellDirection = account.game.map.TransformToCellId("LEFT");
+                                                    var cellDirection = member.game.map.TransformToCellId("LEFT");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
-                                                    member.Logger.LogDanger("SCRIPT", "Je rejoins le leader du groupe en passant par la gauche");
+                                                    member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par la gauche {cell.cellId}");
                                                     member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.LEFT, cell);
                                                 }
                                             }
@@ -157,16 +157,16 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                             {
                                                 if (member.game.map.x >= 0 || account.game.map.x >= 0)
                                                 {
-                                                    var cellDirection = account.game.map.TransformToCellId("LEFT");
+                                                    var cellDirection = member.game.map.TransformToCellId("LEFT");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
-                                                    member.Logger.LogDanger("SCRIPT", "Je rejoins le leader du groupe en passant par la gauche");
+                                                    member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par la gauche {cell.cellId}");
                                                     member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.LEFT, cell);
                                                 }
                                                 else
                                                 {
-                                                    var cellDirection = account.game.map.TransformToCellId("RIGHT");
+                                                    var cellDirection = member.game.map.TransformToCellId("RIGHT");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
-                                                    member.Logger.LogDanger("SCRIPT", "Je rejoins le leader du groupe en passant par la droite");
+                                                    member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par la droite {cell.cellId}");
                                                     member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.RIGHT, cell);
                                                 }
                                             }
@@ -184,7 +184,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                 }
                                 catch(Exception ex)
                                 {
-                                    account.Logger.LogError("SCRIPT", ex.FullMessageException());
+                                    account.Logger.LogException("SCRIPT", ex);
                                 }
                             }
                         }

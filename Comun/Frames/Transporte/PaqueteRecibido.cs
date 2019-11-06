@@ -43,7 +43,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Transporte
             }
             catch(Exception ex)
             {
-                client.account.Logger.LogInfo("Network", ex.FullMessageException());
+                client.account.Logger.LogException("Network", ex);
             }
         }
     }

@@ -2,6 +2,7 @@
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
@@ -34,7 +35,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             {
                 foreach (Monstruos monsterGroup in availableGroups)
                 {
-                    var moveResult = account.game.manager.movimientos.get_Mover_A_Celda(monsterGroup.celda, new List<Cell>());
+                    var moveResult = account.game.manager.movimientos.get_Mover_A_Celda(monsterGroup.celda, account.game.map.celdas_ocupadas().Where(c => c.cellType == CellTypes.TELEPORT_CELL).ToList());
                     switch (moveResult)
                     {
                         case ResultadoMovimientos.EXITO:

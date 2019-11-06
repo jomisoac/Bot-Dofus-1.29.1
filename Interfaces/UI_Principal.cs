@@ -315,16 +315,24 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void escribir_mensaje(string mensaje, string color)
         {
-            if (!IsHandleCreated)
-                return;
-
-            textbox_logs.BeginInvoke((Action)(() =>
+            try
             {
-                textbox_logs.Select(textbox_logs.TextLength, 0);
-                textbox_logs.SelectionColor = ColorTranslator.FromHtml("#" + color);
-                textbox_logs.AppendText(mensaje + Environment.NewLine);
-                textbox_logs.ScrollToCaret();
-            }));
+
+                if (!IsHandleCreated)
+                    return;
+
+                textbox_logs.BeginInvoke((Action)(() =>
+                {
+                    textbox_logs.Select(textbox_logs.TextLength, 0);
+                    textbox_logs.SelectionColor = ColorTranslator.FromHtml("#" + color);
+                    textbox_logs.AppendText(mensaje + Environment.NewLine);
+                    textbox_logs.ScrollToCaret();
+                }));
+            }
+            catch(Exception e)
+            {
+                cuenta.Logger.LogException("UIPrincipal", e);
+            }
         }
         #endregion
 
