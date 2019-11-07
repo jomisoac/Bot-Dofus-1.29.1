@@ -106,6 +106,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         if (celda > 0)//son espectadores
                         {
                             byte equipo = Convert.ToByte(id > 0 ? 1 : 0);
+                            if (luchador == null)
+                            {
+                                luchador = new Luchadores(id, esta_vivo, vida_actual, pa, pm, mapa.GetCellFromId(celda), vida_maxima, equipo);
+                                cliente.account.game.fight.get_Agregar_Luchador(luchador);
+                            }
                             luchador?.get_Actualizar_Luchador(id, esta_vivo, vida_actual, pa, pm, mapa.GetCellFromId(celda), vida_maxima, equipo);
                         }
                     }

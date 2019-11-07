@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             return true; // direccion NINGUNA
         }
 
-        public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, Cell celda)
+        public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion, Cell celda, bool ignoreGroupOnSun = false)
         {
             if (cuenta.Is_Busy() || personaje.inventario.porcentaje_pods >= 100)
                 return false;
@@ -69,7 +69,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             if (!get_Puede_Cambiar_Mapa(direccion, celda))
                 return false;
 
-            return get_Mover_Para_Cambiar_mapa(celda);
+            return get_Mover_Para_Cambiar_mapa(celda, ignoreGroupOnSun);
         }
 
         public bool get_Cambiar_Mapa(MapaTeleportCeldas direccion)
@@ -150,9 +150,12 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             personaje.evento_Personaje_Pathfinding_Minimapa(lista_celdas);
         }
 
-        private bool get_Mover_Para_Cambiar_mapa(Cell celda)
+        private bool get_Mover_Para_Cambiar_mapa(Cell celda, bool ignoreGroupOnSun = false)
         {
-            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, mapa.celdas_ocupadas().Where(c => c.cellType != CellTypes.TELEPORT_CELL).ToList());
+            var cellsNotPermitted = mapa.celdas_ocupadas().Where(c => c.cellType != CellTypes.TELEPORT_CELL).ToList();
+            if (ignoreGroupOnSun)
+                cellsNotPermitted = new List<Cell>();
+            ResultadoMovimientos resultado = get_Mover_A_Celda(celda, cellsNotPermitted);
             switch (resultado)
             {
                 case ResultadoMovimientos.EXITO:

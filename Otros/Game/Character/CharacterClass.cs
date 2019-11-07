@@ -240,7 +240,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
             }
         }
 
-        public Spell get_Hechizo(short id) => hechizos[id];
+        public Spell get_Hechizo(short id) => hechizos.FirstOrDefault(x => x.Key == id).Value;
         public bool get_Tiene_Skill_Id(int id) => oficios.FirstOrDefault(j => j.skills.FirstOrDefault(s => s.id == id) != null) != null;
         public IEnumerable<JobSkills> get_Skills_Disponibles() => oficios.SelectMany(oficio => oficio.skills.Select(skill => skill));
         public IEnumerable<short> get_Skills_Recoleccion_Disponibles() => oficios.SelectMany(oficio => oficio.skills.Where(skill => !skill.es_craft).Select(skill => skill.id));

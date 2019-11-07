@@ -66,13 +66,17 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
             if (account.AccountState != AccountStates.FIGHTING)
                 return;
-
+            var t = new Random().Next(500, 900);
+            account.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to cast the spell");
+            await Task.Delay(t);
             await account.connexion.SendPacketAsync("GA300" + hechizo_id + ';' + celda_id, false);
         }
 
         public void actualizar_Hechizo_Exito(short celda_id, short hechizo_id)
         {
             Spell hechizo = account.game.character.get_Hechizo(hechizo_id);
+            if (hechizo == null)
+                return;
             SpellStats datos_hechizo = hechizo.get_Stats();
 
             if (datos_hechizo.intervalo > 0 && !hechizos_intervalo.ContainsKey(hechizo.id))

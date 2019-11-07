@@ -532,6 +532,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             CharacterClass personaje = account.game.character;
             int vida_minima = auto_regeneracion.get_Or("VITA_MIN", DataType.Number, 0);
             int vida_maxima = auto_regeneracion.get_Or("VITA_MAX", DataType.Number, 100);
+            var regenAll =    auto_regeneracion.get_Or("REGENERATION_ALL", DataType.Boolean, false);
 
             if (vida_minima == 0 || personaje.caracteristicas.porcentaje_vida > vida_minima)
                 return;
@@ -564,6 +565,39 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 }
 
                 vida_para_regenerar -= objeto.vida_regenerada * cantidad_correcta;
+            }
+            account.Logger.LogDanger("SCRIPT", "Trying to regen everyone");
+            if (regenAll && account.hasGroup && account.isGroupLeader)
+            {
+                foreach (var member in account.group.members)
+                {
+                    fin_vida = vida_maxima * member.game.character.caracteristicas.vitalidad_maxima / 100;
+                    vida_para_regenerar = fin_vida - member.game.character.caracteristicas.vitalidad_actual;
+                    foreach (int id_objeto in objetos)
+                    {
+                        if (vida_para_regenerar < 20)
+                            break;
+
+                        InventoryObject objeto = member.game.character.inventario.get_Objeto_Modelo_Id(id_objeto);
+
+                        if (objeto == null)
+                            continue;
+
+                        if (objeto.vida_regenerada <= 0)
+                            continue;
+
+                        int cantidad_necesaria = (int)Math.Floor(vida_para_regenerar / (double)objeto.vida_regenerada);
+                        int cantidad_correcta = Math.Min(cantidad_necesaria, objeto.cantidad);
+
+                        for (int j = 0; j < cantidad_correcta; j++)
+                        {
+                            member.game.character.inventario.utilizar_Objeto(objeto);
+                            await Task.Delay(800);
+                        }
+
+                        vida_para_regenerar -= objeto.vida_regenerada * cantidad_correcta;
+                    }
+                }
             }
         }
 

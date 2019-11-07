@@ -38,11 +38,15 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 
                 if (account.hasGroup && account.isGroupLeader)
                 {
-                    foreach (var groupMember in account.group.members)
+                    Task.Factory.StartNew(async () =>
                     {
-                        celda = groupMember.game.map.GetCellFromId(celda_id);
-                        groupMember.game.manager.movimientos.get_Cambiar_Mapa(direccion, celda);
-                    }
+                        foreach (var groupMember in account.group.members)
+                        {
+                            celda = groupMember.game.map.GetCellFromId(celda_id);
+                            await Task.Delay(500);
+                            groupMember.game.manager.movimientos.get_Cambiar_Mapa(direccion, celda);
+                        }
+                    });
                 }
             }
             else if (direccion_especifica)
@@ -50,10 +54,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
                 bool result = account.game.manager.movimientos.get_Cambiar_Mapa(direccion);
                 if (account.hasGroup && account.isGroupLeader)
                 {
-                    foreach (var groupMember in account.group.members)
+                    Task.Factory.StartNew(async () =>
                     {
-                        groupMember.game.manager.movimientos.get_Cambiar_Mapa(direccion);
-                    }
+                        foreach (var groupMember in account.group.members)
+                        {
+                            await Task.Delay(500);
+                            groupMember.game.manager.movimientos.get_Cambiar_Mapa(direccion);
+                        }       
+                    });
                 }
             }
 

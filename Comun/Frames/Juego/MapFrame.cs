@@ -82,12 +82,10 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                             case -5:
                             case -6:
-                            case -7:
                             case -8:
                             case -9:
                             case -10:
                                 break;
-
                             default:// jugador
                                 if (cuenta.AccountState != AccountStates.FIGHTING)
                                 {

@@ -254,7 +254,7 @@ namespace Bot_Dofus_1._29._1.Controles.ControlMapa
 
                     if(cuenta != null)
                     {
-                        if (celda.id == cuenta.game.character.celda.cellId && !animaciones.ContainsKey(cuenta.game.character.id))
+                        if (cuenta.game.character.celda != null && celda.id == cuenta.game.character.celda.cellId && !animaciones.ContainsKey(cuenta.game.character.id))
                             celda.dibujar_FillPie(g, Color.Blue, RealCellHeight / 2);
                         else if (cuenta.game.map.entities.Values.Where(m => m is Monstruos).FirstOrDefault(m => m.celda.cellId == celda.id && !animaciones.ContainsKey(m.id)) != null)
                             celda.dibujar_FillPie(g, Color.DarkRed, RealCellHeight / 2);

@@ -158,23 +158,20 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_actual.lanzamientos_restantes = hechizo_actual.lanzamientos_x_turno;
             hechizo_lanzado_index++;
 
-            var t = new Random().Next(500, 900);
-            cuenta.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to cast the spell");
-            await Task.Delay(t);
             await get_Procesar_hechizo();
         }
 
         private async Task get_Fin_Turno()
         {
-            var t = new Random().Next(500, 900);
-            cuenta.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to end turn ");
-            await Task.Delay(t);
             if (!pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
                 await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());
             else if (pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
 
             pelea.get_Turno_Acabado();
+            var t = new Random().Next(200, 500);
+            cuenta.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to end turn ");
+            await Task.Delay(t);
             cuenta.connexion.SendPacket("Gt");
         }
 

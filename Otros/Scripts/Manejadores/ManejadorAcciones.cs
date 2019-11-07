@@ -106,14 +106,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                                     var cellDirection = member.game.map.TransformToCellId("BOTTOM");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
                                                     member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par le bas {cell.cellId}");
-                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.BOTTOM, cell);
+                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.BOTTOM, cell, true);
                                                 }
                                                 else
                                                 {
                                                     var cellDirection = member.game.map.TransformToCellId("TOP");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
                                                     member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par le haut {cell.cellId}");
-                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.TOP, cell);
+                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.TOP, cell, true);
                                                 }
                                             }
                                             else
@@ -123,14 +123,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                                     var cellDirection = member.game.map.TransformToCellId("TOP");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
                                                     member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par le haut {cell.cellId}");
-                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.TOP, cell);
+                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.TOP, cell, true);
                                                 }
                                                 else
                                                 {
                                                     var cellDirection = member.game.map.TransformToCellId("BOTTOM");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
                                                     member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par le bas {cell.cellId}");
-                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.BOTTOM, cell);
+                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.BOTTOM, cell, true);
                                                 }
                                             }
                                         }
@@ -143,14 +143,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                                     var cellDirection = member.game.map.TransformToCellId("RIGHT");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
                                                     member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par la droite {cell.cellId}");
-                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.RIGHT, cell);
+                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.RIGHT, cell, true);
                                                 }
                                                 else
                                                 {
                                                     var cellDirection = member.game.map.TransformToCellId("LEFT");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
                                                     member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par la gauche {cell.cellId}");
-                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.LEFT, cell);
+                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.LEFT, cell, true);
                                                 }
                                             }
                                             else
@@ -160,14 +160,14 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                                     var cellDirection = member.game.map.TransformToCellId("LEFT");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
                                                     member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par la gauche {cell.cellId}");
-                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.LEFT, cell);
+                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.LEFT, cell, true);
                                                 }
                                                 else
                                                 {
                                                     var cellDirection = member.game.map.TransformToCellId("RIGHT");
                                                     var cell = member.game.map.GetCellFromId(short.Parse(cellDirection));
                                                     member.Logger.LogDanger("SCRIPT", $"Je rejoins le leader du groupe en passant par la droite {cell.cellId}");
-                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.RIGHT, cell);
+                                                    member.game.manager.movimientos.get_Cambiar_Mapa(Game.Entidades.Manejadores.Movimientos.MapaTeleportCeldas.RIGHT, cell, true);
                                                 }
                                             }
                                         }
@@ -180,6 +180,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                                     else
                                     {
                                         account.Logger.LogDanger("SCRIPT", "Le membre n'est pas inactif ou est déjà sur la même map que le leader");
+                                        if (member.AccountState == AccountStates.FIGHTING && account.AccountState != AccountStates.FIGHTING)
+                                            account.AccountState = AccountStates.FIGHTING;
                                     }
                                 }
                                 catch(Exception ex)
