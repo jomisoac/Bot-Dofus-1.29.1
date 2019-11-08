@@ -325,6 +325,8 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             foreach (string interactivo in paquete.Substring(4).Split('|'))
             {
                 string[] separador = interactivo.Split(';');
+                if (separador.Length < 2)
+                    return;
                 Account cuenta = cliente.account;
                 short celda_id = short.Parse(separador[0]);
                 byte estado = byte.Parse(separador[1]);
