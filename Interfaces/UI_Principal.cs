@@ -229,6 +229,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
                             case 3://Mensaje privado
                                 cuenta.connexion.SendPacket("BM" + textBox_nombre_privado.Text + "|" + textBox_enviar_consola.Text + "|", true);
                                 break;
+
+                            case 4://Guilde
+                                cuenta.connexion.SendPacket("BM%|" + textBox_enviar_consola.Text + "|", true);
+                                break;
                         }
                     break;
                 }

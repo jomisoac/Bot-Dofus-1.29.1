@@ -8,6 +8,7 @@ using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory;
 using Bot_Dofus_1._29._1.Otros.Game.Character.Jobs;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
+using System.Threading.Tasks;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -86,6 +87,100 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
             else
                 canales = cadena_canales;
         }
+
+        async public void RepondreMessage(string MessageRecu,string sender)
+        {
+            string message = MessageRecu.ToLower();
+            string reponse = string.Empty;
+            var punctuation = message.Where(Char.IsPunctuation).Distinct().ToArray();
+            var words = message.Split().Select(x => x.Trim(punctuation));
+
+            int randomReponse=0;
+            var responsetime = new Random().Next(3500, 8900);
+
+            var Bonjour = new string[] { "bonjour", "bonsoir","salut","slt","yo" };
+            var etat = new string[] {"comment vas-tu", " ca va", "ça va", };
+            var bot = new string[] { "robot","bot","farmeur","automatiser" };
+            var adieu = new string[] {"++","tchao","bonne soiree","bonne soirée","bon jeu","bon aprem","bonne aprem" };
+            if (Bonjour.Any(words.Contains))
+            {
+                reponse = "Yop  ";
+            }
+            if (etat.Any(words.Contains))
+            {
+                randomReponse = new Random().Next(0, 3);
+                switch (randomReponse)
+                {
+                    case 1:
+                        reponse = reponse + "ca va merci pourquoi ?";
+                        break;
+                    case 2 :
+                        reponse = reponse + "Pépouse, je farm tranquil";
+                        break;
+                    case 3:
+                        reponse = reponse + "Ca va, on se connait ?";
+                        break;
+                }
+                        
+            }
+            if (bot.Any(words.Contains))
+            {
+                randomReponse = new Random().Next(0, 3);
+                switch (randomReponse)
+                {
+                    case 1:
+                            reponse = reponse + "Non je farm tranquillement avec un film à coté x)";
+                        break;
+                    case 2:
+                        reponse = reponse + "Ca hard farm en pls c'est tout xD";
+                        break;
+                    case 3:
+                        reponse = reponse + "Je me  fait des kamas pour payer mes captures RN  en mode chill";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (adieu.Any(words.Contains))
+            {
+                randomReponse = new Random().Next(0, 3);
+                switch (randomReponse)
+                {
+                    case 1:
+                        reponse = reponse + "Tchao !";
+                        break;
+                    case 2:
+                        reponse = reponse + "++";
+                        break;
+                    case 3:
+                        reponse = reponse + "See you soon !";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (reponse == string.Empty)
+            {
+                randomReponse = new Random().Next(0, 3);
+                switch (randomReponse)
+                {
+                    case 1:
+                        reponse = "Je full farm dsl jdesactive le canal privé";
+                        break;
+                    case 2:
+                        reponse = "Pas ltemps de répondre dsl  jfarm et téma un film :/";
+                        break;
+                    case 3:
+                        reponse = "Lo siento, no entiendo francés. Buenas tardes";
+                        break;
+                }
+               
+            }
+            await Task.Delay(responsetime);
+
+            _account.connexion.SendPacket("BM"+ sender+"|"+ reponse);
+        }
+
 
         public void eliminar_Canal_Personaje(string simbolo_canal) => canales = canales.Replace(simbolo_canal, string.Empty);
 

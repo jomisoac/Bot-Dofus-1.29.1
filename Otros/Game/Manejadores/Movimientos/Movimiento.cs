@@ -145,7 +145,6 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
 
             nodo.Value.Value.camino.celdas_accesibles.Insert(0, cuenta.game.fight.jugador_luchador.celda.cellId);
             List<Cell> lista_celdas = nodo.Value.Value.camino.celdas_accesibles.Select(c => mapa.GetCellFromId(c)).ToList();
-
             await cuenta.connexion.SendPacketAsync("GA001" + PathFinderUtil.get_Pathfinding_Limpio(lista_celdas), false);
             personaje.evento_Personaje_Pathfinding_Minimapa(lista_celdas);
         }
@@ -155,6 +154,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             var cellsNotPermitted = mapa.celdas_ocupadas().Where(c => c.cellType != CellTypes.TELEPORT_CELL).ToList();
             if (ignoreGroupOnSun)
                 cellsNotPermitted = new List<Cell>();
+            var t = new Random().Next(700, 1200);
+            Task.Delay(t);
+
             ResultadoMovimientos resultado = get_Mover_A_Celda(celda, cellsNotPermitted);
             switch (resultado)
             {

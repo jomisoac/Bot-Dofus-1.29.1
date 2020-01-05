@@ -67,7 +67,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 
                 if (resultado == FallosLanzandoHechizo.NINGUNO)
                 {
-                    await pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda.cellId);
+
+                        await pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda.cellId);
+                 
                     return ResultadoLanzandoHechizo.LANZADO;
                 }
 
@@ -141,13 +143,19 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private Luchadores get_Objetivo_Mas_Cercano(HechizoPelea hechizo)
         {
+
+            Spell Spell = cuenta.game.character.get_Hechizo(hechizo.id);
+
+            SpellStats SpellStats = Spell.get_Stats();
+            int range = SpellStats.alcanze_maximo;
+
             if (hechizo.focus == HechizoFocus.ENCIMA)
                 return pelea.jugador_luchador;
 
             if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return null;
 
-            return hechizo.focus == HechizoFocus.ENEMIGO ? pelea.get_Obtener_Enemigo_Mas_Cercano() : pelea.get_Obtener_Aliado_Mas_Cercano();
+            return hechizo.focus == HechizoFocus.ENEMIGO ? pelea.get_Obtener_Enemigo_Mas_Cercano(range) : pelea.get_Obtener_Aliado_Mas_Cercano();
         }
 
 

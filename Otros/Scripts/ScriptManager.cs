@@ -489,6 +489,93 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (account.fightExtension.configuracion.detener_regeneracion <= account.fightExtension.configuracion.iniciar_regeneracion)
                 return;
 
+
+            if(account.hasGroup == true)
+            {
+                int MaxLifeToRgenerate = 0;
+                int MaxTime = 0;
+                
+
+
+                /* régéneration leader */
+                int vida_final_leader = account.fightExtension.configuracion.detener_regeneracion * account.game.character.caracteristicas.vitalidad_maxima / 100;
+                int vida_para_regenerar_leader = vida_final_leader - account.game.character.caracteristicas.vitalidad_actual;
+
+                if (vida_para_regenerar_leader > 0)
+                {
+                    if (account.Is_Busy())
+                        return;
+                    await Task.Delay(1150);
+                    account.connexion.SendPacket("eU1", true);
+                    if (MaxLifeToRgenerate < vida_para_regenerar_leader)
+                    {
+                        MaxTime = vida_para_regenerar_leader / 2;
+                        MaxLifeToRgenerate = vida_para_regenerar_leader;
+                    }
+                }
+
+
+                /* regénratino du groupe */
+                foreach (var membre in account.group.members)
+                {
+                    int vida_final = membre.fightExtension.configuracion.detener_regeneracion * membre.game.character.caracteristicas.vitalidad_maxima / 100;
+                    int vida_para_regenerar = vida_final - membre.game.character.caracteristicas.vitalidad_actual;
+
+                    if (vida_para_regenerar > 0)
+                    {
+                        if (membre.Is_Busy())
+                            return;
+                        await Task.Delay(1150);
+                        membre.connexion.SendPacket("eU1", true);
+                        if (MaxLifeToRgenerate < vida_para_regenerar)
+                        {
+                            MaxTime= vida_para_regenerar / 2;
+                            MaxLifeToRgenerate = vida_para_regenerar;
+                        }
+                    }
+                }
+
+                int vida_final_leader2 = account.fightExtension.configuracion.detener_regeneracion * account.game.character.caracteristicas.vitalidad_maxima / 100;
+                int vida_para_regenerar_leader2 = vida_final_leader2 - account.game.character.caracteristicas.vitalidad_actual;
+                if (vida_para_regenerar_leader2 >0)
+                     account.Logger.LogInfo("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar_leader2}, temps: {MaxTime} secondes.");
+
+                
+                foreach (var membre in account.group.members)
+                {
+
+                    int vida_final = membre.fightExtension.configuracion.detener_regeneracion * membre.game.character.caracteristicas.vitalidad_maxima / 100;
+                    int vida_para_regenerar = vida_final - membre.game.character.caracteristicas.vitalidad_actual;
+                    if (vida_para_regenerar != 0)
+                        membre.Logger.LogInfo("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar}, temps: {MaxTime} secondes.");
+                }
+
+                for (int i = 0; i < MaxTime  && InExecution; i++)
+                    await Task.Delay(1000);
+
+                if (InExecution)
+                {
+                    if (account.AccountState == AccountStates.REGENERATION)
+                    {
+                        account.connexion.SendPacket("eU1", true);
+                        account.Logger.LogInfo("SCRIPTS", "Régénération terminée.");
+                    }
+
+                }
+
+                foreach (var membre in account.group.members)
+                {
+                    if (InExecution)
+                    {
+                        if (membre.AccountState == AccountStates.REGENERATION)
+                            membre.connexion.SendPacket("eU1", true);
+                           membre.Logger.LogInfo("SCRIPTS", "Régénération terminée.");
+                    }
+                }
+
+
+            }
+            else
             if (account.game.character.caracteristicas.porcentaje_vida <= account.fightExtension.configuracion.iniciar_regeneracion)
             {
                 int vida_final = account.fightExtension.configuracion.detener_regeneracion * account.game.character.caracteristicas.vitalidad_maxima / 100;

@@ -350,7 +350,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             "General",
             "Recrutement",
             "Commerce",
-            "Message Privé"});
+            "Message Privé",
+            "Guilde"});
             this.comboBox_lista_canales.Location = new System.Drawing.Point(3, 3);
             this.comboBox_lista_canales.Name = "comboBox_lista_canales";
             this.comboBox_lista_canales.Size = new System.Drawing.Size(130, 29);

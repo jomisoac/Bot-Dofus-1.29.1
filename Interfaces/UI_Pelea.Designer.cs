@@ -261,7 +261,7 @@
             this.checkbox_espectadores.Name = "checkbox_espectadores";
             this.checkbox_espectadores.Size = new System.Drawing.Size(235, 41);
             this.checkbox_espectadores.TabIndex = 0;
-            this.checkbox_espectadores.Text = "Désactiver le mode spectateur";
+            this.checkbox_espectadores.Text = "Désactiver spectateur";
             this.checkbox_espectadores.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkbox_espectadores.UseVisualStyleBackColor = true;
             this.checkbox_espectadores.CheckedChanged += new System.EventHandler(this.checkbox_espectadores_CheckedChanged);
@@ -379,7 +379,7 @@
             this.label_mensaje_regeneracion_1.Name = "label_mensaje_regeneracion_1";
             this.label_mensaje_regeneracion_1.Size = new System.Drawing.Size(41, 63);
             this.label_mensaje_regeneracion_1.TabIndex = 2;
-            this.label_mensaje_regeneracion_1.Text = "jusqu'à";
+            this.label_mensaje_regeneracion_1.Text = "jusqu\'à";
             // 
             // numericUp_regeneracion1
             // 

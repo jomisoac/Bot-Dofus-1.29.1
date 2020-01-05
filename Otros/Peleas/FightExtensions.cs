@@ -55,6 +55,8 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private async void get_Pelea_Turno_iniciado()
         {
+
+            cuenta.Logger.LogInfo($"Fight", $"Nombre de monstre restant :" + pelea.get_Enemigos.Count());
             hechizo_lanzado_index = 0;
             esperando_sequencia_fin = true;
 
@@ -136,7 +138,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             esperando_sequencia_fin = false;
             var t = new Random().Next(500, 900);
-            cuenta.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to move in fight");
+            cuenta.Logger.LogInfo($"Fight", $"Attente de  : {t} ms pour se déplacer en combat");
 
             await Task.Delay(t);
 
@@ -167,10 +169,21 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());
             else if (pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
+            else if(pelea.is_proche_7() && configuracion.tactica == Tactica.FUGITIVA)
+            {
+                cuenta.Logger.LogInfo($"Fight", $"Enemi prés de < 7 cases , on reculede " + pelea.jugador_luchador.pm + " PM ");
+                await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
+            }
+            else if (pelea.is_loin_8() && configuracion.tactica == Tactica.FUGITIVA)
+            {
+                cuenta.Logger.LogInfo($"Fight", $"Enemi loin de > 8 cases , on avance de " + pelea.jugador_luchador.pm + " PM ");
+                await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());
+            }
+
 
             pelea.get_Turno_Acabado();
             var t = new Random().Next(200, 500);
-            cuenta.Logger.LogInfo($"Fight", $"Waiting for : {t} ms to end turn ");
+            cuenta.Logger.LogInfo($"Fight", $"Attente de  {t} ms pour finir tour ");
             await Task.Delay(t);
             cuenta.connexion.SendPacket("Gt");
         }

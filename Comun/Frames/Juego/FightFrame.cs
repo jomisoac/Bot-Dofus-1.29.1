@@ -168,9 +168,30 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("GE")]
         public async Task get_End_FightAsync(TcpClient cliente, string paquete)
         {
+            string[] ListProp = paquete.Substring(2).Split('|');
+
+            int fightTime = Int32.Parse(ListProp[0]);
+            int xp = 0;
+            string FightTimeConverted = string.Empty;
             Account account = cliente.account;
 
-            account.game.fight.Fightfinished();
+            foreach (var item in ListProp)
+            {
+
+
+                if (item.Contains(account.game.character.nombre))
+                {
+                    string[] ListProp2 = item.Split(';');
+                     xp = Int32.Parse(ListProp2[8]);
+
+                    TimeSpan t = TimeSpan.FromMilliseconds(fightTime);
+                     FightTimeConverted = string.Format("{0:D2}m:{1:D2}s",
+                                            t.Minutes,
+                                            t.Seconds);
+                }
+            }
+
+            account.game.fight.Fightfinished(xp, FightTimeConverted);
             cliente.SendPacket("GC1");
 
             if(account.isGroupLeader)
@@ -178,6 +199,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 account.Logger.LogInfo("Fight", "Attente de 1500 ms");
                 await Task.Delay(1500);
             }
+
         }
 
         //[PaqueteAtributo("Gt")]

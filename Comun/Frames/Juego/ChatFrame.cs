@@ -49,6 +49,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                 case "F":
                     cliente.account.Logger.log_privado("Message Reçu", separador[2] + ": " + separador[3]);
+                    cliente.account.game.character.RepondreMessage(separador[3], separador[2]);
                 break;
 
                 case "T":
