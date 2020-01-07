@@ -20,27 +20,27 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
-    public class ManejadorHechizos : IDisposable
+    public class SpellsManager : IDisposable
     {
         private Account cuenta;
         private Map mapa;
-        private Pelea pelea;
+        private Fight pelea;
         private bool disposed;
 
-        public ManejadorHechizos(Account _cuenta)
+        public SpellsManager(Account _cuenta)
         {
             cuenta = _cuenta;
             mapa = cuenta.game.map;
             pelea = cuenta.game.fight;
         }
 
-        public async Task<ResultadoLanzandoHechizo> manejador_Hechizos(HechizoPelea hechizo)
+        public async Task<ResultadoLanzandoHechizo> manejador_Hechizos(HechizoPelea hechizo,bool capturer = false)
         {
             if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return await lanzar_Hechizo_Celda_Vacia(hechizo);
 
-            if(hechizo.metodo_lanzamiento == MetodoLanzamiento.AMBOS)
-                return await get_Lanzar_Hechizo_Simple(hechizo);
+            if (hechizo.metodo_lanzamiento == MetodoLanzamiento.AMBOS)
+                return await get_Lanzar_Hechizo_Simple(hechizo,capturer);
 
             if (hechizo.metodo_lanzamiento == MetodoLanzamiento.ALEJADO && !cuenta.game.fight.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
                 return await get_Lanzar_Hechizo_Simple(hechizo);
@@ -54,17 +54,80 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
 
-        private async Task<ResultadoLanzandoHechizo> get_Lanzar_Hechizo_Simple(HechizoPelea hechizo)
+        private async Task<ResultadoLanzandoHechizo> get_Lanzar_Hechizo_Simple(HechizoPelea hechizo,bool capturer= false)
         {
             if (pelea.get_Puede_Lanzar_hechizo(hechizo.id) != FallosLanzandoHechizo.NINGUNO)
                 return ResultadoLanzandoHechizo.NO_LANZADO;
 
             Luchadores enemigo = get_Objetivo_Mas_Cercano(hechizo);
 
+            /* gestion sort capture */
+            bool lancer_capture = is_Spell_capture_lancable();
+            if(cuenta.isGroupLeader== true)
+            {
+                if (cuenta.needToCapture == true && cuenta.game.fight.jugador_luchador.esta_vivo == false)
+                {
+                    capturer = false;
+                }
+            }
+            if (cuenta.hasGroup ==true)
+            {
+                foreach (var membre in cuenta.group.members)
+                {
+                    if(membre.needToCapture == true && membre.game.fight.jugador_luchador.esta_vivo ==false)
+                    {
+                        capturer = false;
+                    }
+                }
+            }
+                
+            if (lancer_capture == true &&  cuenta.needToCapture == false && cuenta.capturelance == false && capturer == true && cuenta.capturefight == true)
+            {
+                    cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Je lance pas de sort, la capture doit étre lancé par un autre le captureur");
+                    return ResultadoLanzandoHechizo.NO_LANZADO;
+            }
+            if (lancer_capture == true && cuenta.needToCapture == true && capturer == true &&  cuenta.capturelance == false && cuenta.capturefight ==true)
+            {
+                FallosLanzandoHechizo resultado2 = pelea.get_Puede_Lanzar_hechizo(413, pelea.jugador_luchador.celda, pelea.jugador_luchador.celda, mapa);
+                
+                if (resultado2 == FallosLanzandoHechizo.NINGUNO)
+                {
+                    cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Je lance la capture");
+                    await pelea.get_Lanzar_Hechizo(413, pelea.jugador_luchador.celda.cellId);
+                    
+                    if(cuenta.hasGroup == true)
+                    {
+                        cuenta.group.lider.capturelance = true;
+                        foreach (var item in cuenta.group.members)
+                        {
+                            item.capturelance = true;
+                        }
+                    }
+                    else
+                    {
+                        cuenta.capturelance = true;
+                    }
+                    return ResultadoLanzandoHechizo.LANZADO;
+                }
+                else
+                {
+                    cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Je doit lancer la capture mais pas possible ( manque PA ) ");
+                    return ResultadoLanzandoHechizo.NO_LANZADO;
+                }
+            }
+            else if(lancer_capture == false && hechizo.id == 413 && cuenta.needToCapture == true &&  capturer == true && cuenta.capturelance == false && cuenta.capturefight == true)
+            {
+                cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Pas le moment pour lancer la capture");
+                return ResultadoLanzandoHechizo.NO_LANZADO;
+            }
+            
+
+
+
             if (enemigo != null)
             {
                 FallosLanzandoHechizo resultado = pelea.get_Puede_Lanzar_hechizo(hechizo.id, pelea.jugador_luchador.celda, enemigo.celda, mapa);
-                
+
                 if (resultado == FallosLanzandoHechizo.NINGUNO)
                 {
                     await pelea.get_Lanzar_Hechizo(hechizo.id, enemigo.celda.cellId);
@@ -139,22 +202,51 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
 
-        private Luchadores get_Objetivo_Mas_Cercano(HechizoPelea hechizo)
+        private Luchadores get_Objetivo_Mas_Cercano(HechizoPelea hechizo, short sortId = 0)
         {
+         
+                Spell Spell = cuenta.game.character.get_Hechizo(hechizo.id);
+
+            if(sortId == 413)
+            {
+                return pelea.jugador_luchador;
+            }
+
+            SpellStats SpellStats = Spell.get_Stats();
+            int range = SpellStats.alcanze_maximo;
+
             if (hechizo.focus == HechizoFocus.ENCIMA)
                 return pelea.jugador_luchador;
 
             if (hechizo.focus == HechizoFocus.CELDA_VACIA)
                 return null;
 
-            return hechizo.focus == HechizoFocus.ENEMIGO ? pelea.get_Obtener_Enemigo_Mas_Cercano() : pelea.get_Obtener_Aliado_Mas_Cercano();
+            return hechizo.focus == HechizoFocus.ENEMIGO ? pelea.get_Obtener_Enemigo_Mas_Cercano(range) : pelea.get_Obtener_Aliado_Mas_Cercano();
+        }
+
+
+
+        private bool is_Spell_capture_lancable()
+        {
+            bool retour = false;
+            if (pelea.get_Enemigos.Count() == 1)
+            {
+                Luchadores dernierenemi = pelea.get_Obtener_Enemigo_Mas_Cercano();
+                int viePourcentage = (int)dernierenemi.vida_actual / dernierenemi.vida_maxima;
+
+                if (viePourcentage <= 70)
+                {
+                    retour = true;
+                }
+            }
+            return retour;
         }
 
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
-        ~ManejadorHechizos() => Dispose(false);
-        
+        ~SpellsManager() => Dispose(false);
+
         public virtual void Dispose(bool disposing)
         {
             if (!disposed)

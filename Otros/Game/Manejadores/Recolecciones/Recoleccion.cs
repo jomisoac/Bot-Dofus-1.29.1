@@ -61,7 +61,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
                     return true;
             }
 
-            cuenta.logger.log_Peligro("RECOLTE", "Aucun objet de collectable trouvé");
+            cuenta.Logger.LogDanger("RECOLTE", "Aucun objet de collectable trouvé");
             return false;
         }
 
@@ -120,7 +120,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
             switch (cuenta.game.manager.movimientos.get_Mover_A_Celda(interactivo_recolectando.celda, mapa.celdas_ocupadas(), true, distancia_detener))
             {
                 case ResultadoMovimientos.EXITO:
-                case ResultadoMovimientos.MISMA_CELDA:
+                case ResultadoMovimientos.SameCell:
                     get_Intentar_Recolectar_Interactivo();
                 return true;
 
@@ -161,12 +161,12 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
             if (cuenta.game.character.id != id_personaje)
             {
                 robado = true;
-                cuenta.logger.log_informacion("INFORMATION", "Un personnage a volé votre ressource.");
+                cuenta.Logger.LogInfo("INFORMATION", "Un personnage a volé votre ressource.");
                 evento_Recoleccion_Acabada(RecoleccionResultado.ROBADO, interactivo_recolectando.celda.cellId);
             }
             else
             {
-                cuenta.accountState = AccountStates.GATHERING;
+                cuenta.AccountState = AccountStates.GATHERING;
                 recoleccion_iniciada?.Invoke();
                 await Task.Delay(tiempo_delay);
                 cuenta.connexion.SendPacket("GKK" + tipo_gkk);
@@ -180,7 +180,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Recolecciones
 
             robado = false;
             interactivo_recolectando = null;
-            cuenta.accountState = AccountStates.CONNECTED_INACTIVE;
+            cuenta.AccountState = AccountStates.CONNECTED_INACTIVE;
             recoleccion_acabada?.Invoke(resultado);
         }
 

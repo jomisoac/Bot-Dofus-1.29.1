@@ -47,6 +47,21 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas.Entidades
             return false;
         }
 
+        public int get_number_monstre(int id)
+        {
+            int nombre = 0;
+            if (lider_grupo.template_id == id)
+                nombre++;
+
+            for (int i = 0; i < moobs_dentro_grupo.Count; i++)
+            {
+                if (moobs_dentro_grupo[i].template_id == id)
+                    nombre++;
+            }
+
+            return nombre;
+        }
+
         public void Dispose() => Dispose(true);
         ~Monstruos() => Dispose(false);
         

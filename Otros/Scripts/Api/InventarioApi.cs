@@ -19,10 +19,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Api
     public class InventarioApi : IDisposable
     {
         private Account cuenta;
-        private ManejadorAcciones manejar_acciones;
+        private ActionsManager manejar_acciones;
         private bool disposed = false;
 
-        public InventarioApi(Account _cuenta, ManejadorAcciones _manejar_acciones)
+        public InventarioApi(Account _cuenta, ActionsManager _manejar_acciones)
         {
             cuenta = _cuenta;
             manejar_acciones = _manejar_acciones;

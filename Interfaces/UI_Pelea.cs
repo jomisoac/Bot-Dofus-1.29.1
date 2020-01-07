@@ -48,7 +48,8 @@ namespace Bot_Dofus_1._29._1.Interfaces
             comboBox_lista_hechizos.ValueMember = "id";
             comboBox_lista_hechizos.DataSource = cuenta.game.character.hechizos.Values.ToList();
 
-            comboBox_lista_hechizos.SelectedIndex = 0;
+            if(cuenta.game.character.hechizos.Values.ToList().Count > 0)
+                comboBox_lista_hechizos.SelectedIndex = 0;
         }
 
         private void button_agregar_hechizo_Click(object sender, EventArgs e)
@@ -112,24 +113,24 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
                 if (celda_actual.cellId != celda_monstruo_destino.cellId & celda_monstruo_destino.cellId > 0)
                 {
-                    cuenta.logger.log_informacion("UI_PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino.cellId);
+                    cuenta.Logger.LogInfo("UI_PELEAS", "Monstruo encontrado en la casilla " + celda_monstruo_destino.cellId);
 
                     switch (cuenta.game.manager.movimientos.get_Mover_A_Celda(celda_monstruo_destino, new List<Cell>()))
                     {
                         case ResultadoMovimientos.EXITO:
-                            cuenta.logger.log_informacion("UI_PELEAS", "Desplazando para comenzar el combate");
+                            cuenta.Logger.LogInfo("UI_PELEAS", "Desplazando para comenzar el combate");
                         break;
 
-                        case ResultadoMovimientos.MISMA_CELDA:
+                        case ResultadoMovimientos.SameCell:
                         case ResultadoMovimientos.FALLO:
-                        case ResultadoMovimientos.PATHFINDING_ERROR:
-                            cuenta.logger.log_Error("UI_PELEAS", "El monstruo no esta en la casilla selecciona");
+                        case ResultadoMovimientos.PathfindingError:
+                            cuenta.Logger.LogError("UI_PELEAS", "El monstruo no esta en la casilla selecciona");
                         break;
                     }
                 }
             }
             else
-                cuenta.logger.log_Error("PELEAS", "No hay monstruos disponibles en el mapa");
+                cuenta.Logger.LogError("PELEAS", "No hay monstruos disponibles en el mapa");
         }
 
         private void checkbox_espectadores_CheckedChanged(object sender, EventArgs e)

@@ -16,7 +16,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas.Peleadores
 
         public int porcentaje_vida => (int)((double)vida_actual / vida_maxima) / 100;
 
-        public Luchadores(int _id, bool _esta_vivo, int _vida_actual, byte _pa, byte _pm, Cell _celda, int _vida_maxima, byte _equipo) => get_Actualizar_Luchador(_id, _esta_vivo, _vida_actual, _pa, _pm, _celda, _vida_maxima, _equipo);
+        public Luchadores(int _id, bool _esta_vivo, int _vida_actual, byte _pa, byte _pm, Cell _celda, int _vida_maxima, byte _equipo) => get_Actualizar_Luchador(_id, _esta_vivo, _vida_actual, _pa, _pm, _celda, _vida_maxima, _equipo,0);
 
         //invocaciones
         public Luchadores(int _id, bool _esta_vivo, int _vida_actual, byte _pa, byte _pm, Cell _celda, int _vida_maxima, byte _equipo, int _id_invocador) => get_Actualizar_Luchador(_id, _esta_vivo, _vida_actual, _pa, _pm, _celda, _vida_maxima, _equipo, _id_invocador);

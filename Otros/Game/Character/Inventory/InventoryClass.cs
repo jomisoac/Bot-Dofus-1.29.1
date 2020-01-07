@@ -96,7 +96,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
             if (paquete_eliminar)
             {
                 cuenta.connexion.SendPacket($"Od{obj.id_inventario}|{cantidad}");
-                cuenta.logger.log_informacion("INVENTAIRE", $"{cantidad} {obj.nombre} éliminée(s).");
+                cuenta.Logger.LogInfo("INVENTAIRE", $"{cantidad} {obj.nombre} éliminée(s).");
             }
 
             inventario_actualizado?.Invoke(true);
@@ -114,19 +114,19 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
         {
             if (objeto == null || objeto.cantidad == 0 || cuenta.Is_Busy())
             {
-                cuenta.logger.log_Error("INVENTAIRE", $"L'objet {objeto.nombre} ne peux être équipé");
+                cuenta.Logger.LogError("INVENTAIRE", $"L'objet {objeto.nombre} ne peux être équipé");
                 return false;
             }
 
             if (objeto.nivel > cuenta.game.character.nivel)
             {
-                cuenta.logger.log_Error("INVENTAIRE", $"Le niveau de l'objet {objeto.nombre} est supérieur à ton niveau");
+                cuenta.Logger.LogError("INVENTAIRE", $"Le niveau de l'objet {objeto.nombre} est supérieur à ton niveau");
                 return false;
             }
 
             if (objeto.posicion != InventorySlots.NOT_EQUIPPED)//objeto ya esta equipado
             {
-                cuenta.logger.log_Error("INVENTAIRE", $"l'objet {objeto.nombre} est équipé");
+                cuenta.Logger.LogError("INVENTAIRE", $"l'objet {objeto.nombre} est équipé");
                 return false;
             }
 
@@ -134,7 +134,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
 
             if (possibles_posiciones == null || possibles_posiciones.Count == 0)//objeto no equipable
             {
-                cuenta.logger.log_Error("INVENTARIO", $"L'objet {objeto.nombre} n'est pas équipable");
+                cuenta.Logger.LogError("INVENTARIO", $"L'objet {objeto.nombre} n'est pas équipable");
                 return false;
             }
 
@@ -143,7 +143,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
                 if (get_Objeto_en_Posicion(posicion) == null)
                 {
                     cuenta.connexion.SendPacket("OM" + objeto.id_inventario + "|" + (sbyte)posicion, true);
-                    cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} équipé.");
+                    cuenta.Logger.LogInfo("INVENTAIRE", $"{objeto.nombre} équipé.");
                     objeto.posicion = posicion;
                     inventario_actualizado?.Invoke(true);
                     return true;
@@ -162,7 +162,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
             if (objeto.cantidad == 1)
                 objeto.posicion = possibles_posiciones[0];
 
-            cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} équipé.");
+            cuenta.Logger.LogInfo("INVENTAIRE", $"{objeto.nombre} équipé.");
             inventario_actualizado?.Invoke(true);
             return true;
         }
@@ -177,7 +177,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
 
             cuenta.connexion.SendPacket("OM" + objeto.id_inventario + "|" + (sbyte)InventorySlots.NOT_EQUIPPED);
             objeto.posicion = InventorySlots.NOT_EQUIPPED;
-            cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} déséquipé.");
+            cuenta.Logger.LogInfo("INVENTAIRE", $"{objeto.nombre} déséquipé.");
             inventario_actualizado?.Invoke(true);
             return true;
         }
@@ -189,13 +189,13 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Inventory
 
             if(objeto.cantidad == 0)
             {
-                cuenta.logger.log_Error("INVENTAIRE", $"L'objet {objeto.nombre} ne peut être mis à cause de tes caractéristiques");
+                cuenta.Logger.LogError("INVENTAIRE", $"L'objet {objeto.nombre} ne peut être mis à cause de tes caractéristiques");
                 return;
             }
 
             cuenta.connexion.SendPacket("OU" + objeto.id_inventario + "|");
             eliminar_Objeto(objeto, 1, false);
-            cuenta.logger.log_informacion("INVENTAIRE", $"{objeto.nombre} utilisée.");
+            cuenta.Logger.LogInfo("INVENTAIRE", $"{objeto.nombre} utilisée.");
         }
 
         public void evento_Almacenamiento_Abierto() => almacenamiento_abierto?.Invoke();

@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 {
-    internal class PeleaFrame : Frame
+    internal class FightFrame : Frame
     {
         [PaqueteAtributo("GP")]
         public void get_Combate_Celdas_Posicion(TcpClient cliente, string paquete)
@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             if(cliente.account.IsFighting())
             {
-                await Task.Delay(150);
+                await Task.Delay(2850);
                 cliente.SendPacket("GR1");//boton listo
             }
         }
@@ -68,9 +68,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 id_entidad = int.Parse(posicion.Split(';')[0]);
                 celda = short.Parse(posicion.Split(';')[1]);
 
-                if (id_entidad == cuenta.game.character.id)
+                if (id_entidad == cuenta.game.character.id )
                 {
-                    await Task.Delay(150);
+                    await Task.Delay(2850);
                     cliente.SendPacket("GR1");//boton listo
                 }
 
@@ -106,6 +106,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         if (celda > 0)//son espectadores
                         {
                             byte equipo = Convert.ToByte(id > 0 ? 1 : 0);
+                            if (luchador == null)
+                            {
+                                luchador = new Luchadores(id, esta_vivo, vida_actual, pa, pm, mapa.GetCellFromId(celda), vida_maxima, equipo);
+                                cliente.account.game.fight.get_Agregar_Luchador(luchador);
+                            }
                             luchador?.get_Actualizar_Luchador(id, esta_vivo, vida_actual, pa, pm, mapa.GetCellFromId(celda), vida_maxima, equipo);
                         }
                     }
@@ -128,7 +133,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GJK")]
-        public void get_Combate_Unirse_Pelea(TcpClient cliente, string paquete)
+        public async void get_Combate_Unirse_Pelea(TcpClient cliente, string paquete)
         {
             Account cuenta = cliente.account;
 
@@ -143,13 +148,17 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 case 2:
                 case 3:
                 case 4:
-                    cuenta.game.fight.get_Combate_Creado();
+                    if (cuenta.isGroupLeader == true)
+                    {
+                        cuenta.game.fight.Block_OnlyForgroupe();
+                    }
+                    await cuenta.game.fight.FightCreatedAsync();
                break;
             }
         }
 
         [PaqueteAtributo("GTS")]
-        public void get_Combate_Inicio_Turno(TcpClient cliente, string paquete)
+        public void get_Fight_Start_Turn(TcpClient cliente, string paquete)
         {
             Account cuenta = cliente.account;
 
@@ -161,12 +170,42 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GE")]
-        public void get_Combate_Finalizado(TcpClient cliente, string paquete)
+        public async Task get_End_FightAsync(TcpClient cliente, string paquete)
         {
-            Account cuenta = cliente.account;
+            string[] ListProp = paquete.Substring(2).Split('|');
 
-            cuenta.game.fight.get_Combate_Acabado();
+            int fightTime = Int32.Parse(ListProp[0]);
+            int xp = 0;
+            string FightTimeConverted = string.Empty;
+            Account account = cliente.account;
+
+            foreach (var item in ListProp)
+            {
+
+
+                if (item.Contains(account.game.character.nombre))
+                {
+                    string[] ListProp2 = item.Split(';');
+                     xp = Int32.Parse(ListProp2[8]);
+
+                    TimeSpan t = TimeSpan.FromMilliseconds(fightTime);
+                     FightTimeConverted = string.Format("{0:D2}m:{1:D2}s",
+                                            t.Minutes,
+                                            t.Seconds);
+                }
+            }
+
+            account.game.fight.Fightfinished(xp, FightTimeConverted);
             cliente.SendPacket("GC1");
+
+            if(account.isGroupLeader)
+            {
+                account.Logger.LogInfo("Fight", "Attente de 1500 ms");
+                await Task.Delay(1500);
+            }
+
         }
+
+
     }
 }

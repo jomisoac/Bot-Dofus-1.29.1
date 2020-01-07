@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 {
-    internal class MapaFrame : Frame
+    internal class MapFrame : Frame
     {
         [PaqueteAtributo("GM")]
         public async Task get_Movimientos_Personajes(TcpClient cliente, string paquete)
@@ -41,7 +41,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     if (_loc6[0].Equals('+'))
                     {
                         Cell celda = cuenta.game.map.GetCellFromId(short.Parse(informaciones[0]));
-                        Pelea pelea = cuenta.game.fight;
+                        Fight pelea = cuenta.game.fight;
                         int id = int.Parse(informaciones[3]);
                         nombre_template = informaciones[4];
                         tipo = informaciones[5];
@@ -52,7 +52,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         {
                             case -1:
                             case -2:
-                                if (cuenta.accountState == AccountStates.FIGHTING)
+                                if (cuenta.AccountState == AccountStates.FIGHTING)
                                 {
                                     int vida = int.Parse(informaciones[12]);
                                     byte pa = byte.Parse(informaciones[13]);
@@ -82,14 +82,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                             case -5:
                             case -6:
-                            case -7:
                             case -8:
                             case -9:
                             case -10:
                                 break;
-
                             default:// jugador
-                                if (cuenta.accountState != AccountStates.FIGHTING)
+                                if (cuenta.AccountState != AccountStates.FIGHTING)
                                 {
                                     if (cuenta.game.character.id != id)
                                         cuenta.game.map.entities.TryAdd(id, new Personajes(id, nombre_template, byte.Parse(informaciones[7].ToString()), celda));
@@ -129,7 +127,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                     }
                     else if (_loc6[0].Equals('-'))
                     {
-                        if (cuenta.accountState != AccountStates.FIGHTING)
+                        if (cuenta.AccountState != AccountStates.FIGHTING)
                         {
                             int id = int.Parse(_loc6.Substring(1));
                             cuenta.game.map.entities.TryRemove(id, out Entidad entidad);
@@ -165,7 +163,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 Cell celda;
                 Luchadores luchador;
                 Map mapa = cuenta.game.map;
-                Pelea pelea = cuenta.game.fight;
+                Fight pelea = cuenta.game.fight;
 
                 switch (id_accion)
                 {
@@ -185,7 +183,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                 entidad.celda = celda;
 
                                 if (GlobalConfig.show_debug_messages)
-                                    cuenta.logger.log_informacion("DEBUG", "Mouvement détecté d'une entité vers la cellule : " + celda.cellId);
+                                    cuenta.Logger.LogInfo("DEBUG", "Mouvement détecté d'une entité vers la cellule : " + celda.cellId);
                             }
                             mapa.GetEntitiesRefreshEvent();
                         }
@@ -275,7 +273,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                             if (luchador != null && luchador.id == personaje.id)
                             {
-                                cuenta.logger.log_Error("INFORMATION", "Il n'est pas possible d'effectuer cette action à cause d'un obstacle invisible.");
+                                cuenta.Logger.LogError("INFORMATION", "Il n'est pas possible d'effectuer cette action à cause d'un obstacle invisible.");
                                 pelea.get_Hechizo_Lanzado(short.Parse(separador[3]), false);
                             }
                         }
@@ -289,7 +287,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         byte pm = byte.Parse(separador[17]);
                         byte equipo = byte.Parse(separador[25]);
 
-                        pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, celda, vida, equipo, id_entidad));
+                        pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, celda, vida, equipo, 10));
                         break;
 
                     case 302://fallo critico
@@ -315,7 +313,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                     case 900:
                         cuenta.connexion.SendPacket("GA902" + id_entidad, true);
-                        cuenta.logger.log_informacion("INFORMATION", "Le défi avec le personnage ID : " + id_entidad + " est annulée");
+                        cuenta.Logger.LogInfo("INFORMATION", "Le défi avec le personnage ID : " + id_entidad + " est annulée");
                         break;
                 }
             }
@@ -327,6 +325,8 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             foreach (string interactivo in paquete.Substring(4).Split('|'))
             {
                 string[] separador = interactivo.Split(';');
+                if (separador.Length < 2)
+                    return;
                 Account cuenta = cliente.account;
                 short celda_id = short.Parse(separador[0]);
                 byte estado = byte.Parse(separador[1]);

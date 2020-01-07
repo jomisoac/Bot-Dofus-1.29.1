@@ -13,7 +13,7 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
         private Dictionary<Account, ManualResetEvent> cuentas_acabadas;
 
         public Account lider { get; private set; }
-        public ObservableCollection<Account> miembros { get; private set; }
+        public ObservableCollection<Account> members { get; private set; }
         private bool disposed;
 
         public Grupo(Account _lider)
@@ -21,54 +21,54 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
             agrupamiento = new Agrupamiento(this);
             cuentas_acabadas = new Dictionary<Account, ManualResetEvent>();
             lider = _lider;
-            miembros = new ObservableCollection<Account>();
+            members = new ObservableCollection<Account>();
 
             lider.group = this;
         }
 
         public void agregar_Miembro(Account miembro)
         {
-            if (miembros.Count >= 7)//dofus solo se pueden 8 personaje en un grupo
+            if (members.Count >= 7)//dofus solo se pueden 8 personaje en un grupo
                 return;
 
             miembro.group = this;
-            miembros.Add(miembro);
+            members.Add(miembro);
             cuentas_acabadas.Add(miembro, new ManualResetEvent(false));
         }
 
-        public void eliminar_Miembro(Account miembro) => miembros.Remove(miembro);
+        public void eliminar_Miembro(Account miembro) => members.Remove(miembro);
 
         public void conectar_Cuentas()
         {
             lider.Connect();
 
-            foreach (Account miembro in miembros)
+            foreach (Account miembro in members)
                 miembro.Connect();
         }
 
         public void desconectar_Cuentas()
         {
-            foreach (Account miembro in miembros)
+            foreach (Account miembro in members)
                 miembro.Disconnect();
         }
 
         #region Acciones
-        public void enqueue_Acciones_Miembros(AccionesScript accion, bool iniciar_dequeue = false)
+        public void enqueue_Acciones_Miembros(ScriptAction accion, bool iniciar_dequeue = false)
         {
             if (accion is PeleasAccion)
             {
-                foreach (Account miembro in miembros)
+                foreach (Account miembro in members)
                     cuentas_acabadas[miembro].Set();
                 return;
             }
 
-            foreach (Account miembro in miembros)
-                miembro.script.manejar_acciones.enqueue_Accion(accion, iniciar_dequeue);
+            foreach (Account miembro in members)
+                miembro.script.actions_manager.enqueue_Accion(accion, iniciar_dequeue);
 
             if (iniciar_dequeue)
             {
-                for (int i = 0; i < miembros.Count; i++)
-                    cuentas_acabadas[miembros[i]].Reset();
+                for (int i = 0; i < members.Count; i++)
+                    cuentas_acabadas[members[i]].Reset();
             }
         }
 
@@ -76,7 +76,7 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
 
         private void miembro_Acciones_Acabadas(Account cuenta)
         {
-            cuenta.logger.log_informacion("GROUPE", "Actions terminées");
+            cuenta.Logger.LogInfo("GROUPE", "Actions terminées");
             cuentas_acabadas[cuenta].Set();
         }
         #endregion
@@ -94,17 +94,17 @@ namespace Bot_Dofus_1._29._1.Otros.Grupos
                     agrupamiento.Dispose();
                     lider.Dispose();
 
-                    for (int i = 0; i < miembros.Count; i++)
+                    for (int i = 0; i < members.Count; i++)
                     {
-                        miembros[i].Dispose();
+                        members[i].Dispose();
                     }
                 }
 
                 agrupamiento = null;
                 cuentas_acabadas.Clear();
                 cuentas_acabadas = null;
-                miembros.Clear();
-                miembros = null;
+                members.Clear();
+                members = null;
                 lider = null;
 
                 disposed = true;

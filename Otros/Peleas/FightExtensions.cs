@@ -18,24 +18,24 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Peleas
 {
-    public class PeleaExtensiones : IDisposable
+    public class FightExtensions : IDisposable
     {
         public PeleaConf configuracion { get; set; }
         private Account cuenta;
-        private ManejadorHechizos manejador_hechizos;
-        private Pelea pelea;
+        private SpellsManager manejador_hechizos;
+        private Fight pelea;
 
         private int hechizo_lanzado_index;
         private bool esperando_sequencia_fin;
         private bool disposed;
+        private bool capturerFight { get; set; } = false;
 
-        public PeleaExtensiones(Account _cuenta)
+        public FightExtensions(Account _cuenta,bool needtocapture = false)
         {
             cuenta = _cuenta;
             configuracion = new PeleaConf(cuenta);
-            manejador_hechizos = new ManejadorHechizos(cuenta);
+            manejador_hechizos = new SpellsManager(cuenta);
             pelea = cuenta.game.fight;
-
             get_Eventos();
         }
 
@@ -55,6 +55,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         private async void get_Pelea_Turno_iniciado()
         {
+
+            cuenta.Logger.LogInfo($"Fight", $"Nombre de monstre restant :" + pelea.get_Enemigos.Count());
+           
             hechizo_lanzado_index = 0;
             esperando_sequencia_fin = true;
 
@@ -87,7 +90,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 return;
             }
 
-            ResultadoLanzandoHechizo resultado = await manejador_hechizos.manejador_Hechizos(hechizo_actual);
+            ResultadoLanzandoHechizo resultado = await manejador_hechizos.manejador_Hechizos(hechizo_actual,pelea.account.capturefight);
             switch (resultado)
             {
                 case ResultadoLanzandoHechizo.NO_LANZADO:
@@ -136,7 +139,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
             esperando_sequencia_fin = false;
             var t = new Random().Next(500, 900);
-            cuenta.logger.log_informacion($"Fight", $"Waiting for : {t} ms to move in fight");
+            cuenta.Logger.LogInfo($"Fight", $"Attente de  : {t} ms pour se déplacer en combat");
 
             await Task.Delay(t);
 
@@ -158,23 +161,31 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             hechizo_actual.lanzamientos_restantes = hechizo_actual.lanzamientos_x_turno;
             hechizo_lanzado_index++;
 
-            var t = new Random().Next(500, 900);
-            cuenta.logger.log_informacion($"Fight", $"Waiting for : {t} ms to cast the spell");
-            await Task.Delay(t);
             await get_Procesar_hechizo();
         }
 
         private async Task get_Fin_Turno()
         {
-            var t = new Random().Next(500, 900);
-            cuenta.logger.log_informacion($"Fight", $"Waiting for : {t} ms to end turn ");
-            await Task.Delay(t);
             if (!pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.AGRESIVA)
                 await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());
             else if (pelea.esta_Cuerpo_A_Cuerpo_Con_Enemigo() && configuracion.tactica == Tactica.FUGITIVA)
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
+            else if(pelea.is_proche_7() && configuracion.tactica == Tactica.FUGITIVA)
+            {
+                cuenta.Logger.LogInfo($"Fight", $"Enemi prés de < 9 cases , on recule de " + pelea.jugador_luchador.pm + " PM ");
+                await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
+            }
+            else if (pelea.is_loin_8() && configuracion.tactica == Tactica.FUGITIVA)
+            {
+                cuenta.Logger.LogInfo($"Fight", $"Enemi loin de > 12 cases , on avance de " + pelea.jugador_luchador.pm + " PM ");
+                await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());
+            }
+
 
             pelea.get_Turno_Acabado();
+            var t = new Random().Next(200, 500);
+            cuenta.Logger.LogInfo($"Fight", $"Attente de  {t} ms pour finir tour ");
+            await Task.Delay(t);
             cuenta.connexion.SendPacket("Gt");
         }
 
@@ -217,7 +228,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
-        ~PeleaExtensiones() => Dispose(false);
+        ~FightExtensions() => Dispose(false);
         
         public virtual void Dispose(bool disposing)
         {

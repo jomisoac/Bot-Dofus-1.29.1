@@ -13,19 +13,19 @@ using System.Threading.Tasks;
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
 {
-    public class NpcBancoAccion : AccionesScript
+    public class NpcBankAction : ScriptAction
     {
         public int npc_id { get; private set; }
 
-        public NpcBancoAccion(int _npc_id) => npc_id = _npc_id;
+        public NpcBankAction(int _npc_id) => npc_id = _npc_id;
 
-        internal override Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account account)
         {
-            if (cuenta.Is_Busy())
+            if (account.Is_Busy())
                 return resultado_fallado;
 
             Otros.Mapas.Entidades.Npcs npc = null;
-            IEnumerable<Otros.Mapas.Entidades.Npcs> npcs = cuenta.game.map.lista_npcs();
+            IEnumerable<Otros.Mapas.Entidades.Npcs> npcs = account.game.map.lista_npcs();
 
             if (npc_id < 0)
             {
@@ -42,7 +42,12 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Npcs
             if (npc == null)
                 return resultado_fallado;
 
-            cuenta.connexion.SendPacket("DC" + npc.id, true);
+            account.connexion.SendPacket("DC" + npc.id, true);
+            if (account.hasGroup && account.isGroupLeader)
+            {
+                foreach (var follower in account.group.members)
+                    follower.connexion.SendPacket("DC" + npc.id, true);
+            }
             return resultado_procesado;
         }
     }

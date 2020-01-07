@@ -11,8 +11,13 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
     public enum ResultadoMovimientos
     {
         EXITO,
-        MISMA_CELDA,
+        SameCell,
         FALLO,
-        PATHFINDING_ERROR
+        PathfindingError,
+        CellRangeError,
+        CharacterBusyOrFull,
+        CellNotWalkable,
+        CellIsTypeOfInteractiveObject,
+        MonsterOnSun
     }
 }

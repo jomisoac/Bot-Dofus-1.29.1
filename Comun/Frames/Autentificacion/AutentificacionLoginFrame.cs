@@ -17,35 +17,35 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
         [PaqueteAtributo("AlEf")]
         public void WrongCredentialsError(TcpClient prmClient, string prmPacket)
         {
-            prmClient.account.logger.log_Error("LOGIN", "Connexion rejetée. Nom de compte ou mot de passe incorrect.");
+            prmClient.account.Logger.LogError("LOGIN", "Connexion rejetée. Nom de compte ou mot de passe incorrect.");
             prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEa")]
         public void AlreadyConnectedError(TcpClient prmClient, string prmPacket)
         {
-            prmClient.account.logger.log_Error("LOGIN", "Déjà connecté. Essayez encore une fois.");
+            prmClient.account.Logger.LogError("LOGIN", "Déjà connecté. Essayez encore une fois.");
             prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEv")]
         public void WrongVersionError(TcpClient prmClient, string prmPacket)
         {
-            prmClient.account.logger.log_Error("LOGIN", "La version %1 de Dofus que vous avez installée n'est pas compatible avec ce serveur. Pour jouer, installez la version %2. Le client DOFUS sera fermé.");
+            prmClient.account.Logger.LogError("LOGIN", "La version %1 de Dofus que vous avez installée n'est pas compatible avec ce serveur. Pour jouer, installez la version %2. Le client DOFUS sera fermé.");
             prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEb")]
         public void AccountBannedError(TcpClient prmClient, string prmPacket)
         {
-            prmClient.account.logger.log_Error("LOGIN", "Connexion rejetée. Votre compte a été banni.");
+            prmClient.account.Logger.LogError("LOGIN", "Connexion rejetée. Votre compte a été banni.");
             prmClient.account.Disconnect();
         }
 
         [PaqueteAtributo("AlEd")]
         public void AlreadyConnectingError(TcpClient prmClient, string prmPacket)
         {
-            prmClient.account.logger.log_Error("LOGIN", "Ce compte est déjà connecté à un serveur de jeu. Veuillez réessayer.");
+            prmClient.account.Logger.LogError("LOGIN", "Ce compte est déjà connecté à un serveur de jeu. Veuillez réessayer.");
             prmClient.account.Disconnect();
         }
 
@@ -63,7 +63,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Autentificacion
             if (minutes > 0)
                 banInformationsMessage.Append(minutes + " minutes");
 
-            prmClient.account.logger.log_Error("LOGIN", banInformationsMessage.ToString());
+            prmClient.account.Logger.LogError("LOGIN", banInformationsMessage.ToString());
             prmClient.account.Disconnect();
         }
     }

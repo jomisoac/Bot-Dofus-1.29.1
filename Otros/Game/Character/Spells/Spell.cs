@@ -37,6 +37,10 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character.Spells
         }
 
         public SpellStats get_Stats() => statsHechizos[nivel];
-        public static Spell get_Hechizo(short id) => hechizos_cargados[id];
+        public static Spell get_Hechizo(short id)
+        {
+            Spell value;
+            return hechizos_cargados.TryGetValue(id, out value) ? value : null;
+        }
     }
 }

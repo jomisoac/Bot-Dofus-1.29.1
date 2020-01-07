@@ -24,14 +24,18 @@ namespace Bot_Dofus_1._29._1.Otros
         public string nickname { get; set; } = string.Empty;
         public string welcomeKey { get; set; } = string.Empty;
         public string gameTicket { get; set; } = string.Empty;
-        public Logger logger { get; private set; }
+        public bool needToCapture { get; set; } = false;
+        public bool capturelance { get; set; } = false;
+        public Logger Logger { get; private set; }
         public TcpClient connexion { get; set; }
         public GameClass game { get; private set; }
-        public ManejadorScript script { get; set; }
-        public PeleaExtensiones fightExtension { get; set; }
+        public ScriptManager script { get; set; }
+        public FightExtensions fightExtension { get; set; }
         public AccountConfig accountConfig { get; private set; }
         private AccountStates _accountState = AccountStates.DISCONNECTED;
         public bool canUseMount = false;
+        public bool isInGroupInGame { get; set; } = false;
+        public bool capturefight { get; set; } = false;
 
         public Grupo group { get; set; }
         public bool hasGroup => group != null;
@@ -44,10 +48,10 @@ namespace Bot_Dofus_1._29._1.Otros
         public Account(AccountConfig prmAccountConfig)
         {
             accountConfig = prmAccountConfig;
-            logger = new Logger();
+            Logger = new Logger();
             game = new GameClass(this);
-            fightExtension = new PeleaExtensiones(this);
-            script = new ManejadorScript(this);
+            fightExtension = new FightExtensions(this, capturefight);
+            script = new ScriptManager(this);
         }
 
         public void Connect()
@@ -63,7 +67,7 @@ namespace Bot_Dofus_1._29._1.Otros
 
             script.detener_Script();
             game.Clear();
-            accountState = AccountStates.DISCONNECTED;
+            AccountState = AccountStates.DISCONNECTED;
             accountDisconnectEvent?.Invoke();
         }
 
@@ -73,7 +77,7 @@ namespace Bot_Dofus_1._29._1.Otros
             connexion.ConnectToServer(IPAddress.Parse(ip), port);
         }
 
-        public AccountStates accountState
+        public AccountStates AccountState
         {
             get => _accountState;
             set
@@ -83,11 +87,11 @@ namespace Bot_Dofus_1._29._1.Otros
             }
         }
 
-        public bool Is_Busy() => accountState != AccountStates.CONNECTED_INACTIVE && accountState != AccountStates.REGENERATION;
-        public bool Is_In_Dialog() => accountState == AccountStates.STORAGE || accountState == AccountStates.DIALOG || accountState == AccountStates.EXCHANGE || accountState == AccountStates.BUYING || accountState == AccountStates.SELLING;
-        public bool IsFighting() => accountState == AccountStates.FIGHTING;
-        public bool IsGathering() => accountState == AccountStates.GATHERING;
-        public bool IsMoving() => accountState == AccountStates.MOVING;
+        public bool Is_Busy() => AccountState != AccountStates.CONNECTED_INACTIVE && AccountState != AccountStates.REGENERATION;
+        public bool Is_In_Dialog() => AccountState == AccountStates.STORAGE || AccountState == AccountStates.DIALOG || AccountState == AccountStates.EXCHANGE || AccountState == AccountStates.BUYING || AccountState == AccountStates.SELLING;
+        public bool IsFighting() => AccountState == AccountStates.FIGHTING;
+        public bool IsGathering() => AccountState == AccountStates.GATHERING;
+        public bool IsMoving() => AccountState == AccountStates.MOVING;
 
         #region Zona Dispose
         public void Dispose() => Dispose(true);
@@ -103,11 +107,11 @@ namespace Bot_Dofus_1._29._1.Otros
                     connexion?.Dispose();
                     game.Dispose();
                 }
-                accountState = AccountStates.DISCONNECTED;
+                AccountState = AccountStates.DISCONNECTED;
                 script = null;
                 welcomeKey = null;
                 connexion = null;
-                logger = null;
+                Logger = null;
                 game = null;
                 nickname = null;
                 accountConfig = null;

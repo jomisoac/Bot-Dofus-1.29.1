@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Bot_Dofus_1._29._1.Comun.Network;
+using Bot_Dofus_1._29._1.Utilities.Extensions;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -31,12 +32,19 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Transporte
             }
         }
 
-        public static void Recibir(TcpClient cliente, string paquete)
+        public static void Recibir(TcpClient client, string packet)
         {
-            PaqueteDatos metodo = metodos.Find(m => paquete.StartsWith(m.nombre_paquete));
+            PaqueteDatos method = metodos.Find(m => packet.StartsWith(m.nombre_paquete));
 
-            if (metodo != null)
-                metodo.informacion.Invoke(metodo.instancia, new object[2] { cliente, paquete });
+            try
+            {
+                if (method != null)
+                    method.information.Invoke(method.instance, new object[2] { client, packet });
+            }
+            catch(Exception ex)
+            {
+                client.account.Logger.LogException("Network", ex);
+            }
         }
     }
 }

@@ -10,13 +10,20 @@
 
 namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
 {
-    class CerrarVentanaAccion : AccionesScript
+    class CerrarVentanaAccion : ScriptAction
     {
-        internal override Task<ResultadosAcciones> proceso(Account cuenta)
+        internal override Task<ResultadosAcciones> process(Account account)
         {
-            if (cuenta.Is_In_Dialog())
+            if (account.Is_In_Dialog())
             {
-                cuenta.connexion.SendPacket("EV");
+                account.connexion.SendPacket("EV");
+                if (account.hasGroup && account.isGroupLeader)
+                {
+                    foreach (var member in account.group.members)
+                    {
+                        member.connexion.SendPacket("EV");
+                    }
+                }
                 return resultado_procesado;
             }
 

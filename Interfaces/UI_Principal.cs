@@ -4,6 +4,7 @@ using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Character;
 using Bot_Dofus_1._29._1.Utilities.Extensions;
 using Bot_Dofus_1._29._1.Utilities.Logs;
+using MoonSharp.Interpreter;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -37,7 +38,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
             cuenta.accountStateEvent += eventos_Estados_Cuenta;
             cuenta.accountDisconnectEvent += desconectar_Cuenta;
-            cuenta.logger.log_event += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
+            cuenta.Logger.log_event += (mensaje, color) => escribir_mensaje(mensaje.ToString(), color);
 
             cuenta.script.evento_script_cargado += evento_Scripts_Cargado;
             cuenta.script.evento_script_iniciado += evento_Scripts_Iniciado;
@@ -130,7 +131,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void eventos_Estados_Cuenta()
         {
-            switch (cuenta.accountState)
+            switch (cuenta.AccountState)
             {
                 case AccountStates.DISCONNECTED:
                     cambiar_Tab_Imagen(Properties.Resources.circulo_rojo);
@@ -146,7 +147,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
 
             if (cuenta != null && Principal.cuentas_cargadas.ContainsKey(nombre_cuenta))
-                Principal.cuentas_cargadas[nombre_cuenta].cabezera.propiedad_Estado = cuenta.accountState.cadena_Amigable();
+                Principal.cuentas_cargadas[nombre_cuenta].cabezera.propiedad_Estado = cuenta.AccountState.cadena_Amigable();
         }
 
         private void agregar_Tab_Pagina(string nombre, UserControl control, int imagen_index)
@@ -181,7 +182,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void canal_Chat_Click(object sender, EventArgs e)
         {
-            if (cuenta?.accountState != AccountStates.DISCONNECTED && cuenta?.accountState != AccountStates.CONNECTED)
+            if (cuenta?.AccountState != AccountStates.DISCONNECTED && cuenta?.AccountState != AccountStates.CONNECTED)
             {
                 string[] canales = { "i", "*", "#$p", "%", "!", "?", ":", "^" };
                 CheckBox control = sender as CheckBox;
@@ -229,6 +230,10 @@ namespace Bot_Dofus_1._29._1.Interfaces
                             case 3://Mensaje privado
                                 cuenta.connexion.SendPacket("BM" + textBox_nombre_privado.Text + "|" + textBox_enviar_consola.Text + "|", true);
                                 break;
+
+                            case 4://Guilde
+                                cuenta.connexion.SendPacket("BM%|" + textBox_enviar_consola.Text + "|", true);
+                                break;
                         }
                     break;
                 }
@@ -263,7 +268,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
             catch (Exception ex)
             {
-                cuenta.logger.log_Error("SCRIPT", ex.Message);
+                cuenta.Logger.LogError("SCRIPT", ex.Message);
             }
         }
 
@@ -315,23 +320,31 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void escribir_mensaje(string mensaje, string color)
         {
-            if (!IsHandleCreated)
-                return;
-
-            textbox_logs.BeginInvoke((Action)(() =>
+            try
             {
-                textbox_logs.Select(textbox_logs.TextLength, 0);
-                textbox_logs.SelectionColor = ColorTranslator.FromHtml("#" + color);
-                textbox_logs.AppendText(mensaje + Environment.NewLine);
-                textbox_logs.ScrollToCaret();
-            }));
+
+                if (!IsHandleCreated)
+                    return;
+
+                textbox_logs.BeginInvoke((Action)(() =>
+                {
+                    textbox_logs.Select(textbox_logs.TextLength, 0);
+                    textbox_logs.SelectionColor = ColorTranslator.FromHtml("#" + color);
+                    textbox_logs.AppendText(mensaje + Environment.NewLine);
+                    textbox_logs.ScrollToCaret();
+                }));
+            }
+            catch(Exception e)
+            {
+                cuenta.Logger.LogException("UIPrincipal", e);
+            }
         }
         #endregion
 
         #region Scripts
         private void iniciarScriptToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!cuenta.script.activado)
+            if (!cuenta.script.Activated)
                 cuenta.script.activar_Script();
             else
                 cuenta.script.detener_Script();
@@ -339,7 +352,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void evento_Scripts_Cargado(string nombre)
         {
-            cuenta.logger.log_informacion("SCRIPT", $"'{nombre}' chargée.");
+            cuenta.Logger.LogInfo("SCRIPT", $"'{nombre}' chargée.");
             BeginInvoke((Action)(() =>
             {
                 ScriptTituloStripMenuItem.Text = $"{(nombre.Length > 16 ? nombre.Substring(0, 16) : nombre)}";
@@ -349,7 +362,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void evento_Scripts_Iniciado()
         {
-            cuenta.logger.log_informacion("SCRIPT", "Initié");
+            if(cuenta.script.actions_manager.manejador_script.get_Global_Or("COMPTEUR_COMBAT", DataType.Boolean, false) == true)
+            {
+                cuenta.Logger.LogInfo("SCRIPT", "Initié avec capture");
+            }
+            else
+            cuenta.Logger.LogInfo("SCRIPT", "Initié ");
             BeginInvoke((Action)(() =>
             {
                 cargarScriptToolStripMenuItem.Enabled = false;
@@ -360,9 +378,9 @@ namespace Bot_Dofus_1._29._1.Interfaces
         private void evento_Scripts_Detenido(string motivo)
         {
             if (string.IsNullOrEmpty(motivo))
-                cuenta.logger.log_informacion("SCRIPT", "Arrêté");
+                cuenta.Logger.LogInfo("SCRIPT", "Arrêté");
             else
-                cuenta.logger.log_informacion("SCRIPT", $"Arrêté à cause de {motivo}");
+                cuenta.Logger.LogInfo("SCRIPT", $"Arrêté à cause de {motivo}");
 
             BeginInvoke((Action)(() =>
             {

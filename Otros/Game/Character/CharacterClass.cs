@@ -8,6 +8,7 @@ using Bot_Dofus_1._29._1.Otros.Game.Character.Inventory;
 using Bot_Dofus_1._29._1.Otros.Game.Character.Jobs;
 using Bot_Dofus_1._29._1.Otros.Mapas;
 using Bot_Dofus_1._29._1.Otros.Mapas.Entidades;
+using System.Threading.Tasks;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -26,7 +27,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         public byte nivel { get; set; } = 0;
         public byte sexo { get; set; } = 0;
         public byte raza_id { get; set; } = 0;
-        private Account cuenta;
+        private Account _account;
         public InventoryClass inventario { get; private set; }
         public int puntos_caracteristicas { get; set; } = 0;
         public int kamas { get; private set; } = 0;
@@ -60,11 +61,11 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         
         public CharacterClass(Account _cuenta)
         {
-            cuenta = _cuenta;
+            _account = _cuenta;
             timer_regeneracion = new Timer(regeneracion_TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
             timer_afk = new Timer(anti_Afk, null, Timeout.Infinite, Timeout.Infinite);//1200000
 
-            inventario = new InventoryClass(cuenta);
+            inventario = new InventoryClass(_account);
             caracteristicas = new CharacterCharacteristics();
             hechizos = new Dictionary<short, Spell>();
             oficios = new List<Job>();
@@ -86,6 +87,100 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
             else
                 canales = cadena_canales;
         }
+
+        async public void RepondreMessage(string MessageRecu,string sender)
+        {
+            string message = MessageRecu.ToLower();
+            string reponse = string.Empty;
+            var punctuation = message.Where(Char.IsPunctuation).Distinct().ToArray();
+            var words = message.Split().Select(x => x.Trim(punctuation));
+
+            int randomReponse=0;
+            var responsetime = new Random().Next(3500, 8900);
+
+            var Bonjour = new string[] { "bonjour", "bonsoir","salut","slt","yo" };
+            var etat = new string[] {"comment vas-tu", " ca va", "ça va", };
+            var bot = new string[] { "robot","bot","farmeur","automatiser" };
+            var adieu = new string[] {"++","tchao","bonne soiree","bonne soirée","bon jeu","bon aprem","bonne aprem" };
+            if (Bonjour.Any(words.Contains))
+            {
+                reponse = "Yop  ";
+            }
+            if (etat.Any(words.Contains))
+            {
+                randomReponse = new Random().Next(0, 3);
+                switch (randomReponse)
+                {
+                    case 1:
+                        reponse = reponse + "ca va merci pourquoi ?";
+                        break;
+                    case 2 :
+                        reponse = reponse + "Pépouse, je farm tranquil";
+                        break;
+                    case 3:
+                        reponse = reponse + "Ca va, on se connait ?";
+                        break;
+                }
+                        
+            }
+            if (bot.Any(words.Contains))
+            {
+                randomReponse = new Random().Next(0, 3);
+                switch (randomReponse)
+                {
+                    case 1:
+                            reponse = reponse + "Non je farm tranquillement avec un film à coté x)";
+                        break;
+                    case 2:
+                        reponse = reponse + "Ca hard farm en pls c'est tout xD";
+                        break;
+                    case 3:
+                        reponse = reponse + "Je me  fait des kamas pour payer mes captures RN  en mode chill";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (adieu.Any(words.Contains))
+            {
+                randomReponse = new Random().Next(0, 3);
+                switch (randomReponse)
+                {
+                    case 1:
+                        reponse = reponse + "Tchao !";
+                        break;
+                    case 2:
+                        reponse = reponse + "++";
+                        break;
+                    case 3:
+                        reponse = reponse + "See you soon !";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (reponse == string.Empty)
+            {
+                randomReponse = new Random().Next(0, 3);
+                switch (randomReponse)
+                {
+                    case 1:
+                        reponse = "Je full farm dsl jdesactive le canal privé";
+                        break;
+                    case 2:
+                        reponse = "Pas ltemps de répondre dsl  jfarm et téma un film :/";
+                        break;
+                    case 3:
+                        reponse = "Lo siento, no entiendo francés. Buenas tardes";
+                        break;
+                }
+               
+            }
+            await Task.Delay(responsetime);
+
+            _account.connexion.SendPacket("BM"+ sender+"|"+ reponse);
+        }
+
 
         public void eliminar_Canal_Personaje(string simbolo_canal) => canales = canales.Replace(simbolo_canal, string.Empty);
 
@@ -188,17 +283,22 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
 
             string[] limitador = paquete.Split(';'), separador;
             Spell hechizo;
-            short hechizo_id;
+            short spellId;
 
             for (int i = 0; i < limitador.Length - 1; ++i)
             {
                 separador = limitador[i].Split('~');
-                hechizo_id = short.Parse(separador[0]);
+                spellId = short.Parse(separador[0]);
 
-                hechizo = Spell.get_Hechizo(hechizo_id);
+                hechizo = Spell.get_Hechizo(spellId);
+                if(hechizo == null)
+                {
+                    _account.Logger.LogError("SPELL", $"Le sort avec l'idée {spellId} n'existe pas dans les ressources !");
+                    continue;
+                }
                 hechizo.nivel = byte.Parse(separador[1]);
 
-                hechizos.Add(hechizo_id, hechizo);
+                hechizos.Add(spellId, hechizo);
             }
             hechizos_actualizados.Invoke();
         }
@@ -218,7 +318,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
             }
             catch (Exception e)
             {
-                cuenta.logger.log_Error("TIMER-REGEN", $"ERROR: {e}");
+                _account.Logger.LogError("TIMER-REGEN", $"ERROR: {e}");
             }
         }
 
@@ -226,16 +326,16 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Character
         {
             try
             {
-                if(cuenta.accountState != AccountStates.DISCONNECTED)
-                    cuenta.connexion.SendPacket("ping");
+                if(_account.AccountState != AccountStates.DISCONNECTED)
+                    _account.connexion.SendPacket("ping");
             }
             catch (Exception e)
             {
-                cuenta.logger.log_Error("TIMER-ANTIAFK", $"ERROR: {e}");
+                _account.Logger.LogError("TIMER-ANTIAFK", $"ERROR: {e}");
             }
         }
 
-        public Spell get_Hechizo(short id) => hechizos[id];
+        public Spell get_Hechizo(short id) => hechizos.FirstOrDefault(x => x.Key == id).Value;
         public bool get_Tiene_Skill_Id(int id) => oficios.FirstOrDefault(j => j.skills.FirstOrDefault(s => s.id == id) != null) != null;
         public IEnumerable<JobSkills> get_Skills_Disponibles() => oficios.SelectMany(oficio => oficio.skills.Select(skill => skill));
         public IEnumerable<short> get_Skills_Recoleccion_Disponibles() => oficios.SelectMany(oficio => oficio.skills.Where(skill => !skill.es_craft).Select(skill => skill.id));

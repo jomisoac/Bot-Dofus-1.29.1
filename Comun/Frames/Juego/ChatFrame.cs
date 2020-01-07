@@ -48,11 +48,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 break;
 
                 case "F":
-                    cliente.account.logger.log_privado("Message Reçu", separador[2] + ": " + separador[3]);
+                    cliente.account.Logger.log_privado("Message Reçu", separador[2] + ": " + separador[3]);
+                    cliente.account.game.character.RepondreMessage(separador[3], separador[2]);
                 break;
 
                 case "T":
-                    cliente.account.logger.log_privado("Message Envoyé", separador[2] + ": " + separador[3]);
+                    cliente.account.Logger.log_privado("Message Envoyé", separador[2] + ": " + separador[3]);
                 break;
 
                 default:
@@ -61,7 +62,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
             }
 
             if (!canal.Equals(string.Empty))
-                cliente.account.logger.log_normal(canal, separador[2] + ": " + separador[3]);
+                cliente.account.Logger.log_normal(canal, separador[2] + ": " + separador[3]);
         }
     }
 }
