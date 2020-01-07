@@ -24,6 +24,8 @@ namespace Bot_Dofus_1._29._1.Otros
         public string nickname { get; set; } = string.Empty;
         public string welcomeKey { get; set; } = string.Empty;
         public string gameTicket { get; set; } = string.Empty;
+        public bool needToCapture { get; set; } = false;
+        public bool capturelance { get; set; } = false;
         public Logger Logger { get; private set; }
         public TcpClient connexion { get; set; }
         public GameClass game { get; private set; }
@@ -32,6 +34,8 @@ namespace Bot_Dofus_1._29._1.Otros
         public AccountConfig accountConfig { get; private set; }
         private AccountStates _accountState = AccountStates.DISCONNECTED;
         public bool canUseMount = false;
+        public bool isInGroupInGame { get; set; } = false;
+        public bool capturefight { get; set; } = false;
 
         public Grupo group { get; set; }
         public bool hasGroup => group != null;
@@ -46,7 +50,7 @@ namespace Bot_Dofus_1._29._1.Otros
             accountConfig = prmAccountConfig;
             Logger = new Logger();
             game = new GameClass(this);
-            fightExtension = new FightExtensions(this);
+            fightExtension = new FightExtensions(this, capturefight);
             script = new ScriptManager(this);
         }
 

@@ -49,7 +49,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             if(cliente.account.IsFighting())
             {
-                await Task.Delay(150);
+                await Task.Delay(2850);
                 cliente.SendPacket("GR1");//boton listo
             }
         }
@@ -68,9 +68,9 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 id_entidad = int.Parse(posicion.Split(';')[0]);
                 celda = short.Parse(posicion.Split(';')[1]);
 
-                if (id_entidad == cuenta.game.character.id)
+                if (id_entidad == cuenta.game.character.id )
                 {
-                    await Task.Delay(150);
+                    await Task.Delay(2850);
                     cliente.SendPacket("GR1");//boton listo
                 }
 
@@ -133,7 +133,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         }
 
         [PaqueteAtributo("GJK")]
-        public void get_Combate_Unirse_Pelea(TcpClient cliente, string paquete)
+        public async void get_Combate_Unirse_Pelea(TcpClient cliente, string paquete)
         {
             Account cuenta = cliente.account;
 
@@ -148,7 +148,11 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                 case 2:
                 case 3:
                 case 4:
-                    cuenta.game.fight.FightCreatedAsync();
+                    if (cuenta.isGroupLeader == true)
+                    {
+                        cuenta.game.fight.Block_OnlyForgroupe();
+                    }
+                    await cuenta.game.fight.FightCreatedAsync();
                break;
             }
         }
@@ -202,15 +206,6 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
         }
 
-        //[PaqueteAtributo("Gt")]
-        //public void get_Fight_Start(TcpClient client, string packet)
-        //{
-        //    int id = int.Parse(packet.Substring(2).Split('|')[0]);
-        //    if (client.account.hasGroup && id == client.account.group.lider.game.character.id)
-        //    {
-        //        // send join leader fight
-        //        client.SendPacket("GA903" + id + ";" + id);
-        //    }
-        //}
+
     }
 }

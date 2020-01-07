@@ -44,19 +44,20 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
         public bool Activated
         {
             get => _activated;
-            set 
+            set
             {
                 _activated = value;
-                if(account.hasGroup && account.isGroupLeader)
+                if (account.hasGroup && account.isGroupLeader)
                 {
                     foreach (var member in account.group.members)
                     {
                         member.script.Activated = value;
                     }
                 }
-            } 
+            }
         }
-        public bool Stopped {
+        public bool Stopped
+        {
             get => _stopped;
             set
             {
@@ -83,11 +84,21 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             actions_manager = new ActionsManager(account, script_manager);
             banderas = new List<Bandera>();
             api = new API(account, actions_manager);
+            
 
             actions_manager.evento_accion_normal += get_Accion_Finalizada;
             actions_manager.evento_accion_personalizada += get_Accion_Personalizada_Finalizada;
             account.game.fight.pelea_creada += get_Pelea_Creada;
             account.game.fight.fightFinished += get_Pelea_Acabada;
+        }
+
+        public KeyValuePair<int,int> getCaptureIdAndQuantity()
+        {
+            int captureQuantity = script_manager.get_Global_Or("NOMBRE_CAPTURE", DataType.Number, 0);
+            int captureId = script_manager.get_Global_Or("CAPTURE_ID", DataType.Number, 0);
+
+            KeyValuePair<int, int> retour = new KeyValuePair<int, int>(captureId, captureQuantity);
+            return retour;
         }
 
         public void get_Desde_Archivo(string ruta_archivo)
@@ -213,6 +224,8 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             if (!InExecution)
                 return;
 
+            await VerifyCaptureNumber();
+
             await verifyBags();
 
             if (!InExecution)
@@ -249,6 +262,40 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 script_state = ScriptState.PHENIX;
             }
             await Task.Delay(50);
+        }
+
+        private async Task VerifyCaptureNumber()
+        {
+            bool capture = script_manager.get_Global_Or("CAPTURE", DataType.Boolean, false);
+            int captureId = script_manager.get_Global_Or("CAPTURE_ID", DataType.Number, 0);
+            string persoCapture = script_manager.get_Global_Or("CAPTURE_PERSO", DataType.String, string.Empty);
+            if (capture == true && script_state != ScriptState.BANQUE )
+            {
+                if (account.game.character.nombre.ToLower() == persoCapture.ToLower() && account.isGroupLeader == true)
+                {
+                    if (account.game.character.inventario.equipamiento.FirstOrDefault(o => o.id_modelo == captureId) == null)
+                    {
+                        account.Logger.LogInfo("SCRIPT", "Plus de capture en stock, passage en mode banque pour en recuperer");
+                        script_state = ScriptState.BANQUE;
+                        
+                    }
+                }
+                else if (account.hasGroup == true && account.isGroupLeader == true )
+                {
+                    foreach (var membre in account.group.members)
+                    {
+                        if (membre.game.character.nombre.ToLower() == persoCapture.ToLower())
+                        {
+                            if (membre.game.character.inventario.equipamiento.FirstOrDefault(o => o.id_modelo == captureId) == null)
+                            {
+                                account.Logger.LogInfo("SCRIPT", "Plus de capture en stock, passage en mode banque pour en recuperer");
+                                script_state = ScriptState.BANQUE;
+                            }
+                        }
+                    }
+                }
+                await Task.Delay(50);
+            }
         }
 
         private void verifyMaxPods()
@@ -490,11 +537,13 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 return;
 
 
-            if(account.hasGroup == true)
+
+
+            if (account.hasGroup == true)
             {
                 int MaxLifeToRgenerate = 0;
                 int MaxTime = 0;
-                
+
 
 
                 /* régéneration leader */
@@ -509,7 +558,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     account.connexion.SendPacket("eU1", true);
                     if (MaxLifeToRgenerate < vida_para_regenerar_leader)
                     {
-                        MaxTime = vida_para_regenerar_leader / 2;
+                        MaxTime = vida_para_regenerar_leader ;
                         MaxLifeToRgenerate = vida_para_regenerar_leader;
                     }
                 }
@@ -529,7 +578,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                         membre.connexion.SendPacket("eU1", true);
                         if (MaxLifeToRgenerate < vida_para_regenerar)
                         {
-                            MaxTime= vida_para_regenerar / 2;
+                            MaxTime = vida_para_regenerar;
                             MaxLifeToRgenerate = vida_para_regenerar;
                         }
                     }
@@ -537,10 +586,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                 int vida_final_leader2 = account.fightExtension.configuracion.detener_regeneracion * account.game.character.caracteristicas.vitalidad_maxima / 100;
                 int vida_para_regenerar_leader2 = vida_final_leader2 - account.game.character.caracteristicas.vitalidad_actual;
-                if (vida_para_regenerar_leader2 >0)
-                     account.Logger.LogInfo("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar_leader2}, temps: {MaxTime} secondes.");
+                if (vida_para_regenerar_leader2 > 0)
+                    account.Logger.LogInfo("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar_leader2}, temps: {MaxTime} secondes.");
 
-                
+
                 foreach (var membre in account.group.members)
                 {
 
@@ -550,33 +599,32 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                         membre.Logger.LogInfo("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar}, temps: {MaxTime} secondes.");
                 }
 
-                for (int i = 0; i < MaxTime  && InExecution; i++)
+                for (int i = 0; i < MaxTime && InExecution; i++)
                     await Task.Delay(1000);
 
                 if (InExecution)
                 {
-                    if (account.AccountState == AccountStates.REGENERATION)
+                    if (account.AccountState == AccountStates.REGENERATION )
                     {
                         account.connexion.SendPacket("eU1", true);
                         account.Logger.LogInfo("SCRIPTS", "Régénération terminée.");
                     }
 
                 }
-
-                foreach (var membre in account.group.members)
+                if(MaxTime!=0)
+                foreach (var membre in account.group.members )
                 {
                     if (InExecution)
                     {
                         if (membre.AccountState == AccountStates.REGENERATION)
                             membre.connexion.SendPacket("eU1", true);
-                           membre.Logger.LogInfo("SCRIPTS", "Régénération terminée.");
+                        membre.Logger.LogInfo("SCRIPTS", "Régénération terminée.");
                     }
                 }
 
 
             }
-            else
-            if (account.game.character.caracteristicas.porcentaje_vida <= account.fightExtension.configuracion.iniciar_regeneracion)
+            else if (account.game.character.caracteristicas.porcentaje_vida <= account.fightExtension.configuracion.iniciar_regeneracion)
             {
                 int vida_final = account.fightExtension.configuracion.detener_regeneracion * account.game.character.caracteristicas.vitalidad_maxima / 100;
                 int vida_para_regenerar = vida_final - account.game.character.caracteristicas.vitalidad_actual;
@@ -619,7 +667,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             CharacterClass personaje = account.game.character;
             int vida_minima = auto_regeneracion.get_Or("VITA_MIN", DataType.Number, 0);
             int vida_maxima = auto_regeneracion.get_Or("VITA_MAX", DataType.Number, 100);
-            var regenAll =    auto_regeneracion.get_Or("REGENERATION_ALL", DataType.Boolean, false);
+            var regenAll = auto_regeneracion.get_Or("REGENERATION_ALL", DataType.Boolean, false);
 
             int fin_vida = vida_maxima * personaje.caracteristicas.vitalidad_maxima / 100;
             int vida_para_regenerar = fin_vida - personaje.caracteristicas.vitalidad_actual;
@@ -734,8 +782,43 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             int monstruos_maximos = script_manager.get_Global_Or("MONSTERS_MAX", DataType.Number, 8);
             int monstruo_nivel_minimo = script_manager.get_Global_Or("MONSTERS_LVL_MIN", DataType.Number, 1);
             int monstruo_nivel_maximo = script_manager.get_Global_Or("MONSTERS_LVL_MAX", DataType.Number, 1000);
+            /* gestion capture */
+            bool doCapture = script_manager.get_Global_Or("CAPTURE", DataType.Boolean, false);
+            string characterName = script_manager.get_Global_Or("PERSO_CAPTURE", DataType.String, string.Empty);
+            int capture_id = script_manager.get_Global_Or("CAPTURE_ID", DataType.Number, 0);
+            int cac_id = script_manager.get_Global_Or("CAC_ID", DataType.Number, 0);
+
+        
+
+
+
+            List<KeyValuePair<int, int>> monstre_capturable_nombre = new List<KeyValuePair<int, int>>();
+
+            Table table_Monstre_Capturable = script_manager.get_Global_Or<Table>("CAPTURE_MONSTRES", DataType.Table, null);
+            Table table_quantite_Monstre_Capturable = script_manager.get_Global_Or<Table>("CAPTURE_MONSTRES_QUANTITE", DataType.Table, null);
+
+            if (table_Monstre_Capturable != null)
+            {
+                foreach (var item in table_Monstre_Capturable.Values)
+                {
+                    monstre_capturable_nombre.Add(new KeyValuePair<int, int>((int)item.Number, 1));
+                }
+            }
+            if (table_quantite_Monstre_Capturable != null)
+            {
+                int index = 0;
+                foreach (var item in table_quantite_Monstre_Capturable.Values)
+                {
+                    int key = monstre_capturable_nombre[index].Key;
+                    monstre_capturable_nombre[index] = new KeyValuePair<int, int>(key, (int)item.Number);
+                    index++;
+                }
+            }
+
+            /* fin gestion capture */
             List<int> monstruos_prohibidos = new List<int>();
             List<int> monstruos_obligatorios = new List<int>();
+
 
             Table entrada = script_manager.get_Global_Or<Table>("MONSTRES_INTERDIT", DataType.Table, null);
             if (entrada != null)
@@ -749,6 +832,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                 }
             }
 
+
+
+
             entrada = script_manager.get_Global_Or<Table>("MONSTRES_OBLIGATOIRE", DataType.Table, null);
             if (entrada != null)
             {
@@ -759,8 +845,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
                     monstruos_obligatorios.Add((int)mm.Number);
                 }
             }
-
-            return new PeleasAccion(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
+            if (doCapture == true)
+                return new PeleasAccion(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios, doCapture, monstre_capturable_nombre, characterName, capture_id, cac_id);
+            else
+                return new PeleasAccion(monstruos_minimos, monstruos_maximos, monstruo_nivel_minimo, monstruo_nivel_maximo, monstruos_prohibidos, monstruos_obligatorios);
         }
 
         private bool verificar_Acciones_Especiales()

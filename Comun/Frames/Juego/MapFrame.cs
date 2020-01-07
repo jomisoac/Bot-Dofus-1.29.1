@@ -287,7 +287,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                         byte pm = byte.Parse(separador[17]);
                         byte equipo = byte.Parse(separador[25]);
 
-                        pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, celda, vida, equipo, id_entidad));
+                        pelea.get_Agregar_Luchador(new Luchadores(id_luchador, true, vida, pa, pm, celda, vida, equipo, 10));
                         break;
 
                     case 302://fallo critico

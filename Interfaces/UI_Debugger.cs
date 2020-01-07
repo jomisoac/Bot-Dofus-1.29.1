@@ -83,6 +83,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
             }
         }
 
+        private void copyToClipBoard(object sender, EventArgs e)
+        {
+            Clipboard.SetText(treeView.Text);
+        }
+
         private void listView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
         {
             e.Cancel = true;

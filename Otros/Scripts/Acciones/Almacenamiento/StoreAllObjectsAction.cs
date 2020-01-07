@@ -25,13 +25,21 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones.Almacenamiento
         {
             InventoryClass inventario = account.game.character.inventario;
 
+            int idCapture = account.script.getCaptureIdAndQuantity().Key;
+            int quantityCapture = account.script.getCaptureIdAndQuantity().Value;
             foreach (InventoryObject objeto in inventario.objetos)
             {
-                if (!objeto.objeto_esta_equipado())
+                if (!objeto.objeto_esta_equipado() && objeto.id_modelo != idCapture)
                 {
                     account.connexion.SendPacket($"EMO+{objeto.id_inventario}|{objeto.cantidad}");
                     inventario.eliminar_Objeto(objeto, 0, false);
                     await Task.Delay(300);
+                }
+                if(objeto.id_modelo == idCapture && objeto.cantidad< quantityCapture)
+                {
+                    int quantite = quantityCapture - objeto.cantidad;
+                    account.Logger.LogInfo("SCRIPT", $"On récupére " + quantite +" captures dans la banque");
+                    account.connexion.SendPacket($"EMO-{objeto.id_inventario}|{quantite}");
                 }
             }
         }

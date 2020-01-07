@@ -129,6 +129,21 @@ namespace Bot_Dofus_1._29._1.Otros.Mapas
             return grupos_monstruos_disponibles;
         }
 
+        public bool isGroupCapturable(List<KeyValuePair<int, int>> list_monstre_nombre, Monstruos groupe_actual)
+        {
+            bool capturable = false;
+
+                foreach (var item in list_monstre_nombre)
+                {
+                    if(item.Value <= groupe_actual.get_number_monstre(item.Key))
+                    {
+                        capturable = true;
+                        break;
+                    }
+                }
+                return capturable;
+        }
+
         public void GetMapRefreshEvent() => mapRefreshEvent?.Invoke();
         public void GetEntitiesRefreshEvent() => entitiesRefreshEvent?.Invoke();
 

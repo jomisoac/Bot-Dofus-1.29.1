@@ -4,6 +4,7 @@ using Bot_Dofus_1._29._1.Otros.Enums;
 using Bot_Dofus_1._29._1.Otros.Game.Character;
 using Bot_Dofus_1._29._1.Utilities.Extensions;
 using Bot_Dofus_1._29._1.Utilities.Logs;
+using MoonSharp.Interpreter;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -361,7 +362,12 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void evento_Scripts_Iniciado()
         {
-            cuenta.Logger.LogInfo("SCRIPT", "Initié");
+            if(cuenta.script.actions_manager.manejador_script.get_Global_Or("COMPTEUR_COMBAT", DataType.Boolean, false) == true)
+            {
+                cuenta.Logger.LogInfo("SCRIPT", "Initié avec capture");
+            }
+            else
+            cuenta.Logger.LogInfo("SCRIPT", "Initié ");
             BeginInvoke((Action)(() =>
             {
                 cargarScriptToolStripMenuItem.Enabled = false;

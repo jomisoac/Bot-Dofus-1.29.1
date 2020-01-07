@@ -28,14 +28,14 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         private int hechizo_lanzado_index;
         private bool esperando_sequencia_fin;
         private bool disposed;
+        private bool capturerFight { get; set; } = false;
 
-        public FightExtensions(Account _cuenta)
+        public FightExtensions(Account _cuenta,bool needtocapture = false)
         {
             cuenta = _cuenta;
             configuracion = new PeleaConf(cuenta);
             manejador_hechizos = new SpellsManager(cuenta);
             pelea = cuenta.game.fight;
-
             get_Eventos();
         }
 
@@ -57,6 +57,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         {
 
             cuenta.Logger.LogInfo($"Fight", $"Nombre de monstre restant :" + pelea.get_Enemigos.Count());
+           
             hechizo_lanzado_index = 0;
             esperando_sequencia_fin = true;
 
@@ -89,7 +90,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 return;
             }
 
-            ResultadoLanzandoHechizo resultado = await manejador_hechizos.manejador_Hechizos(hechizo_actual);
+            ResultadoLanzandoHechizo resultado = await manejador_hechizos.manejador_Hechizos(hechizo_actual,pelea.account.capturefight);
             switch (resultado)
             {
                 case ResultadoLanzandoHechizo.NO_LANZADO:
@@ -171,12 +172,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
             else if(pelea.is_proche_7() && configuracion.tactica == Tactica.FUGITIVA)
             {
-                cuenta.Logger.LogInfo($"Fight", $"Enemi prés de < 7 cases , on reculede " + pelea.jugador_luchador.pm + " PM ");
+                cuenta.Logger.LogInfo($"Fight", $"Enemi prés de < 9 cases , on recule de " + pelea.jugador_luchador.pm + " PM ");
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
             }
             else if (pelea.is_loin_8() && configuracion.tactica == Tactica.FUGITIVA)
             {
-                cuenta.Logger.LogInfo($"Fight", $"Enemi loin de > 8 cases , on avance de " + pelea.jugador_luchador.pm + " PM ");
+                cuenta.Logger.LogInfo($"Fight", $"Enemi loin de > 12 cases , on avance de " + pelea.jugador_luchador.pm + " PM ");
                 await get_Mover(true, pelea.get_Obtener_Enemigo_Mas_Cercano());
             }
 

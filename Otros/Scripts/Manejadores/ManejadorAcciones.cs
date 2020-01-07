@@ -24,7 +24,7 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
         public ScriptAction accion_actual;
         private DynValue coroutine_actual;
         private TimerWrapper timer_out;
-        public int contador_pelea, contador_recoleccion, contador_peleas_mapa;
+        public int contador_pelea, contador_recoleccion, contador_peleas_mapa,compteur_capture;
         private bool mapa_cambiado;
         private bool disposed;
 
@@ -249,9 +249,23 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Manejadores
                 timer_out.Stop();
                 contador_peleas_mapa++;
                 contador_pelea++;
+                if(account.needToCapture == true)
+                    compteur_capture++;
+                if (account.hasGroup == true && account.needToCapture == false)
+                {
+                    foreach (var item in account.group.members)
+                    {
+                        if(item.needToCapture == true)
+                        {
+                            compteur_capture++;
+                        }
+                    }
+                }
 
-                if (manejador_script.get_Global_Or("COMPTEUR_COMBAT", DataType.Boolean, false))
+                if (manejador_script.get_Global_Or("COMPTEUR_COMBAT", DataType.Boolean, false) && compteur_capture ==0)
                     account.Logger.LogInfo("SCRIPT", $"Combat #{contador_pelea}");
+                else if (manejador_script.get_Global_Or("COMPTEUR_CAPTURE", DataType.Boolean, false) == true)
+                    account.Logger.LogInfo("SCRIPT", $"Combat #{contador_pelea} , Capture  tenté:" + compteur_capture);
             }
         }
 

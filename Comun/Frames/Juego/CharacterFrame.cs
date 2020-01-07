@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 /*
     Este archivo es parte del proyecto BotDofus_1.29.1
@@ -28,9 +29,37 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         [PaqueteAtributo("PIK")]
         public void get_Peticion_Grupo(TcpClient cliente, string paquete)
         {
-            cliente.account.Logger.LogInfo("Groupe", $"Nouvelle invitation de groupe du personnage: {paquete.Substring(3).Split('|')[0]}");
-            cliente.SendPacket("PR");
-            cliente.account.Logger.LogInfo("Groupe", "Rejêt de l'invitation");
+
+            if (cliente.account.hasGroup == false)
+            {
+                Task.Delay(1250);
+                cliente.SendPacket("PR");
+                cliente.account.Logger.LogInfo("Groupe", "Rejêt de l'invitation");
+            }
+            else if ( cliente.account.isGroupLeader == false)
+            {
+                string PseudoInviter = paquete.Substring(3).Split('|')[0];
+                Account leaderAccount = cliente.account.group.lider;
+                string pseudoLeader = leaderAccount.game.character.nombre;
+                if (PseudoInviter.ToLower() == pseudoLeader.ToLower())
+                {
+                    Task.Delay(550);
+                    cliente.account.connexion.SendPacket("PA");
+                    cliente.account.Logger.LogInfo("Groupe", "Je suis maintenant dans le groupe de : " + pseudoLeader);
+                }            
+                else
+                {
+                    cliente.SendPacket("PR");
+                    cliente.account.Logger.LogInfo("Groupe", "Rejêt de l'invitation");
+                }
+            }
+            else if(paquete.Substring(3).Split('|').Length ==1)
+            {
+                Task.Delay(1250);
+                cliente.SendPacket("PR");
+                cliente.account.Logger.LogInfo("Groupe", "Rejêt de l'invitation");
+            }
+
         }
 
         [PaqueteAtributo("SL")]
@@ -72,7 +101,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                     cuenta.AccountState = AccountStates.CONNECTED_INACTIVE;
                     cuenta.game.character.evento_Dialogo_Acabado();
-                break;
+                    break;
             }
         }
 
@@ -180,8 +209,12 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         public void get_Grupo_Abandonado(TcpClient cliente, string paquete) => cliente.account.game.character.en_grupo = true;
 
         [PaqueteAtributo("ERK")]
-        public void get_Peticion_Intercambio(TcpClient cliente, string paquete)
+        public async void get_Peticion_Intercambio(TcpClient cliente, string paquete)
         {
+            var t = new Random().Next(600, 1200);
+
+            await Task.Delay(t);
+
             cliente.account.Logger.LogInfo("INFORMATION", "L'invitation à l'échange est rejetée");
             cliente.SendPacket("EV", true);
         }

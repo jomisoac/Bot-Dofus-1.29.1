@@ -154,7 +154,7 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
             var cellsNotPermitted = mapa.celdas_ocupadas().Where(c => c.cellType != CellTypes.TELEPORT_CELL).ToList();
             if (ignoreGroupOnSun)
                 cellsNotPermitted = new List<Cell>();
-            var t = new Random().Next(700, 1200);
+            var t = new Random().Next(650, 1500);
             Task.Delay(t);
 
             ResultadoMovimientos resultado = get_Mover_A_Celda(celda, cellsNotPermitted);
