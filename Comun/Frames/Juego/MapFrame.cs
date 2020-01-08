@@ -115,14 +115,21 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
                                             cuenta.connexion.SendPacket("Gp" + celda_posicion, true);
                                         else
                                         {
-                                            await Task.Delay(1800);
+                                            
+                                            if(cuenta.isGroupLeader ==true)
+                                                await Task.Delay(3800);
+                                            else
+                                                await Task.Delay(1800);
                                             cuenta.connexion.SendPacket("GR1");
                                         }
                                             
                                     }
                                     else if (cuenta.game.character.id == id)
                                     {
-                                        await Task.Delay(1800);
+                                         if(cuenta.isGroupLeader ==true)
+                                                await Task.Delay(3800);
+                                         else
+                                         await Task.Delay(1800);
                                         cuenta.connexion.SendPacket("GR1");//boton listo
                                     }
                                 }
