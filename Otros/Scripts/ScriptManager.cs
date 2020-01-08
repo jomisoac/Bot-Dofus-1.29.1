@@ -592,10 +592,9 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
 
                 foreach (var membre in account.group.members)
                 {
-
                     int vida_final = membre.fightExtension.configuracion.detener_regeneracion * membre.game.character.caracteristicas.vitalidad_maxima / 100;
                     int vida_para_regenerar = vida_final - membre.game.character.caracteristicas.vitalidad_actual;
-                    if (vida_para_regenerar != 0)
+                    if (vida_para_regenerar >0)
                         membre.Logger.LogInfo("SCRIPTS", $"Régénération commencée, points de vie à récupérer: {vida_para_regenerar}, temps: {MaxTime} secondes.");
                 }
 

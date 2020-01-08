@@ -362,7 +362,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void evento_Scripts_Iniciado()
         {
-            if(cuenta.script.actions_manager.manejador_script.get_Global_Or("COMPTEUR_COMBAT", DataType.Boolean, false) == true)
+            if(cuenta.script.actions_manager.manejador_script.get_Global_Or("CAPTURE", DataType.Boolean, false) == true)
             {
                 cuenta.Logger.LogInfo("SCRIPT", "Initié avec capture");
             }

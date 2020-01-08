@@ -73,9 +73,10 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts.Acciones
             if (availableGroups.Count > 0)
             {
                 /* verifie si groupe capturable */ 
+                if(capture==true)
                 foreach (Monstruos monsterGroup in availableGroups)
                 {
-                    if (account.game.map.isGroupCapturable(monstre_capturable_nombre, monsterGroup) == true  && capture==true)
+                    if (account.game.map.isGroupCapturable(monstre_capturable_nombre, monsterGroup) == true  )
                     {
                         var moveResult = account.game.manager.movimientos.get_Mover_A_Celda(monsterGroup.celda, account.game.map.celdas_ocupadas().Where(c => c.cellType == CellTypes.TELEPORT_CELL).ToList());
                         switch (moveResult)
