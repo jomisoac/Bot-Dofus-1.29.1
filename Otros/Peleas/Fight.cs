@@ -25,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public Account account { get; private set; }
         private ConcurrentDictionary<int, Luchadores> luchadores;
         private ConcurrentDictionary<int, Luchadores> enemigos;
-        private ConcurrentDictionary<int, Luchadores> aliados;
+        public ConcurrentDictionary<int, Luchadores> aliados;
         private Dictionary<int, int> hechizos_intervalo;// hechizoID, turnos intervalo
         private Dictionary<int, int> total_hechizos_lanzados;//hechizoID, total veces
         private Dictionary<int, Dictionary<int, int>> total_hechizos_lanzados_en_celda;//hechizoID (celda, veces)
@@ -308,9 +308,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public bool es_Celda_Libre(Cell celda) => get_Luchador_Esta_En_Celda(celda.cellId) == null;
         public IEnumerable<Luchadores> get_Cuerpo_A_Cuerpo_Enemigo(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) == 1);
         public IEnumerable<Luchadores> get_Cuerpo_A_Cuerpo_Aliado(Cell celda = null) => get_Aliados.Where(aliado => aliado.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(aliado.celda) : aliado.celda.GetDistanceBetweenCells(celda)) == 1);
-        public IEnumerable<Luchadores> get_Enemi_inferieur_7(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) < 9);
+        public IEnumerable<Luchadores> get_Enemi_inferieur_7(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) < 4);
 
-        public IEnumerable<Luchadores> get_Enemi_superieur_8(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) > 12);
+        public IEnumerable<Luchadores> get_Enemi_superieur_8(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) > 9);
 
         public bool esta_Cuerpo_A_Cuerpo_Con_Enemigo(Cell celda = null) => get_Cuerpo_A_Cuerpo_Enemigo(celda).Count() > 0;
         public bool esta_Cuerpo_A_Cuerpo_Con_Aliado(Cell celda = null) => get_Cuerpo_A_Cuerpo_Aliado(celda).Count() > 0;
@@ -339,6 +339,11 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 return FallosLanzandoHechizo.DESONOCIDO;
 
             SpellStats datos_hechizo = hechizo.get_Stats();
+            if(hechizo_id == 413)
+            {
+                var t = "10";
+            }
+       
 
             if (jugador_luchador.pa < datos_hechizo.coste_pa)
                 return FallosLanzandoHechizo.PUNTOS_ACCION;
@@ -357,17 +362,15 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
 
         public FallosLanzandoHechizo get_Puede_Lanzar_hechizo(short hechizo_id, Cell celda_actual, Cell celda_objetivo, Map mapa)
         {
-            if(hechizo_id == 413)
-            {
-                return FallosLanzandoHechizo.NINGUNO;
-            }
-
             Spell hechizo = account.game.character.get_Hechizo(hechizo_id);
+
+            
 
             if (hechizo == null)
                 return FallosLanzandoHechizo.DESONOCIDO;
             
             SpellStats datos_hechizo = hechizo.get_Stats();
+            
 
             if (datos_hechizo.lanzamientos_por_objetivo > 0 && total_hechizos_lanzados_en_celda.ContainsKey(hechizo_id) && total_hechizos_lanzados_en_celda[hechizo_id].ContainsKey(celda_objetivo.cellId) && total_hechizos_lanzados_en_celda[hechizo_id][celda_objetivo.cellId] >= datos_hechizo.lanzamientos_por_objetivo)
                 return FallosLanzandoHechizo.DEMASIADOS_LANZAMIENTOS_POR_OBJETIVO;

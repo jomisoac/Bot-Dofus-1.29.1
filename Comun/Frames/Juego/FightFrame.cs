@@ -49,7 +49,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
         {
             if(cliente.account.IsFighting())
             {
-                await Task.Delay(2850);
+                if (cliente.account.isGroupLeader == true)
+                {
+                    await Task.Delay(5800);
+                }
+                else
+                {
+                    await Task.Delay(1400);
+                }
                 cliente.SendPacket("GR1");//boton listo
             }
         }
@@ -70,7 +77,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                 if (id_entidad == cuenta.game.character.id )
                 {
-                    await Task.Delay(2850);
+                    if (cuenta.isGroupLeader == true)
+                    {
+                        await Task.Delay(5800);
+                    }
+                    else
+                    {
+                        await Task.Delay(1600);
+                    }
                     cliente.SendPacket("GR1");//boton listo
                 }
 

@@ -93,6 +93,17 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             ResultadoLanzandoHechizo resultado = await manejador_hechizos.manejador_Hechizos(hechizo_actual,pelea.account.capturefight);
             switch (resultado)
             {
+                case ResultadoLanzandoHechizo.CAPTURE_LANZADO:
+                    hechizo_actual = configuracion.hechizos.FirstOrDefault(o => o.id == 413);
+                    hechizo_actual.lanzamientos_restantes--;
+                    esperando_sequencia_fin = true;
+
+                    break;
+                case ResultadoLanzandoHechizo.CAPTURE_NO_LANZADO:
+                    hechizo_actual = configuracion.hechizos.FirstOrDefault(o => o.id == 413);
+                    await get_Procesar_Siguiente_Hechizo(hechizo_actual);
+                    break;
+
                 case ResultadoLanzandoHechizo.NO_LANZADO:
                     await get_Procesar_Siguiente_Hechizo(hechizo_actual);
                 break;
@@ -172,7 +183,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
             else if(pelea.is_proche_7() && configuracion.tactica == Tactica.FUGITIVA)
             {
-                cuenta.Logger.LogInfo($"Fight", $"Enemi prés de < 9 cases , on recule de " + pelea.jugador_luchador.pm + " PM ");
+                cuenta.Logger.LogInfo($"Fight", $"Enemi prés de < 13 cases , on recule de " + pelea.jugador_luchador.pm + " PM ");
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
             }
             else if (pelea.is_loin_8() && configuracion.tactica == Tactica.FUGITIVA)

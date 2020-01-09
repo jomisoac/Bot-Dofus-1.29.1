@@ -4,6 +4,8 @@
     {
         LANZADO,
         MOVIDO,
-        NO_LANZADO
+        NO_LANZADO,
+        CAPTURE_LANZADO,
+        CAPTURE_NO_LANZADO
     }
 }

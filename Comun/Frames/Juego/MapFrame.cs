@@ -105,20 +105,31 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
                                     if (cuenta.game.character.id == id && cuenta.fightExtension.configuracion.posicionamiento != PosicionamientoInicioPelea.INMOVIL)
                                     {
-                                        await Task.Delay(300);
+                                        await Task.Delay(500);
 
                                         /** la posicion es aleatoria pero el paquete GP siempre aparecera primero el team donde esta el pj **/
                                         short celda_posicion = pelea.get_Celda_Mas_Cercana_O_Lejana(cuenta.fightExtension.configuracion.posicionamiento == PosicionamientoInicioPelea.CERCA_DE_ENEMIGOS, pelea.celdas_preparacion);
-                                        await Task.Delay(300);
+                                        await Task.Delay(500);
 
                                         if (celda_posicion != celda.cellId)
                                             cuenta.connexion.SendPacket("Gp" + celda_posicion, true);
                                         else
+                                        {
+                                            
+                                            if(cuenta.isGroupLeader ==true)
+                                                await Task.Delay(3800);
+                                            else
+                                                await Task.Delay(1800);
                                             cuenta.connexion.SendPacket("GR1");
+                                        }
+                                            
                                     }
                                     else if (cuenta.game.character.id == id)
                                     {
-                                        await Task.Delay(300);
+                                         if(cuenta.isGroupLeader ==true)
+                                                await Task.Delay(3800);
+                                         else
+                                         await Task.Delay(1800);
                                         cuenta.connexion.SendPacket("GR1");//boton listo
                                     }
                                 }

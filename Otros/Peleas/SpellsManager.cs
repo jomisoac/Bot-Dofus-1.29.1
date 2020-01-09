@@ -42,6 +42,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (hechizo.metodo_lanzamiento == MetodoLanzamiento.AMBOS)
                 return await get_Lanzar_Hechizo_Simple(hechizo,capturer);
 
+
             if (hechizo.metodo_lanzamiento == MetodoLanzamiento.ALEJADO && !cuenta.game.fight.esta_Cuerpo_A_Cuerpo_Con_Enemigo())
                 return await get_Lanzar_Hechizo_Simple(hechizo);
 
@@ -59,7 +60,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (pelea.get_Puede_Lanzar_hechizo(hechizo.id) != FallosLanzandoHechizo.NINGUNO)
                 return ResultadoLanzandoHechizo.NO_LANZADO;
 
-            Luchadores enemigo = get_Objetivo_Mas_Cercano(hechizo);
+
 
             /* gestion sort capture */
             bool lancer_capture = is_Spell_capture_lancable();
@@ -83,17 +84,19 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 
             if (lancer_capture == true &&  cuenta.needToCapture == false && cuenta.capturelance == false && capturer == true && cuenta.capturefight == true)
             {
-                    cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Je lance pas de sort, la capture doit étre lancé par un autre le captureur");
+                    cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Je lance pas de sort, la capture doit étre lancé par un autre");
                     return ResultadoLanzandoHechizo.NO_LANZADO;
             }
             if (lancer_capture == true && cuenta.needToCapture == true && capturer == true &&  cuenta.capturelance == false && cuenta.capturefight ==true)
             {
-                FallosLanzandoHechizo resultado2 = pelea.get_Puede_Lanzar_hechizo(413, pelea.jugador_luchador.celda, pelea.jugador_luchador.celda, mapa);
-                
-                if (resultado2 == FallosLanzandoHechizo.NINGUNO)
+                hechizo = cuenta.fightExtension.configuracion.hechizos.FirstOrDefault(o => o.id == 413);
+                Luchadores lanceur_capture = get_Objetivo_Mas_Cercano(hechizo);
+                FallosLanzandoHechizo result = pelea.get_Puede_Lanzar_hechizo(hechizo.id, pelea.jugador_luchador.celda, lanceur_capture.celda, mapa);
+
+                if (result == FallosLanzandoHechizo.NINGUNO)
                 {
                     cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Je lance la capture");
-                    await pelea.get_Lanzar_Hechizo(413, pelea.jugador_luchador.celda.cellId);
+                    await pelea.get_Lanzar_Hechizo(hechizo.id, lanceur_capture.celda.cellId);
                     
                     if(cuenta.hasGroup == true)
                     {
@@ -107,21 +110,21 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                     {
                         cuenta.capturelance = true;
                     }
-                    return ResultadoLanzandoHechizo.LANZADO;
+                    return ResultadoLanzandoHechizo.CAPTURE_LANZADO;
                 }
                 else
                 {
-                    cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Je doit lancer la capture mais pas possible ( manque PA ) ");
-                    return ResultadoLanzandoHechizo.NO_LANZADO;
+                    cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Je doit lancer la capture mais pas possible " + result);
+                    return ResultadoLanzandoHechizo.CAPTURE_NO_LANZADO;
                 }
             }
             else if(lancer_capture == false && hechizo.id == 413 && cuenta.needToCapture == true &&  capturer == true && cuenta.capturelance == false && cuenta.capturefight == true)
             {
                 cuenta.Logger.LogInfo($"Fight", $"CAPTURE INFO : Pas le moment pour lancer la capture");
-                return ResultadoLanzandoHechizo.NO_LANZADO;
+                return ResultadoLanzandoHechizo.CAPTURE_NO_LANZADO;
             }
-            
 
+            Luchadores enemigo = get_Objetivo_Mas_Cercano(hechizo);
 
 
             if (enemigo != null)
@@ -202,15 +205,12 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             return ResultadoLanzandoHechizo.NO_LANZADO;
         }
 
-        private Luchadores get_Objetivo_Mas_Cercano(HechizoPelea hechizo, short sortId = 0)
+        private Luchadores get_Objetivo_Mas_Cercano(HechizoPelea hechizo)
         {
          
                 Spell Spell = cuenta.game.character.get_Hechizo(hechizo.id);
 
-            if(sortId == 413)
-            {
-                return pelea.jugador_luchador;
-            }
+ 
 
             SpellStats SpellStats = Spell.get_Stats();
             int range = SpellStats.alcanze_maximo;
