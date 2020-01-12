@@ -78,7 +78,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
             if (account.AccountState != AccountStates.FIGHTING)
                 return;
             var t = new Random().Next(500, 900);
-            if(hechizo_id == 413)
+            if(hechizo_id == 413 && account.needToCapture==true)
                 account.Logger.LogInfo($"Fight", $"Attente de : {t} ms pour la CAPTURE");
             else
                   account.Logger.LogInfo($"Fight", $"Attente de : {t} ms pour lancer sort : " + hechizo.nombre);
@@ -308,9 +308,9 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
         public bool es_Celda_Libre(Cell celda) => get_Luchador_Esta_En_Celda(celda.cellId) == null;
         public IEnumerable<Luchadores> get_Cuerpo_A_Cuerpo_Enemigo(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) == 1);
         public IEnumerable<Luchadores> get_Cuerpo_A_Cuerpo_Aliado(Cell celda = null) => get_Aliados.Where(aliado => aliado.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(aliado.celda) : aliado.celda.GetDistanceBetweenCells(celda)) == 1);
-        public IEnumerable<Luchadores> get_Enemi_inferieur_7(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) < 4);
+        public IEnumerable<Luchadores> get_Enemi_inferieur_7(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) < 8);
 
-        public IEnumerable<Luchadores> get_Enemi_superieur_8(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) > 9);
+        public IEnumerable<Luchadores> get_Enemi_superieur_8(Cell celda = null) => get_Enemigos.Where(enemigo => enemigo.esta_vivo && (celda == null ? jugador_luchador.celda.GetDistanceBetweenCells(enemigo.celda) : enemigo.celda.GetDistanceBetweenCells(celda)) > 12);
 
         public bool esta_Cuerpo_A_Cuerpo_Con_Enemigo(Cell celda = null) => get_Cuerpo_A_Cuerpo_Enemigo(celda).Count() > 0;
         public bool esta_Cuerpo_A_Cuerpo_Con_Aliado(Cell celda = null) => get_Cuerpo_A_Cuerpo_Aliado(celda).Count() > 0;

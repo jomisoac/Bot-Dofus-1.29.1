@@ -85,7 +85,7 @@ namespace Bot_Dofus_1._29._1.Interfaces
 
         private void copyToClipBoard(object sender, EventArgs e)
         {
-            Clipboard.SetText(treeView.Text);
+            Clipboard.SetText(treeView.TopNode.Text + " " + treeView.TopNode.FirstNode.Text);
         }
 
         private void listView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
@@ -98,6 +98,11 @@ namespace Bot_Dofus_1._29._1.Interfaces
         {
             lista_paquetes.Clear();
             listView.Items.Clear();
+        }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
         }
     }
 }
