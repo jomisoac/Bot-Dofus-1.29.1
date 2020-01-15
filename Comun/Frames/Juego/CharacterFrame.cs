@@ -266,5 +266,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.Juego
 
         [PaqueteAtributo("pong")]
         public void get_Ping_Pong(TcpClient cliente, string paquete) => cliente.account.Logger.LogInfo("DOFUS", $"Ping: {cliente.GetPing()} ms");
+
+
+        [PaqueteAtributo("gJR")]
+        public void HandleInvitationGuild(TcpClient client, string paquete)
+        {
+            Task.Delay(100);
+            client.account.Logger.LogInfo("Personnage", "Invitation à rejoindre la guilde refusée");
+            client.SendPacket("gJE");
+        }
     }
 }
