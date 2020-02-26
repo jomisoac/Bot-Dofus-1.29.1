@@ -25,7 +25,7 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
 
             account.AccountState = AccountStates.CONNECTED;
             account.welcomeKey = prmPacket.Substring(2);
-            prmClient.SendPacket("1.30.14");
+            prmClient.SendPacket("1.31.2");
             prmClient.SendPacket(prmClient.account.accountConfig.accountUsername + "\n" + Hash.Crypt_Password(prmClient.account.accountConfig.accountPassword, prmClient.account.welcomeKey));
             prmClient.SendPacket("Af");
         }
@@ -110,6 +110,14 @@ namespace Bot_Dofus_1._29._1.Comun.Frames.LoginCuenta
         {
             prmClient.account.gameTicket = prmPacket.Substring(14);
             prmClient.account.SwitchToGameServer(Hash.Decrypt_IP(prmPacket.Substring(3, 8)), Hash.Decrypt_Port(prmPacket.Substring(11, 3).ToCharArray()));
+        }
+
+        [PaqueteAtributo("AYK")]
+        public void GetServerSelectionRemastered(TcpClient prmClient, string prmPacket)
+        {
+            string[] DataPackage = prmPacket.Substring(3).Split(';');
+            prmClient.account.gameTicket = DataPackage[1];
+            prmClient.account.SwitchToGameServer(DataPackage[0], 443);
         }
     }
 }
