@@ -101,6 +101,11 @@ namespace Bot_Dofus_1._29._1.Otros.Scripts
             return retour;
         }
 
+        public int getCACId()
+        {
+            return  script_manager.get_Global_Or("CAC_ID", DataType.Number, 0);
+        }
+
         public void get_Desde_Archivo(string ruta_archivo)
         {
             if (Activated)

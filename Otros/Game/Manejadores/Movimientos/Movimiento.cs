@@ -165,7 +165,9 @@ namespace Bot_Dofus_1._29._1.Otros.Game.Entidades.Manejadores.Movimientos
                 return true;
 
                 default:
-                        cuenta.Logger.LogError("MOUVEMENT", $"Chemin vers {celda.cellId} résultat échoué ou bloqué : {resultado}");
+						cuenta.Logger.LogError("MOUVEMENT", $"Chemin vers {celda.cellId} résultat échoué ou bloqué : {resultado}");
+						Task.Delay(4600);
+						this.get_Mover_Para_Cambiar_mapa(celda,ignoreGroupOnSun);
                 return false;
             }
         }

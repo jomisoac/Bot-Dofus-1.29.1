@@ -183,7 +183,7 @@ namespace Bot_Dofus_1._29._1.Otros.Peleas
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
             else if(pelea.is_proche_7() && configuracion.tactica == Tactica.FUGITIVA)
             {
-                cuenta.Logger.LogInfo($"Fight", $"Enemi prés de < 13 cases , on recule de " + pelea.jugador_luchador.pm + " PM ");
+                cuenta.Logger.LogInfo($"Fight", $"Enemi prés de < 8 cases , on recule de " + pelea.jugador_luchador.pm + " PM ");
                 await get_Mover(false, pelea.get_Obtener_Enemigo_Mas_Cercano());
             }
             else if (pelea.is_loin_8() && configuracion.tactica == Tactica.FUGITIVA)
