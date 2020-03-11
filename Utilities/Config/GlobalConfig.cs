@@ -17,7 +17,7 @@ namespace Bot_Dofus_1._29._1.Utilities.Config
         private static List<AccountConfig> accounts_List;
         private static readonly string accounts_List_Path = Path.Combine(Directory.GetCurrentDirectory(), "accounts.bot");
         public static bool show_debug_messages { get; set; }
-        public static string loginIP = "34.251.172.139";
+        public static string loginIP = "dofus-co-retro-f9e1b368375d4153.elb.eu-west-1.amazonaws.com";
         public static short loginPort = 443;
 
         static GlobalConfig()

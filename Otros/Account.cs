@@ -57,7 +57,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public void Connect()
         {
             connexion = new TcpClient(this);
-            connexion.ConnectToServer(IPAddress.Parse(GlobalConfig.loginIP), GlobalConfig.loginPort);
+            connexion.ConnectToServer(Dns.GetHostAddresses("dofus-co-retro-f9e1b368375d4153.elb.eu-west-1.amazonaws.com"), GlobalConfig.loginPort);
         }
 
         public void Disconnect()
@@ -74,7 +74,7 @@ namespace Bot_Dofus_1._29._1.Otros
         public void SwitchToGameServer(string ip, int port)
         {
             connexion.DisconnectSocket();
-            connexion.ConnectToServer(IPAddress.Parse(ip), port);
+            connexion.ConnectToServer(Dns.GetHostAddresses(ip), port);
         }
 
         public AccountStates AccountState
